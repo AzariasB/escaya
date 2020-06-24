@@ -58,11 +58,11 @@ Example usage:
 
 ```ts
 
-import { parseScript, parseModule, parse } from './escaya';
+import { parseScript, parseModule } from './escaya';
 
-parseScript('({x: [y] = 0} = 1)');
+parseScript('({x: [y] = 0} = 1)', { impliedStrict: true });
 
-parseModule('({x: [y] = 0} = 1)', { impliedStrict: true });
+parseModule('({x: [y] = 0} = 1)');
 
 ```
 
