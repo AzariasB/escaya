@@ -111,6 +111,6 @@ The CLI is still a TODO, but will parse Escaya in recovery mode and use the diag
 
 ## Performance
 
-<p align="center">
+<p align="left">
   <img src="./media/bench.png">
 </p>
