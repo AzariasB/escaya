@@ -78,7 +78,7 @@ However, Escaya will continue to do a full parse for every keystroke. To avoid t
 
 import { recovery, update } from './escaya';
 
-const rootNode = recovery('(foo);', 'filename.js', { module: true }); 
+const rootNode = recovery('(foo);', 'filename.js', { module: true });
 
 const ast = update(rootNode, '=> bar;', 'filename.js', { span: { start: 6, length: 0 }, newLength: 7 })
 
@@ -90,7 +90,7 @@ Now when incremental parsing has been enabled, Escaya will reuse nodes from the 
 
 The options for the recovery mode  are about the same as  for `parseScript` and `parseModule` except you have to enable `{module: true}` if parsing in module goal.
 
-No options can be set during an incremental update because it's only possible to reuse a node if it was parsed in the same context that parser are currently in. 
+No options can be set during an incremental update because it's only possible to reuse a node if it was parsed in the same context that parser are currently in.
 
 ### AST
 
@@ -102,8 +102,15 @@ For example, in `recovery mode` you are creating a `RootNode` instead of either 
 
 The AST used by used by `Escaya` represents the structure of an ECMAScript program as a tree and conforms to the [ECMAScript® 2021 specification](https://tc39.es/ecma262/index.html). The AST have been designed for performance, and it nearly eliminates the chance of accidentally creating an AST that does not represent an ECMAScript program while also requiring fewer bytes than the AST produced by `ESTree` and `Babel`.
 
-The `Escaya AST` doesn't try to follow the SpiderMonkey-compatible standard that `ESTree` strictly follows. For example it distinguish `Identifier` from `IdentifierPattern`. That makes it easier to calculate the free variables of a program. 
+The `Escaya AST` doesn't try to follow the SpiderMonkey-compatible standard that `ESTree` strictly follows. For example it distinguish `Identifier` from `IdentifierPattern`. That makes it easier to calculate the free variables of a program.
 
 ## CLI
 
 The CLI is still a TODO, but will parse Escaya in recovery mode and use the diagnostic messages to create an nice output so that you are always informed of invalid syntax so you can correct this.
+
+
+## Performance
+
+<p align="center">
+  <img src="./media/bench.png">
+</p>
