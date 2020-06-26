@@ -151,7 +151,7 @@
       try {
         if ( this._options.incremental) {
           result = escaya.recovery(this.$input.val(), 'recovery.js', this._options);
-          //result = escaya.update(result, this.$input.val(), 'update.js', { span: { start: 10, length: 1 }, newLength: 1 });
+          result = escaya.update(result, this.$input.val(), 'update.js', { span: { start: 10, length: 1 }, newLength: 1 });
         } else if (this._options.module) {
           result = escaya.parseModule(this.$input.val(), this._options);
         } else {
