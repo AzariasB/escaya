@@ -1,19 +1,4 @@
 /**
- * Diagnostic types
- */
-
-/**
- * The base type of all types which represent some kind of diagnostic.
- */
-export interface Diagnostic {
-  kind: /* Message */ 0 | /* Warning */ 1 | /* Error */ 2 | /* Hint */ 3;
-  source: any;
-  message: string;
-  start: number;
-  end: number;
-}
-
-/**
  * The Escaya AST specification
  */
 
@@ -919,6 +904,8 @@ export interface VariableDeclaration extends BaseNode {
   initializer: Expression | null;
   parent?: VariableStatement | ForDeclaration;
 }
+
+export type LexicalDeclarationOrIdentifier = LexicalDeclaration | LabelledStatement | ExpressionStatement;
 
 export interface LexicalDeclaration extends BaseNode {
   type: 'LexicalDeclaration';
