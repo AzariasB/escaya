@@ -15,7 +15,7 @@
 Still too early to release the source file to public, but a demo can be found [here](https://escaya.github.io/escaya/).
 
 **Note** Incremental parsing have now been enabled on the 'RootNode' in the demo. Open up the console in your browser to see the recovered AST
-nodes. Write a bunch of ;;;;;;, and move the cursor in different directions to see the magic :)
+nodes. Write a bunch of ;;;;;;, and move the cursor in different directions and the magic will happen :)
 
 
 ## Features
