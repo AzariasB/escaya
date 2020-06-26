@@ -45,6 +45,7 @@
       'change #input': 'onInputChange',
       'change #range': 'onRangeChange',
       'change #next': 'onNextChange',
+      'change #incremental': 'incremental',     
       'change #raw': 'onRawChange',
       'change #loc': 'onLocChange',
       'change #jsx': 'onJsxChange',
@@ -66,6 +67,7 @@
       this.$output = this.$el.find('#output');
       this.$range = this.$el.find('#range');
       this.$next = this.$el.find('#next');
+      this.$incremental = this.$el.find('#incremental');
       this.$raw = this.$el.find('#raw');
       this.$module = this.$el.find('#module');
       this.$loc = this.$el.find('#loc');
@@ -82,6 +84,7 @@
       this.onRangeChange();
       this.onLocChange();
       this.onNextChange();
+      this.onincrementalChange();
       this.onRawChange();
       this.onModuleChange();
       this.onDirectivesChange();
@@ -105,7 +108,11 @@
       this.parse();
     },
     onNextChange: function(event) {
-      this._options.incremental = this.$next.prop('checked');
+      this._options.recovery = this.$next.prop('checked');
+      this.parse();
+    },
+    onincrementalChange: function(event) {
+      this._options.incremental = this.$incremental.prop('checked');
       this.parse();
     },
     onRawChange: function(event) {
@@ -149,9 +156,11 @@
     _parse: function() {
       var result;
       try {
-        if ( this._options.incremental) {
+        if ( this._options.recovery) {
           result = escaya.recovery(this.$input.val(), 'recovery.js', this._options);
-          result = escaya.update(result, this.$input.val(), 'update.js', { span: { start: 10, length: 1 }, newLength: 1 });
+        } else if ( this._options.incremental) {
+          result = escaya.recovery(this.$input.val(), 'incremental.js', this._options);
+          result = escaya.update(result, this.$input.val(), 'incremental.js', { span: { start: 10, length: 1 }, newLength: 1 });
         } else if (this._options.module) {
           result = escaya.parseModule(this.$input.val(), this._options);
         } else {
@@ -175,7 +184,8 @@
         method: this._method,
         range: this._options.ranges,
         loc: this._options.loc,
-        next: this._options.incremental,
+        next: this._options.recovery,
+        incremental: this._options.incremental,
         module: this._options.module,
         raw: this._options.raw,
         jsx: this._options.jsx,
@@ -198,6 +208,10 @@
       }
       if (params.raw === 'true') {
         this.$raw.prop('checked', true).change();
+      }
+      
+      if (params.incremental === 'true') {
+        this.$incremental.prop('checked', true).change();
       }
       if (params.next === 'true') {
         this.$next.prop('checked', true).change();
