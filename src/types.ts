@@ -24,7 +24,7 @@ export interface SourceLocation {
   end: Position;
 }
 
-export interface BaseNode {
+export interface Root {
   location?: SourceLocation;
 
   /**
@@ -63,7 +63,7 @@ export interface BaseNode {
  */
 export type CommentType = 'MultiLine' | 'SingleLine' | 'HTMLClose' | 'HTMLOpen' | 'SheBang';
 
-export interface Comment extends BaseNode {
+export interface Comment extends Root {
   type: CommentType;
   value: string;
   hasTrailingNewLine?: boolean;
@@ -100,6 +100,7 @@ export type Node =
   | ContinueStatement
   | CoverInitializedName
   | DebuggerStatement
+  | DecimalLiteral
   | DefaultClause
   | DoWhileStatement
   | EmptyStatement
@@ -139,7 +140,6 @@ export type Node =
   | MethodDefinition
   | Module
   | NewTarget
-  | PrivateName
   | PropertyDefinition
   | BindingProperty
   | NewExpression
@@ -157,7 +157,7 @@ export type Node =
   | SuperProperty
   | SwitchStatement
   | SpreadElement
-  | TemplateExpression
+  | TaggedTemplateExpression
   | TemplateElement
   | TemplateLiteral
   | ThisExpression
@@ -214,7 +214,7 @@ export type LeftHandSideExpression =
   | RegularExpressionLiteral
   | StringLiteral
   | TemplateLiteral
-  | TemplateExpression
+  | TaggedTemplateExpression
   | MemberExpression
   | ArrowFunction;
 export type PrimaryExpression =
@@ -253,14 +253,15 @@ export type Statement =
   | ContinueStatement
   | ClassDeclaration
   | DebuggerStatement
+  | DoWhileStatement
   | EmptyStatement
   | ExpressionStatement
-  | HoistableDeclaration
-  | IfStatement
+  | FunctionDeclaration
   | ForStatement
   | ForInStatement
   | ForOfStatement
   | ForAwaitStatement
+  | IfStatement
   | IterationStatement
   | LabelledStatement
   | LexicalDeclaration
@@ -269,6 +270,7 @@ export type Statement =
   | ThrowStatement
   | TryStatement
   | VariableStatement
+  | WhileStatement
   | WithStatement;
 
 ///////////////
@@ -277,42 +279,43 @@ export type Statement =
 
 export type Parenthesized = ParenthesizedExpression | ArrowFunction;
 
-export interface ParenthesizedExpression extends BaseNode {
+export interface ParenthesizedExpression extends Root {
   type: 'ParenthesizedExpression';
   expression: AssignmentExpression | CommaOperator;
 }
 
-export interface CommaOperator extends BaseNode {
+export interface CommaOperator extends Root {
   type: 'CommaOperator';
   leafs: Expression[];
 }
 
-export interface Elision extends BaseNode {
+export interface Elision extends Root {
   type: 'Elision';
 }
 
-export interface ArrayLiteral extends BaseNode {
+export interface ArrayLiteral extends Root {
   type: 'ArrayLiteral';
   // The elements of the array literal; a 'Elision' node represents an elision.
   leafs: (SpreadElement | AssignmentExpression | Elision)[];
 }
 
-export interface FunctionRestParameter extends BaseNode {
+export interface FunctionRestParameter extends Root {
   type: 'FunctionRestParameter';
   argument: ArrayBindingPattern | BindingIdentifier | ObjectBindingPattern;
 }
 
-export interface BindingRestProperty extends BaseNode {
+export interface BindingRestProperty extends Root {
   type: 'BindingRestProperty';
   argument: BindingIdentifier;
 }
 
-export interface BindingRestElement extends BaseNode {
+export interface BindingRestElement extends Root {
   type: 'BindingRestElement';
   argument: BindingIdentifier | BindingPattern;
+  parent?: ObjectBindingPattern;
 }
 
-export interface SpreadElement extends BaseNode {
+export interface SpreadElement extends Root {
   type: 'SpreadElement';
   argument: AssignmentExpression;
   parent?: ArrayLiteral | CallExpression | NewExpression;
@@ -322,7 +325,7 @@ export type ArrowFormals = IdentifierReference | FormalParameters | SpreadElemen
 
 // `ArrowFunction`,
 // `AsyncArrowFunction`
-export interface ArrowFunction extends BaseNode {
+export interface ArrowFunction extends Root {
   type: 'ArrowFunction';
   params: ArrowFormals[];
   contents: ConciseBody | FunctionBody;
@@ -330,12 +333,12 @@ export interface ArrowFunction extends BaseNode {
   async: boolean;
 }
 
-export interface ConciseBody extends BaseNode {
+// Use a 'ConciseBody' to save 1 byte vs a 'expression' property
+// in ESTree
+export interface ConciseBody extends Root {
   type: 'ConciseBody';
   body: Expression;
 }
-
-export type AssignOp = AssignmentOperator | LogicalAssignmentOperator;
 
 export type AssignmentOperator =
   | '='
@@ -354,19 +357,19 @@ export type AssignmentOperator =
 
 export type LogicalAssignmentOperator = '||=' | '&&=' | '??=';
 
-export interface AssignmentExpression extends BaseNode {
+export interface AssignmentExpression extends Root {
   type: 'AssignmentExpression';
-  operator: TokenNode | LogicalAssignmentOperator | AssignmentOperator;
+  operator: LogicalAssignmentOperator | AssignmentOperator;
   left: Expression | Identifier | ArrayBindingPattern | ObjectBindingPattern;
   right: Expression;
 }
 
-export interface AwaitExpression extends BaseNode {
+export interface AwaitExpression extends Root {
   type: 'AwaitExpression';
-  expression: any;
+  expression: Expression;
 }
 
-// The set of syntax tokens which are valid binary expression operators.
+// The set of syntax tokens which are valid binary expression operators
 export type BinaryOperator =
   | '||'
   | '&&'
@@ -394,52 +397,51 @@ export type BinaryOperator =
   | '**'
   | '??';
 
-export interface BinaryExpression extends BaseNode {
+export interface BinaryExpression extends Root {
   type: 'BinaryExpression';
-  // The expression before the operator.
-  left: Expression;
-  operator: TokenNode | BinaryOperator;
-  // The expression after the operator.
+  // left can be a private name (e.g. #foo) when operator is "in".
+  left: Expression | PrivateIdentifier;
+  operator: BinaryOperator;
   right: Expression;
 }
 
-export interface BlockStatement extends BaseNode {
+export interface BlockStatement extends Root {
   type: 'BlockStatement';
   statements: (FunctionBody | Statement)[];
 }
 
-export interface BreakStatement extends BaseNode {
+export interface BreakStatement extends Root {
   type: 'BreakStatement';
   label: LabelIdentifier | null;
 }
 
-export interface ContinueStatement extends BaseNode {
+export interface ContinueStatement extends Root {
   type: 'ContinueStatement';
   label: LabelIdentifier | null;
 }
 
-export interface CallExpression extends BaseNode {
+export interface CallExpression extends Root {
   type: 'CallExpression';
   expression: LeftHandSideExpression;
   arguments: Arguments[];
 }
 
-export interface ClassDeclaration extends BaseNode {
-  type: 'ClassDeclaration';
+interface ClassDeclarationBase extends Root {
   // *only* 'null' in recovery mode
   name: BindingIdentifier | null;
   super: LeftHandSideExpression | null;
   leafs: ClassElement[];
 }
 
-export interface ClassExpression extends BaseNode {
-  type: 'ClassExpression';
-  name: BindingIdentifier | null;
-  super: LeftHandSideExpression | null;
-  leafs: ClassElement[];
+export interface ClassDeclaration extends ClassDeclarationBase {
+  type: 'ClassDeclaration';
 }
 
-export interface ClassElement extends BaseNode {
+export interface ClassExpression extends ClassDeclarationBase {
+  type: 'ClassExpression';
+}
+
+export interface ClassElement extends Root {
   type: 'ClassElement';
   // True if `IsStatic` of ClassElement is true.
   static: boolean;
@@ -447,7 +449,7 @@ export interface ClassElement extends BaseNode {
   parent?: ClassExpression | ClassDeclaration;
 }
 
-export interface ConditionalExpression extends BaseNode {
+export interface ConditionalExpression extends Root {
   type: 'ConditionalExpression';
   // The `ShortCircuitExpression`.
   shortCircuit: BinaryExpression | Expression;
@@ -457,15 +459,15 @@ export interface ConditionalExpression extends BaseNode {
   alternate: Expression;
 }
 
-export interface DebuggerStatement extends BaseNode {
+export interface DebuggerStatement extends Root {
   type: 'DebuggerStatement';
 }
 
-export interface EmptyStatement extends BaseNode {
+export interface EmptyStatement extends Root {
   type: 'EmptyStatement';
 }
 
-export interface ExpressionStatement extends BaseNode {
+export interface ExpressionStatement extends Root {
   type: 'ExpressionStatement';
   expression: Expression;
   parent?: Module | Script;
@@ -504,7 +506,7 @@ export interface ForAwaitStatement extends IterationStatement {
 export type ForDeclarationKind = 'let' | 'const' | 'var';
 
 // `ForDeclaration :: LetOrConst : ForBinding`
-export interface ForDeclaration extends BaseNode {
+export interface ForDeclaration extends Root {
   type: 'ForDeclaration';
   kind: ForDeclarationKind;
   declarations: ForBinding | LexicalBinding | VariableDeclaration | null;
@@ -512,7 +514,7 @@ export interface ForDeclaration extends BaseNode {
 
 // `for ( Expression ; Expression ; Expression ) Statement`,
 // `for ( var VariableDeclarationList ; Expression ; Expression ) Statement`
-export interface ForStatement extends BaseNode {
+export interface ForStatement extends Root {
   type: 'ForStatement';
   // The expression or declaration before the first `;`, if present
   initializer: Expression | VariableDeclaration | null;
@@ -523,13 +525,13 @@ export interface ForStatement extends BaseNode {
   statement: Statement;
 }
 
-export interface FunctionBody extends BaseNode {
+export interface FunctionBody extends Root {
   type: 'FunctionBody';
   directives: string[];
   statements: Statement[];
 }
 
-interface FunctionDeclarationBase extends BaseNode {
+interface FunctionDeclarationBase extends Root {
   name: BindingIdentifier | null;
   // True for `GeneratorExpression` and `GeneratorDeclaration`, false otherwise.
   generator: boolean;
@@ -540,7 +542,7 @@ interface FunctionDeclarationBase extends BaseNode {
 }
 
 // `FunctionDeclaration`, `GeneratorDeclaration`, `AsyncFunctionDeclaration`
-export interface FunctionDeclaration extends BaseNode {
+export interface FunctionDeclaration extends Root {
   type: 'FunctionDeclaration';
   name: BindingIdentifier | null;
   // True for `GeneratorExpression` and `GeneratorDeclaration`, false otherwise.
@@ -556,35 +558,35 @@ export interface FunctionExpression extends FunctionDeclarationBase {
   type: 'FunctionExpression';
 }
 
-export interface LabelIdentifier extends BaseNode {
+export interface LabelIdentifier extends Root {
   type: 'LabelIdentifier';
   name: string;
 }
 
 //  Identifier:: IdentifierName but not ReservedWord
-export interface IdentifierName extends BaseNode {
+export interface IdentifierName extends Root {
   type: 'IdentifierName';
   name: string;
 }
 
-export interface IdentifierReference extends BaseNode {
+export interface IdentifierReference extends Root {
   type: 'IdentifierReference';
   name: string;
 }
 
-export interface BindingIdentifier extends BaseNode {
+export interface BindingIdentifier extends Root {
   type: 'BindingIdentifier';
   name: string;
 }
 
-export interface Identifier extends BaseNode {
+export interface Identifier extends Root {
   type: 'Identifier';
   name: string;
 }
 
 // `if ( Expression ) Statement`,
 // `if ( Expression ) Statement else Statement`
-export interface IfStatement extends BaseNode {
+export interface IfStatement extends Root {
   type: 'IfStatement';
   expression: any;
   // The first `Statement`.
@@ -595,7 +597,7 @@ export interface IfStatement extends BaseNode {
 
 export type ImportOrExport = ExportDeclaration | ImportDeclaration;
 
-export interface ImportClause extends BaseNode {
+export interface ImportClause extends Root {
   defaultBinding: BindingIdentifier | null;
   namedImports: ImportSpecifier[];
   namedBinding: BindingIdentifier | null;
@@ -608,7 +610,7 @@ export interface ImportDeclaration extends ImportClause {
   moduleSpecifier: StringLiteral | null;
 }
 
-export interface ImportSpecifier extends BaseNode {
+export interface ImportSpecifier extends Root {
   type: 'ImportSpecifier';
   name: IdentifierName | BindingIdentifier;
   // Name preceding "as" keyword (or null when "as" is absent)
@@ -624,7 +626,7 @@ export type ExportDeclarations =
   | ClassDeclaration
   | LexicalDeclaration;
 
-export interface ExportDeclaration extends BaseNode {
+export interface ExportDeclaration extends Root {
   type: 'ExportDeclaration';
   declaration: ExportDeclarations | null;
   default: boolean;
@@ -634,26 +636,26 @@ export interface ExportDeclaration extends BaseNode {
   parent?: Script | Module;
 }
 
-export interface ExportSpecifier extends BaseNode {
+export interface ExportSpecifier extends Root {
   type: 'ExportSpecifier';
   name: IdentifierName;
   exportedName: IdentifierName | null;
   parent?: ImportDeclaration;
 }
 
-export type HoistableDeclaration = BaseNode;
+export type HoistableDeclaration = Root;
 
-export interface LabelledStatement extends BaseNode {
+export interface LabelledStatement extends Root {
   type: 'LabelledStatement';
   label: LabelIdentifier;
   labelledItem: Statement;
 }
 
-export interface NewTarget extends BaseNode {
+export interface NewTarget extends Root {
   type: 'NewTarget';
 }
 
-export interface NewExpression extends BaseNode {
+export interface NewExpression extends Root {
   type: 'NewExpression';
   expression: Expression;
   arguments: Arguments[];
@@ -661,44 +663,51 @@ export interface NewExpression extends BaseNode {
 
 export type Arguments = Expression | AssignmentRestElement;
 
-export interface AssignmentRestElement extends BaseNode {
+export interface AssignmentRestElement extends Root {
   type: 'AssignmentRestElement';
   argument: Expression;
 }
 
-export interface NumericLiteral extends BaseNode {
+export interface NumericLiteral extends Root {
   type: 'NumericLiteral';
   value: number;
 }
 
-export interface BigIntLiteral extends BaseNode {
+// Decimal property is the string representation of the bigdecimal value. It doesn't include the suffix m.
+export interface DecimalLiteral extends Root {
+  type: 'DecimalLiteral';
+  decimal: string;
+  value: number | null;
+}
+
+export interface BigIntLiteral extends Root {
   type: 'BigIntLiteral';
   value: number | null;
 }
 export type RegExpFlags = 'g' | 'i' | 'm' | 'u' | 's' | 'y';
 
-export interface RegularExpressionLiteral extends BaseNode {
+export interface RegularExpressionLiteral extends Root {
   type: 'RegularExpressionLiteral';
   pattern: string;
   flags: RegExpFlags;
 }
 
-export interface StringLiteral extends BaseNode {
+export interface StringLiteral extends Root {
   type: 'StringLiteral';
   value: string;
 }
 
-export interface NullLiteral extends BaseNode {
+export interface NullLiteral extends Root {
   type: 'NullLiteral';
   value: null;
 }
 
-export interface BooleanLiteral extends BaseNode {
+export interface BooleanLiteral extends Root {
   type: 'BooleanLiteral';
   value: boolean;
 }
 
-export interface ObjectLiteral extends BaseNode {
+export interface ObjectLiteral extends Root {
   type: 'ObjectLiteral';
   properties: (IdentifierReference | MethodDefinition | PropertyDefinition)[];
 }
@@ -716,20 +725,23 @@ export type PropertyDefinitions =
   | MethodDefinition;
 
 // `PropertyDefinition :: PropertyName : AssignmentExpression`
-export interface PropertyDefinition extends BaseNode {
+export interface PropertyDefinition extends Root {
   type: 'PropertyDefinition';
-  key: IdentifierName | NumericLiteral | StringLiteral | BigIntLiteral | null;
-  // The `AssignmentExpression`.
-  value: Expression | PrivateName;
+  key: IdentifierName | NumericLiteral | StringLiteral | BigIntLiteral | PrivateIdentifier | null;
+  value: Expression | null;
   computed: boolean;
-  static?: boolean;
-  private?: boolean;
+  static: boolean;
   parent?: ObjectLiteral;
 }
 
-export interface AssignmentProperty extends BaseNode {
+export interface PrivateIdentifier extends Root {
+  type: 'PrivateIdentifier';
+  name: string;
+}
+
+export interface AssignmentProperty extends Root {
   type: 'AssignmentProperty';
-  key: BindingIdentifier | NumericLiteral | StringLiteral | PrivateName;
+  key: BindingIdentifier | NumericLiteral | StringLiteral | BigIntLiteral | PrivateIdentifier | null;
   value: BindingPattern | BindingIdentifier;
   computed: boolean;
   static?: boolean;
@@ -737,9 +749,9 @@ export interface AssignmentProperty extends BaseNode {
   parent?: ObjectBindingPattern | ObjectAssignmentPattern;
 }
 
-export interface BindingProperty extends BaseNode {
+export interface BindingProperty extends Root {
   type: 'BindingProperty';
-  key: BindingIdentifier | NumericLiteral | StringLiteral | PrivateName;
+  key: BindingIdentifier | NumericLiteral | StringLiteral | BigIntLiteral | PrivateIdentifier | null;
   value: BindingPattern | BindingIdentifier;
   computed: boolean;
   static?: boolean;
@@ -747,24 +759,20 @@ export interface BindingProperty extends BaseNode {
   parent?: ObjectBindingPattern | ObjectAssignmentPattern;
 }
 
-export interface MethodDefinition extends BaseNode {
+// When `key` is a `PrivateIdentifier`, `computed` must be `false` and `kind` can not be `"constructor"`.
+export interface MethodDefinition extends Root {
   type: 'MethodDefinition';
   async: boolean;
   generator: boolean;
   propertySetParameterList: BindingElement[];
   uniqueFormalParameters: FormalParameters[];
-  name: Expression | PrivateName;
+  name: Expression | PrivateIdentifier;
   contents: FunctionBody;
   parent?: ObjectLiteral | ClassElement;
 }
 
-export interface PrivateName extends BaseNode {
-  type: 'PrivateName';
-  id: any;
-}
-
 /* internal */
-interface Program extends BaseNode {
+interface Program extends Root {
   directives: string[];
   leafs: (ImportOrExport | Statement)[];
   // True if additional ECMAScript features for Web Browsers are enabled
@@ -779,29 +787,29 @@ export interface Module extends Program {
   type: 'Module';
 }
 
-export interface ReturnStatement extends BaseNode {
+export interface ReturnStatement extends Root {
   type: 'ReturnStatement';
   expression: Expression | null;
   parent?: FunctionBody | ConciseBody;
 }
 
-export interface SuperCall extends BaseNode {
+export interface SuperCall extends Root {
   type: 'SuperCall';
   arguments: Arguments[];
 }
-export interface SuperProperty extends BaseNode {
+export interface SuperProperty extends Root {
   type: 'SuperProperty';
   expression: Expression | null;
   name: IdentifierName | null;
 }
 
-export interface SwitchStatement extends BaseNode {
+export interface SwitchStatement extends Root {
   type: 'SwitchStatement';
   expression: Expression;
   clauses: (DefaultClause | CaseClause)[];
 }
 
-interface ClauseBase extends BaseNode {
+interface ClauseBase extends Root {
   statements: Statement[];
   parent?: SwitchStatement;
 }
@@ -815,38 +823,37 @@ export interface DefaultClause extends ClauseBase {
   type: 'DefaultClause';
 }
 
-export interface TemplateExpression extends BaseNode {
+export interface TaggedTemplateExpression extends Root {
   // The second `MemberExpression` or `CallExpression`, if present.
-  type: 'TemplateExpression';
+  type: 'TaggedTemplateExpression';
+  member: MemberExpression;
+  literal: TemplateElement[];
   expression: LeftHandSideExpression | null;
-  // The contents of the template. This list must be alternating
-  // TemplateElements and Expressions, beginning and ending with
-  // TemplateElement.
-  tag: Expression | TemplateElement;
 }
 
-export interface TemplateElement extends BaseNode {
+export interface TemplateElement extends Root {
   type: 'TemplateElement';
   raw: string;
   cooked: string;
+  tail: boolean;
 }
 
-export interface TemplateLiteral extends BaseNode {
+export interface TemplateLiteral extends Root {
   type: 'TemplateLiteral';
   leafs: TemplateElement[];
   expressions: Expression[];
 }
 
-export interface ThisExpression extends BaseNode {
+export interface ThisExpression extends Root {
   type: 'ThisExpression';
 }
 
-export interface ThrowStatement extends BaseNode {
+export interface ThrowStatement extends Root {
   type: 'ThrowStatement';
   expression: Expression;
 }
 
-export interface TryStatement extends BaseNode {
+export interface TryStatement extends Root {
   type: 'TryStatement';
   // The `Block`.
   block: BlockStatement;
@@ -856,7 +863,7 @@ export interface TryStatement extends BaseNode {
   finalizer: BlockStatement | null;
 }
 
-export interface CatchClause extends BaseNode {
+export interface CatchClause extends Root {
   type: 'CatchClause';
   binding: BindingPattern | BindingIdentifier | LexicalBinding | null;
   block: BlockStatement;
@@ -865,10 +872,10 @@ export interface CatchClause extends BaseNode {
 
 export type UpdateOperator = '++' | '--';
 
-interface UpdateExpressionBase extends BaseNode {
+interface UpdateExpressionBase extends Root {
   // True for `UpdateExpression :: ++ LeftHandSideExpression` and
   // `UpdateExpression :: -- LeftHandSideExpression`, false otherwise.
-  operator: TokenNode | UpdateOperator;
+  operator: UpdateOperator;
   operand: LeftHandSideExpression;
 }
 
@@ -887,18 +894,18 @@ export interface PostfixUpdateExpression extends UpdateExpressionBase {
 // The set of syntax tokens which are valid unary expression operators
 export type UnaryOperator = '+' | '-' | '!' | '~' | 'delete' | 'void' | 'typeof';
 
-export interface UnaryExpression extends BaseNode {
+export interface UnaryExpression extends Root {
   type: 'UnaryExpression';
-  operator: TokenNode | UnaryOperator;
+  operator: UnaryOperator;
   operand: LeftHandSideExpression;
 }
 
-export interface VariableStatement extends BaseNode {
+export interface VariableStatement extends Root {
   type: 'VariableStatement';
   declarations: VariableDeclaration[];
 }
 
-export interface VariableDeclaration extends BaseNode {
+export interface VariableDeclaration extends Root {
   type: 'VariableDeclaration';
   binding: BindingPattern | BindingIdentifier;
   initializer: Expression | null;
@@ -907,19 +914,19 @@ export interface VariableDeclaration extends BaseNode {
 
 export type LexicalDeclarationOrIdentifier = LexicalDeclaration | LabelledStatement | ExpressionStatement;
 
-export interface LexicalDeclaration extends BaseNode {
+export interface LexicalDeclaration extends Root {
   type: 'LexicalDeclaration';
   declarations: LexicalBinding[];
   kind: 'let' | 'const';
 }
 
-export interface UniqueFormalParameters extends BaseNode {
+export interface UniqueFormalParameters extends Root {
   type: 'UniqueFormalParameters';
   leafs: BindingPattern[];
   parent?: ArrowFunction | FunctionDeclaration | FunctionExpression;
 }
 
-export interface FormalParameters extends BaseNode {
+export interface FormalParameters extends Root {
   type: 'FormalParameters';
   leafs: (FunctionRestParameter | BindingElement)[];
   parent?: ArrowFunction | FunctionDeclaration | FunctionExpression | BindingProperty;
@@ -927,7 +934,7 @@ export interface FormalParameters extends BaseNode {
 
 export type BindingPattern = ObjectBindingPattern | ArrayBindingPattern;
 
-export interface BindingElement extends BaseNode {
+export interface BindingElement extends Root {
   type: 'BindingElement';
   binding: BindingPattern | BindingIdentifier;
   initializer: Expression | null;
@@ -936,21 +943,21 @@ export interface BindingElement extends BaseNode {
 
 // `ForBinding :: BindingIdentifier`
 // `ForBinding :: BindingPattern`
-export interface ForBinding extends BaseNode {
+export interface ForBinding extends Root {
   type: 'ForBinding';
   binding: BindingIdentifier | BindingPattern;
   initializer: Expression | null;
   parent?: ForDeclaration;
 }
 
-export interface LexicalBinding extends BaseNode {
+export interface LexicalBinding extends Root {
   type: 'LexicalBinding';
   binding: BindingIdentifier | BindingPattern;
   initializer: Expression | null;
   parent?: LexicalDeclaration | ForDeclaration;
 }
 
-export interface ObjectBindingBase extends BaseNode {
+export interface ObjectBindingBase extends Root {
   properties: (PropertyDefinition | BindingRestElement | BindingIdentifier | MethodDefinition)[];
   parent?: VariableDeclaration | LexicalBinding | BindingPattern;
 }
@@ -965,79 +972,79 @@ export interface ObjectAssignmentPattern extends ObjectBindingBase {
   type: 'ObjectAssignmentPattern';
 }
 
-export interface CoverInitializedName extends BaseNode {
+export interface CoverInitializedName extends Root {
   type: 'CoverInitializedName';
   binding: Expression;
   initializer: ObjectAssignmentPattern | ArrayAssignmentPattern;
 }
-export interface AssignmentPattern extends BaseNode {
+export interface AssignmentPattern extends Root {
   type: 'AssignmentPattern';
   left: Expression;
   right: ObjectAssignmentPattern | ArrayAssignmentPattern;
 }
 
-export interface ArrayBindingPattern extends BaseNode {
+export interface ArrayBindingPattern extends Root {
   // The elements of the array literal; a 'Elision' node represents an elision.
   type: 'ArrayBindingPattern';
   leafs: (Elision | AssignmentPattern | BindingRestElement)[];
   parent?: VariableDeclaration | LexicalBinding | BindingPattern | PrimaryExpression;
 }
 
-export interface ArrayAssignmentPattern extends BaseNode {
+export interface ArrayAssignmentPattern extends Root {
   // The elements of the array literal; a 'Elision' node represents an elision.
   type: 'ArrayAssignmentPattern';
   leafs: (Elision | AssignmentPattern | AssignmentRestElement)[];
   parent?: VariableDeclaration | LexicalBinding | BindingPattern;
 }
 
-export interface ArrayObjectPattern extends BaseNode {
+export interface ArrayObjectPattern extends Root {
   // The elements of the array literal; a 'Elision' node represents an elision.
   type: 'ArrayObjectPattern';
   leafs: (Elision | AssignmentPattern | AssignmentRestElement)[];
 }
 
-export interface IterationStatement extends BaseNode {
+export interface IterationStatement extends Root {
   expression: Expression;
   statement: Statement;
 }
 
-export interface WhileStatement extends BaseNode {
+export interface WhileStatement extends Root {
   type: 'WhileStatement';
 }
 
-export interface WithStatement extends BaseNode {
+export interface WithStatement extends Root {
   type: 'WithStatement';
 }
 
-export interface DoWhileStatement extends BaseNode {
+export interface DoWhileStatement extends Root {
   type: 'DoWhileStatement';
 }
 
 // `YieldExpression :: yield`, `YieldExpression :: yield AssignmentExpression`
 // `YieldExpression :: yield * AssignmentExpression`
-export interface YieldExpression extends BaseNode {
+export interface YieldExpression extends Root {
   type: 'YieldExpression';
   delegate: boolean;
-  // The `AssignmentExpression`, if present.
   argument: AssignmentExpression | null;
 }
 
-export interface MemberExpression extends BaseNode {
+// Note:
+// - When `property` is a `PrivateIdentifier`, `computed` must be `false`.
+// - When `object` is a `Super`, `property` can not be a `PrivateIdentifier`.
+export interface MemberExpression extends Root {
   type: 'MemberExpression';
-  // The object whose property is being accessed.
   member: Expression | SuperProperty;
-  // The name of the property to be accessed.
-  expression: Expression | IdentifierName;
+  expression: Expression | IdentifierName | PrivateIdentifier;
   computed: boolean;
 }
 
-export interface OptionalExpression extends BaseNode {
+export interface OptionalExpression extends Root {
   type: 'OptionalExpression';
   member: Expression | null;
   chain: MemberChain | CallChain;
 }
 
-export interface CallChainBase extends BaseNode {
+export interface CallChainBase extends Root {
   chain: MemberChain | CallChain | null;
 }
 
@@ -1052,11 +1059,11 @@ export interface CallChain extends CallChainBase {
   arguments: Arguments[] | null;
 }
 
-export interface ImportMeta extends BaseNode {
+export interface ImportMeta extends Root {
   type: 'ImportMeta';
 }
 
-export interface ImportCall extends BaseNode {
+export interface ImportCall extends Root {
   type: 'ImportCall';
   import: Expression;
 }
@@ -1065,7 +1072,7 @@ export type PropertyName = Expression | StringLiteral | NumericLiteral | Identif
 
 /** Incremental */
 
-export interface Synthetic extends BaseNode {
+export interface Synthetic extends Root {
   type: 'Synthetic';
   value: '##'; // Dummy node inserted by the parser. No real value should exist
 }
@@ -1208,11 +1215,11 @@ export type TokenKind =
   | 'of';
 
 // A node that can include single characters, operators and keywords
-export interface TokenNode extends BaseNode {
+export interface TokenNode extends Root {
   type: TokenKind;
 }
 
-export interface MissingList extends BaseNode {
+export interface MissingList extends Root {
   start: number;
   length: number;
 }
@@ -1236,7 +1243,7 @@ export interface NodeCursor {
   currentNode(position: number): any;
 }
 
-export interface ArrayList extends BaseNode {
+export interface ArrayList extends Root {
   start: number;
   end: number;
   list: any[];
