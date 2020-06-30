@@ -53,7 +53,7 @@ export interface Root {
   /**
    * Optionally track the state on each node upon incremental parsing
    */
-  nodeFlags?: number;
+  nodeType?: number;
 
   parent?: any;
 }
