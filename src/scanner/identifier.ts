@@ -214,8 +214,6 @@ export function scanIdentifierEscapeIdStart(parser: ParserState, context: Contex
   return Token.Identifier;
 }
 
-// TODO: Uncomment this as soon as class fields reach stage 4
-
 export function scanPrivateName(parser: ParserState, context: Context, ch: number): Token | any {
   addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error, '#');
 

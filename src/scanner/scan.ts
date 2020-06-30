@@ -3,6 +3,7 @@ import { Chars } from './chars';
 import { skipMultiLineComment, skipSingleLineComment, skipSingleHTMLComment } from './comments';
 import { Token } from '../token';
 import { scanIdentifier, scanIdentifierSlowPath, scanIdentifierEscapeIdStart, scanPrivateName } from './identifier';
+import { scanNumber, NumberKind } from './numeric';
 import { LexerState, fromCodePoint } from './common';
 import { unicodeLookup } from './unicode';
 import { scanString } from './string';
@@ -305,7 +306,7 @@ export function scan(parser: ParserState, context: Context): Token {
 
         // `0`...`9`
         case Token.NumericLiteral:
-        // return scanNumber(parser, context, ch, false);
+          return scanNumber(parser, context, ch, NumberKind.Decimal | NumberKind.SMI);
 
         // `'string'`, `"string"`
         case Token.StringLiteral:
@@ -352,7 +353,7 @@ export function scan(parser: ParserState, context: Context): Token {
 
             if (ch >= Chars.Zero && ch <= Chars.Nine) {
               parser.index++;
-              // return scanNumber(parser, context, ch, /* isFloat */ true);
+              return scanNumber(parser, context, ch, NumberKind.Float);
             }
 
             if (ch === Chars.Period) {
