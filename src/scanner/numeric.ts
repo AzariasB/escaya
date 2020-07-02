@@ -315,7 +315,9 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
         }
         parser.tokenValue = value;
         return Token.NumericLiteral;
-      } else if (ch >= Chars.Zero && ch <= Chars.Eight) {
+      }
+
+      if (ch >= Chars.Zero && ch <= Chars.Eight) {
         // Octal integer literals are not permitted in strict mode code
         if (context & Context.Strict) {
           addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.StrictOctal, DiagnosticKind.Error);
@@ -347,7 +349,17 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
       ch = parser.source.charCodeAt(++parser.index);
       --digit;
     }
-
+    if (
+      type !== NumberKind.DecimalWithLeadingZero &&
+      digit >= 0 &&
+      ch !== Chars.Period &&
+      (CharTypes[ch] & 0b000000011) === 0
+    ) {
+      // Most numbers are pure decimal integers without fractional component
+      // or exponential notation - handle that with optimized code
+      parser.tokenValue = value;
+      return Token.NumericLiteral;
+    }
     if (ch === Chars.Period) {
       ch = parser.source.charCodeAt(++parser.index);
       while (ch <= Chars.Nine && ch >= Chars.Zero) {
@@ -360,7 +372,6 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
     parser.index++;
     return Token.BigIntLiteral;
   }
-  let end = parser.index;
 
   if ((ch | 32) === Chars.LowerE) {
     parser.index++;
@@ -371,15 +382,16 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
       parser.index++;
       ch = parser.source.charCodeAt(parser.index);
     }
+
     if (ch >= Chars.Zero && ch <= Chars.Nine) {
       do {
         ch = parser.source.charCodeAt(++parser.index);
       } while (ch <= Chars.Nine && ch >= Chars.Zero);
-      end = parser.index;
     } else {
       addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.MissingExponent, DiagnosticKind.Error);
     }
   }
+
   if ((CharTypes[ch] & 0b00000000000000000000000000000011) > 0) {
     addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.IdafterNumber, DiagnosticKind.Error);
   }
