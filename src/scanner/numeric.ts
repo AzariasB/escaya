@@ -3,6 +3,7 @@ import { Token } from '../token';
 import { Chars } from './chars';
 import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { CharFlags, CharTypes } from './charClassifier';
+import { toHex } from './common';
 
 export const enum NumberKind {
   None = 0,
@@ -19,7 +20,7 @@ export const enum NumberKind {
   ImplicitOctal = 1 << 10
 }
 
-export const escapeChars = [
+export const leadingZeroChars = [
   /*   0 - Null               */ Chars.Unknown,
   /*   1 - Start of Heading   */ Chars.Unknown,
   /*   2 - Start of Text      */ Chars.Unknown,
@@ -85,12 +86,12 @@ export const escapeChars = [
   /*  62 - >                  */ Chars.Unknown,
   /*  63 - ?                  */ Chars.Unknown,
   /*  64 - @                  */ Chars.Unknown,
-  /*  65 - A                  */ Chars.Unknown,
-  /*  66 - B                  */ Chars.Unknown,
-  /*  67 - C                  */ Chars.Unknown,
-  /*  68 - D                  */ Chars.Unknown,
+  /*  65 - A                  */ Chars.UpperA,
+  /*  66 - B                  */ Chars.UpperB,
+  /*  67 - C                  */ Chars.UpperC,
+  /*  68 - D                  */ Chars.UpperD,
   /*  69 - E                  */ Chars.UpperE,
-  /*  70 - F                  */ Chars.Unknown,
+  /*  70 - F                  */ Chars.UpperF,
   /*  71 - G                  */ Chars.Unknown,
   /*  72 - H                  */ Chars.Unknown,
   /*  73 - I                  */ Chars.Unknown,
@@ -99,7 +100,7 @@ export const escapeChars = [
   /*  76 - L                  */ Chars.Unknown,
   /*  77 - M                  */ Chars.Unknown,
   /*  78 - N                  */ Chars.Unknown,
-  /*  79 - O                  */ Chars.Unknown,
+  /*  79 - O                  */ Chars.UpperO,
   /*  80 - P                  */ Chars.Unknown,
   /*  81 - Q                  */ Chars.Unknown,
   /*  82 - R                  */ Chars.Unknown,
@@ -108,7 +109,7 @@ export const escapeChars = [
   /*  85 - U                  */ Chars.Unknown,
   /*  86 - V                  */ Chars.Unknown,
   /*  87 - W                  */ Chars.Unknown,
-  /*  88 - X                  */ Chars.Unknown,
+  /*  88 - X                  */ Chars.UpperX,
   /*  89 - Y                  */ Chars.Unknown,
   /*  90 - Z                  */ Chars.Unknown,
   /*  91 - [                  */ Chars.Unknown,
@@ -117,12 +118,12 @@ export const escapeChars = [
   /*  94 - ^                  */ Chars.Unknown,
   /*  95 - _                  */ Chars.Unknown,
   /*  96 - `                  */ Chars.Unknown,
-  /*  97 - a                  */ Chars.Unknown,
-  /*  98 - b                  */ Chars.Unknown,
-  /*  99 - c                  */ Chars.Unknown,
-  /* 100 - d                  */ Chars.Unknown,
+  /*  97 - a                  */ Chars.LowerA,
+  /*  98 - b                  */ Chars.LowerB,
+  /*  99 - c                  */ Chars.LowerC,
+  /* 100 - d                  */ Chars.LowerD,
   /* 101 - e                  */ Chars.LowerE,
-  /* 102 - f                  */ Chars.Unknown,
+  /* 102 - f                  */ Chars.LowerF,
   /* 103 - g                  */ Chars.Unknown,
   /* 104 - h                  */ Chars.Unknown,
   /* 105 - i                  */ Chars.Unknown,
@@ -130,8 +131,8 @@ export const escapeChars = [
   /* 107 - k                  */ Chars.Unknown,
   /* 108 - l                  */ Chars.Unknown,
   /* 109 - m                  */ Chars.Unknown,
-  /* 110 - n                  */ Chars.Unknown,
-  /* 111 - o                  */ Chars.Unknown,
+  /* 110 - n                  */ Chars.LowerN,
+  /* 111 - o                  */ Chars.LowerO,
   /* 112 - p                  */ Chars.Unknown,
   /* 113 - q                  */ Chars.Unknown,
   /* 114 - r                  */ Chars.Unknown,
@@ -140,7 +141,7 @@ export const escapeChars = [
   /* 117 - u                  */ Chars.Unknown,
   /* 118 - v                  */ Chars.Unknown,
   /* 119 - w                  */ Chars.Unknown,
-  /* 120 - x                  */ Chars.Unknown,
+  /* 120 - x                  */ Chars.LowerX,
   /* 121 - y                  */ Chars.Unknown,
   /* 122 - z                  */ Chars.Unknown,
   /* 123 - {                  */ Chars.Unknown,
@@ -150,70 +151,239 @@ export const escapeChars = [
   /* 127 - Delete             */ Chars.Unknown
 ];
 
-export function scanNumber(parser: ParserState, _context: Context, ch: number, type: NumberKind): Token {
+export function scanNumber(parser: ParserState, context: Context, ch: number, isFloat: boolean): Token {
   let start = parser.index;
-
-  // Optimization: most decimal values fit into 4 bytes.
   let value = 0;
-  let digit = 9;
+  let type = NumberKind.Decimal;
+  if (isFloat) {
+    do {
+      ch = parser.source.charCodeAt(++parser.index);
+    } while (ch <= Chars.Nine && ch >= Chars.Zero);
+  } else {
+    if (ch === Chars.Zero) {
+      parser.index++; // skips '0'
 
-  while (CharTypes[ch] & (CharFlags.NumericLiteral | CharFlags.Decimal)) {
-    switch (escapeChars[ch]) {
-      // `0`...`9`
-      case Chars.Zero:
-      case Chars.One:
-      case Chars.Two:
-      case Chars.Three:
-      case Chars.Four:
-      case Chars.Five:
-      case Chars.Six:
-      case Chars.Seven:
-      case Chars.Eight:
-      case Chars.Nine:
-        if (type === NumberKind.Float) break;
+      ch = parser.source.charCodeAt(parser.index);
 
-        if (digit < 0 && type & NumberKind.SMI) {
-          type = NumberKind.Decimal;
-          break;
+      type = NumberKind.DecimalWithLeadingZero;
+
+      if (CharTypes[ch] & CharFlags.OctHexBin) {
+        let numberOfDigits = 0;
+
+        do {
+          switch (leadingZeroChars[ch]) {
+            // `x`, `X`
+            case Chars.LowerX:
+            case Chars.UpperX:
+              if (type & 0b00001110) {
+                addDiagnostic(
+                  parser,
+                  context,
+                  DiagnosticSource.Lexer,
+                  DiagnosticCode.IdafterNumber,
+                  DiagnosticKind.Error
+                );
+              }
+              type = NumberKind.Hex;
+              break;
+
+            // `b`, `B`
+            case Chars.LowerB:
+            case Chars.UpperB:
+              if (type === NumberKind.Hex) {
+                value = value * 16 + toHex(ch);
+                break;
+              }
+
+              if (type & 0b00001100) {
+                addDiagnostic(
+                  parser,
+                  context,
+                  DiagnosticSource.Lexer,
+                  DiagnosticCode.IdafterNumber,
+                  DiagnosticKind.Error
+                );
+              }
+
+              type = NumberKind.Binary;
+              break;
+
+            // `o`, `O`
+            case Chars.LowerO:
+            case Chars.UpperO:
+              if (type & 0b00001110) {
+                addDiagnostic(
+                  parser,
+                  context,
+                  DiagnosticSource.Lexer,
+                  DiagnosticCode.IdafterNumber,
+                  DiagnosticKind.Error
+                );
+              }
+
+              type = NumberKind.Octal;
+              break;
+
+            // `0`...`9`
+            case Chars.Zero:
+            case Chars.One:
+              if (type & NumberKind.Binary) {
+                value = value * 2 + (ch - Chars.Zero);
+                break;
+              }
+            case Chars.Two:
+            case Chars.Three:
+            case Chars.Four:
+            case Chars.Five:
+            case Chars.Six:
+            case Chars.Seven:
+              if (type === NumberKind.Octal) {
+                value = value * 8 + (ch - Chars.Zero);
+                break;
+              }
+
+            case Chars.Eight:
+            case Chars.Nine:
+              if (type === NumberKind.Hex) {
+                value = value * 16 + toHex(ch);
+                break;
+              }
+
+              if (type & 0b00001100) {
+                addDiagnostic(
+                  parser,
+                  context,
+                  DiagnosticSource.Lexer,
+                  type === NumberKind.Binary ? DiagnosticCode.BinarySequence : DiagnosticCode.OctalSequence,
+                  DiagnosticKind.Error
+                );
+              }
+
+              break;
+
+            case Chars.LowerE:
+            case Chars.UpperE:
+            case Chars.LowerA:
+            case Chars.LowerC:
+            case Chars.LowerD:
+            case Chars.LowerF:
+            case Chars.UpperA:
+            case Chars.UpperC:
+            case Chars.UpperD:
+            case Chars.UpperF:
+              if (type & 0b00001100) {
+                addDiagnostic(
+                  parser,
+                  context,
+                  DiagnosticSource.Lexer,
+                  type === NumberKind.Binary ? DiagnosticCode.BinarySequence : DiagnosticCode.OctalSequence,
+                  DiagnosticKind.Error
+                );
+              }
+
+              if (type === NumberKind.Hex) value = value * 16 + toHex(ch);
+              break;
+            case Chars.LowerN:
+              parser.tokenValue = value;
+              parser.index++;
+              return Token.BigIntLiteral;
+          }
+          numberOfDigits++;
+          parser.index++;
+          ch = parser.source.charCodeAt(parser.index);
+        } while (CharTypes[ch] & 0b100100001);
+
+        if (CharTypes[ch] & 0b000000011) {
+          addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.IdafterNumber, DiagnosticKind.Error);
         }
-        value = value * 10 + (ch - Chars.Zero);
-        break;
 
-      case Chars.LowerN:
-        parser.tokenValue = type & NumberKind.SMI ? value : parseFloat(parser.source.slice(start, parser.index));
-        return Token.BigIntLiteral;
+        if (type & 0b00001110 && numberOfDigits <= 1) {
+          addDiagnostic(
+            parser,
+            context,
+            DiagnosticSource.Lexer,
+            type & NumberKind.Binary
+              ? // Binary integer literal like sequence without any digits
+                DiagnosticCode.BinarySequenceNoDigits
+              : type & NumberKind.Octal
+              ? // Octal integer literal like sequence without any digits
+                DiagnosticCode.OctalSequenceNoDigits
+              : // Hex integer literal like sequence without any digits
+                DiagnosticCode.HexSequenceNoDigits,
+            DiagnosticKind.Error
+          );
+        }
+        parser.tokenValue = value;
+        return Token.NumericLiteral;
+      } else if (ch >= Chars.Zero && ch <= Chars.Eight) {
+        // Octal integer literals are not permitted in strict mode code
+        if (context & Context.Strict) {
+          addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.StrictOctal, DiagnosticKind.Error);
+        }
 
-      // `e`, `E`
-      case Chars.LowerE:
-      case Chars.UpperE:
-        type = NumberKind.Exponent;
-        break;
+        type = NumberKind.ImplicitOctal;
 
-      // `.`
-      case Chars.Period:
-        type = NumberKind.Float;
-        break;
+        do {
+          if (ch >= Chars.Eight && ch <= Chars.Nine) {
+            type = NumberKind.DecimalWithLeadingZero;
 
-      // `-`, `+`
-      case Chars.Hyphen:
-      case Chars.Plus:
-        type = NumberKind.Scientific;
-      default:
+            break;
+          }
+          value = value * 8 + (ch - Chars.Zero);
+          ch = parser.source.charCodeAt(++parser.index);
+        } while (ch >= Chars.Zero && ch <= Chars.Nine);
+
+        if (type === NumberKind.ImplicitOctal) {
+          parser.tokenValue = value;
+          return Token.NumericLiteral;
+        }
+      }
     }
 
+    let digit = 9;
+
+    while (ch <= Chars.Nine && ch >= Chars.Zero) {
+      value = value * 10 + (ch - Chars.Zero);
+      ch = parser.source.charCodeAt(++parser.index);
+      --digit;
+    }
+
+    if (ch === Chars.Period) {
+      ch = parser.source.charCodeAt(++parser.index);
+      while (ch <= Chars.Nine && ch >= Chars.Zero) {
+        ch = parser.source.charCodeAt(++parser.index);
+      }
+    }
+  }
+
+  if (ch === Chars.LowerN) {
+    parser.index++;
+    return Token.BigIntLiteral;
+  }
+  let end = parser.index;
+
+  if ((ch | 32) === Chars.LowerE) {
     parser.index++;
     ch = parser.source.charCodeAt(parser.index);
-    --digit;
-  }
 
-  if (type === NumberKind.Exponent) {
-    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+    // '-', '+'
+    if (ch === Chars.Plus || ch === Chars.Hyphen) {
+      parser.index++;
+      ch = parser.source.charCodeAt(parser.index);
+    }
+    if (ch >= Chars.Zero && ch <= Chars.Nine) {
+      do {
+        ch = parser.source.charCodeAt(++parser.index);
+      } while (ch <= Chars.Nine && ch >= Chars.Zero);
+      end = parser.index;
+    } else {
+      addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.MissingExponent, DiagnosticKind.Error);
+    }
   }
-
-  if (CharTypes[ch] & CharFlags.IdentifierStart) {
-    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+  if ((CharTypes[ch] & 0b00000000000000000000000000000011) > 0) {
+    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.IdafterNumber, DiagnosticKind.Error);
   }
+  parser.tokenValue = parseFloat(parser.source.slice(start, parser.index));
 
-  parser.tokenValue = type & NumberKind.SMI ? value : parseFloat(parser.source.slice(start, parser.index));
   return Token.NumericLiteral;
 }

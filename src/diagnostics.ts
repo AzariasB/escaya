@@ -115,7 +115,17 @@ export enum DiagnosticCode {
   UnicodeOverflow,
   InvalidSMPIdentifier,
   StrictOctalEscape,
-  InvalidEightAndNine
+  InvalidEightAndNine,
+  IdafterNumber,
+  StrictOctal,
+  OctalSequence,
+  BinarySequence,
+  BinarySequenceNoDigits,
+  OctalSequenceNoDigits,
+  HexSequenceNoDigits,
+  UnknownDigit,
+  MissingExponent,
+  InvalidBigIntLiteral
 }
 
 export const DiagnosticMessages: {
@@ -204,7 +214,17 @@ export const DiagnosticMessages: {
   [DiagnosticCode.WebCompatFunction]:
     'Without web compability enabled functions can not be declared at top level, inside a block, or as the body of an if statement',
   [DiagnosticCode.AsyncFunctionInSingleStatementContext]:
-    'Async functions can only be declared at the top level or inside a block'
+    'Async functions can only be declared at the top level or inside a block',
+  [DiagnosticCode.IdafterNumber]: 'An identifier or keyword cannot immediately follow a numeric literal',
+  [DiagnosticCode.StrictOctal]: 'Octal literals are not allowed in strict mode',
+  [DiagnosticCode.BinarySequence]: 'Binary integer literal like sequence containing an invalid digit',
+  [DiagnosticCode.OctalSequence]: 'Octal integer literal like sequence containing an invalid digit',
+  [DiagnosticCode.BinarySequenceNoDigits]: 'Binary integer literal like sequence without any digits',
+  [DiagnosticCode.OctalSequenceNoDigits]: 'Octal integer literal like sequence without any digits',
+  [DiagnosticCode.HexSequenceNoDigits]: 'Hex integer literal like sequence without any digits',
+  [DiagnosticCode.MissingExponent]: 'Non-number found after exponent indicator',
+  [DiagnosticCode.UnknownDigit]: 'Unknown digit',
+  [DiagnosticCode.InvalidBigIntLiteral]: 'Invalid BigInt syntax'
 };
 
 export function createDiagnostic(
