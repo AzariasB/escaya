@@ -3,22 +3,7 @@ import { Token } from '../token';
 import { Chars } from './chars';
 import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { CharFlags, CharTypes } from './charClassifier';
-import { toHex } from './common';
-
-export const enum NumberKind {
-  None = 0,
-  Decimal = 1 << 0,
-  Hex = 1 << 1,
-  Octal = 1 << 2,
-  Binary = 1 << 3,
-  BigInt = 1 << 4,
-  Float = 1 << 5,
-  Exponent = 1 << 6,
-  Scientific = 1 << 7,
-  SMI = 1 << 8,
-  DecimalWithLeadingZero = 1 << 9,
-  ImplicitOctal = 1 << 10
-}
+import { toHex, fromCodePoint } from './common';
 
 export const leadingZeroChars = [
   /*   0 - Null               */ Chars.Unknown,
@@ -152,9 +137,21 @@ export const leadingZeroChars = [
 ];
 
 export function scanNumber(parser: ParserState, context: Context, ch: number, isFloat: boolean): Token {
-  let start = parser.index;
+  const enum NumberKind {
+    None = 0,
+    Decimal = 1 << 0,
+    Hex = 1 << 1,
+    Octal = 1 << 2,
+    Binary = 1 << 3,
+    DecimalWithLeadingZero = 1 << 9,
+    ImplicitOctal = 1 << 10
+  }
+
+  // Optimization: most decimal values fit into 4 bytes.
   let value = 0;
+  let start = parser.index;
   let type = NumberKind.Decimal;
+
   if (isFloat) {
     do {
       ch = parser.source.charCodeAt(++parser.index);
@@ -165,10 +162,8 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
 
       ch = parser.source.charCodeAt(parser.index);
 
-      type = NumberKind.DecimalWithLeadingZero;
-
       if (CharTypes[ch] & CharFlags.OctHexBin) {
-        let numberOfDigits = 0;
+        let digits = 0;
 
         do {
           switch (leadingZeroChars[ch]) {
@@ -224,7 +219,7 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
               type = NumberKind.Octal;
               break;
 
-            // `0`...`9`
+            // `0`...`7`
             case Chars.Zero:
             case Chars.One:
               if (type & NumberKind.Binary) {
@@ -242,6 +237,7 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
                 break;
               }
 
+            // `8`...`9`
             case Chars.Eight:
             case Chars.Nine:
               if (type === NumberKind.Hex) {
@@ -261,15 +257,16 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
 
               break;
 
-            case Chars.LowerE:
-            case Chars.UpperE:
+            // `a-f`...`A-F`
             case Chars.LowerA:
             case Chars.LowerC:
             case Chars.LowerD:
+            case Chars.LowerE:
             case Chars.LowerF:
             case Chars.UpperA:
             case Chars.UpperC:
             case Chars.UpperD:
+            case Chars.UpperE:
             case Chars.UpperF:
               if (type & 0b00001100) {
                 addDiagnostic(
@@ -283,12 +280,15 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
 
               if (type === NumberKind.Hex) value = value * 16 + toHex(ch);
               break;
+
+            // `n`
             case Chars.LowerN:
               parser.tokenValue = value;
               parser.index++;
               return Token.BigIntLiteral;
           }
-          numberOfDigits++;
+
+          digits++;
           parser.index++;
           ch = parser.source.charCodeAt(parser.index);
         } while (CharTypes[ch] & 0b100100001);
@@ -297,7 +297,7 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
           addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.IdafterNumber, DiagnosticKind.Error);
         }
 
-        if (type & 0b00001110 && numberOfDigits <= 1) {
+        if (type & 0b00001110 && digits <= 1) {
           addDiagnostic(
             parser,
             context,
@@ -313,10 +313,12 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
             DiagnosticKind.Error
           );
         }
+
         parser.tokenValue = value;
         return Token.NumericLiteral;
       }
 
+      // Implicit octal with fallback to decimal with leading zero
       if (ch >= Chars.Zero && ch <= Chars.Eight) {
         // Octal integer literals are not permitted in strict mode code
         if (context & Context.Strict) {
@@ -326,9 +328,8 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
         type = NumberKind.ImplicitOctal;
 
         do {
-          if (ch >= Chars.Eight && ch <= Chars.Nine) {
+          if (ch >= Chars.Eight) {
             type = NumberKind.DecimalWithLeadingZero;
-
             break;
           }
           value = value * 8 + (ch - Chars.Zero);
@@ -360,6 +361,7 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
       parser.tokenValue = value;
       return Token.NumericLiteral;
     }
+
     if (ch === Chars.Period) {
       ch = parser.source.charCodeAt(++parser.index);
       while (ch <= Chars.Nine && ch >= Chars.Zero) {
@@ -370,6 +372,7 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
 
   if (ch === Chars.LowerN) {
     parser.index++;
+    parser.tokenValue = parseFloat(parser.source.slice(start, parser.index));
     return Token.BigIntLiteral;
   }
 
