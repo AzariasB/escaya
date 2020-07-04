@@ -86,12 +86,8 @@ export function scanTemplateSpan(parser: ParserState, context: Context): Token {
 
   return Token.TemplateTail;
 }
-export function isASCIIHexDigit(character: any): any {
-  return (
-    (character >= Chars.Zero && character <= Chars.Nine) ||
-    ((character | 32) >= Chars.LowerA && (character | 32) <= Chars.LowerF)
-  );
-}
+
+// Template escapes
 export function parseTemplateEscape(parser: ParserState, context: Context, ch: number): string | number {
   parser.index++;
   switch (escapeChars[ch]) {
