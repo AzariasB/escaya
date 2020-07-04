@@ -3,7 +3,7 @@ import { Chars } from './chars';
 /**
  * A set of flags for maintaining the internal state machine.
  */
-export const enum LexerState {
+export const enum State {
   None = 0,
   NewLine = 1 << 0,
   LineStart = 1 << 1,

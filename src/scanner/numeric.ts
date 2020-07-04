@@ -186,7 +186,7 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
             case Chars.LowerB:
             case Chars.UpperB:
               if (type === NumberKind.Hex) {
-                value = value * 16 + toHex(ch);
+                value = value * 0x0010 + toHex(ch);
                 break;
               }
 
@@ -241,7 +241,7 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
             case Chars.Eight:
             case Chars.Nine:
               if (type === NumberKind.Hex) {
-                value = value * 16 + toHex(ch);
+                value = value * 0x0010 + toHex(ch);
                 break;
               }
 
@@ -278,7 +278,7 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
                 );
               }
 
-              if (type === NumberKind.Hex) value = value * 16 + toHex(ch);
+              if (type === NumberKind.Hex) value = value * 0x0010 + toHex(ch);
               break;
 
             // `n`
@@ -328,12 +328,14 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
         type = NumberKind.ImplicitOctal;
 
         do {
+          value = value * 8 + (ch - Chars.Zero);
+
+          ch = parser.source.charCodeAt(++parser.index);
+
           if (ch >= Chars.Eight) {
             type = NumberKind.DecimalWithLeadingZero;
             break;
           }
-          value = value * 8 + (ch - Chars.Zero);
-          ch = parser.source.charCodeAt(++parser.index);
         } while (ch >= Chars.Zero && ch <= Chars.Nine);
 
         if (type === NumberKind.ImplicitOctal) {
@@ -351,10 +353,10 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
       --digit;
     }
     if (
+      (CharTypes[ch] & 0b000000011) === 0 &&
       type !== NumberKind.DecimalWithLeadingZero &&
       digit >= 0 &&
-      ch !== Chars.Period &&
-      (CharTypes[ch] & 0b000000011) === 0
+      ch !== Chars.Period
     ) {
       // Most numbers are pure decimal integers without fractional component
       // or exponential notation - handle that with optimized code
@@ -385,16 +387,19 @@ export function scanNumber(parser: ParserState, context: Context, ch: number, is
       parser.index++;
       ch = parser.source.charCodeAt(parser.index);
     }
+    let digits = 0;
 
-    if (ch >= Chars.Zero && ch <= Chars.Nine) {
-      do {
-        ch = parser.source.charCodeAt(++parser.index);
-      } while (ch <= Chars.Nine && ch >= Chars.Zero);
-    } else {
+    while (ch <= Chars.Nine && ch >= Chars.Zero) {
+      ch = parser.source.charCodeAt(++parser.index);
+      digits++;
+    }
+    if (digits === 0) {
       addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.MissingExponent, DiagnosticKind.Error);
     }
   }
-
+  // https://tc39.github.io/ecma262/#sec-literals-numeric-literals
+  // The SourceCharacter immediately following a NumericLiteral must not be an IdentifierStart or DecimalDigit.
+  // For example : 3in is an error and not the two input elements 3 and in
   if ((CharTypes[ch] & 0b00000000000000000000000000000011) > 0) {
     addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.IdafterNumber, DiagnosticKind.Error);
   }

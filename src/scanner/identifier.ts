@@ -3,7 +3,7 @@ import { Chars } from './chars';
 import { toHex, fromCodePoint } from './common';
 import { Token, descKeywordTable } from '../token';
 import { CharTypes, isIdentifierPart } from './charClassifier';
-import { addDiagnostic, addDiagnosticByIndex, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
+import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { unicodeLookup } from './unicode';
 
 export function scanIdentifier(parser: ParserState, context: Context): Token {
@@ -55,23 +55,19 @@ export function scanIdentifierSlowPath(
       parser.index++;
       // lower surrogate
       const low = parser.source.charCodeAt(parser.index);
+      // high surrogate and there is a next code unit
       if ((low & 0xfc00) === 0xdc00) {
-        ch = 0x10000 + ((ch & 0x3ff) << 10) + (low & 0x3ff);
-        // Check if this is a valid Supplementary Multilingual Plane (SMP) identifier
+        ch = ((ch & 0x3ff) << 10) + (low & 0x3ff) + 0x10000;
+        // Check if this is a valid surrogate pair
         if (((unicodeLookup[(ch >>> 5) + 0] >>> ch) & 31 & 1) === 0) {
           addDiagnostic(
             parser,
             context,
             DiagnosticSource.Lexer,
-            DiagnosticCode.InvalidSMPIdentifier,
+            DiagnosticCode.InvalidAstralCharacter,
             DiagnosticKind.Error,
             fromCodePoint(ch)
           );
-          // 'Bump' the index to avoid 'scan(...)' to report a second set of diagnostics for the same
-          //  message on a wrong position (we already 'bumped' the index once above)
-          parser.index++;
-          // We are done!
-          break;
         }
         parser.index++;
       }
@@ -214,7 +210,9 @@ export function scanIdentifierEscapeIdStart(parser: ParserState, context: Contex
   return Token.Identifier;
 }
 
-export function scanPrivateName(parser: ParserState, context: Context, ch: number): Token | any {
+// TODO: Uncomment this as soon as class fields reach stage 4
+
+export function scanPrivateName(parser: ParserState, ch: number): Token | any {
   addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error, '#');
 
   if (((unicodeLookup[(ch >>> 5) + 34816] >>> ch) & 31 & 1) === 0) {

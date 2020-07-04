@@ -12,9 +12,9 @@ describe('scanner - identifiers', () => {
     });
   }
 
-  fail('invalid (SMP) identifier', '🀒', Context.Empty);
-  fail('invalid (SMP) identifier', '😍', Context.Empty);
-  fail('invalid (SMP) identifier in the middle', 'a😍c', Context.Empty);
+  fail('invalid astral character', '🀒', Context.Empty);
+  fail('invalid astral character', '😍', Context.Empty);
+  fail('invalid astral character in the middle', 'a🤨c', Context.Empty);
   fail('invalid IdentifierStart', '፰', Context.Empty);
   fail('invalid IdentifierStart', '£', Context.Empty);
   fail('invalid IdentifierStart', '€', Context.Empty);
@@ -124,6 +124,7 @@ describe('scanner - identifiers', () => {
     [Context.Empty, Token.Identifier, '/* skip */   $', '$'],
     [Context.Empty, Token.Identifier, '℘', '℘'],
     [Context.Empty, Token.Identifier, '℮', '℮'],
+    [Context.Empty, Token.Identifier, 'a𐊧123', 'a𐊧123'],
     [Context.Empty, Token.Identifier, '\\u004C', 'L'],
     [Context.Empty, Token.Identifier, 'a᧚', 'a᧚'],
     [Context.Empty, Token.Identifier, '\\u{70}bc\\u{70}bc', 'pbcpbc'],
@@ -194,6 +195,7 @@ describe('scanner - identifiers', () => {
     [Context.Empty, Token.Identifier, '\\u{5A}', 'Z'],
     [Context.Empty, Token.Identifier, '\\u{5A}', 'Z'],
     [Context.Empty, Token.Identifier, '\\u{5A}', 'Z'],
+    [Context.Empty, Token.Identifier, 'x\\u110000', 'xᄀ00'],
     [Context.Empty, Token.Identifier, 'x\\u11ffff', 'xᇿff'],
     [Context.Empty, Token.Identifier, '\\u{4fff}', '俿'],
     [Context.Empty, Token.Identifier, '\\u{1EE00}', '{Ȁ'],

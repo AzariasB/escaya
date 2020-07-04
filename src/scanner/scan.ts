@@ -3,8 +3,9 @@ import { Chars } from './chars';
 import { skipMultiLineComment, skipSingleLineComment, skipSingleHTMLComment } from './comments';
 import { Token } from '../token';
 import { scanIdentifier, scanIdentifierSlowPath, scanIdentifierEscapeIdStart, scanPrivateName } from './identifier';
+import { scanTemplateSpan } from './template';
 import { scanNumber } from './numeric';
-import { LexerState, fromCodePoint } from './common';
+import { State, fromCodePoint } from './common';
 import { unicodeLookup } from './unicode';
 import { scanString } from './string';
 import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
@@ -272,7 +273,7 @@ export function scan(parser: ParserState, context: Context): Token {
   // Position of 'index' before whitespace.
   parser.startIndex = parser.index;
 
-  let state = parser.index === 0 ? LexerState.LineStart : LexerState.None;
+  let state = parser.index === 0 ? State.LineStart : State.None;
 
   while (parser.index < parser.length) {
     let ch = parser.source.charCodeAt(parser.index);
@@ -314,7 +315,7 @@ export function scan(parser: ParserState, context: Context): Token {
 
         // ``string``
         case Token.TemplateTail:
-        //return scanTemplateSpan(parser, context);
+          return scanTemplateSpan(parser, context);
 
         // `\\u{N}var`
         case Token.EscapedIdentifier:
@@ -322,14 +323,14 @@ export function scan(parser: ParserState, context: Context): Token {
 
         // `#foo`, `#!shebang`
         case Token.PrivateName:
-          if (state & LexerState.LineStart && parser.source.charCodeAt(parser.index + 1) === Chars.Exclamation) {
+          if (state & State.LineStart && parser.source.charCodeAt(parser.index + 1) === Chars.Exclamation) {
             state = skipSingleLineComment(parser, state);
             continue;
           }
-          return scanPrivateName(parser, context, ch);
+          return scanPrivateName(parser, ch);
 
         case Token.CarriageReturn:
-          state |= LexerState.NewLine | LexerState.LastIsCR;
+          state |= State.NewLine | State.LastIsCR;
           parser.index++;
           parser.hasLineTerminator = true;
           parser.columnOffset = parser.index;
@@ -340,8 +341,8 @@ export function scan(parser: ParserState, context: Context): Token {
           parser.index++;
           parser.columnOffset = parser.index;
           parser.hasLineTerminator = true;
-          if ((state & LexerState.LastIsCR) === 0) parser.line++;
-          state = (state & ~LexerState.LastIsCR) | LexerState.NewLine;
+          if ((state & State.LastIsCR) === 0) parser.line++;
+          state = ((state | State.LastIsCR) ^ State.LastIsCR) | State.NewLine;
           break;
 
         // `.`, `...`, `.123` (numeric literal)
@@ -352,7 +353,6 @@ export function scan(parser: ParserState, context: Context): Token {
             ch = parser.source.charCodeAt(index);
 
             if (ch >= Chars.Zero && ch <= Chars.Nine) {
-              parser.index++;
               return scanNumber(parser, context, ch, true);
             }
 
@@ -520,12 +520,12 @@ export function scan(parser: ParserState, context: Context): Token {
           }
 
           if (ch === Chars.Asterisk) {
-            state = skipMultiLineComment(parser, context, state) as LexerState;
+            state = skipMultiLineComment(parser, context, state) as State;
             continue;
           }
 
           if (context & Context.AllowRegExp) {
-            //  return scanRegExp(parser, context);
+            //return scanRegExp(parser, context);
           }
 
           if (ch === Chars.EqualSign) {
@@ -543,6 +543,8 @@ export function scan(parser: ParserState, context: Context): Token {
             ch = parser.source.charCodeAt(index);
 
             if (ch === Chars.Period) {
+              // The specs explicitly disallows a digit after `?.`, for example `?.a`
+              // or `?.5` then it should be treated as a ternary rather than as an optional chain
               ch = parser.source.charCodeAt(index + 1);
 
               if (ch >= Chars.Zero && ch <= Chars.Nine) {
@@ -580,7 +582,7 @@ export function scan(parser: ParserState, context: Context): Token {
             parser.index++;
             if (
               parser.source.charCodeAt(parser.index) === Chars.GreaterThan &&
-              state & (LexerState.NewLine | LexerState.LineStart)
+              state & (State.NewLine | State.LineStart)
             ) {
               state = skipSingleHTMLComment(parser, context, state);
               continue;
@@ -617,6 +619,7 @@ export function scan(parser: ParserState, context: Context): Token {
           // Check for <!-- comments
           if (ch === Chars.Exclamation) {
             if (
+              // Treat HTML open-comment as comment-till-end-of-line.
               parser.source.charCodeAt(parser.index + 2) === Chars.Hyphen &&
               parser.source.charCodeAt(parser.index + 1) === Chars.Hyphen
             ) {
@@ -682,7 +685,7 @@ export function scan(parser: ParserState, context: Context): Token {
       if ((unicodeLookup[(ch >>> 5) + 104448] >>> ch) & 31 & 1) {
         parser.index++;
         if ((ch & ~1) === Chars.LineSeparator) {
-          state = (state & ~LexerState.LastIsCR) | LexerState.NewLine;
+          state = ((state | State.LastIsCR) ^ State.LastIsCR) | State.NewLine;
           parser.line++;
           parser.columnOffset = parser.index;
           parser.hasLineTerminator = true;

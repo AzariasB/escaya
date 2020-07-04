@@ -75,6 +75,7 @@ export enum DiagnosticCode {
   UnknownRegExpFlag,
   UnterminatedString,
   UnterminatedTemplate,
+  InvalidOctalEscapeInTemplate,
   ExpectedComma,
   DeclMissingDestructInitializer,
   ConstMissingDestrictInitializer,
@@ -113,7 +114,7 @@ export enum DiagnosticCode {
   InvalidUnicodeEscapeSequence,
   InvalidHexEscapeSequence,
   UnicodeOverflow,
-  InvalidSMPIdentifier,
+  InvalidAstralCharacter,
   StrictOctalEscape,
   InvalidEightAndNine,
   IdafterNumber,
@@ -125,16 +126,19 @@ export enum DiagnosticCode {
   HexSequenceNoDigits,
   UnknownDigit,
   MissingExponent,
-  InvalidBigIntLiteral
+  InvalidBigIntLiteral,
+  UnterminatedComment,
+  TemplateBadEscape
 }
 
 export const DiagnosticMessages: {
   [key: string]: string;
 } = {
+  [DiagnosticCode.UnterminatedComment]: "Multiline comment isn't closed properly",
   [DiagnosticCode.StrictOctalEscape]: 'Octal escape sequences are not allowed in strict mode',
   [DiagnosticCode.InvalidEightAndNine]: 'Escapes \\8 or \\9 are not syntactically valid escapes',
   [DiagnosticCode.UnicodeOverflow]: 'Unicode codepoint must not be greater than 0x10FFFF',
-  [DiagnosticCode.InvalidSMPIdentifier]: "Invalid Supplementary Multilingual Plane (SMP) identifier '%0'",
+  [DiagnosticCode.InvalidAstralCharacter]: "Invalid astral character '%0'",
   [DiagnosticCode.InvalidUnicodeEscapeSequence]: 'Invalid Unicode escape sequence',
   [DiagnosticCode.InvalidHexEscapeSequence]: 'Invalid hexadecimal escape sequence',
   [DiagnosticCode.HtmlCommentInModule]: 'HTML comments are not allowed in modules or without AnnexB support',
@@ -201,6 +205,8 @@ export const DiagnosticMessages: {
   [DiagnosticCode.DuplicateRegExpFlag]: 'Duplicate regular expression flag',
   [DiagnosticCode.UnterminatedString]: 'Unterminated string literal',
   [DiagnosticCode.UnterminatedTemplate]: 'Unterminated template literal',
+  [DiagnosticCode.InvalidOctalEscapeInTemplate]: 'Template literals may not contain octal escape sequences',
+  [DiagnosticCode.TemplateBadEscape]: 'Bad escape sequence in untagged template literal',
   [DiagnosticCode.ExpectedComma]: "',' expected",
   [DiagnosticCode.ExpectedArrow]: "'=>' expected",
   [DiagnosticCode.CantAssignToLoop]: 'Invalid left-hand side in for loop',
