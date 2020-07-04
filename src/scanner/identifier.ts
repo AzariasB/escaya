@@ -149,7 +149,7 @@ export function scanIdentifierEscape(parser: ParserState, context: Context): num
     }
 
     // At least 4 characters have to be read
-    if (!isIdentifierPart(code) || char !== Chars.RightBrace) {
+    if (0 < digit || char !== Chars.RightBrace) {
       addDiagnostic(
         parser,
         context,

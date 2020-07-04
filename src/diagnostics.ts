@@ -128,7 +128,8 @@ export enum DiagnosticCode {
   MissingExponent,
   InvalidBigIntLiteral,
   UnterminatedComment,
-  TemplateBadEscape
+  TemplateBadEscape,
+  UnsupportedUnicodeIdent
 }
 
 export const DiagnosticMessages: {
@@ -230,7 +231,8 @@ export const DiagnosticMessages: {
   [DiagnosticCode.HexSequenceNoDigits]: 'Hex integer literal like sequence without any digits',
   [DiagnosticCode.MissingExponent]: 'Non-number found after exponent indicator',
   [DiagnosticCode.UnknownDigit]: 'Unknown digit',
-  [DiagnosticCode.InvalidBigIntLiteral]: 'Invalid BigInt syntax'
+  [DiagnosticCode.InvalidBigIntLiteral]: 'Invalid BigInt syntax',
+  [DiagnosticCode.UnsupportedUnicodeIdent]: 'Unsupported unicode escape in identifier escapes start'
 };
 
 export function createDiagnostic(

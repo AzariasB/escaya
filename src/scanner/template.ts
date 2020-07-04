@@ -5,6 +5,7 @@ import { Chars } from './chars';
 import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { unicodeLookup } from './unicode';
 import { escapeChars } from './tables';
+import { CharTypes, CharFlags } from './charClassifier';
 
 /**
  * Scan a template section. It can start either from the quote or closing brace.
@@ -48,7 +49,6 @@ export function scanTemplateSpan(parser: ParserState, context: Context): Token {
         if (ch === Chars.CarriageReturn) {
           parser.index++;
           if (parser.source.charCodeAt(parser.index) === Chars.LineFeed) {
-            parser.lastChar = ch;
             parser.index++;
           }
         }
@@ -86,7 +86,12 @@ export function scanTemplateSpan(parser: ParserState, context: Context): Token {
 
   return Token.TemplateTail;
 }
-
+export function isASCIIHexDigit(character: any): any {
+  return (
+    (character >= Chars.Zero && character <= Chars.Nine) ||
+    ((character | 32) >= Chars.LowerA && (character | 32) <= Chars.LowerF)
+  );
+}
 export function parseTemplateEscape(parser: ParserState, context: Context, ch: number): string | number {
   parser.index++;
   switch (escapeChars[ch]) {
@@ -108,10 +113,12 @@ export function parseTemplateEscape(parser: ParserState, context: Context, ch: n
       return '"';
 
     // ASCII escapes
-    case Chars.LowerX:
-      const ch1 = parser.source.charCodeAt(parser.index);
-      const hi = toHex(ch1);
-      if (hi < 0)
+    case Chars.LowerX: {
+      const first = parser.source.charCodeAt(parser.index);
+      if (
+        (CharTypes[first] & CharFlags.Hex) === 0 ||
+        (CharTypes[parser.source.charCodeAt(parser.index + 1)] & CharFlags.Hex) === 0
+      ) {
         if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
           addDiagnostic(
             parser,
@@ -121,21 +128,21 @@ export function parseTemplateEscape(parser: ParserState, context: Context, ch: n
             DiagnosticKind.Error
           );
         }
-      parser.index++;
-      const ch2 = parser.source.charCodeAt(parser.index);
-      const lo = toHex(ch2);
-      if (lo < 0)
-        if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
-          addDiagnostic(
-            parser,
-            context,
-            DiagnosticSource.Lexer,
-            DiagnosticCode.InvalidHexEscapeSequence,
-            DiagnosticKind.Error
-          );
-        }
+        // For raw template literal syntax, we consume `NotEscapeSequence`.
+        //
+        // NotEscapeSequence ::
+        //     x [lookahread not one of HexDigit]
+        //     x HexDigit [lookahread not one of HexDigit]
+        if (CharTypes[first] & CharFlags.Hex) parser.index++;
 
-      return (hi << 4) | lo;
+        return -1;
+      }
+
+      parser.index++;
+      let code = (toHex(first) << 4) | toHex(parser.source.charCodeAt(parser.index));
+      parser.index++;
+      return code;
+    }
 
     // UCS-2/Unicode escapes
     case Chars.LowerU:
@@ -145,6 +152,7 @@ export function parseTemplateEscape(parser: ParserState, context: Context, ch: n
         parser.index++; // skips: '{'
 
         // \u{N}
+
         // The first digit is required, so handle it *out* of the loop.
         ch = parser.source.charCodeAt(parser.index);
 
@@ -164,7 +172,7 @@ export function parseTemplateEscape(parser: ParserState, context: Context, ch: n
         }
         let code = 0;
 
-        while (digit >= 0) {
+        do {
           code = (code << 4) | digit;
           // Check this early to avoid `code` wrapping to a negative on overflow (which is
           // reserved for abnormal conditions).
@@ -178,31 +186,53 @@ export function parseTemplateEscape(parser: ParserState, context: Context, ch: n
                 DiagnosticKind.Error
               );
             }
+
+            // NotEscapeSequence :
+            //   u { [lookahread not one of HexDigit]
+            //   u { NotCodePoint
+            //   u { CodePoint [lookahead != }]
+            //
+            // NotCodePoint :
+            //   HexDigits but not if MV of HexDigits <= 0x10FFFF
+            //
+            // CodePoint :
+            //   HexDigits but not if MV of HexDigits > 0x10FFFF
+            parser.index++;
+            while (toHex(parser.source.charCodeAt(parser.index)) >= 0) {
+              parser.index++;
+            }
+
             return -1;
           }
-          digit = toHex((ch = parser.source.charCodeAt(++parser.index)));
-        }
-        if (parser.source.charCodeAt(parser.index) !== Chars.RightBrace) {
+
+          parser.index++;
+
+          digit = toHex(parser.source.charCodeAt(parser.index));
+        } while (digit >= 0);
+
+        if (0 < digit || parser.source.charCodeAt(parser.index) !== Chars.RightBrace) {
           if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
             addDiagnostic(
               parser,
               context,
               DiagnosticSource.Lexer,
-              DiagnosticCode.InvalidHexEscapeSequence,
+              DiagnosticCode.UnsupportedUnicodeIdent,
               DiagnosticKind.Error
             );
           }
           return -1;
         }
+
+        parser.index++; // skips: '}'
+
         return fromCodePoint(code);
       }
 
       // \uNNNN
-      let code = 0;
 
+      let code = 0;
       for (let i = 0; i < 4; i++) {
         let digit = toHex(ch);
-
         if (digit < 0) {
           if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
             addDiagnostic(
@@ -215,9 +245,11 @@ export function parseTemplateEscape(parser: ParserState, context: Context, ch: n
           }
           return -1;
         }
-        code = (code << 4) | digit;
+
         ch = parser.source.charCodeAt(++parser.index);
+        code = (code << 4) | digit;
       }
+
       return fromCodePoint(code);
 
     case Chars.Zero: // fall through
