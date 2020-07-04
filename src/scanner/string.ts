@@ -4,137 +4,7 @@ import { Token } from '../token';
 import { Chars } from './chars';
 import { addDiagnostic, addDiagnosticByIndex, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { CharTypes, CharFlags } from './charClassifier';
-
-export const escapeChars = [
-  /*   0 - Null               */ Chars.Unknown,
-  /*   1 - Start of Heading   */ Chars.Unknown,
-  /*   2 - Start of Text      */ Chars.Unknown,
-  /*   3 - End of Text        */ Chars.Unknown,
-  /*   4 - End of Transm.     */ Chars.Unknown,
-  /*   5 - Enquiry            */ Chars.Unknown,
-  /*   6 - Acknowledgment     */ Chars.Unknown,
-  /*   7 - Bell               */ Chars.Unknown,
-  /*   8 - Backspace          */ Chars.Unknown,
-  /*   9 - Horizontal Tab     */ Chars.Unknown,
-  /*  10 - Line Feed          */ Chars.LineFeed,
-  /*  11 - Vertical Tab       */ Chars.Unknown,
-  /*  12 - Form Feed          */ Chars.Unknown,
-  /*  13 - Carriage Return    */ Chars.CarriageReturn,
-  /*  14 - Shift Out          */ Chars.Unknown,
-  /*  15 - Shift In           */ Chars.Unknown,
-  /*  16 - Data Line Escape   */ Chars.Unknown,
-  /*  17 - Device Control 1   */ Chars.Unknown,
-  /*  18 - Device Control 2   */ Chars.Unknown,
-  /*  19 - Device Control 3   */ Chars.Unknown,
-  /*  20 - Device Control 4   */ Chars.Unknown,
-  /*  21 - Negative Ack.      */ Chars.Unknown,
-  /*  22 - Synchronous Idle   */ Chars.Unknown,
-  /*  23 - End of Transmit    */ Chars.Unknown,
-  /*  24 - Cancel             */ Chars.Unknown,
-  /*  25 - End of Medium      */ Chars.Unknown,
-  /*  26 - Substitute         */ Chars.Unknown,
-  /*  27 - Escape             */ Chars.Unknown,
-  /*  28 - File Separator     */ Chars.Unknown,
-  /*  29 - Group Separator    */ Chars.Unknown,
-  /*  30 - Record Separator   */ Chars.Unknown,
-  /*  31 - Unit Separator     */ Chars.Unknown,
-  /*  32 - Space              */ Chars.Unknown,
-  /*  33 - !                  */ Chars.Unknown,
-  /*  34 - "                  */ Chars.Unknown,
-  /*  35 - #                  */ Chars.Unknown,
-  /*  36 - $                  */ Chars.Unknown,
-  /*  37 - %                  */ Chars.Unknown,
-  /*  38 - &                  */ Chars.Unknown,
-  /*  39 - '                  */ Chars.Unknown,
-  /*  40 - (                  */ Chars.Unknown,
-  /*  41 - )                  */ Chars.Unknown,
-  /*  42 - *                  */ Chars.Unknown,
-  /*  43 - +                  */ Chars.Unknown,
-  /*  44 - ,                  */ Chars.Unknown,
-  /*  45 - -                  */ Chars.Unknown,
-  /*  46 - .                  */ Chars.Unknown,
-  /*  47 - /                  */ Chars.Unknown,
-  /*  48 - 0                  */ Chars.Zero,
-  /*  49 - 1                  */ Chars.One,
-  /*  50 - 2                  */ Chars.Two,
-  /*  51 - 3                  */ Chars.Three,
-  /*  52 - 4                  */ Chars.Four,
-  /*  53 - 5                  */ Chars.Five,
-  /*  54 - 6                  */ Chars.Six,
-  /*  55 - 7                  */ Chars.Seven,
-  /*  56 - 8                  */ Chars.Eight,
-  /*  57 - 9                  */ Chars.Nine,
-  /*  58 - :                  */ Chars.Unknown,
-  /*  59 - ;                  */ Chars.Unknown,
-  /*  60 - <                  */ Chars.Unknown,
-  /*  61 - =                  */ Chars.Unknown,
-  /*  62 - >                  */ Chars.Unknown,
-  /*  63 - ?                  */ Chars.Unknown,
-  /*  64 - @                  */ Chars.Unknown,
-  /*  65 - A                  */ Chars.Unknown,
-  /*  66 - B                  */ Chars.Unknown,
-  /*  67 - C                  */ Chars.Unknown,
-  /*  68 - D                  */ Chars.Unknown,
-  /*  69 - E                  */ Chars.Unknown,
-  /*  70 - F                  */ Chars.Unknown,
-  /*  71 - G                  */ Chars.Unknown,
-  /*  72 - H                  */ Chars.Unknown,
-  /*  73 - I                  */ Chars.Unknown,
-  /*  74 - J                  */ Chars.Unknown,
-  /*  75 - K                  */ Chars.Unknown,
-  /*  76 - L                  */ Chars.Unknown,
-  /*  77 - M                  */ Chars.Unknown,
-  /*  78 - N                  */ Chars.Unknown,
-  /*  79 - O                  */ Chars.Unknown,
-  /*  80 - P                  */ Chars.Unknown,
-  /*  81 - Q                  */ Chars.Unknown,
-  /*  82 - R                  */ Chars.Unknown,
-  /*  83 - S                  */ Chars.Unknown,
-  /*  84 - T                  */ Chars.Unknown,
-  /*  85 - U                  */ Chars.Unknown,
-  /*  86 - V                  */ Chars.Unknown,
-  /*  87 - W                  */ Chars.Unknown,
-  /*  88 - X                  */ Chars.Unknown,
-  /*  89 - Y                  */ Chars.Unknown,
-  /*  90 - Z                  */ Chars.Unknown,
-  /*  91 - [                  */ Chars.Unknown,
-  /*  92 - \                  */ Chars.Unknown,
-  /*  93 - ]                  */ Chars.Unknown,
-  /*  94 - ^                  */ Chars.Unknown,
-  /*  95 - _                  */ Chars.Unknown,
-  /*  96 - `                  */ Chars.Unknown,
-  /*  97 - a                  */ Chars.Unknown,
-  /*  98 - b                  */ Chars.LowerB,
-  /*  99 - c                  */ Chars.Unknown,
-  /* 100 - d                  */ Chars.Unknown,
-  /* 101 - e                  */ Chars.Unknown,
-  /* 102 - f                  */ Chars.LowerF,
-  /* 103 - g                  */ Chars.Unknown,
-  /* 104 - h                  */ Chars.Unknown,
-  /* 105 - i                  */ Chars.Unknown,
-  /* 106 - j                  */ Chars.Unknown,
-  /* 107 - k                  */ Chars.Unknown,
-  /* 108 - l                  */ Chars.Unknown,
-  /* 109 - m                  */ Chars.Unknown,
-  /* 110 - n                  */ Chars.LowerN,
-  /* 111 - o                  */ Chars.Unknown,
-  /* 112 - p                  */ Chars.Unknown,
-  /* 113 - q                  */ Chars.Unknown,
-  /* 114 - r                  */ Chars.LowerR,
-  /* 115 - s                  */ Chars.Unknown,
-  /* 116 - t                  */ Chars.LowerT,
-  /* 117 - u                  */ Chars.LowerU,
-  /* 118 - v                  */ Chars.LowerV,
-  /* 119 - w                  */ Chars.Unknown,
-  /* 120 - x                  */ Chars.LowerX,
-  /* 121 - y                  */ Chars.Unknown,
-  /* 122 - z                  */ Chars.Unknown,
-  /* 123 - {                  */ Chars.Unknown,
-  /* 124 - |                  */ Chars.Unknown,
-  /* 125 - }                  */ Chars.Unknown,
-  /* 126 - ~                  */ Chars.Unknown,
-  /* 127 - Delete             */ Chars.Unknown
-];
+import { escapeChars } from './tables';
 
 /**
  * Scan a string token.
@@ -221,11 +91,12 @@ export function parseEscape(parser: ParserState, context: Context, first: number
       parser.line++;
       return Escape.Empty;
 
-    // Null character, octals
     case Chars.Zero:
     case Chars.One:
     case Chars.Two:
     case Chars.Three: {
+      // 1 to 3 octal digits
+
       let code = first - Chars.Zero;
       let index = parser.index + 1;
 
@@ -263,7 +134,9 @@ export function parseEscape(parser: ParserState, context: Context, first: number
     case Chars.Four:
     case Chars.Five:
     case Chars.Six:
-    case Chars.Seven: {
+    case Chars.Seven:
+      // 1 to 2 octal digits
+
       if (context & Context.Strict) return Escape.StrictOctal;
       let code = first - Chars.Zero;
       const index = parser.index + 1;
@@ -279,7 +152,6 @@ export function parseEscape(parser: ParserState, context: Context, first: number
       }
 
       return code;
-    }
 
     // `8`, `9` (invalid escapes)
     case Chars.Eight:

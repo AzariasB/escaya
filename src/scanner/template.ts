@@ -4,6 +4,7 @@ import { Token } from '../token';
 import { Chars } from './chars';
 import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { unicodeLookup } from './unicode';
+import { escapeChars } from './tables';
 
 /**
  * Scan a template section. It can start either from the quote or closing brace.
@@ -88,7 +89,7 @@ export function scanTemplateSpan(parser: ParserState, context: Context): Token {
 
 export function parseTemplateEscape(parser: ParserState, context: Context, ch: number): string | number {
   parser.index++;
-  switch (ch) {
+  switch (escapeChars[ch]) {
     case Chars.LowerB:
       return '\b';
     case Chars.LowerT:
