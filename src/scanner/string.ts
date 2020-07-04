@@ -93,6 +93,14 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
             return '';
           }
         } else if (context & Context.Strict) {
+          addDiagnostic(
+            parser,
+            context,
+            DiagnosticSource.Lexer,
+            DiagnosticCode.InvalidHexEscapeSequence,
+            DiagnosticKind.Error
+          );
+          return '';
         } else {
           code = (code << 3) | (next - Chars.Zero);
           index++;

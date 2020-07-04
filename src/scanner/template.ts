@@ -128,11 +128,9 @@ export function parseTemplateEscape(parser: ParserState, context: Context, ch: n
             DiagnosticKind.Error
           );
         }
-        // For raw template literal syntax, we consume `NotEscapeSequence`.
-        //
-        // NotEscapeSequence ::
-        //     x [lookahread not one of HexDigit]
-        //     x HexDigit [lookahread not one of HexDigit]
+        // NotEscapeSequence :
+        //  x [lookahread not one of HexDigit]
+        //  x HexDigit [lookahread not one of HexDigit]
         if (CharTypes[first] & CharFlags.Hex) parser.index++;
 
         return -1;
