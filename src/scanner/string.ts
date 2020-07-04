@@ -129,7 +129,7 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
         return '';
       }
       let code = ch - Chars.Zero;
-      let index = parser.index;
+      const index = parser.index;
 
       if (index < parser.source.length) {
         const next = parser.source.charCodeAt(index);

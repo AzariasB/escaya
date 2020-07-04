@@ -170,7 +170,7 @@ export function scanIdentifierEscape(parser: ParserState, context: Context): num
   let code = 0;
 
   for (let i = 0; i < 4; i++) {
-    let digit = toHex(char);
+    const digit = toHex(char);
 
     if (digit < 0) {
       addDiagnostic(
@@ -212,7 +212,7 @@ export function scanIdentifierEscapeIdStart(parser: ParserState, context: Contex
 
 // TODO: Uncomment this as soon as class fields reach stage 4
 
-export function scanPrivateName(parser: ParserState, ch: number): Token | any {
+export function scanPrivateName(parser: ParserState, context: Context, ch: number): Token | any {
   addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error, '#');
 
   if (((unicodeLookup[(ch >>> 5) + 34816] >>> ch) & 31 & 1) === 0) {

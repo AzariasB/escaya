@@ -8,6 +8,7 @@ import { scanNumber } from './numeric';
 import { State, fromCodePoint } from './common';
 import { unicodeLookup } from './unicode';
 import { scanString } from './string';
+import { scanRegExp } from './regexp';
 import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { oneCharTokens } from './tables';
 
@@ -69,7 +70,7 @@ export function scan(parser: ParserState, context: Context): Token {
             state = skipSingleLineComment(parser, state);
             continue;
           }
-          return scanPrivateName(parser, ch);
+          return scanPrivateName(parser, context, ch);
 
         case Token.CarriageReturn:
           state |= State.NewLine | State.LastIsCR;
@@ -267,7 +268,7 @@ export function scan(parser: ParserState, context: Context): Token {
           }
 
           if (context & Context.AllowRegExp) {
-            //return scanRegExp(parser, context);
+            return scanRegExp(parser, context);
           }
 
           if (ch === Chars.EqualSign) {

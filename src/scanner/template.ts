@@ -15,7 +15,7 @@ export function scanTemplateSpan(parser: ParserState, context: Context): Token {
 
   let ret: string | null = '';
   let lastIsCR = 0;
-  let start = parser.index;
+  const start = parser.index;
   let ch = parser.source.charCodeAt(parser.index);
 
   while (parser.index < parser.length) {
@@ -42,7 +42,7 @@ export function scanTemplateSpan(parser: ParserState, context: Context): Token {
     // Escape character
     if (ch === Chars.Backslash) {
       parser.index++;
-      let ch = parser.source.charCodeAt(parser.index);
+      const ch = parser.source.charCodeAt(parser.index);
       // The TV of LineContinuation :: \ LineTerminatorSequence is the empty
       // code unit sequence.
       if ((unicodeLookup[(ch >>> 5) + 69632] >>> ch) & 31 & 1) {
@@ -87,7 +87,6 @@ export function scanTemplateSpan(parser: ParserState, context: Context): Token {
   return Token.TemplateTail;
 }
 
-// Template escapes
 export function parseTemplateEscape(parser: ParserState, context: Context, ch: number): string | number {
   parser.index++;
   switch (escapeChars[ch]) {
@@ -133,7 +132,7 @@ export function parseTemplateEscape(parser: ParserState, context: Context, ch: n
       }
 
       parser.index++;
-      let code = (toHex(first) << 4) | toHex(parser.source.charCodeAt(parser.index));
+      const code = (toHex(first) << 4) | toHex(parser.source.charCodeAt(parser.index));
       parser.index++;
       return code;
     }
@@ -226,7 +225,7 @@ export function parseTemplateEscape(parser: ParserState, context: Context, ch: n
 
       let code = 0;
       for (let i = 0; i < 4; i++) {
-        let digit = toHex(ch);
+        const digit = toHex(ch);
         if (digit < 0) {
           if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
             addDiagnostic(
