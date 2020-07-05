@@ -61,7 +61,10 @@ export function scanTemplateSpan(parser: ParserState, context: Context, source: 
       }
     } else {
       parser.index++;
-      if ((unicodeLookup[(ch >>> 5) + 69632] >>> ch) & 31 & 1) {
+      // Fast check for characters that require special handling.
+      // Catches 0, \n, \r, 0x2028, and 0x2029 as efficiently
+      // as possible, and lets through all common ASCII characters
+      if ((ch - 0xe) & 0x2000) {
         // The TRV of LineTerminatorSequence :: <CR> is the CV 0x000A.
         // The TRV of LineTerminatorSequence :: <CR><LF> is the sequence
         // consisting of the CV 0x000A.
@@ -70,9 +73,9 @@ export function scanTemplateSpan(parser: ParserState, context: Context, source: 
           parser.line++;
           parser.columnOffset = parser.index;
         } else if (ch === Chars.LineFeed || (ch ^ Chars.LineSeparator) <= 1) {
-          if (lastIsCR === 0) parser.line++;
+          if (lastIsCR === 1) parser.line++;
           parser.columnOffset = parser.index;
-          lastIsCR = 1;
+          lastIsCR = 0;
         }
       }
       if (ret != null) ret += fromCodePoint(ch);

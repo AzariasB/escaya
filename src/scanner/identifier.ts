@@ -55,13 +55,13 @@ export function scanIdentifierSlowPath(parser: ParserState, context: Context, so
       parser.tokenValue += fromCodePoint(code);
       start = parser.index;
     } else {
-      if ((ch & 0xfc00) !== 0xd800) break;
+      // Check for lead surrogate (U+d800..U+dbff)
+      if ((ch & 0xfffffc00) !== 0xd800) break;
       parser.index++;
-      // lower surrogate
-      const low = source.charCodeAt(parser.index);
-      // high surrogate and there is a next code unit
-      if ((low & 0xfc00) === 0xdc00) {
-        ch = ((ch & 0x3ff) << 10) + (low & 0x3ff) + 0x10000;
+      const trail = source.charCodeAt(parser.index);
+      // trail surrogate (U+dc00..U+dfff)
+      if ((trail & 0xfffffc00) === 0xdc00) {
+        ch = ((ch & 0x3ff) << 10) + (trail & 0x3ff) + 0x10000;
         // Check if this is a valid surrogate pair
         if (!isIdentifierPart(ch)) {
           addDiagnostic(

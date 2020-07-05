@@ -450,15 +450,15 @@ export function scan(parser: ParserState, context: Context): Token {
         return scanIdentifierSlowPath(parser, context, source);
       }
 
-      // high surrogate
-      if ((ch & 0xfc00) === 0xd800) {
-        // low surrogate
-        if ((source.charCodeAt(parser.index + 1) & 0xfc00) !== 0xdc00) {
+      // lead surrogate (U+d800..U+dbff)
+      if ((ch & 0xfffffc00) === 0xd800) {
+        // trail surrogate (U+dc00..U+dfff)
+        if ((source.charCodeAt(parser.index + 1) & 0xfffffc00) !== 0xdc00) {
           addDiagnostic(
             parser,
             context,
             DiagnosticSource.Lexer,
-            DiagnosticCode.InvalidLowerSurrogate,
+            DiagnosticCode.InvalidTrailSurrogate,
             DiagnosticKind.Error,
             fromCodePoint(ch)
           );
