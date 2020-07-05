@@ -2,7 +2,13 @@ import { ParserState, Context } from '../common';
 import { Chars } from './chars';
 import { skipMultiLineComment, skipSingleLineComment, skipSingleHTMLComment } from './comments';
 import { Token } from '../token';
-import { scanIdentifier, scanIdentifierSlowPath, scanIdentifierEscapeIdStart, scanPrivateName } from './identifier';
+import {
+  scanIdentifier,
+  scanKeywordOrIdentifier,
+  scanIdentifierSlowPath,
+  scanIdentifierEscapeIdStart,
+  scanPrivateName
+} from './identifier';
 import { State, fromCodePoint } from './common';
 import { scanNumber } from './numeric';
 import { scanRegExp } from './regexp';
@@ -46,9 +52,13 @@ export function scan(parser: ParserState, context: Context): Token {
           parser.index++;
           break;
 
-        // `a`...`z`, `A`...`Z`, `_var`, `$var`
+        //  `A`...`Z`, `_var`, `$var`
         case Token.Identifier:
           return scanIdentifier(parser, context, source);
+
+        // `a`...`z`,
+        case Token.MaybeKeyword:
+          return scanKeywordOrIdentifier(parser, context, source);
 
         // `0`...`9`
         case Token.NumericLiteral:

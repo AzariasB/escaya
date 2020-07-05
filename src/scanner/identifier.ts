@@ -18,6 +18,21 @@ export function scanIdentifier(parser: ParserState, context: Context, source: st
 
   if (char > Chars.UpperZ) return scanIdentifierSlowPath(parser, context, source);
 
+  return Token.Identifier;
+}
+
+export function scanKeywordOrIdentifier(parser: ParserState, context: Context, source: string): Token {
+  const start = parser.index;
+  let char = source.charCodeAt(parser.index);
+
+  do {
+    char = source.charCodeAt(++parser.index);
+  } while (CharTypes[char] & CharFlags.IdentifierPart);
+
+  parser.tokenValue = source.slice(start, parser.index);
+
+  if (char > Chars.UpperZ) return scanIdentifierSlowPath(parser, context, source);
+
   const token: Token | undefined = descKeywordTable.get(parser.tokenValue);
 
   return token === void 0 ? Token.Identifier : token;

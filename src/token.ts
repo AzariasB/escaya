@@ -180,16 +180,11 @@ export const enum Token {
 
   /* Comments */
 
-  SingleLine        = 126,
-  MultiLine        = 127,
-  EscapedIdentifier = 128,
-
-  PrivateName = 129,
-
-  NoSubstitutionTemplateLiteral = 130,
-  // TemplateTail = 131,
-  TemplateMiddle = 132,
-  TemplateHead = 133
+  SingleLine         = 126,
+  MultiLine          = 127,
+  EscapedIdentifier  = 128,
+  PrivateName        = 129,
+  MaybeKeyword       = 130,
 }
 
 // Note: this *must* be kept in sync with the enum's order.
