@@ -15,7 +15,6 @@ export const enum State {
 // Converts an ASCII alphanumeric digit [0-9a-zA-Z] to number as if in base-36.
 
 export function toHex(code: number): number {
-  if (code < Chars.Zero) return -1;
   if (code <= Chars.Nine) return code - Chars.Zero;
   code = code | 32;
   if (code < Chars.LowerA) return -1;

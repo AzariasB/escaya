@@ -4,30 +4,35 @@ import { unicodeLookup } from './unicode';
 import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { State } from './common';
 
-export function skipSingleHTMLComment(parser: ParserState, context: Context, state: State): State {
+export function skipSingleHTMLComment(parser: ParserState, context: Context, source: string, state: State): State {
   if (context & (Context.OptionsDisableWebCompat | Context.Strict)) {
     addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.HtmlCommentInModule, DiagnosticKind.Error);
   }
-  return skipSingleLineComment(parser, state);
+  return skipSingleLineComment(parser, source, state);
 }
 
-export function skipSingleLineComment(parser: ParserState, state: State): State {
-  let char = parser.source.charCodeAt(parser.index);
+export function skipSingleLineComment(parser: ParserState, source: string, state: State): State {
+  let char = source.charCodeAt(parser.index);
   while (parser.index < parser.length && ((unicodeLookup[(char >>> 5) + 69632] >>> char) & 31 & 1) === 0) {
-    char = parser.source.charCodeAt(++parser.index);
+    char = source.charCodeAt(++parser.index);
   }
   return state;
 }
 
-export function skipMultiLineComment(parser: ParserState, context: Context, state: State): State | void {
-  let char = parser.source.charCodeAt(parser.index);
+export function skipMultiLineComment(
+  parser: ParserState,
+  context: Context,
+  source: string,
+  state: State
+): State | void {
+  let char = source.charCodeAt(parser.index);
 
   while (parser.index < parser.length) {
     if (char < 0x43) {
       if (char === Chars.Asterisk) {
         state = (state | State.LastIsCR) ^ State.LastIsCR;
         while (char === Chars.Asterisk) {
-          char = parser.source.charCodeAt(parser.index++);
+          char = source.charCodeAt(parser.index++);
         }
         if (char === Chars.Slash) return state;
       }
@@ -54,7 +59,7 @@ export function skipMultiLineComment(parser: ParserState, context: Context, stat
       parser.line++;
       parser.hasLineTerminator = true;
     }
-    char = parser.source.charCodeAt(parser.index++);
+    char = source.charCodeAt(parser.index++);
   }
   addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedComment, DiagnosticKind.Error);
 }

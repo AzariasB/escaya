@@ -23,7 +23,7 @@ export function create(source: string, nodeCursor?: Types.NodeCursor): ParserSta
     token: Token.EndOfSource,
     destructible: 0,
     assignable: true,
-    tokenValue: void 0,
+    tokenValue: '',
     tokenRaw: '',
     diagnostics: [],
     regExpPattern: '',

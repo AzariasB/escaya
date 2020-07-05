@@ -9,31 +9,31 @@ import { escapeChars } from './tables';
 /**
  * Scan a string token.
  */
-export function scanString(parser: ParserState, context: Context, quote: number): Token {
+export function scanString(parser: ParserState, context: Context, source: string, quote: number): Token {
   let ret = '';
 
   parser.index++;
   let start = parser.index;
-  let ch = parser.source.charCodeAt(parser.index);
+  let ch = source.charCodeAt(parser.index);
   // LT disallowed in string literals, so we optimize for that
 
   while ((CharTypes[ch] & CharFlags.LineTerminator) === 0) {
     if (ch === quote) {
-      ret += parser.source.substring(start, parser.index);
+      ret += source.substring(start, parser.index);
       parser.index++;
       parser.tokenValue = ret;
       return Token.StringLiteral;
     }
     if (ch === Chars.Backslash) {
-      ret += parser.source.substring(start, parser.index);
-      ret += scanStringEscape(parser, context);
+      ret += source.substring(start, parser.index);
+      ret += scanStringEscape(parser, context, source);
       start = parser.index;
     } else {
       parser.index++;
     }
 
     if (parser.index >= parser.length) break;
-    ch = parser.source.charCodeAt(parser.index);
+    ch = source.charCodeAt(parser.index);
   }
 
   addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedString, DiagnosticKind.Error);
@@ -42,7 +42,7 @@ export function scanString(parser: ParserState, context: Context, quote: number)
   return Token.StringLiteral;
 }
 
-export function scanStringEscape(parser: ParserState, context: Context): string {
+export function scanStringEscape(parser: ParserState, context: Context, source: string): string {
   //const start = pos;
   parser.index++;
   if (parser.index >= parser.length) {
@@ -50,7 +50,7 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
     return '';
   }
 
-  const ch = parser.source.charCodeAt(parser.index);
+  const ch = source.charCodeAt(parser.index);
 
   parser.index++;
   switch (escapeChars[ch]) {
@@ -78,8 +78,8 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
       let code = ch - Chars.Zero;
       let index = parser.index;
 
-      if (index < parser.source.length) {
-        const next = parser.source.charCodeAt(index);
+      if (index < source.length) {
+        const next = source.charCodeAt(index);
         if (next < Chars.Zero || next > Chars.Seven) {
           // Verify that it's `\0` if we're in strict mode.
           if (code !== 0 && context & Context.Strict) {
@@ -105,8 +105,8 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
           code = (code << 3) | (next - Chars.Zero);
           index++;
 
-          if (index < parser.source.length) {
-            const next = parser.source.charCodeAt(index);
+          if (index < source.length) {
+            const next = source.charCodeAt(index);
 
             if (next >= Chars.Zero && next <= Chars.Seven) {
               parser.lastChar = next;
@@ -131,8 +131,8 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
       let code = ch - Chars.Zero;
       const index = parser.index;
 
-      if (index < parser.source.length) {
-        const next = parser.source.charCodeAt(index);
+      if (index < source.length) {
+        const next = source.charCodeAt(index);
         if (next >= Chars.Zero && next <= Chars.Seven) {
           code = (code << 3) | (next - Chars.Zero);
           parser.index = index + 1;
@@ -149,12 +149,12 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
       return '';
     }
     case Chars.LowerU: {
-      let ch = parser.source.charCodeAt(parser.index);
+      let ch = source.charCodeAt(parser.index);
       if (ch === Chars.LeftBrace) {
         // \u{N}
         // The first digit is required, so handle it *out* of the loop.
         parser.index++;
-        ch = parser.lastChar = parser.source.charCodeAt(parser.index);
+        ch = parser.lastChar = source.charCodeAt(parser.index);
         let code = toHex(ch);
         if (code < 0) {
           addDiagnostic(
@@ -167,7 +167,7 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
           return '';
         }
         parser.index++;
-        ch = parser.lastChar = parser.source.charCodeAt(parser.index);
+        ch = parser.lastChar = source.charCodeAt(parser.index);
         while (ch !== Chars.RightBrace) {
           const digit = toHex(ch);
           if (digit < 0) {
@@ -195,7 +195,7 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
             return '';
           }
           parser.index++;
-          ch = parser.source.charCodeAt(parser.index);
+          ch = source.charCodeAt(parser.index);
         }
         parser.index++;
         return fromCodePoint(code);
@@ -215,7 +215,7 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
 
         for (let i = 0; i < 3; i++) {
           parser.index++;
-          ch = parser.source.charCodeAt(parser.index);
+          ch = source.charCodeAt(parser.index);
           const digit = toHex(ch);
           if (digit < 0) {
             addDiagnostic(
@@ -235,7 +235,7 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
     }
     // ASCII escapes
     case Chars.LowerX:
-      const ch1 = parser.source.charCodeAt(parser.index);
+      const ch1 = source.charCodeAt(parser.index);
       const hi = toHex(ch1);
       if (hi < 0) {
         addDiagnostic(
@@ -248,7 +248,7 @@ export function scanStringEscape(parser: ParserState, context: Context): string 
         return '';
       }
       parser.index++;
-      const ch2 = parser.source.charCodeAt(parser.index);
+      const ch2 = source.charCodeAt(parser.index);
       const lo = toHex(ch2);
       if (lo < 0) {
         addDiagnostic(

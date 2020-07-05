@@ -3,23 +3,25 @@ import { Chars } from './chars';
 import { skipMultiLineComment, skipSingleLineComment, skipSingleHTMLComment } from './comments';
 import { Token } from '../token';
 import { scanIdentifier, scanIdentifierSlowPath, scanIdentifierEscapeIdStart, scanPrivateName } from './identifier';
-import { scanTemplateSpan } from './template';
-import { scanNumber } from './numeric';
 import { State, fromCodePoint } from './common';
-import { unicodeLookup } from './unicode';
-import { scanString } from './string';
+import { scanNumber } from './numeric';
 import { scanRegExp } from './regexp';
+import { unicodeLookup } from './unicode';
+import { scanTemplateSpan } from './template';
+import { scanString } from './string';
 import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { oneCharTokens } from './tables';
 
+// Scan for a single token
 export function scan(parser: ParserState, context: Context): Token {
   // Position of 'index' before whitespace.
   parser.startIndex = parser.index;
 
   let state = parser.index === 0 ? State.LineStart : State.None;
+  let source = parser.source;
 
   while (parser.index < parser.length) {
-    let ch = parser.source.charCodeAt(parser.index);
+    let ch = source.charCodeAt(parser.index);
 
     if (ch < 127) {
       const token = oneCharTokens[ch];
@@ -39,38 +41,38 @@ export function scan(parser: ParserState, context: Context): Token {
           parser.index++;
           return token;
 
-        /* general whitespace */
+        // general whitespace
         case Token.WhiteSpace:
           parser.index++;
           break;
 
         // `a`...`z`, `A`...`Z`, `_var`, `$var`
         case Token.Identifier:
-          return scanIdentifier(parser, context);
+          return scanIdentifier(parser, context, source);
 
         // `0`...`9`
         case Token.NumericLiteral:
-          return scanNumber(parser, context, ch, false);
+          return scanNumber(parser, context, source, ch, false);
 
         // `'string'`, `"string"`
         case Token.StringLiteral:
-          return scanString(parser, context, ch);
+          return scanString(parser, context, source, ch);
 
         // ``string``
         case Token.TemplateTail:
-          return scanTemplateSpan(parser, context);
+          return scanTemplateSpan(parser, context, source);
 
         // `\\u{N}var`
         case Token.EscapedIdentifier:
-          return scanIdentifierEscapeIdStart(parser, context);
+          return scanIdentifierEscapeIdStart(parser, context, source);
 
         // `#foo`, `#!shebang`
         case Token.PrivateName:
-          if (state & State.LineStart && parser.source.charCodeAt(parser.index + 1) === Chars.Exclamation) {
-            state = skipSingleLineComment(parser, state);
+          if (state & State.LineStart && source.charCodeAt(parser.index + 1) === Chars.Exclamation) {
+            state = skipSingleLineComment(parser, source, state);
             continue;
           }
-          return scanPrivateName(parser, context, ch);
+          return scanPrivateName(parser, context, source, ch);
 
         case Token.CarriageReturn:
           state |= State.NewLine | State.LastIsCR;
@@ -93,15 +95,15 @@ export function scan(parser: ParserState, context: Context): Token {
           let index = parser.index + 1;
 
           if (index < parser.length) {
-            ch = parser.source.charCodeAt(index);
+            ch = source.charCodeAt(index);
 
             if (ch >= Chars.Zero && ch <= Chars.Nine) {
-              return scanNumber(parser, context, ch, true);
+              return scanNumber(parser, context, source, ch, true);
             }
 
             if (ch === Chars.Period) {
               index++;
-              if (index < parser.length && parser.source.charCodeAt(index) === Chars.Period) {
+              if (index < parser.length && source.charCodeAt(index) === Chars.Period) {
                 parser.index = index + 1;
                 return Token.Ellipsis;
               }
@@ -114,9 +116,9 @@ export function scan(parser: ParserState, context: Context): Token {
         case Token.Negate:
           parser.index++;
 
-          if (parser.source.charCodeAt(parser.index) === Chars.EqualSign) {
+          if (source.charCodeAt(parser.index) === Chars.EqualSign) {
             parser.index++;
-            if (parser.source.charCodeAt(parser.index) === Chars.EqualSign) {
+            if (source.charCodeAt(parser.index) === Chars.EqualSign) {
               parser.index++;
               return Token.StrictNotEqual;
             }
@@ -128,14 +130,14 @@ export function scan(parser: ParserState, context: Context): Token {
         // `%`, `%=`
         case Token.Modulo:
           parser.index++;
-          if (parser.source.charCodeAt(parser.index) !== Chars.EqualSign) return Token.Modulo;
+          if (source.charCodeAt(parser.index) !== Chars.EqualSign) return Token.Modulo;
           parser.index++;
           return Token.ModuloAssign;
 
         // `^`, `^=`
         case Token.BitwiseXor:
           parser.index++;
-          if (parser.source.charCodeAt(parser.index) !== Chars.EqualSign) return Token.BitwiseXor;
+          if (source.charCodeAt(parser.index) !== Chars.EqualSign) return Token.BitwiseXor;
           parser.index++;
           return Token.BitwiseXorAssign;
 
@@ -144,12 +146,12 @@ export function scan(parser: ParserState, context: Context): Token {
           parser.index++;
           if (parser.index >= parser.length) return Token.BitwiseOr;
 
-          ch = parser.source.charCodeAt(parser.index);
+          ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.VerticalBar) {
             parser.index++;
 
-            if (parser.source.charCodeAt(parser.index) !== Chars.EqualSign) {
+            if (source.charCodeAt(parser.index) !== Chars.EqualSign) {
               return Token.LogicalOr;
             }
             parser.index++;
@@ -169,12 +171,12 @@ export function scan(parser: ParserState, context: Context): Token {
           parser.index++;
 
           if (parser.index >= parser.length) return Token.BitwiseAnd;
-          ch = parser.source.charCodeAt(parser.index);
+          ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.Ampersand) {
             parser.index++;
 
-            if (parser.source.charCodeAt(parser.index) !== Chars.EqualSign) {
+            if (source.charCodeAt(parser.index) !== Chars.EqualSign) {
               return Token.LogicalAnd;
             }
             parser.index++;
@@ -192,11 +194,11 @@ export function scan(parser: ParserState, context: Context): Token {
         case Token.Assign:
           parser.index++;
           if (parser.index >= parser.length) return Token.Assign;
-          ch = parser.source.charCodeAt(parser.index);
+          ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.EqualSign) {
             parser.index++;
-            if (parser.source.charCodeAt(parser.index) === Chars.EqualSign) {
+            if (source.charCodeAt(parser.index) === Chars.EqualSign) {
               parser.index++;
               return Token.StrictEqual;
             }
@@ -215,7 +217,7 @@ export function scan(parser: ParserState, context: Context): Token {
 
           if (parser.index >= parser.length) return Token.Multiply;
 
-          ch = parser.source.charCodeAt(parser.index);
+          ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.EqualSign) {
             parser.index++;
@@ -226,7 +228,7 @@ export function scan(parser: ParserState, context: Context): Token {
 
           parser.index++;
 
-          if (parser.source.charCodeAt(parser.index) !== Chars.EqualSign) return Token.Exponentiate;
+          if (source.charCodeAt(parser.index) !== Chars.EqualSign) return Token.Exponentiate;
           parser.index++;
 
           return Token.ExponentiateAssign;
@@ -237,7 +239,7 @@ export function scan(parser: ParserState, context: Context): Token {
 
           if (parser.index >= parser.length) return Token.Add;
 
-          ch = parser.source.charCodeAt(parser.index);
+          ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.Plus) {
             parser.index++;
@@ -255,15 +257,15 @@ export function scan(parser: ParserState, context: Context): Token {
         case Token.Divide:
           parser.index++;
 
-          ch = parser.source.charCodeAt(parser.index);
+          ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.Slash) {
-            state = skipSingleLineComment(parser, state);
+            state = skipSingleLineComment(parser, source, state);
             continue;
           }
 
           if (ch === Chars.Asterisk) {
-            state = skipMultiLineComment(parser, context, state) as State;
+            state = skipMultiLineComment(parser, context, source, state) as State;
             continue;
           }
 
@@ -283,12 +285,12 @@ export function scan(parser: ParserState, context: Context): Token {
           let index = parser.index + 1;
 
           if (index < parser.length) {
-            ch = parser.source.charCodeAt(index);
+            ch = source.charCodeAt(index);
 
             if (ch === Chars.Period) {
               // The specs explicitly disallows a digit after `?.`, for example `?.a`
               // or `?.5` then it should be treated as a ternary rather than as an optional chain
-              ch = parser.source.charCodeAt(index + 1);
+              ch = source.charCodeAt(index + 1);
 
               if (ch >= Chars.Zero && ch <= Chars.Nine) {
                 parser.index = index + 1;
@@ -302,7 +304,7 @@ export function scan(parser: ParserState, context: Context): Token {
 
             if (ch === Chars.QuestionMark) {
               index++;
-              if (parser.source.charCodeAt(index) === Chars.EqualSign) {
+              if (source.charCodeAt(index) === Chars.EqualSign) {
                 parser.index = index + 1;
                 return Token.CoalesceAssign;
               }
@@ -319,15 +321,12 @@ export function scan(parser: ParserState, context: Context): Token {
         case Token.Subtract:
           parser.index++;
 
-          ch = parser.source.charCodeAt(parser.index);
+          ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.Hyphen) {
             parser.index++;
-            if (
-              parser.source.charCodeAt(parser.index) === Chars.GreaterThan &&
-              state & (State.NewLine | State.LineStart)
-            ) {
-              state = skipSingleHTMLComment(parser, context, state);
+            if (source.charCodeAt(parser.index) === Chars.GreaterThan && state & (State.NewLine | State.LineStart)) {
+              state = skipSingleHTMLComment(parser, context, source, state);
               continue;
             }
             return Token.Decrement;
@@ -345,10 +344,10 @@ export function scan(parser: ParserState, context: Context): Token {
 
           if (parser.index >= parser.length) return Token.LessThan;
 
-          ch = parser.source.charCodeAt(parser.index);
+          ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.LessThan) {
-            if (parser.source.charCodeAt(++parser.index) === Chars.EqualSign) {
+            if (source.charCodeAt(++parser.index) === Chars.EqualSign) {
               parser.index++;
               return Token.ShiftLeftAssign;
             }
@@ -363,10 +362,10 @@ export function scan(parser: ParserState, context: Context): Token {
           if (ch === Chars.Exclamation) {
             if (
               // Treat HTML open-comment as comment-till-end-of-line.
-              parser.source.charCodeAt(parser.index + 2) === Chars.Hyphen &&
-              parser.source.charCodeAt(parser.index + 1) === Chars.Hyphen
+              source.charCodeAt(parser.index + 2) === Chars.Hyphen &&
+              source.charCodeAt(parser.index + 1) === Chars.Hyphen
             ) {
-              state = skipSingleHTMLComment(parser, context, state);
+              state = skipSingleHTMLComment(parser, context, source, state);
               continue;
             }
           }
@@ -378,7 +377,7 @@ export function scan(parser: ParserState, context: Context): Token {
 
           if (parser.index >= parser.length) return Token.GreaterThan;
 
-          ch = parser.source.charCodeAt(parser.index);
+          ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.EqualSign) {
             parser.index++;
@@ -389,12 +388,12 @@ export function scan(parser: ParserState, context: Context): Token {
           parser.index++;
 
           if (parser.index < parser.length) {
-            ch = parser.source.charCodeAt(parser.index);
+            ch = source.charCodeAt(parser.index);
 
             if (ch === Chars.GreaterThan) {
               parser.index++;
 
-              if (parser.source.charCodeAt(parser.index) !== Chars.EqualSign) {
+              if (source.charCodeAt(parser.index) !== Chars.EqualSign) {
                 return Token.LogicalShiftRight;
               }
 
@@ -438,13 +437,13 @@ export function scan(parser: ParserState, context: Context): Token {
 
       // IdentifierContinue
       if ((unicodeLookup[(ch >>> 5) + 34816] >>> ch) & 31 & 1) {
-        return scanIdentifierSlowPath(parser, context, '', 0);
+        return scanIdentifierSlowPath(parser, context, source, /* maybeKeyword */ 0);
       }
 
       // high surrogate
       if ((ch & 0xfc00) === 0xd800) {
         // low surrogate
-        if ((parser.source.charCodeAt(parser.index + 1) & 0xfc00) !== 0xdc00) {
+        if ((source.charCodeAt(parser.index + 1) & 0xfc00) !== 0xdc00) {
           addDiagnostic(
             parser,
             context,
@@ -455,7 +454,7 @@ export function scan(parser: ParserState, context: Context): Token {
           );
         }
 
-        return scanIdentifierSlowPath(parser, context, '', 0);
+        return scanIdentifierSlowPath(parser, context, source, /* maybeKeyword */ 0);
       }
 
       addDiagnostic(

@@ -2,25 +2,23 @@ import { ParserState, Context } from '../common';
 import { Chars } from './chars';
 import { toHex, fromCodePoint } from './common';
 import { Token, descKeywordTable } from '../token';
-import { CharTypes, isIdentifierPart } from './charClassifier';
+import { CharTypes, CharFlags, isIdentifierPart } from './charClassifier';
 import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { unicodeLookup } from './unicode';
 
-export function scanIdentifier(parser: ParserState, context: Context): Token {
+export function scanIdentifier(parser: ParserState, context: Context, source: string): Token {
   const start = parser.index;
-  let char = parser.source.charCodeAt(parser.index);
+  let char = source.charCodeAt(parser.index);
 
-  while ((CharTypes[char] & 0b00000000000000000000000000000101) > 0) {
-    char = parser.source.charCodeAt(++parser.index);
-  }
+  do {
+    char = source.charCodeAt(++parser.index);
+  } while (CharTypes[char] & CharFlags.IdentifierPart);
 
-  const value = parser.source.slice(start, parser.index);
+  parser.tokenValue = source.slice(start, parser.index);
 
-  if (char > Chars.UpperZ) return scanIdentifierSlowPath(parser, context, value, 1);
+  if (char > Chars.UpperZ) return scanIdentifierSlowPath(parser, context, source, 1);
 
-  parser.tokenValue = value;
-
-  const token: Token | undefined = descKeywordTable[value];
+  const token: Token | undefined = descKeywordTable[parser.tokenValue];
 
   return token === void 0 ? Token.Identifier : token;
 }
@@ -28,38 +26,35 @@ export function scanIdentifier(parser: ParserState, context: Context): Token {
 export function scanIdentifierSlowPath(
   parser: ParserState,
   context: Context,
-  value: string,
+  source: string,
   maybeKeyword: 0 | 1
 ): Token {
   let start = parser.index;
-  let ch = parser.source.charCodeAt(parser.index);
+  let ch = source.charCodeAt(parser.index);
   let code: number | null = null;
 
-  while (parser.index < parser.length) {
-    if ((ch & 0xfc00) !== 0xd800) {
-      if (isIdentifierPart(ch)) {
-        parser.index++;
-      } else if (ch === Chars.Backslash) {
-        value += parser.source.slice(start, parser.index);
-        code = scanIdentifierEscape(parser, context);
-        // We intentionally check for '-1' so we can break out of the loop
-        // if we have encountered an error, and avoid double diagnostics
-        if (code < 0) break;
-        maybeKeyword = 1;
-        value += fromCodePoint(code);
-        start = parser.index;
-      } else {
-        break;
-      }
+  do {
+    if (isIdentifierPart(ch)) {
+      parser.index++;
+    } else if (ch === Chars.Backslash) {
+      parser.tokenValue += source.slice(start, parser.index);
+      code = scanIdentifierEscape(parser, context, source);
+      // We intentionally check for '-1' so we can break out of the loop
+      // if we have encountered an error, and avoid double diagnostics
+      if (code < 0) break;
+      maybeKeyword = 1;
+      parser.tokenValue += fromCodePoint(code);
+      start = parser.index;
     } else {
+      if ((ch & 0xfc00) !== 0xd800) break;
       parser.index++;
       // lower surrogate
-      const low = parser.source.charCodeAt(parser.index);
+      const low = source.charCodeAt(parser.index);
       // high surrogate and there is a next code unit
       if ((low & 0xfc00) === 0xdc00) {
         ch = ((ch & 0x3ff) << 10) + (low & 0x3ff) + 0x10000;
         // Check if this is a valid surrogate pair
-        if (((unicodeLookup[(ch >>> 5) + 0] >>> ch) & 31 & 1) === 0) {
+        if (!isIdentifierPart(ch)) {
           addDiagnostic(
             parser,
             context,
@@ -72,14 +67,13 @@ export function scanIdentifierSlowPath(
         parser.index++;
       }
     }
-    ch = parser.source.charCodeAt(parser.index);
-  }
 
-  value += parser.source.slice(start, parser.index);
+    ch = source.charCodeAt(parser.index);
+  } while (parser.index < parser.length);
 
-  const length = value.length;
+  parser.tokenValue += source.slice(start, parser.index);
 
-  parser.tokenValue = value;
+  const length = parser.tokenValue.length;
 
   // All keywords are of length 2 ≥ length ≥ 10, and in range 0x97 - 0x122 so we optimize for that.
   if (maybeKeyword && length >= 2 && length <= 11) {
@@ -94,8 +88,8 @@ export function scanIdentifierSlowPath(
   return Token.Identifier;
 }
 
-export function scanIdentifierEscape(parser: ParserState, context: Context): number {
-  if (parser.source.charCodeAt(parser.index + 1) !== Chars.LowerU) {
+export function scanIdentifierEscape(parser: ParserState, context: Context, source: string): number {
+  if (source.charCodeAt(parser.index + 1) !== Chars.LowerU) {
     addDiagnostic(
       parser,
       context,
@@ -114,14 +108,14 @@ export function scanIdentifierEscape(parser: ParserState, context: Context): num
 
   parser.index += 2; // skips '\\', 'u'
 
-  let char = parser.source.charCodeAt(parser.index);
+  let char = source.charCodeAt(parser.index);
 
   // Accept both \uxxxx and \u{xxxxxx}. In the latter case, the number of
   // hex digits between { } is arbitrary. \ and u have already been scanned.
   if (char === Chars.LeftBrace) {
     parser.index++; // skips '{'
 
-    char = parser.source.charCodeAt(parser.index);
+    char = source.charCodeAt(parser.index);
 
     let digit = toHex(char);
 
@@ -139,14 +133,14 @@ export function scanIdentifierEscape(parser: ParserState, context: Context): num
 
     let code = 0;
 
-    while (digit >= 0) {
+    do {
       code = (code << 4) | digit;
       if (code > Chars.LastUnicodeChar) {
         addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnicodeOverflow, DiagnosticKind.Error);
         return -1;
       }
-      digit = toHex((char = parser.source.charCodeAt(++parser.index)));
-    }
+      digit = toHex((char = source.charCodeAt(++parser.index)));
+    } while (digit >= 0);
 
     // At least 4 characters have to be read
     if (0 < digit || char !== Chars.RightBrace) {
@@ -183,7 +177,7 @@ export function scanIdentifierEscape(parser: ParserState, context: Context): num
       return -1;
     }
     code = (code << 4) | digit;
-    char = parser.source.charCodeAt(++parser.index);
+    char = source.charCodeAt(++parser.index);
   }
 
   // Check if this is a valid unicode escape sequence
@@ -200,19 +194,18 @@ export function scanIdentifierEscape(parser: ParserState, context: Context): num
   return code;
 }
 
-export function scanIdentifierEscapeIdStart(parser: ParserState, context: Context): Token {
-  const cookedChar = scanIdentifierEscape(parser, context);
+export function scanIdentifierEscapeIdStart(parser: ParserState, context: Context, source: string): Token {
+  const cookedChar = scanIdentifierEscape(parser, context, source);
   if (cookedChar > 0) {
-    return scanIdentifierSlowPath(parser, context, fromCodePoint(cookedChar), /* maybeKeyword */ 1);
+    parser.tokenValue = fromCodePoint(cookedChar);
+    return scanIdentifierSlowPath(parser, context, source, /* maybeKeyword */ 1);
   }
-  if (parser.source.charCodeAt(parser.index) === Chars.Backslash) parser.index++;
+  if (source.charCodeAt(parser.index) === Chars.Backslash) parser.index++;
   parser.tokenValue = fromCodePoint(cookedChar);
   return Token.Identifier;
 }
 
-// TODO: Uncomment this as soon as class fields reach stage 4
-
-export function scanPrivateName(parser: ParserState, context: Context, ch: number): Token | any {
+export function scanPrivateName(parser: ParserState, context: Context, source: string, ch: number): Token | any {
   addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error, '#');
 
   if (((unicodeLookup[(ch >>> 5) + 34816] >>> ch) & 31 & 1) === 0) {
@@ -221,7 +214,7 @@ export function scanPrivateName(parser: ParserState, context: Context, ch: numbe
   }
 
   while ((CharTypes[ch] & 0b00000000000000000000000000000101) > 0) {
-    ch = parser.source.charCodeAt(++parser.index);
+    ch = source.charCodeAt(++parser.index);
   }
 
   return Token.PrivateName;
