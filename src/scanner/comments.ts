@@ -3,11 +3,13 @@ import { Chars } from './chars';
 import { unicodeLookup } from './unicode';
 import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { State } from './common';
+import { CharTypes, CharFlags } from './charClassifier';
 
 export function skipSingleHTMLComment(parser: ParserState, context: Context, source: string, state: State): State {
-  if (context & (Context.OptionsDisableWebCompat | Context.Strict)) {
+  if (context & (Context.OptionsDisableWebCompat | Context.Module)) {
     addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.HtmlCommentInModule, DiagnosticKind.Error);
   }
+
   return skipSingleLineComment(parser, source, state);
 }
 
@@ -25,41 +27,40 @@ export function skipMultiLineComment(
   source: string,
   state: State
 ): State | void {
-  let char = source.charCodeAt(parser.index);
-
   while (parser.index < parser.length) {
-    if (char < 0x43) {
-      if (char === Chars.Asterisk) {
-        state = (state | State.LastIsCR) ^ State.LastIsCR;
-        while (char === Chars.Asterisk) {
-          char = source.charCodeAt(parser.index++);
-        }
-        if (char === Chars.Slash) return state;
-      }
+    let ch = source.charCodeAt(parser.index);
 
-      if (char === Chars.CarriageReturn) {
+    if (ch === Chars.Asterisk) {
+      while (ch === Chars.Asterisk) {
+        ch = source.charCodeAt(++parser.index);
+      }
+      state = (state | State.LastIsCR) ^ State.LastIsCR;
+      if (ch === Chars.Slash) {
+        parser.index++;
+        return state;
+      }
+    } else if ((ch - 0xe) & 0x2000) {
+      if (ch === Chars.CarriageReturn) {
         state |= State.NewLine | State.LastIsCR;
-        parser.columnOffset = parser.index;
         parser.index++;
-        parser.hasLineTerminator = true;
+        parser.columnOffset = parser.index;
         parser.line++;
-      } else if (char === Chars.LineFeed) {
-        parser.columnOffset = parser.index;
+        parser.hasLineTerminator = true;
+      } else if (ch === Chars.LineFeed || (ch & ~1) === Chars.LineSeparator) {
         parser.index++;
+        parser.columnOffset = parser.index;
         parser.hasLineTerminator = true;
         if ((state & State.LastIsCR) === 0) parser.line++;
         state = ((state | State.LastIsCR) ^ State.LastIsCR) | State.NewLine;
+      } else {
+        state &= ~State.LastIsCR;
+        parser.index++;
       }
-    }
-
-    if ((char & ~1) === Chars.LineSeparator) {
-      parser.columnOffset = parser.index;
-      state |= State.NewLine;
+    } else {
+      state &= ~State.LastIsCR;
       parser.index++;
-      parser.line++;
-      parser.hasLineTerminator = true;
     }
-    char = source.charCodeAt(parser.index++);
   }
+
   addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedComment, DiagnosticKind.Error);
 }

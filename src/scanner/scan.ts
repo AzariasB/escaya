@@ -151,10 +151,9 @@ export function scan(parser: ParserState, context: Context): Token {
           parser.index++;
           return Token.BitwiseXorAssign;
 
-        // `|`, `||`, `|=`
+        // `|`, `||`, `|=`, `||=`
         case Token.BitwiseOr:
           parser.index++;
-          if (parser.index >= parser.length) return Token.BitwiseOr;
 
           ch = source.charCodeAt(parser.index);
 
@@ -176,11 +175,10 @@ export function scan(parser: ParserState, context: Context): Token {
 
           return Token.BitwiseOr;
 
-        // `&`, `&&`, `&=`
+        // `&`, `&&`, `&=`, `&&=`
         case Token.BitwiseAnd:
           parser.index++;
 
-          if (parser.index >= parser.length) return Token.BitwiseAnd;
           ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.Ampersand) {
@@ -203,7 +201,7 @@ export function scan(parser: ParserState, context: Context): Token {
         // `=`, `==`, `===`, `=>`
         case Token.Assign:
           parser.index++;
-          if (parser.index >= parser.length) return Token.Assign;
+
           ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.EqualSign) {
@@ -225,8 +223,6 @@ export function scan(parser: ParserState, context: Context): Token {
         case Token.Multiply:
           parser.index++;
 
-          if (parser.index >= parser.length) return Token.Multiply;
-
           ch = source.charCodeAt(parser.index);
 
           if (ch === Chars.EqualSign) {
@@ -246,8 +242,6 @@ export function scan(parser: ParserState, context: Context): Token {
         // `+`, `++`, `+=`
         case Token.Add:
           parser.index++;
-
-          if (parser.index >= parser.length) return Token.Add;
 
           ch = source.charCodeAt(parser.index);
 
@@ -292,38 +286,34 @@ export function scan(parser: ParserState, context: Context): Token {
 
         // `?`, `?.`, `??`, `??=`
         case Token.QuestionMark: {
-          let index = parser.index + 1;
-
-          if (index < parser.length) {
-            ch = source.charCodeAt(index);
-
-            if (ch === Chars.Period) {
-              // The specs explicitly disallows a digit after `?.`, for example `?.a`
-              // or `?.5` then it should be treated as a ternary rather than as an optional chain
-              ch = source.charCodeAt(index + 1);
-
-              if (ch >= Chars.Zero && ch <= Chars.Nine) {
-                parser.index = index + 1;
-                return Token.QuestionMark;
-              }
-
-              parser.index = index + 1;
-
-              return Token.QuestionMarkPeriod;
-            }
-
-            if (ch === Chars.QuestionMark) {
-              index++;
-              if (source.charCodeAt(index) === Chars.EqualSign) {
-                parser.index = index + 1;
-                return Token.CoalesceAssign;
-              }
-
-              parser.index = index;
-              return Token.Coalesce;
-            }
-          }
           parser.index++;
+
+          ch = source.charCodeAt(parser.index);
+
+          if (ch === Chars.Period) {
+            parser.index++;
+            // The specs explicitly disallows a digit after `?.`, for example `?.a`
+            // or `?.5` then it should be treated as a ternary rather than as an optional chain
+            ch = source.charCodeAt(parser.index);
+
+            if (ch >= Chars.Zero && ch <= Chars.Nine) {
+              parser.index++;
+              return Token.QuestionMark;
+            }
+
+            return Token.QuestionMarkPeriod;
+          }
+
+          if (ch === Chars.QuestionMark) {
+            parser.index++;
+            if (source.charCodeAt(parser.index) === Chars.EqualSign) {
+              parser.index++;
+              return Token.CoalesceAssign;
+            }
+
+            return Token.Coalesce;
+          }
+
           return Token.QuestionMark;
         }
 
@@ -335,6 +325,7 @@ export function scan(parser: ParserState, context: Context): Token {
 
           if (ch === Chars.Hyphen) {
             parser.index++;
+
             if (source.charCodeAt(parser.index) === Chars.GreaterThan && state & (State.NewLine | State.LineStart)) {
               state = skipSingleHTMLComment(parser, context, source, state);
               continue;
@@ -351,8 +342,6 @@ export function scan(parser: ParserState, context: Context): Token {
         // `<`, `<=`, `<<`, `<<=`, `</`, `<!--`
         case Token.LessThan:
           parser.index++;
-
-          if (parser.index >= parser.length) return Token.LessThan;
 
           ch = source.charCodeAt(parser.index);
 
@@ -375,6 +364,7 @@ export function scan(parser: ParserState, context: Context): Token {
               source.charCodeAt(parser.index + 2) === Chars.Hyphen &&
               source.charCodeAt(parser.index + 1) === Chars.Hyphen
             ) {
+              parser.index += 3;
               state = skipSingleHTMLComment(parser, context, source, state);
               continue;
             }
@@ -384,8 +374,6 @@ export function scan(parser: ParserState, context: Context): Token {
         // `>`, `>=`, `>>`, `>>>`, `>>=`, `>>>=`
         case Token.GreaterThan:
           parser.index++;
-
-          if (parser.index >= parser.length) return Token.GreaterThan;
 
           ch = source.charCodeAt(parser.index);
 

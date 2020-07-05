@@ -19,9 +19,10 @@ export function scanNumber(parser: ParserState, context: Context, source: string
 
   // Optimization: most decimal values fit into 4 bytes.
   let value = 0;
-  const start = parser.index;
   let type = NumberKind.Decimal;
   let disallowBigInt = false;
+
+  const start = parser.index;
 
   if (isFloat) {
     do {
@@ -30,6 +31,8 @@ export function scanNumber(parser: ParserState, context: Context, source: string
 
     disallowBigInt = true;
   } else {
+    // Zero digits - '0' - is structured as an optimized finite state machine
+    // and does a quick scan for a hexadecimal, binary, octal or implicit octal
     if (ch === Chars.Zero) {
       parser.index++; // skips '0'
 
@@ -48,7 +51,7 @@ export function scanNumber(parser: ParserState, context: Context, source: string
                   parser,
                   context,
                   DiagnosticSource.Lexer,
-                  DiagnosticCode.IdafterNumber,
+                  DiagnosticCode.UnexpectedIdentNumber,
                   DiagnosticKind.Error
                 );
               }
@@ -68,7 +71,7 @@ export function scanNumber(parser: ParserState, context: Context, source: string
                   parser,
                   context,
                   DiagnosticSource.Lexer,
-                  DiagnosticCode.IdafterNumber,
+                  DiagnosticCode.UnexpectedIdentNumber,
                   DiagnosticKind.Error
                 );
               }
@@ -84,11 +87,10 @@ export function scanNumber(parser: ParserState, context: Context, source: string
                   parser,
                   context,
                   DiagnosticSource.Lexer,
-                  DiagnosticCode.IdafterNumber,
+                  DiagnosticCode.UnexpectedIdentNumber,
                   DiagnosticKind.Error
                 );
               }
-
               type = NumberKind.Octal;
               break;
 
@@ -105,7 +107,7 @@ export function scanNumber(parser: ParserState, context: Context, source: string
             case Chars.Five:
             case Chars.Six:
             case Chars.Seven:
-              if (type === NumberKind.Octal) {
+              if (type & NumberKind.Octal) {
                 value = value * 8 + (ch - Chars.Zero);
                 break;
               }
@@ -123,7 +125,7 @@ export function scanNumber(parser: ParserState, context: Context, source: string
             case Chars.UpperD:
             case Chars.UpperE:
             case Chars.UpperF:
-              if (type === NumberKind.Hex) {
+              if (type & NumberKind.Hex) {
                 value = value * 0x0010 + toHex(ch);
                 break;
               }

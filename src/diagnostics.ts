@@ -129,7 +129,8 @@ export enum DiagnosticCode {
   InvalidBigIntLiteral,
   UnterminatedComment,
   TemplateBadEscape,
-  UnsupportedUnicodeIdent
+  UnsupportedUnicodeIdent,
+  UnexpectedIdentNumber
 }
 
 export const DiagnosticMessages: {
@@ -232,7 +233,8 @@ export const DiagnosticMessages: {
   [DiagnosticCode.MissingExponent]: 'Non-number found after exponent indicator',
   [DiagnosticCode.UnknownDigit]: 'Unknown digit',
   [DiagnosticCode.InvalidBigIntLiteral]: 'Invalid BigInt syntax',
-  [DiagnosticCode.UnsupportedUnicodeIdent]: 'Unsupported unicode escape in identifier escapes start'
+  [DiagnosticCode.UnsupportedUnicodeIdent]: 'Unsupported unicode escape in identifier escapes start',
+  [DiagnosticCode.UnexpectedIdentNumber]: 'An identifier or number immediately follow a numeric literal'
 };
 
 export function createDiagnostic(

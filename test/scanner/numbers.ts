@@ -85,9 +85,9 @@ describe('Scanner - numeric literals', () => {
   fail('invalid 0098n', '0098n', Context.Strict);
   fail('invalid 3in []', '3in []', Context.OptionsDisableWebCompat);
   fail('invalid 3in', '3in', Context.Empty);
-  //  fail('invalid 00o0', '00o0', Context.Empty);
-  //  fail('invalid 00b0', '00b0', Context.Empty);
-  //  fail('invalid 00x0', '00x0', Context.Empty);
+  fail('invalid 00o0', '00o0', Context.Empty);
+  fail('invalid 00b0', '00b0', Context.Empty);
+  fail('invalid 00x0', '00x0', Context.Empty);
   fail('invalid 0o', '0o', Context.Empty);
   fail('invalid 123abc', '123abc', Context.Empty);
   fail('invalid 00', '00', Context.Strict);
