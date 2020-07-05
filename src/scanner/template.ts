@@ -107,10 +107,6 @@ export function parseTemplateEscape(
       return '\f';
     case Chars.LowerR:
       return '\r';
-    case Chars.SingleQuote:
-      return "'";
-    case Chars.DoubleQuote:
-      return '"';
 
     // ASCII escapes
     case Chars.LowerX: {
@@ -184,22 +180,6 @@ export function parseTemplateEscape(
                 DiagnosticKind.Error
               );
             }
-
-            // NotEscapeSequence :
-            //   u { [lookahread not one of HexDigit]
-            //   u { NotCodePoint
-            //   u { CodePoint [lookahead != }]
-            //
-            // NotCodePoint :
-            //   HexDigits but not if MV of HexDigits <= 0x10FFFF
-            //
-            // CodePoint :
-            //   HexDigits but not if MV of HexDigits > 0x10FFFF
-            parser.index++;
-            while (toHex(source.charCodeAt(parser.index)) >= 0) {
-              parser.index++;
-            }
-
             return -1;
           }
 

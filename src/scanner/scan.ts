@@ -437,7 +437,7 @@ export function scan(parser: ParserState, context: Context): Token {
 
       // IdentifierContinue
       if ((unicodeLookup[(ch >>> 5) + 34816] >>> ch) & 31 & 1) {
-        return scanIdentifierSlowPath(parser, context, source, /* maybeKeyword */ 0);
+        return scanIdentifierSlowPath(parser, context, source);
       }
 
       // high surrogate
@@ -454,7 +454,7 @@ export function scan(parser: ParserState, context: Context): Token {
           );
         }
 
-        return scanIdentifierSlowPath(parser, context, source, /* maybeKeyword */ 0);
+        return scanIdentifierSlowPath(parser, context, source);
       }
 
       addDiagnostic(

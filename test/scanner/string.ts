@@ -14,13 +14,16 @@ describe('Scanner - String literal', () => {
 
   fail('invalid overflow', '"\\"', Context.Empty);
   fail('invalid overflow', '"oops \\u{110001}"', Context.Empty);
-
   fail('invalid newline', '"xyz \\12x"', Context.Strict);
   fail('invalid newline', '"xyz \\1239"', Context.Strict);
-
   fail('invalid newline', '"\n"', Context.Empty);
   fail('invalid linefeed', '"\r"', Context.Empty);
   fail('invalid lf + nl', '"\r\n"', Context.Empty);
+  fail('invalid linefeed', '"\\001"', Context.Strict);
+  fail('invalid linefeed', '"\\01"', Context.Strict);
+  fail('invalid linefeed', '"\\6"', Context.Strict);
+  fail('invalid linefeed', '"\\7"', Context.Strict);
+  fail('invalid linefeed', '"\\8"', Context.Strict);
   fail('invalid closing quote', '"', Context.Empty);
   fail('invalid hex', '"\\x0g"', Context.Empty);
   fail('invalid hex', '"\\xg0"', Context.Empty);
@@ -79,14 +82,14 @@ describe('Scanner - String literal', () => {
   fail('invalid space after Unicode \\u{0', "'x\\u{0 foo'", Context.Empty);
   fail('invalid space after Unicode \\u{a', "'x\\u{a foo'", Context.Empty);
   fail('invalid \\ after ASCII \\x', "'x\\x\\ foo'", Context.Empty);
-  //fail("invalid \\ after ASCII \\x0", "'x\\x0\\ foo'", Context.Empty);
+  fail('invalid \\ after ASCII \\x0', "'x\\x0\\ foo'", Context.Empty);
   fail('invalid \\ after Unicode \\u', "'x\\u\\ foo'", Context.Empty);
   fail('invalid \\ after Unicode \\u0', "'x\\u0\\ foo'", Context.Empty);
   fail('invalid \\ after Unicode \\ua', "'x\\ua\\ foo'", Context.Empty);
   fail('invalid \\ after Unicode \\u00', "'x\\u00\\ foo'", Context.Empty);
   fail('invalid \\ after Unicode \\u0a', "'x\\u0a\\ foo'", Context.Empty);
-  // fail("invalid \\ after Unicode \\u000", "'x\\u000\\ foo'", Context.Empty);
-  // fail("invalid \\ after Unicode \\u00a", "'x\\u00a\\ foo'", Context.Empty);
+  fail('invalid \\ after Unicode \\u000', "'x\\u000\\ foo'", Context.Empty);
+  fail('invalid \\ after Unicode \\u00a', "'x\\u00a\\ foo'", Context.Empty);
   fail('invalid \\ after Unicode \\u{', "'x\\u{\\ foo'", Context.Empty);
   fail('invalid \\ after Unicode \\u{0', "'x\\u{0\\ foo'", Context.Empty);
   fail('invalid \\ after Unicode \\u{a', "'x\\u{a\\ foo'", Context.Empty);
@@ -103,14 +106,14 @@ describe('Scanner - String literal', () => {
   fail('invalid x after Unicode \\u{0', "'x\\u{0x foo'", Context.Empty);
   fail('invalid x after Unicode \\u{a', "'x\\u{ax foo'", Context.Empty);
   fail('invalid X after ASCII \\x', "'x\\xX foo'", Context.Empty);
-  //fail("invalid X after ASCII \\x0", "'x\\x0X foo'", Context.Empty);
+  fail('invalid X after ASCII \\x0', "'x\\x0X foo'", Context.Empty);
   fail('invalid X after Unicode \\u', "'x\\uX foo'", Context.Empty);
   fail('invalid X after Unicode \\u0', "'x\\u0X foo'", Context.Empty);
   fail('invalid X after Unicode \\ua', "'x\\uaX foo'", Context.Empty);
   fail('invalid X after Unicode \\u00', "'x\\u00X foo'", Context.Empty);
   fail('invalid X after Unicode \\u0a', "'x\\u0aX foo'", Context.Empty);
-  //fail("invalid X after Unicode \\u000", "'x\\u000X foo'", Context.Empty);
-  //fail("invalid X after Unicode \\u00a", "'x\\u00aX foo'", Context.Empty);
+  fail('invalid X after Unicode \\u000', "'x\\u000X foo'", Context.Empty);
+  fail('invalid X after Unicode \\u00a', "'x\\u00aX foo'", Context.Empty);
   fail('invalid X after Unicode \\u{', "'x\\u{X foo'", Context.Empty);
   fail('invalid X after Unicode \\u{0', "'x\\u{0X foo'", Context.Empty);
   fail('invalid X after Unicode \\u{a', "'x\\u{aX foo'", Context.Empty);

@@ -16,19 +16,14 @@ export function scanIdentifier(parser: ParserState, context: Context, source: st
 
   parser.tokenValue = source.slice(start, parser.index);
 
-  if (char > Chars.UpperZ) return scanIdentifierSlowPath(parser, context, source, 1);
+  if (char > Chars.UpperZ) return scanIdentifierSlowPath(parser, context, source);
 
-  const token: Token | undefined = descKeywordTable[parser.tokenValue];
+  const token: Token | undefined = descKeywordTable.get(parser.tokenValue);
 
   return token === void 0 ? Token.Identifier : token;
 }
 
-export function scanIdentifierSlowPath(
-  parser: ParserState,
-  context: Context,
-  source: string,
-  maybeKeyword: 0 | 1
-): Token {
+export function scanIdentifierSlowPath(parser: ParserState, context: Context, source: string): Token {
   let start = parser.index;
   let ch = source.charCodeAt(parser.index);
   let code: number | null = null;
@@ -42,7 +37,6 @@ export function scanIdentifierSlowPath(
       // We intentionally check for '-1' so we can break out of the loop
       // if we have encountered an error, and avoid double diagnostics
       if (code < 0) break;
-      maybeKeyword = 1;
       parser.tokenValue += fromCodePoint(code);
       start = parser.index;
     } else {
@@ -76,8 +70,8 @@ export function scanIdentifierSlowPath(
   const length = parser.tokenValue.length;
 
   // All keywords are of length 2 ≥ length ≥ 10, and in range 0x97 - 0x122 so we optimize for that.
-  if (maybeKeyword && length >= 2 && length <= 11) {
-    const token: Token | undefined = descKeywordTable[parser.tokenValue];
+  if (length >= 2 && length <= 11) {
+    const token: Token | undefined = descKeywordTable.get(parser.tokenValue);
 
     if (token !== void 0) {
       return token;
@@ -198,7 +192,7 @@ export function scanIdentifierEscapeIdStart(parser: ParserState, context: Contex
   const cookedChar = scanIdentifierEscape(parser, context, source);
   if (cookedChar > 0) {
     parser.tokenValue = fromCodePoint(cookedChar);
-    return scanIdentifierSlowPath(parser, context, source, /* maybeKeyword */ 1);
+    return scanIdentifierSlowPath(parser, context, source);
   }
   if (source.charCodeAt(parser.index) === Chars.Backslash) parser.index++;
   parser.tokenValue = fromCodePoint(cookedChar);
