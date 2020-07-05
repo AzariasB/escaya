@@ -12,39 +12,39 @@ describe('Scanner - numeric literals', () => {
     });
   }
 
-  fail('fails on 005', '005', Context.Strict);
-  fail('fails on 08', '08', Context.Strict);
-  fail('fails on 1_', '1_', Context.Empty);
-  fail('fail on 0x', '0x', Context.Empty);
-  fail('fail on ', '10e', Context.Empty);
-  fail('fail on ', '10e-', Context.Empty);
-  fail('fail on ', '10e+', Context.Empty);
-  fail('fail on ', '10ef', Context.Empty);
-  fail('fail on ', '10e-+', Context.Empty);
-  fail('fail on ', '10e-+', Context.Empty);
-  fail('fail on 0b0b', '0b0b', Context.Empty);
-  fail('fail on 0b0a', '0b0a', Context.Empty);
-  fail('fail on 0b0d', '0b0d', Context.Empty);
-  fail('fail on 0b0e', '0b0e', Context.Empty);
-  fail('fail on 0b0f ', '0b0f', Context.Empty);
-  fail('fail on 1t', '1t', Context.Empty);
-  fail('fail on 0b0b', '0b0b', Context.Empty);
-  fail('fail on 0b0B', '0b0B', Context.Empty);
-  fail('fail on 0b0A', '0b0A', Context.Empty);
-  fail('fail on 0b0D', '0b0D', Context.Empty);
-  fail('fail on 0b0E', '0b0E', Context.Empty);
-  fail('fail on 0b0F', '0b0F', Context.Empty);
-  fail('fail on 0b0G', '0b0G', Context.Empty);
-  fail('fail on 0b0g', '0b0g', Context.Empty);
-  fail('fail on 0B0_1', '0B0_1', Context.Empty);
-  fail('fail on 0b_1', '0b_1', Context.Empty);
-  fail('fail on 0b1_', '0b1_', Context.Empty);
-  fail('fail on 0b9', '0b9', Context.Empty);
-  fail('fail on 0o9n', '0o9n', Context.Empty);
-  fail('fail on 0b2n', '0b2n', Context.Empty);
-  fail('fail on 0o9', '0o9', Context.Empty);
-  fail('fail on 0b0e', '0b0e', Context.Empty);
-  fail('fail on 0b0f', '0b0f', Context.Empty);
+  fail('invalid 005', '005', Context.Strict);
+  fail('invalid 08', '08', Context.Strict);
+  fail('invalid 1_', '1_', Context.Empty);
+  fail('invalid 0x', '0x', Context.Empty);
+  fail('invalid 10e', '10e', Context.Empty);
+  fail('invalid 10e-', '10e-', Context.Empty);
+  fail('invalid 10e+', '10e+', Context.Empty);
+  fail('invalid 10ef', '10ef', Context.Empty);
+  fail('invalid 10e-+', '10e-+', Context.Empty);
+  fail('invalid 10e-+', '10e-+', Context.Empty);
+  fail('invalid 0b0b', '0b0b', Context.Empty);
+  fail('invalid 0b0a', '0b0a', Context.Empty);
+  fail('invalid 0b0d', '0b0d', Context.Empty);
+  fail('invalid 0b0e', '0b0e', Context.Empty);
+  fail('invalid 0b0f ', '0b0f', Context.Empty);
+  fail('invalid 1t', '1t', Context.Empty);
+  fail('invalid 0b0b', '0b0b', Context.Empty);
+  fail('invalid 0b0B', '0b0B', Context.Empty);
+  fail('invalid 0b0A', '0b0A', Context.Empty);
+  fail('invalid 0b0D', '0b0D', Context.Empty);
+  fail('invalid 0b0E', '0b0E', Context.Empty);
+  fail('invalid 0b0F', '0b0F', Context.Empty);
+  fail('invalid 0b0G', '0b0G', Context.Empty);
+  fail('invalid 0b0g', '0b0g', Context.Empty);
+  fail('invalid 0B0_1', '0B0_1', Context.Empty);
+  fail('invalid 0b_1', '0b_1', Context.Empty);
+  fail('invalid 0b1_', '0b1_', Context.Empty);
+  fail('invalid 0b9', '0b9', Context.Empty);
+  fail('invalid 0o9n', '0o9n', Context.Empty);
+  fail('invalid 0b2n', '0b2n', Context.Empty);
+  fail('invalid 0o9', '0o9', Context.Empty);
+  fail('invalid 0b0e', '0b0e', Context.Empty);
+  fail('invalid 0b0f', '0b0f', Context.Empty);
   fail('invalid binary with binary letters (b)', '0bB0a', Context.Empty);
   fail('invalid binary with binary letters (B)', '0b0ba', Context.Empty);
   fail('invalid binary with binary letters (b)', '0bB0a', Context.Empty);
@@ -73,39 +73,51 @@ describe('Scanner - numeric literals', () => {
   fail('invalid octal with octal prefix', '0oB0O01', Context.Empty);
   fail('invalid hex with hex prefix', '0X9786XEFG', Context.Empty);
   fail('invalid hex with hex prefix', '0X9786EFGX', Context.Empty);
-  fail('fail on ', '1t', Context.Empty);
-  fail('fail on ', '0077', Context.Strict);
-  fail('fails on 0b00101abc', '0b00101abc', Context.Empty);
-  fail('fails on 0b001013', '0b001013', Context.Empty);
-  fail('fails on 0b0_', '0b0_', Context.Empty);
-  fail('fails on 0x33in', '0x33in', Context.Empty);
-  fail('fails on 1\u005F0123456789', '1\\u005F0123456789', Context.Empty);
-  fail('fails on 5instanceof', '5instanceof', Context.Empty);
-  fail('fails on 0x33in', '0x33in', Context.Empty);
-  fail('fails on 0098n', '0098n', Context.Strict);
-  fail('fails on 3in []', '3in []', Context.Empty);
-  fail('fails on 3in', '3in', Context.Empty);
-  //  fail('fails on 00o0', '00o0', Context.Empty);
-  //  fail('fails on 00b0', '00b0', Context.Empty);
-  //  fail('fails on 00x0', '00x0', Context.Empty);
-  fail('fails on 0o', '0o', Context.Empty);
-  fail('fails on 123abc', '123abc', Context.Empty);
-  fail('fails on 00', '00', Context.Strict);
-  fail('fails on 000', '000', Context.Strict);
-  fail('fails on 005', '005', Context.Strict);
-  fail('fails on 08', '08', Context.Strict);
-  fail('fails on decimal integer followed by identifier', '3in1', Context.Empty);
-  fail('fails on decimal integer followed by identifier', '3.e', Context.Empty);
-  fail('fails on decimal integer followed by identifier', '3.e+abc', Context.Empty);
-  // fail('fails on Binary-integer-literal-like sequence with a leading 0', '00b0;', Context.Empty);
-  fail('fails on Octal-integer-literal-like sequence containing an invalid digit', '0o8', Context.Strict);
-  fail('fails on Octal-integer-literal-like sequence containing an invalid digit', '0b3', Context.Strict);
-  fail('fails on Octal-integer-literal-like sequence without any digits', '0o', Context.Strict);
-  fail('fails on Binary-integer-literal-like sequence without any digits', '0b;', Context.Strict);
-  fail('fails on Binary-integer-literal-like sequence containing an invalid digit', '0b2;', Context.Strict);
-  fail('fails on Binary-integer-literal-like sequence containing an invalid digit', '0077', Context.Strict);
-  //  fail('fails on .0000000001n', '.0000000001n', Context.Empty);
-  fail('fails on 0xabcinstanceof x', '0xabcinstanceof x', Context.Empty);
+  fail('invalid ', '1t', Context.Empty);
+  fail('invalid ', '0077', Context.Strict);
+  fail('invalid 0b00101abc', '0b00101abc', Context.Empty);
+  fail('invalid 0b001013', '0b001013', Context.Empty);
+  fail('invalid 0b0_', '0b0_', Context.Empty);
+  fail('invalid 0x33in', '0x33in', Context.Empty);
+  fail('invalid 1\u005F0123456789', '1\\u005F0123456789', Context.Empty);
+  fail('invalid 5instanceof', '5instanceof', Context.Empty);
+  fail('invalid 0x33in', '0x33in', Context.Empty);
+  fail('invalid 0098n', '0098n', Context.Strict);
+  fail('invalid 3in []', '3in []', Context.OptionsDisableWebCompat);
+  fail('invalid 3in', '3in', Context.Empty);
+  //  fail('invalid 00o0', '00o0', Context.Empty);
+  //  fail('invalid 00b0', '00b0', Context.Empty);
+  //  fail('invalid 00x0', '00x0', Context.Empty);
+  fail('invalid 0o', '0o', Context.Empty);
+  fail('invalid 123abc', '123abc', Context.Empty);
+  fail('invalid 00', '00', Context.Strict);
+  fail('invalid 000', '000', Context.Strict);
+  fail('invalid 005', '005', Context.Strict);
+  fail('invalid 08', '08', Context.Strict);
+  fail('invalid decimal integer followed by identifier', '3in1', Context.Empty);
+  fail('invalid decimal integer followed by identifier', '3.e', Context.Empty);
+  fail('invalid decimal integer followed by identifier', '3.e+abc', Context.OptionsDisableWebCompat);
+  fail('invalid Binary-integer-literal-like sequence with a leading 0', '00b0;', Context.Empty);
+  fail('invalid Octal-integer-literal-like sequence containing an invalid digit', '0o8', Context.Strict);
+  fail('invalid Octal-integer-literal-like sequence containing an invalid digit', '0b3', Context.Strict);
+  fail('invalid Octal-integer-literal-like sequence without any digits', '0o', Context.Strict);
+  fail('invalid Binary-integer-literal-like sequence without any digits', '0b;', Context.OptionsDisableWebCompat);
+  fail('invalid Binary-integer-literal-like sequence containing an invalid digit', '0b2;', Context.Strict);
+  fail('invalid Binary-integer-literal-like sequence containing an invalid digit', '0077', Context.Strict);
+  fail('invalid .0000000001n', '.0000000001n', Context.Empty);
+  fail('invalid hexadecimal digit.', '0xgn', Context.Empty);
+  fail('invalid hexadecimal digit.', '0xG', Context.Empty);
+  fail('invalid octal extension (005) in strict mode', '005', Context.Strict);
+  fail('invalid octal extension (06) in strict mode', '06', Context.Strict);
+  fail('invalid numeric followed by identifier', '3in []', Context.Empty);
+  fail('invalid numeric followed by identifier', '3in []', Context.OptionsDisableWebCompat);
+  fail('invalid BigInt suffix in legacy octal integer literal', '00n', Context.Empty);
+  fail('invalid numeric literal base with an exponent part', '.0e0n', Context.Empty);
+  fail('invalid MV', '2017.8n', Context.Empty);
+  fail('invalid BigInt suffix in non octal decimal integr literal', '08n', Context.Empty);
+  fail('invalid BigInt suffix in non octal decimal integr literal', '012348n', Context.Empty);
+
+  fail('invalid 0xabcinstanceof x', '0xabcinstanceof x', Context.Empty);
 
   describe('scan()', () => {
     const tokens: Array<[Context, Token, string, any]> = [
@@ -135,6 +147,10 @@ describe('Scanner - numeric literals', () => {
       [Context.Empty, Token.NumericLiteral, '0.001', 0.001],
       [Context.Empty, Token.NumericLiteral, '0.0', 0],
       [Context.Empty, Token.NumericLiteral, '4.0', 4],
+      [Context.Empty, Token.NumericLiteral, '.00', 0],
+      [Context.Empty, Token.NumericLiteral, '0.44', 0.44],
+      [Context.Empty, Token.NumericLiteral, '.55', 0.55],
+      [Context.Empty, Token.NumericLiteral, '.4E0', 0.4],
       [Context.Empty, Token.NumericLiteral, '0.0', 0],
       [Context.Empty, Token.NumericLiteral, '456.345', 456.345],
       [Context.Empty, Token.NumericLiteral, '1234567890.0987654321', 1234567890.0987654321],
@@ -195,6 +211,11 @@ describe('Scanner - numeric literals', () => {
       [Context.Empty, Token.NumericLiteral, '0xcafe', 51966],
       [Context.Empty, Token.NumericLiteral, '0x12345678', 305419896],
       [Context.Empty, Token.NumericLiteral, '0x0001', 1],
+      [Context.Empty, Token.NumericLiteral, '0X01000', 4096],
+      [Context.Empty, Token.NumericLiteral, '0X010000', 65536],
+      [Context.Empty, Token.NumericLiteral, '0X0100000', 1048576],
+      [Context.Empty, Token.NumericLiteral, '0X01000000', 16777216],
+      [Context.Empty, Token.NumericLiteral, '0X010000000', 268435456],
       [Context.Empty, Token.NumericLiteral, '0x0', 0],
       [Context.Empty, Token.NumericLiteral, '0x2', 2],
       [Context.Empty, Token.NumericLiteral, '0xD', 13],
@@ -230,12 +251,8 @@ describe('Scanner - numeric literals', () => {
       [Context.Empty, Token.NumericLiteral, '0b0', 0],
       [Context.Empty, Token.NumericLiteral, '0b00', 0],
       [Context.Empty, Token.NumericLiteral, '0b11', 3],
-      [Context.Empty, Token.NumericLiteral, '0b10', 2],
-      [Context.Empty, Token.NumericLiteral, '0B01', 1],
-      [Context.Empty, Token.NumericLiteral, '0B00', 0],
       [Context.Empty, Token.NumericLiteral, '0b010', 2],
       [Context.Empty, Token.NumericLiteral, '0b10', 2],
-      [Context.Empty, Token.NumericLiteral, '0b011', 3],
       [Context.Empty, Token.NumericLiteral, '0B011', 3],
       [Context.Empty, Token.NumericLiteral, '0B01', 1],
       [Context.Empty, Token.NumericLiteral, '0B01001', 9],
@@ -251,6 +268,17 @@ describe('Scanner - numeric literals', () => {
 
       // Octals
       [Context.Empty, Token.NumericLiteral, '0O12345670', 2739128],
+      [Context.Empty, Token.NumericLiteral, '0o10', 8],
+      [Context.Empty, Token.NumericLiteral, '0o10', 8],
+      [Context.Empty, Token.NumericLiteral, '0O10', 8],
+      [Context.Empty, Token.NumericLiteral, '0o00', 0],
+      [Context.Empty, Token.NumericLiteral, '0o11', 9],
+      [Context.Empty, Token.NumericLiteral, '0o77', 63],
+      [Context.Empty, Token.NumericLiteral, '0o45', 37],
+      [Context.Empty, Token.NumericLiteral, '0o45', 37],
+      [Context.Empty, Token.NumericLiteral, '0o45', 37],
+      [Context.Empty, Token.NumericLiteral, '0o45', 37],
+      [Context.Empty, Token.NumericLiteral, '0o45', 37],
       [Context.Empty, Token.NumericLiteral, '0o45', 37],
       [Context.Empty, Token.NumericLiteral, '0o5', 5],
       [Context.Empty, Token.NumericLiteral, '0o12', 10],
@@ -279,13 +307,10 @@ describe('Scanner - numeric literals', () => {
 
       // BigInt literal
 
-      // [Context.Empty, Token.BigIntLiteral, '1n', 1],
-      // [Context.Empty, Token.BigIntLiteral, '1.1n', 1.1],
-      // [Context.Empty, Token.BigIntLiteral, '.1n', 0.1],
+      [Context.Empty, Token.BigIntLiteral, '1n', 1],
       [Context.Empty, Token.BigIntLiteral, '0x324ABCdefn', 13500141039],
       [Context.Empty, Token.BigIntLiteral, '0b1110n', 14],
       [Context.Empty, Token.NumericLiteral, '0o1210', 648]
-      //[Context.Empty, Token.BigIntLiteral, '0098n', 98]
     ];
 
     for (const [ctx, token, op, value] of tokens) {

@@ -78,6 +78,27 @@ describe('Scanner - Comments', () => {
     column: 3
   });
 
+  pass('skips single line comment with no break space', {
+    source: '//\u00A0 single line \u00A0 comment \u00A0',
+    hasNext: false,
+    line: 1,
+    column: 27
+  });
+
+  pass('skips single line comment with horizontal tab (U+0009)', {
+    source: '//\u0009 single line \u0009 comment \u0009',
+    hasNext: false,
+    line: 1,
+    column: 27
+  });
+
+  pass('skips single line comment single space (U+0020)', {
+    source: '//\u0020 single line \u0020 comment \u0020',
+    hasNext: false,
+    line: 1,
+    column: 27
+  });
+
   function passAll(name: (lt: string) => string, opts: (lt: string) => any) {
     pass(name('line feed'), opts('\n'));
     pass(name('carriage return'), opts('\r'));

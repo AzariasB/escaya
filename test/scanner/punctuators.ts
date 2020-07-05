@@ -122,7 +122,7 @@ describe('Scanner - Punctuator', () => {
     ];
 
     for (const [ctx, token, op] of tokens) {
-      it(`scans '${op}' at the end`, () => {
+      it(`scans '${op}' foo`, () => {
         const parser = create(op);
         t.deepEqual(
           {
@@ -140,7 +140,7 @@ describe('Scanner - Punctuator', () => {
         );
       });
 
-      it(`scans '${op}' with more to go`, () => {
+      it(`scans '${op}' foo bar`, () => {
         const parser = create(`${op} `);
         t.deepEqual(
           {

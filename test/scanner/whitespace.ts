@@ -54,10 +54,17 @@ describe('Scanner - Whitespace', () => {
   });
 
   pass('skips vertical tabs', {
-    source: '\v\v\v\v\v\v\v\v',
+    source: '\v\v\v\v\v\v\v\u000B',
     hasNext: false,
     line: 1,
     column: 8
+  });
+
+  pass('skips horizontal tabs', {
+    source: '\u0009\u0009\u0009\u0009\u0009',
+    hasNext: false,
+    line: 1,
+    column: 5
   });
 
   passAll(

@@ -21,11 +21,14 @@ export function scanNumber(parser: ParserState, context: Context, source: string
   let value = 0;
   const start = parser.index;
   let type = NumberKind.Decimal;
+  let disallowBigInt = false;
 
   if (isFloat) {
     do {
       ch = source.charCodeAt(++parser.index);
     } while (ch <= Chars.Nine && ch >= Chars.Zero);
+
+    disallowBigInt = true;
   } else {
     if (ch === Chars.Zero) {
       parser.index++; // skips '0'
@@ -176,6 +179,10 @@ export function scanNumber(parser: ParserState, context: Context, source: string
           addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.StrictOctal, DiagnosticKind.Error);
         }
 
+        // BigInt suffix is invalid in non-octal decimal integr literal,
+        // so we need to set 'disallowBigInt' to 'true' here
+        disallowBigInt = true;
+
         type = NumberKind.ImplicitOctal;
 
         do {
@@ -188,6 +195,17 @@ export function scanNumber(parser: ParserState, context: Context, source: string
             break;
           }
         } while (ch >= Chars.Zero && ch <= Chars.Nine);
+
+        // BigInt suffix is disallowed in legacy octal integer literal
+        if (ch === Chars.LowerN) {
+          addDiagnostic(
+            parser,
+            context,
+            DiagnosticSource.Lexer,
+            DiagnosticCode.InvalidBigIntLiteral,
+            DiagnosticKind.Error
+          );
+        }
 
         if (type === NumberKind.ImplicitOctal) {
           parser.tokenValue = value;
@@ -216,6 +234,7 @@ export function scanNumber(parser: ParserState, context: Context, source: string
     }
 
     if (ch === Chars.Period) {
+      disallowBigInt = true;
       ch = source.charCodeAt(++parser.index);
       while (ch <= Chars.Nine && ch >= Chars.Zero) {
         ch = source.charCodeAt(++parser.index);
@@ -224,6 +243,9 @@ export function scanNumber(parser: ParserState, context: Context, source: string
   }
 
   if (ch === Chars.LowerN) {
+    if (disallowBigInt) {
+      addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidBigIntLiteral, DiagnosticKind.Error);
+    }
     parser.index++;
     parser.tokenValue = parseFloat(source.slice(start, parser.index));
     return Token.BigIntLiteral;
