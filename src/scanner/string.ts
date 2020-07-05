@@ -4,7 +4,7 @@ import { Token } from '../token';
 import { Chars } from './chars';
 import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
 import { CharTypes, CharFlags } from './charClassifier';
-import { escapeChars } from './tables';
+import { oneCharASCII } from './tables';
 
 /**
  * Scan a string token.
@@ -15,20 +15,28 @@ export function scanString(parser: ParserState, context: Context, source: string
   parser.index++;
   let start = parser.index;
   let ch = source.charCodeAt(parser.index);
-  // LT disallowed in string literals, so we optimize for that
 
   while ((CharTypes[ch] & CharFlags.LineTerminator) === 0) {
-    if (ch === quote) {
-      ret += source.substring(start, parser.index);
-      parser.index++;
-      parser.tokenValue = ret;
-      return Token.StringLiteral;
-    }
     if (ch === Chars.Backslash) {
       ret += source.substring(start, parser.index);
-      ret += scanStringEscape(parser, context, source);
+      // Most common escape sequences first
+      parser.index++;
+      ch = source.charCodeAt(parser.index);
+      const escape = oneCharASCII[ch];
+      if (escape) {
+        parser.index++;
+        ret += escape;
+      } else {
+        ret += scanStringEscape(parser, context, source, ch);
+      }
       start = parser.index;
     } else {
+      if (ch === quote) {
+        ret += source.substring(start, parser.index);
+        parser.index++;
+        parser.tokenValue = ret;
+        return Token.StringLiteral;
+      }
       parser.index++;
     }
 
@@ -42,35 +50,9 @@ export function scanString(parser: ParserState, context: Context, source: string
   return Token.StringLiteral;
 }
 
-export function scanStringEscape(parser: ParserState, context: Context, source: string): string {
-  //const start = pos;
+export function scanStringEscape(parser: ParserState, context: Context, source: string, ch: number): string {
   parser.index++;
-  if (parser.index >= parser.length) {
-    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedString, DiagnosticKind.Error);
-    return '';
-  }
-
-  const ch = source.charCodeAt(parser.index);
-
-  parser.index++;
-  switch (escapeChars[ch]) {
-    // Magic escapes
-    case Chars.LowerB:
-      return '\b';
-    case Chars.LowerT:
-      return '\t';
-    case Chars.LowerN:
-      return '\n';
-    case Chars.LowerV:
-      return '\v';
-    case Chars.LowerF:
-      return '\f';
-    case Chars.LowerR:
-      return '\r';
-    case Chars.SingleQuote:
-      return "'";
-    case Chars.DoubleQuote:
-      return '"';
+  switch (ch) {
     case Chars.Zero:
     case Chars.One:
     case Chars.Two:
