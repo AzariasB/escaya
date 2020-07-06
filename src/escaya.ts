@@ -1,7 +1,7 @@
 import * as Types from './types';
 import { Context, Flags, RootNode } from './common';
 import { parseModuleItem, parseStatementListItem, parseSource } from './parser';
-import { parseIncremental, createNodeCursor, updateNodePositions } from './incremental';
+import { parseIncremental } from './incremental';
 
 /**
  * The parser options.
@@ -56,7 +56,7 @@ export function recovery(source: string, filename: string, options?: Options): R
 }
 
 /**
- * Incrementally parse a module or script in recovery mode
+ * Incrementally update a module or script in recovery mode
  */
 export function update(
   root: RootNode,
@@ -76,13 +76,8 @@ export function update(
   // Inherit the mutual parser flags from the RootNode, in case any flags need passed by reference
   const flags = root.mutualFlags;
 
-  if (root.leafs.length === 0) return parseIncremental(text, filename, context, flags, /* setParents */ false);
-
-  const nodeCursor = createNodeCursor(root);
-
-  updateNodePositions(root, sourceChangeRange);
-
-  return parseIncremental(text, filename, context, flags, /* setParents */ true, nodeCursor);
+  // Note: This will trigger a 'full parse' for now.
+  return parseIncremental(text, filename, context, flags, /* setParents */ false);
 }
 
 export const version = '0.0.1';
