@@ -9,14 +9,7 @@
     <a href="https://github.com/escaya/escaya/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/escaya/escaya.svg" alt="License" /></a>
 </p>
 
-
 **Work in progress**
-
-Still too early to release the source file to public, but a demo can be found [here](https://escaya.github.io/escaya/).
-
-**Note** Incremental parsing have now been enabled on the 'RootNode' in the demo. Open up the console in your browser to see the recovered AST
-nodes. Write a bunch of ;;;;;;, and move the cursor in different directions and the magic will happen :)
-
 
 ## Features
 
