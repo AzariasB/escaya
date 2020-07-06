@@ -5,11 +5,7 @@ import { Chars } from './chars';
 export const enum State {
   None = 0,
   NewLine = 1 << 0,
-  LineStart = 1 << 1,
-  LastIsCR = 1 << 2,
-  Collecting = 1 << 3,
-  Trailing = 1 << 4,
-  Leading = 1 << 5
+  LastIsCR = 1 << 2
 }
 
 // Converts an ASCII alphanumeric digit [0-9a-zA-Z] to number as if in base-36.

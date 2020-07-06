@@ -13,10 +13,6 @@ describe('Scanner - Comments', () => {
   }
 
   fail('fails on /**', '/**', Context.Empty);
-  fail('fails on HTML Close in module code', ' -->', Context.Module);
-  fail('fails on HTML Close without AnnexB', '-->', Context.OptionsDisableWebCompat);
-  fail('fails on HTML Open in module code', ' <!--', Context.Module);
-  fail('fails on HTML Open without AnnexB', '<!--', Context.OptionsDisableWebCompat);
 
   const tokens: [Context, Token, string, string][] = [
     [Context.Empty, Token.EndOfSource, '//', ''],
@@ -426,4 +422,12 @@ describe('Scanner - Comments', () => {
       column: 1
     })
   );
+
+  pass('avoids block HTML close with chars w/o line terminator', {
+    source: "/**/  --> the comment doesn't extend to these characters",
+    context: Context.Empty,
+    hasNext: false,
+    line: 1,
+    column: 56
+  });
 });

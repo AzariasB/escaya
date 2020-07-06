@@ -1,6 +1,6 @@
 import { ParserState, Context } from '../common';
 import { Chars } from './chars';
-import { skipMultiLineComment, skipSingleLineComment, skipSingleHTMLComment } from './comments';
+import { skipMultiLineComment, skipSingleLineComment } from './comments';
 import { Token } from '../token';
 import {
   scanIdentifier,
@@ -23,7 +23,7 @@ export function scan(parser: ParserState, context: Context): Token {
   // Position of 'index' before whitespace.
   parser.startIndex = parser.index;
 
-  let state = parser.index === 0 ? State.LineStart : State.None;
+  let state = parser.index === 0 ? State.NewLine : State.None;
   let source = parser.source;
 
   while (parser.index < parser.length) {
@@ -76,12 +76,8 @@ export function scan(parser: ParserState, context: Context): Token {
         case Token.EscapedIdentifier:
           return scanIdentifierEscapeIdStart(parser, context, source);
 
-        // `#foo`, `#!shebang`
+        // `#foo`
         case Token.PrivateName:
-          if (state & State.LineStart && source.charCodeAt(parser.index + 1) === Chars.Exclamation) {
-            state = skipSingleLineComment(parser, source, state);
-            continue;
-          }
           return scanPrivateName(parser, context, source, ch);
 
         case Token.CarriageReturn:
@@ -325,9 +321,12 @@ export function scan(parser: ParserState, context: Context): Token {
 
           if (ch === Chars.Hyphen) {
             parser.index++;
-
-            if (source.charCodeAt(parser.index) === Chars.GreaterThan && state & (State.NewLine | State.LineStart)) {
-              state = skipSingleHTMLComment(parser, context, source, state);
+            if (
+              (context & (Context.Module | Context.OptionsDisableWebCompat)) === 0 &&
+              state & State.NewLine &&
+              source.charCodeAt(parser.index) === Chars.GreaterThan
+            ) {
+              state = skipSingleLineComment(parser, source, state);
               continue;
             }
             return Token.Decrement;
@@ -360,12 +359,11 @@ export function scan(parser: ParserState, context: Context): Token {
           // Check for <!-- comments
           if (ch === Chars.Exclamation) {
             if (
-              // Treat HTML open-comment as comment-till-end-of-line.
-              source.charCodeAt(parser.index + 2) === Chars.Hyphen &&
-              source.charCodeAt(parser.index + 1) === Chars.Hyphen
+              (context & (Context.Module | Context.OptionsDisableWebCompat)) === 0 &&
+              source.charCodeAt(parser.index + 2) === Chars.Hyphen /* '-' */ &&
+              source.charCodeAt(parser.index + 1) === Chars.Hyphen /* '-' */
             ) {
-              parser.index += 3;
-              state = skipSingleHTMLComment(parser, context, source, state);
+              state = skipSingleLineComment(parser, source, state);
               continue;
             }
           }
