@@ -80,4 +80,4 @@ export function update(
   return parseIncremental(text, filename, context, flags, /* setParents */ false);
 }
 
-export const version = '0.0.1';
+export const version = '0.0.2';

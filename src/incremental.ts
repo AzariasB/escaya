@@ -133,16 +133,12 @@ export function parseClassElements(
   return cb(parser, context, inheritedContext, modifier);
 }
 
-export function createBlockArray(parser: ParserState, array: any, start: number): any[] {
-  array.start = start;
-  array.end = parser.endIndex;
+export function createBlockArray(_parser: ParserState, array: any, _start: number): any[] {
   return array;
 }
 
-export function createMissingList(start: number): Types.MissingList {
+export function createMissingList(_start: number): Types.MissingList {
   const list: any = [];
-  list.start = start;
-  list.end = start;
   return list;
 }
 
