@@ -854,7 +854,7 @@ export function parseForStatement(
   let statement: Types.Statement;
   let condition: Types.Expression | null = null;
   let incrementor: Types.Expression | null = null;
-  let destructible = Destructible.None;
+  let destructible;
   const token = parser.token;
 
   if (token !== Token.Semicolon) {
@@ -1369,7 +1369,7 @@ export function parseImportsList(parser: ParserState, context: Context, _start: 
 
 // ImportSpecifier
 export function parseImportSpecifier(parser: ParserState, context: Context): Types.ImportSpecifier {
-  const { token, tokenValue, startIndex } = parser;
+  const { tokenValue, startIndex } = parser;
   nextToken(parser, context);
   if (consumeOpt(parser, context, Token.AsKeyword)) {
     const name = parseIdentifierNameFromValue(parser, context, tokenValue, BindingType.AllowLHS, startIndex) as any;
@@ -2935,8 +2935,6 @@ export function parseElementList(
 
     left = parseLeftHandSide(parser, context, left, Precedence.LeftHandSide, bindingType, start);
 
-    const token = parser.token;
-
     // Invalid case: '[x.(y) = z]'. This is an identifier followed by a
     // "tail" - 'MemberExpression' and in this case 'CallExpression'.
     // The latter is not 'assignable' so this is a not destructible.
@@ -3885,7 +3883,7 @@ export function parseFunctionExpression(
     if ((bindingType & BindingType.AllowLHS) === 0) {
       addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
     }
-    isAsync === 1;
+    isAsync = 1;
   }
 
   nextToken(parser, context | Context.AllowRegExp);
@@ -3894,7 +3892,7 @@ export function parseFunctionExpression(
   const generatorAndAsyncFlags = (isAsync * 2 + isGenerator) << 21;
 
   if ((parser.token & Constants.IdentfierName) > 0) {
-    const { token, tokenValue, startIndex } = parser;
+    const { tokenValue, startIndex } = parser;
     validateFunctionName(
       parser,
       ((context | 0b00000000011000000000000000000000) ^ 0b00000000011000000000000000000000) | generatorAndAsyncFlags,
@@ -4795,25 +4793,25 @@ export function parseAsyncArrowOrCallExpression(
     const token = parser.token;
 
     if ((token & Constants.IdentfierName) > 0) {
-      expr = parseExpression(parser, context, Precedence.Primary, bindingType, true, start);
+      expr = parseExpression(parser, context, Precedence.Primary, bindingType, true, startIndex);
 
       // (x, false) => y
       if (parser.token === Token.Comma || parser.token === Token.RightParen) {
         if (!parser.assignable) destructible |= Destructible.NotDestructible;
       } else {
-        expr = parseLeftHandSide(parser, context, expression, Precedence.LeftHandSide, bindingType, start);
+        expr = parseLeftHandSide(parser, context, expression, Precedence.LeftHandSide, bindingType, startIndex);
 
         if (parser.token === Token.Assign) parser.assignable = true;
 
         if (parser.token !== Token.RightParen && parser.token !== Token.Comma) {
-          expr = parseLeftHandSide(parser, context, expression, Precedence.Assign, bindingType, start);
+          expr = parseLeftHandSide(parser, context, expression, Precedence.Assign, bindingType, startIndex);
         }
       }
     } else if ((parser.token & Token.IsPatternStart) > 0) {
       expr =
         parser.token === Token.LeftBrace
-          ? parseObjectLiteralOrPattern(parser, context, false, bindingType | BindingType.ArgumentList, start)
-          : parseArrayLiteralOrPattern(parser, context, false, bindingType | BindingType.ArgumentList, start);
+          ? parseObjectLiteralOrPattern(parser, context, false, bindingType | BindingType.ArgumentList, startIndex)
+          : parseArrayLiteralOrPattern(parser, context, false, bindingType | BindingType.ArgumentList, startIndex);
 
       destructible |= parser.destructible;
 
@@ -4823,7 +4821,7 @@ export function parseAsyncArrowOrCallExpression(
         if (destructible & Destructible.MustDestruct) {
           addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
         }
-        expr = parseLeftHandSide(parser, context, expression, Precedence.Assign, bindingType, start);
+        expr = parseLeftHandSide(parser, context, expression, Precedence.Assign, bindingType, startIndex);
         destructible |= !parser.assignable ? Destructible.NotDestructible : Destructible.Assignable;
       }
     } else if (token === Token.Ellipsis) {
@@ -4842,7 +4840,7 @@ export function parseAsyncArrowOrCallExpression(
         parser.destructible;
     } else {
       do {
-        params.push(parseExpression(parser, context, Precedence.Assign, bindingType, true, start));
+        params.push(parseExpression(parser, context, Precedence.Assign, bindingType, true, startIndex));
         consumeOpt(parser, context | Context.AllowRegExp, Token.Comma);
       } while (parser.token !== Token.RightParen);
 

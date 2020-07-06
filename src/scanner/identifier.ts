@@ -8,7 +8,7 @@ import { unicodeLookup } from './unicode';
 
 export function scanIdentifier(parser: ParserState, context: Context, source: string): Token {
   const start = parser.index;
-  let char = source.charCodeAt(parser.index);
+  let char;
 
   do {
     char = source.charCodeAt(++parser.index);
@@ -23,7 +23,7 @@ export function scanIdentifier(parser: ParserState, context: Context, source: st
 
 export function scanKeywordOrIdentifier(parser: ParserState, context: Context, source: string): Token {
   const start = parser.index;
-  let char = source.charCodeAt(parser.index);
+  let char;
 
   do {
     char = source.charCodeAt(++parser.index);

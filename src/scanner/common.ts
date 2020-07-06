@@ -1,4 +1,3 @@
-import { ParserState } from '../common';
 import { Chars } from './chars';
 
 // A set of flags for maintaining the internal state machine.
