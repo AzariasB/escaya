@@ -50,6 +50,7 @@ export function recovery(source: string, filename: string, options?: Options): R
     Context.ErrorRecovery,
     Flags.Empty,
     /* setParents */ false,
+    [] /* diagnostics */,
     undefined,
     options
   );
@@ -77,7 +78,7 @@ export function update(
   const flags = root.mutualFlags;
 
   // Note: This will trigger a 'full parse' for now.
-  return parseIncremental(text, filename, context, flags, /* setParents */ false);
+  return parseIncremental(text, filename, context, flags, /* setParents */ false, /* diagnostics */ []);
 }
 
-export const version = '0.0.2';
+export const version = '0.0.1';

@@ -7,7 +7,7 @@ import { scan } from '../../src/scanner/scan';
 describe('Scanner - Comments', () => {
   function fail(name: string, source: string, context: Context) {
     it(name, () => {
-      const state = create(source);
+      const state = create(source, /* diagnostics */ []);
       t.throws(() => scan(state, context));
     });
   }
@@ -53,7 +53,7 @@ describe('Scanner - Comments', () => {
 
   for (const [ctx, token, op] of tokens) {
     it(`scans '${op}' at the end`, () => {
-      const state = create(op);
+      const state = create(op, /* diagnostics */ []);
       const found = scan(state, ctx);
 
       t.deepEqual(
@@ -73,7 +73,7 @@ describe('Scanner - Comments', () => {
 
   function pass(name: string, opts: any) {
     it(name, () => {
-      const parser = create(opts.source);
+      const parser = create(opts.source, /* diagnostics */ []);
       scan(parser, opts.context);
       t.deepEqual(
         {
@@ -186,8 +186,8 @@ describe('Scanner - Comments', () => {
   }
 
   passAll(
-    lt => `skips ${lt}s`,
-    lt => ({
+    (lt) => `skips ${lt}s`,
+    (lt) => ({
       source: `${lt}${lt}${lt}${lt}${lt}${lt}${lt}${lt}`,
       context: Context.Empty,
       hasNext: false,
@@ -197,8 +197,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips multiple single line comments with ${lt}`,
-    lt => ({
+    (lt) => `skips multiple single line comments with ${lt}`,
+    (lt) => ({
       source: `  \t // foo bar${lt} // baz ${lt} //`,
       context: Context.Empty,
       hasNext: false,
@@ -216,8 +216,8 @@ describe('Scanner - Comments', () => {
   });
 
   passAll(
-    lt => `skips multiline comments with ${lt}`,
-    lt => ({
+    (lt) => `skips multiline comments with ${lt}`,
+    (lt) => ({
       source: `  \t /* foo * /* bar ${lt} */  `,
       context: Context.Empty,
       hasNext: false,
@@ -227,8 +227,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips multiple multiline comments with ${lt}`,
-    lt => ({
+    (lt) => `skips multiple multiline comments with ${lt}`,
+    (lt) => ({
       source: `  \t /* foo bar${lt} *//* baz*/ ${lt} /**/`,
       context: Context.Empty,
       hasNext: false,
@@ -238,8 +238,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips multiple multiline comments with ${lt}`,
-    lt => ({
+    (lt) => `skips multiple multiline comments with ${lt}`,
+    (lt) => ({
       source: `  \t /* foo bar${lt} *//* baz*/ ${lt} /**/`,
       context: Context.Module,
       hasNext: false,
@@ -249,8 +249,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips multiple multiline comments with ${lt}`,
-    lt => ({
+    (lt) => `skips multiple multiline comments with ${lt}`,
+    (lt) => ({
       source: `  \t /* foo bar${lt} *//* baz*/ ${lt} /**/`,
       context: Context.Module,
       hasNext: false,
@@ -260,8 +260,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips HTML single line comments with ${lt}`,
-    lt => ({
+    (lt) => `skips HTML single line comments with ${lt}`,
+    (lt) => ({
       source: `  \t <!-- foo bar${lt}  `,
       context: Context.Empty,
       hasNext: false,
@@ -271,8 +271,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips multiple HTML single line comments with ${lt}`,
-    lt => ({
+    (lt) => `skips multiple HTML single line comments with ${lt}`,
+    (lt) => ({
       source: `  \t <!-- foo bar${lt} <!-- baz ${lt} <!--`,
       context: Context.Empty,
       hasNext: false,
@@ -282,8 +282,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips single HTML close comment after ${lt}`,
-    lt => ({
+    (lt) => `skips single HTML close comment after ${lt}`,
+    (lt) => ({
       source: `  \t ${lt}-->  `,
       context: Context.Empty,
       hasNext: false,
@@ -293,8 +293,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips line of single HTML close comment after ${lt}`,
-    lt => ({
+    (lt) => `skips line of single HTML close comment after ${lt}`,
+    (lt) => ({
       source: `  \t ${lt}--> the comment extends to these characters${lt} `,
       context: Context.Empty,
       hasNext: false,
@@ -304,8 +304,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `allows HTML close comment after ${lt} + WS`,
-    lt => ({
+    (lt) => `allows HTML close comment after ${lt} + WS`,
+    (lt) => ({
       source: `  \t ${lt}   --> the comment extends to these characters${lt} `,
       context: Context.Empty,
       hasNext: false,
@@ -315,8 +315,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips single-line block on line of HTML close after ${lt}`,
-    lt => ({
+    (lt) => `skips single-line block on line of HTML close after ${lt}`,
+    (lt) => ({
       source: `  \t /*${lt}*/ /* optional SingleLineDelimitedCommentSequence */    ${''}--> the comment extends to these characters${lt} `,
       context: Context.Empty,
       hasNext: false,
@@ -325,8 +325,8 @@ describe('Scanner - Comments', () => {
     })
   );
   passAll(
-    lt => `skips 2 single-line block on line of HTML close after ${lt}`,
-    lt => ({
+    (lt) => `skips 2 single-line block on line of HTML close after ${lt}`,
+    (lt) => ({
       source: `  \t /*${lt}*/ /**/ /* second optional ${''}SingleLineDelimitedCommentSequence */    ${''}--> the comment extends to these characters${lt} `,
       context: Context.Empty,
       hasNext: false,
@@ -336,8 +336,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips block HTML close with ${lt} + empty line`,
-    lt => ({
+    (lt) => `skips block HTML close with ${lt} + empty line`,
+    (lt) => ({
       source: `  \t /*${lt}*/  -->${lt} `,
       context: Context.Empty,
       hasNext: false,
@@ -347,8 +347,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips block HTML close with ${lt}`,
-    lt => ({
+    (lt) => `skips block HTML close with ${lt}`,
+    (lt) => ({
       source: `  \t /*${lt}*/  --> the comment extends to these characters${lt} `,
       context: Context.Empty,
       hasNext: false,
@@ -358,8 +358,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips block HTML close with ${lt} + empty line`,
-    lt => ({
+    (lt) => `skips block HTML close with ${lt} + empty line`,
+    (lt) => ({
       source: `  \t /*${lt}*/  -->${lt} `,
       context: Context.Empty,
       hasNext: false,
@@ -369,8 +369,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips block HTML close with ${lt}`,
-    lt => ({
+    (lt) => `skips block HTML close with ${lt}`,
+    (lt) => ({
       source: `  \t /*${lt}*/  --> the comment extends to these characters${lt} `,
       context: Context.Empty,
       hasNext: false,
@@ -380,8 +380,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips first line block HTML close with ${lt}`,
-    lt => ({
+    (lt) => `skips first line block HTML close with ${lt}`,
+    (lt) => ({
       source: `  \t /* optional FirstCommentLine ${lt}*/  --> ` + `the comment extends to these characters${lt} `,
       context: Context.Empty,
       hasNext: false,
@@ -391,8 +391,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips multi block + HTML close with ${lt}`,
-    lt => ({
+    (lt) => `skips multi block + HTML close with ${lt}`,
+    (lt) => ({
       source: `  \t /*${lt}optional${lt}MultiLineCommentChars ${lt}*/  --> the comment extends to these characters${lt} `,
       context: Context.Empty,
       hasNext: false,
@@ -402,8 +402,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips multi block + single block + HTML close with ${lt}`,
-    lt => ({
+    (lt) => `skips multi block + single block + HTML close with ${lt}`,
+    (lt) => ({
       source: `  \t /*${lt}*/ /* optional SingleLineDelimitedCommentSequence ${lt}*/  --> the comment extends to these characters${lt} `,
       context: Context.Empty,
       hasNext: false,
@@ -413,8 +413,8 @@ describe('Scanner - Comments', () => {
   );
 
   passAll(
-    lt => `skips multi block + 2 single block + HTML close with ${lt}`,
-    lt => ({
+    (lt) => `skips multi block + 2 single block + HTML close with ${lt}`,
+    (lt) => ({
       source: `  \t /*${lt}*/ /**/ /* optional SingleLineDelimitedCommentSequence ${lt}*/  --> the comment extends to these characters${lt} `,
       context: Context.Empty,
       hasNext: false,

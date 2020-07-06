@@ -17,7 +17,7 @@ describe('Scanner - Punctuator', () => {
 
     function pass(name: string, opts: Opts) {
       it(name, () => {
-        const parser = create(opts.source);
+        const parser = create(opts.source, /* diagnostics */ []);
 
         t.deepEqual(
           {
@@ -123,7 +123,7 @@ describe('Scanner - Punctuator', () => {
 
     for (const [ctx, token, op] of tokens) {
       it(`scans '${op}' foo`, () => {
-        const parser = create(op);
+        const parser = create(op, /* diagnostics */ []);
         t.deepEqual(
           {
             token: scan(parser, ctx),
@@ -141,7 +141,7 @@ describe('Scanner - Punctuator', () => {
       });
 
       it(`scans '${op}' foo bar`, () => {
-        const parser = create(`${op} `);
+        const parser = create(`${op} `, /* diagnostics */ []);
         t.deepEqual(
           {
             token: scan(parser, ctx),
@@ -160,7 +160,7 @@ describe('Scanner - Punctuator', () => {
     }
 
     it("scans '.' in '..'", () => {
-      const parser = create('..');
+      const parser = create('..', /* diagnostics */ []);
 
       t.deepEqual(
         {

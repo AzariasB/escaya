@@ -16,6 +16,7 @@ export function parseIncremental(
   context: Context,
   flags: Flags,
   _setParents: boolean,
+  diagnostics: any[],
   nodeCursor?: Types.NodeCursor,
   options?: Options
 ): RootNode {
@@ -27,7 +28,7 @@ export function parseIncremental(
     if (options.impliedStrict) context |= Context.Strict;
   }
 
-  const parser = create(text, nodeCursor);
+  const parser = create(text, diagnostics, nodeCursor);
 
   nextToken(parser, context | Context.AllowRegExp);
 

@@ -7,7 +7,7 @@ import { scan } from '../../src/scanner/scan';
 describe('scanner - identifiers', () => {
   function fail(name: string, source: string, context: Context) {
     it(name, () => {
-      const parser = create(source);
+      const parser = create(source, /* diagnostics */ []);
       t.throws(() => scan(parser, context));
     });
   }
@@ -211,7 +211,7 @@ describe('scanner - identifiers', () => {
 
   for (const [ctx, token, op, res] of tokens) {
     it(`scans '${op}' at the end`, () => {
-      const parser = create(op);
+      const parser = create(op, /* diagnostics */ []);
       const found = scan(parser, ctx);
       t.deepEqual(
         {
@@ -232,7 +232,7 @@ describe('scanner - identifiers', () => {
     });
 
     it(`scans '${op}' with more to go`, () => {
-      const parser = create(`${op} rest`);
+      const parser = create(`${op} rest`, /* diagnostics */ []);
       const found = scan(parser, ctx);
 
       t.deepEqual(

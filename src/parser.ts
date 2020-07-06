@@ -58,7 +58,7 @@ export interface VarLexCallback {
 /**
  * Create a new parser instance.
  */
-export function create(source: string, nodeCursor?: Types.NodeCursor): ParserState {
+export function create(source: string, diagnostics: any[], nodeCursor?: Types.NodeCursor): ParserState {
   return {
     source,
     flags: Flags.Empty,
@@ -78,7 +78,7 @@ export function create(source: string, nodeCursor?: Types.NodeCursor): ParserSta
     assignable: true,
     tokenValue: '',
     tokenRaw: '',
-    diagnostics: [],
+    diagnostics,
     regExpPattern: '',
     regExpFlags: '',
     nodeCursor,
@@ -103,7 +103,7 @@ export function parseSource(
     if (options.disableWebCompat) context |= Context.OptionsDisableWebCompat;
   }
 
-  const parser = create(source);
+  const parser = create(source, /* diagnostics */ []);
 
   nextToken(parser, context | Context.AllowRegExp);
 
