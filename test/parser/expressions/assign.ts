@@ -129,6 +129,8 @@ describe('Expressions - Assignment', () => {
     'x &= 42;',
     'x /= 42',
     'arguments = 42',
+    'async = a + await;  a = async++;',
+    'd = a + b;  a = b;',
     'x >>>= 42',
     'a=0;',
     '(a)=(0);',

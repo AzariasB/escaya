@@ -2621,20 +2621,7 @@ export function parseIdentifierReference(
   context: Context,
   bindingType: BindingType
 ): Types.BindingIdentifier | Types.IdentifierReference {
-  if (context & (Context.Module | Context.Parameters) && parser.token === Token.AwaitKeyword) {
-    //  addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.AwaitOutsideAsync, DiagnosticKind.Error);
-  } else if (context & (Context.Module | Context.Parameters) && parser.token === Token.AwaitKeyword) {
-    addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.AwaitOutsideAsync, DiagnosticKind.Error);
-  }
-
   if (context & (Context.Strict | Context.Parameters) && parser.token === Token.YieldKeyword) {
-    /*    addDiagnostic(
-      parser,
-      context,
-      DiagnosticSource.Parser,
-      DiagnosticCode.DisallowedYieldInContext,
-      DiagnosticKind.Error
-    );*/
   } else if (
     parser.token !== Token.LetKeyword &&
     context & Context.Strict &&
@@ -3039,7 +3026,7 @@ export function parseArrayAssignment(
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidBindingDestruct, DiagnosticKind.Error);
   }
 
-  nextToken(state, context);
+  nextToken(state, context | Context.AllowRegExp);
 
   const left = parseArrayAssignmentPattern(state, context, leafs, destructible);
 
