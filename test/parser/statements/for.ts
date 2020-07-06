@@ -1,5 +1,5 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Statements - For', () => {
   // Invalid cases
@@ -229,6 +229,11 @@ describe('Statements - For', () => {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }
@@ -613,6 +618,11 @@ describe('Statements - For', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }

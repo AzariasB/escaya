@@ -1,5 +1,5 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Declarations - Async function', () => {
   // Invalid cases
@@ -221,20 +221,24 @@ describe('Declarations - Async function', () => {
     //'async function f() { async function f({ await }) {}} ',
     'async function f() { async function f([await = 1]) {}} ',
     'return async (await) => {};} ',
-
     'var O = { async [await](a, a) {} }} ',
     '(a = await b) => a} ',
     // 'var f = await => 42;',
     // 'var f = (...await) => 42;',
     // 'async function f() { var e = {await};} ',
     'async function f() { (await 1) = 1} '
-
     //'async function f() { return {await = 0} = {}; }',
     //'async (a = await => {}) => {}'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
+      });
+    });
+
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }
@@ -689,6 +693,11 @@ describe('Declarations - Async function', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }

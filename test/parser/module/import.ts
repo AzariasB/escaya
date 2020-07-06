@@ -1,5 +1,5 @@
 import * as t from 'assert';
-import { parseModule } from '../../../src/escaya';
+import { parseModule, recovery } from '../../../src/escaya';
 
 describe('Module - Export', () => {
   // Invalid cases
@@ -102,6 +102,11 @@ describe('Module - Export', () => {
         parseModule(`${arg}`);
       });
     });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
   }
 
   // Valid cases
@@ -199,6 +204,11 @@ describe('Module - Export', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseModule(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }

@@ -1,5 +1,5 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Arrow', () => {
   // Invalid cases
@@ -391,6 +391,11 @@ describe('Expressions - Arrow', () => {
         parseScript(`${arg}`);
       });
     });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
   }
 
   // Valid cases
@@ -486,6 +491,11 @@ describe('Expressions - Arrow', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }

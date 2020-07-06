@@ -1,5 +1,5 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Await', () => {
   // Invalid cases
@@ -46,6 +46,11 @@ describe('Expressions - Await', () => {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }
@@ -229,6 +234,11 @@ describe('Expressions - Await', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }

@@ -1,5 +1,5 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Statements - While', () => {
   // Invalid cases
@@ -20,6 +20,11 @@ describe('Statements - While', () => {
         parseScript(`${arg}`, { disableWebCompat: true });
       });
     });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
   }
 
   // Valid cases
@@ -34,6 +39,11 @@ describe('Statements - While', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }

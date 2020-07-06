@@ -1,5 +1,5 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Template literal revision', () => {
   // Invalid cases
@@ -20,13 +20,17 @@ describe('Expressions - Template literal revision', () => {
     '`foo${a /* comment } `*/',
     '`foo${a // comment}`',
     '`foo${a \n`'
-
     //"`x${1 if}`",
     // 'x`x ${a b} bar`',
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }
@@ -305,6 +309,11 @@ describe('Expressions - Template literal revision', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }

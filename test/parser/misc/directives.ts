@@ -1,11 +1,10 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Directives', () => {
   // Invalid cases
   for (const arg of [
     "'random\nnewline'",
-
     "'random\nnewline'",
     "'random\\x\u2029newline'",
     "'random\\x0\rnewline'",
@@ -65,6 +64,11 @@ describe('Expressions - Directives', () => {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }
@@ -144,6 +148,11 @@ describe('Expressions - Directives', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }
