@@ -14,6 +14,8 @@ describe('Statements - For in', () => {
     'for ({x=y}=x in x) ;',
     'for ({x} = y in z);',
     'for ({} = y in y);',
+    'for ({ x: { set y(val) { }}?.y = 42} in [{x: 42}]) ;',
+    'for ({ x: { set y(val) {} }?.y} in [{x: 42}]) ;',
     //'for ({eval = 0} in x);',
     'for ([] = x in y);',
     'for (x = y in z) ;',

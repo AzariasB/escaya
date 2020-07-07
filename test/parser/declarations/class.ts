@@ -26,6 +26,9 @@ describe('Declarations - Class', () => {
     'class x extends 08 {}',
     'class x { x = new y<a>() }',
     'class x { x = new y<a>() }',
+    'class C {} class D extends C { foo() { return super?.bar; } }',
+    'class C {} class D extends C { foo() { return super?.["bar"]; }',
+    'class C {} class D extends C { constructor() { super?.(); } }',
     'class Y {;* get [1](){}set get(b){};get set(){}}',
     'class P {set "constructor"(E){};async *"x"(){};get l(){}}',
     'class C {;;;async "x"(){}get get async(){}}',
@@ -294,7 +297,12 @@ describe('Declarations - Class', () => {
     'class x { method([[...x] = values]) {}}',
     'class x extends await { }',
     'class a { b(c,) {} }',
-
+    'class C {set x(_) {do { new.target } while (0)}}',
+    'class X { constructor() { new.target }}',
+    'class X { foo() { new.target }}',
+    'class X { static foo() { new.target }}',
+    'class A {constructor(x=new.target){}}',
+    'class A {a(x=new.target){}}',
     'class C { set 0o10(a) {a}}',
     'class C { set 0(a) {a}}',
     'class C { set "unicod\\u{000065}Escape"(a) {}}',
@@ -387,6 +395,11 @@ describe('Declarations - Class', () => {
     'class A { async* f() { await a; yield b; } }',
     'class A { static async* f() { await a; yield b; } }',
     'class x { async *[y](){}}',
+    //'class A{ b(){ return super?.b; } }',
+    'const o = { C: class {} }; new o?.C();',
+    'const o = { C: class {} }; new o?.["C"]();',
+    'class C {} new C?.();',
+    // 'class C {} new C?.();',
     'class a { a() { } }'
   ]) {
     it(`${arg}`, () => {

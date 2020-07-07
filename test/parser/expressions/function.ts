@@ -1,10 +1,14 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Function', () => {
   // Invalid cases
   for (const arg of [
     '(function f(...(x)){})',
+    '"use strict"; (function foo(){  007 })',
+    '(function break(){})',
+    '(function function(){})',
+    '(function f([...foo, bar] = obj){})',
     `function f() {
   do throw pass while(x);
 }`
@@ -12,6 +16,11 @@ describe('Expressions - Function', () => {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }
@@ -50,20 +59,36 @@ describe('Expressions - Function', () => {
     // Should allow shadowing function names
     `{(function foo() { { function foo() { return 0; } } })();}`,
     `{(function foo(...r) { { function foo() { return 0; } } })(); }`,
+    '(function y(...x) { {  function x() {} } })(1);',
     `(function foo() { { let f = 0; (function () { { function f() { return 1; } } })(); } })();`,
     `(function foo() { var y = 1; (function bar(x = y) { { function y() {} } })();  })();`,
     `(function foo() { { function f() { return 4; } { function f() { return 5; } } }})()`,
     '(function foo(a = 0) { { let y = 3; function f(b = 0) { y = 2; } f(); } })();',
     '(function conditional() {  if (true) { function f() { return 1; } } else {  function f() { return 2; }} if (false) { function g() { return 1; }}  L: {break L;function f() { return 3; } }})();',
     '(function foo(x) { {  function x() {} } })(1);',
-    '(function([fn = function () {}, xFn = function x() {}]) {})',
-    '(function([x = 23]) {})',
     '(function([...[x, y, z]]) {})',
     '(function([...[,]]) {})',
-    '(function([...x]) {})',
     '(function([...{ length }]) {})',
     'foo(function(){})',
     '(function f(...rest){})',
+    'f( ({...c}=o, c) )',
+    'function f({foo}){}',
+    'function f({foo:a}){}',
+    'function f({foo:a=b}){}',
+    'function f({foo}, bar){}',
+    'function f(foo, {bar}){}',
+    'function f({foo} = x, b){}',
+    'function f({foo} = x, b = y){}',
+    'function f(x, {foo} = y){}',
+    'function f(x = y, {foo} = z){}',
+    'function f({foo=a} = x){}',
+    'function f([]){}',
+    'function f([] = x){}',
+    'function f([,]){}',
+    'function f([,] = x){}',
+    'function f([,,]){}',
+    'function f([,,] = x){}',
+
     '(function f(a, b, ...rest){})',
     '(function([x = 23] = [undefined]) {})',
     'function a5({a3, b2: { ba1, ...ba2 }, ...c3}) {}',
@@ -105,6 +130,7 @@ describe('Expressions - Function', () => {
     'function f({x:x = 1}, {y:b=(x=2)}) {}',
     'function f(x) {g(x)}',
     'function f({x:x = (x = 2)}) {}',
+    `(function package() { (function gave_away_the_package() { "use strict"; }) })`,
     '(function fn({a = 1, ...b} = {}) {   return {a, b}; })',
     `function iceFapper(idiot) {}`,
     '(function([{ u: v, w: x, y: z } = { u: 444, w: 555, y: 666 }] = [{ u: 777, w: 888, y: 999 }]) {})',
@@ -113,6 +139,11 @@ describe('Expressions - Function', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }

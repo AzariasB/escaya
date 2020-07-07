@@ -30,7 +30,7 @@ export const enum Context {
   Yield                    = 1 << 21,
   Await                    = 1 << 22,
   Parameters               = 1 << 23,
-  ImportMeta               = 1 << 24,
+  ImportMeta               = 1 << 27,
   NewTarget                = 1 << 26,
   DisallowIn               = 1 << 29,
 }
@@ -99,7 +99,7 @@ export const enum BindingType {
   Var  = 1 << 6,
   CatchIdentifier  = 1 << 7,
   CatchPattern   = 1 << 8,
-  Literal   = 1 << 9,
+  Literal   = 1 << 9
 }
 
 /**

@@ -1,6 +1,6 @@
 {
   "name": "escaya",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A blazing fast 100% spec compliant, self-hosted incremental javascript parser written in Typescript",
   "main": "dist/escaya.umd.min.js",
   "module": "dist/escaya.esm.min.js",

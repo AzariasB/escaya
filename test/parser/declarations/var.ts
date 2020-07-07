@@ -381,7 +381,12 @@ describe('Declarations - Var', () => {
     'var {foo} = x, b',
     'var {foo} = x, b = y',
     'var x, {foo} = y',
+    'var z = (x *= -1);',
     `var foo = { eval: 1 };`,
+    'var await = `simple template`;',
+    'var y = `{${x}}`;',
+    'var y = `{ ${x} }`;',
+    'var b = condition ? a?.x.?y : a?.y?.z;',
     `var foo = { }; foo.eval = {};`
   ]) {
     it(`${arg}`, () => {

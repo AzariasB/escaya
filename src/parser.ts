@@ -1334,7 +1334,7 @@ export function parseImportDeclaration(parser: ParserState, context: Context): a
         namedImports = parseImportsList(parser, context, startIndex);
       }
     }
-  } else if (consumeOpt(parser, context, Token.LeftParen)) {
+  } else if (consumeOpt(parser, context | Context.AllowRegExp, Token.LeftParen)) {
     return parseImportCallFromModule(parser, context, BindingType.AllowLHS, startIndex);
   } else if (consumeOpt(parser, context, Token.Period)) {
     return parseImportMetaFromModule(parser, context, BindingType.AllowLHS, startIndex);
@@ -1522,8 +1522,11 @@ export function parseImportCallFromModule(
   start: number
 ): Types.ExpressionStatement {
   let expression: any;
-  const expr = parseExpression(parser, context, Precedence.Assign, bindingType, true, start);
+  let expr = parseExpression(parser, context, Precedence.Assign, bindingType, true, start);
   consume(parser, context, Token.RightParen);
+  if ((parser.token & (Token.IsBinaryOp | Token.IsMember | Token.IsAssignOp)) !== 0) {
+    expr = parseLeftHandSide(parser, context, expr, Precedence.Assign, bindingType, start);
+  }
   expression = finishNode(parser, context, 0, { type: 'ImportCall', import: expr }, NodeType.ImportCall);
   consumeSemicolon(parser, context);
   return finishNode(parser, context, start, { type: 'ExpressionStatement', expression }, NodeType.ExpressionStatement);
@@ -1539,7 +1542,8 @@ export function parseImportMetaFromModule(
 ): Types.ExpressionStatement {
   consume(parser, context, Token.MetaKeyword);
   let expression: any = finishNode(parser, context, start, { type: 'ImportMeta' }, NodeType.ImportMeta);
-  expression = parseLeftHandSide(parser, context, expression, Precedence.LeftHandSide, bindingType, parser.startIndex);
+  parser.assignable = false;
+  expression = parseLeftHandSide(parser, context, expression, Precedence.Assign, bindingType, parser.startIndex);
   consumeSemicolon(parser, context);
   return finishNode(parser, context, start, { type: 'ExpressionStatement', expression }, NodeType.ExpressionStatement);
 }
@@ -1710,8 +1714,6 @@ export function parseMemberExpression(
   parser: ParserState,
   context: Context,
   member: any,
-  bindingType: BindingType,
-
   start: number
 ): Types.MemberExpression | Types.CallExpression | Types.OptionalExpression | Types.TaggedTemplateExpression {
   switch (parser.token as Token) {
@@ -1784,7 +1786,7 @@ export function parseMemberExpression(
       );
       break;
     case Token.TemplateCont:
-      const literal: any = parseTemplate(parser, context | Context.TaggedTemplate, bindingType);
+      const literal: any = parseTemplate(parser, context | Context.TaggedTemplate);
       member = finishNode(
         parser,
         context,
@@ -1812,7 +1814,6 @@ export function parseMemberOrCallChain(
   context: Context
 ): Types.MemberChain | Types.CallChain | any {
   consume(parser, context, Token.QuestionMarkPeriod);
-
   if (parser.token === Token.QuestionMarkPeriod) {
     addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
@@ -2121,7 +2122,7 @@ export function parseExpression(
             expr = parseClassExpression(parser, context);
             break;
           case Token.NewKeyword:
-            expr = parseNewExpression(parser, context);
+            expr = parseNewExpression(parser, context, bindingType);
             break;
           case Token.ImportKeyword:
             expr = parseImportMetaOrCall(parser, context);
@@ -2136,7 +2137,7 @@ export function parseExpression(
             expr = parseTemplateLiteral(parser, context);
             break;
           case Token.TemplateCont:
-            expr = parseTemplate(parser, context, bindingType);
+            expr = parseTemplate(parser, context);
             break;
           default:
             addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
@@ -2176,8 +2177,8 @@ export function parseExpression(
      *   ImportMeta
      */
 
-    while ((parser.token & (allowCalls ? Token.LeftHandSide : Token.IsMember)) > 0) {
-      expr = parseMemberExpression(parser, context, expr, bindingType, start);
+    while (parser.token & (allowCalls ? Token.LeftHandSide : Token.IsMember)) {
+      expr = parseMemberExpression(parser, context, expr, start);
     }
     /**
      * UpdateExpression :
@@ -2356,7 +2357,7 @@ export function parseLeftHandSide(
    *   ImportMeta
    */
   while ((parser.token & Token.LeftHandSide) > 0) {
-    expr = parseMemberExpression(parser, context, expr, bindingType, start);
+    expr = parseMemberExpression(parser, context, expr, start);
   }
 
   /**
@@ -3612,21 +3613,18 @@ export function parsePropertyName(state: ParserState, context: Context, start: n
   return parseIdentifierName(state, context);
 }
 
-export function parseTemplate(parser: ParserState, context: Context, bindingType: BindingType): Types.TemplateLiteral {
+export function parseTemplate(parser: ParserState, context: Context): Types.TemplateLiteral {
   const startIndex = parser.startIndex;
   const spans = [parseTemplateElement(parser, context, /* isTail */ false, startIndex)];
   consume(parser, context | Context.AllowRegExp, Token.TemplateCont);
-
-  //console.log(String.fromCodePoint(parser.source.charCodeAt(parser.index)))
-
-  const expressions = [parseExpression(parser, context, Precedence.Assign, bindingType, true, startIndex)];
+  const expressions = [parseExpressions(parser, context)];
 
   while (scanTemplateTail(parser, context)) {
     if (parser.token !== Token.TemplateCont) break;
     const innerStart = parser.startIndex;
     spans.push(parseTemplateElement(parser, context, /* isTail */ false, innerStart));
     consume(parser, context | Context.AllowRegExp, Token.TemplateCont);
-    expressions.push(parseExpression(parser, context, Precedence.Assign, bindingType, true, startIndex));
+    expressions.push(parseExpressions(parser, context));
   }
   spans.push(parseTemplateElement(parser, context, /* isTail */ true, startIndex));
   consume(parser, context, Token.TemplateTail);
@@ -4525,7 +4523,15 @@ export function parseSuperPropertyOrCall(parser: ParserState, context: Context):
   if ((context & Context.SuperProperty) === 0) {
     addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.InvalidSuperProperty, DiagnosticKind.Error);
   }
-
+  if (parser.token === Token.QuestionMarkPeriod) {
+    addDiagnostic(
+      parser,
+      context,
+      DiagnosticSource.Parser,
+      DiagnosticCode.OptionalChainingNoSuper,
+      DiagnosticKind.Error
+    );
+  }
   let expression: Types.Expression | null = null;
   let name: Types.IdentifierName | null = null;
   // If we have seen "super" it must be followed by '(' or '.'.
@@ -4569,14 +4575,17 @@ export function parseImportMetaOrCall(parser: ParserState, context: Context): Ty
 // NewExpression :
 //   MemberExpression
 //   new NewExpression
-export function parseNewExpression(parser: ParserState, context: Context): Types.NewTarget | Types.NewExpression {
+export function parseNewExpression(
+  parser: ParserState,
+  context: Context,
+  bindingType: BindingType
+): Types.NewTarget | Types.NewExpression {
   const start = parser.startIndex;
   nextToken(parser, context | Context.AllowRegExp);
   if (context & Context.NewTarget && consumeOpt(parser, context, Token.Period)) {
     return parseNewTargetExpression(parser, context, start);
   }
-
-  const expression = parseExpression(parser, context, Precedence.LeftHandSide, BindingType.AllowLHS, false, start);
+  const expression = parseExpression(parser, context, Precedence.LeftHandSide, bindingType, false, start);
   const args = parser.token === Token.LeftParen ? parseArguments(parser, context) : [];
   parser.assignable = false;
 
@@ -4595,6 +4604,7 @@ export function parseNewTargetExpression(
   start: number
 ): Types.NewTarget | Types.NewExpression {
   consume(parser, context, Token.TargetKeyword);
+  parser.assignable = false;
   return finishNode(parser, context, start, { type: 'NewTarget' }, NodeType.NewTarget);
 }
 

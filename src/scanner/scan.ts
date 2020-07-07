@@ -293,7 +293,6 @@ export function scan(parser: ParserState, context: Context): Token {
             ch = source.charCodeAt(parser.index);
 
             if (ch >= Chars.Zero && ch <= Chars.Nine) {
-              parser.index++;
               return Token.QuestionMark;
             }
 

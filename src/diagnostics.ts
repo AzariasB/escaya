@@ -130,7 +130,9 @@ export enum DiagnosticCode {
   UnterminatedComment,
   TemplateBadEscape,
   UnsupportedUnicodeIdent,
-  UnexpectedIdentNumber
+  UnexpectedIdentNumber,
+  OptionalChainingNoSuper,
+  OptionalChainingNoNew
 }
 
 export const DiagnosticMessages: {
@@ -164,6 +166,7 @@ export const DiagnosticMessages: {
   [DiagnosticCode.InvalidCharacter]: "Invalid character '%0'",
   [DiagnosticCode.InvalidTrailSurrogate]: "Invalid lower surrogate '%0'",
   [DiagnosticCode.Expected]: 'Expected %0',
+  [DiagnosticCode.StrictDelete]: 'Calling delete on expression not allowed in strict mode',
   [DiagnosticCode.InvalidImportInSloppy]: 'The export keyword can only be used with the module goal',
   [DiagnosticCode.ForInLoopMultiBindings]: 'Invalid left-hand side in for-In loop: Must have a single binding',
   [DiagnosticCode.ForOfLoopMultiBindings]: 'Invalid left-hand side in for-of loop: Must have a single binding',
@@ -218,6 +221,8 @@ export const DiagnosticMessages: {
   [DiagnosticCode.ForOfLet]: "The left-hand side of a for-of loop may not start with 'let'",
   [DiagnosticCode.InvalidDotProperty]: 'InvalidDotProperty',
   [DiagnosticCode.OptionalChainingNoTemplate]: 'OptionalChainingNoTemplate',
+  [DiagnosticCode.OptionalChainingNoSuper]: 'Invalid optional chain from super property',
+  [DiagnosticCode.OptionalChainingNoNew]: 'Invalid optional chain from new expression',
   [DiagnosticCode.DisallowedLetInStrict]: 'Identifier "let" disallowed as left-hand side expression in strict mode',
   [DiagnosticCode.WebCompatFunction]:
     'Without web compability enabled functions can not be declared at top level, inside a block, or as the body of an if statement',

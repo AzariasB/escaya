@@ -41,6 +41,8 @@ describe('Statements - If', () => {
     `if (foo) bar; else doo;`,
     `if (a) b()`,
     `if(a)b;else c;`,
+    'if (++a);',
+    'if (a) --a;',
     `if (1) { eval(42) }`,
     `if (true) if (false) {} else ; else {}`
   ]) {

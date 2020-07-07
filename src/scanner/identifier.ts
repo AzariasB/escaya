@@ -215,13 +215,13 @@ export function scanIdentifierEscapeIdStart(parser: ParserState, context: Contex
 }
 
 export function scanPrivateName(parser: ParserState, context: Context, source: string, ch: number): Token | any {
-  addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error, '#');
-
+  parser.index++;
+  ch = source.charCodeAt(parser.index);
   if (((unicodeLookup[(ch >>> 5) + 34816] >>> ch) & 31 & 1) === 0) {
     addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
     return Token.Unknown;
   }
-
+  addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error, '#');
   while ((CharTypes[ch] & 0b00000000000000000000000000000101) > 0) {
     ch = source.charCodeAt(++parser.index);
   }

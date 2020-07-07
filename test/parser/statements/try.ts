@@ -19,6 +19,7 @@ describe('Statements - Try', () => {
     'try {} catch([e]=x){}',
     `try {}
 catch (v = b) {}`,
+    'try {} catch ([e?.a, ...a]) {}',
     'try {} catch(){}',
     'try {} catch(e,){}'
   ]) {
