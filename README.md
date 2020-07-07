@@ -12,8 +12,6 @@
 
 **Work in progress**
 
-## [Demo](https://escaya.github.io/escaya)
-
 ## Features
 
 * Conforms to the standard ECMAScript® 2021 (ECMA-262 11th Edition) language specification
@@ -107,6 +105,11 @@ The `Escaya AST` doesn't try to follow the SpiderMonkey-compatible standard that
 
 The CLI is still a TODO, but will parse Escaya in recovery mode and use the diagnostic messages to create an nice output so that you are always informed of invalid syntax so you can correct this.
 
+## Demo
+
+A live demo can be found [here](https://escaya.github.io/escaya) and includes all parts of the parser even code that haven't been open sourced yet.
+
+Incremental parsing have been enabled in the online demo. You can see the recovered AST nodes if you open the console in your browser while in `recovery mode`.
 
 ## Performance
 
