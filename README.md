@@ -6,10 +6,13 @@
 
 <p align="center">
     <a href="https://lgtm.com/projects/g/escaya/escaya/context:javascript"><img src="https://img.shields.io/lgtm/grade/javascript/g/escaya/escaya.svg?logo=lgtm&logoWidth=18" alt="GitHub license" /></a>
-    <a href="https://github.com/escaya/escaya/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/escaya/escaya.svg" alt="License" /></a>
+   <a href="https://circleci.com/gh/escaya/escaya"><img src="https://circleci.com/gh/escaya/escaya.svg?style=svg" alt="Circle" /></a>
+   <a href="https://github.com/escaya/escaya/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/escaya/escaya.svg" alt="License" /></a>
 </p>
 
 **Work in progress**
+
+## [Demo](https://escaya.github.io/escaya)
 
 ## Features
 
@@ -22,7 +25,7 @@
 * No backtracking
 * Low memory usage
 * Optimized for use on handheld devices such as a mobile phone or tablet
-* Very well tested (~15 000 unit tests with full code coverage)
+* Very well tested (~34 000 unit tests with full code coverage)
 * Lightweight - ~84 KB minified
 
 ## API
