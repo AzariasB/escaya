@@ -109,7 +109,7 @@ The CLI is still a TODO, but will parse Escaya in recovery mode and use the diag
 
 A live demo can be found [here](https://escaya.github.io/escaya) and includes all parts of the parser even code that haven't been open sourced yet.
 
-Incremental parsing have been enabled in the online demo. You can see the recovered AST nodes if you open the console in your browser while in `recovery mode`.
+Incremental parsing have been enabled, and you can see the recovered AST nodes if you open the console in your browser while in `recovery mode`.
 
 ## Performance
 
