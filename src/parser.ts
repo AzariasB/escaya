@@ -1427,7 +1427,7 @@ export function parseExportDeclaration(parser: ParserState, context: Context, bi
         declaration = parseClassDeclaration(parser, context | Context.Default);
         break;
       default:
-        declaration = parseExpression(parser, context, Precedence.Assign, bindingType, true, 0);
+        declaration = parseExpression(parser, context, Precedence.Assign, bindingType, true, startIndex);
         consumeSemicolon(parser, context);
     }
     return finishNode(
@@ -1493,7 +1493,13 @@ export function parseExportSpecifier(parser: ParserState, context: Context): Typ
   const name = parseIdentifierName(parser, context);
   if (consumeOpt(parser, context, Token.AsKeyword)) {
     const exportedName = parseIdentifierName(parser, context);
-    return finishNode(parser, context, 0, { type: 'ExportSpecifier', name, exportedName }, NodeType.ExportSpecifier);
+    return finishNode(
+      parser,
+      context,
+      startIndex,
+      { type: 'ExportSpecifier', name, exportedName },
+      NodeType.ExportSpecifier
+    );
   }
   return finishNode(
     parser,
@@ -1527,7 +1533,7 @@ export function parseImportCallFromModule(
   if ((parser.token & (Token.IsBinaryOp | Token.IsMember | Token.IsAssignOp)) !== 0) {
     expr = parseLeftHandSide(parser, context, expr, Precedence.Assign, bindingType, start);
   }
-  expression = finishNode(parser, context, 0, { type: 'ImportCall', import: expr }, NodeType.ImportCall);
+  expression = finishNode(parser, context, start, { type: 'ImportCall', import: expr }, NodeType.ImportCall);
   consumeSemicolon(parser, context);
   return finishNode(parser, context, start, { type: 'ExpressionStatement', expression }, NodeType.ExpressionStatement);
 }
@@ -1760,7 +1766,7 @@ export function parseMemberExpression(
       return finishNode(
         parser,
         context,
-        0,
+        start,
         { type: 'CallExpression', expression: member, arguments: args },
         NodeType.CallExpression
       );
@@ -2789,7 +2795,7 @@ export function parseArrayBindingPattern(
     if (consumeOpt(state, context, Token.Comma)) {
       leafs.push(finishNode(state, context, state.startIndex, { type: 'Elision' }, NodeType.Elision));
     } else {
-      leafs.push(parseElementList(state, context, true, bindingType));
+      leafs.push(parseElementList(state, context, bindingType));
       destructible |= state.destructible;
       if (state.token !== Token.Comma) break;
       nextToken(state, context | Context.AllowRegExp);
@@ -2848,7 +2854,7 @@ export function parseArrayLiteralOrPattern(
     if (consumeOpt(state, context, Token.Comma)) {
       leafs.push(finishNode(state, context, state.startIndex, { type: 'Elision' }, NodeType.Elision));
     } else {
-      leafs.push(parseElementList(state, context, isPattern, bindingType));
+      leafs.push(parseElementList(state, context, bindingType));
       destructible |= state.destructible;
       if (state.token !== Token.Comma) break;
       nextToken(state, context | Context.AllowRegExp);
@@ -2870,12 +2876,7 @@ export function parseArrayLiteralOrPattern(
   return finishNode(state, context, start, { type: 'ArrayLiteral', leafs }, NodeType.ArrayLiteral);
 }
 
-export function parseElementList(
-  parser: ParserState,
-  context: Context,
-  _isPattern: boolean,
-  bindingType: BindingType
-): any {
+export function parseElementList(parser: ParserState, context: Context, bindingType: BindingType): any {
   let destructible = Destructible.None;
 
   const start = parser.startIndex;
@@ -3836,7 +3837,7 @@ export function parseFunctionDeclaration(
   context =
     ((context | 0b00000110111111100011000000000000) ^ 0b00000000111111100001000000000000) | generatorAndAsyncFlags;
 
-  const params = parseFormalParameters(parser, context | Context.Parameters, start);
+  const params = parseFormalParameters(parser, context | Context.Parameters);
 
   const contents = parseFunctionBody(parser, context, /* isDeclaration */ true);
 
@@ -3890,7 +3891,7 @@ export function parseFunctionExpression(
   context =
     ((context | 0b00000110111111100011000000000000) ^ 0b00000000111111100001000000000000) | generatorAndAsyncFlags;
 
-  const params = parseFormalParameters(parser, context | Context.Parameters, start);
+  const params = parseFormalParameters(parser, context | Context.Parameters);
   const contents = parseFunctionBody(parser, context, /* isDeclaration */ false);
 
   parser.assignable = false;
@@ -3907,9 +3908,16 @@ export function parseFunctionExpression(
 // FunctionRestParameter :
 // BindingRestElement
 export function parseFunctionRestParameter(parser: ParserState, context: Context): Types.FunctionRestParameter {
+  const start = parser.startIndex;
   nextToken(parser, context);
   const argument = parseBindingElement(parser, context, BindingType.ArgumentList);
-  return finishNode(parser, context, 0, { type: 'FunctionRestParameter', argument }, NodeType.FunctionRestParameter);
+  return finishNode(
+    parser,
+    context,
+    start,
+    { type: 'FunctionRestParameter', argument },
+    NodeType.FunctionRestParameter
+  );
 }
 
 // FormalParameters
@@ -3926,13 +3934,9 @@ export function parseFunctionRestParameter(parser: ParserState, context: Context
 // SingleNameBinding :
 //   BindingIdentifier
 
-export function parseFormalParameters(
-  parser: ParserState,
-  context: Context,
-  start: number
-): Types.FormalParameters | any {
+export function parseFormalParameters(parser: ParserState, context: Context): Types.FormalParameters | any {
   const leafs: (Types.FunctionRestParameter | Types.BindingElement)[] = [];
-
+  const start = parser.startIndex;
   if (context & Context.ErrorRecovery) {
     // Return an empty list if '(' is missing
     if (parser.token !== Token.LeftParen) return createMissingList(start);
@@ -4260,7 +4264,7 @@ export function parseMethodDefinition(
     propertySetParameterList = [parseBindingPattern(parser, context, BindingType.ArgumentList)];
     consume(parser, context, Token.RightParen);
   } else {
-    uniqueFormalParameters = parseFormalParameters(parser, context | Context.Parameters, startIndex);
+    uniqueFormalParameters = parseFormalParameters(parser, context | Context.Parameters);
   }
 
   const contents = parseFunctionBody(
@@ -4468,7 +4472,7 @@ export function parseClassElement(
       name = parseExpression(parser, context, Precedence.Assign, BindingType.AllowLHS, true, start);
       consume(parser, context, Token.RightBracket);
     } else {
-      name = parsePropertyName(parser, context, 0);
+      name = parsePropertyName(parser, context, start);
     }
   }
 
@@ -4538,7 +4542,7 @@ export function parseSuperPropertyOrCall(parser: ParserState, context: Context):
   // If it wasn't then just try to parse out a '.' and report an error.
   if (consumeOpt(parser, context, Token.LeftBracket)) {
     parser.assignable = true;
-    expression = parseExpression(parser, context, Precedence.Assign, BindingType.Assignment, true, 0);
+    expression = parseExpression(parser, context, Precedence.Assign, BindingType.Assignment, true, start);
     consume(parser, context, Token.RightBracket);
   } else if (parser.token === Token.Period) {
     nextToken(parser, context);
