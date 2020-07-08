@@ -3935,7 +3935,7 @@ export function parseFunctionRestParameter(parser: ParserState, context: Context
 //   BindingIdentifier
 
 export function parseFormalParameters(parser: ParserState, context: Context): Types.FormalParameters | any {
-  const leafs: (Types.FunctionRestParameter | Types.BindingElement)[] = [];
+  let leafs: any = [];
   const start = parser.startIndex;
   if (context & Context.ErrorRecovery) {
     // Return an empty list if '(' is missing
@@ -3958,7 +3958,7 @@ export function parseFormalParameters(parser: ParserState, context: Context): Ty
     }
 
     consume(parser, context, Token.RightParen);
-
+    leafs = createBlockArray(parser, leafs, start);
     return finishNode(parser, context, start, { type: 'FormalParameters', leafs }, NodeType.FormalParameters);
   }
   consume(parser, context, Token.LeftParen);

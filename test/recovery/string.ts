@@ -28,25 +28,32 @@ describe('Recovery - String literal', () => {
       }
     ]);
     t.deepEqual(root.leafs[0], {
+      contextFlags: 128,
       end: 15,
       expression: {
+        contextFlags: 128,
         end: 15,
         id: 2,
         left: {
+          contextFlags: 65664,
           end: 1,
           id: 0,
+          mutualFlags: 0,
           name: 'x',
           nodeType: 88,
           parent: null,
           start: 0,
           type: 'IdentifierReference'
         },
+        mutualFlags: 0,
         nodeType: 47,
         operator: '=',
         parent: null,
         right: {
+          contextFlags: 128,
           end: 15,
           id: 1,
+          mutualFlags: 0,
           nodeType: 77,
           parent: null,
           start: 3,
@@ -57,6 +64,7 @@ describe('Recovery - String literal', () => {
         type: 'AssignmentExpression'
       },
       id: 3,
+      mutualFlags: 0,
       nodeType: 4,
       parent: null,
       start: 0,
@@ -90,25 +98,32 @@ describe('Recovery - String literal', () => {
       }
     ]);
     t.deepEqual(root.leafs[0], {
+      contextFlags: 128,
       end: 6,
       expression: {
+        contextFlags: 128,
         end: 6,
         id: 2,
         left: {
+          contextFlags: 65664,
           end: 1,
           id: 0,
+          mutualFlags: 0,
           name: 'x',
           nodeType: 88,
           parent: null,
           start: 0,
           type: 'IdentifierReference'
         },
+        mutualFlags: 0,
         nodeType: 47,
         operator: '=',
         parent: null,
         right: {
+          contextFlags: 128,
           end: 6,
           id: 1,
+          mutualFlags: 0,
           nodeType: 77,
           parent: null,
           start: 3,
@@ -119,61 +134,14 @@ describe('Recovery - String literal', () => {
         type: 'AssignmentExpression'
       },
       id: 3,
+      mutualFlags: 0,
       nodeType: 4,
       parent: null,
       start: 0,
       type: 'ExpressionStatement'
     });
   });
-  /*
-  it('invalid { after Unicode \\uadddddddd', () => {
-    const root = recovery('x = "x\\ua{ foo"', 'recovery.js');
-    t.deepEqual(root.diagnostics, [
-      {
-        end: 9,
-        kind: 2,
-        message: 'Invalid hexadecimal escape sequence',
-        source: 0,
-        start: 3
-      }
-    ]);
-    t.deepEqual(root.leafs[0], {
-      end: 15,
-      expression: {
-        end: 15,
-        id: 2,
-        left: {
-          end: 1,
-          id: 0,
-          name: 'x',
-          nodeType: 88,
-          parent: null,
-          start: 0,
-          type: 'IdentifierReference'
-        },
-        nodeType: 47,
-        operator: '=',
-        parent: null,
-        right: {
-          end: 15,
-          id: 1,
-          nodeType: 77,
-          parent: null,
-          start: 3,
-          type: 'StringLiteral',
-          value: 'x{ foo'
-        },
-        start: 0,
-        type: 'AssignmentExpression'
-      },
-      id: 3,
-      nodeType: 4,
-      parent: null,
-      start: 0,
-      type: 'ExpressionStatement'
-    });
-  });
-*/
+
   it('Should parse invalid string as directive33', () => {
     const root = recovery('"\\u{g0}"', 'recovery.js');
     t.deepEqual(root.diagnostics, [
@@ -215,25 +183,32 @@ describe('Recovery - String literal', () => {
     ]);
 
     t.deepEqual(root.leafs[0], {
+      contextFlags: 128,
       end: 12,
       expression: {
+        contextFlags: 128,
         end: 12,
         id: 2,
         left: {
+          contextFlags: 65664,
           end: 1,
           id: 0,
+          mutualFlags: 0,
           name: 'x',
           nodeType: 88,
           parent: null,
           start: 0,
           type: 'IdentifierReference'
         },
+        mutualFlags: 0,
         nodeType: 47,
         operator: '=',
         parent: null,
         right: {
+          contextFlags: 128,
           end: 12,
           id: 1,
+          mutualFlags: 0,
           nodeType: 77,
           parent: null,
           start: 3,
@@ -244,6 +219,7 @@ describe('Recovery - String literal', () => {
         type: 'AssignmentExpression'
       },
       id: 3,
+      mutualFlags: 0,
       nodeType: 4,
       parent: null,
       start: 0,

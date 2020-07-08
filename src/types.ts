@@ -56,6 +56,10 @@ export interface Root {
   nodeType?: number;
 
   parent?: any;
+
+  contextFlags?: number;
+
+  mutualFlags?: number;
 }
 
 /*

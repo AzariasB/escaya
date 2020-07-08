@@ -200,6 +200,8 @@ export function finishNode<T extends Types.Node>(
 
     if (context & Context.ErrorRecovery) {
 
+    node.contextFlags = context;
+    node.mutualFlags = parser.flags;
     node.nodeType = flags;
     node.parent = null;
   }
