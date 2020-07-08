@@ -1219,6 +1219,9 @@ export interface TokenNode extends Root {
   type: TokenKind;
 }
 
+// NodeCursor interface
+export type NodeCursor = void | ((pos: number) => Root | undefined);
+
 export interface MissingList extends Root {
   start: number;
   length: number;
@@ -1237,10 +1240,6 @@ export interface TextChangeRange {
 export interface TextRange {
   start: number;
   end: number;
-}
-
-export interface NodeCursor {
-  currentNode(position: number): any;
 }
 
 export interface ArrayList extends Root {
