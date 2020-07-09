@@ -114,5 +114,8 @@ export enum DiagnosticCode {
   UnsupportedUnicodeIdent,
   UnexpectedIdentNumber,
   OptionalChainingNoSuper,
-  OptionalChainingNoNew
+  OptionalChainingNoNew,
+  UnexpectedEOF,
+  UnexpectedKeyword,
+  UnexpectedIdentifier
 }

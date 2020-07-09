@@ -1,9 +1,11 @@
-import { Token, KeywordDescTable } from './token'
+import { Token } from './token'
 import { nextToken } from './scanner/scan'
 import * as Types from './types';
 import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from './diagnostic/enums';
 import { addDiagnostic, Diagnostic } from './diagnostic/diagnostics';
+import { tokenErrors } from './diagnostic/token-errors';
 import { NodeType } from './nodeType';
+
 /**
  * The core context, passed around everywhere as a simple immutable bit set.
  */
@@ -176,7 +178,7 @@ export function consume<T extends Token>(parser: ParserState, context: Context, 
     nextToken(parser, context);
     return true;
   }
-  addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.Expected, DiagnosticKind.Error, KeywordDescTable[t & Token.Type]);
+  addDiagnostic(parser, context, DiagnosticSource.Lexer, tokenErrors(t), DiagnosticKind.Error);
 return false;
 }
 
@@ -334,7 +336,7 @@ export function consumeSemicolon(parser: ParserState, context: Context): void {
     return;
   }
   if (canParseSemicolon(parser)) return;
-  addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.Unexpected, DiagnosticKind.Error, KeywordDescTable[parser.token & Token.Type]);
+  addDiagnostic(parser, context, DiagnosticSource.Lexer, tokenErrors(parser.token), DiagnosticKind.Error);
 }
 
 

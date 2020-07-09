@@ -1,5 +1,6 @@
 import { ParserState, Context, lastOrUndefined } from '../common';
 import { DiagnosticSource, DiagnosticCode, DiagnosticKind } from './enums';
+
 /**
  * The base type of all types which represent some kind of diagnostic.
  */
@@ -14,6 +15,10 @@ export interface Diagnostic {
 export const diagnosticMap: {
   [key: string]: string;
 } = {
+  [DiagnosticCode.UnexpectedKeyword]: 'Unexpected keyword',
+  [DiagnosticCode.UnexpectedIdentifier]: 'Unexpected identifier',
+  [DiagnosticCode.UnexpectedEOF]: 'Unexpected end of input',
+  [DiagnosticCode.UnterminatedComment]: "Multiline comment isn't closed properly",
   [DiagnosticCode.UnterminatedComment]: "Multiline comment isn't closed properly",
   [DiagnosticCode.StrictOctalEscape]: 'Octal escape sequences are not allowed in strict mode',
   [DiagnosticCode.InvalidEightAndNine]: 'Escapes \\8 or \\9 are not syntactically valid escapes',

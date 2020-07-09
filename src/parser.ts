@@ -6,7 +6,8 @@ import * as Types from './types';
 import { NodeType } from './nodeType';
 import { Options } from './escaya';
 import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from './diagnostic/enums';
-import { addDiagnostic, report } from './diagnostic/diagnostics';
+import { addDiagnostic } from './diagnostic/diagnostics';
+import { tokenErrors } from './diagnostic/token-errors';
 
 import {
   insertSyntheticNode,
@@ -2147,8 +2148,7 @@ export function parseExpression(
             expr = parseTemplate(parser, context);
             break;
           default:
-            // Don't report any diagnostics here if in recvoery mode
-            if ((context & Context.ErrorRecovery) === 0) report(parser, DiagnosticCode.UnknownToken);
+            addDiagnostic(parser, context, DiagnosticSource.Parser, tokenErrors(parser.token), DiagnosticKind.Error);
             expr = insertSyntheticNode(parser, context);
             nextToken(parser, context);
         }
