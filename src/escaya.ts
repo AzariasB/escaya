@@ -3,6 +3,7 @@ import { Context, Flags, RootNode } from './common';
 import { parseModuleItem, parseStatementListItem, parseSource } from './parser';
 import { parseInRecoveryMode } from './recovery';
 import { parseInIncrementalMode } from './incremental';
+import { reportDiagnostics } from './reporter/reporter';
 
 /**
  * The parser options.
@@ -60,4 +61,11 @@ export function update(
   return parseInIncrementalMode(root, text, filename, sourceChangeRange);
 }
 
-export const version = '0.0.9';
+/**
+ * Reports diagnostics
+ */
+export function report(root: RootNode): void {
+  return reportDiagnostics(root);
+}
+
+export const version = '0.0.10';
