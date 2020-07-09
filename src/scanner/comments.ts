@@ -1,7 +1,8 @@
 import { ParserState, Context } from '../common';
 import { Chars } from './chars';
 import { unicodeLookup } from './unicode';
-import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
+import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostic/enums';
+import { addDiagnostic } from '../diagnostic/diagnostics';
 import { State } from './common';
 
 export function skipSingleLineComment(parser: ParserState, source: string, state: State): State {

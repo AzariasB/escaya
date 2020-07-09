@@ -5,7 +5,9 @@ import { scanTemplateTail } from './scanner/template';
 import * as Types from './types';
 import { NodeType } from './nodeType';
 import { Options } from './escaya';
-import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from './diagnostics';
+import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from './diagnostic/enums';
+import { addDiagnostic, report } from './diagnostic/diagnostics';
+
 import {
   insertSyntheticNode,
   parseLeafElement,
@@ -2145,7 +2147,8 @@ export function parseExpression(
             expr = parseTemplate(parser, context);
             break;
           default:
-            addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+            // Don't report any diagnostics here if in recvoery mode
+            if ((context & Context.ErrorRecovery) === 0) report(parser, DiagnosticCode.UnknownToken);
             expr = insertSyntheticNode(parser, context);
             nextToken(parser, context);
         }

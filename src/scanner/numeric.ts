@@ -1,7 +1,8 @@
 import { ParserState, Context } from '../common';
 import { Token } from '../token';
 import { Chars } from './chars';
-import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
+import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostic/enums';
+import { addDiagnostic } from '../diagnostic/diagnostics';
 import { CharFlags, CharTypes } from './charClassifier';
 import { toHex } from './common';
 import { leadingZeroChars } from './tables';

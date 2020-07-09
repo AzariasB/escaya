@@ -2,7 +2,8 @@ import { Chars } from './chars';
 import { Token } from '../token';
 import { CharFlags, CharTypes, isIdentifierPart } from './charClassifier';
 import { ParserState, Context } from '../common';
-import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
+import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostic/enums';
+import { addDiagnostic } from '../diagnostic/diagnostics';
 
 export function scanRegExp(parser: ParserState, context: Context): Token {
   if (parser.index >= parser.length) {

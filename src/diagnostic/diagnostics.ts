@@ -1,9 +1,5 @@
-import { ParserState, Context } from './common';
-
-/**
- * Diagnostic types
- */
-
+import { ParserState, Context, lastOrUndefined } from '../common';
+import { DiagnosticSource, DiagnosticCode, DiagnosticKind } from './enums';
 /**
  * The base type of all types which represent some kind of diagnostic.
  */
@@ -15,127 +11,7 @@ export interface Diagnostic {
   end: number;
 }
 
-/**
- * Sources of diagnostic messages.
- */
-export const enum DiagnosticSource {
-  Lexer = 0,
-  Parser = 1 << 1
-}
-
-/**
- * Types of diagnostics which can be generated.
- */
-export enum DiagnosticKind {
-  Message,
-  Warning,
-  Error,
-  Hint
-}
-
-/**
- * Unique codes for each diagnostic message which can be generated.
- */
-export enum DiagnosticCode {
-  // errors
-  Unexpected,
-  Expected,
-  UnknownToken,
-  InvalidBindingIdentifier,
-  InvalidLHS,
-  InvalidDestruct,
-  InvalidIncDecTarget,
-  InvalidExponentation,
-  IllegalReturn,
-  InvalidDestructuringTarget,
-  InvalidLHSDestructRHS,
-  InvalidBindingDestruct,
-  InvalidArrowDestructLHS,
-  StrictFunction,
-  SloppyFunction,
-  ClassForbiddenAsStatement,
-  StrictWith,
-  NewlineAfterThrow,
-  RestricedLetProduction,
-  StrictReservedWord,
-  LineTerminatorNotPermittedBeforeArrow,
-  FuncDeclNoName,
-  ClassDeclNoName,
-  BlockBodyInvokedWithoutGroup,
-  BlockBodyAccessedWithoutGroup,
-  BlockBodyTaggedWithoutGroup,
-  ArrowOperatorToRight,
-  ArrowPostfixUpdateOperator,
-  DuplicateDefaultClause,
-  InvalidSuperProperty,
-  InvalidSuperCall,
-  ExpectedIdentifier,
-  DuplicateRegExpFlag,
-  UnterminatedRegExp,
-  UnknownRegExpFlag,
-  UnterminatedString,
-  UnterminatedTemplate,
-  InvalidOctalEscapeInTemplate,
-  ExpectedComma,
-  DeclMissingDestructInitializer,
-  ConstMissingDestrictInitializer,
-  ExpectedArrow,
-  CantAssignToLoop,
-  CantAssignForInLoop,
-  CantAssignForLoop,
-  CantAssignForAwaitLoop,
-  ForOfLet,
-  DisallowedLetInStrict,
-  WebCompatFunction,
-  AsyncFunctionInSingleStatementContext,
-  InvalidDotProperty,
-  OptionalChainingNoTemplate,
-  StrictDelete,
-  ForInLoopMultiBindings,
-  ForOfLoopMultiBindings,
-  InvalidImportInSloppy,
-  NoCatchOrFinally,
-  CatchWithoutTry,
-  FinallyWithoutTry,
-  InvalidTrailingComma,
-  IllegalBreak,
-  IllegalContinue,
-  AwaitOutsideAsync,
-  DisallowedYieldInContext,
-  UnexpectedStrictReserved,
-  StrictInvalidLetInExprPos,
-  InvalidForAwait,
-  InvalidLetConstBinding,
-  InvalidKeyword,
-  LetInStrictMode,
-  HtmlCommentInModule,
-  InvalidCharacter,
-  InvalidTrailSurrogate,
-  InvalidUnicodeEscapeSequence,
-  InvalidHexEscapeSequence,
-  UnicodeOverflow,
-  InvalidAstralCharacter,
-  StrictOctalEscape,
-  InvalidEightAndNine,
-  IdafterNumber,
-  StrictOctal,
-  OctalSequence,
-  BinarySequence,
-  BinarySequenceNoDigits,
-  OctalSequenceNoDigits,
-  HexSequenceNoDigits,
-  UnknownDigit,
-  MissingExponent,
-  InvalidBigIntLiteral,
-  UnterminatedComment,
-  TemplateBadEscape,
-  UnsupportedUnicodeIdent,
-  UnexpectedIdentNumber,
-  OptionalChainingNoSuper,
-  OptionalChainingNoNew
-}
-
-export const DiagnosticMessages: {
+export const diagnosticMap: {
   [key: string]: string;
 } = {
   [DiagnosticCode.UnterminatedComment]: "Multiline comment isn't closed properly",
@@ -242,22 +118,9 @@ export const DiagnosticMessages: {
   [DiagnosticCode.UnexpectedIdentNumber]: 'An identifier or number immediately follow a numeric literal'
 };
 
-export function createDiagnostic(
-  source: DiagnosticSource,
-  message: string,
-  kind: DiagnosticKind,
-  start: number,
-  end: number
-): Diagnostic {
-  return {
-    kind,
-    source,
-    message,
-    start,
-    end
-  };
-}
-
+/**
+ * Report an error in non-recovery mode with an appropriate index, line, column, and description string.
+ */
 export function addDiagnostic(
   parser: ParserState,
   context: any,
@@ -266,7 +129,7 @@ export function addDiagnostic(
   kind: DiagnosticKind,
   ...args: string[]
 ): void {
-  let message = DiagnosticMessages[code];
+  let message = diagnosticMap[code];
 
   if (arguments.length > 4) {
     message = formatStringFromArgs(message, args);
@@ -276,28 +139,27 @@ export function addDiagnostic(
     throw `line:${parser.line}, column:${parser.index - parser.columnOffset} - ${message}`;
   }
 
-  parser.diagnostics.push(createDiagnostic(source, message, kind, parser.startIndex, parser.index));
+  const lastError = lastOrUndefined(parser.diagnostics);
+  const start = parser.startIndex;
+  const end = parser.index;
+  if (!lastError || parser.startIndex !== lastError.start) {
+    parser.diagnostics.push({ kind, source, message, start, end });
+  }
 }
 
-export function addDiagnosticByIndex(
-  parser: ParserState,
-  context: any,
-  index: number,
-  source: DiagnosticSource,
-  code: DiagnosticCode,
-  kind: DiagnosticKind,
-  ...args: string[]
-): void {
-  let message = DiagnosticMessages[code];
+/**
+ * Add an error diagnostic in recovery mode, and report an error non-recovery mode with an
+ * appropriate index, line, column, and description string. This currently
+ * throws in non-recovery mode.
+ */
+export function report(parser: ParserState, code: DiagnosticCode, ...args: string[]) {
+  let message = diagnosticMap[code];
 
   if (arguments.length > 4) {
     message = formatStringFromArgs(message, args);
   }
 
-  if ((context & Context.ErrorRecovery) === 0) {
-    throw `line:${parser.line}, column:${index - parser.columnOffset} - ${message}`;
-  }
-  parser.diagnostics.push(createDiagnostic(source, message, kind, index, parser.index));
+  throw `line:${parser.line}, column:${parser.index - parser.columnOffset} - ${message}`;
 }
 
 export function formatStringFromArgs(message: string, args: string[]): string {

@@ -3,7 +3,8 @@ import { Chars } from './chars';
 import { toHex, fromCodePoint } from './common';
 import { Token, descKeywordTable } from '../token';
 import { CharTypes, CharFlags, isIdentifierPart } from './charClassifier';
-import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
+import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostic/enums';
+import { addDiagnostic } from '../diagnostic/diagnostics';
 import { unicodeLookup } from './unicode';
 
 export function scanIdentifier(parser: ParserState, context: Context, source: string): Token {

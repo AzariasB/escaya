@@ -2,6 +2,15 @@ import { ParserState, Context } from '../common';
 import { Chars } from './chars';
 import { skipMultiLineComment, skipSingleLineComment } from './comments';
 import { Token } from '../token';
+import { State, fromCodePoint } from './common';
+import { scanNumber } from './numeric';
+import { scanRegExp } from './regexp';
+import { unicodeLookup } from './unicode';
+import { scanTemplateSpan } from './template';
+import { scanString } from './string';
+import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostic/enums';
+import { addDiagnostic } from '../diagnostic/diagnostics';
+import { oneCharTokens } from './tables';
 import {
   scanIdentifier,
   scanKeywordOrIdentifier,
@@ -9,14 +18,6 @@ import {
   scanIdentifierEscapeIdStart,
   scanPrivateName
 } from './identifier';
-import { State, fromCodePoint } from './common';
-import { scanNumber } from './numeric';
-import { scanRegExp } from './regexp';
-import { unicodeLookup } from './unicode';
-import { scanTemplateSpan } from './template';
-import { scanString } from './string';
-import { addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from '../diagnostics';
-import { oneCharTokens } from './tables';
 
 // Scan for a single token
 export function scan(parser: ParserState, context: Context): Token {

@@ -1,9 +1,9 @@
 import { Token, KeywordDescTable } from './token'
 import { nextToken } from './scanner/scan'
 import * as Types from './types';
-import { Diagnostic, addDiagnostic, DiagnosticKind, DiagnosticSource, DiagnosticCode } from './diagnostics';
+import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from './diagnostic/enums';
+import { addDiagnostic, Diagnostic } from './diagnostic/diagnostics';
 import { NodeType } from './nodeType';
-
 /**
  * The core context, passed around everywhere as a simple immutable bit set.
  */
@@ -220,9 +220,11 @@ export function reinterpretToPattern(node: any) {
     case 'IdentifierName':
     case 'IdentifierReference':
       node.type = 'BindingIdentifier';
+      // node.nodeType = NodeType.BindingIdentifier;
       return;
       case 'ArrayExpression': {
         node.type = 'ArrayBindingPattern';
+        node.nodeType = NodeType.ArrayBindingPattern;
         const elements = node.leafs;
         let i = elements.length;
         while (i--) {
@@ -232,6 +234,7 @@ export function reinterpretToPattern(node: any) {
       }
       case 'CoverInitializedName':
         node.type = 'BindingElement';
+      //   node.nodeType = NodeType.BindingElement;
         reinterpretToPattern(node.binding);
         return;
       case 'BindingElement':
@@ -240,6 +243,7 @@ export function reinterpretToPattern(node: any) {
       case 'ObjectAssignmentPattern':
       case 'ObjectLiteral':
         node.type = 'ObjectBindingPattern';
+       //  node.nodeType = NodeType.ObjectBindingPattern;
         const properties = node.properties;
         let i = properties.length;
         while (i--) {
@@ -251,16 +255,19 @@ export function reinterpretToPattern(node: any) {
         return;
       case 'AssignmentExpression':
         node.type = 'AssignmentPattern';
+    //     node.nodeType = NodeType.AssignmentPattern;
         //if (node.operator !== '=') report(state, Errors.Unexpected);
         delete node.operator;
         reinterpretToPattern(node.left);
         return;
       case 'PropertyDefinition':
         node.type = 'BindingProperty';
+    //     node.nodeType = NodeType.BindingProperty;
         reinterpretToPattern(node.value);
         return;
       case 'SpreadElement':
         node.type = 'BindingRestProperty';
+    //     node.nodeType = NodeType.BindingRestProperty;
         reinterpretToPattern(node.argument);
         return;
   }
@@ -273,18 +280,22 @@ export function reinterpretToAssignment(node: any, objlit: boolean): void {
     case 'IdentifierName':
     case 'BindingIdentifier':
       node.type = 'IdentifierReference';
+     //  node.nodeType = NodeType.IdentifierReference;
       return;
       case 'CoverInitializedName':
         node.type = 'BindingElement';
+        node.nodeType = NodeType.BindingElement;
         return;
     case 'AssignmentRestProperty':
     case 'SpreadElement':
       node.type = objlit ? 'AssignmentRestProperty' : 'AssignmentRestElement';
+    //   node.nodeType = objlit ?  NodeType.AssignmentRestProperty : NodeType.AssignmentRestElement;
       reinterpretToAssignment(node.argument, objlit);
       return;
     case 'ArrayBindingPattern':
     case 'ArrayLiteral':
       node.type = 'ArrayAssignmentPattern';
+    //   node.nodeType = NodeType.ArrayAssignmentPattern;
       const leafs = node.leafs;
       let i = leafs.length;
       while (i--) {
@@ -294,6 +305,7 @@ export function reinterpretToAssignment(node: any, objlit: boolean): void {
     case 'BindingProperty':
     case 'PropertyDefinition':
         node.type = 'AssignmentProperty';
+     //    node.nodeType = NodeType.AssignmentProperty;
         reinterpretToAssignment(node.value, objlit);
         return;
     case 'AssignmentExpression':
@@ -304,6 +316,7 @@ export function reinterpretToAssignment(node: any, objlit: boolean): void {
     case 'ObjectBindingPattern':
     case 'ObjectLiteral': {
       node.type = 'ObjectAssignmentPattern';
+    //   node.nodeType = NodeType.ObjectAssignmentPattern;
       const properties = node.properties;
       let i = properties.length;
       while (i--) {
@@ -402,4 +415,16 @@ export function parseAndClassifyIdentifier(parser: ParserState, context: Context
   }
   return finishNode(parser, context, start, { type: 'IdentifierReference', name }, NodeType.IdentifierReference);
 
+}
+
+
+/**
+ * Returns the last element of an array if non-empty, undefined otherwise.
+ */
+export function lastOrUndefined<T>(array: T[]): T | undefined {
+  if (array.length === 0) {
+    return undefined;
+  }
+
+  return array[array.length - 1];
 }
