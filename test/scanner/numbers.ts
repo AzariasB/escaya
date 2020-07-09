@@ -7,7 +7,7 @@ import { scan } from '../../src/scanner/scan';
 describe('Scanner - numeric literals', () => {
   function fail(name: string, source: string, context: Context) {
     it(name, () => {
-      const parser = create(source, /* diagnostics */ []);
+      const parser = create(source);
       t.throws(() => scan(parser, context));
     });
   }
@@ -315,7 +315,7 @@ describe('Scanner - numeric literals', () => {
 
     for (const [ctx, token, op, value] of tokens) {
       it(`scans '${op}' at the end`, () => {
-        const parser = create(op, /* diagnostics */ []);
+        const parser = create(op);
         const found = scan(parser, ctx);
         t.deepEqual(
           {

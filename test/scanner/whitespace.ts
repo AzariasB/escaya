@@ -6,7 +6,7 @@ import { scan } from '../../src/scanner/scan';
 describe('Scanner - Whitespace', () => {
   function pass(name: string, opts: any) {
     it(name, () => {
-      const parser = create(opts.source, /* diagnostics */ []);
+      const parser = create(opts.source);
       scan(parser, Context.Empty);
       t.deepEqual(
         {

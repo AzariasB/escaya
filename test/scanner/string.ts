@@ -7,7 +7,7 @@ import { scan } from '../../src/scanner/scan';
 describe('Scanner - String literal', () => {
   function fail(name: string, source: string, context: Context) {
     it(name, () => {
-      const parser = create(source, /* diagnostics */ []);
+      const parser = create(source);
       t.throws(() => scan(parser, context));
     });
   }
@@ -458,7 +458,7 @@ describe('Scanner - String literal', () => {
 
   for (const [ctx, op, value] of tokens) {
     it(`scans '${op}' at the end`, () => {
-      const parser = create(op, /* diagnostics */ []);
+      const parser = create(op);
       const found = scan(parser, ctx);
 
       t.deepEqual(
@@ -480,7 +480,7 @@ describe('Scanner - String literal', () => {
     });
 
     it(`scans '${op}' with more to go`, () => {
-      const parser = create(`${op} rest`, /* diagnostics */ []);
+      const parser = create(`${op} rest`);
       const found = scan(parser, ctx);
 
       t.deepEqual(

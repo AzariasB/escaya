@@ -7,7 +7,7 @@ import { scan } from '../../src/scanner/scan';
 describe('Scanner - Comments', () => {
   function fail(name: string, source: string, context: Context) {
     it(name, () => {
-      const state = create(source, /* diagnostics */ []);
+      const state = create(source);
       t.throws(() => scan(state, context));
     });
   }
@@ -53,7 +53,7 @@ describe('Scanner - Comments', () => {
 
   for (const [ctx, token, op] of tokens) {
     it(`scans '${op}' at the end`, () => {
-      const state = create(op, /* diagnostics */ []);
+      const state = create(op);
       const found = scan(state, ctx);
 
       t.deepEqual(
@@ -73,7 +73,7 @@ describe('Scanner - Comments', () => {
 
   function pass(name: string, opts: any) {
     it(name, () => {
-      const parser = create(opts.source, /* diagnostics */ []);
+      const parser = create(opts.source);
       scan(parser, opts.context);
       t.deepEqual(
         {

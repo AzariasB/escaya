@@ -18,8 +18,6 @@ export const enum NodeType {
 
   Statement = 1 << 4,
 
-  ClassMembers = 1 << 5,
-
   FunctionDeclaration = 0,
   VariableStatement = 1,
   BlockStatement = 2,
@@ -114,19 +112,18 @@ export const enum NodeType {
   Module = 92,
   AssignmentPattern = 93,
   ArrayBindingPattern = 94,
-  DestructuringAssignmentTarget = 95,
-  BindingProperty = 96,
-  ObjectBindingPattern = 97,
-  ArrayAssignmentPattern = 98,
-  ArrayObjectPattern = 99,
-  ObjectAssignmentPattern = 100,
-  CallChain = 101,
-  RestElement = 102,
-  BindingRestProperty = 103,
-  ArrayList = 104,
-  FunctionRestParameter = 105,
-  AssignmentProperty = 106,
-  BindingElement = 107,
-  CoverInitializedName = 108,
-  TaggedTemplateExpression = 109
+  BindingProperty = 95,
+  ObjectBindingPattern = 96,
+  ArrayAssignmentPattern = 97,
+  ArrayObjectPattern = 98,
+  ObjectAssignmentPattern = 99,
+  CallChain = 100,
+  RestElement = 101,
+  BindingRestProperty = 102,
+  FunctionRestParameter = 103,
+  AssignmentProperty = 104,
+  BindingElement = 105,
+  CoverInitializedName = 106,
+  TaggedTemplateExpression = 107,
+  AssignmentRestProperty = 108
 }

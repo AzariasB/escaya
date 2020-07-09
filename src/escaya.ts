@@ -1,7 +1,8 @@
 import * as Types from './types';
 import { Context, Flags, RootNode } from './common';
 import { parseModuleItem, parseStatementListItem, parseSource } from './parser';
-import { parseIncremental } from './incremental';
+import { parseInRecoveryMode } from './recovery';
+import { parseInIncrementalMode } from './incremental';
 
 /**
  * The parser options.
@@ -44,16 +45,7 @@ export function parseModule(source: string, options?: Options): Types.Module {
  * Parse a module or script, optionally with various options in reovery mode
  */
 export function recovery(source: string, filename: string, options?: Options): RootNode {
-  return parseIncremental(
-    source,
-    filename,
-    Context.ErrorRecovery,
-    Flags.Empty,
-    /* setParents */ false,
-    [] /* diagnostics */,
-    undefined,
-    options
-  );
+  return parseInRecoveryMode(source, filename, Context.ErrorRecovery, Flags.Empty, undefined, options);
 }
 
 /**
@@ -65,20 +57,7 @@ export function update(
   filename: string,
   sourceChangeRange: Types.TextChangeRange
 ): RootNode {
-  if (sourceChangeRange.span.length === 0 && sourceChangeRange.newLength === 0) {
-    // if the text didn't change, then we can just return our current source file as-is.
-    return root;
-  }
-
-  // Inherit the core context bits from the RootNode. This will assure that we are parsing
-  // with the same options
-  const context = root.contextFlags;
-
-  // Inherit the mutual parser flags from the RootNode, in case any flags need passed by reference
-  const flags = root.mutualFlags;
-
-  // Note: This will trigger a 'full parse' for now.
-  return parseIncremental(text, filename, context, flags, /* setParents */ false, /* diagnostics */ []);
+  return parseInIncrementalMode(root, text, filename, sourceChangeRange);
 }
 
-export const version = '0.0.5';
+export const version = '0.0.9';
