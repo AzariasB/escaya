@@ -124,7 +124,9 @@ export const diagnosticMap: {
 };
 
 /**
- * Report an error in non-recovery mode with an appropriate index, line, column, and description string.
+ * Add an error diagnostic in recovery mode, and report an error non-recovery mode with an
+ * appropriate index, line, column, and description string. This currently
+ * throws in non-recovery mode.
  */
 export function addDiagnostic(
   parser: ParserState,
@@ -150,21 +152,6 @@ export function addDiagnostic(
   if (!lastError || parser.startIndex !== lastError.start) {
     parser.diagnostics.push({ kind, source, message, start, end });
   }
-}
-
-/**
- * Add an error diagnostic in recovery mode, and report an error non-recovery mode with an
- * appropriate index, line, column, and description string. This currently
- * throws in non-recovery mode.
- */
-export function report(parser: ParserState, code: DiagnosticCode, ...args: string[]) {
-  let message = diagnosticMap[code];
-
-  if (arguments.length > 4) {
-    message = formatStringFromArgs(message, args);
-  }
-
-  throw `line:${parser.line}, column:${parser.index - parser.columnOffset} - ${message}`;
 }
 
 export function formatStringFromArgs(message: string, args: string[]): string {
