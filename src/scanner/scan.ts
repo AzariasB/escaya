@@ -25,7 +25,7 @@ export function scan(parser: ParserState, context: Context): Token {
   parser.startIndex = parser.index;
 
   let state = parser.index === 0 ? State.NewLine : State.None;
-  let source = parser.source;
+  const source = parser.source;
 
   while (parser.index < parser.length) {
     let ch = source.charCodeAt(parser.index);

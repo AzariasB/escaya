@@ -188,7 +188,7 @@ export function finishNode<T extends Types.Node>(
   context: Context,
   start: number,
   node: T,
-  flags: any
+  flags: NodeType
 ): T {
 
   if (context & (Context.ErrorRecovery | Context.OptionsLoc)) {
@@ -216,7 +216,7 @@ export function isClosingTokenOrComma<T extends Token>(t: T, closingToken: Token
   return t === closingToken || t === Token.Comma || t === Token.Assign;
 }
 
-export function reinterpretToPattern(node: any) {
+export function reinterpretToPattern(node: any): void {
   if (!node) return;
   switch(node.type) {
     case 'IdentifierName':
@@ -375,12 +375,10 @@ export function isCaseOrDefaultKeyword<T extends Token>(t: T): boolean {
   return t === Token.CaseKeyword || t === Token.DefaultKeyword;
 }
 
-
-
 export function parseAndClassifyIdentifier(parser: ParserState, context: Context,  t: Token, name: string,
   bindingType: BindingType,
   isBinding: boolean,
-  start: number) {
+  start: number): Types.BindingIdentifier | Types.IdentifierReference {
 
   if (context & (Context.Module | Context.Await) && parser.token === Token.AwaitKeyword) {
     addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.AwaitOutsideAsync, DiagnosticKind.Error);

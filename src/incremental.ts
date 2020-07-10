@@ -83,12 +83,12 @@ export function createMissingList(_start: number): Types.MissingList {
 
 /** Synthetic nodes */
 
-export function insertSyntheticNode(parser: ParserState, context: Context): Types.Synthetic {
+export function createIdentifier(parser: ParserState, context: Context): Types.IdentifierReference {
   return finishNode(
     parser,
     context,
     parser.startIndex,
-    { type: 'Synthetic', value: '##' },
-    NodeType.Synthetic | NodeType.HasErrors
+    { type: 'IdentifierReference', name: '' },
+    NodeType.IdentifierReference | NodeType.HasErrors
   );
 }

@@ -176,7 +176,6 @@ export type Node =
   | BindingPattern
   | ObjectBindingPattern
   | ObjectAssignmentPattern
-  | Synthetic
   | WhileStatement
   | WithStatement
   | YieldExpression;
@@ -247,7 +246,6 @@ export type PrimaryExpression =
   | SuperCall
   | NewExpression
   | SuperProperty
-  | Synthetic
   | TemplateLiteral
   | UnaryExpression
   | ThisExpression;
@@ -1075,11 +1073,6 @@ export interface ImportCall extends Root {
 export type PropertyName = Expression | StringLiteral | NumericLiteral | IdentifierName;
 
 /** Incremental */
-
-export interface Synthetic extends Root {
-  type: 'Synthetic';
-  value: '##'; // Dummy node inserted by the parser. No real value should exist
-}
 
 export type TokenKind =
   /* Constants/Bindings */

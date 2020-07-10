@@ -10,7 +10,7 @@ import { addDiagnostic } from './diagnostic/diagnostics';
 import { tokenErrors } from './diagnostic/token-errors';
 
 import {
-  insertSyntheticNode,
+  createIdentifier,
   parseLeafElement,
   createBlockArray,
   createMissingList,
@@ -751,10 +751,9 @@ export function parseExpressionOrLabelledStatement(
   parser: ParserState,
   context: Context
 ): Types.Expression | Types.LabelledStatement | Types.ExpressionStatement {
-  let expr: Types.IdentifierReference | Types.Expression | Types.CommaOperator;
   const { token, tokenValue, startIndex } = parser;
 
-  expr = parseExpression(parser, context, Precedence.Assign, BindingType.AllowLHS, true, startIndex);
+  const expr = parseExpression(parser, context, Precedence.Assign, BindingType.AllowLHS, true, startIndex);
 
   if (token & Constants.IdentifierOrFutureKeyword && parser.token === Token.Colon) {
     return parseLabelledStatement(parser, context, token, tokenValue, startIndex);
@@ -1333,7 +1332,7 @@ export function parseImportDeclaration(parser: ParserState, context: Context): a
         consume(parser, context, Token.AsKeyword);
         namedBinding = parseBindingIdentifier(parser, context, BindingType.None);
       } else {
-        namedImports = parseImportsList(parser, context, startIndex);
+        namedImports = parseImportsList(parser, context);
       }
     }
   } else if (consumeOpt(parser, context | Context.AllowRegExp, Token.LeftParen)) {
@@ -1341,7 +1340,7 @@ export function parseImportDeclaration(parser: ParserState, context: Context): a
   } else if (consumeOpt(parser, context, Token.Period)) {
     return parseImportMetaFromModule(parser, context, BindingType.AllowLHS, startIndex);
   } else {
-    namedImports = parseImportsList(parser, context, startIndex);
+    namedImports = parseImportsList(parser, context);
   }
 
   fromClause = parseFromClause(parser, context);
@@ -1358,7 +1357,7 @@ export function parseImportDeclaration(parser: ParserState, context: Context): a
 // ImportsList:
 //  ImportSpecifier
 //  ImportsList, ImportSpecifier
-export function parseImportsList(parser: ParserState, context: Context, _start: number): Types.ImportSpecifier | any {
+export function parseImportsList(parser: ParserState, context: Context): Types.ImportSpecifier | any {
   const importsList: Types.ImportSpecifier[] = [];
   consume(parser, context, Token.LeftBrace);
   while ((parser.token & Constants.IdentfierName) > 0) {
@@ -1529,13 +1528,12 @@ export function parseImportCallFromModule(
   bindingType: BindingType,
   start: number
 ): Types.ExpressionStatement {
-  let expression: any;
-  let expr = parseExpression(parser, context, Precedence.Assign, bindingType, true, start);
+  let expression = parseExpression(parser, context, Precedence.Assign, bindingType, true, start);
   consume(parser, context, Token.RightParen);
   if ((parser.token & (Token.IsBinaryOp | Token.IsMember | Token.IsAssignOp)) !== 0) {
-    expr = parseLeftHandSide(parser, context, expr, Precedence.Assign, bindingType, start);
+    expression = parseLeftHandSide(parser, context, expression, Precedence.Assign, bindingType, start);
   }
-  expression = finishNode(parser, context, start, { type: 'ImportCall', import: expr }, NodeType.ImportCall);
+  expression = finishNode(parser, context, start, { type: 'ImportCall', import: expression }, NodeType.ImportCall);
   consumeSemicolon(parser, context);
   return finishNode(parser, context, start, { type: 'ExpressionStatement', expression }, NodeType.ExpressionStatement);
 }
@@ -2149,7 +2147,7 @@ export function parseExpression(
             break;
           default:
             addDiagnostic(parser, context, DiagnosticSource.Parser, tokenErrors(parser.token), DiagnosticKind.Error);
-            expr = insertSyntheticNode(parser, context);
+            expr = createIdentifier(parser, context);
             nextToken(parser, context);
         }
       }
@@ -3053,7 +3051,7 @@ export function parseParenthesizedExpression(
   parser: ParserState,
   context: Context,
   bindingType: BindingType
-): Types.ParenthesizedExpression | Types.ArrowFunction {
+): Types.ParenthesizedExpression | Types.ArrowFunction | Types.IdentifierReference {
   const start = parser.startIndex;
 
   nextToken(parser, context | Context.AllowRegExp);
@@ -3067,7 +3065,7 @@ export function parseParenthesizedExpression(
 
     addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedArrow, DiagnosticKind.Error);
     nextToken(parser, context);
-    return insertSyntheticNode(parser, context) as any;
+    return createIdentifier(parser, context) as any;
   }
 
   if (parser.token === Token.Ellipsis) {

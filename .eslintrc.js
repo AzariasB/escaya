@@ -22,6 +22,7 @@ module.exports = {
         'prefer-const': ['error', { destructuring: 'all' }],
 
         // TODO: enable it when all problems addressed
+        '@typescript-eslint/explicit-module-boundary-types': 0,
         '@typescript-eslint/explicit-function-return-type': 0,
         '@typescript-eslint/no-explicit-any': 0,
         '@typescript-eslint/class-name-casing': 0,

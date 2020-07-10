@@ -19,6 +19,7 @@
 * Optionally track syntactic node locations
 * Emits an ECMAScript® 2021 compatible abstract syntax tree
 * Error recovery mode with incremental parsing support
+* Errors diagnostics and reporter
 * JSON friendly
 * No backtracking
 * Low memory usage
@@ -101,9 +102,19 @@ The AST used by used by `Escaya` represents the structure of an ECMAScript progr
 
 The `Escaya AST` doesn't try to follow the SpiderMonkey-compatible standard that `ESTree` strictly follows. For example it distinguish `Identifier` from `IdentifierPattern`. That makes it easier to calculate the free variables of a program.
 
-## CLI
+## Reporter
 
-The CLI is still a TODO, but will parse Escaya in recovery mode and use the diagnostic messages to create an nice output so that you are always informed of invalid syntax so you can correct this.
+After parsing in `recovery mode`, you use use the diagnostic messages to create an nice output so that you are always informed of invalid syntax so you can correct this.
+
+```ts
+
+import { recovery, update, report } from './escaya';
+
+const rootNode = recovery('{!', 'error.js');
+
+report(rootNode); // Reports the diagnostics
+
+```
 
 ## Demo
 
