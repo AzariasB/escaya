@@ -1210,25 +1210,22 @@ export function parseBlock(
   start: number
 ): Types.MissingList | Types.Statement[] {
   if (context & Context.ErrorRecovery) {
-    const statements: any | Types.Statement[] = [];
+    let statements: any | Types.Statement[] = [];
     if (consume(parser, context | Context.AllowRegExp, Token.LeftBrace)) {
       while (parser.token & Constants.BlockStatement) {
         statements.push(parseLeafElement(parser, context, parseStatementListItem));
         if ((parser.token & Constants.BlockStatement) === 0) break;
       }
       if (parser.token !== Token.RightBrace) {
-        const lastError = lastOrUndefined(parser.diagnostics);
-        if (lastError && lastError.code === DiagnosticCode.UnknownToken) {
-          parser.diagnostics.push(
-            createDiagnostic(
-              DiagnosticSource.Parser,
-              DiagnosticCode.UnknownToken,
-              DiagnosticKind.Error,
-              start,
-              parser.endIndex
-            )
-          );
-        }
+        parser.diagnostics.push(
+          createDiagnostic(
+            DiagnosticSource.Parser,
+            DiagnosticCode.UnknownToken,
+            DiagnosticKind.Error,
+            start,
+            parser.endIndex
+          )
+        );
       }
       nextToken(parser, context | Context.AllowRegExp);
       return createArray(parser, statements, start);
@@ -3971,12 +3968,13 @@ export function parseFormalParameters(parser: ParserState, context: Context): Ty
 export function parseFunctionBody(parser: ParserState, context: Context, isDeclaration: boolean): any {
   const start = parser.startIndex;
 
-  const directives: string[] = [];
-
-  let statements: any | Types.Statement[] = [];
-
   if (parser.token === Token.LeftBrace) {
+    const directives: string[] = [];
+
+    let statements: any | Types.Statement[] = [];
+
     nextToken(parser, context | Context.AllowRegExp);
+
     while (parser.token === Token.StringLiteral) {
       const { token, tokenValue, startIndex } = parser;
       nextToken(parser, context);
@@ -4033,7 +4031,7 @@ export function parseFunctionBody(parser: ParserState, context: Context, isDecla
     parser,
     context,
     start,
-    { type: 'FunctionBody', statements: createMissingList(start), directives },
+    { type: 'FunctionBody', statements: createMissingList(start), directives: [] },
     NodeType.FunctionBody
   );
 }
