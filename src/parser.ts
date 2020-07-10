@@ -6,13 +6,13 @@ import * as Types from './types';
 import { NodeType } from './nodeType';
 import { Options } from './escaya';
 import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from './diagnostic/enums';
-import { addDiagnostic } from './diagnostic/diagnostics';
+import { addDiagnostic, createDiagnostic } from './diagnostic/diagnostics';
 import { tokenErrors } from './diagnostic/token-errors';
 
 import {
   createIdentifier,
   parseLeafElement,
-  createBlockArray,
+  createArray,
   createMissingList,
   parseLexicalElements,
   parseFormalElements,
@@ -27,6 +27,8 @@ import {
   Destructible,
   Precedence,
   BindingType,
+  create,
+  lastOrUndefined,
   isClosingTokenOrComma,
   reinterpretToAssignment,
   reinterpretToPattern,
@@ -56,39 +58,6 @@ export interface VarLexCallback {
   (parser: ParserState, context: Context, bindingType: BindingType, start: number):
     | Types.VariableDeclaration
     | Types.LexicalBinding;
-}
-
-/**
- * Create a new parser instance.
- */
-export function create(source: string, nodeCursor?: Types.NodeCursor): ParserState {
-  return {
-    source,
-    flags: Flags.Empty,
-    index: 0,
-    line: 1,
-    columnOffset: 0,
-    length: source.length,
-    hasLineTerminator: false,
-    startLine: 0,
-    startColumn: 0,
-    startIndex: 0,
-    endIndex: 0,
-    endColumn: 0,
-    tokenIndex: 0,
-    token: Token.EndOfSource,
-    destructible: Destructible.None,
-    assignable: true,
-    tokenValue: '',
-    tokenRaw: '',
-    diagnostics: [],
-    regExpPattern: '',
-    regExpFlags: '',
-    nodeCursor,
-    counter: 0,
-    buf: '',
-    lastChar: 0
-  };
 }
 
 export function parseSource(
@@ -133,7 +102,7 @@ export function parseSource(
     }
   }
 
-  // StatementList ::
+  // StatementList :
   //   (StatementListItem)* <end_token>
   while (parser.token !== Token.EndOfSource) {
     leafs.push(callback(parser, context));
@@ -426,7 +395,7 @@ export function parseVariableDeclarationOrBindingList(
       // Give a nice error message for weird cases like 'let a  b c  [] = b, {}' where comma is missing
       addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedComma, DiagnosticKind.Error);
     }
-    return createBlockArray(parser, declarationList, start);
+    return createArray(parser, declarationList, start);
   }
 
   // Non-recovery mode
@@ -574,7 +543,7 @@ export function parseCaseBlock(parser: ParserState, context: Context): (Types.De
     while (isCaseOrDefaultKeyword(parser.token)) {
       clauses.push(parseLeafElement(parser, context, parseCaseOrDefaultClause));
     }
-    return createBlockArray(parser, clauses, start);
+    return createArray(parser, clauses, start);
   }
 
   while (parser.token !== Token.RightBrace) {
@@ -1147,7 +1116,7 @@ export function parseForDeclaration(
       );
       count++;
     }
-    declarations = createBlockArray(parser, declarations, start);
+    declarations = createArray(parser, declarations, start);
   } else {
     do {
       declarations.push(parseForBinding(parser, context, bindingType, parser.startIndex));
@@ -1225,32 +1194,50 @@ export function parseForBinding(parser: ParserState, context: Context, bindingTy
   );
 }
 
-// BlockStatement : Block
+// BlockStatement :
+//    Block
 export function parseBlockStatement(parser: ParserState, context: Context): Types.BlockStatement {
   const start = parser.startIndex;
   const statements = parseBlock(parser, context, start);
   return finishNode(parser, context, start, { type: 'BlockStatement', statements }, NodeType.BlockStatement);
 }
 
-// Block : `{` StatementList `}`
-export function parseBlock(parser: ParserState, context: Context, start: number): Types.Statement[] {
+// Block :
+//   '{' StatementList '}'
+export function parseBlock(
+  parser: ParserState,
+  context: Context,
+  start: number
+): Types.MissingList | Types.Statement[] {
   if (context & Context.ErrorRecovery) {
-    let statements: any | Types.Statement[] = [];
+    const statements: any | Types.Statement[] = [];
     if (consume(parser, context | Context.AllowRegExp, Token.LeftBrace)) {
       while (parser.token & Constants.BlockStatement) {
         statements.push(parseLeafElement(parser, context, parseStatementListItem));
         if ((parser.token & Constants.BlockStatement) === 0) break;
       }
-      consume(parser, context | Context.AllowRegExp, Token.RightBrace);
-      statements = createBlockArray(parser, statements, start);
-    } else {
-      statements = createMissingList(start);
+      if (parser.token !== Token.RightBrace) {
+        const lastError = lastOrUndefined(parser.diagnostics);
+        if (lastError && lastError.code === DiagnosticCode.UnknownToken) {
+          parser.diagnostics.push(
+            createDiagnostic(
+              DiagnosticSource.Parser,
+              DiagnosticCode.UnknownToken,
+              DiagnosticKind.Error,
+              start,
+              parser.endIndex
+            )
+          );
+        }
+      }
+      nextToken(parser, context | Context.AllowRegExp);
+      return createArray(parser, statements, start);
     }
-    return statements;
+    return createMissingList(start) as any;
   }
   consume(parser, context | Context.AllowRegExp, Token.LeftBrace);
   const statements: Types.Statement[] = [];
-  while (parser.token !== Token.RightBrace) statements.push(parseStatementListItem(parser, context));
+  while (parser.token & Constants.BlockStatement) statements.push(parseStatementListItem(parser, context));
   consume(parser, context | Context.AllowRegExp, Token.RightBrace);
   return statements;
 }
@@ -1937,7 +1924,7 @@ export function parseArguments(parser: ParserState, context: Context): Types.Arg
       if ((parser.token & Constants.DelimitedList) === 0) break;
       consume(parser, context, Token.Comma);
     }
-    params = createBlockArray(parser, params, start);
+    params = createArray(parser, params, start);
     consume(parser, context, Token.RightParen);
     return params;
   }
@@ -3958,7 +3945,7 @@ export function parseFormalParameters(parser: ParserState, context: Context): Ty
     }
 
     consume(parser, context, Token.RightParen);
-    leafs = createBlockArray(parser, leafs, start);
+    leafs = createArray(parser, leafs, start);
     return finishNode(parser, context, start, { type: 'FormalParameters', leafs }, NodeType.FormalParameters);
   }
   consume(parser, context, Token.LeftParen);
@@ -3981,60 +3968,74 @@ export function parseFormalParameters(parser: ParserState, context: Context): Ty
 
 // FunctionBody :
 //   FunctionStatementList
-export function parseFunctionBody(parser: ParserState, context: Context, isDeclaration: boolean): Types.FunctionBody {
+export function parseFunctionBody(parser: ParserState, context: Context, isDeclaration: boolean): any {
   const start = parser.startIndex;
 
   const directives: string[] = [];
 
   let statements: any | Types.Statement[] = [];
 
-  if (context & Context.ErrorRecovery) {
-    if (consume(parser, context | Context.AllowRegExp, Token.LeftBrace)) {
-      while (parser.token === Token.StringLiteral) {
-        const { token, tokenValue, startIndex } = parser;
-        nextToken(parser, context);
-        if (parser.token & Token.IsAutomaticSemicolon) {
-          if (tokenValue.length === 10 && tokenValue === 'use strict') context |= Context.Strict;
-          consumeOpt(parser, context, Token.Semicolon);
-          directives.push(parser.source.slice(startIndex, parser.index));
-        } else {
-          statements.push(parseDirectives(parser, context, token, tokenValue, startIndex));
-        }
-      }
-      while (parser.token & Constants.BlockStatement) {
-        statements.push(parseLeafElement(parser, context, parseStatementListItem));
-        if (parser.token === Token.RightBrace) break;
-      }
-      statements = createBlockArray(parser, statements, start);
-    } else {
-      statements = createMissingList(start);
-    }
-    consume(parser, isDeclaration ? context | Context.AllowRegExp : context, Token.RightBrace);
-    return finishNode(parser, context, start, { type: 'FunctionBody', statements, directives }, NodeType.FunctionBody);
-  }
-  consume(parser, context | Context.AllowRegExp, Token.LeftBrace);
-
-  if (parser.token !== Token.RightBrace) {
+  if (parser.token === Token.LeftBrace) {
+    nextToken(parser, context | Context.AllowRegExp);
     while (parser.token === Token.StringLiteral) {
       const { token, tokenValue, startIndex } = parser;
       nextToken(parser, context);
       if (parser.token & Token.IsAutomaticSemicolon) {
-        if (tokenValue.length === 12 && tokenValue === 'use strict') context |= Context.Strict;
+        const directive = parser.source.slice(startIndex, parser.index);
+        if (directive.length === 12 && tokenValue === 'use strict') context |= Context.Strict;
         consumeOpt(parser, context, Token.Semicolon);
-        directives.push(parser.source.slice(startIndex, parser.index));
+        directives.push(directive);
       } else {
         statements.push(parseDirectives(parser, context, token, tokenValue, startIndex));
       }
     }
 
-    while ((parser.token as Token) !== Token.RightBrace) {
+    if (context & Context.ErrorRecovery) {
+      while (parser.token & Constants.BlockStatement) {
+        statements.push(parseLeafElement(parser, context, parseStatementListItem));
+        if (parser.token === Token.RightBrace) break;
+      }
+
+      if (parser.token !== Token.RightBrace) {
+        parser.diagnostics.push(
+          createDiagnostic(
+            DiagnosticSource.Parser,
+            DiagnosticCode.UnknownToken,
+            DiagnosticKind.Error,
+            start,
+            parser.endIndex
+          )
+        );
+      }
+      nextToken(parser, isDeclaration ? context | Context.AllowRegExp : context);
+      statements = createArray(parser, statements, start);
+      return finishNode(
+        parser,
+        context,
+        start,
+        { type: 'FunctionBody', statements, directives },
+        NodeType.FunctionBody
+      );
+    }
+
+    while (parser.token & Constants.BlockStatement) {
       statements.push(parseStatementListItem(parser, context));
     }
+
+    consume(parser, isDeclaration ? context | Context.AllowRegExp : context, Token.RightBrace);
+
+    return finishNode(parser, context, start, { type: 'FunctionBody', statements, directives }, NodeType.FunctionBody);
   }
 
-  consume(parser, isDeclaration ? context | Context.AllowRegExp : context, Token.RightBrace);
+  addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
 
-  return finishNode(parser, context, start, { type: 'FunctionBody', statements, directives }, NodeType.FunctionBody);
+  return finishNode(
+    parser,
+    context,
+    start,
+    { type: 'FunctionBody', statements: createMissingList(start), directives },
+    NodeType.FunctionBody
+  );
 }
 
 // ArrowFunction[In, Yield, Await]:
@@ -4409,7 +4410,7 @@ export function parseClassElementList(
         );
       }
       consume(parser, isExpression === false ? context | Context.AllowRegExp : context, Token.RightBrace);
-      return createBlockArray(parser, classElementList, start);
+      return createArray(parser, classElementList, start);
     }
     return createMissingList(start);
   }

@@ -72,7 +72,7 @@ export function parseClassElements(
   return cb(parser, context, inheritedContext, modifier);
 }
 
-export function createBlockArray(_parser: ParserState, array: any, _start: number): any[] {
+export function createArray(_parser: ParserState, array: any, _start: number): any[] {
   return array;
 }
 

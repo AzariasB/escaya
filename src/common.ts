@@ -1,5 +1,5 @@
-import { Token } from './token'
-import { nextToken } from './scanner/scan'
+import { Token } from './token';
+import { nextToken } from './scanner/scan';
 import * as Types from './types';
 import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from './diagnostic/enums';
 import { addDiagnostic, Diagnostic } from './diagnostic/diagnostics';
@@ -43,7 +43,8 @@ export const enum Context {
 export const enum Flags {
   Empty = 0,
   HasConstructor = 1 << 0,
-  Octals  = 1 << 1
+  Octals  = 1 << 1,
+  HasErrors = 1 << 2
 }
 
 export const enum BindingKind {
@@ -137,6 +138,39 @@ export interface ParserState {
 }
 
 /**
+ * Create a new parser instance.
+ */
+export function create(source: string, nodeCursor?: Types.NodeCursor): ParserState {
+  return {
+    source,
+    flags: Flags.Empty,
+    index: 0,
+    line: 1,
+    columnOffset: 0,
+    length: source.length,
+    hasLineTerminator: false,
+    startLine: 0,
+    startColumn: 0,
+    startIndex: 0,
+    endIndex: 0,
+    endColumn: 0,
+    tokenIndex: 0,
+    token: Token.EndOfSource,
+    destructible: Destructible.None,
+    assignable: true,
+    tokenValue: '',
+    tokenRaw: '',
+    diagnostics: [],
+    regExpPattern: '',
+    regExpFlags: '',
+    nodeCursor,
+    counter: 0,
+    buf: '',
+    lastChar: 0
+  };
+}
+
+/**
  * A top level node which contains the list of statements in a program,
  * and some information about the file which the statements came from.
  */
@@ -179,9 +213,8 @@ export function consume<T extends Token>(parser: ParserState, context: Context, 
     return true;
   }
   addDiagnostic(parser, context, DiagnosticSource.Lexer, tokenErrors(t), DiagnosticKind.Error);
-return false;
+  return false;
 }
-
 
 export function finishNode<T extends Types.Node>(
   parser: ParserState,
@@ -190,9 +223,7 @@ export function finishNode<T extends Types.Node>(
   node: T,
   flags: NodeType
 ): T {
-
   if (context & (Context.ErrorRecovery | Context.OptionsLoc)) {
-
     const id = parser.counter++;
     const end = parser.endIndex;
 
@@ -201,15 +232,19 @@ export function finishNode<T extends Types.Node>(
     node.end = end;
 
     if (context & Context.ErrorRecovery) {
+      node.contextFlags = context;
+      node.mutualFlags = parser.flags;
+      node.nodeType = flags;
+      node.parent = null;
 
-    node.contextFlags = context;
-    node.mutualFlags = parser.flags;
-    node.nodeType = flags;
-    node.parent = null;
-  }
+      if (parser.flags & Flags.HasErrors) {
+        parser.flags = (parser.flags | Flags.HasErrors) ^ Flags.HasErrors;
+        node.nodeType |= NodeType.HasErrors;
+      }
+    }
   }
 
-    return node;
+  return node;
 }
 
 export function isClosingTokenOrComma<T extends Token>(t: T, closingToken: Token): boolean {
@@ -218,63 +253,42 @@ export function isClosingTokenOrComma<T extends Token>(t: T, closingToken: Token
 
 export function reinterpretToPattern(node: any): void {
   if (!node) return;
-  switch(node.type) {
+  switch (node.type) {
     case 'IdentifierName':
     case 'IdentifierReference':
       node.type = 'BindingIdentifier';
       // node.nodeType = NodeType.BindingIdentifier;
       return;
-      case 'ArrayExpression': {
-        node.type = 'ArrayBindingPattern';
-        node.nodeType = NodeType.ArrayBindingPattern;
-        const elements = node.leafs;
-        let i = elements.length;
-        while (i--) {
-          reinterpretToPattern(elements[i]);
-        }
-        return;
+    case 'BindingElement':
+      reinterpretToPattern(node.binding);
+      return;
+    case 'ObjectAssignmentPattern':
+    case 'ObjectLiteral':
+      node.type = 'ObjectBindingPattern';
+      //  node.nodeType = NodeType.ObjectBindingPattern;
+      const properties = node.properties;
+      let i = properties.length;
+      while (i--) {
+        reinterpretToPattern(properties[i]);
       }
-      case 'CoverInitializedName':
-        node.type = 'BindingElement';
-      //   node.nodeType = NodeType.BindingElement;
-        reinterpretToPattern(node.binding);
-        return;
-      case 'BindingElement':
-        reinterpretToPattern(node.binding);
-        return;
-      case 'ObjectAssignmentPattern':
-      case 'ObjectLiteral':
-        node.type = 'ObjectBindingPattern';
-       //  node.nodeType = NodeType.ObjectBindingPattern;
-        const properties = node.properties;
-        let i = properties.length;
-        while (i--) {
-          reinterpretToPattern(properties[i]);
-        }
-        return;
-      case 'AssignmentPattern':
-        reinterpretToPattern(node.binding);
-        return;
-      case 'AssignmentExpression':
-        node.type = 'AssignmentPattern';
-    //     node.nodeType = NodeType.AssignmentPattern;
-        //if (node.operator !== '=') report(state, Errors.Unexpected);
-        delete node.operator;
-        reinterpretToPattern(node.left);
-        return;
-      case 'PropertyDefinition':
-        node.type = 'BindingProperty';
-    //     node.nodeType = NodeType.BindingProperty;
-        reinterpretToPattern(node.value);
-        return;
-      case 'SpreadElement':
-        node.type = 'BindingRestProperty';
-    //     node.nodeType = NodeType.BindingRestProperty;
-        reinterpretToPattern(node.argument);
-        return;
+      return;
+    case 'AssignmentExpression':
+      node.type = 'AssignmentPattern';
+      delete node.operator;
+      reinterpretToPattern(node.left);
+      return;
+    case 'PropertyDefinition':
+      node.type = 'BindingProperty';
+      //     node.nodeType = NodeType.BindingProperty;
+      reinterpretToPattern(node.value);
+      return;
+    case 'SpreadElement':
+      node.type = 'BindingRestProperty';
+      //     node.nodeType = NodeType.BindingRestProperty;
+      reinterpretToPattern(node.argument);
+      return;
   }
 }
-
 
 export function reinterpretToAssignment(node: any, objlit: boolean): void {
   if (!node) return;
@@ -282,22 +296,17 @@ export function reinterpretToAssignment(node: any, objlit: boolean): void {
     case 'IdentifierName':
     case 'BindingIdentifier':
       node.type = 'IdentifierReference';
-     //  node.nodeType = NodeType.IdentifierReference;
       return;
-      case 'CoverInitializedName':
-        node.type = 'BindingElement';
-        node.nodeType = NodeType.BindingElement;
-        return;
     case 'AssignmentRestProperty':
     case 'SpreadElement':
       node.type = objlit ? 'AssignmentRestProperty' : 'AssignmentRestElement';
-    //   node.nodeType = objlit ?  NodeType.AssignmentRestProperty : NodeType.AssignmentRestElement;
+      //   node.nodeType = objlit ?  NodeType.AssignmentRestProperty : NodeType.AssignmentRestElement;
       reinterpretToAssignment(node.argument, objlit);
       return;
     case 'ArrayBindingPattern':
     case 'ArrayLiteral':
       node.type = 'ArrayAssignmentPattern';
-    //   node.nodeType = NodeType.ArrayAssignmentPattern;
+      //   node.nodeType = NodeType.ArrayAssignmentPattern;
       const leafs = node.leafs;
       let i = leafs.length;
       while (i--) {
@@ -306,10 +315,10 @@ export function reinterpretToAssignment(node: any, objlit: boolean): void {
       return;
     case 'BindingProperty':
     case 'PropertyDefinition':
-        node.type = 'AssignmentProperty';
-     //    node.nodeType = NodeType.AssignmentProperty;
-        reinterpretToAssignment(node.value, objlit);
-        return;
+      node.type = 'AssignmentProperty';
+      //    node.nodeType = NodeType.AssignmentProperty;
+      reinterpretToAssignment(node.value, objlit);
+      return;
     case 'AssignmentExpression':
       node.type = 'AssignmentPattern';
       reinterpretToAssignment(node.left, objlit);
@@ -318,7 +327,7 @@ export function reinterpretToAssignment(node: any, objlit: boolean): void {
     case 'ObjectBindingPattern':
     case 'ObjectLiteral': {
       node.type = 'ObjectAssignmentPattern';
-    //   node.nodeType = NodeType.ObjectAssignmentPattern;
+      //   node.nodeType = NodeType.ObjectAssignmentPattern;
       const properties = node.properties;
       let i = properties.length;
       while (i--) {
@@ -339,13 +348,13 @@ export function consumeSemicolon(parser: ParserState, context: Context): void {
   addDiagnostic(parser, context, DiagnosticSource.Lexer, tokenErrors(parser.token), DiagnosticKind.Error);
 }
 
-
 export function validateFunctionName(parser: ParserState, context: Context, t: Token): void {
   if (context & Context.Strict && (t & Token.FutureKeyword) > 0) {
     addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
 
-  if ((t & Token.Keyword) === Token.Keyword)  addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+  if ((t & Token.Keyword) === Token.Keyword)
+    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
 
   if ((context & (Context.Await | Context.Module)) > 0 && t === Token.AwaitKeyword) {
     addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
@@ -365,46 +374,47 @@ export function isStrictReservedWord(parser: ParserState, context: Context, t: T
     addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
 
-  return (
-    (t & Token.Keyword) === Token.Keyword ||
-    (t & Token.FutureKeyword) === Token.FutureKeyword
-  );
+  return (t & Token.Keyword) === Token.Keyword || (t & Token.FutureKeyword) === Token.FutureKeyword;
 }
 
 export function isCaseOrDefaultKeyword<T extends Token>(t: T): boolean {
   return t === Token.CaseKeyword || t === Token.DefaultKeyword;
 }
 
-export function parseAndClassifyIdentifier(parser: ParserState, context: Context,  t: Token, name: string,
+export function parseAndClassifyIdentifier(
+  parser: ParserState,
+  context: Context,
+  t: Token,
+  name: string,
   bindingType: BindingType,
   isBinding: boolean,
-  start: number): Types.BindingIdentifier | Types.IdentifierReference {
-
+  start: number
+): Types.BindingIdentifier | Types.IdentifierReference {
   if (context & (Context.Module | Context.Await) && parser.token === Token.AwaitKeyword) {
     addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.AwaitOutsideAsync, DiagnosticKind.Error);
   }
 
   if (context & (Context.Strict | Context.Yield) && parser.token === Token.YieldKeyword) {
-        addDiagnostic(
-          parser,
-          context,
-          DiagnosticSource.Parser,
-          DiagnosticCode.DisallowedYieldInContext,
-          DiagnosticKind.Error
-        );
-      }
+    addDiagnostic(
+      parser,
+      context,
+      DiagnosticSource.Parser,
+      DiagnosticCode.DisallowedYieldInContext,
+      DiagnosticKind.Error
+    );
+  }
 
-      if (t === Token.LetKeyword && bindingType & (BindingType.Let | BindingType.Const)) {
-        addDiagnostic(
-          parser,
-          context,
-          DiagnosticSource.Parser,
-          DiagnosticCode.InvalidLetConstBinding,
-          DiagnosticKind.Error
-        );
-      }
-      if ((t & Token.Keyword) === Token.Keyword) {
-        addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.AwaitOutsideAsync, DiagnosticKind.Error);
+  if (t === Token.LetKeyword && bindingType & (BindingType.Let | BindingType.Const)) {
+    addDiagnostic(
+      parser,
+      context,
+      DiagnosticSource.Parser,
+      DiagnosticCode.InvalidLetConstBinding,
+      DiagnosticKind.Error
+    );
+  }
+  if ((t & Token.Keyword) === Token.Keyword) {
+    addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.AwaitOutsideAsync, DiagnosticKind.Error);
   }
   if ((t & (Token.Keyword | Token.FutureKeyword | Token.IsIdentifier)) === 0) {
     addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
@@ -414,9 +424,7 @@ export function parseAndClassifyIdentifier(parser: ParserState, context: Context
     return finishNode(parser, context, start, { type: 'BindingIdentifier', name }, NodeType.BindingIdentifier);
   }
   return finishNode(parser, context, start, { type: 'IdentifierReference', name }, NodeType.IdentifierReference);
-
 }
-
 
 /**
  * Returns the last element of an array if non-empty, undefined otherwise.

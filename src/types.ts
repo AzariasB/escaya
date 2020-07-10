@@ -409,7 +409,7 @@ export interface BinaryExpression extends Root {
 
 export interface BlockStatement extends Root {
   type: 'BlockStatement';
-  statements: (FunctionBody | Statement)[];
+  statements: MissingList | (FunctionBody | Statement)[];
 }
 
 export interface BreakStatement extends Root {
@@ -530,7 +530,7 @@ export interface ForStatement extends Root {
 export interface FunctionBody extends Root {
   type: 'FunctionBody';
   directives: string[];
-  statements: Statement[];
+  statements: MissingList | Statement[];
 }
 
 interface FunctionDeclarationBase extends Root {

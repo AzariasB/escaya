@@ -8,6 +8,7 @@ export interface Diagnostic {
   kind: /* Message */ 0 | /* Warning */ 1 | /* Error */ 2 | /* Hint */ 3;
   source: DiagnosticSource;
   message: string;
+  code: DiagnosticCode;
   start: number;
   end: number;
 }
@@ -123,6 +124,23 @@ export const diagnosticMap: {
   [DiagnosticCode.UnexpectedIdentNumber]: 'An identifier or number immediately follow a numeric literal'
 };
 
+export function createDiagnostic(
+  source: DiagnosticSource,
+  code: DiagnosticCode,
+  kind: DiagnosticKind,
+  start: number,
+  end: number
+): Diagnostic {
+  return {
+    kind,
+    source,
+    message: diagnosticMap[code],
+    code,
+    start,
+    end
+  };
+}
+
 /**
  * Add an error diagnostic in recovery mode, and report an error non-recovery mode with an
  * appropriate index, line, column, and description string. This currently
@@ -150,7 +168,7 @@ export function addDiagnostic(
   const start = parser.startIndex;
   const end = parser.index;
   if (!lastError || parser.startIndex !== lastError.start) {
-    parser.diagnostics.push({ kind, source, message, start, end });
+    parser.diagnostics.push({ kind, source, message, code, start, end });
   }
 }
 

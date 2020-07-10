@@ -1,12 +1,12 @@
 import * as Types from './types';
 import { NodeType } from './nodeType';
 import { nextToken } from './scanner/scan';
-import { Context, Flags, consumeOpt, RootNode } from './common';
-import { create, parseModuleItem, parseStatementListItem, parseDirectives } from './parser';
+import { create, Context, Flags, consumeOpt, RootNode } from './common';
+import { parseModuleItem, parseStatementListItem, parseDirectives } from './parser';
 import { Constants } from './constants';
 import { Token } from './token';
 import { Options } from './escaya';
-import { parseLeafElement, createBlockArray } from './incremental';
+import { parseLeafElement, createArray } from './incremental';
 
 /**
  * Parses the source code in reocovery mode
@@ -74,7 +74,7 @@ export function parseInRecoveryMode(
     directives,
     contextFlags: context,
     mutualFlags: flags,
-    leafs: createBlockArray(parser, leafs, 0),
+    leafs: createArray(parser, leafs, 0),
     text,
     fileName,
     nodeType: NodeType.RootNode,

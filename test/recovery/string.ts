@@ -8,6 +8,7 @@ describe('Recovery - String literal', () => {
       {
         end: 4,
         kind: 2,
+        code: 74,
         message: 'Invalid hexadecimal escape sequence',
         source: 0,
         start: 0
@@ -22,6 +23,7 @@ describe('Recovery - String literal', () => {
       {
         end: 9,
         kind: 2,
+        code: 74,
         message: 'Invalid hexadecimal escape sequence',
         source: 0,
         start: 3
@@ -78,6 +80,7 @@ describe('Recovery - String literal', () => {
       {
         end: 2,
         kind: 2,
+        code: 35,
         message: 'Unterminated string literal',
         source: 0,
         start: 0
@@ -92,6 +95,7 @@ describe('Recovery - String literal', () => {
       {
         end: 6,
         kind: 2,
+        code: 35,
         message: 'Unterminated string literal',
         source: 0,
         start: 3
@@ -148,6 +152,7 @@ describe('Recovery - String literal', () => {
       {
         end: 4,
         kind: 2,
+        code: 74,
         message: 'Invalid hexadecimal escape sequence',
         source: 0,
         start: 0
@@ -162,6 +167,7 @@ describe('Recovery - String literal', () => {
       {
         end: 4,
         kind: 2,
+        code: 74,
         message: 'Invalid hexadecimal escape sequence',
         source: 0,
         start: 0
@@ -176,6 +182,7 @@ describe('Recovery - String literal', () => {
       {
         end: 8,
         kind: 2,
+        code: 74,
         message: 'Invalid hexadecimal escape sequence',
         source: 0,
         start: 3

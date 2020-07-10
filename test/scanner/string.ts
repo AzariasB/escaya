@@ -1,6 +1,5 @@
 import * as t from 'assert';
-import { Context } from '../../src/common';
-import { create } from '../../src/parser';
+import { Context, create } from '../../src/common';
 import { Token } from '../../src/token';
 import { scan } from '../../src/scanner/scan';
 
