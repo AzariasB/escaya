@@ -28,7 +28,6 @@ import {
   Precedence,
   BindingType,
   create,
-  lastOrUndefined,
   isClosingTokenOrComma,
   reinterpretToAssignment,
   reinterpretToPattern,
@@ -1209,9 +1208,10 @@ export function parseBlock(
   context: Context,
   start: number
 ): Types.MissingList | Types.Statement[] {
-  if (context & Context.ErrorRecovery) {
-    let statements: any | Types.Statement[] = [];
-    if (consume(parser, context | Context.AllowRegExp, Token.LeftBrace)) {
+  if (parser.token === Token.LeftBrace) {
+    const statements: any | Types.Statement[] = [];
+    nextToken(parser, context | Context.AllowRegExp);
+    if (context & Context.ErrorRecovery) {
       while (parser.token & Constants.BlockStatement) {
         statements.push(parseLeafElement(parser, context, parseStatementListItem));
         if ((parser.token & Constants.BlockStatement) === 0) break;
@@ -1230,13 +1230,13 @@ export function parseBlock(
       nextToken(parser, context | Context.AllowRegExp);
       return createArray(parser, statements, start);
     }
-    return createMissingList(start) as any;
+    while (parser.token & Constants.BlockStatement) statements.push(parseStatementListItem(parser, context));
+    consume(parser, context | Context.AllowRegExp, Token.RightBrace);
+    return statements;
   }
-  consume(parser, context | Context.AllowRegExp, Token.LeftBrace);
-  const statements: Types.Statement[] = [];
-  while (parser.token & Constants.BlockStatement) statements.push(parseStatementListItem(parser, context));
-  consume(parser, context | Context.AllowRegExp, Token.RightBrace);
-  return statements;
+  addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+
+  return createMissingList(start) as any;
 }
 
 // ModuleItemList :
@@ -1291,7 +1291,7 @@ export function parseImportDeclaration(parser: ParserState, context: Context): a
 
   let namedBinding: Types.BindingIdentifier | null = null;
   let defaultBinding: Types.BindingIdentifier | null = null;
-  let namedImports: Types.ImportSpecifier[] = [];
+  let namedImports: Types.MissingList | Types.ImportSpecifier[] = [];
   let fromClause: Types.StringLiteral | null = null;
   let moduleSpecifier: Types.StringLiteral | null = null;
 
@@ -1316,15 +1316,17 @@ export function parseImportDeclaration(parser: ParserState, context: Context): a
         consume(parser, context, Token.AsKeyword);
         namedBinding = parseBindingIdentifier(parser, context, BindingType.None);
       } else {
-        namedImports = parseImportsList(parser, context);
+        namedImports = parseImportsList(parser, context, startIndex);
       }
     }
-  } else if (consumeOpt(parser, context | Context.AllowRegExp, Token.LeftParen)) {
-    return parseImportCallFromModule(parser, context, BindingType.AllowLHS, startIndex);
-  } else if (consumeOpt(parser, context, Token.Period)) {
-    return parseImportMetaFromModule(parser, context, BindingType.AllowLHS, startIndex);
   } else {
-    namedImports = parseImportsList(parser, context);
+    if (consumeOpt(parser, context | Context.AllowRegExp, Token.LeftParen)) {
+      return parseImportCallFromModule(parser, context, BindingType.AllowLHS, startIndex);
+    }
+    if (consumeOpt(parser, context, Token.Period)) {
+      return parseImportMetaFromModule(parser, context, BindingType.AllowLHS, startIndex);
+    }
+    namedImports = parseImportsList(parser, context, startIndex);
   }
 
   fromClause = parseFromClause(parser, context);
@@ -1341,15 +1343,32 @@ export function parseImportDeclaration(parser: ParserState, context: Context): a
 // ImportsList:
 //  ImportSpecifier
 //  ImportsList, ImportSpecifier
-export function parseImportsList(parser: ParserState, context: Context): Types.ImportSpecifier | any {
-  const importsList: Types.ImportSpecifier[] = [];
-  consume(parser, context, Token.LeftBrace);
-  while ((parser.token & Constants.IdentfierName) > 0) {
-    importsList.push(parseImportSpecifier(parser, context));
-    if (parser.token !== Token.RightBrace) consume(parser, context, Token.Comma);
+export function parseImportsList(
+  parser: ParserState,
+  context: Context,
+  start: number
+): Types.ImportSpecifier[] | Types.MissingList {
+  if (parser.token === Token.LeftBrace) {
+    nextToken(parser, context);
+    const importsList: Types.ImportSpecifier[] = [];
+    if (context & Context.ErrorRecovery) {
+      while ((parser.token & Constants.IdentfierName) > 0) {
+        importsList.push(parseImportSpecifier(parser, context));
+        if (parser.token !== Token.RightBrace) consume(parser, context, Token.Comma);
+      }
+      consume(parser, context, Token.RightBrace);
+      return importsList;
+    }
+    while ((parser.token & Constants.IdentfierName) > 0) {
+      importsList.push(parseImportSpecifier(parser, context));
+      if (parser.token !== Token.RightBrace) consume(parser, context, Token.Comma);
+    }
+    consume(parser, context, Token.RightBrace);
+    return importsList;
   }
-  consume(parser, context, Token.RightBrace);
-  return importsList;
+  addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+
+  return createMissingList(start);
 }
 
 // ImportSpecifier
@@ -1395,7 +1414,7 @@ export function parseExportDeclaration(parser: ParserState, context: Context, bi
   consume(parser, context | Context.AllowRegExp, Token.ExportKeyword);
 
   let declaration: Types.ExportDeclarations | null = null;
-  const namedExports: Types.ExportSpecifier[] = [];
+  let namedExports: Types.ExportSpecifier[] = [];
   let fromClause: Types.StringLiteral | null = null;
   let namedBinding: Types.IdentifierName | null = null;
 
@@ -1443,12 +1462,7 @@ export function parseExportDeclaration(parser: ParserState, context: Context, bi
       declaration = parseVariableStatement(parser, context);
       break;
     case Token.LeftBrace:
-      nextToken(parser, context);
-      while ((parser.token & Constants.IdentfierName) > 0) {
-        namedExports.push(parseExportSpecifier(parser, context));
-        if (parser.token !== Token.RightBrace) consume(parser, context, Token.Comma);
-      }
-      consume(parser, context, Token.RightBrace);
+      namedExports = parseExportSpecifierList(parser, context, namedExports) as any;
       if (parser.token === Token.FromKeyword) fromClause = parseFromClause(parser, context);
       consumeSemicolon(parser, context);
       break;
@@ -1471,6 +1485,26 @@ export function parseExportDeclaration(parser: ParserState, context: Context, bi
     { type: 'ExportDeclaration', namedExports, fromClause, namedBinding, declaration, default: false },
     NodeType.ExportDeclaration
   );
+}
+
+export function parseExportSpecifierList(
+  parser: ParserState,
+  context: Context,
+  namedExports: any
+): Types.ExportSpecifier | Types.MissingList {
+  if (parser.token === Token.LeftBrace) {
+    nextToken(parser, context);
+    while ((parser.token & Constants.IdentfierName) > 0) {
+      namedExports.push(parseExportSpecifier(parser, context));
+      if (parser.token !== Token.RightBrace) consume(parser, context, Token.Comma);
+    }
+    consume(parser, context, Token.RightBrace);
+    return namedExports;
+  }
+
+  addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+
+  return createMissingList(parser.startIndex);
 }
 
 export function parseExportSpecifier(parser: ParserState, context: Context): Types.ExportSpecifier {
@@ -3921,13 +3955,10 @@ export function parseFunctionRestParameter(parser: ParserState, context: Context
 export function parseFormalParameters(parser: ParserState, context: Context): Types.FormalParameters | any {
   let leafs: any = [];
   const start = parser.startIndex;
-  if (context & Context.ErrorRecovery) {
-    // Return an empty list if '(' is missing
-    if (parser.token !== Token.LeftParen) return createMissingList(start);
 
+  if (parser.token === Token.LeftParen) {
     nextToken(parser, context); // skips: '('
-
-    if (parser.token !== Token.RightParen) {
+    if (context & Context.ErrorRecovery) {
       while (parser.token & Constants.DelimitedList) {
         if (parser.token === Token.Ellipsis) {
           leafs.push(parseFormalElements(parser, context, BindingType.None, parseFunctionRestParameter));
@@ -3939,28 +3970,35 @@ export function parseFormalParameters(parser: ParserState, context: Context): Ty
         consume(parser, context, Token.Comma);
         continue;
       }
+      consume(parser, context, Token.RightParen);
+      leafs = createArray(parser, leafs, start);
+      return finishNode(parser, context, start, { type: 'FormalParameters', leafs }, NodeType.FormalParameters);
+    }
+    while (parser.token & Constants.DelimitedList) {
+      if (parser.token === Token.Ellipsis) {
+        leafs.push(parseFunctionRestParameter(parser, context));
+        break;
+      }
+
+      leafs.push(parseBindingPattern(parser, context, BindingType.ArgumentList));
+      if (parser.token === Token.RightParen) break;
+      consumeOpt(parser, context, Token.Comma);
     }
 
     consume(parser, context, Token.RightParen);
-    leafs = createArray(parser, leafs, start);
+
     return finishNode(parser, context, start, { type: 'FormalParameters', leafs }, NodeType.FormalParameters);
   }
-  consume(parser, context, Token.LeftParen);
 
-  while (parser.token & Constants.DelimitedList) {
-    if (parser.token === Token.Ellipsis) {
-      leafs.push(parseFunctionRestParameter(parser, context));
-      break;
-    }
+  addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
 
-    leafs.push(parseBindingPattern(parser, context, BindingType.ArgumentList));
-    if (parser.token === Token.RightParen) break;
-    consumeOpt(parser, context, Token.Comma);
-  }
-
-  consume(parser, context, Token.RightParen);
-
-  return finishNode(parser, context, start, { type: 'FormalParameters', leafs }, NodeType.FormalParameters);
+  return finishNode(
+    parser,
+    context,
+    start,
+    { type: 'FormalParameters', leafs: createMissingList(start) },
+    NodeType.FormalParameters
+  );
 }
 
 // FunctionBody :
@@ -4397,10 +4435,12 @@ export function parseClassElementList(
   inheritedContext: Context,
   isExpression: boolean
 ): any {
-  if (context & Context.ErrorRecovery) {
-    const start = parser.startIndex;
-    if (consumeOpt(parser, context | Context.AllowRegExp, Token.LeftBrace)) {
-      const classElementList: any[] = [];
+  const start = parser.startIndex;
+  if (parser.token === Token.LeftBrace) {
+    nextToken(parser, context | Context.AllowRegExp);
+
+    const classElementList: any[] = [];
+    if (context & Context.ErrorRecovery) {
       while (parser.token & Constants.ClassElementList) {
         if (consumeOpt(parser, context, Token.Semicolon)) continue;
         classElementList.push(
@@ -4410,16 +4450,16 @@ export function parseClassElementList(
       consume(parser, isExpression === false ? context | Context.AllowRegExp : context, Token.RightBrace);
       return createArray(parser, classElementList, start);
     }
-    return createMissingList(start);
+    while (parser.token & Constants.ClassElementList) {
+      if (consumeOpt(parser, context, Token.Semicolon)) continue;
+      classElementList.push(parseClassElement(parser, context, inheritedContext, ModifierKind.None));
+    }
+    consume(parser, isExpression === false ? context | Context.AllowRegExp : context, Token.RightBrace);
+    return classElementList;
   }
-  const classElementList: any[] = [];
-  consume(parser, context | Context.AllowRegExp, Token.LeftBrace);
-  while (parser.token & Constants.ClassElementList) {
-    if (consumeOpt(parser, context, Token.Semicolon)) continue;
-    classElementList.push(parseClassElement(parser, context, inheritedContext, ModifierKind.None));
-  }
-  consume(parser, isExpression === false ? context | Context.AllowRegExp : context, Token.RightBrace);
-  return classElementList;
+  addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+
+  return createMissingList(start);
 }
 
 // ClassElement :

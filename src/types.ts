@@ -539,7 +539,7 @@ interface FunctionDeclarationBase extends Root {
   generator: boolean;
   // True for `AsyncFunctionExpression` and `AsyncFunctionDeclaration`, false otherwise.
   async: boolean;
-  params: FormalParameters[];
+  params: MissingList | FormalParameters[];
   contents: FunctionBody;
 }
 
@@ -601,7 +601,7 @@ export type ImportOrExport = ExportDeclaration | ImportDeclaration;
 
 export interface ImportClause extends Root {
   defaultBinding: BindingIdentifier | null;
-  namedImports: ImportSpecifier[];
+  namedImports: MissingList | ImportSpecifier[];
   namedBinding: BindingIdentifier | null;
   parent?: Script | Module;
 }
@@ -930,7 +930,7 @@ export interface UniqueFormalParameters extends Root {
 
 export interface FormalParameters extends Root {
   type: 'FormalParameters';
-  leafs: (FunctionRestParameter | BindingElement)[];
+  leafs: MissingList | (FunctionRestParameter | BindingElement)[];
   parent?: ArrowFunction | FunctionDeclaration | FunctionExpression | BindingProperty;
 }
 
