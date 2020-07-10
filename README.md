@@ -104,7 +104,7 @@ The `Escaya AST` doesn't try to follow the SpiderMonkey-compatible standard that
 
 ## Reporter
 
-After parsing in `recovery mode`, you use use the diagnostic messages to create an nice output so that you are always informed of invalid syntax so you can correct this.
+Escaya has it's own reporter that uses the diagnostic messages to create an nice output so that you are always informed of invalid syntax so you can correct this.
 
 ```ts
 
