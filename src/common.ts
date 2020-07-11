@@ -6,6 +6,7 @@ import { addDiagnostic, Diagnostic } from './diagnostic/diagnostics';
 import { tokenErrors } from './diagnostic/token-errors';
 import { NodeType } from './nodeType';
 
+
 /**
  * The core context, passed around everywhere as a simple immutable bit set.
  */
@@ -212,7 +213,11 @@ export function consume<T extends Token>(parser: ParserState, context: Context, 
     nextToken(parser, context);
     return true;
   }
+
   addDiagnostic(parser, context, DiagnosticSource.Lexer, tokenErrors(t), DiagnosticKind.Error);
+
+  parser.flags |= Flags.HasErrors;
+
   return false;
 }
 
@@ -239,7 +244,7 @@ export function finishNode<T extends Types.Node>(
 
       if (parser.flags & Flags.HasErrors) {
         parser.flags = (parser.flags | Flags.HasErrors) ^ Flags.HasErrors;
-        node.nodeType |= NodeType.HasErrors;
+        node.nodeType = flags | NodeType.HasErrors;
       }
     }
   }
@@ -251,41 +256,47 @@ export function isClosingTokenOrComma<T extends Token>(t: T, closingToken: Token
   return t === closingToken || t === Token.Comma || t === Token.Assign;
 }
 
-export function reinterpretToPattern(node: any): void {
+export function reinterpretArrowParameter(node: any): void {
   if (!node) return;
+
   switch (node.type) {
     case 'IdentifierName':
     case 'IdentifierReference':
       node.type = 'BindingIdentifier';
-      // node.nodeType = NodeType.BindingIdentifier;
       return;
+
     case 'BindingElement':
-      reinterpretToPattern(node.binding);
-      return;
+      return reinterpretArrowParameter(node.binding);
+
     case 'ObjectAssignmentPattern':
     case 'ObjectLiteral':
       node.type = 'ObjectBindingPattern';
-      //  node.nodeType = NodeType.ObjectBindingPattern;
       const properties = node.properties;
       let i = properties.length;
       while (i--) {
-        reinterpretToPattern(properties[i]);
+        reinterpretArrowParameter(properties[i]);
+      }
+      return;
+    case 'ArrayLiteral':
+      node.type = 'ArrayBindingPattern';
+      const leafs = node.leafs;
+      let ti = leafs.length;
+      while (ti--) {
+        reinterpretArrowParameter(leafs[ti]);
       }
       return;
     case 'AssignmentExpression':
       node.type = 'AssignmentPattern';
       delete node.operator;
-      reinterpretToPattern(node.left);
+      reinterpretArrowParameter(node.left);
       return;
     case 'PropertyDefinition':
       node.type = 'BindingProperty';
-      //     node.nodeType = NodeType.BindingProperty;
-      reinterpretToPattern(node.value);
+      reinterpretArrowParameter(node.value);
       return;
     case 'SpreadElement':
       node.type = 'BindingRestProperty';
-      //     node.nodeType = NodeType.BindingRestProperty;
-      reinterpretToPattern(node.argument);
+      reinterpretArrowParameter(node.argument);
       return;
   }
 }

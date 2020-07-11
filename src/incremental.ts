@@ -76,12 +76,9 @@ export function createArray(_parser: ParserState, array: any, _start: number): a
   return array;
 }
 
-export function createMissingList(_start: number): Types.MissingList {
-  const list: any = [];
+export function createMissingList(_start: number, list: any): Types.MissingList {
   return list;
 }
-
-/** Synthetic nodes */
 
 export function createIdentifier(parser: ParserState, context: Context): Types.IdentifierReference {
   return finishNode(

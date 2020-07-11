@@ -30,7 +30,7 @@ import {
   create,
   isClosingTokenOrComma,
   reinterpretToAssignment,
-  reinterpretToPattern,
+  reinterpretArrowParameter,
   validateFunctionName,
   canParseSemicolon,
   consumeSemicolon,
@@ -1208,8 +1208,8 @@ export function parseBlock(
   context: Context,
   start: number
 ): Types.MissingList | Types.Statement[] {
+  const statements: any | Types.Statement[] = [];
   if (parser.token === Token.LeftBrace) {
-    const statements: any | Types.Statement[] = [];
     nextToken(parser, context | Context.AllowRegExp);
     if (context & Context.ErrorRecovery) {
       while (parser.token & Constants.BlockStatement) {
@@ -1217,6 +1217,7 @@ export function parseBlock(
         if ((parser.token & Constants.BlockStatement) === 0) break;
       }
       if (parser.token !== Token.RightBrace) {
+        parser.flags |= Flags.HasErrors;
         parser.diagnostics.push(
           createDiagnostic(
             DiagnosticSource.Parser,
@@ -1236,7 +1237,7 @@ export function parseBlock(
   }
   addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
 
-  return createMissingList(start) as any;
+  return createMissingList(start, statements);
 }
 
 // ModuleItemList :
@@ -1287,16 +1288,22 @@ export function parseModuleItem(parser: ParserState, context: Context): Types.Im
 //   BindingIdentifier
 export function parseImportDeclaration(parser: ParserState, context: Context): any {
   const startIndex = parser.startIndex;
+
   nextToken(parser, context);
 
-  let namedBinding: Types.BindingIdentifier | null = null;
-  let defaultBinding: Types.BindingIdentifier | null = null;
+  // Note: to make our lives simpler, we combine the 'ImportClause' and 'ImportDeclaration' production
+
   let namedImports: Types.MissingList | Types.ImportSpecifier[] = [];
   let fromClause: Types.StringLiteral | null = null;
+  let namedBinding: Types.BindingIdentifier | null = null;
+  let defaultBinding: Types.BindingIdentifier | null = null;
   let moduleSpecifier: Types.StringLiteral | null = null;
+
+  if (context & Context.ErrorRecovery) namedImports = createArray(parser, namedImports, startIndex);
 
   if (parser.token === Token.StringLiteral) {
     moduleSpecifier = parseStringLiteral(parser, context);
+
     return finishNode(
       parser,
       context,
@@ -1316,21 +1323,25 @@ export function parseImportDeclaration(parser: ParserState, context: Context): a
         consume(parser, context, Token.AsKeyword);
         namedBinding = parseBindingIdentifier(parser, context, BindingType.None);
       } else {
-        namedImports = parseImportsList(parser, context, startIndex);
+        namedImports = parseImportsList(parser, context, namedImports, startIndex);
       }
     }
   } else {
+    // `import` `(`
     if (consumeOpt(parser, context | Context.AllowRegExp, Token.LeftParen)) {
       return parseImportCallFromModule(parser, context, BindingType.AllowLHS, startIndex);
     }
+    // `import` `.`
     if (consumeOpt(parser, context, Token.Period)) {
       return parseImportMetaFromModule(parser, context, BindingType.AllowLHS, startIndex);
     }
-    namedImports = parseImportsList(parser, context, startIndex);
+    namedImports = parseImportsList(parser, context, namedImports, startIndex);
   }
 
   fromClause = parseFromClause(parser, context);
+
   consumeSemicolon(parser, context);
+
   return finishNode(
     parser,
     context,
@@ -1346,18 +1357,19 @@ export function parseImportDeclaration(parser: ParserState, context: Context): a
 export function parseImportsList(
   parser: ParserState,
   context: Context,
+  importsList: Types.ImportSpecifier[] = [],
   start: number
 ): Types.ImportSpecifier[] | Types.MissingList {
   if (parser.token === Token.LeftBrace) {
     nextToken(parser, context);
-    const importsList: Types.ImportSpecifier[] = [];
     if (context & Context.ErrorRecovery) {
       while ((parser.token & Constants.IdentfierName) > 0) {
         importsList.push(parseImportSpecifier(parser, context));
         if (parser.token !== Token.RightBrace) consume(parser, context, Token.Comma);
       }
+
       consume(parser, context, Token.RightBrace);
-      return importsList;
+      return createArray(parser, importsList, start);
     }
     while ((parser.token & Constants.IdentfierName) > 0) {
       importsList.push(parseImportSpecifier(parser, context));
@@ -1368,13 +1380,15 @@ export function parseImportsList(
   }
   addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
 
-  return createMissingList(start);
+  return createMissingList(start, importsList);
 }
 
 // ImportSpecifier
 export function parseImportSpecifier(parser: ParserState, context: Context): Types.ImportSpecifier {
   const { tokenValue, startIndex } = parser;
+
   nextToken(parser, context);
+
   if (consumeOpt(parser, context, Token.AsKeyword)) {
     const name = parseIdentifierNameFromValue(parser, context, tokenValue, BindingType.AllowLHS, startIndex) as any;
     const binding = parseBindingIdentifier(parser, context, BindingType.None);
@@ -1386,7 +1400,9 @@ export function parseImportSpecifier(parser: ParserState, context: Context): Typ
       NodeType.ImportSpecifier
     );
   }
+
   const name = parseBindingIdentifierFromValue(parser, context, tokenValue, startIndex);
+
   return finishNode(
     parser,
     context,
@@ -1409,7 +1425,11 @@ export function parseImportSpecifier(parser: ParserState, context: Context): Typ
 //   `*`
 //   `*` as IdentifierName
 //   NamedExports
-export function parseExportDeclaration(parser: ParserState, context: Context, bindingType: BindingType): any {
+export function parseExportDeclaration(
+  parser: ParserState,
+  context: Context,
+  bindingType: BindingType
+): Types.ExportDeclaration {
   const startIndex = parser.startIndex;
   consume(parser, context | Context.AllowRegExp, Token.ExportKeyword);
 
@@ -1434,11 +1454,27 @@ export function parseExportDeclaration(parser: ParserState, context: Context, bi
         declaration = parseExpression(parser, context, Precedence.Assign, bindingType, true, startIndex);
         consumeSemicolon(parser, context);
     }
+
+    if (context & Context.ErrorRecovery) namedExports = createArray(parser, namedExports, startIndex);
+
     return finishNode(
       parser,
       context,
       startIndex,
       { type: 'ExportDeclaration', declaration, default: true, namedExports, fromClause, namedBinding },
+      NodeType.ExportDeclaration
+    );
+  }
+
+  if (parser.token === Token.LeftBrace) {
+    namedExports = parseExportSpecifierList(parser, context, namedExports, startIndex) as any;
+    if (parser.token === Token.FromKeyword) fromClause = parseFromClause(parser, context);
+    consumeSemicolon(parser, context);
+    return finishNode(
+      parser,
+      context,
+      startIndex,
+      { type: 'ExportDeclaration', namedExports, fromClause, namedBinding, declaration, default: false },
       NodeType.ExportDeclaration
     );
   }
@@ -1461,11 +1497,7 @@ export function parseExportDeclaration(parser: ParserState, context: Context, bi
     case Token.VarKeyword:
       declaration = parseVariableStatement(parser, context);
       break;
-    case Token.LeftBrace:
-      namedExports = parseExportSpecifierList(parser, context, namedExports) as any;
-      if (parser.token === Token.FromKeyword) fromClause = parseFromClause(parser, context);
-      consumeSemicolon(parser, context);
-      break;
+
     case Token.Multiply: {
       nextToken(parser, context);
       if (consumeOpt(parser, context, Token.AsKeyword)) {
@@ -1478,6 +1510,10 @@ export function parseExportDeclaration(parser: ParserState, context: Context, bi
     default:
       addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
+
+  // Note: Needed for error recovery / incremental parsing
+  if (context & Context.ErrorRecovery) namedExports = createArray(parser, namedExports, startIndex);
+
   return finishNode(
     parser,
     context,
@@ -1490,7 +1526,8 @@ export function parseExportDeclaration(parser: ParserState, context: Context, bi
 export function parseExportSpecifierList(
   parser: ParserState,
   context: Context,
-  namedExports: any
+  namedExports: any,
+  start: number
 ): Types.ExportSpecifier | Types.MissingList {
   if (parser.token === Token.LeftBrace) {
     nextToken(parser, context);
@@ -1499,12 +1536,14 @@ export function parseExportSpecifierList(
       if (parser.token !== Token.RightBrace) consume(parser, context, Token.Comma);
     }
     consume(parser, context, Token.RightBrace);
+    if (context & Context.ErrorRecovery) namedExports = createArray(parser, namedExports, start);
+
     return namedExports;
   }
 
   addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
 
-  return createMissingList(parser.startIndex);
+  return createMissingList(parser.startIndex, namedExports);
 }
 
 export function parseExportSpecifier(parser: ParserState, context: Context): Types.ExportSpecifier {
@@ -1596,15 +1635,15 @@ export function parseCommaOperator(
   parser: ParserState,
   context: Context,
   expr: Types.Expression,
-
   start: number
 ): Types.CommaOperator | Types.Expression {
   if (parser.token !== Token.Comma) return expr;
   nextToken(parser, context | Context.AllowRegExp);
-  const leafs = [expr];
+  let leafs = [expr];
   do {
     leafs.push(parseExpression(parser, context, Precedence.Assign, BindingType.AllowLHS, true, start));
   } while (consumeOpt(parser, context | Context.AllowRegExp, Token.Comma));
+  if (context & Context.ErrorRecovery) leafs = createArray(parser, leafs, start);
   return finishNode(parser, context, start, { type: 'CommaOperator', leafs }, NodeType.CommaOperator);
 }
 
@@ -1626,7 +1665,6 @@ export function parseAssignmentExpression(
   parser: ParserState,
   context: Context,
   left: any,
-
   start: number
 ): Types.AssignmentExpression | Types.Expression {
   if (!parser.assignable)
@@ -1944,22 +1982,22 @@ export function parseMemberOrCallChain(
 //   ArgumentList
 //   ArgumentList,
 export function parseArguments(parser: ParserState, context: Context): Types.Arguments[] {
+  let args: Types.Arguments[] = [];
   consume(parser, context | Context.AllowRegExp, Token.LeftParen);
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
-  let params: Types.Arguments[] = [];
   if (context & Context.ErrorRecovery) {
     const start = parser.startIndex;
     while (parser.token & Constants.DelimitedList) {
-      params.push(parseListElements(parser, context, parseArgumentsList));
+      args.push(parseListElements(parser, context, parseArgumentsList));
       if (consumeOpt(parser, context, Token.Comma)) continue;
       if ((parser.token & Constants.DelimitedList) === 0) break;
       consume(parser, context, Token.Comma);
     }
-    params = createArray(parser, params, start);
+    args = createArray(parser, args, start);
     consume(parser, context, Token.RightParen);
-    return params;
+    return args;
   }
-  const args: Types.Arguments[] = [];
+
   while (parser.token & Constants.DelimitedList) {
     args.push(parseArgumentsList(parser, context));
     if (!consumeOpt(parser, context | Context.AllowRegExp, Token.Comma)) {
@@ -2088,7 +2126,7 @@ export function parseExpression(
           expr = parseIdentifierReference(parser, context | Context.TaggedTemplate, bindingType);
 
           if (parser.token === Token.Arrow) {
-            expr = parseArrowFunction(parser, context, [expr], bindingType, /* isAsync */ 0, parser.startIndex);
+            expr = parseArrowFromIdentifier(parser, context, expr, bindingType, /* isAsync */ 0, start);
           } else if (token === Token.LetKeyword) {
             if (context & Context.Strict) {
               addDiagnostic(
@@ -2137,7 +2175,11 @@ export function parseExpression(
             expr = parseObjectLiteral(parser, context);
             break;
           case Token.LeftParen:
-            expr = parseParenthesizedExpression(parser, context, bindingType | BindingType.ArgumentList);
+            expr = parseCoverParenthesizedExpressionAndArrowParameterList(
+              parser,
+              context,
+              bindingType | BindingType.ArgumentList
+            );
             break;
           case Token.FunctionKeyword:
             expr = parseFunctionExpression(parser, context, /* isAsync */ 0, bindingType);
@@ -2807,7 +2849,7 @@ export function parseArrayBindingPattern(
   start: number
 ): Types.ArrayBindingPattern {
   nextToken(state, context | Context.AllowRegExp);
-  const leafs = [];
+  let leafs = [];
   let destructible = Destructible.None;
   while (state.token !== Token.RightBracket) {
     if (consumeOpt(state, context, Token.Comma)) {
@@ -2821,6 +2863,7 @@ export function parseArrayBindingPattern(
   }
   consume(state, context, Token.RightBracket);
   state.destructible = destructible;
+  if (context & Context.ErrorRecovery) leafs = createArray(state, leafs, start);
   return finishNode(state, context, start, { type: 'ArrayBindingPattern', leafs }, NodeType.ArrayBindingPattern);
 }
 
@@ -2840,7 +2883,7 @@ export function parseArrayAssignmentPattern(
   while (i--) {
     reinterpretToAssignment(leafs[i], false);
   }
-
+  if (context & Context.ErrorRecovery) leafs = createArray(state, leafs, start);
   return finishNode(state, context, start, { type: 'ArrayAssignmentPattern', leafs }, NodeType.ArrayAssignmentPattern);
 }
 
@@ -2865,8 +2908,7 @@ export function parseArrayLiteralOrPattern(
   start: number
 ): any {
   nextToken(state, context | Context.AllowRegExp);
-
-  const leafs = [];
+  let leafs = [];
   let destructible = Destructible.None;
   while (state.token !== Token.RightBracket) {
     if (consumeOpt(state, context, Token.Comma)) {
@@ -2887,7 +2929,7 @@ export function parseArrayLiteralOrPattern(
     return parseArrayAssignment(state, context, leafs, destructible, start, bindingType);
   }
   state.destructible = destructible;
-
+  if (context & Context.ErrorRecovery) leafs = createArray(state, leafs, start);
   if (bindingType & BindingType.Pattern) {
     return finishNode(state, context, start, { type: 'ArrayBindingPattern', leafs }, NodeType.ArrayBindingPattern);
   }
@@ -3062,10 +3104,15 @@ export function parseArrayAssignment(
     NodeType.AssignmentExpression
   );
 }
-
-// ParenthesizedExpression :
+// CoverParenthesizedExpressionAndArrowParameterList :
 //   `(` Expression `)`
-export function parseParenthesizedExpression(
+//   `(` Expression `,` `)`
+//   `(` `)`
+//   `(` `...` BindingIdentifier `)`
+//   `(` `...` BindingPattern `)`
+//   `(` Expression `,` `...` BindingIdentifier `)`
+//   `(` Expression `.` `...` BindingPattern `)`
+export function parseCoverParenthesizedExpressionAndArrowParameterList(
   parser: ParserState,
   context: Context,
   bindingType: BindingType
@@ -3078,7 +3125,9 @@ export function parseParenthesizedExpression(
 
   if (consumeOpt(parser, context, Token.RightParen)) {
     if (parser.token === Token.Arrow) {
-      return parseArrowFunction(parser, context, [], bindingType, 0, parser.startIndex);
+      let params: Types.ArrowFormals[] = [];
+      if (context & Context.ErrorRecovery) params = createArray(parser, params, start);
+      return parseArrowFunction(parser, context, params, bindingType, 0, parser.startIndex);
     }
 
     addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedArrow, DiagnosticKind.Error);
@@ -3165,7 +3214,7 @@ export function parseParenthesizedExpression(
   let isCommaOperator = false;
   // 12.16 Comma Operator
   if (parser.token === Token.Comma) {
-    const leafs: any[] = [expression];
+    let leafs: any[] = [expression];
 
     isCommaOperator = true;
 
@@ -3260,12 +3309,16 @@ export function parseParenthesizedExpression(
       leafs.push(expression);
     }
 
+    if (context & Context.ErrorRecovery) leafs = createArray(parser, leafs, start);
+
     parser.assignable = false;
     expression = finishNode(parser, context, start, { type: 'CommaOperator', leafs }, NodeType.CommaOperator);
   }
 
   consume(parser, context, Token.RightParen);
 
+  // ArrowParameters :
+  //   CoverParenthesizedExpressionAndArrowParameterList
   if (parser.token === Token.Arrow) {
     if (destructible & (Destructible.Assignable | Destructible.NotDestructible)) {
       addDiagnostic(
@@ -3334,7 +3387,7 @@ export function parseObjectBindingPattern(
 ): Types.ObjectBindingPattern {
   nextToken(state, context);
 
-  const properties: any = [];
+  let properties: any = [];
 
   let destructible = Destructible.None;
 
@@ -3348,7 +3401,7 @@ export function parseObjectBindingPattern(
   consume(state, context, Token.RightBrace);
 
   state.destructible = destructible;
-
+  if (context & Context.ErrorRecovery) properties = createArray(state, properties, start);
   return finishNode(state, context, start, { type: 'ObjectBindingPattern', properties }, NodeType.ObjectBindingPattern);
 }
 
@@ -3371,9 +3424,9 @@ export function parseObjectLiteralOrPattern(
 ): any {
   nextToken(state, context);
 
-  const properties: any = [];
+  let properties: any = [];
 
-  let destructible = 0;
+  let destructible = Destructible.None;
 
   while (state.token !== Token.RightBrace) {
     properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
@@ -3418,7 +3471,7 @@ export function parseObjectLiteralOrPattern(
       { type: 'ObjectAssignmentPattern', properties },
       NodeType.ArrayAssignmentPattern
     );
-
+    if (context & Context.ErrorRecovery) properties = createArray(state, properties, start);
     return finishNode(
       state,
       context,
@@ -3429,7 +3482,7 @@ export function parseObjectLiteralOrPattern(
   }
 
   state.destructible = destructible;
-
+  if (context & Context.ErrorRecovery) properties = createArray(state, properties, start);
   if (bindingType & BindingType.Pattern) {
     return finishNode(
       state,
@@ -3673,7 +3726,8 @@ export function parseTemplateLiteral(parser: ParserState, context: Context): Typ
   const cooked = parser.tokenValue;
   const raw = parser.tokenRaw;
   const expressions: any[] = [];
-  const leafs = [parseTemplateElement(parser, context, false, startIndex)];
+  let leafs = [parseTemplateElement(parser, context, false, startIndex)];
+  if (context & Context.ErrorRecovery) leafs = createArray(parser, leafs, startIndex);
   return finishNode(
     parser,
     context,
@@ -3996,7 +4050,7 @@ export function parseFormalParameters(parser: ParserState, context: Context): Ty
     parser,
     context,
     start,
-    { type: 'FormalParameters', leafs: createMissingList(start) },
+    { type: 'FormalParameters', leafs: createMissingList(start, leafs) },
     NodeType.FormalParameters
   );
 }
@@ -4005,11 +4059,9 @@ export function parseFormalParameters(parser: ParserState, context: Context): Ty
 //   FunctionStatementList
 export function parseFunctionBody(parser: ParserState, context: Context, isDeclaration: boolean): any {
   const start = parser.startIndex;
-
+  let statements: any | Types.Statement[] = [];
   if (parser.token === Token.LeftBrace) {
     const directives: string[] = [];
-
-    let statements: any | Types.Statement[] = [];
 
     nextToken(parser, context | Context.AllowRegExp);
 
@@ -4033,6 +4085,8 @@ export function parseFunctionBody(parser: ParserState, context: Context, isDecla
       }
 
       if (parser.token !== Token.RightBrace) {
+        parser.flags |= Flags.HasErrors;
+
         parser.diagnostics.push(
           createDiagnostic(
             DiagnosticSource.Parser,
@@ -4069,7 +4123,7 @@ export function parseFunctionBody(parser: ParserState, context: Context, isDecla
     parser,
     context,
     start,
-    { type: 'FunctionBody', statements: createMissingList(start), directives: [] },
+    { type: 'FunctionBody', statements: createMissingList(start, statements), directives: [] },
     NodeType.FunctionBody
   );
 }
@@ -4102,7 +4156,7 @@ export function parseArrowFunction(
   let i = params.length;
 
   while (i--) {
-    reinterpretToPattern(params[i]);
+    reinterpretArrowParameter(params[i]);
   }
   context =
     ((context | 0b0000000111100000000_0000_00000000) ^ 0b0000000111100000000_0000_00000000) |
@@ -4288,22 +4342,31 @@ export function parseMethodDefinition(
     (modifiers & ModifierKind.Generator ? Context.Yield : 0);
 
   const startIndex = parser.startIndex;
-  let propertySetParameterList: Types.BindingElement[] = [];
-  let uniqueFormalParameters: Types.FormalParameters[] = [];
+  let propertySetParameterList: Types.MissingList | Types.BindingElement[] = [];
+  let uniqueFormalParameters: Types.MissingList | Types.FormalParameters[] = [];
 
   // getter
   if (modifiers & ModifierKind.Getter) {
     consume(parser, context, Token.LeftParen);
-    consume(parser, context, Token.RightParen);
+    // get x(y, ...
+    if (parser.token !== Token.RightParen) {
+      addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.GetAccessorParms, DiagnosticKind.Error);
+    }
+    nextToken(parser, context);
+    propertySetParameterList = createMissingList(startIndex, propertySetParameterList);
+    uniqueFormalParameters = createMissingList(startIndex, uniqueFormalParameters);
     // setter
   } else if (modifiers & ModifierKind.Setter) {
     consume(parser, context, Token.LeftParen);
     propertySetParameterList = [parseBindingPattern(parser, context, BindingType.ArgumentList)];
     consume(parser, context, Token.RightParen);
+    if (context & Context.ErrorRecovery) {
+      propertySetParameterList = createArray(parser, propertySetParameterList, startIndex);
+      uniqueFormalParameters = createMissingList(startIndex, uniqueFormalParameters);
+    }
   } else {
     uniqueFormalParameters = parseFormalParameters(parser, context | Context.Parameters);
   }
-
   const contents = parseFunctionBody(
     parser,
     (context | 0b00000010000100100010000000000000) ^ 0b00000000000100100000000000000000,
@@ -4436,10 +4499,9 @@ export function parseClassElementList(
   isExpression: boolean
 ): any {
   const start = parser.startIndex;
+  const classElementList: any[] = [];
   if (parser.token === Token.LeftBrace) {
     nextToken(parser, context | Context.AllowRegExp);
-
-    const classElementList: any[] = [];
     if (context & Context.ErrorRecovery) {
       while (parser.token & Constants.ClassElementList) {
         if (consumeOpt(parser, context, Token.Semicolon)) continue;
@@ -4459,7 +4521,7 @@ export function parseClassElementList(
   }
   addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
 
-  return createMissingList(start);
+  return createMissingList(start, classElementList);
 }
 
 // ClassElement :
@@ -4629,7 +4691,13 @@ export function parseNewExpression(
     return parseNewTargetExpression(parser, context, start);
   }
   const expression = parseExpression(parser, context, Precedence.LeftHandSide, bindingType, false, start);
-  const args = parser.token === Token.LeftParen ? parseArguments(parser, context) : [];
+  let args: any = [];
+  if (parser.token === Token.LeftParen) {
+    args = parseArguments(parser, context);
+  } else if (context & Context.ErrorRecovery) {
+    args = createArray(parser, args, start);
+  }
+
   parser.assignable = false;
 
   return finishNode(
@@ -4722,10 +4790,17 @@ export function parseAsyncArrowDeclaration(
   start: number
 ): any {
   if (!parser.hasLineTerminator) {
-    // async Identifier => ...
+    // `async foo => ...`
     if ((parser.token & (Token.FutureKeyword | Token.IsIdentifier)) !== 0) {
-      let expr: any = parseIdentifierReference(parser, context, bindingType);
-      expr = parseArrowFunction(parser, context, [expr], bindingType, 1, start);
+      let expr: any = parseArrowFromIdentifier(
+        parser,
+        context,
+        [parseIdentifierReference(parser, context, bindingType)],
+        bindingType,
+        /* isAsync */ 1,
+        start
+      );
+      // `async foo => ..., async foo => ...`
       expr = parseCommaOperator(parser, context, expr, start);
       return parseExpressionStatement(parser, context, expr, start);
     }
@@ -4733,18 +4808,23 @@ export function parseAsyncArrowDeclaration(
 
   let expr: any = parseIdentifierReferenceFromValue(parser, context, 'async', bindingType, start);
 
-  if (parser.token === Token.LeftParen) {
-    expr = parseAsyncArrowOrCallExpression(parser, context, expr, bindingType, start);
-  } else if (parser.token === Token.Arrow) {
-    expr = parseArrowFunction(parser, context, [expr], bindingType, 0, start);
-  }
-
+  // `async: foo`
   if (parser.token === Token.Colon) {
     return parseLabelledStatement(parser, context, Token.AsyncKeyword, 'async', start);
   }
 
+  // `async ()`, `async () => ...`
+  if (parser.token === Token.LeftParen) {
+    expr = parseCoverCallExpressionAndAsyncArrowHead(parser, context, expr, bindingType, start);
+    // `async => ...`
+  } else if (parser.token === Token.Arrow) {
+    expr = parseArrowFromIdentifier(parser, context, expr, bindingType, /* isAsync */ 0, start);
+  }
+
+  // `async++`, `async`\n${0}`:`, `async?.()`
   expr = parseLeftHandSide(parser, context, expr, Precedence.Assign, BindingType.AllowLHS, start);
 
+  // `async() => x, y`, `async => x, y`,
   expr = parseCommaOperator(parser, context, expr, start);
 
   return parseExpressionStatement(parser, context, expr, start);
@@ -4771,31 +4851,53 @@ export function parseAsyncArrowExpression(
   start: number
 ): any {
   if (!parser.hasLineTerminator) {
-    // async Identifier => ...
+    // `async` [no LineTerminator here] IdentifierReference [no LineTerminator here] `=>`
     if ((parser.token & (Token.FutureKeyword | Token.IsIdentifier)) !== 0) {
       if ((bindingType & BindingType.AllowLHS) === 0) {
         addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
       }
-      const expr: any = parseIdentifierReference(parser, context, bindingType);
-      return parseArrowFunction(parser, context, [expr], bindingType, 1, start);
+      return parseArrowFromIdentifier(
+        parser,
+        context,
+        [parseIdentifierReference(parser, context, bindingType)],
+        bindingType,
+        /* isAsync */ 1,
+        start
+      );
     }
   }
 
   const expr: any = parseIdentifierReferenceFromValue(parser, context, 'async', bindingType, start);
 
+  // `async ()`, `async () => ...`
   if (parser.token === Token.LeftParen) {
-    return parseAsyncArrowOrCallExpression(parser, context, expr, bindingType, start);
+    return parseCoverCallExpressionAndAsyncArrowHead(parser, context, expr, bindingType, start);
   }
 
+  // IdentifierReference [no LineTerminator here] `=>`
   if (parser.token === Token.Arrow) {
-    return parseArrowFunction(parser, context, [expr], bindingType, 0, start);
+    return parseArrowFromIdentifier(parser, context, expr, bindingType, /* isAsync */ 0, start);
   }
 
+  // `async`
   parser.assignable = true;
   return expr;
 }
 
-export function parseAsyncArrowOrCallExpression(
+export function parseArrowFromIdentifier(
+  parser: ParserState,
+  context: Context,
+  params: any,
+  bindingType: BindingType,
+  isAsync: 0 | 1,
+  start: number
+): any {
+  if (context & Context.ErrorRecovery) params = createArray(parser, [params], start);
+  return parseArrowFunction(parser, context, params, bindingType, isAsync, start);
+}
+
+// `CoverCallExpressionAndAsyncArrowHead : MemberExpressionArguments`
+export function parseCoverCallExpressionAndAsyncArrowHead(
   parser: ParserState,
   context: Context,
   expression: any,
@@ -4803,21 +4905,23 @@ export function parseAsyncArrowOrCallExpression(
   start: number
 ): any {
   nextToken(parser, context | Context.AllowRegExp);
-
+  let params: Types.Expression[] = [];
   if (parser.token === Token.RightParen) {
     nextToken(parser, context);
 
     if (parser.token === Token.Arrow) {
-      return parseArrowFunction(parser, context, [], bindingType, 1, start);
+      let params: Types.ArrowFormals[] = [];
+      if (context & Context.ErrorRecovery) params = createArray(parser, params, start);
+      return parseArrowFunction(parser, context, params, bindingType, 1, start);
     }
 
     parser.assignable = false;
-
+    if (context & Context.ErrorRecovery) params = createArray(parser, params, start);
     return finishNode(
       parser,
       context,
       start,
-      { type: 'CallExpression', expression, arguments: [] },
+      { type: 'CallExpression', expression, arguments: params },
       NodeType.CallExpression
     );
   }
@@ -4825,8 +4929,6 @@ export function parseAsyncArrowOrCallExpression(
   let expr: any = null;
 
   let destructible: Destructible = Destructible.None;
-
-  const params: Types.Expression[] = [];
 
   while (parser.token !== Token.RightParen) {
     const startIndex = parser.startIndex;
@@ -4889,7 +4991,7 @@ export function parseAsyncArrowOrCallExpression(
       parser.destructible = Destructible.NotDestructible;
 
       parser.assignable = false;
-
+      if (context & Context.ErrorRecovery) params = createArray(parser, params, start);
       return finishNode(
         parser,
         context,
@@ -4907,7 +5009,7 @@ export function parseAsyncArrowOrCallExpression(
   }
 
   consume(parser, context, Token.RightParen);
-
+  if (context & Context.ErrorRecovery) params = createArray(parser, params, start);
   if (parser.token === Token.Arrow) {
     if (destructible & (Destructible.Assignable | Destructible.NotDestructible)) {
       addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);

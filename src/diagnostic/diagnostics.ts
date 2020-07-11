@@ -1,4 +1,4 @@
-import { ParserState, Context, lastOrUndefined } from '../common';
+import { ParserState, Context, Flags, lastOrUndefined } from '../common';
 import { DiagnosticSource, DiagnosticCode, DiagnosticKind } from './enums';
 
 /**
@@ -121,7 +121,8 @@ export const diagnosticMap: {
   [DiagnosticCode.UnknownDigit]: 'Unknown digit',
   [DiagnosticCode.InvalidBigIntLiteral]: 'Invalid BigInt syntax',
   [DiagnosticCode.UnsupportedUnicodeIdent]: 'Unsupported unicode escape in identifier escapes start',
-  [DiagnosticCode.UnexpectedIdentNumber]: 'An identifier or number immediately follow a numeric literal'
+  [DiagnosticCode.UnexpectedIdentNumber]: 'An identifier or number immediately follow a numeric literal',
+  [DiagnosticCode.GetAccessorParms]: "A 'get' accessor cannot have parameters"
 };
 
 export function createDiagnostic(
@@ -170,6 +171,7 @@ export function addDiagnostic(
   if (!lastError || parser.startIndex !== lastError.start) {
     parser.diagnostics.push({ kind, source, message, code, start, end });
   }
+  parser.flags |= Flags.HasErrors;
 }
 
 export function formatStringFromArgs(message: string, args: string[]): string {

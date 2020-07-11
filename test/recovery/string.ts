@@ -55,8 +55,8 @@ describe('Recovery - String literal', () => {
           contextFlags: 128,
           end: 15,
           id: 1,
-          mutualFlags: 0,
-          nodeType: 77,
+          mutualFlags: 4,
+          nodeType: 1101,
           parent: null,
           start: 3,
           type: 'StringLiteral',
@@ -89,7 +89,7 @@ describe('Recovery - String literal', () => {
     t.deepEqual(root.directives, ['"']);
   });
 
-  it('invalid unclosed string assignment', () => {
+  it('invalid unclosed string assignment1212234', () => {
     const root = recovery('x = "', 'recovery.js');
     t.deepEqual(root.diagnostics, [
       {
@@ -127,8 +127,8 @@ describe('Recovery - String literal', () => {
           contextFlags: 128,
           end: 6,
           id: 1,
-          mutualFlags: 0,
-          nodeType: 77,
+          mutualFlags: 4,
+          nodeType: 1101,
           parent: null,
           start: 3,
           type: 'StringLiteral',
@@ -215,8 +215,8 @@ describe('Recovery - String literal', () => {
           contextFlags: 128,
           end: 12,
           id: 1,
-          mutualFlags: 0,
-          nodeType: 77,
+          mutualFlags: 4,
+          nodeType: 1101,
           parent: null,
           start: 3,
           type: 'StringLiteral',
