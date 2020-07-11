@@ -197,32 +197,34 @@ export interface RootNode extends Types.Root {
   diagnostics: Diagnostic[];
 }
 
-export function consumeOpt<T extends Token>(parser: ParserState, context: Context, t: T): boolean {
-  if (parser.token !== t) return false;
-  nextToken(parser, context);
+export function consumeOpt<T extends Token>(state: ParserState, context: Context, t: T): boolean {
+  if (state.token !== t) return false;
+  nextToken(state, context);
   return true;
 }
 
-export function optionalBit<T extends Token>(parser: ParserState, context: Context, t: T): 0 | 1 {
-  if (parser.token !== t) return 0;
-  nextToken(parser, context);
+export function optionalBit<T extends Token>(state: ParserState, context: Context, t: T): 0 | 1 {
+  if (state.token !== t) return 0;
+  nextToken(state, context);
   return 1;
 }
-export function consume<T extends Token>(parser: ParserState, context: Context, t: T): boolean {
-  if (parser.token === t) {
-    nextToken(parser, context);
+export function consume<T extends Token>(state: ParserState, context: Context, t: T): boolean {
+  if (state.token === t) {
+    nextToken(state, context);
     return true;
   }
 
-  addDiagnostic(parser, context, DiagnosticSource.Lexer, tokenErrors(t), DiagnosticKind.Error);
+  addDiagnostic(state, context, DiagnosticSource.Lexer, tokenErrors(t), DiagnosticKind.Error);
 
-  parser.flags |= Flags.HasErrors;
+  // Mark that we've encountered an error.  We'll set an appropriate bit on the next
+  // node we finish so that it can't be reused incrementally.
+  state.flags |= Flags.HasErrors;
 
   return false;
 }
 
 export function finishNode<T extends Types.Node>(
-  parser: ParserState,
+  state: ParserState,
   context: Context,
   start: number,
   node: T,
@@ -233,16 +235,16 @@ export function finishNode<T extends Types.Node>(
     // Note: this 'start' doesn't handle WS between tokens. Need to fix this
     // for 'normal parsing mode'
     node.start = start;
-    node.end = parser.endIndex;
+    node.end = state.endIndex;
 
     if (context & Context.ErrorRecovery) {
       node.contextFlags = context;
-      node.mutualFlags = parser.flags;
+      node.mutualFlags = state.flags;
       node.nodeType = flags;
       node.parent = null;
 
-      if (parser.flags & Flags.HasErrors) {
-        parser.flags = (parser.flags | Flags.HasErrors) ^ Flags.HasErrors;
+      if (state.flags & Flags.HasErrors) {
+        state.flags = (state.flags | Flags.HasErrors) ^ Flags.HasErrors;
         node.nodeType |= NodeType.HasErrors;
       }
     }
@@ -347,41 +349,41 @@ export function reinterpretToAssignment(node: any, objlit: boolean): void {
     }
   }
 }
-export function canParseSemicolon(parser: ParserState): boolean {
-  return parser.hasLineTerminator || (parser.token & Token.IsAutomaticSemicolon) === Token.IsAutomaticSemicolon;
+export function canParseSemicolon(state: ParserState): boolean {
+  return state.hasLineTerminator || (state.token & Token.IsAutomaticSemicolon) === Token.IsAutomaticSemicolon;
 }
-export function consumeSemicolon(parser: ParserState, context: Context): void {
-  if (consumeOpt(parser, context | Context.AllowRegExp, Token.Semicolon)) {
+export function consumeSemicolon(state: ParserState, context: Context): void {
+  if (consumeOpt(state, context | Context.AllowRegExp, Token.Semicolon)) {
     return;
   }
-  if (canParseSemicolon(parser)) return;
-  addDiagnostic(parser, context, DiagnosticSource.Lexer, tokenErrors(parser.token), DiagnosticKind.Error);
+  if (canParseSemicolon(state)) return;
+  addDiagnostic(state, context, DiagnosticSource.Lexer, tokenErrors(state.token), DiagnosticKind.Error);
 }
 
-export function validateFunctionName(parser: ParserState, context: Context, t: Token): void {
+export function validateFunctionName(state: ParserState, context: Context, t: Token): void {
   if (context & Context.Strict && (t & Token.FutureKeyword) > 0) {
-    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
 
   if ((t & Token.Keyword) === Token.Keyword)
-    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
 
   if ((context & (Context.Await | Context.Module)) > 0 && t === Token.AwaitKeyword) {
-    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
 
   if (context & (Context.Yield | Context.Strict) && t === Token.YieldKeyword) {
-    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
 }
 
-export function isStrictReservedWord(parser: ParserState, context: Context, t: Token): boolean {
+export function isStrictReservedWord(state: ParserState, context: Context, t: Token): boolean {
   if (context & (Context.Await | Context.Module) && t === Token.AwaitKeyword) {
-    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
 
   if (context & Context.Yield && t === Token.YieldKeyword) {
-    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
 
   return (t & Token.Keyword) === Token.Keyword || (t & Token.FutureKeyword) === Token.FutureKeyword;
@@ -392,7 +394,7 @@ export function isCaseOrDefaultKeyword<T extends Token>(t: T): boolean {
 }
 
 export function parseAndClassifyIdentifier(
-  parser: ParserState,
+  state: ParserState,
   context: Context,
   t: Token,
   name: string,
@@ -400,13 +402,13 @@ export function parseAndClassifyIdentifier(
   isBinding: boolean,
   start: number
 ): Types.BindingIdentifier | Types.IdentifierReference {
-  if (context & (Context.Module | Context.Await) && parser.token === Token.AwaitKeyword) {
-    addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.AwaitOutsideAsync, DiagnosticKind.Error);
+  if (context & (Context.Module | Context.Await) && state.token === Token.AwaitKeyword) {
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.AwaitOutsideAsync, DiagnosticKind.Error);
   }
 
-  if (context & (Context.Strict | Context.Yield) && parser.token === Token.YieldKeyword) {
+  if (context & (Context.Strict | Context.Yield) && state.token === Token.YieldKeyword) {
     addDiagnostic(
-      parser,
+      state,
       context,
       DiagnosticSource.Parser,
       DiagnosticCode.DisallowedYieldInContext,
@@ -416,7 +418,7 @@ export function parseAndClassifyIdentifier(
 
   if (t === Token.LetKeyword && bindingType & (BindingType.Let | BindingType.Const)) {
     addDiagnostic(
-      parser,
+      state,
       context,
       DiagnosticSource.Parser,
       DiagnosticCode.InvalidLetConstBinding,
@@ -424,16 +426,16 @@ export function parseAndClassifyIdentifier(
     );
   }
   if ((t & Token.Keyword) === Token.Keyword) {
-    addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.AwaitOutsideAsync, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.AwaitOutsideAsync, DiagnosticKind.Error);
   }
   if ((t & (Token.Keyword | Token.FutureKeyword | Token.IsIdentifier)) === 0) {
-    addDiagnostic(parser, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
-  nextToken(parser, context | Context.AllowRegExp);
+  nextToken(state, context | Context.AllowRegExp);
   if (isBinding) {
-    return finishNode(parser, context, start, { type: 'BindingIdentifier', name }, NodeType.BindingIdentifier);
+    return finishNode(state, context, start, { type: 'BindingIdentifier', name }, NodeType.BindingIdentifier);
   }
-  return finishNode(parser, context, start, { type: 'IdentifierReference', name }, NodeType.IdentifierReference);
+  return finishNode(state, context, start, { type: 'IdentifierReference', name }, NodeType.IdentifierReference);
 }
 
 /**

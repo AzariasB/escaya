@@ -30,6 +30,8 @@ export function scan(parser: ParserState, context: Context): Token {
   while (parser.index < parser.length) {
     let ch = source.charCodeAt(parser.index);
 
+    parser.tokenIndex = parser.index;
+
     if (ch < 127) {
       const token = oneCharTokens[ch];
 
@@ -476,6 +478,13 @@ export function nextToken(parser: ParserState, context: Context): void {
   parser.endColumn = parser.startColumn;
   parser.startIndex = parser.index;
   parser.token = scan(parser, context);
+  // In 'recovery' mode the 'start' of the token is 'before' any
+  // whitespace. However in 'normal parsing mode' we need to adjust
+  // 'startIndex' to be equal to 'tokenIndex' to be in line with
+  // other parsers such as 'Tenko' and 'Acorn'
+  if ((context & Context.ErrorRecovery) === 0) {
+    parser.startIndex = parser.tokenIndex;
+  }
   parser.startLine = parser.line;
   parser.startColumn = parser.index - parser.columnOffset;
 }

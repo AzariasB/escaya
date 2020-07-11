@@ -23,8 +23,6 @@ export function scanNumber(parser: ParserState, context: Context, source: string
   let type = NumberKind.Decimal;
   let disallowBigInt = false;
 
-  const start = parser.index;
-
   if (isFloat) {
     do {
       ch = source.charCodeAt(++parser.index);
@@ -250,7 +248,7 @@ export function scanNumber(parser: ParserState, context: Context, source: string
       addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidBigIntLiteral, DiagnosticKind.Error);
     }
     parser.index++;
-    parser.tokenValue = parseFloat(source.slice(start, parser.index));
+    parser.tokenValue = parseFloat(source.slice(parser.tokenIndex, parser.index));
     return Token.BigIntLiteral;
   }
 
@@ -279,7 +277,7 @@ export function scanNumber(parser: ParserState, context: Context, source: string
   if ((CharTypes[ch] & 0b00000000000000000000000000000011) > 0) {
     addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.IdafterNumber, DiagnosticKind.Error);
   }
-  parser.tokenValue = parseFloat(source.slice(start, parser.index));
+  parser.tokenValue = parseFloat(source.slice(parser.tokenIndex, parser.index));
 
   return Token.NumericLiteral;
 }

@@ -899,6 +899,8 @@ export interface UnaryExpression extends Root {
   operand: LeftHandSideExpression;
 }
 
+export type VarOrLexical = VariableDeclaration | LexicalBinding;
+
 export interface VariableStatement extends Root {
   type: 'VariableStatement';
   declarations: VariableDeclaration[];
