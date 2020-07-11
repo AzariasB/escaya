@@ -1,22 +1,6 @@
 export const enum NodeType {
-  /**
-   * This node has no flags.
-   */
-  None = 0,
-  /**
-   * This node has some diagnostics associated with it.
-   */
-  HasErrors = 1 << 1,
-  /**
-   * This node was inserted by the compiler.
-   */
-  Synthetic = 1 << 2,
-  /**
-   * This node has side effects.
-   */
-  HasSideEffects = 1 << 3,
-
-  Statement = 1 << 4,
+  // Must be the first power of 2 above the last non-flag member.
+  HasErrors = 1 << 10,
 
   FunctionDeclaration = 0,
   VariableStatement = 1,

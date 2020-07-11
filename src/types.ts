@@ -599,17 +599,14 @@ export interface IfStatement extends Root {
 
 export type ImportOrExport = ExportDeclaration | ImportDeclaration;
 
-export interface ImportClause extends Root {
+export interface ImportDeclaration extends Root {
+  type: 'ImportDeclaration';
+  fromClause: StringLiteral | null;
+  moduleSpecifier: StringLiteral | null;
   defaultBinding: BindingIdentifier | null;
   namedImports: MissingList | ImportSpecifier[];
   namedBinding: BindingIdentifier | null;
   parent?: Script | Module;
-}
-
-export interface ImportDeclaration extends ImportClause {
-  type: 'ImportDeclaration';
-  fromClause: StringLiteral | null;
-  moduleSpecifier: StringLiteral | null;
 }
 
 export interface ImportSpecifier extends Root {
@@ -766,8 +763,8 @@ export interface MethodDefinition extends Root {
   type: 'MethodDefinition';
   async: boolean;
   generator: boolean;
-  propertySetParameterList: BindingElement[];
-  uniqueFormalParameters: FormalParameters[];
+  propertySetParameterList: MissingList | BindingElement[];
+  uniqueFormalParameters: MissingList | FormalParameters[];
   name: Expression | PrivateIdentifier;
   contents: FunctionBody;
   parent?: ObjectLiteral | ClassElement;
