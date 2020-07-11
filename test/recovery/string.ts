@@ -35,11 +35,9 @@ describe('Recovery - String literal', () => {
       expression: {
         contextFlags: 128,
         end: 15,
-        id: 2,
         left: {
           contextFlags: 65664,
           end: 1,
-          id: 0,
           mutualFlags: 0,
           name: 'x',
           nodeType: 88,
@@ -54,7 +52,6 @@ describe('Recovery - String literal', () => {
         right: {
           contextFlags: 128,
           end: 15,
-          id: 1,
           mutualFlags: 4,
           nodeType: 1101,
           parent: null,
@@ -65,7 +62,6 @@ describe('Recovery - String literal', () => {
         start: 0,
         type: 'AssignmentExpression'
       },
-      id: 3,
       mutualFlags: 0,
       nodeType: 4,
       parent: null,
@@ -107,11 +103,9 @@ describe('Recovery - String literal', () => {
       expression: {
         contextFlags: 128,
         end: 6,
-        id: 2,
         left: {
           contextFlags: 65664,
           end: 1,
-          id: 0,
           mutualFlags: 0,
           name: 'x',
           nodeType: 88,
@@ -126,7 +120,6 @@ describe('Recovery - String literal', () => {
         right: {
           contextFlags: 128,
           end: 6,
-          id: 1,
           mutualFlags: 4,
           nodeType: 1101,
           parent: null,
@@ -137,7 +130,6 @@ describe('Recovery - String literal', () => {
         start: 0,
         type: 'AssignmentExpression'
       },
-      id: 3,
       mutualFlags: 0,
       nodeType: 4,
       parent: null,
@@ -195,11 +187,9 @@ describe('Recovery - String literal', () => {
       expression: {
         contextFlags: 128,
         end: 12,
-        id: 2,
         left: {
           contextFlags: 65664,
           end: 1,
-          id: 0,
           mutualFlags: 0,
           name: 'x',
           nodeType: 88,
@@ -214,7 +204,6 @@ describe('Recovery - String literal', () => {
         right: {
           contextFlags: 128,
           end: 12,
-          id: 1,
           mutualFlags: 4,
           nodeType: 1101,
           parent: null,
@@ -225,7 +214,6 @@ describe('Recovery - String literal', () => {
         start: 0,
         type: 'AssignmentExpression'
       },
-      id: 3,
       mutualFlags: 0,
       nodeType: 4,
       parent: null,

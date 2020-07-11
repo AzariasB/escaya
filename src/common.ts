@@ -229,12 +229,11 @@ export function finishNode<T extends Types.Node>(
   flags: NodeType
 ): T {
   if (context & (Context.ErrorRecovery | Context.OptionsLoc)) {
-    const id = parser.counter++;
-    const end = parser.endIndex;
 
-    node.id = id;
+    // Note: this 'start' doesn't handle WS between tokens. Need to fix this
+    // for 'normal parsing mode'
     node.start = start;
-    node.end = end;
+    node.end = parser.endIndex;
 
     if (context & Context.ErrorRecovery) {
       node.contextFlags = context;
@@ -244,7 +243,7 @@ export function finishNode<T extends Types.Node>(
 
       if (parser.flags & Flags.HasErrors) {
         parser.flags = (parser.flags | Flags.HasErrors) ^ Flags.HasErrors;
-        node.nodeType = flags | NodeType.HasErrors;
+        node.nodeType |= NodeType.HasErrors;
       }
     }
   }
