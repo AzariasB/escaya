@@ -33,6 +33,7 @@ export const enum Context {
   Yield                    = 1 << 21,
   Await                    = 1 << 22,
   Parameters               = 1 << 23,
+  DisallowArrow            = 1 << 24,
   ImportMeta               = 1 << 27,
   NewTarget                = 1 << 26,
   DisallowIn               = 1 << 29,
@@ -64,13 +65,15 @@ export const enum BindingKind {
 
 export const enum ModifierKind {
   None = 0,
-  Async = 1 << 0,
-  Generator = 1 << 1,
-  Getter = 1 << 2,
-  Setter = 1 << 3,
-  Constructor = 1 << 4,
+  Method = 1 << 0,
+  Computed = 1 << 1,
+  Shorthand = 1 << 2,
+  Generator = 1 << 3,
+  Async = 1 << 4,
   Static = 1 << 5,
-  Computed = 1 << 6
+  Constructor = 1 << 6,
+  Getter = 1 << 7,
+  Setter = 1 << 8
 }
 
 export const enum Destructible {
@@ -103,7 +106,7 @@ export const enum BindingType {
   Var  = 1 << 6,
   CatchIdentifier  = 1 << 7,
   CatchPattern   = 1 << 8,
-  Literal   = 1 << 9
+  Literal   = 1 << 9,
 }
 
 /**

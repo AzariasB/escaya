@@ -26,6 +26,7 @@ describe('Expressions - Array', () => {
     '[{a = b}].x',
     '[([x])] = t; ',
     '[(x.y) = [1/42]/=2]',
+    '[{b = 1}]',
     '[{} = 2/=2]',
     '[{x = y}].z',
     '[{x = y}].z = obj',
@@ -392,7 +393,7 @@ describe('Expressions - Array', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true, next: true, globalReturn: true });
       });
     });
     it(`${arg}`, () => {

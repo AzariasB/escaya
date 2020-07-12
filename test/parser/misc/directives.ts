@@ -4,6 +4,13 @@ import { parseScript, recovery } from '../../../src/escaya';
 describe('Expressions - Directives', () => {
   // Invalid cases
   for (const arg of [
+    '"use strict"; "use strict"; with (x) y;',
+    '"haha\
+    still\
+    fine"; "use strict"; with (x) y;',
+    '() => { "use strict"\nwith (x) y; }',
+    '"use strict"\n;with (x) y;',
+    //'function f(){ "use strict"; with (x) y; }',
     "'random\nnewline'",
     "'random\nnewline'",
     "'random\\x\u2029newline'",
@@ -32,34 +39,6 @@ describe('Expressions - Directives', () => {
     `"ignore me"++`,
     `function f(){
       "foo" "bar"`
-    /*   `class x {
-      y(){
-        "";
-        "\\5";
-      }
-    }`, */
-    /* `"use strict"
-    function f() {
-        "You \\077 ok";
-    }`,
-    `function f() {
-      "You \\077 ok";
-      "use strict"
-  }`,
-    `"ignore me" = x`,
-    `function f() {
-      "use strict";
-      "You \\077 ok";
-  }`,
-    `function f(){
-      "use strict"
-      "x\\2"
-    }`,
-    `"ignore me" = x`,
-    `function f(){
-      "use strict"
-      "x\\7"
-    }`,*/
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -129,6 +108,8 @@ describe('Expressions - Directives', () => {
     '() => { "use strict"; }',
     'function f(){ "use strict" }',
     '"use\\x20strict"',
+    '"use\\x20strict"; with (a) b = c;',
+    '`use strict`; with (x) y;',
     '"use asm";',
     "'use asm'; 'use strict'",
     "'use asm' \n 'use strict'",

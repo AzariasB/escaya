@@ -247,8 +247,8 @@ export function scanNumber(parser: ParserState, context: Context, source: string
     if (disallowBigInt) {
       addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidBigIntLiteral, DiagnosticKind.Error);
     }
+    parser.tokenValue = source.slice(parser.tokenIndex, parser.index);
     parser.index++;
-    parser.tokenValue = parseFloat(source.slice(parser.tokenIndex, parser.index));
     return Token.BigIntLiteral;
   }
 

@@ -3,6 +3,9 @@ import { NodeType } from './nodeType';
 import { Context, ParserState, finishNode, BindingType, RootNode } from './common';
 import { LeafsCallback } from './parser';
 import { parseInRecoveryMode } from './recovery';
+import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from './diagnostic/enums';
+import { addDiagnostic } from './diagnostic/diagnostics';
+import { nextToken } from './scanner/scan';
 
 export function parseInIncrementalMode(
   root: RootNode,
@@ -80,11 +83,19 @@ export function createMissingList(_start: number, list: any): Types.MissingList 
   return list;
 }
 
-export function createIdentifier(parser: ParserState, context: Context): Types.IdentifierReference {
+// Throws in 'normal parsing mode', and insert an 'IdentifierReference' in
+// reover and incremental mode
+export function createIdentifier(
+  state: ParserState,
+  context: Context,
+  code: DiagnosticCode
+): Types.IdentifierReference {
+  addDiagnostic(state, context, DiagnosticSource.Parser, code, DiagnosticKind.Error);
+  nextToken(state, context);
   return finishNode(
-    parser,
+    state,
     context,
-    parser.startIndex,
+    state.startIndex,
     { type: 'IdentifierReference', name: '' },
     NodeType.IdentifierReference | NodeType.HasErrors
   );

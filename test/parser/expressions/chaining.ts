@@ -20,6 +20,8 @@ describe('Expressions - Optional chaining', () => {
     '({x: [y]?.a = 0} = 1)',
     '[a, x?.z] = f(() => { [a, b.c] = [d.e, (f.g) = h]; }); ',
     '([a, b] = f?.x(() => { [a, b?.c] = [d.e, (f.g) = h]; }));',
+    '[...[x?.this[0], ...x?.this[1]]] = []',
+    "({ a: x?.obj['a'] } = {})",
     '[a, ...b?.a] = [1, 2, ...c];',
     '({..."x"?.x} = x);',
     '([x.y = a] = ([x.y = a?.y] = ([x.y?.y = a] = z)))',

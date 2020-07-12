@@ -11,9 +11,12 @@ describe('Expressions - Parenthesized', () => {
     '[{x = y}]',
     '({x = y}.z = obj)',
     '(/x/) => x',
+    '(await bar())',
+    '5 + (await bar())',
     '(x, /x/g) => x',
     '(x, /x/g) => x',
     '({...[]} = x);',
+    '([{b = 1}])',
     '({...obj1,} = foo)',
     '({...obj1,a} = foo)',
     '({...obj1,...obj2} = foo)',
@@ -1061,6 +1064,7 @@ describe('Expressions - Parenthesized', () => {
     '({a: {a: b.x} = 0})',
     '({a: {b: c} = 0})',
     '({a: {b} = 0})',
+    '({set a(yield){}})',
     '({a: {b}})',
     '({a: {b}, c})',
     '({a: [b] = 0})',
@@ -1131,6 +1135,7 @@ describe('Expressions - Parenthesized', () => {
     '(/x/g)',
     '({ a: {prop: 1}.prop } = {})',
     `({ async* f(a, b, ...c) { await 1; } })`,
+    `({ await: async })`,
     '([(x())[y] = a,] = z);',
     '({ident: {x:y}/x})',
     '(async ());',
@@ -1160,6 +1165,8 @@ describe('Expressions - Parenthesized', () => {
     '(obj[0]) = 1;',
     '(obj.a) = 1;',
     '({a:((((a1))))} = {a:20})',
+    '({ set a([{b = 1}]){}, })',
+    //'({ get a() { super[1] = 2; } });',
     '({a:a1 = r1 = 44} = {})',
     '({a, a:a, a:a=a, [a]:{a}, a:b()[a], a:this.a} = 0);',
     '[{x:x = 1, y:y = 2}, [a = 3, b = 4, c = 5]] = {};',
@@ -1182,6 +1189,63 @@ describe('Expressions - Parenthesized', () => {
       });
     });
   }
+
+  it('Assignment to something that must destruct', () => {
+    t.deepEqual(parseScript('({ get a() { super[1] = 2; } });'), {
+      directives: [],
+      leafs: [
+        {
+          expression: {
+            expression: {
+              properties: [
+                {
+                  async: false,
+                  contents: {
+                    directives: [],
+                    statements: [
+                      {
+                        expression: {
+                          left: {
+                            expression: {
+                              type: 'NumericLiteral',
+                              value: 1
+                            },
+                            name: null,
+                            type: 'SuperProperty'
+                          },
+                          operator: '=',
+                          right: {
+                            type: 'NumericLiteral',
+                            value: 2
+                          },
+                          type: 'AssignmentExpression'
+                        },
+                        type: 'ExpressionStatement'
+                      }
+                    ],
+                    type: 'FunctionBody'
+                  },
+                  generator: false,
+                  name: {
+                    name: 'a',
+                    type: 'IdentifierName'
+                  },
+                  propertySetParameterList: [],
+                  type: 'MethodDefinition',
+                  uniqueFormalParameters: []
+                }
+              ],
+              type: 'ObjectLiteral'
+            },
+            type: 'ParenthesizedExpression'
+          },
+          type: 'ExpressionStatement'
+        }
+      ],
+      type: 'Script',
+      webCompat: true
+    });
+  });
 
   it('Assignment to something that must destruct', () => {
     t.deepEqual(parseScript('({a: {x = y}} = z)'), {

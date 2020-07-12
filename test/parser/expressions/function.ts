@@ -38,6 +38,8 @@ describe('Expressions - Function', () => {
     '(function([...x]) {})',
     '(function([...{ length }]) {})',
     '(function([x = 23] = [undefined]) {})',
+    '(function(obj) {}({a: 1, b: 2, ...{c: 3, d: 4}}));',
+    '(function(obj) {}({a: 1, b: 2, ...null}));',
     'function a5({a3, b2: { ba1, ...ba2 }, ...c3}) {}',
     `(function foo(y, z) {{ function x() {} } })(1);`,
     // Complex parameter shouldn't be shadowed

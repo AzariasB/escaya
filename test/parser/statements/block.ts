@@ -3,7 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Statements - Block', () => {
   // Invalid cases
-  for (const arg of ['{', '}']) {
+  for (const arg of ['{', '}', '{ (x = [await x]) }']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -60,6 +60,7 @@ describe('Statements - Block', () => {
     '{ async function f(){} } async function f(){}',
     '{ var f; var f; }',
     '{ let x }',
+    '{ (x = [await]) }',
     '{\u2000\u2006\ufeff\u3000\u3000\u3000\u3000\u205f;  \n}',
     'function fn() {}{x: 42};',
     'function fn() {}let a, b = 42, c;b;;',
