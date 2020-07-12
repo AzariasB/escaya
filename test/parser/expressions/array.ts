@@ -84,7 +84,6 @@ describe('Expressions - Array', () => {
     //`[...{a: 0} = c]`,
     '[...{a: true=x} = c]',
     '[...x, ...y] = 0',
-
     `({x:0 = 5})`,
     `[...{true=x} = c]`,
     `[...{true} = c]`,
@@ -361,7 +360,6 @@ describe('Expressions - Array', () => {
     '([...x=y]) = z',
     '[x, y, ...z()] = obj',
     '[x, ...z(), y] = obj',
-
     '[x, ...z + arr, y] = obj',
     '[x, y, ...z + arr] = obj',
     '[...this] = obj',
