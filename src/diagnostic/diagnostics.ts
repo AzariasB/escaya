@@ -171,7 +171,7 @@ export function addDiagnostic(
   if (!lastError || parser.startIndex !== lastError.start) {
     parser.diagnostics.push({ kind, source, message, code, start, end });
   }
-  parser.flags |= Flags.HasErrors;
+  //parser.flags |= Flags.HasErrors;
 }
 
 export function formatStringFromArgs(message: string, args: string[]): string {

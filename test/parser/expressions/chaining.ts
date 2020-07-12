@@ -56,7 +56,7 @@ describe('Expressions - Optional chaining', () => {
     'obj?.foo\n`template`',
     'async .?() => {}',
     'import?.("foo")',
-    //'async(x?.x)=>x?.z',
+    'async(x?.x)=>x?.z',
     'a?.{a} = c',
     'foo?.bar *= x',
     '[foo?.bar] = x',

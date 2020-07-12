@@ -4,7 +4,7 @@ import { parseScript } from '../../../src/escaya';
 describe('Expressions - Async function', () => {
   // Invalid cases
   for (const arg of [
-    //'(async function () { var await; });',
+    '(async function () { var await; });',
     '0, async function*(...x = []) {};',
     '(async function f(...a,) {})',
     '(async function foo1() { } foo2 => 1)',
@@ -25,8 +25,8 @@ describe('Expressions - Async function', () => {
     '(async function foo (foo) { super() })',
     '(async function foo (foo) { super.prop });',
     '(async function foo (foo = super()) { var bar; });',
-    //'(async function*(await) { });',
-    //'(async function foo(await) { })',
+    '(async function*(await) { });',
+    '(async function foo(await) { })',
     '(async\nfunction foo() { })',
     'async ()\n=> a',
     '(async`foo23` foo24 => 1)',
@@ -109,7 +109,7 @@ describe('Expressions - Async function', () => {
     "var O = { async 'method'(arguments) {} }",
     'var O = { async 0(arguments) {} }',
     'var O = { async method(foo, bar) {} }',
-    //'(function* g() { (async function yield() {}); })',
+    '(function* g() { (async function yield() {}); })',
     '"use strict"; ({ async yield() {} });',
     '(function f() { ({ async [yield]() {} }); })'
   ]) {

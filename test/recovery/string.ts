@@ -52,8 +52,8 @@ describe('Recovery - String literal', () => {
         right: {
           contextFlags: 128,
           end: 15,
-          mutualFlags: 4,
-          nodeType: 1101,
+          mutualFlags: 0,
+          nodeType: 77,
           parent: null,
           start: 3,
           type: 'StringLiteral',
@@ -120,8 +120,8 @@ describe('Recovery - String literal', () => {
         right: {
           contextFlags: 128,
           end: 6,
-          mutualFlags: 4,
-          nodeType: 1101,
+          mutualFlags: 0,
+          nodeType: 77,
           parent: null,
           start: 3,
           type: 'StringLiteral',
@@ -204,8 +204,8 @@ describe('Recovery - String literal', () => {
         right: {
           contextFlags: 128,
           end: 12,
-          mutualFlags: 4,
-          nodeType: 1101,
+          mutualFlags: 0,
+          nodeType: 77,
           parent: null,
           start: 3,
           type: 'StringLiteral',

@@ -9,7 +9,7 @@ describe('Expressions - Regular expression', () => {
     'x = {x=y};',
     // 'y/[]=x',
     'x in [2=y]',
-    // '({...(a,b)} = foo)',
+    '({...(a,b)} = foo)',
     '({...{}} = {})',
     '({...obj1,} = foo)',
     '(1) = (y) = x',
