@@ -2822,19 +2822,47 @@ export function parseArrayBindingPattern(
   nextToken(state, context | Context.AllowRegExp);
   let leafs = [];
   let destructible = Destructible.None;
-  while (state.token !== Token.RightBracket) {
-    if (consumeOpt(state, context, Token.Comma)) {
-      leafs.push(finishNode(state, context, state.startIndex, { type: 'Elision' }, NodeType.Elision));
-    } else {
-      leafs.push(parseElementList(state, context, bindingType));
-      destructible |= state.destructible;
-      if (state.token !== Token.Comma) break;
-      nextToken(state, context | Context.AllowRegExp);
+  if (context & Context.ErrorRecovery) {
+    while (state.token & Constants.DelimitedList) {
+      if (consumeOpt(state, context, Token.Comma)) {
+        leafs.push(finishNode(state, context, state.startIndex, { type: 'Elision' }, NodeType.Elision));
+      } else {
+        leafs.push(parseElementList(state, context, bindingType));
+        destructible |= state.destructible;
+        //
+        // We parse the array as an delimited list, and accept missing commas to prevent
+        // an incomplete multiline array.
+        //
+        // Example
+        //
+        // 'var a = [1,'
+        //
+        // and
+        //
+        // 'var a = [
+        //   1, '
+        //
+        // are now treated as single-line array instead
+        //
+        if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
+        if ((state.token & state.token & Constants.DelimitedList) === 0 || state.token === Token.RightBracket) break;
+      }
+    }
+    leafs = createArray(state, leafs, start);
+  } else {
+    while (state.token !== Token.RightBracket) {
+      if (consumeOpt(state, context, Token.Comma)) {
+        leafs.push(finishNode(state, context, state.startIndex, { type: 'Elision' }, NodeType.Elision));
+      } else {
+        leafs.push(parseElementList(state, context, bindingType));
+        destructible |= state.destructible;
+        if (state.token !== Token.Comma) break;
+        nextToken(state, context | Context.AllowRegExp);
+      }
     }
   }
   consume(state, context, Token.RightBracket);
   state.destructible = destructible;
-  if (context & Context.ErrorRecovery) leafs = createArray(state, leafs, start);
   return finishNode(state, context, start, { type: 'ArrayBindingPattern', leafs }, NodeType.ArrayBindingPattern);
 }
 
@@ -2881,14 +2909,45 @@ export function parseArrayLiteralOrPattern(
   nextToken(state, context | Context.AllowRegExp);
   let leafs = [];
   let destructible = Destructible.None;
-  while (state.token !== Token.RightBracket) {
-    if (consumeOpt(state, context, Token.Comma)) {
-      leafs.push(finishNode(state, context, state.startIndex, { type: 'Elision' }, NodeType.Elision));
-    } else {
-      leafs.push(parseElementList(state, context, bindingType));
-      destructible |= state.destructible;
-      if (state.token !== Token.Comma) break;
-      nextToken(state, context | Context.AllowRegExp);
+
+  if (context & Context.ErrorRecovery) {
+    while (state.token & Constants.DelimitedList) {
+      if (consumeOpt(state, context, Token.Comma)) {
+        leafs.push(finishNode(state, context, state.startIndex, { type: 'Elision' }, NodeType.Elision));
+      } else {
+        leafs.push(parseElementList(state, context, bindingType));
+        destructible |= state.destructible;
+        //
+        // We parse the array as an delimited list, and accept missing commas to prevent
+        // an incomplete multiline array.
+        //
+        // Example
+        //
+        // 'var a = [1,'
+        //
+        // and
+        //
+        // 'var a = [
+        //   1, '
+        //
+        // are now treated as single-line array instead
+        //
+        if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
+
+        if ((state.token & Constants.DelimitedList) === 0 || state.token === Token.RightBracket) break;
+      }
+    }
+    leafs = createArray(state, leafs, start);
+  } else {
+    while (state.token !== Token.RightBracket) {
+      if (consumeOpt(state, context, Token.Comma)) {
+        leafs.push(finishNode(state, context, state.startIndex, { type: 'Elision' }, NodeType.Elision));
+      } else {
+        leafs.push(parseElementList(state, context, bindingType));
+        destructible |= state.destructible;
+        if (state.token !== Token.Comma) break;
+        nextToken(state, context | Context.AllowRegExp);
+      }
     }
   }
 
@@ -2900,7 +2959,7 @@ export function parseArrayLiteralOrPattern(
     return parseArrayAssignment(state, context, leafs, destructible, start, bindingType);
   }
   state.destructible = destructible;
-  if (context & Context.ErrorRecovery) leafs = createArray(state, leafs, start);
+
   if (bindingType & BindingType.Pattern) {
     return finishNode(state, context, start, { type: 'ArrayBindingPattern', leafs }, NodeType.ArrayBindingPattern);
   }
@@ -3358,17 +3417,41 @@ export function parseObjectBindingPattern(
 
   let destructible = Destructible.None;
 
-  while (state.token !== Token.RightBrace) {
-    properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
-    destructible |= state.destructible;
-    if (state.token !== Token.Comma) break;
-    nextToken(state, context | Context.AllowRegExp);
+  if (context & Context.ErrorRecovery) {
+    while (state.token & Constants.DelimitedList) {
+      properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
+      destructible |= state.destructible;
+      //
+      // We parse the array as an delimited list, and accept missing commas to prevent
+      // an incomplete multiline array.
+      //
+      // Example
+      //
+      // 'var a = { 1,'
+      //
+      // and
+      //
+      // 'var a = {
+      //   1, '
+      //
+      // are now treated as single-line array instead
+      //
+      if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
+      if ((state.token & state.token & Constants.DelimitedList) === 0 || state.token === Token.RightBrace) break;
+    }
+    properties = createArray(state, properties, start);
+  } else {
+    while (state.token !== Token.RightBrace) {
+      properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
+      destructible |= state.destructible;
+      if (state.token !== Token.Comma) break;
+      nextToken(state, context | Context.AllowRegExp);
+    }
   }
 
   consume(state, context, Token.RightBrace);
 
   state.destructible = destructible;
-  if (context & Context.ErrorRecovery) properties = createArray(state, properties, start);
   return finishNode(state, context, start, { type: 'ObjectBindingPattern', properties }, NodeType.ObjectBindingPattern);
 }
 
@@ -3395,11 +3478,36 @@ export function parseObjectLiteralOrPattern(
 
   let destructible = Destructible.None;
 
-  while (state.token !== Token.RightBrace) {
-    properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
-    destructible |= state.destructible;
-    if (state.token !== Token.Comma) break;
-    nextToken(state, context | Context.AllowRegExp);
+  if (context & Context.ErrorRecovery) {
+    while (state.token & Constants.DelimitedList) {
+      properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
+      destructible |= state.destructible;
+      //
+      // We parse the array as an delimited list, and accept missing commas to prevent
+      // an incomplete multiline array.
+      //
+      // Example
+      //
+      // 'var a = { 1,'
+      //
+      // and
+      //
+      // 'var a = {
+      //   1, '
+      //
+      // are now treated as single-line array instead
+      //
+      if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
+      if ((state.token & state.token & Constants.DelimitedList) === 0 || state.token === Token.RightBrace) break;
+    }
+    properties = createArray(state, properties, start);
+  } else {
+    while (state.token !== Token.RightBrace) {
+      properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
+      destructible |= state.destructible;
+      if (state.token !== Token.Comma) break;
+      nextToken(state, context | Context.AllowRegExp);
+    }
   }
 
   consume(state, context, Token.RightBrace);
@@ -3438,7 +3546,7 @@ export function parseObjectLiteralOrPattern(
       { type: 'ObjectAssignmentPattern', properties },
       NodeType.ArrayAssignmentPattern
     );
-    if (context & Context.ErrorRecovery) properties = createArray(state, properties, start);
+
     return finishNode(
       state,
       context,
@@ -3449,7 +3557,7 @@ export function parseObjectLiteralOrPattern(
   }
 
   state.destructible = destructible;
-  if (context & Context.ErrorRecovery) properties = createArray(state, properties, start);
+
   if (bindingType & BindingType.Pattern) {
     return finishNode(
       state,
