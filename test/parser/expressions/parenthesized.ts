@@ -1262,8 +1262,7 @@ describe('Expressions - Parenthesized', () => {
                 type: 'ObjectAssignmentPattern',
                 properties: [
                   {
-                    type: 'AssignmentProperty',
-                    static: false,
+                    type: 'PropertyName',
                     key: {
                       type: 'IdentifierName',
                       name: 'a'

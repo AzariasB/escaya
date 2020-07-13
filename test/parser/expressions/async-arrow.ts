@@ -679,8 +679,7 @@ describe('Expressions - Async arrow', () => {
                 type: 'ObjectBindingPattern',
                 properties: [
                   {
-                    type: 'BindingProperty',
-                    static: false,
+                    type: 'PropertyName',
                     key: {
                       type: 'IdentifierName',
                       name: 'x'

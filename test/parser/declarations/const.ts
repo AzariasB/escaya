@@ -349,7 +349,7 @@ describe('Declarations - Const', () => {
                 type: 'ObjectBindingPattern',
                 properties: [
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'BindingIdentifier',
                       name: 'a'
@@ -369,7 +369,7 @@ describe('Declarations - Const', () => {
                     computed: false
                   },
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'BindingIdentifier',
                       name: 'b'
@@ -463,7 +463,7 @@ describe('Declarations - Const', () => {
                 type: 'ObjectBindingPattern',
                 properties: [
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'IdentifierReference',
                       name: 'eval'
@@ -649,7 +649,7 @@ describe('Declarations - Const', () => {
                 type: 'ObjectBindingPattern',
                 properties: [
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'MemberExpression',
                       member: {

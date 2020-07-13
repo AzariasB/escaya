@@ -780,7 +780,7 @@ describe('Statements - For of', () => {
             type: 'ObjectAssignmentPattern',
             properties: [
               {
-                type: 'AssignmentProperty',
+                type: 'PropertyName',
                 key: {
                   type: 'BindingIdentifier',
                   name: 'a'
@@ -845,8 +845,7 @@ describe('Statements - For of', () => {
                 type: 'ObjectLiteral',
                 properties: [
                   {
-                    type: 'PropertyDefinition',
-                    static: false,
+                    type: 'PropertyName',
                     key: {
                       type: 'IdentifierName',
                       name: 'x'
@@ -858,8 +857,7 @@ describe('Statements - For of', () => {
                     computed: false
                   },
                   {
-                    type: 'PropertyDefinition',
-                    static: false,
+                    type: 'PropertyName',
                     key: {
                       type: 'IdentifierName',
                       name: 'y'
@@ -904,8 +902,7 @@ describe('Statements - For of', () => {
                   type: 'ObjectLiteral',
                   properties: [
                     {
-                      type: 'PropertyDefinition',
-                      static: false,
+                      type: 'PropertyName',
                       key: {
                         type: 'IdentifierName',
                         name: 'next'
@@ -926,8 +923,7 @@ describe('Statements - For of', () => {
                                 type: 'ObjectLiteral',
                                 properties: [
                                   {
-                                    type: 'PropertyDefinition',
-                                    static: false,
+                                    type: 'PropertyName',
                                     key: {
                                       type: 'IdentifierName',
                                       name: 'done'
@@ -950,8 +946,7 @@ describe('Statements - For of', () => {
                       computed: false
                     },
                     {
-                      type: 'PropertyDefinition',
-                      static: false,
+                      type: 'PropertyName',
                       key: {
                         type: 'IdentifierName',
                         name: 'return'

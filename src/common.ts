@@ -294,8 +294,7 @@ export function reinterpretArrowParameter(node: any): void {
       delete node.operator;
       reinterpretArrowParameter(node.left);
       return;
-    case 'PropertyDefinition':
-      node.type = 'BindingProperty';
+    case 'PropertyName':
       reinterpretArrowParameter(node.value);
       return;
     case 'SpreadElement':
@@ -328,10 +327,7 @@ export function reinterpretToAssignment(node: any, objlit: boolean): void {
         reinterpretToAssignment(leafs[i], objlit);
       }
       return;
-    case 'BindingProperty':
-    case 'PropertyDefinition':
-      node.type = 'AssignmentProperty';
-      //    node.nodeType = NodeType.AssignmentProperty;
+    case 'PropertyName':
       reinterpretToAssignment(node.value, objlit);
       return;
     case 'AssignmentExpression':

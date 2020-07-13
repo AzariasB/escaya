@@ -733,7 +733,7 @@ describe('Statements - For', () => {
                       name: 'a'
                     },
                     {
-                      type: 'BindingProperty',
+                      type: 'PropertyName',
                       key: {
                         type: 'IdentifierReference',
                         name: 'x'
@@ -994,7 +994,7 @@ describe('Statements - For', () => {
                   type: 'ObjectBindingPattern',
                   properties: [
                     {
-                      type: 'BindingProperty',
+                      type: 'PropertyName',
                       key: {
                         type: 'IdentifierReference',
                         name: 'x'

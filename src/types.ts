@@ -144,11 +144,11 @@ export type Node =
   | MethodDefinition
   | Module
   | NewTarget
-  | PropertyDefinition
-  | BindingProperty
+  | PropertyName
   | NewExpression
   | ObjectLiteral
   | OptionalExpression
+  | PropertyName
   | TokenNode
   | MemberChain
   | CallChain
@@ -402,7 +402,7 @@ export type BinaryOperator =
 export interface BinaryExpression extends Root {
   type: 'BinaryExpression';
   // left can be a private name (e.g. #foo) when operator is "in".
-  left: Expression | PrivateIdentifier;
+  left: Expression;
   operator: BinaryOperator;
   right: Expression;
 }
@@ -708,54 +708,14 @@ export interface BooleanLiteral extends Root {
 
 export interface ObjectLiteral extends Root {
   type: 'ObjectLiteral';
-  properties: (IdentifierReference | MethodDefinition | PropertyDefinition)[];
+  properties: (IdentifierReference | MethodDefinition | PropertyName)[];
 }
 
-export type PropertyDefinitions =
-  | PropertyDefinition
-  | BindingProperty
-  | SpreadElement
-  | IdentifierReference
-  | BindingIdentifier
-  | BindingRestProperty
-  | BindingRestElement
-  | BindingElement
-  | CoverInitializedName
-  | MethodDefinition;
-
-// `PropertyDefinition :: PropertyName : AssignmentExpression`
-export interface PropertyDefinition extends Root {
-  type: 'PropertyDefinition';
-  key: IdentifierName | NumericLiteral | StringLiteral | BigIntLiteral | PrivateIdentifier | null;
-  value: Expression | null;
+export interface PropertyName extends Root {
+  type: 'PropertyName';
+  key: Expression | StringLiteral | NumericLiteral | IdentifierName;
+  value: AssignmentExpression | null;
   computed: boolean;
-  static: boolean;
-  parent?: ObjectLiteral;
-}
-
-export interface PrivateIdentifier extends Root {
-  type: 'PrivateIdentifier';
-  name: string;
-}
-
-export interface AssignmentProperty extends Root {
-  type: 'AssignmentProperty';
-  key: BindingIdentifier | NumericLiteral | StringLiteral | BigIntLiteral | PrivateIdentifier | null;
-  value: BindingPattern | BindingIdentifier;
-  computed: boolean;
-  static?: boolean;
-  private?: boolean;
-  parent?: ObjectBindingPattern | ObjectAssignmentPattern;
-}
-
-export interface BindingProperty extends Root {
-  type: 'BindingProperty';
-  key: BindingIdentifier | NumericLiteral | StringLiteral | BigIntLiteral | PrivateIdentifier | null;
-  value: BindingPattern | BindingIdentifier;
-  computed: boolean;
-  static?: boolean;
-  private?: boolean;
-  parent?: ObjectBindingPattern | ObjectAssignmentPattern;
 }
 
 // When `key` is a `PrivateIdentifier`, `computed` must be `false` and `kind` can not be `"constructor"`.
@@ -765,7 +725,7 @@ export interface MethodDefinition extends Root {
   generator: boolean;
   propertySetParameterList: MissingList | BindingElement[];
   uniqueFormalParameters: MissingList | FormalParameters[];
-  name: Expression | PrivateIdentifier;
+  name: Expression;
   contents: FunctionBody;
   parent?: ObjectLiteral | ClassElement;
 }
@@ -930,7 +890,7 @@ export interface UniqueFormalParameters extends Root {
 export interface FormalParameters extends Root {
   type: 'FormalParameters';
   leafs: MissingList | (FunctionRestParameter | BindingElement)[];
-  parent?: ArrowFunction | FunctionDeclaration | FunctionExpression | BindingProperty;
+  parent?: ArrowFunction | FunctionDeclaration | FunctionExpression;
 }
 
 export type BindingPattern = ObjectBindingPattern | ArrayBindingPattern;
@@ -959,13 +919,13 @@ export interface LexicalBinding extends Root {
 }
 
 export interface ObjectBindingBase extends Root {
-  properties: (PropertyDefinition | BindingRestElement | BindingIdentifier | MethodDefinition)[];
+  properties: (PropertyName | BindingRestElement | BindingIdentifier | MethodDefinition)[];
   parent?: VariableDeclaration | LexicalBinding | BindingPattern;
 }
 
 export interface ObjectBindingPattern extends ObjectBindingBase {
   type: 'ObjectBindingPattern';
-  properties: (PropertyDefinition | BindingRestElement | BindingIdentifier | MethodDefinition)[];
+  properties: (PropertyName | BindingRestElement | BindingIdentifier | MethodDefinition)[];
   parent?: VariableDeclaration | LexicalBinding | BindingPattern;
 }
 
@@ -1035,7 +995,7 @@ export interface YieldExpression extends Root {
 export interface MemberExpression extends Root {
   type: 'MemberExpression';
   member: Expression | SuperProperty;
-  expression: Expression | IdentifierName | PrivateIdentifier;
+  expression: Expression | IdentifierName;
   computed: boolean;
 }
 
@@ -1068,8 +1028,6 @@ export interface ImportCall extends Root {
   type: 'ImportCall';
   import: Expression;
 }
-
-export type PropertyName = Expression | StringLiteral | NumericLiteral | IdentifierName;
 
 /** Incremental */
 

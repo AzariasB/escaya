@@ -527,7 +527,7 @@ describe('Declarations - Var', () => {
                 type: 'ObjectBindingPattern',
                 properties: [
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'BindingIdentifier',
                       name: 'a'
@@ -547,7 +547,7 @@ describe('Declarations - Var', () => {
                     computed: false
                   },
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'BindingIdentifier',
                       name: 'b'
@@ -641,7 +641,7 @@ describe('Declarations - Var', () => {
                 type: 'ObjectBindingPattern',
                 properties: [
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'IdentifierReference',
                       name: 'eval'
@@ -827,7 +827,7 @@ describe('Declarations - Var', () => {
                 type: 'ObjectBindingPattern',
                 properties: [
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'MemberExpression',
                       member: {

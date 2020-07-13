@@ -3411,7 +3411,7 @@ export function parseObjectBindingPattern(
 
   if (context & Context.ErrorRecovery) {
     while (state.token & Constants.DelimitedList) {
-      properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
+      properties.push(parsePropertyDefinition(state, context, bindingType, start));
       destructible |= state.destructible;
       //
       // We parse the array as an delimited list, and accept missing commas to prevent
@@ -3446,7 +3446,7 @@ export function parseObjectBindingPattern(
   }
 
   while (state.token !== Token.RightBrace) {
-    properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
+    properties.push(parsePropertyDefinition(state, context, bindingType, start));
     destructible |= state.destructible;
     if (state.token !== Token.Comma) break;
     nextToken(state, context | Context.AllowRegExp);
@@ -3483,7 +3483,7 @@ export function parseObjectLiteralOrPattern(
 
   if (context & Context.ErrorRecovery) {
     while (state.token & Constants.DelimitedList) {
-      properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
+      properties.push(parsePropertyDefinition(state, context, bindingType, start));
       destructible |= state.destructible;
       //
       // We parse the array as an delimited list, and accept missing commas to prevent
@@ -3506,7 +3506,7 @@ export function parseObjectLiteralOrPattern(
     properties = createArray(state, properties, start);
   } else {
     while (state.token !== Token.RightBrace) {
-      properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
+      properties.push(parsePropertyDefinition(state, context, bindingType, start));
       destructible |= state.destructible;
       if (state.token !== Token.Comma) break;
       nextToken(state, context | Context.AllowRegExp);
@@ -3590,7 +3590,7 @@ export function parseObjectLiteralOrPattern(
 //   2) CoverInitializedName
 //   3) PropertyName
 //   4) MethodDefinition
-//   5)...AssignmentExpression
+//   5) ...AssignmentExpression
 //
 // Returned as
 // -----------
@@ -3599,18 +3599,18 @@ export function parseObjectLiteralOrPattern(
 //
 // 2) 'CoverInitializedName' or 'BindingElement'
 //
-// 3) 'PropertyDefinition', 'AssignmentProperty' or  'BindingProperty'
+// 3) *as is*
 //
 // 4) *as is*
 //
 // 5) 'SpreadElement', 'BindingRestElement',  or 'BindingRestProperty',
 //
-export function parsePropertyDefinitionList(
+export function parsePropertyDefinition(
   state: ParserState,
   context: Context,
   bindingType: BindingType,
   start: number
-): Types.PropertyDefinitions {
+): any {
   if (state.token === Token.Ellipsis) {
     return parseSpreadOrRestElement(state, context, Token.RightBrace, bindingType, false, false, state.startIndex);
   }
@@ -3773,22 +3773,12 @@ export function parsePropertyDefinitionList(
 
   state.destructible = destructible;
 
-  if (bindingType & BindingType.Pattern) {
-    return finishNode(
-      state,
-      context,
-      innerStart,
-      { type: 'BindingProperty', key, value, computed: token === Token.LeftBracket },
-      NodeType.BindingProperty
-    );
-  }
-
   return finishNode(
     state,
     context,
     innerStart,
-    { type: 'PropertyDefinition', key, value, computed: token === Token.LeftBracket, static: false },
-    NodeType.PropertyDefinition
+    { type: 'PropertyName', key, value, computed: token === Token.LeftBracket },
+    NodeType.PropertyName
   );
 }
 

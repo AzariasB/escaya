@@ -743,7 +743,7 @@ describe('Declarations - Async function', () => {
                   type: 'ObjectBindingPattern',
                   properties: [
                     {
-                      type: 'BindingProperty',
+                      type: 'PropertyName',
                       key: {
                         type: 'BindingIdentifier',
                         name: 'x'
@@ -759,7 +759,7 @@ describe('Declarations - Async function', () => {
                             type: 'ObjectBindingPattern',
                             properties: [
                               {
-                                type: 'BindingProperty',
+                                type: 'PropertyName',
                                 key: {
                                   type: 'BindingIdentifier',
                                   name: 'b'

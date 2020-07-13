@@ -109,5 +109,6 @@ export const enum NodeType {
   BindingElement = 105,
   CoverInitializedName = 106,
   TaggedTemplateExpression = 107,
-  AssignmentRestProperty = 108
+  AssignmentRestProperty = 108,
+  PropertyName = 109
 }

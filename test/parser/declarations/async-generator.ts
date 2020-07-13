@@ -98,7 +98,7 @@ describe('Declarations - Async generator', () => {
                   type: 'ObjectBindingPattern',
                   properties: [
                     {
-                      type: 'BindingProperty',
+                      type: 'PropertyName',
                       key: {
                         type: 'BindingIdentifier',
                         name: 'x'
@@ -114,7 +114,7 @@ describe('Declarations - Async generator', () => {
                             type: 'ObjectBindingPattern',
                             properties: [
                               {
-                                type: 'BindingProperty',
+                                type: 'PropertyName',
                                 key: {
                                   type: 'BindingIdentifier',
                                   name: 'b'

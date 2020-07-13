@@ -550,7 +550,7 @@ describe('Declarations - Let', () => {
                 type: 'ObjectBindingPattern',
                 properties: [
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'BindingIdentifier',
                       name: 'a'
@@ -570,7 +570,7 @@ describe('Declarations - Let', () => {
                     computed: false
                   },
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'BindingIdentifier',
                       name: 'b'
@@ -664,7 +664,7 @@ describe('Declarations - Let', () => {
                 type: 'ObjectBindingPattern',
                 properties: [
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'IdentifierReference',
                       name: 'eval'
@@ -850,7 +850,7 @@ describe('Declarations - Let', () => {
                 type: 'ObjectBindingPattern',
                 properties: [
                   {
-                    type: 'BindingProperty',
+                    type: 'PropertyName',
                     key: {
                       type: 'MemberExpression',
                       member: {
