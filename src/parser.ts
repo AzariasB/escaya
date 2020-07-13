@@ -3573,8 +3573,38 @@ export function parseObjectLiteralOrPattern(
   return finishNode(state, context, start, { type: 'ObjectLiteral', properties }, NodeType.ObjectLiteral);
 }
 
+// To achieve the goal of an AST that consumes less bytes we skip the 'PropertyDefinitionList'
+// production and choose to simplify the 'PropertyDefinition' production.
+//
+// We do this by returning each production separately. That way we avoid the necessity of
+// unnecessary properties take will use 1 byte each.
+//
+// Original ECMA
+// -------------
+//
 // PropertyDefinitionList :
 //   PropertyDefinition
+//
+// PropertyDefinition :
+//   1) IdentifierReference
+//   2) CoverInitializedName
+//   3) PropertyName
+//   4) MethodDefinition
+//   5)...AssignmentExpression
+//
+// Returned as
+// -----------
+//
+// 1) *as is*
+//
+// 2) 'CoverInitializedName' or 'BindingElement'
+//
+// 3) 'PropertyDefinition', 'AssignmentProperty' or  'BindingProperty'
+//
+// 4) *as is*
+//
+// 5) 'SpreadElement', 'BindingRestElement',  or 'BindingRestProperty',
+//
 export function parsePropertyDefinitionList(
   state: ParserState,
   context: Context,
@@ -3588,10 +3618,11 @@ export function parsePropertyDefinitionList(
   let modifiers = consumeOpt(state, context, Token.Multiply) ? ModifierKind.Generator : ModifierKind.None;
   let key = null;
   let value = null;
+
   const token = state.token;
   const innerStart = state.startIndex;
 
-  if (token & Constants.IdentfierName) {
+  if (state.token & Constants.IdentfierName) {
     key = state.tokenValue;
     nextToken(state, context);
     if (state.token & Constants.NextTokenCanFollowModifier) {
@@ -3735,8 +3766,7 @@ export function parsePropertyDefinitionList(
     // Regular object method without modifiers `({ ident() { } })`
   } else if (state.token === Token.LeftParen) {
     value = parseMethodDefinition(state, context, key, modifiers);
-    state.destructible = Destructible.NotDestructible;
-    return value;
+    destructible = Destructible.NotDestructible;
   } else {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
