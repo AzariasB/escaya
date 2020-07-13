@@ -106,7 +106,7 @@ export const enum BindingType {
   Var  = 1 << 6,
   CatchIdentifier  = 1 << 7,
   CatchPattern   = 1 << 8,
-  Literal   = 1 << 9,
+  Literal   = 1 << 9
 }
 
 /**
@@ -365,7 +365,7 @@ export function consumeSemicolon(state: ParserState, context: Context): void {
 
 export function validateFunctionName(state: ParserState, context: Context, t: Token): void {
   if (context & Context.Strict && (t & Token.FutureKeyword) > 0) {
-    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnexpectedStrictReserved, DiagnosticKind.Error);
   }
 
   if ((t & Token.Keyword) === Token.Keyword)
@@ -450,4 +450,23 @@ export function lastOrUndefined<T>(array: T[]): T | undefined {
   }
 
   return array[array.length - 1];
+}
+
+
+export function validateIdentifier(state: ParserState, context: Context, t: Token): void {
+  if (context & Context.Strict && (t & Token.FutureKeyword) > 0) {
+    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnexpectedStrictReserved, DiagnosticKind.Error);
+  }
+
+  if ((t & Token.Keyword) > 0) {
+    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.KeywordNotId, DiagnosticKind.Error);
+  }
+
+  if (context & (Context.Module | Context.Await) && state.token === Token.AwaitKeyword) {
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.AwaitOutsideAsync, DiagnosticKind.Error);
+  }
+
+  if (context & (Context.Strict | Context.Yield) && t === Token.YieldKeyword) {
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.DisallowedYieldInContext, DiagnosticKind.Error);
+  }
 }

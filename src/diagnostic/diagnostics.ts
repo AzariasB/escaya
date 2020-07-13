@@ -61,11 +61,13 @@ export const diagnosticMap: {
     'Unary expressions as the left operand of an exponentation expression must be disambiguated with parentheses',
   [DiagnosticCode.IllegalReturn]: 'Illegal return statement',
   [DiagnosticCode.InvalidDestructuringTarget]: 'Invalid destructuring assignment target',
+  [DiagnosticCode.InvalidKeyToken]: 'Invalid key token',
   [DiagnosticCode.InvalidLHSDestructRHS]: 'Invalid left-hand side assignment to a destructible right-hand side',
   [DiagnosticCode.InvalidArrowDestructLHS]: 'The left-hand side of the arrow can only be destructed through assignment',
   [DiagnosticCode.InvalidBindingDestruct]: 'The binding declaration is not destructible',
   [DiagnosticCode.DeclMissingDestructInitializer]: 'A destructuring declaration must have an initializer',
   [DiagnosticCode.ConstMissingDestrictInitializer]: "'const' declarations must be initialized",
+  [DiagnosticCode.KeywordNotId]: 'Invalid keyword',
   [DiagnosticCode.StrictFunction]:
     'In strict mode code or without web compability enabled, functions can only be declared at top level or inside a block',
   [DiagnosticCode.SloppyFunction]:

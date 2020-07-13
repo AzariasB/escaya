@@ -118,5 +118,7 @@ export enum DiagnosticCode {
   UnexpectedEOF,
   UnexpectedKeyword,
   UnexpectedIdentifier,
-  GetAccessorParms
+  GetAccessorParms,
+  InvalidKeyToken,
+  KeywordNotId
 }

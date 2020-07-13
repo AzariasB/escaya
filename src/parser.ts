@@ -8,7 +8,6 @@ import { Options } from './escaya';
 import { DiagnosticKind, DiagnosticSource, DiagnosticCode } from './diagnostic/enums';
 import { addDiagnostic, createDiagnostic } from './diagnostic/diagnostics';
 import { tokenErrors } from './diagnostic/token-errors';
-
 import {
   createIdentifier,
   parseLeafElement,
@@ -37,6 +36,7 @@ import {
   isCaseOrDefaultKeyword,
   isStrictReservedWord,
   parseAndClassifyIdentifier,
+  validateIdentifier,
   consume,
   consumeOpt,
   optionalBit,
@@ -2006,7 +2006,7 @@ export function parseExpression(
   minPrec: Precedence,
   bindingType: BindingType,
   allowCalls: boolean,
-  allowAssignment: 0 | 1,
+  canAssign: 0 | 1,
   start: number
 ): any {
   let expr = (void 0 as unknown) as any;
@@ -2086,22 +2086,14 @@ export function parseExpression(
 
       if (state.token & (Token.IsIdentifier | Token.Contextual | Token.FutureKeyword)) {
         if (state.token === Token.AsyncKeyword) {
-          expr = parseFunctionExpression(state, context, /* isAsync */ 1, allowAssignment, bindingType);
+          expr = parseFunctionExpression(state, context, /* isAsync */ 1, canAssign, bindingType);
         } else {
           const token = state.token;
 
           expr = parseIdentifierReference(state, context | Context.TaggedTemplate, bindingType);
 
           if (state.token === Token.Arrow) {
-            expr = parseArrowAfterIdentifier(
-              state,
-              context,
-              expr,
-              bindingType,
-              /* isAsync */ 0,
-              allowAssignment,
-              start
-            );
+            expr = parseArrowAfterIdentifier(state, context, expr, bindingType, /* isAsync */ 0, canAssign, start);
           } else if (token === Token.LetKeyword) {
             if (context & Context.Strict) {
               addDiagnostic(
@@ -2156,12 +2148,12 @@ export function parseExpression(
             expr = parseCoverParenthesizedExpressionAndArrowParameterList(
               state,
               context,
-              allowAssignment,
+              canAssign,
               bindingType | BindingType.ArgumentList
             );
             break;
           case Token.FunctionKeyword:
-            expr = parseFunctionExpression(state, context, /* isAsync */ 0, allowAssignment, bindingType);
+            expr = parseFunctionExpression(state, context, /* isAsync */ 0, canAssign, bindingType);
             break;
           case Token.ClassKeyword:
             expr = parseClassExpression(state, context);
@@ -3145,7 +3137,7 @@ export function parseArrayAssignment(
 export function parseCoverParenthesizedExpressionAndArrowParameterList(
   state: ParserState,
   context: Context,
-  allowAssignment: 0 | 1,
+  canAssign: 0 | 1,
   bindingType: BindingType
 ): Types.ParenthesizedExpression | Types.ArrowFunction | Types.IdentifierReference {
   const start = state.startIndex;
@@ -3156,7 +3148,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
   if (consumeOpt(state, context, Token.RightParen)) {
     if (state.token === Token.Arrow) {
-      return parseArrowAfterGroup(state, context, [], Destructible.None, bindingType, 0, allowAssignment, start);
+      return parseArrowAfterGroup(state, context, [], Destructible.None, bindingType, 0, canAssign, start);
     }
     return createIdentifier(state, context, DiagnosticCode.ExpectedArrow) as any;
   }
@@ -3353,7 +3345,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
       destructible,
       bindingType,
       0,
-      allowAssignment,
+      canAssign,
       start
     );
   }
@@ -3439,14 +3431,25 @@ export function parseObjectBindingPattern(
       if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
       if ((state.token & state.token & Constants.DelimitedList) === 0 || state.token === Token.RightBrace) break;
     }
-    properties = createArray(state, properties, start);
-  } else {
-    while (state.token !== Token.RightBrace) {
-      properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
-      destructible |= state.destructible;
-      if (state.token !== Token.Comma) break;
-      nextToken(state, context | Context.AllowRegExp);
-    }
+
+    consume(state, context, Token.RightBrace);
+
+    state.destructible = destructible;
+
+    return finishNode(
+      state,
+      context,
+      start,
+      { type: 'ObjectBindingPattern', properties: createArray(state, properties, start) },
+      NodeType.ObjectBindingPattern
+    );
+  }
+
+  while (state.token !== Token.RightBrace) {
+    properties.push(parsePropertyDefinitionList(state, context, bindingType, start));
+    destructible |= state.destructible;
+    if (state.token !== Token.Comma) break;
+    nextToken(state, context | Context.AllowRegExp);
   }
 
   consume(state, context, Token.RightBrace);
@@ -3572,92 +3575,117 @@ export function parseObjectLiteralOrPattern(
 
 // PropertyDefinitionList :
 //   PropertyDefinition
-//   PropertyDefinitionList, PropertyDefinition
 export function parsePropertyDefinitionList(
   state: ParserState,
   context: Context,
   bindingType: BindingType,
   start: number
 ): Types.PropertyDefinitions {
+  if (state.token === Token.Ellipsis) {
+    return parseSpreadOrRestElement(state, context, Token.RightBrace, bindingType, false, false, state.startIndex);
+  }
+
   let modifiers = consumeOpt(state, context, Token.Multiply) ? ModifierKind.Generator : ModifierKind.None;
   let key = null;
-  let value: any = null;
+  let value = null;
   const token = state.token;
-  const innerStart = state.index;
+  const innerStart = state.startIndex;
 
-  if (state.token === Token.Ellipsis) {
-    return parseSpreadOrRestElement(state, context, Token.RightBrace, bindingType, false, false, start);
-  }
-  if (token & Constants.IdentfierName && (modifiers & ModifierKind.Generator) === 0) {
-    const name = state.tokenValue;
-
+  if (token & Constants.IdentfierName) {
+    key = state.tokenValue;
     nextToken(state, context);
+    if (state.token & Constants.NextTokenCanFollowModifier) {
+      if ((modifiers & ModifierKind.Generator) === 0) {
+        if (token === Token.AsyncKeyword) {
+          modifiers |= (consumeOpt(state, context, Token.Multiply) ? ModifierKind.Generator : 0) | ModifierKind.Async;
+        } else if (token === Token.GetKeyword) {
+          modifiers |= ModifierKind.Getter;
+        } else if (token === Token.SetKeyword) {
+          modifiers |= ModifierKind.Setter;
+        } else if (state.token !== Token.Assign && state.token !== Token.Colon && state.token !== Token.LeftParen) {
+          state.destructible = Destructible.None;
+          return parseIdentifierReferenceFromValue(state, context, key, bindingType, start);
+        }
 
-    if (state.token === Token.RightBrace || state.token === Token.Comma) {
-      if ((token & Token.Keyword) > 0) {
-        addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+        key = parsePropertyName(state, context, start);
+
+        if (modifiers & ModifierKind.Generator || state.token === Token.LeftParen) {
+          value = parseMethodDefinition(state, context, key, modifiers);
+          state.destructible = Destructible.NotDestructible;
+          return value;
+        }
+
+        // Note: This will 'catch' invalid edge cases like `({ get async })`, `({ get async })`, and `({ get async })`.
+        // and also cases like `({ async async:})`, `({ async async*:})` etc.
+        //
+        // We request for a full reparse in 'incremental mode ' to be sure we get back on track.
+
+        state.flags != Flags.HasErrors;
+
+        addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidKeyToken, DiagnosticKind.Error);
       }
-      state.destructible = Destructible.None;
-      return parseIdentifierReferenceFromValue(state, context, name, bindingType, start);
     }
+    if ((modifiers & ModifierKind.Generator) === 0) {
+      if (state.token === Token.RightBrace || state.token === Token.Assign || state.token === Token.Comma) {
+        // Identifier : IdentifierName but not ReservedWord
+        validateIdentifier(state, context, token);
 
-    // NOTE: This is an super edge case. The 'CoverInitializedName' production exists so that ObjectLiteral
-    // can serve as a cover grammar for ObjectAssignmentPattern. It cannot occur in an actual object
-    // initializer, and will only exist in the AST if we are in recovery mode.
-    if (state.token === Token.Assign) {
-      if ((token & Token.Keyword) > 0) {
-        addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+        // Note: This is an super edge case and has to be interpreted
+        // as CoverInitializedName production because of the '=' token.
+        //
+        // CoverInitializedName :
+        //     IdentifierReference Initializer
+        //
+        // Normally this should have been parsed as pattern, but because of 'recovery mode' and the fact
+        // that ObjectLiteral productions are also used to cover grammar for ObjectAssignmentPattern, we
+        // have to parse this out "as is".
+        //
+        // This is necessary because normally this will trigger an error without the initializer.
+        if (state.token === Token.Assign) {
+          if (token & Token.Keyword) {
+            addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+          }
+
+          const initializer = parseInitializer(state, context);
+
+          key = parseIdentifierNameFromValue(state, context, key, bindingType, start);
+
+          state.destructible = Destructible.MustDestruct;
+
+          return finishNode(
+            state,
+            context,
+            innerStart,
+            {
+              type: bindingType & Constants.AssignmentOrPattern ? 'BindingElement' : 'CoverInitializedName',
+              binding: key,
+              initializer
+            } as any,
+            bindingType & Constants.AssignmentOrPattern ? NodeType.BindingElement : NodeType.CoverInitializedName
+          );
+        }
+
+        // PropertyDefinition :
+        //   IdentifierReference
+        state.destructible = Destructible.None;
+        return parseIdentifierReferenceFromValue(state, context, key, bindingType, start);
       }
-
-      const initializer = parseInitializer(state, context);
-
-      key = parseIdentifierNameFromValue(state, context, name, bindingType, start);
-
-      state.destructible = Destructible.MustDestruct;
-
-      return finishNode(
-        state,
-        context,
-        innerStart,
-        {
-          type: bindingType & Constants.AssignmentOrPattern ? 'BindingElement' : 'CoverInitializedName',
-          binding: key,
-          initializer
-        } as any,
-        bindingType & Constants.AssignmentOrPattern ? NodeType.BindingElement : NodeType.CoverInitializedName
-      );
     }
-
-    key = parseIdentifierNameFromValue(state, context, name, bindingType, start);
+    key = parseIdentifierNameFromValue(state, context, key, bindingType, start);
   } else {
     key = parsePropertyName(state, context, start);
   }
 
-  if ((modifiers & ModifierKind.Generator) === 0) {
-    if ((state.token & Constants.IdentifierAfterModifier) > 0) {
-      if (token === Token.AsyncKeyword) {
-        modifiers |= (consumeOpt(state, context, Token.Multiply) ? ModifierKind.Generator : 0) | ModifierKind.Async;
-      } else if (token === Token.GetKeyword) {
-        modifiers |= ModifierKind.Getter;
-      } else {
-        modifiers |= ModifierKind.Setter;
-      }
-      value = parseMethodDefinition(state, context, parsePropertyName(state, context, start), modifiers);
-      state.destructible = Destructible.NotDestructible;
-      return value;
-    }
-  }
-
-  if (modifiers & ModifierKind.Generator || state.token === Token.LeftParen) {
-    value = parseMethodDefinition(state, context, key, modifiers);
-    state.destructible = Destructible.NotDestructible;
-    return value;
-  }
-
   let destructible = Destructible.None;
 
-  if (consumeOpt(state, context | Context.AllowRegExp, Token.Colon)) {
-    if ((state.token & Constants.IdentfierName) > 0) {
+  if (state.token === Token.Colon) {
+    if (modifiers & ModifierKind.Generator) {
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+    }
+
+    nextToken(state, context | Context.AllowRegExp);
+
+    if (state.token & Constants.IdentfierName) {
       value = parseExpression(state, context, Precedence.Primary, bindingType, true, 1, start);
 
       const token = state.token;
@@ -3683,10 +3711,12 @@ export function parsePropertyDefinitionList(
       destructible = state.destructible;
 
       if (state.token !== Token.RightBrace && state.token !== Token.Comma) {
+        // Catches cases like `({a:{x = y}.z} = x);` and `[{a = b}].x`  because a shorthand with initalizer
+        // must be a pattern or the nested object must be a pattern
         if (state.destructible & Destructible.MustDestruct) {
           addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidDestruct, DiagnosticKind.Error);
         }
-
+        // Note: The value must have a tail and it isn't (immediately) an assignment.
         value = parseLeftHandSide(state, context, value, Precedence.LeftHandSide, bindingType, start);
 
         destructible = state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
@@ -3694,15 +3724,19 @@ export function parsePropertyDefinitionList(
         value = parseLeftHandSide(state, context, value, Precedence.Assign, bindingType, start);
       }
     } else {
-      value = parseExpression(state, context, Precedence.LeftHandSide, bindingType, true, 1, start);
+      value = parseExpression(state, context, Precedence.LeftHandSide, bindingType, true, /* canAssign */ 1, start);
 
-      destructible |=
-        state.assignable || ((state.token & Token.IsAssignOp) > 0 && state.token === Token.Assign)
-          ? Destructible.Assignable
-          : Destructible.NotDestructible;
+      const isAssignToken = state.token === Token.Assign;
 
       value = parseLeftHandSide(state, context, value, Precedence.Assign, bindingType, start);
+
+      destructible |= state.assignable || isAssignToken ? Destructible.Assignable : Destructible.NotDestructible;
     }
+    // Regular object method without modifiers `({ ident() { } })`
+  } else if (state.token === Token.LeftParen) {
+    value = parseMethodDefinition(state, context, key, modifiers);
+    state.destructible = Destructible.NotDestructible;
+    return value;
   } else {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
@@ -3739,24 +3773,29 @@ export function parseInitializer(state: ParserState, context: Context): Types.Ex
 // PropertyName :
 //   LiteralPropertyName
 //   ComputedPropertyName
+//
 // LiteralPropertyName :
 //   IdentifierName
 //   StringLiteral
 //   NumericLiteral
+//
 // ComputedPropertyName :
 //   `[` AssignmentExpression `]`
 export function parsePropertyName(state: ParserState, context: Context, start: number): any {
+  if (state.token === Token.NumericLiteral) {
+    return parseNumericLiteral(state, context);
+  }
+
+  if (state.token === Token.StringLiteral) {
+    return parseStringLiteral(state, context);
+  }
+
   if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket)) {
     const e = parseExpression(state, context, Precedence.Assign, BindingType.AllowLHS, true, 1, start);
     consume(state, context, Token.RightBracket);
     return e;
   }
-  if (state.token === Token.StringLiteral) {
-    return parseStringLiteral(state, context);
-  }
-  if (state.token === Token.NumericLiteral) {
-    return parseNumericLiteral(state, context);
-  }
+
   return parseIdentifierName(state, context);
 }
 
@@ -4001,7 +4040,7 @@ export function parseFunctionExpression(
   state: ParserState,
   context: Context,
   isAsync: 0 | 1,
-  allowAssignment: 0 | 1,
+  canAssign: 0 | 1,
   bindingType: BindingType
 ): Types.FunctionExpression {
   const start = state.startIndex;
@@ -4010,7 +4049,7 @@ export function parseFunctionExpression(
 
   if (optionalBit(state, context, Token.AsyncKeyword)) {
     if (state.token !== Token.FunctionKeyword || state.hasLineTerminator) {
-      return parseAsyncArrowExpression(state, context, allowAssignment, bindingType, start);
+      return parseAsyncArrowExpression(state, context, canAssign, bindingType, start);
     }
     if ((bindingType & BindingType.AllowLHS) === 0) {
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
@@ -4860,8 +4899,9 @@ export function parseAsyncArrowDeclaration(
 ): any {
   const hasLineTermiantor = state.hasLineTerminator;
   if (!hasLineTermiantor) {
-    // `async foo => ...`
+    // `async` [no LineTerminator here] AsyncArrowBindingIdentifier [no LineTerminator here] => AsyncConciseBody
     if ((state.token & (Token.FutureKeyword | Token.IsIdentifier)) !== 0) {
+      // This happen in cases like 'export async x => y' and 'export async x => {}'
       if (context & Context.DisallowArrow) {
         addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.FuncDeclNoName, DiagnosticKind.Error);
       }
@@ -4930,13 +4970,13 @@ export function parseAsyncArrowDeclaration(
 export function parseAsyncArrowExpression(
   state: ParserState,
   context: Context,
-  allowAssignment: 0 | 1,
+  canAssign: 0 | 1,
   bindingType: BindingType,
   start: number
 ): any {
   const hasLineTerminator = state.hasLineTerminator;
   if (!hasLineTerminator) {
-    // `async` [no LineTerminator here] IdentifierReference [no LineTerminator here] `=>`
+    // `async` [no LineTerminator here] AsyncArrowBindingIdentifier [no LineTerminator here] => AsyncConciseBody
     if ((state.token & (Token.FutureKeyword | Token.IsIdentifier)) !== 0) {
       if ((bindingType & BindingType.AllowLHS) === 0) {
         addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
@@ -4947,7 +4987,7 @@ export function parseAsyncArrowExpression(
         [parseBindingIdentifier(state, context, bindingType)],
         bindingType,
         /* isAsync */ 1,
-        allowAssignment,
+        canAssign,
         start
       );
     }
@@ -4962,7 +5002,7 @@ export function parseAsyncArrowExpression(
       context,
       expr,
       hasLineTerminator,
-      allowAssignment,
+      canAssign,
       bindingType,
       start
     );
@@ -4970,7 +5010,7 @@ export function parseAsyncArrowExpression(
 
   // IdentifierReference [no LineTerminator here] `=>`
   if (state.token === Token.Arrow) {
-    return parseArrowAfterIdentifier(state, context, expr, bindingType, /* isAsync */ 0, allowAssignment, start);
+    return parseArrowAfterIdentifier(state, context, expr, bindingType, /* isAsync */ 0, canAssign, start);
   }
 
   // `async`
@@ -4984,10 +5024,10 @@ export function parseArrowAfterIdentifier(
   params: any,
   bindingType: BindingType,
   isAsync: 0 | 1,
-  allowAssignment: 0 | 1,
+  canAssign: 0 | 1,
   start: number
 ): any {
-  if (allowAssignment === 0) {
+  if (canAssign === 0) {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
   if (context & Context.ErrorRecovery) params = createArray(state, [params], start);
@@ -5001,7 +5041,7 @@ export function parseArrowAfterGroup(
   destructible: Destructible,
   bindingType: BindingType,
   isAsync: 0 | 1,
-  allowAssignment: 0 | 1,
+  canAssign: 0 | 1,
   start: number
 ): any {
   if (destructible & (Destructible.Assignable | Destructible.NotDestructible)) {
@@ -5020,7 +5060,7 @@ export function parseArrowAfterGroup(
   while (i--) {
     reinterpretArrowParameter(params[i]);
   }
-  if (allowAssignment === 0) {
+  if (canAssign === 0) {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
   if (context & Context.ErrorRecovery) params = createArray(state, params, start);
@@ -5033,7 +5073,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
   context: Context,
   expression: any,
   hasLineTerminator: boolean,
-  allowAssignment: 0 | 1,
+  canAssign: 0 | 1,
   bindingType: BindingType,
   start: number
 ): any {
@@ -5046,7 +5086,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
       if (hasLineTerminator) {
         addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
       }
-      return parseArrowAfterGroup(state, context, [], Destructible.None, bindingType, 1, allowAssignment, start);
+      return parseArrowAfterGroup(state, context, [], Destructible.None, bindingType, 1, canAssign, start);
     }
 
     state.assignable = false;
@@ -5145,7 +5185,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
     }
 
-    return parseArrowAfterGroup(state, context, params, destructible, bindingType, 1, allowAssignment, start);
+    return parseArrowAfterGroup(state, context, params, destructible, bindingType, 1, canAssign, start);
   }
 
   if (destructible & Destructible.MustDestruct) {
