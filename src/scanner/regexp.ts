@@ -1,3 +1,4 @@
+import * as Types from '../types';
 import { Chars } from './chars';
 import { Token } from '../token';
 import { CharFlags, CharTypes, isIdentifierPart } from './charClassifier';
@@ -165,7 +166,7 @@ export function scanRegExp(parser: ParserState, context: Context): Token {
   }
 
   parser.regExpPattern = parser.source.slice(bodyStart, bodyEnd);
-  parser.regExpFlags = parser.source.slice(flagsStart, parser.index);
+  parser.regExpFlags = parser.source.slice(flagsStart, parser.index) as Types.RegExpFlags;
 
   return Token.RegularExpression;
 }

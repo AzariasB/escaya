@@ -46,7 +46,7 @@ export const enum Flags {
   Empty = 0,
   HasConstructor = 1 << 0,
   Octals  = 1 << 1,
-  HasErrors = 1 << 2
+  HasErrors = 1 << 2,
 }
 
 export const enum BindingKind {
@@ -133,7 +133,7 @@ export interface ParserState {
   assignable: boolean;
   diagnostics: Diagnostic[];
   regExpPattern: string;
-  regExpFlags: string;
+  regExpFlags: Types.RegExpFlags;
   nodeCursor: any;
   counter: number;
   buf: any;
@@ -166,7 +166,7 @@ export function create(source: string, nodeCursor?: Types.NodeCursor): ParserSta
     tokenRaw: '',
     diagnostics: [],
     regExpPattern: '',
-    regExpFlags: '',
+    regExpFlags: 'u',
     nodeCursor,
     counter: 0,
     buf: '',

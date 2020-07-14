@@ -2493,7 +2493,7 @@ export function parseRegularExpressionLiteral(state: ParserState, context: Conte
     state,
     context,
     startIndex,
-    { type: 'RegularExpressionLiteral', pattern: regExpPattern, flags: regExpFlags as Types.RegExpFlags },
+    { type: 'RegularExpressionLiteral', pattern: regExpPattern, flags: regExpFlags },
     NodeType.RegularExpressionLiteral
   );
 }
@@ -2505,6 +2505,16 @@ export function parseNumericLiteral(state: ParserState, context: Context): Types
   nextToken(state, context);
   state.assignable = false;
   return finishNode(state, context, startIndex, { type: 'NumericLiteral', value }, NodeType.NumericLiteral);
+}
+
+// TemplateLiteral
+export function parseTemplateLiteral(state: ParserState, context: Context): Types.TemplateLiteral {
+  const start = state.startIndex;
+  nextToken(state, context);
+  const value = state.tokenValue;
+  const raw = state.tokenRaw;
+  state.assignable = false;
+  return finishNode(state, context, start, { type: 'TemplateLiteral', value, raw }, NodeType.TemplateLiteral);
 }
 
 // StringLiteral
@@ -3839,22 +3849,29 @@ export function parseTemplateExpression(state: ParserState, context: Context): T
   let leafs: Types.TemplateElement[] = [];
   if (context & Context.ErrorRecovery) {
     do {
-      leafs.push(parseTemplateLeafs(state, context));
+      leafs.push(parseTemplateElementContinuation(state, context));
     } while ((state.token = scanTemplateTail(state, context)) === Token.TemplateCont);
-    leafs.push(parseTemplateTail(state, context));
-    leafs = createArray(state, leafs, start);
-  } else {
-    do {
-      leafs.push(parseTemplateLeafs(state, context));
-    } while ((state.token = scanTemplateTail(state, context)) === Token.TemplateCont);
-    leafs.push(parseTemplateTail(state, context));
+    leafs.push(parseTemplateElement(state, context));
+    consume(state, context | Context.AllowRegExp, Token.TemplateTail);
+    return finishNode(
+      state,
+      context,
+      start,
+      { type: 'TemplateExpression', leafs: createArray(state, leafs, start) },
+      NodeType.TemplateExpression
+    );
   }
+  do {
+    leafs.push(parseTemplateElementContinuation(state, context));
+  } while ((state.token = scanTemplateTail(state, context)) === Token.TemplateCont);
+  leafs.push(parseTemplateElement(state, context));
+  consume(state, context | Context.AllowRegExp, Token.TemplateTail);
   return finishNode(state, context, start, { type: 'TemplateExpression', leafs }, NodeType.TemplateExpression);
 }
 
-export function parseTemplateLeafs(state: ParserState, context: Context): Types.TemplateElement {
+export function parseTemplateElementContinuation(state: ParserState, context: Context): Types.TemplateElement {
   const start = state.startIndex;
-  const cooked = state.tokenValue;
+  const value = state.tokenValue;
   const raw = state.tokenRaw;
   consume(state, context | Context.AllowRegExp, Token.TemplateCont);
   const expression = parseExpressions(state, context);
@@ -3862,43 +3879,22 @@ export function parseTemplateLeafs(state: ParserState, context: Context): Types.
     state,
     context,
     start,
-    { type: 'TemplateElement', raw, cooked, expression } as any,
-    NodeType.TemplateElement
-  );
-}
-export function parseTemplateTail(state: ParserState, context: Context): Types.TemplateElement {
-  const start = state.startIndex;
-  const cooked = state.tokenValue;
-  const raw = state.tokenRaw;
-  consume(state, context | Context.AllowRegExp, Token.TemplateTail);
-  return finishNode(
-    state,
-    context,
-    start,
-    { type: 'TemplateElement', raw, cooked, expression: null },
+    { type: 'TemplateElement', raw, value, expression },
     NodeType.TemplateElement
   );
 }
 
 export function parseTemplateElement(state: ParserState, context: Context): Types.TemplateElement {
   const start = state.startIndex;
-  const cooked = state.tokenValue;
+  const value = state.tokenValue;
   const raw = state.tokenRaw;
   return finishNode(
     state,
     context,
     start,
-    { type: 'TemplateElement', raw, cooked, expression: null },
+    { type: 'TemplateElement', raw, value, expression: null },
     NodeType.TemplateElement
   );
-}
-
-export function parseTemplateLiteral(state: ParserState, context: Context): Types.TemplateLiteral {
-  const start = state.startIndex;
-  nextToken(state, context);
-  const cooked = state.tokenValue;
-  const raw = state.tokenRaw;
-  return finishNode(state, context, start, { type: 'TemplateLiteral', cooked, raw }, NodeType.TemplateLiteral);
 }
 
 export function parseSpreadOrRestElement(

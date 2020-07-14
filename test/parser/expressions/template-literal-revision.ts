@@ -324,7 +324,7 @@ describe('Expressions - Template literal revision', () => {
         {
           expression: {
             expression: {
-              cooked: '\n\r',
+              value: '\n\r',
               raw: '\n\r',
               type: 'TemplateLiteral'
             },
@@ -353,7 +353,7 @@ describe('Expressions - Template literal revision', () => {
             literal: {
               leafs: [
                 {
-                  cooked: '',
+                  value: '',
                   expression: {
                     name: 'x',
                     type: 'IdentifierReference'
@@ -362,7 +362,7 @@ describe('Expressions - Template literal revision', () => {
                   type: 'TemplateElement'
                 },
                 {
-                  cooked: null,
+                  value: null,
                   expression: {
                     name: 'x',
                     type: 'IdentifierReference'
@@ -371,7 +371,7 @@ describe('Expressions - Template literal revision', () => {
                   type: 'TemplateElement'
                 },
                 {
-                  cooked: '',
+                  value: '',
                   expression: null,
                   raw: '',
                   type: 'TemplateElement'
@@ -392,14 +392,14 @@ describe('Expressions - Template literal revision', () => {
       webCompat: true
     });
   });
-  it('Cooked template value should be "null"', () => {
+  it('value template value should be "null"', () => {
     t.deepEqual(parseScript('a`\\u{g`'), {
       directives: [],
       leafs: [
         {
           expression: {
             expression: {
-              cooked: null,
+              value: null,
               raw: '\\u{g',
               type: 'TemplateLiteral'
             },
@@ -425,7 +425,7 @@ describe('Expressions - Template literal revision', () => {
         {
           expression: {
             expression: {
-              cooked: null,
+              value: null,
               raw: '\\x0G',
               type: 'TemplateLiteral'
             },
@@ -450,7 +450,7 @@ describe('Expressions - Template literal revision', () => {
         {
           expression: {
             expression: {
-              cooked: null,
+              value: null,
               raw: '\\u0g',
               type: 'TemplateLiteral'
             },
@@ -479,7 +479,7 @@ describe('Expressions - Template literal revision', () => {
             literal: {
               leafs: [
                 {
-                  cooked: null,
+                  value: null,
                   expression: {
                     type: 'StringLiteral',
                     value: 'inner'
@@ -488,7 +488,7 @@ describe('Expressions - Template literal revision', () => {
                   type: 'TemplateElement'
                 },
                 {
-                  cooked: 'right',
+                  value: 'right',
                   expression: null,
                   raw: 'right',
                   type: 'TemplateElement'
@@ -517,7 +517,7 @@ describe('Expressions - Template literal revision', () => {
         {
           expression: {
             expression: {
-              cooked: null,
+              value: null,
               raw: 'oops \\u{110001}',
               type: 'TemplateLiteral'
             },
@@ -542,7 +542,7 @@ describe('Expressions - Template literal revision', () => {
         {
           expression: {
             expression: {
-              cooked: 'some " quote',
+              value: 'some " quote',
               raw: 'some " quote',
               type: 'TemplateLiteral'
             },
@@ -568,7 +568,7 @@ describe('Expressions - Template literal revision', () => {
         {
           expression: {
             expression: {
-              cooked: null,
+              value: null,
               raw: 'okay \\u{110001}',
               type: 'TemplateLiteral'
             },
@@ -594,7 +594,7 @@ describe('Expressions - Template literal revision', () => {
         {
           expression: {
             expression: {
-              cooked: null,
+              value: null,
               raw: 'phew \\u{110001}',
               type: 'TemplateLiteral'
             },
@@ -623,7 +623,7 @@ describe('Expressions - Template literal revision', () => {
             literal: {
               leafs: [
                 {
-                  cooked: '',
+                  value: '',
                   expression: {
                     type: 'StringLiteral',
                     value: '\u0007'
@@ -632,7 +632,7 @@ describe('Expressions - Template literal revision', () => {
                   type: 'TemplateElement'
                 },
                 {
-                  cooked: '',
+                  value: '',
                   expression: null,
                   raw: '',
                   type: 'TemplateElement'
@@ -661,7 +661,7 @@ describe('Expressions - Template literal revision', () => {
         {
           expression: {
             expression: {
-              cooked: null,
+              value: null,
               raw: '\\00',
               type: 'TemplateLiteral'
             },
@@ -687,7 +687,7 @@ describe('Expressions - Template literal revision', () => {
         {
           expression: {
             expression: {
-              cooked: null,
+              value: null,
               raw: '\\9',
               type: 'TemplateLiteral'
             },
@@ -714,7 +714,7 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             leafs: [
               {
-                cooked: 'x',
+                value: 'x',
                 expression: {
                   name: 'bar',
                   type: 'IdentifierReference'
@@ -723,7 +723,7 @@ describe('Expressions - Template literal revision', () => {
                 type: 'TemplateElement'
               },
               {
-                cooked: '■',
+                value: '■',
                 expression: null,
                 raw: '\\u25a0',
                 type: 'TemplateElement'
@@ -748,7 +748,7 @@ describe('Expressions - Template literal revision', () => {
             literal: {
               leafs: [
                 {
-                  cooked: 'x',
+                  value: 'x',
                   expression: {
                     name: 'bar',
                     type: 'IdentifierReference'
@@ -757,7 +757,7 @@ describe('Expressions - Template literal revision', () => {
                   type: 'TemplateElement'
                 },
                 {
-                  cooked: '■',
+                  value: '■',
                   expression: null,
                   raw: '\\u25a0',
                   type: 'TemplateElement'
@@ -789,7 +789,7 @@ describe('Expressions - Template literal revision', () => {
             literal: {
               leafs: [
                 {
-                  cooked: null,
+                  value: null,
                   expression: {
                     name: 'x',
                     type: 'IdentifierReference'
@@ -798,7 +798,7 @@ describe('Expressions - Template literal revision', () => {
                   type: 'TemplateElement'
                 },
                 {
-                  cooked: '',
+                  value: '',
                   expression: null,
                   raw: '',
                   type: 'TemplateElement'
@@ -827,7 +827,7 @@ describe('Expressions - Template literal revision', () => {
         {
           expression: {
             expression: {
-              cooked: null,
+              value: null,
               raw: '\\u{abcdx}',
               type: 'TemplateLiteral'
             },

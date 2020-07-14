@@ -793,7 +793,7 @@ export interface TaggedTemplate extends Root {
 export interface TemplateElement extends Root {
   type: 'TemplateElement';
   raw: string;
-  cooked: string;
+  value: string;
   expression: Expression | null;
 }
 
@@ -805,7 +805,7 @@ export interface TemplateExpression extends Root {
 export interface TemplateLiteral extends Root {
   type: 'TemplateLiteral';
   raw: string;
-  cooked: string;
+  value: string;
 }
 
 export interface ThisExpression extends Root {
