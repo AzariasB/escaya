@@ -1761,7 +1761,7 @@ export function parseMemberExpression(
   context: Context,
   member: any,
   start: number
-): Types.MemberExpression | Types.CallExpression | Types.OptionalExpression | Types.TaggedTemplateExpression {
+): Types.MemberExpression | Types.CallExpression | Types.OptionalExpression | Types.TaggedTemplate {
   switch (state.token as Token) {
     /* Property */
     case Token.Period:
@@ -1821,18 +1821,18 @@ export function parseMemberExpression(
         state,
         context,
         start,
-        { type: 'TaggedTemplateExpression', expression: expressionn, member, literal: [] } as any,
-        NodeType.TaggedTemplateExpression
+        { type: 'TaggedTemplate', expression: expressionn, member, literal: [] } as any,
+        NodeType.TaggedTemplate
       );
       break;
     case Token.TemplateCont:
-      const literal: any = parseTemplate(state, context | Context.TaggedTemplate);
+      const literal: any = parseTemplateExpression(state, context | Context.TaggedTemplate);
       member = finishNode(
         state,
         context,
         start,
-        { type: 'TaggedTemplateExpression', member, literal, expression: null } as any,
-        NodeType.TaggedTemplateExpression
+        { type: 'TaggedTemplate', member, literal, expression: null } as any,
+        NodeType.TaggedTemplate
       );
       break;
   }
@@ -2174,7 +2174,7 @@ export function parseExpression(
             expr = parseTemplateLiteral(state, context);
             break;
           case Token.TemplateCont:
-            expr = parseTemplate(state, context);
+            expr = parseTemplateExpression(state, context);
             break;
           default:
             expr = createIdentifier(state, context, tokenErrors(state.token));
@@ -2871,6 +2871,10 @@ export function parseArrayAssignmentPattern(
   start: number
 ): Types.ArrayAssignmentPattern {
   let i = leafs.length;
+
+  // An while loop scale the best for large arrays, and a reversed while loop seem
+  // to be the fastest way to iterate the array now when we need to convert to
+  // assignment pattern
   while (i--) {
     reinterpretToAssignment(leafs[i], false);
   }
@@ -3096,15 +3100,11 @@ export function parseArrayAssignment(
   destructible: Destructible,
   start: number,
   bindingType: BindingType
-) {
-  if (state.token !== Token.Assign)
-    addDiagnostic(
-      state,
-      context,
-      DiagnosticSource.Parser,
-      DiagnosticCode.InvalidDestructuringTarget,
-      DiagnosticKind.Error
-    );
+): Types.AssignmentExpression {
+  // Cannot compound-assign to an array literal
+  if (state.token !== Token.Assign) {
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.CompundArrLit, DiagnosticKind.Error);
+  }
 
   if (destructible & Destructible.NotDestructible) {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidBindingDestruct, DiagnosticKind.Error);
@@ -3114,7 +3114,7 @@ export function parseArrayAssignment(
 
   const left = parseArrayAssignmentPattern(state, context, leafs, destructible);
 
-  const right = parseExpression(state, context, Precedence.Assign, bindingType, true, 1, start);
+  const right = parseExpression(state, context, Precedence.Assign, bindingType, true, /* canAssign */ 1, start);
 
   state.destructible = (destructible | Destructible.MustDestruct) ^ Destructible.MustDestruct;
 
@@ -3122,7 +3122,7 @@ export function parseArrayAssignment(
     state,
     context,
     start,
-    { type: 'AssignmentExpression', left, operator: '=', right } as any,
+    { type: 'AssignmentExpression', left, operator: '=', right },
     NodeType.AssignmentExpression
   );
 }
@@ -3518,45 +3518,7 @@ export function parseObjectLiteralOrPattern(
   state.destructible = destructible;
 
   if (!isPattern && (state.token & Token.IsAssignOp) === Token.IsAssignOp) {
-    if (state.token !== Token.Assign) {
-      addDiagnostic(
-        state,
-        context,
-        DiagnosticSource.Parser,
-        DiagnosticCode.InvalidLHSDestructRHS,
-        DiagnosticKind.Error
-      );
-    }
-
-    if ((destructible & Destructible.NotDestructible) === Destructible.NotDestructible) {
-      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidDestruct, DiagnosticKind.Error);
-    }
-    let i = properties.length;
-    while (i--) {
-      reinterpretToAssignment(properties[i], /* ObjectAssignment */ true);
-    }
-
-    nextToken(state, context | Context.AllowRegExp);
-
-    const right = parseExpression(state, context, Precedence.Assign, bindingType, true, 1, start);
-
-    state.destructible = (destructible | Destructible.MustDestruct) ^ Destructible.MustDestruct;
-
-    const left = finishNode(
-      state,
-      context,
-      start,
-      { type: 'ObjectAssignmentPattern', properties },
-      NodeType.ArrayAssignmentPattern
-    );
-
-    return finishNode(
-      state,
-      context,
-      start,
-      { type: 'AssignmentExpression', left, operator: '=', right } as any,
-      NodeType.AssignmentExpression
-    );
+    return parseObjectAssignmentPattern(state, context, destructible, properties, bindingType, start);
   }
 
   state.destructible = destructible;
@@ -3573,11 +3535,64 @@ export function parseObjectLiteralOrPattern(
   return finishNode(state, context, start, { type: 'ObjectLiteral', properties }, NodeType.ObjectLiteral);
 }
 
+// ObjectAssignmentPattern :
+// {}
+// { AssignmentRestProperty }
+// { AssignmentPropertyList }
+// { AssignmentPropertyList, AssignmentRestProperty }
+export function parseObjectAssignmentPattern(
+  state: ParserState,
+  context: Context,
+  destructible: Destructible,
+  properties: any,
+  bindingType: BindingType,
+  start: number
+): Types.ObjectAssignmentPattern {
+  // Cannot compound-assign to an object literal
+  if (state.token !== Token.Assign) {
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.CompundObjLit, DiagnosticKind.Error);
+  }
+
+  if ((destructible & Destructible.NotDestructible) === Destructible.NotDestructible) {
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidDestructAssign, DiagnosticKind.Error);
+  }
+
+  // An while loop scale the best for large arrays, and a reversed while loop seem
+  // to be the fastest way to iterate the array now when we need to convert to
+  // assignment pattern
+  let i = properties.length;
+  while (i--) {
+    reinterpretToAssignment(properties[i], /* ObjectAssignment */ true);
+  }
+
+  nextToken(state, context | Context.AllowRegExp);
+
+  const right = parseExpression(state, context, Precedence.Assign, bindingType, true, /* canAssign */ 1, start);
+
+  state.destructible = (destructible | Destructible.MustDestruct) ^ Destructible.MustDestruct;
+
+  const left = finishNode(
+    state,
+    context,
+    start,
+    { type: 'ObjectAssignmentPattern', properties },
+    NodeType.ArrayAssignmentPattern
+  );
+
+  return finishNode(
+    state,
+    context,
+    start,
+    { type: 'AssignmentExpression', left, operator: '=', right } as any,
+    NodeType.AssignmentExpression
+  );
+}
+
 // To achieve the goal of an AST that consumes less bytes we skip the 'PropertyDefinitionList'
 // production and choose to simplify the 'PropertyDefinition' production.
 //
-// We do this by returning each production separately. That way we avoid the necessity of
-// unnecessary properties take will use 1 byte each.
+// We do this by returning each production separately into one big array. That way we avoid the necessity of
+// unnecessary properties that will use 1 byte each.
 //
 // Original ECMA
 // -------------
@@ -3622,7 +3637,7 @@ export function parsePropertyDefinition(
   const token = state.token;
   const innerStart = state.startIndex;
 
-  if (state.token & Constants.IdentfierName) {
+  if (token & Constants.IdentfierName) {
     key = state.tokenValue;
     nextToken(state, context);
     if (state.token & Constants.NextTokenCanFollowModifier) {
@@ -3673,13 +3688,7 @@ export function parsePropertyDefinition(
         //
         // This is necessary because normally this will trigger an error without the initializer.
         if (state.token === Token.Assign) {
-          if (token & Token.Keyword) {
-            addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
-          }
-
           const initializer = parseInitializer(state, context);
-
-          key = parseIdentifierNameFromValue(state, context, key, bindingType, start);
 
           state.destructible = Destructible.MustDestruct;
 
@@ -3689,7 +3698,7 @@ export function parsePropertyDefinition(
             innerStart,
             {
               type: bindingType & Constants.AssignmentOrPattern ? 'BindingElement' : 'CoverInitializedName',
-              binding: key,
+              binding: parseIdentifierNameFromValue(state, context, key, bindingType, start),
               initializer
             } as any,
             bindingType & Constants.AssignmentOrPattern ? NodeType.BindingElement : NodeType.CoverInitializedName
@@ -3711,7 +3720,7 @@ export function parsePropertyDefinition(
 
   if (state.token === Token.Colon) {
     if (modifiers & ModifierKind.Generator) {
-      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedLeftParen, DiagnosticKind.Error);
     }
 
     nextToken(state, context | Context.AllowRegExp);
@@ -3745,7 +3754,13 @@ export function parsePropertyDefinition(
         // Catches cases like `({a:{x = y}.z} = x);` and `[{a = b}].x`  because a shorthand with initalizer
         // must be a pattern or the nested object must be a pattern
         if (state.destructible & Destructible.MustDestruct) {
-          addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidDestruct, DiagnosticKind.Error);
+          addDiagnostic(
+            state,
+            context,
+            DiagnosticSource.Parser,
+            DiagnosticCode.InvalidDestructAssign,
+            DiagnosticKind.Error
+          );
         }
         // Note: The value must have a tail and it isn't (immediately) an assignment.
         value = parseLeftHandSide(state, context, value, Precedence.LeftHandSide, bindingType, start);
@@ -3768,7 +3783,7 @@ export function parsePropertyDefinition(
     value = parseMethodDefinition(state, context, key, modifiers);
     destructible = Destructible.NotDestructible;
   } else {
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidKeyToken, DiagnosticKind.Error);
   }
 
   state.destructible = destructible;
@@ -3819,56 +3834,71 @@ export function parsePropertyName(state: ParserState, context: Context, start: n
   return parseIdentifierName(state, context);
 }
 
-export function parseTemplate(state: ParserState, context: Context): Types.TemplateLiteral {
-  const startIndex = state.startIndex;
-  const spans = [parseTemplateElement(state, context, /* isTail */ false, startIndex)];
-  consume(state, context | Context.AllowRegExp, Token.TemplateCont);
-  const expressions = [parseExpressions(state, context)];
-
-  while (scanTemplateTail(state, context)) {
-    if (state.token !== Token.TemplateCont) break;
-    const innerStart = state.startIndex;
-    spans.push(parseTemplateElement(state, context, /* isTail */ false, innerStart));
-    consume(state, context | Context.AllowRegExp, Token.TemplateCont);
-    expressions.push(parseExpressions(state, context));
+export function parseTemplateExpression(state: ParserState, context: Context): Types.TemplateExpression {
+  const start = state.startIndex;
+  let leafs: Types.TemplateElement[] = [];
+  if (context & Context.ErrorRecovery) {
+    do {
+      leafs.push(parseTemplateLeafs(state, context));
+    } while ((state.token = scanTemplateTail(state, context)) === Token.TemplateCont);
+    leafs.push(parseTemplateTail(state, context));
+    leafs = createArray(state, leafs, start);
+  } else {
+    do {
+      leafs.push(parseTemplateLeafs(state, context));
+    } while ((state.token = scanTemplateTail(state, context)) === Token.TemplateCont);
+    leafs.push(parseTemplateTail(state, context));
   }
-  spans.push(parseTemplateElement(state, context, /* isTail */ true, startIndex));
-  consume(state, context, Token.TemplateTail);
+  return finishNode(state, context, start, { type: 'TemplateExpression', leafs }, NodeType.TemplateExpression);
+}
+
+export function parseTemplateLeafs(state: ParserState, context: Context): Types.TemplateElement {
+  const start = state.startIndex;
+  const cooked = state.tokenValue;
+  const raw = state.tokenRaw;
+  consume(state, context | Context.AllowRegExp, Token.TemplateCont);
+  const expression = parseExpressions(state, context);
   return finishNode(
     state,
     context,
-    startIndex,
-    { type: 'TemplateLiteral', spans, expressions } as any,
-    NodeType.TemplateLiteral
+    start,
+    { type: 'TemplateElement', raw, cooked, expression } as any,
+    NodeType.TemplateElement
+  );
+}
+export function parseTemplateTail(state: ParserState, context: Context): Types.TemplateElement {
+  const start = state.startIndex;
+  const cooked = state.tokenValue;
+  const raw = state.tokenRaw;
+  consume(state, context | Context.AllowRegExp, Token.TemplateTail);
+  return finishNode(
+    state,
+    context,
+    start,
+    { type: 'TemplateElement', raw, cooked, expression: null },
+    NodeType.TemplateElement
   );
 }
 
-export function parseTemplateElement(
-  state: ParserState,
-  context: Context,
-  tail: boolean,
-  start: number
-): Types.TemplateElement {
+export function parseTemplateElement(state: ParserState, context: Context): Types.TemplateElement {
+  const start = state.startIndex;
   const cooked = state.tokenValue;
   const raw = state.tokenRaw;
-  return finishNode(state, context, start, { type: 'TemplateElement', raw, cooked, tail }, NodeType.TemplateElement);
+  return finishNode(
+    state,
+    context,
+    start,
+    { type: 'TemplateElement', raw, cooked, expression: null },
+    NodeType.TemplateElement
+  );
 }
 
 export function parseTemplateLiteral(state: ParserState, context: Context): Types.TemplateLiteral {
-  const startIndex = state.startIndex;
+  const start = state.startIndex;
   nextToken(state, context);
   const cooked = state.tokenValue;
   const raw = state.tokenRaw;
-  const expressions: any[] = [];
-  let leafs = [parseTemplateElement(state, context, false, startIndex)];
-  if (context & Context.ErrorRecovery) leafs = createArray(state, leafs, startIndex);
-  return finishNode(
-    state,
-    context,
-    startIndex,
-    { type: 'TemplateLiteral', cooked, raw, expressions, leafs },
-    NodeType.TemplateLiteral
-  );
+  return finishNode(state, context, start, { type: 'TemplateLiteral', cooked, raw }, NodeType.TemplateLiteral);
 }
 
 export function parseSpreadOrRestElement(
@@ -5074,7 +5104,9 @@ export function parseArrowAfterGroup(
     );
   }
 
-  // Reverse while loop is slightly faster than a regular for loop
+  // An while loop scale the best for large arrays, and a reversed while loop seem
+  // to be the fastest way to iterate the array now when we need to convert
+  // the arrow params to object pattern
   let i = params.length;
 
   while (i--) {

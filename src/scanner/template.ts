@@ -274,13 +274,7 @@ export function parseTemplateEscape(
   return fromCodePoint(ch);
 }
 
-export function scanTemplateTail(parser: ParserState, context: Context): boolean {
-  if (parser.index >= parser.length) {
-    addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedTemplate, DiagnosticKind.Error);
-    return false;
-  }
-
+export function scanTemplateTail(parser: ParserState, context: Context): any {
   parser.index--;
-  parser.token = scanTemplateSpan(parser, context, parser.source);
-  return true;
+  return scanTemplateSpan(parser, context, parser.source);
 }

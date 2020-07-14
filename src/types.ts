@@ -161,9 +161,10 @@ export type Node =
   | SuperProperty
   | SwitchStatement
   | SpreadElement
-  | TaggedTemplateExpression
+  | TaggedTemplate
   | TemplateElement
   | TemplateLiteral
+  | TemplateExpression
   | ThisExpression
   | ThrowStatement
   | TryStatement
@@ -217,7 +218,7 @@ export type LeftHandSideExpression =
   | RegularExpressionLiteral
   | StringLiteral
   | TemplateLiteral
-  | TaggedTemplateExpression
+  | TaggedTemplate
   | MemberExpression
   | ArrowFunction;
 export type PrimaryExpression =
@@ -240,13 +241,13 @@ export type PrimaryExpression =
   | MemberExpression
   | RegularExpressionLiteral
   | StringLiteral
-  | TemplateLiteral
   | ObjectLiteral
   | SpreadElement
   | SuperCall
   | NewExpression
   | SuperProperty
   | TemplateLiteral
+  | TemplateExpression
   | UnaryExpression
   | ThisExpression;
 export type Statement =
@@ -362,7 +363,7 @@ export type LogicalAssignmentOperator = '||=' | '&&=' | '??=';
 export interface AssignmentExpression extends Root {
   type: 'AssignmentExpression';
   operator: LogicalAssignmentOperator | AssignmentOperator;
-  left: Expression | Identifier | ArrayBindingPattern | ObjectBindingPattern;
+  left: Expression | Identifier | ArrayBindingPattern | ObjectBindingPattern | ArrayAssignmentPattern;
   right: Expression;
 }
 
@@ -782,11 +783,10 @@ export interface DefaultClause extends ClauseBase {
   type: 'DefaultClause';
 }
 
-export interface TaggedTemplateExpression extends Root {
-  // The second `MemberExpression` or `CallExpression`, if present.
-  type: 'TaggedTemplateExpression';
+export interface TaggedTemplate extends Root {
+  type: 'TaggedTemplate';
   member: MemberExpression;
-  literal: TemplateElement[];
+  literal: TemplateLiteral | TemplateExpression;
   expression: LeftHandSideExpression | null;
 }
 
@@ -794,13 +794,18 @@ export interface TemplateElement extends Root {
   type: 'TemplateElement';
   raw: string;
   cooked: string;
-  tail: boolean;
+  expression: Expression | null;
+}
+
+export interface TemplateExpression extends Root {
+  type: 'TemplateExpression';
+  leafs: TemplateElement[];
 }
 
 export interface TemplateLiteral extends Root {
   type: 'TemplateLiteral';
-  leafs: TemplateElement[];
-  expressions: Expression[];
+  raw: string;
+  cooked: string;
 }
 
 export interface ThisExpression extends Root {
@@ -1011,7 +1016,7 @@ export interface CallChainBase extends Root {
 
 export interface MemberChain extends CallChainBase {
   type: 'MemberChain';
-  property: Expression | IdentifierName | TemplateLiteral | null;
+  property: Expression | IdentifierName | TemplateLiteral | TemplateExpression | null;
   computed: boolean;
 }
 

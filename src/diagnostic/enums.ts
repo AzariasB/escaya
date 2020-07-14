@@ -120,5 +120,9 @@ export enum DiagnosticCode {
   UnexpectedIdentifier,
   GetAccessorParms,
   InvalidKeyToken,
-  KeywordNotId
+  KeywordNotId,
+  InvalidDestructAssign,
+  ExpectedLeftParen,
+  CompundArrLit,
+  CompundObjLit
 }

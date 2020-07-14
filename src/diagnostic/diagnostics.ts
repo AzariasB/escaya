@@ -64,7 +64,7 @@ export const diagnosticMap: {
   [DiagnosticCode.InvalidKeyToken]: 'Invalid key token',
   [DiagnosticCode.InvalidLHSDestructRHS]: 'Invalid left-hand side assignment to a destructible right-hand side',
   [DiagnosticCode.InvalidArrowDestructLHS]: 'The left-hand side of the arrow can only be destructed through assignment',
-  [DiagnosticCode.InvalidBindingDestruct]: 'The binding declaration is not destructible',
+  [DiagnosticCode.InvalidBindingDestruct]: 'The binding assignment is not destructible',
   [DiagnosticCode.DeclMissingDestructInitializer]: 'A destructuring declaration must have an initializer',
   [DiagnosticCode.ConstMissingDestrictInitializer]: "'const' declarations must be initialized",
   [DiagnosticCode.KeywordNotId]: 'Invalid keyword',
@@ -124,7 +124,12 @@ export const diagnosticMap: {
   [DiagnosticCode.InvalidBigIntLiteral]: 'Invalid BigInt syntax',
   [DiagnosticCode.UnsupportedUnicodeIdent]: 'Unsupported unicode escape in identifier escapes start',
   [DiagnosticCode.UnexpectedIdentNumber]: 'An identifier or number immediately follow a numeric literal',
-  [DiagnosticCode.GetAccessorParms]: "A 'get' accessor cannot have parameters"
+  [DiagnosticCode.GetAccessorParms]: "A 'get' accessor cannot have parameters",
+  [DiagnosticCode.ExpectedLeftParen]: "'(' expected",
+  [DiagnosticCode.CompundArrLit]: 'Cannot compound-assign to an array literal',
+  [DiagnosticCode.CompundObjLit]: 'Cannot compound-assign to an object literal',
+  [DiagnosticCode.InvalidDestructAssign]:
+    "'=' can only be used in object literal property inside a destructuring assignment."
 };
 
 export function createDiagnostic(
@@ -173,7 +178,6 @@ export function addDiagnostic(
   if (!lastError || parser.startIndex !== lastError.start) {
     parser.diagnostics.push({ kind, source, message, code, start, end });
   }
-  //parser.flags |= Flags.HasErrors;
 }
 
 export function formatStringFromArgs(message: string, args: string[]): string {

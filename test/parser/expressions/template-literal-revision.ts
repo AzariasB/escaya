@@ -53,7 +53,6 @@ describe('Expressions - Template literal revision', () => {
     'tag   `template-head${a}template-tail`',
     "'use strict'; tag\n`${a}${b}${c}`",
     "'use strict'; tag\r\n`a${a}b${b}c${c}`",
-
     'tag    `${a}a${b}b${c}c`',
     'tag\t`x\n\nbar\r\nbaz`',
     'tag\r`x\n\n${  bar  }\r\nbaz`',
@@ -326,15 +325,6 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: {
               cooked: '\n\r',
-              expressions: [],
-              leafs: [
-                {
-                  cooked: '\n\r',
-                  raw: '\n\r',
-                  tail: false,
-                  type: 'TemplateElement'
-                }
-              ],
               raw: '\n\r',
               type: 'TemplateLiteral'
             },
@@ -343,7 +333,7 @@ describe('Expressions - Template literal revision', () => {
               name: 'x',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -361,43 +351,39 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: null,
             literal: {
-              expressions: [
-                {
-                  name: 'x',
-                  type: 'IdentifierReference'
-                },
-                {
-                  name: 'x',
-                  type: 'IdentifierReference'
-                }
-              ],
-              spans: [
+              leafs: [
                 {
                   cooked: '',
+                  expression: {
+                    name: 'x',
+                    type: 'IdentifierReference'
+                  },
                   raw: '',
-                  tail: false,
                   type: 'TemplateElement'
                 },
                 {
                   cooked: null,
+                  expression: {
+                    name: 'x',
+                    type: 'IdentifierReference'
+                  },
                   raw: ' \\xg ',
-                  tail: false,
                   type: 'TemplateElement'
                 },
                 {
                   cooked: '',
+                  expression: null,
                   raw: '',
-                  tail: true,
                   type: 'TemplateElement'
                 }
               ],
-              type: 'TemplateLiteral'
+              type: 'TemplateExpression'
             },
             member: {
               name: 'f',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -414,15 +400,6 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: {
               cooked: null,
-              expressions: [],
-              leafs: [
-                {
-                  cooked: null,
-                  raw: '\\u{g',
-                  tail: false,
-                  type: 'TemplateElement'
-                }
-              ],
               raw: '\\u{g',
               type: 'TemplateLiteral'
             },
@@ -431,7 +408,7 @@ describe('Expressions - Template literal revision', () => {
               name: 'a',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -449,15 +426,6 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: {
               cooked: null,
-              expressions: [],
-              leafs: [
-                {
-                  cooked: null,
-                  raw: '\\x0G',
-                  tail: false,
-                  type: 'TemplateElement'
-                }
-              ],
               raw: '\\x0G',
               type: 'TemplateLiteral'
             },
@@ -466,7 +434,7 @@ describe('Expressions - Template literal revision', () => {
               name: 'a',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -483,15 +451,6 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: {
               cooked: null,
-              expressions: [],
-              leafs: [
-                {
-                  cooked: null,
-                  raw: '\\u0g',
-                  tail: false,
-                  type: 'TemplateElement'
-                }
-              ],
               raw: '\\u0g',
               type: 'TemplateLiteral'
             },
@@ -500,7 +459,7 @@ describe('Expressions - Template literal revision', () => {
               name: 'a',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -518,33 +477,30 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: null,
             literal: {
-              expressions: [
-                {
-                  type: 'StringLiteral',
-                  value: 'inner'
-                }
-              ],
-              spans: [
+              leafs: [
                 {
                   cooked: null,
+                  expression: {
+                    type: 'StringLiteral',
+                    value: 'inner'
+                  },
                   raw: '\\u{10FFFFF}',
-                  tail: false,
                   type: 'TemplateElement'
                 },
                 {
                   cooked: 'right',
+                  expression: null,
                   raw: 'right',
-                  tail: true,
                   type: 'TemplateElement'
                 }
               ],
-              type: 'TemplateLiteral'
+              type: 'TemplateExpression'
             },
             member: {
               name: 'a',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -562,15 +518,6 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: {
               cooked: null,
-              expressions: [],
-              leafs: [
-                {
-                  cooked: null,
-                  raw: 'oops \\u{110001}',
-                  tail: false,
-                  type: 'TemplateElement'
-                }
-              ],
               raw: 'oops \\u{110001}',
               type: 'TemplateLiteral'
             },
@@ -579,7 +526,7 @@ describe('Expressions - Template literal revision', () => {
               name: 'tag',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -596,15 +543,6 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: {
               cooked: 'some " quote',
-              expressions: [],
-              leafs: [
-                {
-                  cooked: 'some " quote',
-                  raw: 'some " quote',
-                  tail: false,
-                  type: 'TemplateElement'
-                }
-              ],
               raw: 'some " quote',
               type: 'TemplateLiteral'
             },
@@ -613,7 +551,7 @@ describe('Expressions - Template literal revision', () => {
               name: 'tag',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -622,10 +560,6 @@ describe('Expressions - Template literal revision', () => {
       webCompat: true
     });
   });
-  /*
-   it('Illegal escapes in tick', () => {
-    t.deepEqual(parseScript('a`start \\0737 \\xaa \\u{abc} \\0 finish`;`;'), {});
-  });*/
 
   it('Illegal escapes in tick1', () => {
     t.deepEqual(parseScript('a`okay \\u{110001}`;'), {
@@ -635,15 +569,6 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: {
               cooked: null,
-              expressions: [],
-              leafs: [
-                {
-                  cooked: null,
-                  raw: 'okay \\u{110001}',
-                  tail: false,
-                  type: 'TemplateElement'
-                }
-              ],
               raw: 'okay \\u{110001}',
               type: 'TemplateLiteral'
             },
@@ -652,7 +577,7 @@ describe('Expressions - Template literal revision', () => {
               name: 'a',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -670,15 +595,6 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: {
               cooked: null,
-              expressions: [],
-              leafs: [
-                {
-                  cooked: null,
-                  raw: 'phew \\u{110001}',
-                  tail: false,
-                  type: 'TemplateElement'
-                }
-              ],
               raw: 'phew \\u{110001}',
               type: 'TemplateLiteral'
             },
@@ -687,7 +603,7 @@ describe('Expressions - Template literal revision', () => {
               name: 'tag',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -705,33 +621,30 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: null,
             literal: {
-              expressions: [
-                {
-                  type: 'StringLiteral',
-                  value: '\u0007'
-                }
-              ],
-              spans: [
+              leafs: [
                 {
                   cooked: '',
+                  expression: {
+                    type: 'StringLiteral',
+                    value: '\u0007'
+                  },
                   raw: '',
-                  tail: false,
                   type: 'TemplateElement'
                 },
                 {
                   cooked: '',
+                  expression: null,
                   raw: '',
-                  tail: true,
                   type: 'TemplateElement'
                 }
               ],
-              type: 'TemplateLiteral'
+              type: 'TemplateExpression'
             },
             member: {
               name: 'tag',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -749,15 +662,6 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: {
               cooked: null,
-              expressions: [],
-              leafs: [
-                {
-                  cooked: null,
-                  raw: '\\00',
-                  tail: false,
-                  type: 'TemplateElement'
-                }
-              ],
               raw: '\\00',
               type: 'TemplateLiteral'
             },
@@ -766,7 +670,7 @@ describe('Expressions - Template literal revision', () => {
               name: 'tag',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -784,15 +688,6 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: {
               cooked: null,
-              expressions: [],
-              leafs: [
-                {
-                  cooked: null,
-                  raw: '\\9',
-                  tail: false,
-                  type: 'TemplateElement'
-                }
-              ],
               raw: '\\9',
               type: 'TemplateLiteral'
             },
@@ -801,7 +696,7 @@ describe('Expressions - Template literal revision', () => {
               name: 'a',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -810,9 +705,6 @@ describe('Expressions - Template literal revision', () => {
       webCompat: true
     });
   });
-  //it('Illegal escapes in tick', () => {
-  //t.deepEqual(parseScript('x\\u25a0`;'), {});
-  //});
 
   it('Illegal escapes in tick', () => {
     t.deepEqual(parseScript('`x${bar}\\u25a0`'), {
@@ -820,27 +712,24 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expressions: [
-              {
-                name: 'bar',
-                type: 'IdentifierReference'
-              }
-            ],
-            spans: [
+            leafs: [
               {
                 cooked: 'x',
+                expression: {
+                  name: 'bar',
+                  type: 'IdentifierReference'
+                },
                 raw: 'x',
-                tail: false,
                 type: 'TemplateElement'
               },
               {
                 cooked: '■',
+                expression: null,
                 raw: '\\u25a0',
-                tail: true,
                 type: 'TemplateElement'
               }
             ],
-            type: 'TemplateLiteral'
+            type: 'TemplateExpression'
           },
           type: 'ExpressionStatement'
         }
@@ -857,33 +746,30 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: null,
             literal: {
-              expressions: [
-                {
-                  name: 'bar',
-                  type: 'IdentifierReference'
-                }
-              ],
-              spans: [
+              leafs: [
                 {
                   cooked: 'x',
+                  expression: {
+                    name: 'bar',
+                    type: 'IdentifierReference'
+                  },
                   raw: 'x',
-                  tail: false,
                   type: 'TemplateElement'
                 },
                 {
                   cooked: '■',
+                  expression: null,
                   raw: '\\u25a0',
-                  tail: true,
                   type: 'TemplateElement'
                 }
               ],
-              type: 'TemplateLiteral'
+              type: 'TemplateExpression'
             },
             member: {
               name: 'x',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -892,387 +778,6 @@ describe('Expressions - Template literal revision', () => {
       webCompat: true
     });
   });
-
-  /*
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
- it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-
-    it('Illegal escapes in tick', () => {
-     t.deepEqual(parseScript('f`\\xg ${x}`;'), {});
-   });
-   */
 
   it('Illegal escapes in tick', () => {
     t.deepEqual(parseScript('f`\\xg ${x}`;'), {
@@ -1282,33 +787,30 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: null,
             literal: {
-              expressions: [
-                {
-                  name: 'x',
-                  type: 'IdentifierReference'
-                }
-              ],
-              spans: [
+              leafs: [
                 {
                   cooked: null,
+                  expression: {
+                    name: 'x',
+                    type: 'IdentifierReference'
+                  },
                   raw: '\\xg ',
-                  tail: false,
                   type: 'TemplateElement'
                 },
                 {
                   cooked: '',
+                  expression: null,
                   raw: '',
-                  tail: true,
                   type: 'TemplateElement'
                 }
               ],
-              type: 'TemplateLiteral'
+              type: 'TemplateExpression'
             },
             member: {
               name: 'f',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
@@ -1318,7 +820,7 @@ describe('Expressions - Template literal revision', () => {
     });
   });
 
-  it('Illegal escapes in tick4', () => {
+  it('Illegal escapes in tick234', () => {
     t.deepEqual(parseScript('a`\\u{abcdx}`'), {
       directives: [],
       leafs: [
@@ -1326,15 +828,6 @@ describe('Expressions - Template literal revision', () => {
           expression: {
             expression: {
               cooked: null,
-              expressions: [],
-              leafs: [
-                {
-                  cooked: null,
-                  raw: '\\u{abcdx}',
-                  tail: false,
-                  type: 'TemplateElement'
-                }
-              ],
               raw: '\\u{abcdx}',
               type: 'TemplateLiteral'
             },
@@ -1343,7 +836,7 @@ describe('Expressions - Template literal revision', () => {
               name: 'a',
               type: 'IdentifierReference'
             },
-            type: 'TaggedTemplateExpression'
+            type: 'TaggedTemplate'
           },
           type: 'ExpressionStatement'
         }
