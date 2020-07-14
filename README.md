@@ -1,6 +1,6 @@
 <h1 align="center">Escaya</h1>
 
-<p align="center"> An 100% spec compliant, incremental javascript parser written in Typescript.</p>
+<p align="center"> An blazing  fast 100% spec compliant, incremental javascript parser written in Typescript</p>
 
 <br>
 
