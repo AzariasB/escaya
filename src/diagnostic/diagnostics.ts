@@ -1,4 +1,4 @@
-import { ParserState, Context, Flags, lastOrUndefined } from '../common';
+import { ParserState, Context, lastOrUndefined } from '../common';
 import { DiagnosticSource, DiagnosticCode, DiagnosticKind } from './enums';
 
 /**

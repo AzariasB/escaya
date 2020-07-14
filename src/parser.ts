@@ -1473,10 +1473,15 @@ export function parseExportDeclaration(
       declaration = parseClassDeclaration(state, context);
       break;
     case Token.FunctionKeyword:
-      declaration = parseFunctionDeclaration(state, context, /* isAsync */ 0, bindingType);
+      declaration = parseFunctionDeclaration(state, context, /* isAsync */ 0, bindingType) as Types.FunctionDeclaration;
       break;
     case Token.AsyncKeyword:
-      declaration = parseFunctionDeclaration(state, context | Context.DisallowArrow, /* isAsync */ 1, bindingType);
+      declaration = parseFunctionDeclaration(
+        state,
+        context | Context.DisallowArrow,
+        /* isAsync */ 1,
+        bindingType
+      ) as Types.FunctionDeclaration;
       break;
     case Token.VarKeyword:
       declaration = parseVariableStatement(state, context);
@@ -1648,7 +1653,7 @@ export function parseCommaOperator(
 export function parseAssignmentExpression(
   state: ParserState,
   context: Context,
-  left: any,
+  left: Types.Expression,
   start: number
 ): Types.AssignmentExpression | Types.Expression {
   if (!state.assignable)
@@ -3405,7 +3410,7 @@ export function parseObjectBindingPattern(
 ): Types.ObjectBindingPattern {
   nextToken(state, context);
 
-  let properties: any = [];
+  const properties: Types.ObjectProperties[] = [];
 
   let destructible = Destructible.None;
 
@@ -3474,10 +3479,10 @@ export function parseObjectLiteralOrPattern(
   isPattern: boolean,
   bindingType: BindingType,
   start: number
-): any {
+): Types.ObjectLiteral | Types.AssignmentExpression | Types.ObjectBindingPattern {
   nextToken(state, context);
 
-  let properties: any = [];
+  let properties: Types.ObjectProperties[] = [];
 
   let destructible = Destructible.None;
 
@@ -3544,10 +3549,10 @@ export function parseObjectAssignmentPattern(
   state: ParserState,
   context: Context,
   destructible: Destructible,
-  properties: any,
+  properties: Types.ObjectProperties[],
   bindingType: BindingType,
   start: number
-): Types.ObjectAssignmentPattern {
+): Types.AssignmentExpression {
   // Cannot compound-assign to an object literal
   if (state.token !== Token.Assign) {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.CompundObjLit, DiagnosticKind.Error);
@@ -3583,7 +3588,7 @@ export function parseObjectAssignmentPattern(
     state,
     context,
     start,
-    { type: 'AssignmentExpression', left, operator: '=', right } as any,
+    { type: 'AssignmentExpression', left, operator: '=' as Types.AssignmentOperator, right } as any,
     NodeType.AssignmentExpression
   );
 }
@@ -3625,9 +3630,22 @@ export function parsePropertyDefinition(
   context: Context,
   bindingType: BindingType,
   start: number
-): any {
+):
+  | Types.IdentifierReference
+  | Types.BindingIdentifier
+  | Types.MethodDefinition
+  | Types.PropertyName
+  | Types.BindingRestProperty {
   if (state.token === Token.Ellipsis) {
-    return parseSpreadOrRestElement(state, context, Token.RightBrace, bindingType, false, false, state.startIndex);
+    return parseSpreadOrRestElement(
+      state,
+      context,
+      Token.RightBrace,
+      bindingType,
+      false,
+      false,
+      state.startIndex
+    ) as Types.BindingRestProperty;
   }
 
   let modifiers = consumeOpt(state, context, Token.Multiply) ? ModifierKind.Generator : ModifierKind.None;
@@ -3792,7 +3810,7 @@ export function parsePropertyDefinition(
     state,
     context,
     innerStart,
-    { type: 'PropertyName', key, value, computed: token === Token.LeftBracket },
+    { type: 'PropertyName', key: key as Types.PropertyKey, value, computed: token === Token.LeftBracket },
     NodeType.PropertyName
   );
 }
@@ -3816,7 +3834,7 @@ export function parseInitializer(state: ParserState, context: Context): Types.Ex
 //
 // ComputedPropertyName :
 //   `[` AssignmentExpression `]`
-export function parsePropertyName(state: ParserState, context: Context, start: number): any {
+export function parsePropertyName(state: ParserState, context: Context, start: number): Types.PropertyKey {
   if (state.token === Token.NumericLiteral) {
     return parseNumericLiteral(state, context);
   }
@@ -3836,7 +3854,7 @@ export function parsePropertyName(state: ParserState, context: Context, start: n
 
 export function parseTemplateExpression(state: ParserState, context: Context): Types.TemplateExpression {
   const start = state.startIndex;
-  let leafs: Types.TemplateElement[] = [];
+  const leafs: Types.TemplateElement[] = [];
   if (context & Context.ErrorRecovery) {
     do {
       leafs.push(parseTemplateElementContinuation(state, context));
@@ -3895,10 +3913,10 @@ export function parseSpreadOrRestElement(
   isArray: boolean,
   isAsync: boolean,
   start: number
-): any {
+): Types.SpreadElement | Types.BindingRestElement | Types.BindingRestProperty {
   nextToken(state, context | Context.AllowRegExp); // skip '...'
 
-  let argument: any;
+  let argument;
   let destructible: Destructible = Destructible.None;
 
   let token = state.token;
@@ -3969,7 +3987,7 @@ export function parseSpreadOrRestElement(
       destructible |= isAsync ? Destructible.NotDestructible : Destructible.Assignable;
 
     if (state.token === Token.Assign) {
-      const operator = KeywordDescTable[state.token & Token.Type] as any;
+      const operator = KeywordDescTable[state.token & Token.Type] as Types.AssignmentOperator;
       nextToken(state, context);
       const right = parseExpression(state, context, Precedence.Assign, bindingType, true, 1, start);
       reinterpretToAssignment(argument, false);
@@ -4028,7 +4046,7 @@ export function parseFunctionDeclaration(
   context: Context,
   isAsync: 0 | 1,
   bindingType: BindingType
-): Types.FunctionDeclaration {
+): Types.FunctionDeclaration | Types.Statement {
   const start = state.startIndex;
 
   let name: Types.BindingIdentifier | null = null;
@@ -4149,7 +4167,7 @@ export function parseFunctionRestParameter(state: ParserState, context: Context)
 // SingleNameBinding :
 //   BindingIdentifier
 
-export function parseFormalParameters(state: ParserState, context: Context): Types.FormalParameters | any {
+export function parseFormalParameters(state: ParserState, context: Context): any {
   let leafs: any = [];
   const start = state.startIndex;
 
@@ -4200,9 +4218,9 @@ export function parseFormalParameters(state: ParserState, context: Context): Typ
 
 // FunctionBody :
 //   FunctionStatementList
-export function parseFunctionBody(state: ParserState, context: Context, isDeclaration: boolean): any {
+export function parseFunctionBody(state: ParserState, context: Context, isDeclaration: boolean): Types.FunctionBody {
   const start = state.startIndex;
-  let statements: any | Types.Statement[] = [];
+  let statements: Types.Statement[] = [];
   if (state.token === Token.LeftBrace) {
     const directives: string[] = [];
 
@@ -4419,8 +4437,8 @@ export function parseBindingPattern(
   bindingType: BindingType
 ): Types.BindingElement {
   const start = state.startIndex;
-  const binding: any = parseBindingElement(state, context, bindingType);
-  const initializer: Types.Expression | null = state.token === Token.Assign ? parseInitializer(state, context) : null;
+  const binding = parseBindingElement(state, context, bindingType);
+  const initializer = state.token === Token.Assign ? parseInitializer(state, context) : null;
   return finishNode(state, context, start, { type: 'BindingElement', binding, initializer }, NodeType.BindingElement);
 }
 
@@ -4633,9 +4651,9 @@ export function parseClassElementList(
   context: Context,
   inheritedContext: Context,
   isExpression: boolean
-): any {
+): Types.MissingList | Types.ClassElement[] {
   const start = state.startIndex;
-  const classElementList: any[] = [];
+  const classElementList: Types.ClassElement[] = [];
   if (state.token === Token.LeftBrace) {
     nextToken(state, context | Context.AllowRegExp);
     if (context & Context.ErrorRecovery) {
@@ -4669,7 +4687,7 @@ export function parseClassElement(
   inheritedContext: Context,
   modifiers: ModifierKind
 ): Types.ClassElement {
-  let name: any;
+  let name;
   const token = state.token;
   const start = state.startIndex;
   if (token & Constants.IdentfierName) {
@@ -4835,7 +4853,7 @@ export function parseNewExpression(
     return parseNewTargetExpression(state, context, start);
   }
   const expression = parseExpression(state, context, Precedence.LeftHandSide, bindingType, false, 1, start);
-  let args: any = [];
+  let args: any[] = [];
   if (state.token === Token.LeftParen) {
     args = parseArguments(state, context);
   } else if (context & Context.ErrorRecovery) {
@@ -4871,7 +4889,7 @@ export function parseYieldExpression(
   state: ParserState,
   context: Context,
   bindingType: BindingType
-): Types.YieldExpression | Types.IdentifierReference | Types.ArrowFunction {
+): Types.YieldExpression {
   if (context & Context.Parameters) {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
   }
@@ -4902,7 +4920,7 @@ export function parseAwaitExpression(
   state: ParserState,
   context: Context,
   bindingType: BindingType
-): Types.AwaitExpression | Types.IdentifierReference | Types.ArrowFunction {
+): Types.AwaitExpression {
   const start = state.startIndex;
   if (context & Context.Parameters) {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.UnknownToken, DiagnosticKind.Error);
@@ -4932,7 +4950,7 @@ export function parseAsyncArrowDeclaration(
   context: Context,
   bindingType: BindingType,
   start: number
-): any {
+): Types.ArrowFunction | Types.ExpressionStatement | Types.Statement {
   const hasLineTermiantor = state.hasLineTerminator;
   if (!hasLineTermiantor) {
     // `async` [no LineTerminator here] AsyncArrowBindingIdentifier [no LineTerminator here] => AsyncConciseBody

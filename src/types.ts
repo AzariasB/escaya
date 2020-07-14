@@ -137,7 +137,6 @@ export type Node =
   | MethodDefinition
   | Module
   | NewTarget
-  | PropertyName
   | NewExpression
   | ObjectLiteral
   | OptionalExpression
@@ -428,7 +427,7 @@ interface ClassDeclarationBase extends Root {
   // *only* 'null' in recovery mode
   name: BindingIdentifier | null;
   super: LeftHandSideExpression | null;
-  leafs: ClassElement[];
+  leafs: MissingList | ClassElement[];
 }
 
 export interface ClassDeclaration extends ClassDeclarationBase {
@@ -542,15 +541,8 @@ interface FunctionDeclarationBase extends Root {
 }
 
 // `FunctionDeclaration`, `GeneratorDeclaration`, `AsyncFunctionDeclaration`
-export interface FunctionDeclaration extends Root {
+export interface FunctionDeclaration extends FunctionDeclarationBase {
   type: 'FunctionDeclaration';
-  name: BindingIdentifier | null;
-  // True for `GeneratorExpression` and `GeneratorDeclaration`, false otherwise.
-  generator: boolean;
-  // True for `AsyncFunctionExpression` and `AsyncFunctionDeclaration`, false otherwise.
-  async: boolean;
-  params: MissingList | FormalParameters[];
-  contents: FunctionBody;
 }
 
 // `FunctionExpresssion`, `GeneratorExpresssion`, `AsyncExpresssion`
@@ -708,14 +700,24 @@ export interface BooleanLiteral extends Root {
   value: boolean;
 }
 
+export type ObjectProperties =
+  | IdentifierReference
+  | BindingIdentifier
+  | MethodDefinition
+  | PropertyName
+  | BindingRestProperty
+  | SpreadElement;
+
 export interface ObjectLiteral extends Root {
   type: 'ObjectLiteral';
-  properties: (IdentifierReference | MethodDefinition | PropertyName)[];
+  properties: ObjectProperties[];
 }
+
+export type PropertyKey = Expression | StringLiteral | NumericLiteral | IdentifierName;
 
 export interface PropertyName extends Root {
   type: 'PropertyName';
-  key: Expression | StringLiteral | NumericLiteral | IdentifierName;
+  key: PropertyKey;
   value: AssignmentExpression | null;
   computed: boolean;
 }
@@ -727,7 +729,7 @@ export interface MethodDefinition extends Root {
   generator: boolean;
   propertySetParameterList: MissingList | BindingElement[];
   uniqueFormalParameters: MissingList | FormalParameters[];
-  name: Expression;
+  name: PropertyName;
   contents: FunctionBody;
   /* @internal */
   parent?: ObjectLiteral | ClassElement;
@@ -908,7 +910,7 @@ export interface UniqueFormalParameters extends Root {
 
 export interface FormalParameters extends Root {
   type: 'FormalParameters';
-  leafs: MissingList | (FunctionRestParameter | BindingElement)[];
+  leafs: MissingList | FunctionRestParameter | BindingElement[];
   /* @internal */
   parent?: ArrowFunction | FunctionDeclaration | FunctionExpression;
 }
@@ -941,21 +943,18 @@ export interface LexicalBinding extends Root {
   parent?: LexicalDeclaration | ForDeclaration;
 }
 
-export interface ObjectBindingBase extends Root {
-  properties: (PropertyName | BindingRestElement | BindingIdentifier | MethodDefinition)[];
-  /* @internal */
-  parent?: VariableDeclaration | LexicalBinding | BindingPattern;
-}
-
-export interface ObjectBindingPattern extends ObjectBindingBase {
+export interface ObjectBindingPattern extends Root {
   type: 'ObjectBindingPattern';
-  properties: (PropertyName | BindingRestElement | BindingIdentifier | MethodDefinition)[];
+  properties: ObjectProperties[];
   /* @internal */
   parent?: VariableDeclaration | LexicalBinding | BindingPattern;
 }
 
-export interface ObjectAssignmentPattern extends ObjectBindingBase {
+export interface ObjectAssignmentPattern extends Root {
   type: 'ObjectAssignmentPattern';
+  properties: ObjectProperties[];
+  /* @internal */
+  parent?: VariableDeclaration | LexicalBinding | BindingPattern;
 }
 
 export interface CoverInitializedName extends Root {
