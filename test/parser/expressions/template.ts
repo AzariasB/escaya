@@ -5,11 +5,10 @@ describe('Expressions - Template', () => {
   // Invalid cases
   for (const arg of [
     'y`\\x`; /[\\',
-    // 'x`foo ${a b} bar`',
     '`\\8`',
     '`\\12`',
     'a`tag`\\u{0}`',
-    // '`${1)',
+    '`${1)',
     '`start \\0737 \\xaa \\u{abc} \\0 finish`;',
     '`hello\\x`',
     '`hello\\x${1}`',

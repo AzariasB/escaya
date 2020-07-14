@@ -80,7 +80,6 @@ export function parseInRecoveryMode(
     nodeType: NodeType.RootNode,
     diagnostics: parser.diagnostics,
     webCompat: (context & Context.OptionsDisableWebCompat) !== Context.OptionsDisableWebCompat,
-    id: 0,
     start: 0,
     end: text.length
   };

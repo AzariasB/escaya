@@ -256,7 +256,7 @@ export function parseStatement(state: ParserState, context: Context): Types.Stat
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.FinallyWithoutTry, DiagnosticKind.Error);
       return parseTryStatement(state, context);
     default:
-      return parseExpressionOrLabelledStatement(state, context) as any;
+      return parseExpressionOrLabelledStatement(state, context);
   }
 }
 
@@ -688,13 +688,13 @@ export function parseTryStatement(state: ParserState, context: Context): Types.T
 // CatchParameter :
 //   BindingIdentifier
 //   BindingPattern
-export function parseCatchClause(state: ParserState, context: Context): any {
+export function parseCatchClause(state: ParserState, context: Context): Types.CatchClause {
   let binding = null;
   nextToken(state, context | Context.AllowRegExp);
   const start = state.startIndex;
   const bindingType = state.token & Token.IsPatternStart ? BindingType.CatchPattern : BindingType.CatchIdentifier;
   if (consumeOpt(state, context, Token.LeftParen)) {
-    binding = parseBindingElement(state, context, bindingType) as any;
+    binding = parseBindingElement(state, context, bindingType);
     consume(state, context | Context.AllowRegExp, Token.RightParen);
   }
   const block = parseBlockStatement(state, context);
@@ -1276,7 +1276,7 @@ export function parseModuleItem(state: ParserState, context: Context): Types.Imp
 //
 // ImportedBinding :
 //   BindingIdentifier
-export function parseImportDeclaration(state: ParserState, context: Context): any {
+export function parseImportDeclaration(state: ParserState, context: Context): Types.ImportDeclaration | any {
   const startIndex = state.startIndex;
 
   nextToken(state, context);
@@ -1380,7 +1380,7 @@ export function parseImportSpecifier(state: ParserState, context: Context): Type
   nextToken(state, context);
 
   if (consumeOpt(state, context, Token.AsKeyword)) {
-    const name = parseIdentifierNameFromValue(state, context, tokenValue, BindingType.AllowLHS, startIndex) as any;
+    const name = parseIdentifierNameFromValue(state, context, tokenValue, BindingType.AllowLHS, startIndex);
     const binding = parseBindingIdentifier(state, context, BindingType.None);
     return finishNode(state, context, startIndex, { type: 'ImportSpecifier', name, binding }, NodeType.ImportSpecifier);
   }
@@ -1423,7 +1423,7 @@ export function parseExportDeclaration(
   let namedBinding: Types.IdentifierName | null = null;
 
   if (consumeOpt(state, context | Context.AllowRegExp, Token.DefaultKeyword)) {
-    let declaration: any;
+    let declaration;
     switch (state.token) {
       case Token.FunctionKeyword:
         declaration = parseFunctionDeclaration(state, context | Context.Default, /* isAsync */ 0, bindingType);
@@ -1588,7 +1588,7 @@ export function parseImportMetaFromModule(
   start: number
 ): Types.ExpressionStatement {
   consume(state, context, Token.MetaKeyword);
-  let expression: any = finishNode(state, context, start, { type: 'ImportMeta' }, NodeType.ImportMeta);
+  let expression = finishNode(state, context, start, { type: 'ImportMeta' }, NodeType.ImportMeta);
   state.assignable = false;
   expression = parseLeftHandSide(state, context, expression, Precedence.Assign, bindingType, state.startIndex);
   consumeSemicolon(state, context);
@@ -1653,7 +1653,7 @@ export function parseAssignmentExpression(
 ): Types.AssignmentExpression | Types.Expression {
   if (!state.assignable)
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidLHS, DiagnosticKind.Error);
-  const operator = KeywordDescTable[state.token & Token.Type] as any;
+  const operator = KeywordDescTable[state.token & Token.Type] as Types.AssignmentOperator;
   nextToken(state, context | Context.AllowRegExp);
   const right = parseExpression(state, context, Precedence.Assign, BindingType.AllowLHS, true, 1, start);
   state.assignable = false;
@@ -1815,25 +1815,15 @@ export function parseMemberExpression(
         { type: 'OptionalExpression', member, chain: parseMemberOrCallChain(state, context) },
         NodeType.OptionalExpression
       );
-    case Token.TemplateTail:
-      const expressionn: any = parseTemplateLiteral(state, context | Context.TaggedTemplate);
-      member = finishNode(
-        state,
-        context,
-        start,
-        { type: 'TaggedTemplate', expression: expressionn, member, literal: [] } as any,
-        NodeType.TaggedTemplate
-      );
-      break;
+
+    /* Tagged template */
     case Token.TemplateCont:
-      const literal: any = parseTemplateExpression(state, context | Context.TaggedTemplate);
-      member = finishNode(
-        state,
-        context,
-        start,
-        { type: 'TaggedTemplate', member, literal, expression: null } as any,
-        NodeType.TaggedTemplate
-      );
+    case Token.TemplateTail:
+      const literal =
+        state.token === Token.TemplateTail
+          ? parseTemplateLiteral(state, context)
+          : parseTemplateExpression(state, context | Context.TaggedTemplate);
+      member = finishNode(state, context, start, { type: 'TaggedTemplate', member, literal }, NodeType.TaggedTemplate);
       break;
   }
   return member;
@@ -1929,7 +1919,7 @@ export function parseMemberOrCallChain(
       );
     } else {
       state.assignable = false;
-      if ((state.token & (Token.Keyword | Token.IsIdentifier | Token.Contextual)) === 0) return chain as any;
+      if ((state.token & (Token.Keyword | Token.IsIdentifier | Token.Contextual)) === 0) return chain;
       computed = false;
       state.assignable = false;
       property = parseIdentifierName(state, context);
@@ -2182,7 +2172,7 @@ export function parseExpression(
       }
 
       if (Precedence.LeftHandSide < minPrec) {
-        return expr as any;
+        return expr;
       }
     }
 
@@ -3178,7 +3168,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
     }
 
     consume(state, context, Token.RightParen);
-    return parseArrowFunction(state, context, [param as any], bindingType, /* isAsync */ 0, start);
+    return parseArrowFunction(state, context, [param as Types.ArrowFormals], bindingType, /* isAsync */ 0, start);
   }
 
   let expression: any;

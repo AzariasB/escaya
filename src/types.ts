@@ -38,28 +38,21 @@ export interface Root {
   end?: number;
 
   /*
-   * An optional linear incrementing id to be used to optionally store
-   * 4 * 4 bytes (32bit for start, stop, col, line) per
-   * node as a blob of binary data on the 'buffer' property on the 'RootNode'.
-   */
-
-  id?: number;
-
-  /*
    * Optionally stores comments as meta-data on adjacent nodes
    */
   comments?: Comment[];
 
-  /**
-   * Optionally track the state on each node upon incremental parsing
-   */
+  /* @internal */
   nodeType?: number;
 
-  parent?: any;
-
+  /* @internal */
   contextFlags?: number;
 
+  /* @internal */
   mutualFlags?: number;
+
+  /* @internal */
+  parent?: any;
 }
 
 /*
@@ -149,7 +142,6 @@ export type Node =
   | ObjectLiteral
   | OptionalExpression
   | PropertyName
-  | TokenNode
   | MemberChain
   | CallChain
   | PrefixUpdateExpression
@@ -274,6 +266,7 @@ export type Statement =
   | TryStatement
   | VariableStatement
   | WhileStatement
+  | Expression
   | WithStatement;
 
 ///////////////
@@ -315,12 +308,14 @@ export interface BindingRestProperty extends Root {
 export interface BindingRestElement extends Root {
   type: 'BindingRestElement';
   argument: BindingIdentifier | BindingPattern;
+  /* @internal */
   parent?: ObjectBindingPattern;
 }
 
 export interface SpreadElement extends Root {
   type: 'SpreadElement';
   argument: AssignmentExpression;
+  /* @internal */
   parent?: ArrayLiteral | CallExpression | NewExpression;
 }
 
@@ -449,6 +444,7 @@ export interface ClassElement extends Root {
   // True if `IsStatic` of ClassElement is true.
   static: boolean;
   method: MethodDefinition;
+  /* @internal */
   parent?: ClassExpression | ClassDeclaration;
 }
 
@@ -473,6 +469,7 @@ export interface EmptyStatement extends Root {
 export interface ExpressionStatement extends Root {
   type: 'ExpressionStatement';
   expression: Expression;
+  /* @internal */
   parent?: Module | Script;
 }
 
@@ -607,6 +604,7 @@ export interface ImportDeclaration extends Root {
   defaultBinding: BindingIdentifier | null;
   namedImports: MissingList | ImportSpecifier[];
   namedBinding: BindingIdentifier | null;
+  /* @internal */
   parent?: Script | Module;
 }
 
@@ -615,6 +613,7 @@ export interface ImportSpecifier extends Root {
   name: IdentifierName | BindingIdentifier;
   // Name preceding "as" keyword (or null when "as" is absent)
   binding: IdentifierName | BindingIdentifier | null;
+  /* @internal */
   parent?: ImportDeclaration;
 }
 
@@ -633,6 +632,7 @@ export interface ExportDeclaration extends Root {
   namedExports: ExportSpecifier[];
   namedBinding: IdentifierName | null;
   fromClause: StringLiteral | null;
+  /* @internal */
   parent?: Script | Module;
 }
 
@@ -640,6 +640,7 @@ export interface ExportSpecifier extends Root {
   type: 'ExportSpecifier';
   name: IdentifierName;
   exportedName: IdentifierName | null;
+  /* @internal */
   parent?: ImportDeclaration;
 }
 
@@ -728,6 +729,7 @@ export interface MethodDefinition extends Root {
   uniqueFormalParameters: MissingList | FormalParameters[];
   name: Expression;
   contents: FunctionBody;
+  /* @internal */
   parent?: ObjectLiteral | ClassElement;
 }
 
@@ -750,6 +752,7 @@ export interface Module extends Program {
 export interface ReturnStatement extends Root {
   type: 'ReturnStatement';
   expression: Expression | null;
+  /* @internal */
   parent?: FunctionBody | ConciseBody;
 }
 
@@ -757,6 +760,8 @@ export interface SuperCall extends Root {
   type: 'SuperCall';
   arguments: Arguments[];
 }
+
+// see: https://tc39.github.io/ecma262/#prod-SuperProperty
 export interface SuperProperty extends Root {
   type: 'SuperProperty';
   expression: Expression | null;
@@ -769,25 +774,25 @@ export interface SwitchStatement extends Root {
   clauses: (DefaultClause | CaseClause)[];
 }
 
-interface ClauseBase extends Root {
+export interface CaseClause extends Root {
+  type: 'CaseClause';
+  expression: Expression;
   statements: Statement[];
+  /* @internal */
   parent?: SwitchStatement;
 }
 
-export interface CaseClause extends ClauseBase {
-  type: 'CaseClause';
-  expression: Expression;
-}
-
-export interface DefaultClause extends ClauseBase {
+export interface DefaultClause extends Root {
   type: 'DefaultClause';
+  statements: Statement[];
+  /* @internal */
+  parent?: SwitchStatement;
 }
 
 export interface TaggedTemplate extends Root {
   type: 'TaggedTemplate';
   member: MemberExpression;
   literal: TemplateLiteral | TemplateExpression;
-  expression: LeftHandSideExpression | null;
 }
 
 export interface TemplateElement extends Root {
@@ -795,17 +800,23 @@ export interface TemplateElement extends Root {
   raw: string;
   value: string;
   expression: Expression | null;
+  /* @internal */
+  parent?: TemplateExpression;
 }
 
 export interface TemplateExpression extends Root {
   type: 'TemplateExpression';
   leafs: TemplateElement[];
+  /* @internal */
+  parent?: ExpressionStatement;
 }
 
 export interface TemplateLiteral extends Root {
   type: 'TemplateLiteral';
   raw: string;
   value: string;
+  /* @internal */
+  parent?: TaggedTemplate | ExpressionStatement;
 }
 
 export interface ThisExpression extends Root {
@@ -831,6 +842,7 @@ export interface CatchClause extends Root {
   type: 'CatchClause';
   binding: BindingPattern | BindingIdentifier | LexicalBinding | null;
   block: BlockStatement;
+  /* @internal */
   parent?: TryStatement;
 }
 
@@ -875,6 +887,7 @@ export interface VariableDeclaration extends Root {
   type: 'VariableDeclaration';
   binding: BindingPattern | BindingIdentifier;
   initializer: Expression | null;
+  /* @internal */
   parent?: VariableStatement | ForDeclaration;
 }
 
@@ -889,12 +902,14 @@ export interface LexicalDeclaration extends Root {
 export interface UniqueFormalParameters extends Root {
   type: 'UniqueFormalParameters';
   leafs: BindingPattern[];
+  /* @internal */
   parent?: ArrowFunction | FunctionDeclaration | FunctionExpression;
 }
 
 export interface FormalParameters extends Root {
   type: 'FormalParameters';
   leafs: MissingList | (FunctionRestParameter | BindingElement)[];
+  /* @internal */
   parent?: ArrowFunction | FunctionDeclaration | FunctionExpression;
 }
 
@@ -904,6 +919,7 @@ export interface BindingElement extends Root {
   type: 'BindingElement';
   binding: BindingPattern | BindingIdentifier;
   initializer: Expression | null;
+  /* @internal */
   parent?: FormalParameters | VariableStatement;
 }
 
@@ -913,6 +929,7 @@ export interface ForBinding extends Root {
   type: 'ForBinding';
   binding: BindingIdentifier | BindingPattern;
   initializer: Expression | null;
+  /* @internal */
   parent?: ForDeclaration;
 }
 
@@ -920,17 +937,20 @@ export interface LexicalBinding extends Root {
   type: 'LexicalBinding';
   binding: BindingIdentifier | BindingPattern;
   initializer: Expression | null;
+  /* @internal */
   parent?: LexicalDeclaration | ForDeclaration;
 }
 
 export interface ObjectBindingBase extends Root {
   properties: (PropertyName | BindingRestElement | BindingIdentifier | MethodDefinition)[];
+  /* @internal */
   parent?: VariableDeclaration | LexicalBinding | BindingPattern;
 }
 
 export interface ObjectBindingPattern extends ObjectBindingBase {
   type: 'ObjectBindingPattern';
   properties: (PropertyName | BindingRestElement | BindingIdentifier | MethodDefinition)[];
+  /* @internal */
   parent?: VariableDeclaration | LexicalBinding | BindingPattern;
 }
 
@@ -953,6 +973,7 @@ export interface ArrayBindingPattern extends Root {
   // The elements of the array literal; a 'Elision' node represents an elision.
   type: 'ArrayBindingPattern';
   leafs: (Elision | AssignmentPattern | BindingRestElement)[];
+  /* @internal */
   parent?: VariableDeclaration | LexicalBinding | BindingPattern | PrimaryExpression;
 }
 
@@ -960,6 +981,7 @@ export interface ArrayAssignmentPattern extends Root {
   // The elements of the array literal; a 'Elision' node represents an elision.
   type: 'ArrayAssignmentPattern';
   leafs: (Elision | AssignmentPattern | AssignmentRestElement)[];
+  /* @internal */
   parent?: VariableDeclaration | LexicalBinding | BindingPattern;
 }
 
@@ -974,15 +996,15 @@ export interface IterationStatement extends Root {
   statement: Statement;
 }
 
-export interface WhileStatement extends Root {
+export interface WhileStatement extends IterationStatement {
   type: 'WhileStatement';
 }
 
-export interface WithStatement extends Root {
+export interface WithStatement extends IterationStatement {
   type: 'WithStatement';
 }
 
-export interface DoWhileStatement extends Root {
+export interface DoWhileStatement extends IterationStatement {
   type: 'DoWhileStatement';
 }
 
@@ -1025,158 +1047,20 @@ export interface CallChain extends CallChainBase {
   arguments: Arguments[] | null;
 }
 
+// NOTE: Too simplify things 'MetaProperty' production have been ignored. Instead
+// 'ImportMeta' have been moved out into it's own production and are now
+// part of the PrimaryExpression
 export interface ImportMeta extends Root {
   type: 'ImportMeta';
 }
 
+// NOTE: See comment above. Also part of the PrimaryExpression for the same reasons
 export interface ImportCall extends Root {
   type: 'ImportCall';
   import: Expression;
 }
 
 /** Incremental */
-
-export type TokenKind =
-  /* Constants/Bindings */
-  | 'identifier'
-  | 'number'
-  | 'bigint'
-  | 'string'
-  | 'regular expression'
-  | 'false'
-  | 'true'
-  | 'null'
-
-  /* Template nodes */
-  | 'template continuation'
-  | 'template end'
-
-  /* Punctuators */
-  | '=>'
-  | '('
-  | '{'
-  | '.'
-  | '...'
-  | '}'
-  | ')'
-  | ';'
-  | ' | '
-  | '['
-  | ']'
-  | ':'
-  | '?'
-  | '??'
-  | '?.'
-
-  /* Update operators */
-  | '++'
-  | '--'
-
-  /* Assign operators */
-  | '='
-  | '<<='
-  | '>>='
-  | '>>>='
-  | '**='
-  | '+='
-  | '-='
-  | '*='
-  | '/='
-  | '%='
-  | '^='
-  | '|='
-  | '&='
-  | '||='
-  | '&&='
-  | '??='
-
-  /* Unary/binary operators */
-  | 'typeof'
-  | 'delete'
-  | 'void'
-  | '!'
-  | '~'
-  | '+'
-  | '-'
-  | 'in'
-  | 'instanceof'
-  | '*'
-  | '%'
-  | '/'
-  | '**'
-  | '&&'
-  | '||'
-  | '==='
-  | '!=='
-  | '=='
-  | '!='
-  | '<='
-  | '>='
-  | '<'
-  | '>'
-  | '<<'
-  | '>>'
-  | '>>>'
-  | '&'
-  | '|'
-  | '^'
-
-  /* Variable declaration kinds */
-  | 'var'
-  | 'let'
-  | 'const'
-
-  /* Other reserved words */
-  | 'break'
-  | 'case'
-  | 'catch'
-  | 'class'
-  | 'continue'
-  | 'debugger'
-  | 'default'
-  | 'do'
-  | 'else'
-  | 'export'
-  | 'extends'
-  | 'finally'
-  | 'for'
-  | 'function'
-  | 'if'
-  | 'import'
-  | 'new'
-  | 'return'
-  | 'super'
-  | 'switch'
-  | 'this'
-  | 'throw'
-  | 'try'
-  | 'while'
-  | 'with'
-
-  /* Strict mode reserved words */
-  | 'implements'
-  | 'interface'
-  | 'package'
-  | 'private'
-  | 'protected'
-  | 'public'
-  | 'static'
-  | 'yield'
-
-  /* Contextual keywords */
-  | 'as'
-  | 'async'
-  | 'await'
-  | 'constructor'
-  | 'get'
-  | 'set'
-  | 'from'
-  | 'of';
-
-// A node that can include single characters, operators and keywords
-export interface TokenNode extends Root {
-  type: TokenKind;
-}
 
 // NodeCursor interface
 export type NodeCursor = void | ((pos: number) => Root | undefined);

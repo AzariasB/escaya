@@ -323,12 +323,11 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: {
+            literal: {
               value: '\n\r',
               raw: '\n\r',
               type: 'TemplateLiteral'
             },
-            literal: [],
             member: {
               name: 'x',
               type: 'IdentifierReference'
@@ -349,7 +348,6 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: null,
             literal: {
               leafs: [
                 {
@@ -398,12 +396,12 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: {
+            literal: {
               value: null,
               raw: '\\u{g',
               type: 'TemplateLiteral'
             },
-            literal: [],
+
             member: {
               name: 'a',
               type: 'IdentifierReference'
@@ -424,12 +422,12 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: {
+            literal: {
               value: null,
               raw: '\\x0G',
               type: 'TemplateLiteral'
             },
-            literal: [],
+
             member: {
               name: 'a',
               type: 'IdentifierReference'
@@ -449,12 +447,12 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: {
+            literal: {
               value: null,
               raw: '\\u0g',
               type: 'TemplateLiteral'
             },
-            literal: [],
+
             member: {
               name: 'a',
               type: 'IdentifierReference'
@@ -475,7 +473,6 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: null,
             literal: {
               leafs: [
                 {
@@ -516,12 +513,12 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: {
+            literal: {
               value: null,
               raw: 'oops \\u{110001}',
               type: 'TemplateLiteral'
             },
-            literal: [],
+
             member: {
               name: 'tag',
               type: 'IdentifierReference'
@@ -541,12 +538,11 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: {
+            literal: {
               value: 'some " quote',
               raw: 'some " quote',
               type: 'TemplateLiteral'
             },
-            literal: [],
             member: {
               name: 'tag',
               type: 'IdentifierReference'
@@ -567,12 +563,11 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: {
+            literal: {
               value: null,
               raw: 'okay \\u{110001}',
               type: 'TemplateLiteral'
             },
-            literal: [],
             member: {
               name: 'a',
               type: 'IdentifierReference'
@@ -593,12 +588,11 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: {
+            literal: {
               value: null,
               raw: 'phew \\u{110001}',
               type: 'TemplateLiteral'
             },
-            literal: [],
             member: {
               name: 'tag',
               type: 'IdentifierReference'
@@ -619,7 +613,6 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: null,
             literal: {
               leafs: [
                 {
@@ -660,12 +653,12 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: {
+            literal: {
               value: null,
               raw: '\\00',
               type: 'TemplateLiteral'
             },
-            literal: [],
+
             member: {
               name: 'tag',
               type: 'IdentifierReference'
@@ -686,12 +679,12 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: {
+            literal: {
               value: null,
               raw: '\\9',
               type: 'TemplateLiteral'
             },
-            literal: [],
+
             member: {
               name: 'a',
               type: 'IdentifierReference'
@@ -744,7 +737,6 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: null,
             literal: {
               leafs: [
                 {
@@ -785,7 +777,6 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: null,
             literal: {
               leafs: [
                 {
@@ -826,12 +817,11 @@ describe('Expressions - Template literal revision', () => {
       leafs: [
         {
           expression: {
-            expression: {
+            literal: {
               value: null,
               raw: '\\u{abcdx}',
               type: 'TemplateLiteral'
             },
-            literal: [],
             member: {
               name: 'a',
               type: 'IdentifierReference'
