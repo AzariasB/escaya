@@ -50,6 +50,33 @@ export enum DiagnosticCode {
   MissingDestructInit,
   ExpectedArrow,
 
+  // Lexer
+  InvalidTrailSurrogate,
+  InvalidUnicodeEscapeSequence,
+  UnicodeOverflow,
+  InvalidHexEscapeSequence,
+  InvalidAstralCharacter,
+  UnterminatedTemplate,
+  UnsupportedUnicodeIdent,
+  TemplateBadEscape,
+  UnterminatedString,
+  StrictOctalEscape,
+  InvalidEightAndNine,
+
+  IdafterNumber,
+  MissingExponent,
+  InvalidBigIntLiteral,
+  UnexpectedIdentNumber,
+  BinarySequenceNoDigits,
+  OctalSequenceNoDigits,
+  HexSequenceNoDigits,
+  BinarySequence,
+  OctalSequence,
+  StrictOctal,
+  UnknownDigit,
+  ContinuousNumericSeparator,
+  TrailingNumericSeparator,
+
   /* Annex B */
   AnnexBB32,
   AnnexBB34

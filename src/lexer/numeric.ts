@@ -1,6 +1,6 @@
 import { Token } from './../ast/token';
 import { Context, ParserState } from '../common';
-import { toHex } from './common';
+import { toHex, fromCodePoint } from './common';
 import { addDiagnostic, addLexerDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
 import { Char } from './char';
@@ -102,7 +102,7 @@ export const leadingZeroChar = [
   /*  92 - \                  */ Char.Unknown,
   /*  93 - ]                  */ Char.Unknown,
   /*  94 - ^                  */ Char.Unknown,
-  /*  95 - _                  */ Char.Unknown,
+  /*  95 - _                  */ Char.Underscore,
   /*  96 - `                  */ Char.Unknown,
   /*  97 - a                  */ Char.LowerA,
   /*  98 - b                  */ Char.LowerB,
@@ -176,6 +176,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
 
       if (AsciiCharTypes[ch] & AsciiCharFlags.OctHexBin) {
         let digits = 0;
+        let allowSeparator: 0 | 1 = 1;
 
         loop: do {
           switch (leadingZeroChar[ch]) {
@@ -199,6 +200,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.LowerB:
             case Char.UpperB:
               if (type === NumberKind.Hex) {
+                allowSeparator = 0;
                 value = value * 0x0010 + toHex(ch);
                 break;
               }
@@ -237,6 +239,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.Zero:
             case Char.One:
               if (type & NumberKind.Binary) {
+                allowSeparator = 0;
                 value = value * 2 + (ch - Char.Zero);
                 break;
               }
@@ -247,6 +250,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.Six:
             case Char.Seven:
               if (type & NumberKind.Octal) {
+                allowSeparator = 0;
                 value = value * 8 + (ch - Char.Zero);
                 break;
               }
@@ -265,6 +269,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.UpperE:
             case Char.UpperF:
               if (type & NumberKind.Hex) {
+                allowSeparator = 0;
                 value = value * 0x0010 + toHex(ch);
                 break;
               }
@@ -277,6 +282,15 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
               );
               break loop;
 
+            // `_`
+            case Char.Underscore:
+              if (allowSeparator === 0) {
+                addLexerDiagnostic(state, context, index, index + 1, DiagnosticCode.ContinuousNumericSeparator);
+                break loop;
+              }
+              index++; // skip invalid chars
+              allowSeparator = 1;
+              break;
             // `n`
             case Char.LowerN:
               state.tokenValue = value;
@@ -287,7 +301,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
           digits++;
           index++;
           ch = source.charCodeAt(index);
-        } while (AsciiCharTypes[ch] & (AsciiCharFlags.Hex | AsciiCharFlags.OctHexBin));
+        } while (AsciiCharTypes[ch] & (AsciiCharFlags.IsSeparator | AsciiCharFlags.Hex | AsciiCharFlags.OctHexBin));
 
         if (AsciiCharTypes[ch] & 0b000000011) {
           addLexerDiagnostic(state, context, index, index, DiagnosticCode.IdafterNumber);
@@ -309,6 +323,10 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
               : // Hex integer literal like sequence without any digits
                 DiagnosticCode.HexSequenceNoDigits
           );
+
+          // We can't avoid this branching if we want to avoid double diagnostics
+        } else if (allowSeparator === 1) {
+          addLexerDiagnostic(state, context, start + 2, index + 1, DiagnosticCode.TrailingNumericSeparator);
         }
 
         state.index = index;
@@ -362,9 +380,9 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
     }
 
     if (
+      digit >= 0 &&
       (AsciiCharTypes[ch] & 0b000000011) === 0 &&
       type !== NumberKind.DecimalWithLeadingZero &&
-      digit >= 0 &&
       ch !== Char.Period
     ) {
       // Most numbers are pure decimal integers without fractional component
@@ -385,7 +403,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
 
   if (ch === Char.LowerN) {
     if (disallowBigInt) {
-      // In 'recovery mode' it's safe to continue to parse as normal.
+      // It's safe to continue to parse as normal in 'recovery mode'
       addLexerDiagnostic(state, context, index, index, DiagnosticCode.InvalidBigIntLiteral);
     }
     state.tokenValue = source.slice(start, index);

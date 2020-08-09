@@ -34,6 +34,39 @@ export interface Diagnostic {
   length: number;
 }
 
+export function addLexerDiagnostic(
+  state: ParserState,
+  context: Context,
+  start: number,
+  end: number,
+  code: DiagnosticCode,
+  ...args: string[]
+): void {
+  let message = diagnosticMap[code];
+
+  if (arguments.length > 4) {
+    message = formatStringFromArgs(message, args);
+  }
+
+  const lastError = lastOrUndefined(state.diagnostics);
+  const length = end - start;
+
+  if ((context & Context.ErrorRecovery) === 0) {
+    throw new SyntaxError(`line:${state.line}, column:${end - start} - ${message}`);
+  }
+
+  if (!lastError || start !== lastError.start) {
+    state.diagnostics.push({
+      kind: DiagnosticKind.Error,
+      source: DiagnosticSource.Lexer,
+      message,
+      code,
+      start,
+      length
+    });
+  }
+}
+
 export function addEarlyDiagnostic(
   state: ParserState,
   context: Context,

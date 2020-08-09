@@ -54,5 +54,27 @@ export const diagnosticMap: {
   [DiagnosticCode.StrictWith]: 'A `with` statements are not allowed in strict mode',
   [DiagnosticCode.MissingDestructInit]: 'A destructuring declaration must have an initializer',
   [DiagnosticCode.InvalidCoalescing]:
-    'Coalescing and logical operators used together in the same expression must be disambiguated with parentheses'
+    'Coalescing and logical operators used together in the same expression must be disambiguated with parentheses',
+  [DiagnosticCode.InvalidTrailSurrogate]: "Invalid lower surrogate '%0'",
+  [DiagnosticCode.InvalidAstralCharacter]: "Invalid astral character '%0'",
+  [DiagnosticCode.InvalidUnicodeEscapeSequence]: 'Invalid Unicode escape sequence',
+  [DiagnosticCode.InvalidHexEscapeSequence]: 'Invalid hexadecimal escape sequence',
+  [DiagnosticCode.UnterminatedTemplate]: 'Unterminated template literal',
+  [DiagnosticCode.UnsupportedUnicodeIdent]: 'Unsupported unicode escape in identifier escapes start',
+  [DiagnosticCode.TemplateBadEscape]: 'Bad escape sequence in untagged template literal',
+  [DiagnosticCode.UnterminatedString]: 'Unterminated string literal',
+  [DiagnosticCode.StrictOctalEscape]: 'Octal escape sequences are not allowed in strict mode',
+  [DiagnosticCode.InvalidEightAndNine]: 'Escapes \\8 or \\9 are not syntactically valid escapes',
+  [DiagnosticCode.IdafterNumber]: 'An identifier or keyword cannot immediately follow a numeric literal',
+  [DiagnosticCode.StrictOctal]: 'Octal literals are not allowed in strict mode',
+  [DiagnosticCode.BinarySequence]: 'Binary integer literal like sequence containing an invalid digit',
+  [DiagnosticCode.OctalSequence]: 'Octal integer literal like sequence containing an invalid digit',
+  [DiagnosticCode.BinarySequenceNoDigits]: 'Binary integer literal like sequence without any digits',
+  [DiagnosticCode.OctalSequenceNoDigits]: 'Octal integer literal like sequence without any digits',
+  [DiagnosticCode.HexSequenceNoDigits]: 'Hex integer literal like sequence without any digits',
+  [DiagnosticCode.MissingExponent]: 'Non-number after exponent indicator',
+  [DiagnosticCode.UnknownDigit]: 'Unknown digit',
+  [DiagnosticCode.InvalidBigIntLiteral]: 'Invalid BigInt syntax',
+  [DiagnosticCode.ContinuousNumericSeparator]: 'Only one underscore is allowed as numeric separator',
+  [DiagnosticCode.TrailingNumericSeparator]: 'Numeric separators are not allowed at the end of numeric literals'
 };
