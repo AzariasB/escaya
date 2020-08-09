@@ -178,20 +178,14 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
         let digits = 0;
         let allowSeparator: 0 | 1 = 1;
 
-        loop: do {
+        do {
           switch (leadingZeroChar[ch]) {
             // `x`, `X`
             case Char.LowerX:
             case Char.UpperX:
               if (type & 0b00001110) {
-                addDiagnostic(
-                  state,
-                  context,
-                  DiagnosticSource.Lexer,
-                  DiagnosticCode.UnexpectedIdentNumber,
-                  DiagnosticKind.Error
-                );
-                break loop;
+                addLexerDiagnostic(state, context, index - 1, index, DiagnosticCode.UnexpectedIdentNumber);
+                break;
               }
               type = NumberKind.Hex;
               break;
@@ -206,14 +200,8 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
               }
 
               if (type & 0b00001100) {
-                addDiagnostic(
-                  state,
-                  context,
-                  DiagnosticSource.Lexer,
-                  DiagnosticCode.UnexpectedIdentNumber,
-                  DiagnosticKind.Error
-                );
-                break loop;
+                addLexerDiagnostic(state, context, index - 1, index, DiagnosticCode.UnexpectedIdentNumber);
+                break;
               }
 
               type = NumberKind.Binary;
@@ -223,14 +211,8 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.LowerO:
             case Char.UpperO:
               if (type & 0b00001110) {
-                addDiagnostic(
-                  state,
-                  context,
-                  DiagnosticSource.Lexer,
-                  DiagnosticCode.UnexpectedIdentNumber,
-                  DiagnosticKind.Error
-                );
-                break loop;
+                addLexerDiagnostic(state, context, index - 1, index, DiagnosticCode.UnexpectedIdentNumber);
+                break;
               }
               type = NumberKind.Octal;
               break;
@@ -240,7 +222,6 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.One:
               if (type & NumberKind.Binary) {
                 allowSeparator = 0;
-
                 value = value * 2 + (ch - Char.Zero);
                 break;
               }
@@ -252,7 +233,6 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.Seven:
               if (type & NumberKind.Octal) {
                 allowSeparator = 0;
-
                 value = value * 8 + (ch - Char.Zero);
                 break;
               }
@@ -272,7 +252,6 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.UpperF:
               if (type & NumberKind.Hex) {
                 allowSeparator = 0;
-
                 value = value * 0x0010 + toHex(ch);
                 break;
               }
@@ -280,10 +259,10 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
                 state,
                 context,
                 index,
-                index,
+                index + 1,
                 type & NumberKind.Binary ? DiagnosticCode.BinarySequence : DiagnosticCode.OctalSequence
               );
-              break loop;
+              break;
 
             // `_`
             case Char.Underscore:
