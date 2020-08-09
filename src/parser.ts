@@ -158,9 +158,9 @@ export function parseStatementList(state: ParserState, context: Context, cb: any
 
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedStatement, DiagnosticKind.Error);
 
-    // We allow regular expressions here for cases like ')=/++!{class'.
-    // For this particular case the first two punctuators are consumed. '/' is on a statement level
-    // and should be parsed as an unterminated regular expression and not as a 'BinaryExpression'.
+    // We allow regular expressions here for cases like ')=/++!{class'. For this particular case the first 
+    // two punctuators are consumed.
+    // '/' in an statement position should be parsed as an unterminated regular expression.
     nextToken(state, context | Context.AllowRegExp);
   }
 
@@ -360,13 +360,12 @@ export function parseTryStatement(state: ParserState, context: Context): TryStat
   const start = state.startIndex;
   // We can't 'optimize' with 'nextToken()' here because of some weird edge cases
   // like 'throw {x} catch', 'throw {x} finally' and 'throw {x} catch finally'.
-  // In this cases we need to reconstruct a malformed 'try statement'and
-  // both 'catch' and 'finally' tokens will be consumed and lead to an invalid
+  // For this cases we need to reconstruct a malformed 'try statement'.
+  // Both 'catch' and 'finally' tokens will be consumed and lead to an invalid
   // 'catch' or 'finally' block that may end in an infinite loop.
   // This also gives us an nice error message in 'normal mode'.
   consume(state, context | Context.AllowRegExp, Token.TryKeyword);
-  // We allow regular expressions here to conform with the ECMA specs. That
-  // again will lead to many weird edge cases like 'try/catch/finally/{'.
+  // Allowing regular expressions here results in some weird cases like 'try/catch/finally/{'.
   // In this particular case the 'try' token is already consumed and the 'block' will not be
   // parsed unless we have an '{'. So in this case we will end up constructing a 'Try statement'
   // with no catch clause. The Regular Expression will be parsed out as an 'BinaryExpression'
