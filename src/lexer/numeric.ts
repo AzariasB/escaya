@@ -177,8 +177,6 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
       if (AsciiCharTypes[ch] & AsciiCharFlags.OctHexBin) {
         let digits = 0;
         let allowSeparator: 0 | 1 = 1;
-        let separatorAllowed = false;
-        let isPreviousTokenSeparator = false;
 
         loop: do {
           switch (leadingZeroChar[ch]) {
@@ -203,7 +201,6 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.UpperB:
               if (type === NumberKind.Hex) {
                 allowSeparator = 0;
-                isPreviousTokenSeparator = false;
                 value = value * 0x0010 + toHex(ch);
                 break;
               }
@@ -243,7 +240,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.One:
               if (type & NumberKind.Binary) {
                 allowSeparator = 0;
-                isPreviousTokenSeparator = false;
+
                 value = value * 2 + (ch - Char.Zero);
                 break;
               }
@@ -255,7 +252,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.Seven:
               if (type & NumberKind.Octal) {
                 allowSeparator = 0;
-                isPreviousTokenSeparator = false;
+
                 value = value * 8 + (ch - Char.Zero);
                 break;
               }
@@ -275,7 +272,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.UpperF:
               if (type & NumberKind.Hex) {
                 allowSeparator = 0;
-                isPreviousTokenSeparator = false;
+
                 value = value * 0x0010 + toHex(ch);
                 break;
               }
@@ -291,8 +288,9 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             // `_`
             case Char.Underscore:
               if (allowSeparator === 0) {
-                // For cases like '0b1__2' we need to consume '__' so we can correctly parse out two
-                // numeric literal - '1' - and '2'. '0b' and '__' are invalid characters and should
+                // We need to consume '__' for cases like '0b1__2' so we can correctly parse out two
+                // numeric literal - '1' - and '2'.
+                // '0b' and '__' are seen as invalid characters and should
                 // only be consumed.
                 if (state.source.charCodeAt(index + 1) === Char.Underscore) {
                   addLexerDiagnostic(state, context, index, index + 1, DiagnosticCode.ContinuousNumericSeparator);
