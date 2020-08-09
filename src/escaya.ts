@@ -1,71 +1,49 @@
-import * as Types from './types';
-import { Context, Flags, RootNode } from './common';
-import { parseModuleItem, parseStatementListItem, parseSource } from './parser';
-import { parseInRecoveryMode } from './recovery';
-import { parseInIncrementalMode } from './incremental';
-import { reportDiagnostics } from './reporter/reporter';
-
-/**
- * The parser options.
- */
-export interface Options {
-  // Enable stage 3 support (ESNext)
-  next?: boolean;
-  // Disable web compatibility
-  disableWebCompat?: boolean;
-  // Enable line/column location information start and end offsets to each node
-  loc?: boolean;
-  // Allow return in the global scope
-  globalReturn?: boolean;
-  // Enable implied strict mode
-  impliedStrict?: boolean;
-  // Allow parsing in module goal in error recovery / incremental
-  module?: boolean;
-}
+import { Context } from './common';
+import { RootNode } from './ast/root-node';
+import { Script } from './ast/script-node';
+import { Module } from './ast/module-node';
+import { TextChangeRange } from './types';
+import { parseInNormalMode, parseInRecoveryMode, parseInIncrementalMode, Options } from './core';
+import { Dictionary } from './dictionary/dictionary-map';
 
 /**
  * Parse a script, optionally with various options.
  */
-export function parseScript(source: string, options?: Options): Types.Script {
-  return parseSource(source, Context.Empty, parseStatementListItem, options) as Types.Script;
+export function parseScript(source: string, options?: Options): Script {
+  return parseInNormalMode(source, Context.Empty, options) as Script;
 }
 
 /**
- * Parse a module or script, optionally with various options.
+ * Parse a module, optionally with various options.
  */
-export function parseModule(source: string, options?: Options): Types.Module {
-  return parseSource(
-    source,
-    Context.Strict | Context.Module | Context.ImportMeta,
-    parseModuleItem,
-    options
-  ) as Types.Module;
+export function parseModule(source: string, options?: Options): Module {
+  return parseInNormalMode(source, Context.Strict | Context.Module | Context.ImportMeta, options) as Module;
 }
 
 /**
- * Parse a module or script, optionally with various options in reovery mode
+ * Parse a script, optionally with various options and custom AST.
  */
-export function recovery(source: string, filename: string, options?: Options): RootNode {
-  return parseInRecoveryMode(source, filename, Context.ErrorRecovery, Flags.Empty, undefined, options);
+export function parseCustomScript(source: string, dictionary: Dictionary, options?: Options): Script {
+  return parseInNormalMode(source, Context.Empty, options, dictionary) as Script;
 }
 
 /**
- * Incrementally update a module or script in recovery mode
+ * Parse a module, optionally with various options and custom AST.
  */
-export function update(
-  root: RootNode,
-  text: string,
-  filename: string,
-  sourceChangeRange: Types.TextChangeRange
-): RootNode {
-  return parseInIncrementalMode(root, text, filename, sourceChangeRange);
+export function parseCustomModule(source: string, dictionary: Dictionary, options?: Options): Module {
+  return parseInNormalMode(source, 134218496, options, dictionary) as Module;
 }
 
 /**
- * Reports diagnostics
+ * Parse a module or script in recovery mode, optionally with various options.
  */
-export function report(root: RootNode): void {
-  return reportDiagnostics(root);
+export function recovery(text: string, fileName: string, options?: Options): RootNode {
+  return parseInRecoveryMode(text, fileName, Context.Empty, options);
 }
 
-export const version = '0.0.10';
+/**
+ * Incremental update a module or script.
+ */
+export function update(text: string, fileName: string, root: RootNode, textChangeRange: TextChangeRange): RootNode {
+  return parseInIncrementalMode(text, fileName, root, textChangeRange);
+}

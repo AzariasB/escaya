@@ -1,0 +1,718 @@
+# 12 ECMAScript Language: Expressions
+
+```js
+interface Expression <: SyntaxNode { }
+```
+
+## 12.1 Identifiers
+
+```js
+interface IdentifierName <: Expression {
+    type: 'IdentifierName';
+    name: string;
+}
+```
+
+```js
+interface IdentifierReference <: Expression {
+    type: 'IdentifierReference';
+    name: string;
+}
+```
+
+```js
+interface BindingIdentifier <: Expression {
+    type: 'BindingIdentifier';
+    name: string;
+}
+```
+
+```js
+interface LabelIdentifier <: Expression {
+    type: 'LabelIdentifier';
+    name: string;
+}
+```
+## 12.2.4 Literals
+
+### NumericLiteral
+
+```js
+interface NumericLiteral <: Expression {
+    type: 'NumericLiteral';
+    value: number;
+}
+```
+
+### BigIntLiteral
+
+```js
+interface BigIntLiteral <: Expression {
+    type: 'BigIntLiteral';
+    value: number | null;
+}
+```
+
+### BooleanLiteral
+
+```js
+interface BooleanLiteral <: Expression {
+    type: 'BooleanLiteral';
+    value: boolean;
+}
+```
+
+### TemplateLiteral
+
+```js
+interface TemplateLiteral <: Expression {
+    raw: string;
+    value: string;
+}
+```
+
+### NullLiteral
+
+```js
+interface NullLiteral <: Expression {
+    type: 'NullLiteral';
+    value: null;
+}
+```
+
+### StringLiteral
+
+```js
+interface StringLiteral <: Expression {
+    type: 'StringLiteral';
+    value: string;
+}
+```
+
+### RegExpFlags
+
+```js
+enum RegExpFlags { 'g' | 'i' | 'm' | 'u' | 's' | 'y'; }
+```
+
+### RegularExpressionLiteral
+
+```js
+interface RegularExpressionLiteral <: Expression {
+    type: 'RegularExpressionLiteral';
+    pattern: string;
+    flag: RegExpFlags;
+}
+```
+
+## 12.16 Comma Operator
+
+```js
+interface CommaOperator  <: Expression {
+    type: 'CommaOperator';
+    expressions: [ Expression ];
+}
+```
+
+A sequence expression, i.e., a comma-separated sequence of expressions.
+
+
+## 12.2 Primary Expression and others
+
+### ThisExpression
+
+```js
+interface ThisExpression <: Expression {
+    type: 'ThisExpression';
+}
+```
+### ArrayLiteral
+
+```js
+interface ArrayLiteral <: Expression {
+    type: 'IdentifierReference';
+    elements: [ Elison | SpreadElement | Expression ];
+}
+```
+
+### ArrowFunction
+
+```js
+interface ArrowFunction <: Expression {
+    type: 'ArrowFunction';
+    params: [ BindingIdentifier | BindingRestElement | ArrayBindingPattern | ObjectBindingPattern ];
+}
+```
+
+### AssignmentElement
+
+```js
+interface AssignmentElement <: Expression {
+    type: 'AssignmentElement';
+    left: AssignmentPattern | BindingIdentifier;
+    right: Expression | null;
+}
+```
+### AssignmentOperator
+
+```js
+
+enum AssignmentOperator {
+    '=',
+    '+=',
+    '-=',
+    '*=',
+    '/=',
+    '%=',
+    '<<=',
+    '>>=',
+    '>>>=',
+    '|=',
+    '^=',
+    '&='
+}
+```
+
+### LogicalAssignmentOperator
+
+```js
+enum LogicalAssignmentOperator {
+    '||=',
+    '&&=',
+    '??='
+}
+```
+
+### AssignmentExpression
+
+```js
+interface AssignmentElement <: Expression {
+    type: 'AssignmentElement';
+    left: Expression;
+    operator: AssignmentOperator | LogicalAssignmentOperator;
+    right: Expression;
+}
+```
+
+### AssignmentRestElement
+
+```js
+interface AssignmentRestElement <: Expression {
+    type: 'AssignmentRestElement';
+    argument: Expression;
+}
+```
+
+### AwaitExpression
+
+```js
+interface AwaitExpression <: Expression {
+    type: 'AwaitExpression';
+    argument: Expression;
+}
+```
+
+### BinaryOperator
+
+```js
+enum BinaryOperator {
+    '==' ,
+    '!=',
+    '===',
+    '!==',
+    '<',
+    '<=',
+    '>',
+    '>=',
+    '<<',
+    '>>',
+    '>>>',
+    '+',
+    '-',
+    '*',
+    '/',
+    '%',
+    '|',
+    '^',
+    '&',
+    'in',
+    'instanceof'
+}
+```
+
+### BinaryExpression
+
+```js
+interface BinaryExpression <: Expression {
+    type: 'BinaryExpression';
+    left: Expression;
+    operator: BinaryOperator
+    right: Expression;
+}
+```
+
+### BindingElement
+
+```js
+interface BindingElement <: Expression {
+    type: 'BindingElement';
+    key: PropertyKey;
+    value: BindingElement | Expression;
+}
+```
+
+
+### BindingRestElement
+
+```js
+interface BindingRestElement <: Expression {
+    type: 'BindingRestElement';
+    argument: BindingPattern | BindingIdentifier;
+}
+```
+
+### BindingRestProperty
+
+```js
+interface BindingRestProperty <: Expression {
+    type: 'BindingRestProperty';
+    argument: BindingIdentifier;
+}
+```
+
+### CallExpression
+
+```js
+interface CallExpression  <: Expression {
+    type: 'CallExpression';
+    expression: Expression;
+    arguments: [ AssignmentRestElement | Expression ];
+}
+```
+
+### ClassExpression
+
+```js
+interface ClassExpression <: Expression {
+    type: 'ClassExpression';
+    name: BindingIdentifier | null;
+    heritage: Expression | null;
+    elements: [ ClassElement ];
+}
+```
+
+See [14.6 Class Definitions](https://tc39.es/ecma262/#sec-class-definitions)
+
+
+### ClassElement
+
+```js
+interface ClassElement <: Expression {
+    type: 'ClassElement';
+    static: boolean;
+    method: MethodDefinition;
+}
+```
+The `static` boolean is true if `static` of ClassElement is true.
+
+### Semicolon
+
+```js
+interface Semicolon <: Expression {
+    type: 'Semicolon';
+}
+
+```
+This node is part of the `ClassElement` production. See[`14.6 Class Definitions`](https://tc39.es/ecma262/#prod-ClassElement).
+
+
+### ComputedPropertyName
+
+```js
+interface ComputedPropertyName <: Expression {
+    type: 'ComputedPropertyName';
+    expression: Expression;
+}
+```
+
+### ConciseBody
+
+```js
+interface ConciseBody <: Expression {
+    type: 'ConciseBody';
+    expression: Expression;
+}
+```
+
+### ConditionalExpression
+
+```js
+interface ConditionalExpression  <: Expression {
+    type: 'ConditionalExpression';
+    shortCircuit: Expression;
+    consequent: Expression;
+    alternate: Expression;
+}
+```
+
+For simplicity the `ShortCircuitExpression` have been merged with `ConditionalExpression`.
+However. The `shortCircuit` property should start with `BinaryExpression`, and it's precedence
+value should start with `|` - right above  `&&`, `||` and `??`.
+
+
+### CoverInitializedName
+
+```js
+interface CoverInitializedName <: Expression {
+    type: 'CoverInitializedName';
+    left: Expression | IdentifierName | null;
+    right: Expression;
+}
+```
+ Use of this node should automatically force an grammar error to appear in actual object initializer.
+
+### Elison
+
+```js
+interface Elison <: Expression {
+    type: 'Elison';
+}
+```
+
+Used to represent an splice array in [ArrayLiteral](https://tc39.es/ecma262/#prod-ArrayLiteral)
+
+
+### FunctionBody
+
+```js
+interface FunctionBody <: Expression {
+    type: 'FunctionBody';
+    directives: [ string ];
+    leafs: [ Statement ];
+}
+```
+
+### FunctionExpression
+
+```js
+interface FunctionExpression <: Expression {
+    type: 'FunctionExpression';
+    argument: Expression;
+    name: BindingIdentifier | null;
+    generator: boolean;
+    async: boolean;
+    params: [ BindingIdentifier | BindingElement | BindingRestElement ];
+    contents: FunctionBody;
+}
+```
+
+ A `BindingIdentifier` without an initializer represent the `SingleNameBinding` mentioned in the specs.
+
+
+### FunctionRestParameter
+
+```js
+interface FunctionRestParameter <: Expression {
+    type: 'FunctionRestParameter';
+    argument: BindingIdentifier | ArrayBindingPattern | ObjectBindingPattern;
+}
+```
+
+### ImportCall
+
+```js
+interface ImportCall <: Expression {
+    type: 'ImportCall';
+    import: Expression;
+}
+```
+
+### ImportMeta
+
+```js
+interface ImportMeta <: Expression {
+    type: 'ImportMeta';
+}
+```
+
+### MemberExpression
+
+```js
+interface MemberExpression <: Expression {
+    type: 'MemberExpression';
+    member: Expression | OptionalExpression;
+    expression: Expression;
+    computed: boolean;
+}
+```
+
+### MethodDefinition
+
+```js
+interface MethodDefinition <: Expression {
+    type: 'MethodDefinition';
+    async: boolean;
+    generator: boolean;
+    propertySetParameterList: [ BindingIdentifier | BindingElement ];
+    uniqueFormalParameters: [ BindingIdentifier | BindingElement | BindingRestElement ];
+    name: Expression | IdentifierName;
+    contents: FunctionBody;
+}
+```
+
+A getter method should neither be a `uniqueFormalParameters` or `propertySetParameterList`.
+
+
+### NewExpression
+
+```js
+interface NewExpression <: Expression {
+    type: 'NewExpression';
+    expression: Expression;
+    arguments: [ AssignmentRestElement | Expression  ];
+}
+```
+
+### NewTarget
+
+```js
+interface NewTarget <: Expression {
+    type: 'NewTarget';
+}
+```
+
+### SpreadElement
+
+```js
+interface SpreadElement <: Expression {
+    type: 'SpreadElement';
+    argument: Expression;
+}
+```
+
+### SpreadProperty
+
+```js
+interface SpreadProperty <: Expression {
+    type: 'SpreadProperty';
+    argument: Expression;
+}
+```
+This node does not exist in the specs. It's created to simplify a few things
+
+
+### SuperProperty
+
+```js
+interface SuperProperty <: Expression {
+    type: 'SuperProperty';
+    name: IdentifierName | null;
+    expression: Expression | null;
+}
+```
+
+### SuperCall
+
+```js
+interface SuperCall <: Expression {
+    type: 'SuperCall';
+    arguments: [ Arguments ];
+}
+```
+
+
+### TaggedTemplate
+
+```js
+interface TaggedTemplate <: Expression {
+    type: 'TaggedTemplate';
+    member: MemberExpression;
+    literal: TemplateLiteral | TemplateExpression;
+}
+```
+
+### TemplateElement
+
+```js
+interface TemplateElement <: Expression {
+    type: 'TemplateElement';
+    raw: string;
+    value: string;
+    expression: Expression | null;
+}
+```
+In EScaya `raw` and `value` has been separated in an attempt to to be `JSON` friendly. It is not in
+it's own object as in `ESTree`.
+
+### TemplateExpression
+
+```js
+interface TemplateExpression <: Expression {
+    type: 'TemplateExpression';
+    elements: [ TemplateElement ];
+}
+```
+
+### UnaryOperator
+
+```js
+  enum UnaryOperator {
+    '+',
+    '-',
+    '!',
+    '~',
+    'delete',
+    'void',
+    'typeof'
+  }
+```
+
+### UnaryExpression
+
+```js
+interface UnaryExpression <: Expression {
+    type: 'UnaryExpression';
+    operator: UnaryOperator;
+    operand: Expression;
+}
+```
+
+### YieldExpression
+
+```js
+interface YieldExpression <: Expression {
+    type: 'YieldExpression';
+    delegate: boolean;
+    argument: Expression | null;
+}
+```
+
+### ParenthesizedExpression
+
+```js
+interface ParenthesizedExpression <: Expression {
+    type: 'ParenthesizedExpression';
+    expression: [ Expression ];
+}
+```
+
+### OptionalExpression
+
+```js
+interface OptionalExpression <: Expression {
+    type: 'OptionalExpression';
+    member: Expression;
+    chain: OptionalChain;
+}
+```
+
+See [12.3 Left-Hand-Side Expressions - OptionalExpression](https://tc39.es/ecma262/#prod-OptionalExpression).
+
+For simplicity
+
+### OptionalChain
+
+```js
+interface OptionalChain <: Expression {
+    type: 'OptionalChain';
+    chain: MemberChain | CallChain | null;
+}
+```
+
+### MemberChain
+
+```js
+interface MemberChain <: Expression {
+    type: 'MemberChain';
+    chain: MemberChain | CallChain | null;
+    property: Expression | IdentifierName | null;
+    computed: boolean;
+}
+```
+
+### CallChain
+
+```js
+interface CallChain <: Expression {
+    type: 'CallChain';
+    chain: MemberChain | CallChain | null;
+    arguments: [ Expression ] | null;
+}
+```
+
+### PropertyKey
+
+```js
+
+enum PropertyKey {
+    IdentifierName | NumericLiteral | BigIntLiteral | StringLiteral | ComputedPropertyName
+}
+```
+
+### PropertyName
+
+```js
+interface PropertyName <: Expression {
+    type: 'PropertyName';
+    key: PropertyKey;
+    value: Expression;
+}
+```
+
+### UnaryOperator
+
+```js
+  enum UpdateOp {
+    '++',
+    '--'
+  }
+```
+
+### PrefixUpdateExpression
+
+```js
+interface PrefixUpdateExpression <: Expression {
+    type: 'PrefixUpdateExpression';
+    operator: UpdateOp;
+    operand: Expression;
+}
+```
+
+### PostfixUpdateExpression
+
+```js
+interface PostfixUpdateExpression <: Expression {
+    type: 'PrefixUpdateExpression';
+    operator: UpdateOp;
+    operand: Expression;
+}
+```
+
+### ObjectLiteral
+
+```js
+interface ObjectLiteral <: Expression {
+    type: 'ObjectLiteral';
+    properties: [ PropertyDefinition | MethodDefinition | SpreadProperty | CoverInitializedName | Expression ];
+}
+```
+
+An object literal.
+
+### ObjectBindingPattern
+
+```js
+interface ObjectBindingPattern <: Expression {
+    type: 'ObjectBindingPattern';
+    properties: [ PropertyName | BindingElement | BindingRestProperty | BindingIdentifier ];
+}
+```
+
+### ObjectAssignmentPattern
+
+```js
+interface ObjectAssignmentPattern <: Expression {
+    type: 'ObjectAssignmentPattern';
+    properties: [ PropertyName | AssignmentElement | AssignmentRestElement ];
+}
+```
