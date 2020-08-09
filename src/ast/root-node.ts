@@ -27,7 +27,7 @@ export function createRootNode(
   leafs: ImportExport[],
   text: string,
   fileName: string,
-  diagnostics: Diagnostic[],
+  diagnostics: Diagnostic[]
 ): RootNode {
   return {
     type: 'RootNode',
