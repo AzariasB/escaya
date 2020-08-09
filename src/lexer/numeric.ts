@@ -1,7 +1,7 @@
 import { Token } from './../ast/token';
 import { Context, ParserState } from '../common';
 import { toHex } from './common';
-import { addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
+import { addDiagnostic, addLexerDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
 import { Char } from './char';
 import { AsciiCharFlags, AsciiCharTypes } from './asciiChar';
@@ -140,6 +140,7 @@ export const leadingZeroChar = [
 export function scanNumber(state: ParserState, context: Context, ch: number, isFloat: boolean): Token {
   state.index -= 1;
   const start = state.index;
+
   const enum NumberKind {
     None = 0,
     Decimal = 1 << 0,
@@ -155,12 +156,13 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
   let type = NumberKind.Decimal;
   let disallowBigInt = false;
   let source = state.source;
+  let index = state.index;
 
-  ch = state.source.charCodeAt(state.index);
+  ch = state.source.charCodeAt(index);
 
   if (isFloat) {
     do {
-      ch = source.charCodeAt(++state.index);
+      ch = source.charCodeAt(++index);
     } while (ch <= Char.Nine && ch >= Char.Zero);
 
     disallowBigInt = true;
@@ -168,14 +170,14 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
     // Zero digits - '0' - is structured as an optimized finite state machine
     // and does a quick scan for a hexadecimal, binary, octal or implicit octal
     if (ch === Char.Zero) {
-      state.index++; // skips '0'
+      index++; // skips '0'
 
-      ch = source.charCodeAt(state.index);
+      ch = source.charCodeAt(index);
 
       if (AsciiCharTypes[ch] & AsciiCharFlags.OctHexBin) {
         let digits = 0;
 
-        do {
+        loop: do {
           switch (leadingZeroChar[ch]) {
             // `x`, `X`
             case Char.LowerX:
@@ -188,6 +190,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
                   DiagnosticCode.UnexpectedIdentNumber,
                   DiagnosticKind.Error
                 );
+                break loop;
               }
               type = NumberKind.Hex;
               break;
@@ -208,6 +211,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
                   DiagnosticCode.UnexpectedIdentNumber,
                   DiagnosticKind.Error
                 );
+                break loop;
               }
 
               type = NumberKind.Binary;
@@ -224,6 +228,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
                   DiagnosticCode.UnexpectedIdentNumber,
                   DiagnosticKind.Error
                 );
+                break loop;
               }
               type = NumberKind.Octal;
               break;
@@ -263,35 +268,38 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
                 value = value * 0x0010 + toHex(ch);
                 break;
               }
-              addDiagnostic(
+              addLexerDiagnostic(
                 state,
                 context,
-                DiagnosticSource.Lexer,
-                type === NumberKind.Binary ? DiagnosticCode.BinarySequence : DiagnosticCode.OctalSequence,
-                DiagnosticKind.Error
+                index,
+                index,
+                type & NumberKind.Binary ? DiagnosticCode.BinarySequence : DiagnosticCode.OctalSequence
               );
+              break loop;
 
             // `n`
             case Char.LowerN:
               state.tokenValue = value;
-              state.index++;
+              state.index = index + 1;
               return Token.BigIntLiteral;
           }
 
           digits++;
-          state.index++;
-          ch = source.charCodeAt(state.index);
+          index++;
+          ch = source.charCodeAt(index);
         } while (AsciiCharTypes[ch] & (AsciiCharFlags.Hex | AsciiCharFlags.OctHexBin));
 
         if (AsciiCharTypes[ch] & 0b000000011) {
-          addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.IdafterNumber, DiagnosticKind.Error);
+          addLexerDiagnostic(state, context, index, index, DiagnosticCode.IdafterNumber);
+          index++; // skip invalid chars
         }
 
         if (type & 0b00001110 && digits <= 1) {
-          addDiagnostic(
+          addLexerDiagnostic(
             state,
             context,
-            DiagnosticSource.Lexer,
+            index - 1,
+            index,
             type & NumberKind.Binary
               ? // Binary integer literal like sequence without any digits
                 DiagnosticCode.BinarySequenceNoDigits
@@ -299,11 +307,11 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
               ? // Octal integer literal like sequence without any digits
                 DiagnosticCode.OctalSequenceNoDigits
               : // Hex integer literal like sequence without any digits
-                DiagnosticCode.HexSequenceNoDigits,
-            DiagnosticKind.Error
+                DiagnosticCode.HexSequenceNoDigits
           );
         }
 
+        state.index = index;
         state.tokenValue = value;
         return Token.NumericLiteral;
       }
@@ -312,7 +320,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
       if (ch >= Char.Zero && ch <= Char.Eight) {
         // Octal integer literals are not permitted in strict mode code
         if (context & Context.Strict) {
-          addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.StrictOctal, DiagnosticKind.Error);
+          addLexerDiagnostic(state, context, start, index, DiagnosticCode.StrictOctal);
         }
 
         // BigInt suffix is invalid in non-octal decimal integer literal,
@@ -324,7 +332,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
         do {
           value = value * 8 + (ch - Char.Zero);
 
-          ch = source.charCodeAt(++state.index);
+          ch = source.charCodeAt(++index);
 
           if (ch >= Char.Eight) {
             type = NumberKind.DecimalWithLeadingZero;
@@ -334,16 +342,11 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
 
         // BigInt suffix is disallowed in legacy octal integer literal
         if (ch === Char.LowerN) {
-          addDiagnostic(
-            state,
-            context,
-            DiagnosticSource.Lexer,
-            DiagnosticCode.InvalidBigIntLiteral,
-            DiagnosticKind.Error
-          );
+          addLexerDiagnostic(state, context, index, index, DiagnosticCode.InvalidBigIntLiteral);
         }
 
         if (type === NumberKind.ImplicitOctal) {
+          state.index = index;
           state.tokenValue = value;
           return Token.NumericLiteral;
         }
@@ -354,7 +357,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
 
     while (ch <= Char.Nine && ch >= Char.Zero) {
       value = value * 10 + (ch - Char.Zero);
-      ch = source.charCodeAt(++state.index);
+      ch = source.charCodeAt(++index);
       --digit;
     }
 
@@ -367,53 +370,61 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
       // Most numbers are pure decimal integers without fractional component
       // or exponential notation - handle that with optimized code
       state.tokenValue = value;
+      state.index = index;
       return Token.NumericLiteral;
     }
 
     if (ch === Char.Period) {
       disallowBigInt = true;
-      ch = source.charCodeAt(++state.index);
+      ch = source.charCodeAt(++index);
       while (ch <= Char.Nine && ch >= Char.Zero) {
-        ch = source.charCodeAt(++state.index);
+        ch = source.charCodeAt(++index);
       }
     }
   }
 
   if (ch === Char.LowerN) {
     if (disallowBigInt) {
-      addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidBigIntLiteral, DiagnosticKind.Error);
+      // In 'recovery mode' it's safe to continue to parse as normal.
+      addLexerDiagnostic(state, context, index, index, DiagnosticCode.InvalidBigIntLiteral);
     }
-    state.tokenValue = source.slice(start, state.index);
-    state.index++;
+    state.tokenValue = source.slice(start, index);
+    state.index = index + 1; // skips: 'n'
     return Token.BigIntLiteral;
   }
 
   if ((ch | 32) === Char.LowerE) {
-    state.index++;
-    ch = source.charCodeAt(state.index);
+    index++;
+    ch = source.charCodeAt(index);
 
     // '-', '+'
     if (ch === Char.Plus || ch === Char.Hyphen) {
-      state.index++;
-      ch = source.charCodeAt(state.index);
+      index++;
+      ch = source.charCodeAt(index);
     }
     let digits = 0;
 
     while (ch <= Char.Nine && ch >= Char.Zero) {
-      ch = source.charCodeAt(++state.index);
+      ch = source.charCodeAt(++index);
       digits++;
     }
     if (digits === 0) {
-      addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.MissingExponent, DiagnosticKind.Error);
+      addLexerDiagnostic(state, context, index, index, DiagnosticCode.MissingExponent);
+      // For cases like '1e!', '1e€' etc we do a 'index + 1' so we can consume the
+      // invalid char. If we do it this way, we will avoid parsing out an invalid
+      // 'UnaryExpression for cases like '1e!' and for this last case - '1e€', the '€'
+      // will be consumed anyway and never seen again.
+      index++;
     }
   }
   // https://tc39.github.io/ecma262/#sec-literals-numeric-literals
   // The SourceCharacter immediately following a NumericLiteral must not be an IdentifierStart or DecimalDigit.
   // For example : 3in is an error and not the two input elements 3 and in
   if ((AsciiCharTypes[ch] & 0b00000000000000000000000000000011) > 0) {
-    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.IdafterNumber, DiagnosticKind.Error);
+    addLexerDiagnostic(state, context, index, index, DiagnosticCode.IdafterNumber);
   }
-  state.tokenValue = parseFloat(source.slice(start, state.index));
 
+  state.index = index;
+  state.tokenValue = parseFloat(source.slice(start, index));
   return Token.NumericLiteral;
 }
