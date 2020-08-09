@@ -177,6 +177,8 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
       if (AsciiCharTypes[ch] & AsciiCharFlags.OctHexBin) {
         let digits = 0;
         let allowSeparator: 0 | 1 = 1;
+        let separatorAllowed = false;
+        let isPreviousTokenSeparator = false;
 
         loop: do {
           switch (leadingZeroChar[ch]) {
@@ -201,6 +203,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.UpperB:
               if (type === NumberKind.Hex) {
                 allowSeparator = 0;
+                isPreviousTokenSeparator = false;
                 value = value * 0x0010 + toHex(ch);
                 break;
               }
@@ -240,6 +243,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.One:
               if (type & NumberKind.Binary) {
                 allowSeparator = 0;
+                isPreviousTokenSeparator = false;
                 value = value * 2 + (ch - Char.Zero);
                 break;
               }
@@ -251,6 +255,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.Seven:
               if (type & NumberKind.Octal) {
                 allowSeparator = 0;
+                isPreviousTokenSeparator = false;
                 value = value * 8 + (ch - Char.Zero);
                 break;
               }
@@ -270,6 +275,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.UpperF:
               if (type & NumberKind.Hex) {
                 allowSeparator = 0;
+                isPreviousTokenSeparator = false;
                 value = value * 0x0010 + toHex(ch);
                 break;
               }
@@ -285,10 +291,17 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             // `_`
             case Char.Underscore:
               if (allowSeparator === 0) {
-                addLexerDiagnostic(state, context, index, index + 1, DiagnosticCode.ContinuousNumericSeparator);
-                break loop;
+                // For cases like '0b1__2' we need to consume '__' so we can correctly parse out two
+                // numeric literal - '1' - and '2'. '0b' and '__' are invalid characters and should
+                // only be consumed.
+                if (state.source.charCodeAt(index + 1) === Char.Underscore) {
+                  addLexerDiagnostic(state, context, index, index + 1, DiagnosticCode.ContinuousNumericSeparator);
+                  state.index += 5;
+                  state.tokenValue = value;
+                  return Token.NumericLiteral;
+                }
+                addLexerDiagnostic(state, context, index, index + 1, DiagnosticCode.SeparatorsDisallowed);
               }
-              index++; // skip invalid chars
               allowSeparator = 1;
               break;
             // `n`
@@ -324,8 +337,12 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
                 DiagnosticCode.HexSequenceNoDigits
           );
 
-          // We can't avoid this branching if we want to avoid double diagnostics
+          // We can't avoid this branching if we want to avoid double diagnostics, or
+          // we can but it will require use of 2x 'charCodeAt' and some unnecessary
+          // property / meber access.
         } else if (allowSeparator === 1) {
+          // It's more performance and memory friendly to do a 'start + 2' here rather than
+          // than to give the 'start' variable a new value.
           addLexerDiagnostic(state, context, start + 2, index + 1, DiagnosticCode.TrailingNumericSeparator);
         }
 
@@ -357,6 +374,10 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             break;
           }
         } while (ch >= Char.Zero && ch <= Char.Nine);
+
+        if (ch === Char.Underscore) {
+          addLexerDiagnostic(state, context, start + 1, index, DiagnosticCode.UnderscoreAfterZero);
+        }
 
         // BigInt suffix is disallowed in legacy octal integer literal
         if (ch === Char.LowerN) {
