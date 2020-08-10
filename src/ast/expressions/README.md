@@ -261,13 +261,30 @@ interface BindingElement <: Expression {
 }
 ```
 
-
 ### BindingRestElement
 
 ```js
 interface BindingRestElement <: Expression {
     type: 'BindingRestElement';
     argument: ObjectBindingPattern | ArrayBindingPattern | BindingIdentifier;
+}
+```
+
+### ArrayBindingPattern
+
+```js
+interface ArrayBindingPattern <: Expression {
+    type: 'ArrayBindingPattern';
+    elements: [ Elison | BindingRestElement | BindingElement ];
+}
+```
+
+### ArrayAssignmentPattern
+
+```js
+interface ArrayAssignmentPattern <: Expression {
+    type: 'ArrayAssignmentPattern';
+    elements: [ Elison | AssignmentRestElement | AssignmentElement ];
 }
 ```
 
@@ -407,16 +424,6 @@ interface FunctionExpression <: Expression {
 ```
 
  A `BindingIdentifier` without an initializer represent the `SingleNameBinding` mentioned in the specs.
-
-
-### FunctionRestParameter
-
-```js
-interface FunctionRestParameter <: Expression {
-    type: 'FunctionRestParameter';
-    argument: BindingIdentifier | ArrayBindingPattern | ObjectBindingPattern;
-}
-```
 
 ### ImportCall
 

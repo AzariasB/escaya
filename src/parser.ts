@@ -20,11 +20,10 @@ import { Statement, CaseBlock } from './ast/statements/index';
 import { RegularExpressionLiteral } from './ast/expressions/regular-expression';
 import { YieldExpression } from './ast/expressions/yield-expr';
 import { NewTarget } from './ast/expressions/new-target';
-import { FunctionRestParameter } from './ast/expressions/function-rest-parameter';
 import { AssignmentElement } from './ast/expressions/assignment-element';
 import { Expression, Parameter, BindingPattern, LeftHandSideExpression } from './ast/expressions/index';
 import { parseBlockElements, parseBindingElements, parseListElements } from './incremental/incremental';
-import { createIdentifier, createBindingIdentifier } from './incremental/common';
+import { createIdentifier } from './incremental/common';
 import { MemberExpression } from './ast/expressions/member-expr';
 import { Elison } from './ast/expressions/elison';
 import { IdentifierReference, createIdentifierReference } from './ast/expressions/identifierreference';
@@ -2137,6 +2136,8 @@ export function parseBindingPattern(state: ParserState, context: Context, type: 
 // BindingPattern:
 //   ObjectBindingPattern
 //   ArrayBindingPattern
+//
+// BindingIdentifier
 export function parseBindingPatternOrIdentifier(
   state: ParserState,
   context: Context,
@@ -2173,26 +2174,6 @@ export function parseArrayBindingPattern(state: ParserState, context: Context, t
   }
   consume(state, context, Token.RightBracket);
   return finishNode(state, context, start, DictionaryMap.ArrayBindingPattern(list), SyntaxKind.ArrayBindingPattern);
-}
-
-// BindingRestElement :
-//   `...` BindingIdentifier
-//   `...` BindingPattern
-export function parseFunctionRestParameter(
-  state: ParserState,
-  context: Context,
-  type: BindingType
-): FunctionRestParameter {
-  const start = state.startIndex;
-  nextToken(state, context | Context.AllowRegExp);
-  const binding = parseBindingPatternOrIdentifier(state, context, type);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.FunctionRestParameter(binding),
-    SyntaxKind.FunctionRestParameter
-  );
 }
 
 // BindingRestElement :
@@ -2509,7 +2490,7 @@ export function parseFormalParameters(state: ParserState, context: Context): Par
     const check = context & Context.ErrorRecovery ? Constants.IsDelimitedListRecovery : Constants.IsDelimitedListNormal;
     while (state.token & check) {
       if (state.token === Token.Ellipsis) {
-        params.push(parseFunctionRestParameter(state, context, BindingType.None));
+        params.push(parseBindingRestElement(state, context, BindingType.None));
         break;
       }
       params.push(parseBindingElements(state, context, BindingType.ArgumentList, parseBindingElement));

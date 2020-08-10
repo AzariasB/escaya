@@ -2461,7 +2461,7 @@ describe('Recovery - Class', () => {
                     flags: 0
                   },
                   {
-                    type: 'FunctionRestParameter',
+                    type: 'BindingRestElement',
                     argument: {
                       type: 'BindingIdentifier',
                       name: '',
@@ -2472,7 +2472,7 @@ describe('Recovery - Class', () => {
                     },
                     start: 12,
                     end: 15,
-                    kind: 216,
+                    kind: 175,
                     flags: 0
                   }
                 ],
@@ -2568,7 +2568,7 @@ describe('Recovery - Class', () => {
                 propertySetParameterList: [],
                 uniqueFormalParameters: [
                   {
-                    type: 'FunctionRestParameter',
+                    type: 'BindingRestElement',
                     argument: {
                       type: 'BindingIdentifier',
                       name: '',
@@ -2579,7 +2579,7 @@ describe('Recovery - Class', () => {
                     },
                     start: 10,
                     end: 14,
-                    kind: 216,
+                    kind: 175,
                     flags: 0
                   }
                 ],

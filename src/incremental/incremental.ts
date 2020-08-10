@@ -51,9 +51,6 @@ export function currentNode(state: ParserState): any {
 /**
  * Consumes a node, and move the scanner so it is after the node we just consumed.
  */
-export function consumeNode(state: ParserState, context: Context, node: any): any {
-  // Move the scanner so it is after the node we just consumed.
-  state.index = node.end;
-  nextToken(state, context);
+export function consumeNode(_state: ParserState, _context: Context, node: any): any {
   return node;
 }

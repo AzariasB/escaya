@@ -1017,7 +1017,7 @@ describe('Recovery - Function', () => {
           async: false,
           params: [
             {
-              type: 'FunctionRestParameter',
+              type: 'BindingRestElement',
               argument: {
                 type: 'ArrayBindingPattern',
                 elements: [
@@ -1083,7 +1083,7 @@ describe('Recovery - Function', () => {
               },
               start: 9,
               end: 22,
-              kind: 216,
+              kind: 175,
               flags: 0
             }
           ],
