@@ -58,9 +58,13 @@ export const enum PropertyKind {
 }
 
 export const enum BindingType {
+  None = 0,
   Let = 1 << 0,
   Const = 1 << 1,
-  Var = 1 << 2
+  Var = 1 << 2,
+  ArgumentList = 1 << 3,
+  CatchPattern = 1 << 3,
+  CatchIdentifier = 1 << 4
 }
 /**
  * The parser interface.

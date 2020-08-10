@@ -402,7 +402,8 @@ export function parseCatchClause(state: ParserState, context: Context): CatchCla
   const start = state.startIndex;
   consume(state, context | Context.AllowRegExp, Token.CatchKeyword);
   if (consumeOpt(state, context, Token.LeftParen)) {
-    binding = parseBindingPatternOrIdentifier(state, context | Context.AllowRegExp);
+    const type = state.token & Token.IsPatternStart ? BindingType.CatchPattern : BindingType.CatchIdentifier;
+    binding = parseBindingPatternOrIdentifier(state, context | Context.AllowRegExp, type);
     consume(state, context | Context.AllowRegExp, Token.RightParen);
   }
 
@@ -832,7 +833,7 @@ export function parseForLexicalBinding(state: ParserState, context: Context, typ
   const start = state.startIndex;
   const token = state.token;
   let initializer = null;
-  const binding = parseBindingPatternOrIdentifier(state, context);
+  const binding = parseBindingPatternOrIdentifier(state, context, type);
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
     initializer = parseExpression(state, context);
     if (state.token & Token.IsInOrOf && token & Token.IsPatternStart) {
@@ -859,11 +860,11 @@ export function parseForLexicalBinding(state: ParserState, context: Context, typ
 export function parseForVariableDeclaration(
   state: ParserState,
   context: Context,
-  _type: BindingType
+  type: BindingType
 ): VariableDeclaration {
   const start = state.startIndex;
   const token = state.token;
-  const binding = parseBindingPatternOrIdentifier(state, context);
+  const binding = parseBindingPatternOrIdentifier(state, context, type);
   let initializer = null;
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
     initializer = parseExpression(state, context);
@@ -1042,7 +1043,7 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
 //   Identifier
 //   `yield`
 //   `await`
-export function parseBindingIdentifier(state: ParserState, context: Context): BindingIdentifier {
+export function parseBindingIdentifier(state: ParserState, context: Context, _type: BindingType): BindingIdentifier {
   let value = state.tokenValue;
   if ((state.token & Constants.IsIdentifierOrKeyword) === 0) {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
@@ -1074,13 +1075,9 @@ export function parseVariableStatement(state: ParserState, context: Context): Va
 // VariableDeclaration :
 //   BindingIdentifier Initializer?
 //   BindingPattern Initializer
-export function parseVariableDeclaration(
-  state: ParserState,
-  context: Context,
-  _type: BindingType
-): VariableDeclaration {
+export function parseVariableDeclaration(state: ParserState, context: Context, type: BindingType): VariableDeclaration {
   const start = state.startIndex;
-  const binding = parseBindingPatternOrIdentifier(state, context);
+  const binding = parseBindingPatternOrIdentifier(state, context, type);
   let initializer = null;
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
     initializer = parseExpression(state, context);
@@ -1176,7 +1173,7 @@ export function parseLexicalBinding(state: ParserState, context: Context, type: 
   const start = state.startIndex;
   const token = state.token;
   let initializer = null;
-  const binding = parseBindingPatternOrIdentifier(state, context);
+  const binding = parseBindingPatternOrIdentifier(state, context, type);
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
     initializer = parseExpression(state, context);
   } else if (token & Token.IsPatternStart || type === BindingType.Const) {
@@ -1996,17 +1993,21 @@ export function parseTemplateElement(state: ParserState, context: Context): Temp
 //   `{` BindingRestProperty `}`
 //   `{` BindingPropertyList `}`
 //   `{` BindingPropertyList `,` BindingRestProperty? `}`
-export function parseObjectBindingPattern(state: ParserState, context: Context): ObjectBindingPattern {
+export function parseObjectBindingPattern(
+  state: ParserState,
+  context: Context,
+  type: BindingType
+): ObjectBindingPattern {
   const start = state.startIndex;
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   consume(state, context, Token.LeftBrace);
   const properties = [];
   while (state.token & Constants.ObjectList) {
     if (state.token === Token.Ellipsis) {
-      properties.push(parseBindingRestProperty(state, context));
+      properties.push(parseBindingRestProperty(state, context, type));
       break;
     }
-    properties.push(parseBindingProperty(state, context));
+    properties.push(parseBindingProperty(state, context, type));
     if (consumeOpt(state, context, Token.Comma)) continue;
 
     if (state.token === Token.RightBrace) break;
@@ -2023,14 +2024,14 @@ export function parseObjectBindingPattern(state: ParserState, context: Context):
 
 // BindingRestProperty :
 //  ...BindingIdentifier
-export function parseBindingRestProperty(state: ParserState, context: Context): BindingRestProperty {
+export function parseBindingRestProperty(state: ParserState, context: Context, type: BindingType): BindingRestProperty {
   const start = state.startIndex;
   nextToken(state, context);
   return finishNode(
     state,
     context,
     start,
-    DictionaryMap.BindingRestProperty(parseBindingIdentifier(state, context)),
+    DictionaryMap.BindingRestProperty(parseBindingIdentifier(state, context, type)),
     SyntaxKind.BindingRestProperty
   );
 }
@@ -2040,7 +2041,8 @@ export function parseBindingRestProperty(state: ParserState, context: Context): 
 //   PropertyName : BindingElement
 export function parseBindingProperty(
   state: ParserState,
-  context: Context
+  context: Context,
+  type: BindingType
 ): PropertyName | BindingElement | BindingIdentifier {
   const start = state.startIndex;
 
@@ -2053,7 +2055,7 @@ export function parseBindingProperty(
         state,
         context,
         start,
-        DictionaryMap.PropertyName(key, parseBindingElement(state, context)),
+        DictionaryMap.PropertyName(key, parseBindingElement(state, context, type)),
         SyntaxKind.PropertyName
       );
     }
@@ -2083,7 +2085,7 @@ export function parseBindingProperty(
     state,
     context,
     start,
-    DictionaryMap.PropertyName(name, parseBindingElement(state, context)),
+    DictionaryMap.PropertyName(name, parseBindingElement(state, context, type)),
     SyntaxKind.PropertyName
   );
 }
@@ -2102,19 +2104,23 @@ export function parseInitializerOpt(state: ParserState, context: Context): Expre
 //
 // SingleNameBinding :
 //   BindingIdentifier Initializer?
-export function parseBindingElement(state: ParserState, context: Context): BindingElement | BindingIdentifier {
+export function parseBindingElement(
+  state: ParserState,
+  context: Context,
+  type: BindingType
+): BindingElement | BindingIdentifier {
   const start = state.startIndex;
 
   let left;
   let right = null;
 
   if (state.token & Token.IsPatternStart) {
-    left = parseBindingPattern(state, context);
+    left = parseBindingPattern(state, context, type);
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) right = parseExpression(state, context);
     return finishNode(state, context, start, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement);
   }
 
-  left = parseBindingIdentifier(state, context);
+  left = parseBindingIdentifier(state, context, type);
   if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) return left;
   right = parseExpression(state, context);
   return finishNode(state, context, start, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement);
@@ -2123,9 +2129,9 @@ export function parseBindingElement(state: ParserState, context: Context): Bindi
 // BindingPattern:
 //   ObjectBindingPattern
 //   ArrayBindingPattern
-export function parseBindingPattern(state: ParserState, context: Context): BindingPattern {
-  if (state.token === Token.LeftBrace) return parseObjectBindingPattern(state, context);
-  return parseArrayBindingPattern(state, context);
+export function parseBindingPattern(state: ParserState, context: Context, type: BindingType): BindingPattern {
+  if (state.token === Token.LeftBrace) return parseObjectBindingPattern(state, context, type);
+  return parseArrayBindingPattern(state, context, type);
 }
 
 // BindingPattern:
@@ -2133,13 +2139,12 @@ export function parseBindingPattern(state: ParserState, context: Context): Bindi
 //   ArrayBindingPattern
 export function parseBindingPatternOrIdentifier(
   state: ParserState,
-  context: Context
+  context: Context,
+  type: BindingType
 ): BindingPattern | BindingIdentifier {
-  if (state.token & (Token.IsKeyword | Token.IsIdentifier | Token.IsFutureReserved)) {
-    return parseBindingIdentifier(state, context);
-  }
-  if (state.token === Token.LeftBrace) return parseObjectBindingPattern(state, context);
-  return parseArrayBindingPattern(state, context);
+  return state.token & Token.IsPatternStart
+    ? parseBindingPattern(state, context, type)
+    : parseBindingIdentifier(state, context, type);
 }
 
 // ArrayBindingPattern :
@@ -2148,7 +2153,7 @@ export function parseBindingPatternOrIdentifier(
 //   `[` BindingElementList `]`
 //   `[` BindingElementList `,` `]`
 //   `[` BindingElementList `,` Elision `,` BindingRestElement `]`
-export function parseArrayBindingPattern(state: ParserState, context: Context): ArrayBindingPattern {
+export function parseArrayBindingPattern(state: ParserState, context: Context, type: BindingType): ArrayBindingPattern {
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   const list = [];
@@ -2158,10 +2163,10 @@ export function parseArrayBindingPattern(state: ParserState, context: Context): 
       list.push(finishNode(state, context, start, DictionaryMap.Elison(), SyntaxKind.Elison));
     } else {
       if (state.token === Token.Ellipsis) {
-        list.push(parseBindingRestElement(state, context));
+        list.push(parseBindingRestElement(state, context, type));
         break;
       }
-      list.push(parseBindingElement(state, context));
+      list.push(parseBindingElement(state, context, type));
     }
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
     if (state.token === Token.RightBracket) break;
@@ -2173,11 +2178,14 @@ export function parseArrayBindingPattern(state: ParserState, context: Context): 
 // BindingRestElement :
 //   `...` BindingIdentifier
 //   `...` BindingPattern
-export function parseFunctionRestParameter(state: ParserState, context: Context): FunctionRestParameter {
+export function parseFunctionRestParameter(
+  state: ParserState,
+  context: Context,
+  type: BindingType
+): FunctionRestParameter {
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
-  const binding =
-    state.token & Token.IsPatternStart ? parseBindingPattern(state, context) : parseBindingIdentifier(state, context);
+  const binding = parseBindingPatternOrIdentifier(state, context, type);
   return finishNode(
     state,
     context,
@@ -2190,10 +2198,10 @@ export function parseFunctionRestParameter(state: ParserState, context: Context)
 // BindingRestElement :
 //   `...` BindingIdentifier
 //   `...` BindingPattern
-export function parseBindingRestElement(state: ParserState, context: Context): BindingRestElement {
+export function parseBindingRestElement(state: ParserState, context: Context, type: BindingType): BindingRestElement {
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
-  const binding = parseBindingPatternOrIdentifier(state, context);
+  const binding = parseBindingPatternOrIdentifier(state, context, type);
   return finishNode(state, context, start, DictionaryMap.BindingRestElement(binding), SyntaxKind.BindingRestElement);
 }
 
@@ -2501,10 +2509,10 @@ export function parseFormalParameters(state: ParserState, context: Context): Par
     const check = context & Context.ErrorRecovery ? Constants.IsDelimitedListRecovery : Constants.IsDelimitedListNormal;
     while (state.token & check) {
       if (state.token === Token.Ellipsis) {
-        params.push(parseFunctionRestParameter(state, context));
+        params.push(parseFunctionRestParameter(state, context, BindingType.None));
         break;
       }
-      params.push(parseListElements(state, context, parseBindingElement));
+      params.push(parseVarLexElements(state, context, BindingType.ArgumentList, parseBindingElement));
 
       if (state.token === Token.RightParen) break;
       consume(state, context | Context.AllowRegExp, Token.Comma);
@@ -2574,7 +2582,7 @@ export function parseMethodDefinition(
     consume(state, context, Token.RightParen);
   } else if (kind & PropertyKind.Setter) {
     consume(state, context, Token.LeftParen);
-    propertySetParameterList = [parseBindingElement(state, context)];
+    propertySetParameterList = [parseBindingElement(state, context, BindingType.ArgumentList)];
     consume(state, context, Token.RightParen);
   } else {
     uniqueFormalParameters = parseUniqueFormalParameters(state, context);
@@ -2655,7 +2663,13 @@ export function parseAsyncArrowExpression(state: ParserState, context: Context, 
   if (!hasLineTerminator) {
     // `async` [no LineTerminator here] AsyncArrowBindingIdentifier [no LineTerminator here] => AsyncConciseBody
     if ((state.token & (Token.IsFutureReserved | Token.IsIdentifier)) !== 0) {
-      return parseArrowFunction(state, context, [parseBindingIdentifier(state, context)], ArrowKind.ASYNC, start);
+      return parseArrowFunction(
+        state,
+        context,
+        [parseBindingIdentifier(state, context, BindingType.None)],
+        ArrowKind.ASYNC,
+        start
+      );
     }
   }
   let expr: any = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'), SyntaxKind.Identifier);
@@ -2745,7 +2759,7 @@ export function parseAsyncArrowDeclaration(state: ParserState, context: Context,
       let expr: any = parseArrowAfterIdentifier(
         state,
         context,
-        [parseBindingIdentifier(state, context)],
+        [parseBindingIdentifier(state, context, BindingType.None)],
         ArrowKind.ASYNC,
         start
       );
@@ -2992,7 +3006,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
   }
 
   if (state.token === Token.Ellipsis) {
-    const param = parseBindingRestElement(state, context);
+    const param = parseBindingRestElement(state, context, BindingType.ArgumentList);
     consume(state, context, Token.RightParen);
     return parseArrowFunction(state, context, [param], ArrowKind.NORMAL, start);
   }
@@ -3013,7 +3027,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
       if (state.token === Token.RightParen) break;
 
       if (state.token === Token.Ellipsis) {
-        expression.push(parseBindingRestElement(state, context));
+        expression.push(parseBindingRestElement(state, context, BindingType.ArgumentList));
         break;
       }
 
@@ -3072,7 +3086,7 @@ export function parseClassDeclaration(state: ParserState, context: Context): Cla
         : Constants.IsIdentifierOrKeywordNormal) &&
     state.token !== Token.ExtendsKeyword
   ) {
-    name = parseBindingIdentifier(state, context);
+    name = parseBindingIdentifier(state, context, BindingType.None);
   } else if ((context & Context.Default) !== Context.Default) {
     addEarlyDiagnostic(state, context, DiagnosticCode.MissingClassName);
   }
@@ -3119,7 +3133,7 @@ export function parseClassExpression(state: ParserState, context: Context): Clas
         : Constants.IsIdentifierOrKeywordNormal) &&
     state.token !== Token.ExtendsKeyword
   ) {
-    name = parseBindingIdentifier(state, context);
+    name = parseBindingIdentifier(state, context, BindingType.None);
   }
 
   if (consumeOpt(state, context | Context.AllowRegExp, Token.ExtendsKeyword)) {
@@ -3400,7 +3414,7 @@ export function parseImportClause(state: ParserState, context: Context): ImportC
   let namespace = null;
   let namedImports = null;
   if (state.token & Token.IsIdentifier) {
-    defaultBinding = parseBindingIdentifier(state, context);
+    defaultBinding = parseBindingIdentifier(state, context, BindingType.None);
     if (!consumeOpt(state, context, Token.Comma)) {
       return finishNode(
         state,
@@ -3433,7 +3447,7 @@ export function parseImportClause(state: ParserState, context: Context): ImportC
 export function parseNameSpaceImport(state: ParserState, context: Context): BindingIdentifier {
   consume(state, context, Token.Multiply);
   consume(state, context, Token.AsKeyword);
-  return parseBindingIdentifier(state, context);
+  return parseBindingIdentifier(state, context, BindingType.None);
 }
 
 // NamedImports :
@@ -3464,7 +3478,7 @@ export function parseImportSpecifier(state: ParserState, context: Context): Impo
   let identifierName: BindingIdentifier | IdentifierName | null = null;
   if (consumeOpt(state, context, Token.AsKeyword)) {
     identifierName = name;
-    importedBinding = parseBindingIdentifier(state, context);
+    importedBinding = parseBindingIdentifier(state, context, BindingType.None);
   } else {
     importedBinding = name;
   }
@@ -3484,7 +3498,7 @@ export function parseImportCallFromModule(state: ParserState, context: Context, 
   consume(state, context, Token.RightParen);
   expr = finishNode(state, context, start, DictionaryMap.ImportCall(expr), SyntaxKind.ImportCall);
   consumeSemicolon(state, context);
-  return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ImportCall);
+  return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ExpressionStatement);
 }
 
 // ImportMeta:
@@ -3494,7 +3508,7 @@ export function parseImportMetaFromModule(state: ParserState, context: Context, 
   let expr = finishNode(state, context, start, DictionaryMap.ImportMeta(), SyntaxKind.ImportMeta);
   expr = parseExpressionOrHigher(state, context, expr, start);
   consumeSemicolon(state, context);
-  return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ImportCall);
+  return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ExpressionStatement);
 }
 
 // FromClause :
