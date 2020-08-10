@@ -1848,8 +1848,8 @@ export function parsePrimaryExpression(state: ParserState, context: Context): Le
       // We avoid priming the scanner for 1) and 2) so we safely can continue
       // to parse out valid syntax, or stop parsing (EndOfSource).
       //
-      // For 3) and 4) the token will be consumed and no node inserted into the AST.
-      // The same goes for keywords that aren't a valid statement start - e.i 'case'.
+      // For 3) and 4) the token will be consumed. The same goes for keywords
+      // that aren't a valid statement start - e.i 'case'.
       //
       // In all cases, we insert a dummy identifier into the AST.
       //
@@ -1881,8 +1881,10 @@ export function parseImportMetaOrCall(state: ParserState, context: Context): Imp
 export function parseNewExpression(state: ParserState, context: Context): NewExpression | NewTarget {
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
-  if (context & Context.NewTarget && state.token === Token.TargetIdentifier) {
+  if (context & Context.NewTarget && state.token === Token.Period) {
+    console.log(state.token === Token.Period);
     nextToken(state, context);
+    // TargetIdentifier
     return finishNode(state, context, start, DictionaryMap.Target(), SyntaxKind.NewTarget);
   }
   let expression = parsePrimaryExpression(state, context);
@@ -2527,7 +2529,7 @@ export function parseFunctionBody(state: ParserState, context: Context, isStatem
   const start = state.startIndex;
   const directives: string[] = [];
   const statements: Statement[] = [];
-  context = (context | Context.DisallowIn) ^ Context.DisallowIn;
+
   if (consume(state, context | Context.AllowRegExp, Token.LeftBrace)) {
     while (state.token & Constants.IsSourceElement) {
       statements.push(parseBlockElements(state, context, parseStatementListItem));
@@ -2588,7 +2590,7 @@ export function parseMethodDefinition(
       propertySetParameterList,
       uniqueFormalParameters,
       key,
-      parseFunctionBody(state, context | Context.Return, false)
+      parseFunctionBody(state, context | Context.Return | Context.NewTarget, false)
     ),
     SyntaxKind.MethodDefinition
   );
@@ -2637,7 +2639,7 @@ export function parseFunctionExpression(
 
   const params = parseFormalParameters(state, context | Context.Parameters);
 
-  const contents = parseFunctionBody(state, context | Context.Return, false);
+  const contents = parseFunctionBody(state, context | Context.Return | Context.NewTarget, false);
 
   return finishNode(
     state,
@@ -2724,7 +2726,7 @@ export function parseFunctionDeclaration(
 
   const params = parseFormalParameters(state, context | Context.Parameters);
 
-  const contents = parseFunctionBody(state, context | Context.Return, true);
+  const contents = parseFunctionBody(state, context | Context.Return | Context.NewTarget, true);
 
   return finishNode(
     state,
@@ -2877,7 +2879,7 @@ export function parseArrowFunction(
 //   { FunctionBody }
 export function parseConciseOrFunctionBody(state: ParserState, context: Context): FunctionBody | ConciseBody {
   if (state.token === Token.LeftBrace) {
-    const body = parseFunctionBody(state, context | Context.Return, true);
+    const body = parseFunctionBody(state, context | Context.Return | Context.NewTarget, true);
 
     if (state.lineTerminatorBeforeNextToken) {
       switch (state.token) {
@@ -3347,7 +3349,7 @@ export function parseModuleItem(state: ParserState, context: Context): ImportExp
 // ImportDeclaration :
 //   `import` ImportClause FromClause `;`
 //   `import` ModuleSpecifier `;`
-export function parseImportDeclaration(state: ParserState, context: Context): ImportDeclaration {
+export function parseImportDeclaration(state: ParserState, context: Context): ImportDeclaration | ExpressionStatement {
   const start = state.startIndex;
   nextToken(state, context);
   let moduleSpecifier = null;
@@ -3357,6 +3359,14 @@ export function parseImportDeclaration(state: ParserState, context: Context): Im
   if (state.token === Token.StringLiteral) {
     moduleSpecifier = parseStringLiteral(state, context);
   } else {
+    // `import` `(`
+    if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftParen)) {
+      return parseImportCallFromModule(state, context, start);
+    }
+    // `import` `.`
+    if (consumeOpt(state, context, Token.Period)) {
+      return parseImportMetaFromModule(state, context, start);
+    }
     importClause = parseImportClause(state, context);
     if (consume(state, context, Token.FromKeyword)) {
       fromClause = parseStringLiteral(state, context);
@@ -3465,6 +3475,26 @@ export function parseImportSpecifier(state: ParserState, context: Context): Impo
     DictionaryMap.ImportSpecifier(identifierName, importedBinding),
     SyntaxKind.NamedImports
   );
+}
+
+// ImportCall :
+//  import
+export function parseImportCallFromModule(state: ParserState, context: Context, start: number): ExpressionStatement {
+  let expr = parseExpression(state, context);
+  consume(state, context, Token.RightParen);
+  expr = finishNode(state, context, start, DictionaryMap.ImportCall(expr), SyntaxKind.ImportCall);
+  consumeSemicolon(state, context);
+  return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ImportCall);
+}
+
+// ImportMeta:
+//   import.meta
+export function parseImportMetaFromModule(state: ParserState, context: Context, start: number): ExpressionStatement {
+  consume(state, context, Token.MetaIdentifier);
+  let expr = finishNode(state, context, start, DictionaryMap.ImportMeta(), SyntaxKind.ImportMeta);
+  expr = parseExpressionOrHigher(state, context, expr, start);
+  consumeSemicolon(state, context);
+  return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ImportCall);
 }
 
 // FromClause :
