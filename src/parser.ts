@@ -2995,13 +2995,33 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
     return parseArrowFunction(state, context, [param], ArrowKind.NORMAL, start);
   }
 
-  let expression: any = parseExpression(state, context);
+  let expression: any;
+
+  if (state.token & Constants.IsIdentifierOrKeyword) {
+    expression = parseExpression(state, context);
+  } else if (state.token & Token.IsPatternStart) {
+    expression = parseExpression(state, context);
+  } else {
+    expression = parseExpression(state, context);
+    if (state.token === Token.Comma) {
+      expression = parseCommaOperator(state, context, expression, start);
+    }
+
+    consume(state, context, Token.RightParen);
+    return finishNode(
+      state,
+      context,
+      start,
+      DictionaryMap.ParenthesizedExpression(expression),
+      SyntaxKind.ParenthesizedExpression
+    );
+  }
 
   let isDelimitedList = false;
 
   // 12.16 Comma Operator
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
-    expression = [expression];
+    let expressions = [expression];
     isDelimitedList = true;
 
     const check =
@@ -3011,15 +3031,37 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
       if (state.token === Token.RightParen) break;
 
       if (state.token === Token.Ellipsis) {
-        expression.push(parseBindingRestElement(state, context, BindingType.ArgumentList));
+        expressions.push(parseBindingRestElement(state, context, BindingType.ArgumentList));
         break;
       }
 
-      expression.push(parseExpression(state, context));
+      if (state.token & Constants.IsIdentifierOrKeyword) {
+        expression = parseExpression(state, context);
+      } else if (state.token & Token.IsPatternStart) {
+        expression = parseExpression(state, context);
+      } else {
+        expression = parseExpression(state, context);
+
+        if (state.token === Token.Comma) {
+          expression = parseCommaOperator(state, context, expression, start);
+        }
+
+        consume(state, context, Token.RightParen);
+        return finishNode(
+          state,
+          context,
+          start,
+          DictionaryMap.ParenthesizedExpression(expression),
+          SyntaxKind.ParenthesizedExpression
+        );
+      }
+
+      expressions.push(expression);
 
       if (consumeOpt(state, context, Token.Comma)) continue;
       if (state.token === Token.RightParen) break;
     }
+    expression = finishNode(state, context, start, DictionaryMap.CommaOperator(expressions), SyntaxKind.CommaOperator);
   }
 
   consume(state, context, Token.RightParen);
@@ -3027,11 +3069,8 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
   // ArrowParameters :
   //   CoverParenthesizedExpressionAndArrowParameterList
   if (state.token === Token.Arrow) {
-    const param = isDelimitedList ? expression : [expression];
+    const param = isDelimitedList ? expression.expressions : [expression];
     return parseArrowFunction(state, context, param, ArrowKind.NORMAL, start);
-  }
-  if (isDelimitedList) {
-    expression = finishNode(state, context, start, DictionaryMap.CommaOperator(expression), SyntaxKind.CommaOperator);
   }
 
   return finishNode(

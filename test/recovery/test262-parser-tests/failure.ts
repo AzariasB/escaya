@@ -1230,39 +1230,36 @@ describe('test262-parser-tests - failing tests', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'ArrowFunction',
-            params: [
-              {
-                type: 'NumericLiteral',
-                value: 10,
-                start: 1,
-                end: 3,
-                kind: 10,
-                flags: 0
-              }
-            ],
-            contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'NumericLiteral',
-                value: 0,
-                start: 7,
-                end: 9,
-                kind: 10,
-                flags: 0
-              },
-              start: 7,
-              end: 9,
-              kind: 187,
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'NumericLiteral',
+              value: 10,
+              start: 1,
+              end: 3,
+              kind: 10,
               flags: 0
             },
-            async: false,
             start: 0,
-            end: 9,
-            kind: 188,
+            end: 4,
+            kind: 189,
             flags: 0
           },
           start: 0,
+          end: 4,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'NumericLiteral',
+            value: 0,
+            start: 7,
+            end: 9,
+            kind: 10,
+            flags: 0
+          },
+          start: 7,
           end: 9,
           kind: 122,
           flags: 0
@@ -1272,7 +1269,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 5,
+          length: 2
+        }
+      ],
       detached: false,
       isIncremental: false,
       parent: null,
@@ -2961,61 +2967,75 @@ describe('test262-parser-tests - failing tests', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'ArrowFunction',
-            params: [
-              {
-                type: 'ParenthesizedExpression',
-                expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'CommaOperator',
+              expressions: [
+                {
+                  type: 'ParenthesizedExpression',
+                  expression: {
+                    type: 'IdentifierReference',
+                    name: 'a',
+                    start: 2,
+                    end: 3,
+                    kind: 13,
+                    flags: 0
+                  },
+                  start: 1,
+                  end: 4,
+                  kind: 189,
+                  flags: 0
+                },
+                {
                   type: 'IdentifierReference',
-                  name: 'a',
-                  start: 2,
-                  end: 3,
-                  kind: 13,
-                  flags: 0
-                },
-                start: 1,
-                end: 4,
-                kind: 189,
-                flags: 0
-              },
-              {
-                type: 'BindingRestElement',
-                argument: {
-                  type: 'BindingIdentifier',
-                  name: 'b',
+                  name: '',
                   start: 8,
-                  end: 9,
-                  kind: 168,
-                  flags: 0
-                },
-                start: 5,
-                end: 9,
-                kind: 175,
-                flags: 0
-              }
-            ],
-            contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'NumericLiteral',
-                value: 0,
-                start: 13,
-                end: 15,
-                kind: 10,
-                flags: 0
-              },
-              start: 13,
-              end: 15,
-              kind: 187,
+                  end: 8,
+                  kind: 13,
+                  flags: 2
+                }
+              ],
+              start: 0,
+              end: 8,
+              kind: 147,
               flags: 0
             },
-            async: false,
             start: 0,
-            end: 15,
-            kind: 188,
+            end: 8,
+            kind: 189,
             flags: 0
           },
           start: 0,
+          end: 8,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'b',
+            start: 8,
+            end: 9,
+            kind: 13,
+            flags: 0
+          },
+          start: 8,
+          end: 9,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'NumericLiteral',
+            value: 0,
+            start: 13,
+            end: 15,
+            kind: 10,
+            flags: 0
+          },
+          start: 13,
           end: 16,
           kind: 122,
           flags: 0
@@ -3025,7 +3045,32 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 11,
+          length: 2
+        }
+      ],
       detached: false,
       isIncremental: false,
       parent: null,
@@ -3595,7 +3640,7 @@ describe('test262-parser-tests - failing tests', () => {
                 }
               ],
               start: 0,
-              end: 8,
+              end: 7,
               kind: 147,
               flags: 0
             },

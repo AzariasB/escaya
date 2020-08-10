@@ -671,7 +671,7 @@ describe('Expressions - Parentheized', () => {
     });
   }
 
-  it('simple block', () => {
+  it('(a)', () => {
     t.deepEqual(parseScript('(a)'), {
       type: 'Script',
       directives: [],
@@ -698,7 +698,7 @@ describe('Expressions - Parentheized', () => {
     });
   });
 
-  it('simple block', () => {
+  it('(a, b)', () => {
     t.deepEqual(parseScript('(a, b)'), {
       type: 'Script',
       directives: [],
@@ -724,7 +724,7 @@ describe('Expressions - Parentheized', () => {
                 }
               ],
               start: 0,
-              end: 6
+              end: 5
             },
             start: 0,
             end: 6

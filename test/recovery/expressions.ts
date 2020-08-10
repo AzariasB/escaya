@@ -2171,46 +2171,43 @@ describe('Recovery - Expressions', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'ArrowFunction',
-            params: [
-              {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: 'a',
-                  start: 2,
-                  end: 3,
-                  kind: 13,
-                  flags: 0
-                },
-                start: 1,
-                end: 4,
-                kind: 189,
-                flags: 0
-              }
-            ],
-            contents: {
-              type: 'ConciseBody',
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'NumericLiteral',
-                value: 42,
-                start: 8,
-                end: 11,
-                kind: 10,
+                type: 'IdentifierReference',
+                name: 'a',
+                start: 2,
+                end: 3,
+                kind: 13,
                 flags: 0
               },
-              start: 8,
-              end: 11,
-              kind: 187,
+              start: 1,
+              end: 4,
+              kind: 189,
               flags: 0
             },
-            async: false,
             start: 0,
-            end: 11,
-            kind: 188,
+            end: 5,
+            kind: 189,
             flags: 0
           },
           start: 0,
+          end: 5,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'NumericLiteral',
+            value: 42,
+            start: 8,
+            end: 11,
+            kind: 10,
+            flags: 0
+          },
+          start: 8,
           end: 11,
           kind: 122,
           flags: 0
@@ -2220,7 +2217,16 @@ describe('Recovery - Expressions', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 6,
+          length: 2
+        }
+      ],
       detached: false,
       isIncremental: false,
       parent: null,
@@ -2245,54 +2251,43 @@ describe('Recovery - Expressions', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'a',
-                start: 1,
-                end: 2,
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ParenthesizedExpression',
+              expression: {
+                type: 'IdentifierReference',
+                name: 'b',
+                start: 5,
+                end: 6,
                 kind: 13,
                 flags: 0
               },
-              {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: 'b',
-                  start: 5,
-                  end: 6,
-                  kind: 13,
-                  flags: 0
-                },
-                start: 3,
-                end: 7,
-                kind: 189,
-                flags: 0
-              }
-            ],
-            contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'NumericLiteral',
-                value: 42,
-                start: 11,
-                end: 14,
-                kind: 10,
-                flags: 0
-              },
-              start: 11,
-              end: 14,
-              kind: 187,
+              start: 3,
+              end: 7,
+              kind: 189,
               flags: 0
             },
-            async: false,
             start: 0,
-            end: 14,
-            kind: 188,
+            end: 8,
+            kind: 189,
             flags: 0
           },
           start: 0,
+          end: 8,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'NumericLiteral',
+            value: 42,
+            start: 11,
+            end: 14,
+            kind: 10,
+            flags: 0
+          },
+          start: 11,
           end: 14,
           kind: 122,
           flags: 0
@@ -2302,7 +2297,16 @@ describe('Recovery - Expressions', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 9,
+          length: 2
+        }
+      ],
       detached: false,
       isIncremental: false,
       parent: null,

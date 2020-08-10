@@ -1441,7 +1441,7 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statementedwasrsdfa32', () => {
+  it('{(,,,clause)', () => {
     t.deepEqual(recovery('{(,,,clause)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1452,47 +1452,53 @@ describe('Recovery - Block', () => {
             {
               type: 'ExpressionStatement',
               expression: {
-                type: 'CommaOperator',
-                expressions: [
-                  {
-                    type: 'ParenthesizedExpression',
-                    expression: {
-                      type: 'CommaOperator',
-                      expressions: [
-                        {
-                          type: 'IdentifierReference',
-                          name: '',
-                          start: 3,
-                          end: 3,
-                          kind: 13,
-                          flags: 2
-                        }
-                      ],
-                      start: 1,
-                      end: 4,
-                      kind: 147,
-                      flags: 0
+                type: 'ParenthesizedExpression',
+                expression: {
+                  type: 'CommaOperator',
+                  expressions: [
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 3,
+                      end: 3,
+                      kind: 13,
+                      flags: 2
                     },
-                    start: 1,
-                    end: 4,
-                    kind: 189,
-                    flags: 0
-                  },
-                  {
-                    type: 'IdentifierReference',
-                    name: 'clause',
-                    start: 5,
-                    end: 11,
-                    kind: 13,
-                    flags: 0
-                  }
-                ],
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 5,
+                      end: 5,
+                      kind: 13,
+                      flags: 2
+                    }
+                  ],
+                  start: 1,
+                  end: 5,
+                  kind: 147,
+                  flags: 0
+                },
                 start: 1,
-                end: 11,
-                kind: 147,
+                end: 5,
+                kind: 189,
                 flags: 0
               },
               start: 1,
+              end: 5,
+              kind: 122,
+              flags: 0
+            },
+            {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: 'clause',
+                start: 5,
+                end: 11,
+                kind: 13,
+                flags: 0
+              },
+              start: 5,
               end: 11,
               kind: 122,
               flags: 0
@@ -1520,10 +1526,10 @@ describe('Recovery - Block', () => {
         {
           kind: 2,
           source: 2,
-          message: '`)` expected',
-          code: 5,
-          start: 4,
-          length: 1
+          message: 'Expression expected',
+          code: 7,
+          start: 5,
+          length: 6
         },
         {
           kind: 2,
@@ -1549,7 +1555,7 @@ describe('Recovery - Block', () => {
       end: 12
     });
   });
-  it('Unclosed block statement493850', () => {
+  it('{finally(,,,,,,,,', () => {
     t.deepEqual(recovery('{finally(,,,,,,,,', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1584,60 +1590,59 @@ describe('Recovery - Block', () => {
             {
               type: 'ExpressionStatement',
               expression: {
-                type: 'CommaOperator',
-                expressions: [
-                  {
-                    type: 'ParenthesizedExpression',
-                    expression: {
-                      type: 'CommaOperator',
-                      expressions: [
-                        {
-                          type: 'IdentifierReference',
-                          name: '',
-                          start: 10,
-                          end: 10,
-                          kind: 13,
-                          flags: 2
-                        }
-                      ],
-                      start: 8,
-                      end: 11,
-                      kind: 147,
-                      flags: 0
+                type: 'ParenthesizedExpression',
+                expression: {
+                  type: 'CommaOperator',
+                  expressions: [
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 10,
+                      end: 10,
+                      kind: 13,
+                      flags: 2
                     },
-                    start: 8,
-                    end: 11,
-                    kind: 189,
-                    flags: 0
-                  },
-                  {
-                    type: 'IdentifierReference',
-                    name: '',
-                    start: 13,
-                    end: 13,
-                    kind: 13,
-                    flags: 2
-                  },
-                  {
-                    type: 'IdentifierReference',
-                    name: '',
-                    start: 15,
-                    end: 15,
-                    kind: 13,
-                    flags: 2
-                  },
-                  {
-                    type: 'IdentifierReference',
-                    name: '',
-                    start: 17,
-                    end: 17,
-                    kind: 13,
-                    flags: 2
-                  }
-                ],
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 12,
+                      end: 12,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 14,
+                      end: 14,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 16,
+                      end: 16,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 17,
+                      end: 17,
+                      kind: 13,
+                      flags: 2
+                    }
+                  ],
+                  start: 8,
+                  end: 17,
+                  kind: 147,
+                  flags: 0
+                },
                 start: 8,
                 end: 17,
-                kind: 147,
+                kind: 189,
                 flags: 0
               },
               start: 8,
@@ -1684,9 +1689,9 @@ describe('Recovery - Block', () => {
         {
           kind: 2,
           source: 2,
-          message: '`)` expected',
-          code: 5,
-          start: 11,
+          message: 'Expression expected',
+          code: 7,
+          start: 12,
           length: 1
         },
         {
@@ -1694,15 +1699,7 @@ describe('Recovery - Block', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 13,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 15,
+          start: 14,
           length: 1
         },
         {
@@ -1729,7 +1726,7 @@ describe('Recovery - Block', () => {
       end: 17
     });
   });
-  it('Unclosed block statement34598+sdgf9', () => {
+  it('{catch finally {}}', () => {
     t.deepEqual(recovery('{catch finally {}}', 'recovery.js'), {
       kind: 209,
       directives: [],

@@ -1415,7 +1415,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement234324', () => {
+  it('try(x, /a/,, catch', () => {
     t.deepEqual(recovery('try(x, /a/,, catch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1440,53 +1440,36 @@ describe('Recovery - Try', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'CommaOperator',
-            expressions: [
-              {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'CommaOperator',
-                  expressions: [
-                    {
-                      type: 'IdentifierReference',
-                      name: 'x',
-                      start: 4,
-                      end: 5,
-                      kind: 13,
-                      flags: 0
-                    },
-                    {
-                      type: 'RegularExpressionLiteral',
-                      pattern: 'a',
-                      flag: '',
-                      start: 6,
-                      end: 10,
-                      kind: 15,
-                      flags: 0
-                    }
-                  ],
-                  start: 3,
-                  end: 11,
-                  kind: 147,
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'CommaOperator',
+              expressions: [
+                {
+                  type: 'RegularExpressionLiteral',
+                  pattern: 'a',
+                  flag: '',
+                  start: 6,
+                  end: 10,
+                  kind: 15,
                   flags: 0
                 },
-                start: 3,
-                end: 11,
-                kind: 189,
-                flags: 0
-              },
-              {
-                type: 'IdentifierReference',
-                name: '',
-                start: 12,
-                end: 12,
-                kind: 13,
-                flags: 2
-              }
-            ],
+                {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 12,
+                  end: 12,
+                  kind: 13,
+                  flags: 2
+                }
+              ],
+              start: 3,
+              end: 12,
+              kind: 147,
+              flags: 0
+            },
             start: 3,
             end: 12,
-            kind: 147,
+            kind: 189,
             flags: 0
           },
           start: 3,
@@ -1543,14 +1526,6 @@ describe('Recovery - Try', () => {
         {
           kind: 2,
           source: 2,
-          message: '`)` expected',
-          code: 5,
-          start: 11,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
           message: 'Expression expected',
           code: 7,
           start: 13,
@@ -1573,7 +1548,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement32', () => {
+  it('try /a/', () => {
     t.deepEqual(recovery('try /a/', 'recovery.js'), {
       kind: 209,
       directives: [],

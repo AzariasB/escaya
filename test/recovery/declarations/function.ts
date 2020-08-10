@@ -215,7 +215,92 @@ describe('Recovery - Function', () => {
     });
   });
 
-  it('Unclosed block statement234', () => {
+  it('function true {}', () => {
+    t.deepEqual(recovery('function true {}', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 8,
+            end: 8,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 8,
+            end: 8,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 8,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'BooleanLiteral',
+            value: true,
+            start: 8,
+            end: 13,
+            kind: 166,
+            flags: 0
+          },
+          start: 8,
+          end: 13,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'BlockStatement',
+          leafs: [],
+          start: 13,
+          end: 16,
+          kind: 123,
+          flags: 0
+        }
+      ],
+      text: 'function true {}',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
+          start: 9,
+          length: 4
+        }
+      ],
+      detached: false,
+      isIncremental: false,
+      parent: null,
+      children: [],
+      EOF: {
+        type: 'CST',
+        kind: 16384,
+        start: 16,
+        end: 16
+      },
+      start: 0,
+      length: 16,
+      end: 16
+    });
+  });
+  it('function{', () => {
     t.deepEqual(recovery('function{', 'recovery.js'), {
       kind: 209,
       directives: [],

@@ -2,6 +2,75 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Class', () => {
+  it('class true {}', () => {
+    t.deepEqual(recovery('class true {}', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: null,
+          heritage: null,
+          elements: [],
+          start: 0,
+          end: 5,
+          kind: 150,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'BooleanLiteral',
+            value: true,
+            start: 5,
+            end: 10,
+            kind: 166,
+            flags: 0
+          },
+          start: 5,
+          end: 10,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'BlockStatement',
+          leafs: [],
+          start: 10,
+          end: 13,
+          kind: 123,
+          flags: 0
+        }
+      ],
+      text: 'class true {}',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Class declaration require a name in this context',
+          code: 11,
+          start: 6,
+          length: 4
+        }
+      ],
+      detached: false,
+      isIncremental: false,
+      parent: null,
+      children: [],
+      EOF: {
+        type: 'CST',
+        kind: 16384,
+        start: 13,
+        end: 13
+      },
+      start: 0,
+      length: 13,
+      end: 13
+    });
+  });
+
   it('class a { ;;; };', () => {
     t.deepEqual(recovery('class a { ;;; }', 'recovery.js'), {
       kind: 209,

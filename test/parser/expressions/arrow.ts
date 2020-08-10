@@ -3,7 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Arrow', () => {
   // Invalid cases
-  for (const arg of ['(x, y) => {}.x', '() => {}.x', '[', '[,', '[] += a']) {
+  for (const arg of ['(x, y) => {}.x', '() => {}.x', '[', '(x, /x/g) => x', '(/x/) => x']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -18,8 +18,6 @@ describe('Expressions - Arrow', () => {
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
-    '(/x/) => x',
-    '(x, /x/g) => x',
     `(interface, eval) => {}`,
     `(w, o, e, m) => { "use strict"; "use strict" }`,
     `(eval, interface) => {}`,
