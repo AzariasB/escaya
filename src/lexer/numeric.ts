@@ -138,7 +138,6 @@ export const leadingZeroChar = [
 ];
 
 export function scanNumber(state: ParserState, context: Context, ch: number, isFloat: boolean): Token {
-  state.index -= 1;
   const start = state.index;
 
   const enum NumberKind {
@@ -157,8 +156,6 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
   let disallowBigInt = false;
   const source = state.source;
   let index = state.index;
-
-  ch = state.source.charCodeAt(index);
 
   if (isFloat) {
     do {

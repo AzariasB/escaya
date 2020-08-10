@@ -71,7 +71,7 @@ for (const key in kwdObj) {
   }
 }
 export function scanIdentifier(state: ParserState, context: Context): Token {
-  const start = state.index - 1;
+  const start = state.index;
   let ch = state.source.charCodeAt(state.index);
   while (AsciiCharTypes[ch] & AsciiCharFlags.IsIdentifierPart) {
     ch = state.source.charCodeAt(++state.index);
@@ -85,7 +85,7 @@ export function scanIdentifier(state: ParserState, context: Context): Token {
 }
 
 export function scanKeywordOrIdentifier(state: ParserState, context: Context): Token {
-  const start = state.index - 1;
+  const start = state.index;
   let ch = state.source.charCodeAt(state.index);
   while (AsciiCharTypes[ch] & AsciiCharFlags.IsIdentifierPart) {
     ch = state.source.charCodeAt(++state.index);
@@ -240,7 +240,6 @@ export function scanIdentifierEscape(state: ParserState, context: Context): numb
 }
 
 export function scanIdentifierEscapeIdStart(state: ParserState, context: Context): Token {
-  state.index = state.index - 1;
   const cookedChar = scanIdentifierEscape(state, context);
   if (cookedChar > 0) {
     state.tokenValue = fromCodePoint(cookedChar);

@@ -153,7 +153,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
   while (state.index < state.length) {
     let ch = state.source.charCodeAt(state.index);
     state.positionBeforeToken = state.index;
-    state.index++;
+
     if (ch < 127) {
       const token = firstCharKinds[ch];
       switch (token) {
@@ -167,9 +167,11 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
         case Token.Semicolon:
         case Token.LeftBracket:
         case Token.RightBracket:
+          state.index++;
           return token;
 
         case Token.WhiteSpace:
+          state.index++;
           break;
 
         // `a`...`z`,
@@ -186,25 +188,32 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `.`, `...`, `.123` (numeric literal)
         case Token.Period:
-          ch = state.source.charCodeAt(state.index);
-          if (ch >= Char.Zero && ch <= Char.Nine) {
-            return scanNumber(state, context, ch, true);
-          }
+          let index = state.index + 1;
 
-          if (ch === Char.Period) {
-            if (state.source.charCodeAt(state.index + 1) === Char.Period) {
-              state.index += 2;
-              return Token.Ellipsis;
+          if (index < state.length) {
+            ch = state.source.charCodeAt(index);
+
+            if (ch >= Char.Zero && ch <= Char.Nine) {
+              return scanNumber(state, context, ch, true);
+            }
+
+            if (ch === Char.Period) {
+              index++;
+              if (index < state.length && state.source.charCodeAt(index) === Char.Period) {
+                state.index = index + 1;
+                return Token.Ellipsis;
+              }
             }
           }
+          state.index++;
           return Token.Period;
-
         // `'string'`, `"string"`
         case Token.StringLiteral:
           return scanString(state, context, ch);
 
         case Token.LineFeed:
           if (!lastIsCR) state.line++;
+          state.index++;
           state.columnOffset = state.index;
           state.lineTerminatorBeforeNextToken = true;
           lastIsCR = false;
@@ -212,6 +221,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `=`, `==`, `===`, `=>`
         case Token.Assign:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
           if (ch === Char.EqualSign) {
             state.index++;
@@ -229,6 +239,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `+`, `++`, `+=`
         case Token.Add:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
 
           if (ch === Char.Plus) {
@@ -247,11 +258,19 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `?`, `?.`, `??`, `??=`,
         case Token.QuestionMark:
+          state.index++;
+
           ch = state.source.charCodeAt(state.index);
+
           if (ch === Char.Period) {
             state.index++;
-            const next = state.source.charCodeAt(state.index);
-            if (next >= Char.Zero && next <= Char.Nine) return Token.QuestionMark;
+            // The specs explicitly disallows a digit after `?.`, for example `?.a`
+            // or `?.5` then it should be treated as a ternary rather than as an optional chain
+            ch = state.source.charCodeAt(state.index);
+
+            if (ch >= Char.Zero && ch <= Char.Nine) {
+              return Token.QuestionMark;
+            }
 
             return Token.QuestionMarkPeriod;
           }
@@ -262,12 +281,15 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
               state.index++;
               return Token.NullishAssign;
             }
+
             return Token.Nullish;
           }
+
           return Token.QuestionMark;
 
         // `!`, `!=`, `!==`
         case Token.Negate:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
           if (ch === Char.EqualSign) {
             state.index++;
@@ -281,6 +303,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `*`, `**`, `*=`, `**=`
         case Token.Multiply:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
           if (ch === Char.EqualSign) {
             state.index++;
@@ -298,6 +321,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `/`, `/=`, `/>`, '/*..*/'
         case Token.Divide:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
 
           if (ch === Char.Slash) {
@@ -320,6 +344,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `-`, `--`, `-=`, `-->`
         case Token.Subtract:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
           if (ch === Char.Hyphen) {
             state.index++;
@@ -332,6 +357,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
           return Token.Subtract;
 
         case Token.CarriageReturn:
+          state.index++;
           state.line++;
           state.columnOffset = state.index;
           state.lineTerminatorBeforeNextToken = true;
@@ -340,6 +366,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `<`, `<=`, `<<`, `<<=`, `</`, `<!--`
         case Token.LessThan:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
           if (ch === Char.EqualSign) {
             state.index++;
@@ -357,6 +384,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `&`, `&&`, `&=`, `&&=`
         case Token.BitwiseAnd:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
           if (ch === Char.Ampersand) {
             state.index++;
@@ -374,6 +402,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `>`, `>=`, `>>`, `>>>`, `>>=`, `>>>=`
         case Token.GreaterThan:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
           if (ch === Char.EqualSign) {
             state.index++;
@@ -399,6 +428,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `|`, `||`, `|=`
         case Token.BitwiseOr:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
           if (ch === Char.VerticalBar) {
             state.index++;
@@ -416,6 +446,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `%`, `%=`
         case Token.Modulo:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
 
           if (ch === Char.EqualSign) {
@@ -426,6 +457,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `^`, `^=`
         case Token.BitwiseXor:
+          state.index++;
           ch = state.source.charCodeAt(state.index);
           if (ch === Char.EqualSign) {
             state.index++;
@@ -439,11 +471,13 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         default:
           addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error);
+          state.index++;
       }
       // ASCII range > 127
     } else {
       // Non-ASCII code points can only be identifiers or whitespace.
       if ((unicodeLookup[(ch >>> 5) + 104448] >>> ch) & 31 & 1) {
+        state.index++;
         if ((ch & ~1) === Char.LineSeparator) {
           if (!lastIsCR) state.line++;
           state.columnOffset = state.index;
@@ -456,14 +490,13 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
       // IdentifierContinue
       if ((unicodeLookup[(ch >>> 5) + 34816] >>> ch) & 31 & 1) {
-        state.index -= 1;
         return scanIdentifierSlowPath(state, context);
       }
 
       // lead surrogate (U+d800..U+dbff)
       if ((ch & 0xfffffc00) === 0xd800) {
         // trail surrogate (U+dc00..U+dfff)
-        if ((state.source.charCodeAt(state.index) & 0xfffffc00) !== 0xdc00) {
+        if ((state.source.charCodeAt(state.index + 1) & 0xfffffc00) !== 0xdc00) {
           addDiagnostic(
             state,
             context,
@@ -473,11 +506,13 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
             fromCodePoint(ch)
           );
         }
-        state.index -= 1;
+
         return scanIdentifierSlowPath(state, context);
       }
 
       addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error);
+      // Increment the index so we can stay on track and avoid infinity loops
+      state.index++;
     }
   }
   return Token.EOF;

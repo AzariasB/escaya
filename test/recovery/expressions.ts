@@ -1811,7 +1811,7 @@ describe('Recovery - Expressions', () => {
               {
                 type: 'TemplateElement',
                 raw: '',
-                value: '{',
+                value: '',
                 expression: null,
                 start: 3,
                 end: 3,
@@ -5313,7 +5313,7 @@ describe('Recovery - Expressions', () => {
           message: 'Invalid character',
           code: 9,
           start: 0,
-          length: 1
+          length: 0
         },
         {
           kind: 2,
@@ -5828,7 +5828,7 @@ describe('Recovery - Expressions', () => {
           message: 'Invalid character',
           code: 9,
           start: 2,
-          length: 1
+          length: 0
         },
         {
           kind: 2,
@@ -6475,7 +6475,7 @@ describe('Recovery - Expressions', () => {
           message: 'Invalid character',
           code: 9,
           start: 2,
-          length: 1
+          length: 0
         }
       ],
       intersectsChange: false,
