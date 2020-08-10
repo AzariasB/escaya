@@ -222,16 +222,6 @@ describe('Recovery - Identifier', () => {
     });
   });
 
-  /*
-  it('x\\u{0 foo', () => {
-    t.deepEqual(recovery('x\\u{0 foo', 'recovery.js'), {});
-  });
-
-  it('x\\u{0 foo', () => {
-    t.deepEqual(recovery('x\\u{0 foo', 'recovery.js'), {});
-  });
-  */
-
   it('x\\u{0 foo', () => {
     t.deepEqual(recovery('x\\u{0 foo', 'recovery.js'), {
       children: [],

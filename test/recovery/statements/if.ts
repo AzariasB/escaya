@@ -2,7 +2,580 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - If', () => {
-  it('Unclosed block statement4353', () => {
+  it('if else (', () => {
+    t.deepEqual(recovery('if else (', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'IfStatement',
+          expression: {
+            type: 'CallExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 7,
+              end: 7,
+              kind: 13,
+              flags: 2
+            },
+            arguments: [],
+            start: 2,
+            end: 9,
+            kind: 156,
+            flags: 0
+          },
+          consequent: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 9,
+              end: 9,
+              kind: 13,
+              flags: 2
+            },
+            start: 9,
+            end: 9,
+            kind: 122,
+            flags: 0
+          },
+          alternate: null,
+          start: 0,
+          end: 9,
+          kind: 133,
+          flags: 0
+        }
+      ],
+      text: 'if else (',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 3,
+          length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 8,
+          length: 1
+        }
+      ],
+      detached: false,
+      isIncremental: false,
+      parent: null,
+      children: [],
+      EOF: {
+        type: 'CST',
+        kind: 16384,
+        start: 9,
+        end: 9
+      },
+      start: 0,
+      length: 9,
+      end: 9
+    });
+  });
+
+  it('if async function else babel (', () => {
+    t.deepEqual(recovery('if async function else babel (', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'IfStatement',
+          expression: {
+            type: 'FunctionExpression',
+            name: null,
+            generator: false,
+            async: true,
+            params: [],
+            contents: {
+              type: 'FunctionBody',
+              directives: [],
+              leafs: [],
+              start: 17,
+              end: 17,
+              kind: 184,
+              flags: 0
+            },
+            start: 2,
+            end: 17,
+            kind: 185,
+            flags: 0
+          },
+          consequent: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 22,
+              end: 22,
+              kind: 13,
+              flags: 2
+            },
+            start: 17,
+            end: 22,
+            kind: 122,
+            flags: 0
+          },
+          alternate: null,
+          start: 0,
+          end: 22,
+          kind: 133,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'CallExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'babel',
+              start: 22,
+              end: 28,
+              kind: 13,
+              flags: 0
+            },
+            arguments: [],
+            start: 22,
+            end: 30,
+            kind: 156,
+            flags: 0
+          },
+          start: 22,
+          end: 30,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'if async function else babel (',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 3,
+          length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 18,
+          length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 23,
+          length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 29,
+          length: 1
+        }
+      ],
+      detached: false,
+      isIncremental: false,
+      parent: null,
+      children: [],
+      EOF: {
+        type: 'CST',
+        kind: 16384,
+        start: 30,
+        end: 30
+      },
+      start: 0,
+      length: 30,
+      end: 30
+    });
+  });
+
+  it('if (x async function ) (', () => {
+    t.deepEqual(recovery('if (x async function ) (', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'IfStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'x',
+            start: 4,
+            end: 5,
+            kind: 13,
+            flags: 0
+          },
+          consequent: {
+            type: 'FunctionDeclaration',
+            name: null,
+            generator: false,
+            async: false,
+            params: [],
+            contents: {
+              type: 'FunctionBody',
+              directives: [],
+              leafs: [],
+              start: 20,
+              end: 20,
+              kind: 184,
+              flags: 0
+            },
+            start: 11,
+            end: 20,
+            kind: 186,
+            flags: 0
+          },
+          alternate: null,
+          start: 0,
+          end: 20,
+          kind: 133,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 24,
+              end: 24,
+              kind: 13,
+              flags: 2
+            },
+            start: 22,
+            end: 24,
+            kind: 189,
+            flags: 0
+          },
+          start: 22,
+          end: 24,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'if (x async function ) (',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 6,
+          length: 5
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Async functions can only be declared at the top level or inside a block',
+          code: 79,
+          start: 12,
+          length: 8
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Function declaration require a name in this context',
+          code: 10,
+          start: 21,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 23,
+          length: 1
+        }
+      ],
+      detached: false,
+      isIncremental: false,
+      parent: null,
+      children: [],
+      EOF: {
+        type: 'CST',
+        kind: 16384,
+        start: 24,
+        end: 24
+      },
+      start: 0,
+      length: 24,
+      end: 24
+    });
+  });
+
+  it('if if if if async function else if if else (', () => {
+    t.deepEqual(recovery('if if if if async function else if if else (', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'IfStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 2,
+            end: 2,
+            kind: 13,
+            flags: 2
+          },
+          consequent: {
+            type: 'IfStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 5,
+              end: 5,
+              kind: 13,
+              flags: 2
+            },
+            consequent: {
+              type: 'IfStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 8,
+                end: 8,
+                kind: 13,
+                flags: 2
+              },
+              consequent: {
+                type: 'IfStatement',
+                expression: {
+                  type: 'FunctionExpression',
+                  name: null,
+                  generator: false,
+                  async: true,
+                  params: [],
+                  contents: {
+                    type: 'FunctionBody',
+                    directives: [],
+                    leafs: [],
+                    start: 26,
+                    end: 26,
+                    kind: 184,
+                    flags: 0
+                  },
+                  start: 11,
+                  end: 26,
+                  kind: 185,
+                  flags: 0
+                },
+                consequent: {
+                  type: 'ExpressionStatement',
+                  expression: {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 31,
+                    end: 31,
+                    kind: 13,
+                    flags: 2
+                  },
+                  start: 26,
+                  end: 31,
+                  kind: 122,
+                  flags: 0
+                },
+                alternate: null,
+                start: 8,
+                end: 31,
+                kind: 133,
+                flags: 0
+              },
+              alternate: null,
+              start: 5,
+              end: 31,
+              kind: 133,
+              flags: 0
+            },
+            alternate: null,
+            start: 2,
+            end: 31,
+            kind: 133,
+            flags: 0
+          },
+          alternate: null,
+          start: 0,
+          end: 31,
+          kind: 133,
+          flags: 0
+        },
+        {
+          type: 'IfStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 34,
+            end: 34,
+            kind: 13,
+            flags: 2
+          },
+          consequent: {
+            type: 'IfStatement',
+            expression: {
+              type: 'CallExpression',
+              expression: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 42,
+                end: 42,
+                kind: 13,
+                flags: 2
+              },
+              arguments: [],
+              start: 37,
+              end: 44,
+              kind: 156,
+              flags: 0
+            },
+            consequent: {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 44,
+                end: 44,
+                kind: 13,
+                flags: 2
+              },
+              start: 44,
+              end: 44,
+              kind: 122,
+              flags: 0
+            },
+            alternate: null,
+            start: 34,
+            end: 44,
+            kind: 133,
+            flags: 0
+          },
+          alternate: null,
+          start: 31,
+          end: 44,
+          kind: 133,
+          flags: 0
+        }
+      ],
+      text: 'if if if if async function else if if else (',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 3,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 6,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 9,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 12,
+          length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 27,
+          length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 32,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 35,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 38,
+          length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 43,
+          length: 1
+        }
+      ],
+      detached: false,
+      isIncremental: false,
+      parent: null,
+      children: [],
+      EOF: {
+        type: 'CST',
+        kind: 16384,
+        start: 44,
+        end: 44
+      },
+      start: 0,
+      length: 44,
+      end: 44
+    });
+  });
+
+  it('if', () => {
     t.deepEqual(recovery('if', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -5046,8 +5619,8 @@ describe('Recovery - If', () => {
         {
           kind: 2,
           source: 0,
-          message: 'Invalid character',
-          code: 9,
+          message: '`*/` expected',
+          code: 86,
           start: 0,
           length: 16
         }
