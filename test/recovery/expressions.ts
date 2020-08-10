@@ -172,511 +172,259 @@ describe('Recovery - Expressions', () => {
       end: 7
     });
   });
-  /*
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-    it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-    it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
 
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
+  it('(1!!', () => {
+    t.deepEqual(recovery('(1!!', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'NumericLiteral',
+              value: 1,
+              start: 1,
+              end: 2,
+              kind: 10,
+              flags: 0
+            },
+            start: 0,
+            end: 2,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 2,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'UnaryExpression',
+              operator: '!',
+              operand: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 4,
+                end: 4,
+                kind: 13,
+                flags: 2
+              },
+              start: 3,
+              end: 4,
+              kind: 160,
+              flags: 0
+            },
+            start: 2,
+            end: 4,
+            kind: 160,
+            flags: 0
+          },
+          start: 2,
+          end: 4,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '(1!!',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 2,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 3,
+          length: 1
+        }
+      ],
+      detached: false,
+      isIncremental: false,
+      parent: null,
+      children: [],
+      EOF: {
+        type: 'CST',
+        kind: 16384,
+        start: 4,
+        end: 4
+      },
+      start: 0,
+      length: 4,
+      end: 4
+    });
+  });
+
+  it('(1]', () => {
+    t.deepEqual(recovery('(1]', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'NumericLiteral',
+              value: 1,
+              start: 1,
+              end: 2,
+              kind: 10,
+              flags: 0
+            },
+            start: 0,
+            end: 2,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 2,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '(1]',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 2,
+          length: 1
+        }
+      ],
+      detached: false,
+      isIncremental: false,
+      parent: null,
+      children: [],
+      EOF: {
+        type: 'CST',
+        kind: 16384,
+        start: 3,
+        end: 3
+      },
+      start: 0,
+      length: 3,
+      end: 3
+    });
+  });
+
+  it('(!!][1', () => {
+    t.deepEqual(recovery('(!!][1', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'UnaryExpression',
+              operator: '!',
+              operand: {
+                type: 'UnaryExpression',
+                operator: '!',
+                operand: {
+                  type: 'MemberExpression',
+                  member: {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 4,
+                    end: 4,
+                    kind: 13,
+                    flags: 2
+                  },
+                  expression: {
+                    type: 'NumericLiteral',
+                    value: 1,
+                    start: 5,
+                    end: 6,
+                    kind: 10,
+                    flags: 0
+                  },
+                  computed: true,
+                  start: 3,
+                  end: 6,
+                  kind: 154,
+                  flags: 0
+                },
+                start: 2,
+                end: 6,
+                kind: 160,
+                flags: 0
+              },
+              start: 1,
+              end: 6,
+              kind: 160,
+              flags: 0
+            },
+            start: 0,
+            end: 6,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 6,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '(!!][1',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 4,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`]` expected',
+          code: 5,
+          start: 5,
+          length: 1
+        }
+      ],
+      detached: false,
+      isIncremental: false,
+      parent: null,
+      children: [],
+      EOF: {
+        type: 'CST',
+        kind: 16384,
+        start: 6,
+        end: 6
+      },
+      start: 0,
+      length: 6,
+      end: 6
+    });
   });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-    it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-    it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-    it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-  it('(1', () => {
-    t.deepEqual(recovery('(1', 'recovery.js'), {});
-  });
-
-*/
-
   it('(1', () => {
     t.deepEqual(recovery('(1', 'recovery.js'), {
       kind: 209,
