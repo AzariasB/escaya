@@ -15,7 +15,7 @@ export function parseBlockElements(state: ParserState, context: Context, cb: any
 /**
  * Parse block statement nodes. E.g. 'BlockStatement', 'FunctionBody'
  */
-export function parseVarLexElements(state: ParserState, context: Context, type: BindingType, cb: any): any {
+export function parseBindingElements(state: ParserState, context: Context, type: BindingType, cb: any): any {
   const node = currentNode(state);
   if (node) {
     return consumeNode(state, context, node);

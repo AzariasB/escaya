@@ -23,7 +23,7 @@ import { NewTarget } from './ast/expressions/new-target';
 import { FunctionRestParameter } from './ast/expressions/function-rest-parameter';
 import { AssignmentElement } from './ast/expressions/assignment-element';
 import { Expression, Parameter, BindingPattern, LeftHandSideExpression } from './ast/expressions/index';
-import { parseBlockElements, parseVarLexElements, parseListElements } from './incremental/incremental';
+import { parseBlockElements, parseBindingElements, parseListElements } from './incremental/incremental';
 import { createIdentifier, createBindingIdentifier } from './incremental/common';
 import { MemberExpression } from './ast/expressions/member-expr';
 import { Elison } from './ast/expressions/elison';
@@ -816,7 +816,7 @@ export function parseBindingList(
   const check =
     context & Context.ErrorRecovery ? Constants.IsPatternOrIdentifierRecovery : Constants.IsPatternOrIdentifierNormal;
   while (state.token & check) {
-    declarationList.push(parseVarLexElements(state, context, type, cb));
+    declarationList.push(parseBindingElements(state, context, type, cb));
 
     if (consumeOpt(state, context, Token.Comma)) continue;
     if (state.token & (Token.IsInOrOf | Token.IsAutomaticSemicolon) || state.lineTerminatorBeforeNextToken) break;
@@ -1214,7 +1214,7 @@ export function parseBindingOrDeclarationList(
   const check =
     context & Context.ErrorRecovery ? Constants.IsPatternOrIdentifierRecovery : Constants.IsPatternOrIdentifierNormal;
   while (state.token & check) {
-    declarationList.push(parseVarLexElements(state, context, type, cb));
+    declarationList.push(parseBindingElements(state, context, type, cb));
 
     if (consumeOpt(state, context, Token.Comma)) continue;
     if (state.token & Token.IsAutomaticSemicolon || state.lineTerminatorBeforeNextToken) break;
@@ -2512,7 +2512,7 @@ export function parseFormalParameters(state: ParserState, context: Context): Par
         params.push(parseFunctionRestParameter(state, context, BindingType.None));
         break;
       }
-      params.push(parseVarLexElements(state, context, BindingType.ArgumentList, parseBindingElement));
+      params.push(parseBindingElements(state, context, BindingType.ArgumentList, parseBindingElement));
 
       if (state.token === Token.RightParen) break;
       consume(state, context | Context.AllowRegExp, Token.Comma);
