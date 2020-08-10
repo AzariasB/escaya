@@ -91,7 +91,7 @@ A `try` statement. If `handler` is `null` then `finalizer` must be a `BlockState
 ```js
 interface CatchClause <: Statements {
     type: 'CatchClause';
-    binding: Pattern | null;
+    binding: BindingIdentifier | ObjectBindingPattern | ArrayBindingPattern | null;
     body: BlockStatement;
 }
 ```
@@ -143,7 +143,7 @@ interface ForStatement <: Statements {
 ```js
 interface ForOfStatement <: Statements {
     type: 'ForOfStatement';
-    initializer: ForDeclaration | BindingPattern | Expression;
+    initializer: ForDeclaration | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
     expression: Expression;
     statement: Statement;
 }
@@ -154,7 +154,7 @@ interface ForOfStatement <: Statements {
 ```js
 interface ForAwaitOfStatement <: Statements {
     type: 'ForAwaitOfStatement';
-    initializer: ForDeclaration | BindingPattern | Expression;
+    initializer: ForDeclaration | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
     expression: Expression;
     statement: Statement;
 }
@@ -165,7 +165,7 @@ interface ForAwaitOfStatement <: Statements {
 ```js
 interface ForInStatement <: Statements {
     type: 'ForInStatement';
-    initializer: ForDeclaration | BindingPattern | Expression;
+    initializer: ForDeclaration | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
     expression: Expression;
     statement: Statement;
 }
@@ -230,7 +230,7 @@ interface EmptyStatement <: Statements {
 ```js
 interface LexicalBinding <: Statements {
     type: 'LexicalBinding';
-    binding: Binding;
+    binding: BindingPattern | BindingIdentifier;
     initializer: Expression | null;
 }
 ```

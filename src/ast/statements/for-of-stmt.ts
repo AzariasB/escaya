@@ -1,11 +1,11 @@
 import { SyntaxNode } from '../syntax-node';
 import { Statement } from '.';
-import { Expression, BindingPattern } from '../expressions/index';
+import { Expression, AssignmentPattern } from '../expressions/index';
 import { ForDeclaration } from '../declarations/for-declaration';
 
 export interface ForOfBase extends SyntaxNode {
   // The expression or declaration before `of`.
-  readonly initializer: ForDeclaration | BindingPattern | Expression;
+  readonly initializer: ForDeclaration | AssignmentPattern | Expression;
   readonly expression: Expression;
   readonly statement: Statement;
 }
@@ -21,7 +21,7 @@ export type ForOfStatement = ForOfBase;
 export type ForAwaitStatement = ForOfBase;
 
 export function createForOfAwaitStatement(
-  initializer: ForDeclaration | BindingPattern | Expression,
+  initializer: ForDeclaration | AssignmentPattern | Expression,
   expression: Expression,
   statement: Statement,
   isAwait: boolean

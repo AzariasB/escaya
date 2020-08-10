@@ -149,7 +149,7 @@ interface ArrowFunction <: Expression {
 ```js
 interface AssignmentElement <: Expression {
     type: 'AssignmentElement';
-    left: AssignmentPattern | BindingIdentifier;
+    left: ObjectAssignmentPattern | ArrayAssignmentPattern | IdentifierReference;
     right: Expression | null;
 }
 ```
@@ -186,8 +186,8 @@ enum LogicalAssignmentOperator {
 ### AssignmentExpression
 
 ```js
-interface AssignmentElement <: Expression {
-    type: 'AssignmentElement';
+interface AssignmentExpression <: Expression {
+    type: 'AssignmentExpression';
     left: Expression;
     operator: AssignmentOperator | LogicalAssignmentOperator;
     right: Expression;
@@ -199,7 +199,7 @@ interface AssignmentElement <: Expression {
 ```js
 interface AssignmentRestElement <: Expression {
     type: 'AssignmentRestElement';
-    argument: Expression;
+    argument: ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
 }
 ```
 
@@ -267,7 +267,7 @@ interface BindingElement <: Expression {
 ```js
 interface BindingRestElement <: Expression {
     type: 'BindingRestElement';
-    argument: BindingPattern | BindingIdentifier;
+    argument: ObjectBindingPattern | ArrayBindingPattern | BindingIdentifier;
 }
 ```
 
