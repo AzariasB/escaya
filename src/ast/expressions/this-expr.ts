@@ -1,14 +1,10 @@
-import { SyntaxKind, SyntaxNode, SyntaxNodeFlags } from '../syntax-node';
+import { SyntaxNode } from '../syntax-node';
 
 /**
  * This expression.
  */
-export interface ThisExpression extends SyntaxNode {
-  readonly kind?: SyntaxKind.ThisExpression;
-}
+export type ThisExpression = SyntaxNode;
 
 export function createThisExpression(): ThisExpression {
-  return {
-    type: 'ThisExpression'
-  };
+  return { type: 'ThisExpression' };
 }

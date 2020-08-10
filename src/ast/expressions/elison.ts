@@ -1,6 +1,6 @@
-import { SyntaxKind, SyntaxNode } from '../syntax-node';
+import { SyntaxNode } from '../syntax-node';
 
-export interface Elison extends SyntaxNode {}
+export type Elison = SyntaxNode;
 
 export function createElison(): Elison {
   return { type: 'Elison' };

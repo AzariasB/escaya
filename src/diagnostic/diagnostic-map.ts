@@ -75,6 +75,26 @@ export const diagnosticMap: {
   [DiagnosticCode.MissingExponent]: 'Non-number after exponent indicator',
   [DiagnosticCode.UnknownDigit]: 'Unknown digit',
   [DiagnosticCode.InvalidBigIntLiteral]: 'Invalid BigInt syntax',
-  [DiagnosticCode.ContinuousNumericSeparator]: 'Only one underscore is allowed as numeric separator',
-  [DiagnosticCode.TrailingNumericSeparator]: 'Numeric separators are not allowed at the end of numeric literals'
+  [DiagnosticCode.SeparatorsDisallowed]: 'Numeric separators not allowed here',
+  [DiagnosticCode.ContinuousNumericSeparator]: 'Multiple consecutive numeric separators are not permitted',
+  [DiagnosticCode.TrailingNumericSeparator]: 'Numeric separators are not allowed at the end of numeric literals',
+  [DiagnosticCode.UnderscoreAfterZero]: 'Numeric separator can not be used after leading 0',
+  [DiagnosticCode.DisallowedLetInStrict]: 'Identifier "let" disallowed as left-hand side expression in strict mode',
+  [DiagnosticCode.ForOfLet]: "The left-hand side of a for-of loop may not start with 'let'",
+  [DiagnosticCode.StrictFunction]:
+    'In strict mode code or without web compability enabled, functions can only be declared at top level or inside a block',
+  [DiagnosticCode.SloppyFunction]:
+    'In non-strict mode code, functions can only be declared at top level, inside a block, or as the body of an if statement',
+  [DiagnosticCode.ClassForbiddenAsStatement]: "Class declaration can't appear in single-statement context",
+  [DiagnosticCode.WebCompatFunction]:
+    'Without web compability enabled functions can not be declared at top level, inside a block, or as the body of an if statement',
+  [DiagnosticCode.AsyncFunctionInSingleStatementContext]:
+    'Async functions can only be declared at the top level or inside a block',
+  [DiagnosticCode.ChainNoTemplate]: 'Invalid optional chain in tagged template',
+  [DiagnosticCode.BlockBodyInvokedWithoutGroup]: 'Block body arrows can not be immediately invoked without a group',
+  [DiagnosticCode.BlockBodyAccessedWithoutGroup]: 'Block body arrows can not be immediately accessed without a group',
+  [DiagnosticCode.BlockBodyTaggedWithoutGroup]: 'Block body arrows can not be immediately tagged without a group',
+  [DiagnosticCode.ArrowOperatorToRight]: 'An arrow function can not be part of an operator to the right',
+
+  [DiagnosticCode.StrictInvalidLetInExprPos]: 'An arrow function can not be part of an operator to the right'
 };

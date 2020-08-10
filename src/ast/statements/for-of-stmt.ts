@@ -13,12 +13,12 @@ export interface ForOfBase extends SyntaxNode {
 /**
  * For statement.
  */
-export interface ForOfStatement extends ForOfBase {}
+export type ForOfStatement = ForOfBase;
 
 /**
  * For-await statement.
  */
-export interface ForAwaitStatement extends ForOfBase {}
+export type ForAwaitStatement = ForOfBase;
 
 export function createForOfAwaitStatement(
   initializer: ForDeclaration | BindingPattern | Expression,

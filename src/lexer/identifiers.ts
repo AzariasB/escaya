@@ -106,7 +106,7 @@ export function scanKeywordOrIdentifier(state: ParserState, context: Context): T
 
 export function scanIdentifierSlowPath(state: ParserState, context: Context): Token {
   let start = state.index;
-  let source = state.source;
+  const source = state.source;
   let ch = source.charCodeAt(state.index);
   let code: number | null = null;
 
@@ -167,7 +167,7 @@ export function scanIdentifierSlowPath(state: ParserState, context: Context): To
 export function scanIdentifierEscape(state: ParserState, context: Context): number {
   let index = state.index;
 
-  let start = index;
+  const start = index;
 
   if (state.source.charCodeAt(index + 1) !== Char.LowerU) {
     addLexerDiagnostic(state, context, start, index, DiagnosticCode.InvalidUnicodeEscapeSequence);

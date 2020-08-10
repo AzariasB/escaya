@@ -1,7 +1,7 @@
 import { Token } from './../ast/token';
 import { Context, ParserState } from '../common';
-import { toHex, fromCodePoint } from './common';
-import { addDiagnostic, addLexerDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
+import { toHex } from './common';
+import { addLexerDiagnostic } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
 import { Char } from './char';
 import { AsciiCharFlags, AsciiCharTypes } from './asciiChar';
@@ -155,7 +155,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
   let value = 0;
   let type = NumberKind.Decimal;
   let disallowBigInt = false;
-  let source = state.source;
+  const source = state.source;
   let index = state.index;
 
   ch = state.source.charCodeAt(index);

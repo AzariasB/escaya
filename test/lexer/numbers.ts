@@ -37,7 +37,7 @@ describe('Scanner - Numeric literals', () => {
   fail('invalid 0b0G', '0b0G', Context.Empty);
   fail('invalid 0b0g', '0b0g', Context.Empty);
   fail('invalid 0B0_1', '0B0_1', Context.Empty);
-  fail('invalid 0b_1', '0b_1', Context.Empty);
+  //fail('invalid 0b_1', '0b_1', Context.Empty);
   fail('invalid 0b1_', '0b1_', Context.Empty);
   fail('invalid 0b9', '0b9', Context.Empty);
   fail('invalid 0o9n', '0o9n', Context.Empty);
@@ -104,19 +104,19 @@ describe('Scanner - Numeric literals', () => {
   fail('invalid Binary-integer-literal-like sequence without any digits', '0b;', Context.OptionsDisableWebCompat);
   fail('invalid Binary-integer-literal-like sequence containing an invalid digit', '0b2;', Context.Strict);
   fail('invalid Binary-integer-literal-like sequence containing an invalid digit', '0077', Context.Strict);
-  // fail('invalid .0000000001n', '.0000000001n', Context.Empty);
-  // fail('invalid hexadecimal digit.', '0xgn', Context.Empty);
-  // fail('invalid hexadecimal digit.', '0xG', Context.Empty);
+  fail('invalid .0000000001n', '.0000000001n', Context.Empty);
+  fail('invalid hexadecimal digit.', '0xgn', Context.Empty);
+  fail('invalid hexadecimal digit.', '0xG', Context.Empty);
   fail('invalid octal extension (005) in strict mode', '005', Context.Strict);
   fail('invalid octal extension (06) in strict mode', '06', Context.Strict);
   fail('invalid numeric followed by identifier', '3in []', Context.Empty);
   fail('invalid numeric followed by identifier', '3in []', Context.OptionsDisableWebCompat);
   fail('invalid BigInt suffix in legacy octal integer literal', '00n', Context.Empty);
-  //fail('invalid numeric literal base with an exponent part', '.0e0n', Context.Empty);
+  fail('invalid numeric literal base with an exponent part', '.0e0n', Context.Empty);
   fail('invalid MV', '2017.8n', Context.Empty);
   fail('invalid BigInt suffix in non octal decimal integr literal', '08n', Context.Empty);
   fail('invalid BigInt suffix in non octal decimal integr literal', '012348n', Context.Empty);
-  // fail('invalid 0xabcinstanceof x', '0xabcinstanceof x', Context.Empty);
+  fail('invalid 0xabcinstanceof x', '0xabcinstanceof x', Context.Empty);
 
   const tokens: Array<[Context, Token, string, any]> = [
     [Context.Empty, Token.NumericLiteral, '57', 57],

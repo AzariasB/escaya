@@ -3,7 +3,6 @@ import { IdentifierName } from '../expressions/identifiername';
 import { BindingIdentifier } from '../expressions/binding-identifier';
 
 export interface ImportSpecifier extends SyntaxNode {
-  readonly type: 'ImportSpecifier';
   readonly name: IdentifierName | BindingIdentifier | null;
   readonly binding: IdentifierName | BindingIdentifier | null;
 }

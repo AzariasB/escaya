@@ -3,7 +3,7 @@ import { SyntaxNode } from '../syntax-node';
 /**
  * Do-while statement.
  */
-export interface EmptyStatement extends SyntaxNode {}
+export type EmptyStatement = SyntaxNode;
 
 export function createEmptyStatement(): EmptyStatement {
   return {

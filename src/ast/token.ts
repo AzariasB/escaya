@@ -246,7 +246,10 @@ export const enum Token {
   WhiteSpace = 121,
   CarriageReturn = 122,
   LineFeed = 123,
-  Unknown = 124
+  Unknown = 124,
+
+  EscapedIdentifier = 125,
+  IdentifierOrKeyword = 126
 }
 
 export const KeywordDescTable = [
@@ -400,3 +403,12 @@ export const KeywordDescTable = [
   'LineFeed',
   'Unknown'
 ];
+
+export function createToken<T extends TokenSyntaxKind>(source: string, tokenKind: T): SyntaxToken<T> {
+  return {
+    type: 'bilat',
+    kind: tokenKind,
+    start: source.length,
+    end: source.length
+  } as any;
+}

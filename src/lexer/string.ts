@@ -142,7 +142,7 @@ export const oneCharASCII = [
  */
 export function scanString(parser: ParserState, context: Context, quote: number): Token {
   let ret = '';
-  let source = parser.source;
+  const source = parser.source;
 
   let start = parser.index;
   let ch = source.charCodeAt(parser.index);

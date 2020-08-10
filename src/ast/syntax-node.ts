@@ -272,7 +272,6 @@ export enum SyntaxKind {
   ArrayAssignmentPattern,
   SpreadProperty,
   FunctionRestParameter,
-  ImportMeta,
 
   // Module
 
@@ -287,5 +286,6 @@ export enum SyntaxKind {
   ExportSpecifier,
 
   OptionalChain,
-  PropertyName
+  PropertyName,
+  ImportMeta
 }

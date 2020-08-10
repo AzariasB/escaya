@@ -1,0 +1,2185 @@
+import * as t from 'assert';
+import { recovery } from '../../../src/escaya';
+
+describe('Recovery - For', () => {
+  it('for keyword3', () => {
+    t.deepEqual(recovery('for', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 3,
+            end: 3,
+            flags: 2
+          },
+          condition: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 3,
+            end: 3,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 3,
+            end: 3,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: '',
+              start: 3,
+              end: 3,
+              flags: 2
+            },
+            start: 3,
+            end: 3,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 3,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 0,
+          length: 3
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 3,
+        end: 3
+      },
+      start: 0,
+      length: 3,
+      end: 3
+    });
+  });
+
+  it('for)', () => {
+    t.deepEqual(recovery('for)', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 4,
+            end: 4,
+            kind: 13,
+            flags: 2
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 4,
+            end: 4,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 4,
+            end: 4,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 4,
+              end: 4,
+              kind: 13,
+              flags: 2
+            },
+            start: 4,
+            end: 4,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 4,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for)',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 3,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 4,
+        end: 4
+      },
+      start: 0,
+      length: 4,
+      end: 4
+    });
+  });
+  it('for keyword11', () => {
+    t.deepEqual(recovery('for(!', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: '',
+              start: 5,
+              end: 5,
+              flags: 2
+            },
+            start: 4,
+            end: 5,
+            kind: 160,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 5,
+            end: 5,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 5,
+            end: 5,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: '',
+              start: 5,
+              end: 5,
+              flags: 2
+            },
+            start: 5,
+            end: 5,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 5,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for(!',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 4,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 5,
+        end: 5
+      },
+      start: 0,
+      length: 5,
+      end: 5
+    });
+  });
+  it('for(let x', () => {
+    t.deepEqual(recovery('for(let x', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'ForDeclaration',
+            isConst: false,
+            declarations: [
+              {
+                type: 'LexicalBinding',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 7,
+                  end: 9,
+                  kind: 168,
+                  flags: 0
+                },
+                initializer: null,
+                start: 7,
+                end: 9,
+                kind: 146,
+                flags: 0
+              }
+            ],
+            start: 4,
+            end: 9,
+            kind: 201,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 9,
+            end: 9,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 9,
+            end: 9,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 9,
+              end: 9,
+              kind: 13,
+              flags: 2
+            },
+            start: 9,
+            end: 9,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 9,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for(let x',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 5,
+          start: 8,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 9,
+        end: 9
+      },
+      start: 0,
+      length: 9,
+      end: 9
+    });
+  });
+  it('for keywordd', () => {
+    t.deepEqual(recovery('for(let.xy', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'MemberExpression',
+            member: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: 'let',
+              start: 4,
+              end: 7,
+              flags: 0
+            },
+            expression: {
+              type: 'IdentifierName',
+              name: 'xy',
+              start: 8,
+              end: 10,
+              kind: 13,
+              flags: 0
+            },
+            computed: false,
+            start: 0,
+            end: 10,
+            kind: 154,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 10,
+            end: 10,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 10,
+            end: 10,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: '',
+              start: 10,
+              end: 10,
+              flags: 2
+            },
+            start: 10,
+            end: 10,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 10,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for(let.xy',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 5,
+          start: 8,
+          length: 2
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 10,
+        end: 10
+      },
+      start: 0,
+      length: 10,
+      end: 10
+    });
+  });
+  it('for(let.s =', () => {
+    t.deepEqual(recovery('for(let.s =', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'AssignmentExpression',
+            left: {
+              type: 'MemberExpression',
+              member: {
+                type: 'IdentifierReference',
+                name: 'let',
+                start: 4,
+                end: 7,
+                kind: 13,
+                flags: 0
+              },
+              expression: {
+                type: 'IdentifierName',
+                name: 's',
+                start: 8,
+                end: 9,
+                kind: 13,
+                flags: 0
+              },
+              computed: false,
+              start: 0,
+              end: 9,
+              kind: 154,
+              flags: 0
+            },
+            operator: '=',
+            right: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 11,
+              end: 11,
+              kind: 13,
+              flags: 2
+            },
+            start: 9,
+            end: 11,
+            kind: 152,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 11,
+            end: 11,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 11,
+            end: 11,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 11,
+              end: 11,
+              kind: 13,
+              flags: 2
+            },
+            start: 11,
+            end: 11,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 11,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for(let.s =',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 10,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 11,
+        end: 11
+      },
+      start: 0,
+      length: 11,
+      end: 11
+    });
+  });
+  it('for let.for', () => {
+    t.deepEqual(recovery('for let.for', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'MemberExpression',
+            member: {
+              type: 'IdentifierReference',
+              name: 'let',
+              start: 3,
+              end: 7,
+              kind: 13,
+              flags: 0
+            },
+            expression: {
+              type: 'IdentifierName',
+              name: 'for',
+              start: 8,
+              end: 11,
+              kind: 13,
+              flags: 0
+            },
+            computed: false,
+            start: 0,
+            end: 11,
+            kind: 154,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 11,
+            end: 11,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 11,
+            end: 11,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 11,
+              end: 11,
+              kind: 13,
+              flags: 2
+            },
+            start: 11,
+            end: 11,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 11,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for let.for',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 4,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 5,
+          start: 8,
+          length: 3
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 11,
+        end: 11
+      },
+      start: 0,
+      length: 11,
+      end: 11
+    });
+  });
+  it('for keyword222', () => {
+    t.deepEqual(recovery('for(for) {}', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 4,
+            end: 4,
+            kind: 13,
+            flags: 2
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 4,
+            end: 4,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 4,
+            end: 4,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ForStatement',
+            initializer: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 8,
+              end: 8,
+              kind: 13,
+              flags: 2
+            },
+            condition: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 11,
+              end: 11,
+              kind: 13,
+              flags: 2
+            },
+            incrementor: {
+              type: 'ObjectLiteral',
+              properties: [],
+              start: 8,
+              end: 11,
+              kind: 179,
+              flags: 0
+            },
+            statement: {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 11,
+                end: 11,
+                kind: 13,
+                flags: 2
+              },
+              start: 11,
+              end: 11,
+              kind: 122,
+              flags: 0
+            },
+            start: 4,
+            end: 11,
+            kind: 132,
+            flags: 0
+          },
+          start: 0,
+          end: 11,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for(for) {}',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 4,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 7,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 5,
+          start: 10,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 11,
+        end: 11
+      },
+      start: 0,
+      length: 11,
+      end: 11
+    });
+  });
+
+  it('for keyword90', () => {
+    t.deepEqual(recovery('for(var in x) {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForInStatement',
+          initializer: {
+            type: 'ForDeclaration',
+            isConst: false,
+            declarations: [],
+            start: 4,
+            end: 7,
+            kind: 201,
+            flags: 0
+          },
+          expression: {
+            type: 'IdentifierReference',
+            name: 'x',
+            start: 10,
+            end: 12,
+            kind: 13,
+            flags: 0
+          },
+          statement: {
+            type: 'BlockStatement',
+            leafs: [],
+            start: 13,
+            end: 15,
+            kind: 123,
+            flags: 0
+          },
+          start: 0,
+          end: 15,
+          kind: 130,
+          flags: 0
+        }
+      ],
+      text: 'for(var in x) {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 14,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 15,
+        end: 15
+      },
+      start: 0,
+      length: 15,
+      end: 15
+    });
+  });
+  it('for)var', () => {
+    t.deepEqual(recovery('for)var', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 4,
+            end: 4,
+            kind: 13,
+            flags: 2
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 4,
+            end: 4,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 4,
+            end: 4,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'VariableStatement',
+            declarations: [],
+            start: 4,
+            end: 7,
+            kind: 143,
+            flags: 0
+          },
+          start: 0,
+          end: 7,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for)var',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 3,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 4,
+          length: 3
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 7,
+        end: 7
+      },
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+  it('for(var x of y,,,', () => {
+    t.deepEqual(recovery('for(var x of y,,,', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForAwaitStatement',
+          initializer: {
+            type: 'ForDeclaration',
+            isConst: false,
+            declarations: [
+              {
+                type: 'VariableDeclaration',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 7,
+                  end: 9,
+                  kind: 168,
+                  flags: 0
+                },
+                initializer: null,
+                start: 7,
+                end: 9,
+                kind: 144,
+                flags: 0
+              }
+            ],
+            start: 4,
+            end: 9,
+            kind: 201,
+            flags: 0
+          },
+          expression: {
+            type: 'IdentifierReference',
+            name: 'y',
+            start: 12,
+            end: 14,
+            kind: 13,
+            flags: 0
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'CommaOperator',
+              expressions: [
+                {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 15,
+                  end: 15,
+                  kind: 13,
+                  flags: 2
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 17,
+                  end: 17,
+                  kind: 13,
+                  flags: 2
+                }
+              ],
+              start: 14,
+              end: 17,
+              kind: 147,
+              flags: 0
+            },
+            start: 14,
+            end: 17,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 17,
+          kind: 129,
+          flags: 0
+        }
+      ],
+      text: 'for(var x of y,,,',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 14,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 15,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 16,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 17,
+        end: 17
+      },
+      start: 0,
+      length: 17,
+      end: 17
+    });
+  });
+  it('for(const =', () => {
+    t.deepEqual(recovery('for(const =', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'AssignmentExpression',
+            left: {
+              type: 'ForDeclaration',
+              isConst: true,
+              declarations: [],
+              start: 4,
+              end: 9,
+              kind: 201,
+              flags: 0
+            },
+            operator: '=',
+            right: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 11,
+              end: 11,
+              kind: 13,
+              flags: 2
+            },
+            start: 9,
+            end: 11,
+            kind: 152,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 11,
+            end: 11,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 11,
+            end: 11,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 11,
+              end: 11,
+              kind: 13,
+              flags: 2
+            },
+            start: 11,
+            end: 11,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 11,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for(const =',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 10,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 11,
+        end: 11
+      },
+      start: 0,
+      length: 11,
+      end: 11
+    });
+  });
+  it('for (const x of for', () => {
+    t.deepEqual(recovery('for (const x of for', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForAwaitStatement',
+          initializer: {
+            type: 'ForDeclaration',
+            isConst: true,
+            declarations: [
+              {
+                type: 'LexicalBinding',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 10,
+                  end: 12,
+                  kind: 168,
+                  flags: 0
+                },
+                initializer: null,
+                start: 10,
+                end: 12,
+                kind: 146,
+                flags: 0
+              }
+            ],
+            start: 5,
+            end: 12,
+            kind: 201,
+            flags: 0
+          },
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 15,
+            end: 15,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ForStatement',
+            initializer: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 19,
+              end: 19,
+              kind: 13,
+              flags: 2
+            },
+            condition: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 19,
+              end: 19,
+              kind: 13,
+              flags: 2
+            },
+            incrementor: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 19,
+              end: 19,
+              kind: 13,
+              flags: 2
+            },
+            statement: {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 19,
+                end: 19,
+                kind: 13,
+                flags: 2
+              },
+              start: 19,
+              end: 19,
+              kind: 122,
+              flags: 0
+            },
+            start: 15,
+            end: 19,
+            kind: 132,
+            flags: 0
+          },
+          start: 0,
+          end: 19,
+          kind: 129,
+          flags: 0
+        }
+      ],
+      text: 'for (const x of for',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 16,
+          length: 3
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 19,
+        end: 19
+      },
+      start: 0,
+      length: 19,
+      end: 19
+    });
+  });
+  it('for (const x of', () => {
+    t.deepEqual(recovery('for (const x of', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForAwaitStatement',
+          initializer: {
+            type: 'ForDeclaration',
+            isConst: true,
+            declarations: [
+              {
+                type: 'LexicalBinding',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 10,
+                  end: 12,
+                  kind: 168,
+                  flags: 0
+                },
+                initializer: null,
+                start: 10,
+                end: 12,
+                kind: 146,
+                flags: 0
+              }
+            ],
+            start: 5,
+            end: 12,
+            kind: 201,
+            flags: 0
+          },
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 15,
+            end: 15,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 15,
+              end: 15,
+              kind: 13,
+              flags: 2
+            },
+            start: 15,
+            end: 15,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 15,
+          kind: 129,
+          flags: 0
+        }
+      ],
+      text: 'for (const x of',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 13,
+          length: 2
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 15,
+        end: 15
+      },
+      start: 0,
+      length: 15,
+      end: 15
+    });
+  });
+  it('for keyword7890+', () => {
+    t.deepEqual(recovery('for (a.d.', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'MemberExpression',
+            member: {
+              type: 'MemberExpression',
+              member: {
+                type: 'IdentifierReference',
+                kind: 13,
+                name: 'a',
+                start: 5,
+                end: 6,
+                flags: 0
+              },
+              expression: {
+                type: 'IdentifierName',
+                name: 'd',
+                start: 7,
+                end: 8,
+                kind: 13,
+                flags: 0
+              },
+              computed: false,
+              start: 5,
+              end: 8,
+              kind: 154,
+              flags: 0
+            },
+            expression: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: '',
+              start: 9,
+              end: 9,
+              flags: 2
+            },
+            computed: false,
+            start: 5,
+            end: 9,
+            kind: 154,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 9,
+            end: 9,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 9,
+            end: 9,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: '',
+              start: 9,
+              end: 9,
+              flags: 2
+            },
+            start: 9,
+            end: 9,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 9,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for (a.d.',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 8,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 9,
+        end: 9
+      },
+      start: 0,
+      length: 9,
+      end: 9
+    });
+  });
+  it('for keyword890435', () => {
+    t.deepEqual(recovery('for(a[', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'MemberExpression',
+            member: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: 'a',
+              start: 4,
+              end: 5,
+              flags: 0
+            },
+            expression: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: '',
+              start: 6,
+              end: 6,
+              flags: 2
+            },
+            computed: true,
+            start: 4,
+            end: 6,
+            kind: 154,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 6,
+            end: 6,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 6,
+            end: 6,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: '',
+              start: 6,
+              end: 6,
+              flags: 2
+            },
+            start: 6,
+            end: 6,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 6,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for(a[',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 5,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 6,
+        end: 6
+      },
+      start: 0,
+      length: 6,
+      end: 6
+    });
+  });
+  it('for keyword09825', () => {
+    t.deepEqual(recovery('for(ab.[a', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'MemberExpression',
+            member: {
+              type: 'MemberExpression',
+              member: {
+                type: 'IdentifierReference',
+                kind: 13,
+                name: 'ab',
+                start: 4,
+                end: 6,
+                flags: 0
+              },
+              expression: {
+                type: 'IdentifierReference',
+                kind: 13,
+                name: '',
+                start: 7,
+                end: 7,
+                flags: 2
+              },
+              computed: false,
+              start: 4,
+              end: 7,
+              kind: 154,
+              flags: 0
+            },
+            expression: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: 'a',
+              start: 8,
+              end: 9,
+              flags: 0
+            },
+            computed: true,
+            start: 4,
+            end: 9,
+            kind: 154,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 9,
+            end: 9,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 9,
+            end: 9,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: '',
+              start: 9,
+              end: 9,
+              flags: 2
+            },
+            start: 9,
+            end: 9,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 9,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for(ab.[a',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 7,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`]` expected',
+          code: 5,
+          start: 8,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 9,
+        end: 9
+      },
+      start: 0,
+      length: 9,
+      end: 9
+    });
+  });
+  it('for keyword4253', () => {
+    t.deepEqual(recovery('for(,,,,,,,,,,,,', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'CommaOperator',
+            expressions: [
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 5,
+                end: 5,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 7,
+                end: 7,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 9,
+                end: 9,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 11,
+                end: 11,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 13,
+                end: 13,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 15,
+                end: 15,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 16,
+                end: 16,
+                kind: 13,
+                flags: 2
+              }
+            ],
+            start: 5,
+            end: 16,
+            kind: 147,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 16,
+            end: 16,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 16,
+            end: 16,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 16,
+              end: 16,
+              kind: 13,
+              flags: 2
+            },
+            start: 16,
+            end: 16,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 16,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for(,,,,,,,,,,,,',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 5,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 7,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 11,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 13,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 15,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 16,
+        end: 16
+      },
+      start: 0,
+      length: 16,
+      end: 16
+    });
+  });
+  it('for(,,,,,,,,,[) {break;', () => {
+    t.deepEqual(recovery('for(,,,,,,,,,[) {break;', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'CommaOperator',
+            expressions: [
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 5,
+                end: 5,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 7,
+                end: 7,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 9,
+                end: 9,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 11,
+                end: 11,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'MemberExpression',
+                member: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 13,
+                  end: 13,
+                  kind: 13,
+                  flags: 2
+                },
+                expression: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 15,
+                  end: 15,
+                  kind: 13,
+                  flags: 2
+                },
+                computed: true,
+                start: 12,
+                end: 15,
+                kind: 154,
+                flags: 0
+              }
+            ],
+            start: 5,
+            end: 15,
+            kind: 147,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 23,
+            end: 23,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'ObjectLiteral',
+            properties: [
+              {
+                type: 'IdentifierReference',
+                name: 'break',
+                start: 17,
+                end: 22,
+                kind: 13,
+                flags: 0
+              }
+            ],
+            start: 15,
+            end: 22,
+            kind: 179,
+            flags: 0
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 23,
+              end: 23,
+              kind: 13,
+              flags: 2
+            },
+            start: 23,
+            end: 23,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 23,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for(,,,,,,,,,[) {break;',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 5,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 7,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 11,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 13,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 16,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 22,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 23,
+        end: 23
+      },
+      start: 0,
+      length: 23,
+      end: 23
+    });
+  });
+  it('for unary', () => {
+    t.deepEqual(recovery('for!', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: '',
+              start: 4,
+              end: 4,
+              flags: 2
+            },
+            start: 3,
+            end: 4,
+            kind: 160,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 4,
+            end: 4,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            kind: 13,
+            name: '',
+            start: 4,
+            end: 4,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              kind: 13,
+              name: '',
+              start: 4,
+              end: 4,
+              flags: 2
+            },
+            start: 4,
+            end: 4,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 4,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for!',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 3,
+          length: 1
+        }
+      ],
+      intersectsChange: false,
+      hasBeenIncrementallyParsed: false,
+      parent: null,
+      children: [],
+      endOfFileToken: {
+        type: 'bilat',
+        kind: 16384,
+        start: 4,
+        end: 4
+      },
+      start: 0,
+      length: 4,
+      end: 4
+    });
+  });
+});

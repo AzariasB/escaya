@@ -142,7 +142,7 @@ export const escapeChar = [
  * Scan a template section. It can start either from the quote or closing brace.
  */
 export function scanTemplateSpan(parser: ParserState, context: Context): Token {
-  let source = parser.source;
+  const source = parser.source;
   let ret: string | null = '';
   let lastIsCR = 0;
   const start = parser.index;

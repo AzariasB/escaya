@@ -3,7 +3,7 @@ import { SyntaxNode } from '../syntax-node';
 /**
  * New target expression.
  */
-export interface NewTarget extends SyntaxNode {}
+export type NewTarget = SyntaxNode;
 
 export function createNewTarget(): NewTarget {
   return {
