@@ -28,12 +28,12 @@ describe('Recovery - Let', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 3,
         end: 3
@@ -90,12 +90,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 5,
         end: 5
@@ -157,12 +157,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 4,
         end: 4
@@ -233,12 +233,12 @@ describe('Recovery - Let', () => {
           length: 2
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 6,
         end: 6
@@ -303,12 +303,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 8,
         end: 8
@@ -379,12 +379,12 @@ describe('Recovery - Let', () => {
           length: 2
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 6,
         end: 6
@@ -480,12 +480,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 9,
         end: 9
@@ -551,12 +551,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 6,
         end: 6
@@ -652,12 +652,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 15,
         end: 15
@@ -729,12 +729,12 @@ describe('Recovery - Let', () => {
           length: 5
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 9,
         end: 9
@@ -828,12 +828,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 11,
         end: 11
@@ -885,12 +885,12 @@ describe('Recovery - Let', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 9,
         end: 9
@@ -1050,12 +1050,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 27,
         end: 27
@@ -1127,12 +1127,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 15,
         end: 15
@@ -1195,12 +1195,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 13,
         end: 13
@@ -1264,12 +1264,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 7,
         end: 7
@@ -1380,12 +1380,12 @@ describe('Recovery - Let', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 16,
         end: 16

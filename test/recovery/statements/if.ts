@@ -53,12 +53,12 @@ describe('Recovery - If', () => {
           length: 2
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 2,
         end: 2
@@ -120,12 +120,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 3,
         end: 3
@@ -187,12 +187,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 4,
         end: 4
@@ -303,12 +303,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 10,
         end: 10
@@ -391,12 +391,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 12,
         end: 12
@@ -472,12 +472,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 7,
         end: 7
@@ -553,12 +553,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 8,
         end: 8
@@ -745,12 +745,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 21,
         end: 21
@@ -805,12 +805,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 7,
         end: 7
@@ -889,12 +889,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 5,
         end: 5
@@ -973,12 +973,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 5,
         end: 5
@@ -1057,12 +1057,12 @@ describe('Recovery - If', () => {
           length: 4
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 7,
         end: 7
@@ -1161,12 +1161,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 14,
         end: 14
@@ -1267,12 +1267,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 20,
         end: 20
@@ -1347,12 +1347,12 @@ describe('Recovery - If', () => {
           length: 8
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 16,
         end: 16
@@ -1696,12 +1696,12 @@ describe('Recovery - If', () => {
             length: 7
           }
         ],
-        intersectsChange: false,
-        hasBeenIncrementallyParsed: false,
+        detached: false,
+        isIncremental: false,
         parent: null,
         children: [],
-        endOfFileToken: {
-          type: 'bilat',
+        EOF: {
+          type: 'CST',
           kind: 16384,
           start: 80,
           end: 80
@@ -1938,12 +1938,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 58,
         end: 58
@@ -2127,12 +2127,12 @@ describe('Recovery - If', () => {
           length: 4
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 39,
         end: 39
@@ -2243,12 +2243,12 @@ describe('Recovery - If', () => {
           length: 2
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 9,
         end: 9
@@ -2327,12 +2327,12 @@ describe('Recovery - If', () => {
           length: 2
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 5,
         end: 5
@@ -2450,12 +2450,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 11,
         end: 11
@@ -2618,12 +2618,12 @@ describe('Recovery - If', () => {
           length: 4
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 46,
         end: 46
@@ -2793,12 +2793,12 @@ describe('Recovery - If', () => {
           length: 4
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 39,
         end: 39
@@ -2860,12 +2860,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 4,
         end: 4
@@ -3007,12 +3007,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 11,
         end: 11
@@ -3075,12 +3075,12 @@ describe('Recovery - If', () => {
           length: 2
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 5,
         end: 5
@@ -3174,12 +3174,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 9,
         end: 9
@@ -3343,12 +3343,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 25,
         end: 25
@@ -3484,12 +3484,12 @@ describe('Recovery - If', () => {
           length: 3
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 19,
         end: 19
@@ -3752,12 +3752,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 28,
         end: 28
@@ -3997,12 +3997,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 28,
         end: 28
@@ -4300,12 +4300,12 @@ describe('Recovery - If', () => {
           length: 3
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 54,
         end: 54
@@ -4368,12 +4368,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 5,
         end: 5
@@ -4460,12 +4460,12 @@ describe('Recovery - If', () => {
           length: 2
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 6,
         end: 6
@@ -4588,12 +4588,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 8,
         end: 8
@@ -4636,15 +4636,15 @@ describe('Recovery - If', () => {
       ],
       directives: [],
       end: 5,
-      endOfFileToken: {
+      EOF: {
         end: 5,
         kind: 16384,
         start: 5,
-        type: 'bilat'
+        type: 'CST'
       },
       fileName: 'recovery.js',
-      hasBeenIncrementallyParsed: false,
-      intersectsChange: false,
+      isIncremental: false,
+      detached: false,
       kind: 209,
       length: 5,
       mutualFlags: 0,
@@ -4720,15 +4720,15 @@ describe('Recovery - If', () => {
       ],
       directives: [],
       end: 9,
-      endOfFileToken: {
+      EOF: {
         end: 9,
         kind: 16384,
         start: 9,
-        type: 'bilat'
+        type: 'CST'
       },
       fileName: 'recovery.js',
-      hasBeenIncrementallyParsed: false,
-      intersectsChange: false,
+      isIncremental: false,
+      detached: false,
       kind: 209,
       length: 9,
       mutualFlags: 0,
@@ -4866,12 +4866,12 @@ describe('Recovery - If', () => {
           length: 2
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 4,
         end: 4
@@ -4941,12 +4941,12 @@ describe('Recovery - If', () => {
           length: 2
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 4,
         end: 4
@@ -5017,12 +5017,12 @@ describe('Recovery - If', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 4,
         end: 4
@@ -5052,12 +5052,12 @@ describe('Recovery - If', () => {
           length: 16
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 16,
         end: 16
@@ -5144,12 +5144,12 @@ describe('Recovery - If', () => {
           length: 5
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 13,
         end: 13

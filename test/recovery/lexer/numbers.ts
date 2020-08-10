@@ -18,15 +18,15 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 6,
-      endOfFileToken: {
+      EOF: {
         end: 6,
         kind: 16384,
         start: 6,
-        type: 'bilat'
+        type: 'CST'
       },
       fileName: 'recovery.js',
-      hasBeenIncrementallyParsed: false,
-      intersectsChange: false,
+      isIncremental: false,
+      detached: false,
       kind: 209,
       leafs: [
         {
@@ -84,15 +84,15 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 3,
-      endOfFileToken: {
+      EOF: {
         end: 3,
         kind: 16384,
         start: 3,
-        type: 'bilat'
+        type: 'CST'
       },
       fileName: 'recovery.js',
-      hasBeenIncrementallyParsed: false,
-      intersectsChange: false,
+      isIncremental: false,
+      detached: false,
       kind: 209,
       leafs: [
         {
@@ -169,12 +169,12 @@ describe('Recovery - Numbers', () => {
           length: 0
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 2,
         end: 2
@@ -220,12 +220,12 @@ describe('Recovery - Numbers', () => {
           length: 0
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 2,
         end: 2
@@ -252,15 +252,15 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 3,
-      endOfFileToken: {
+      EOF: {
         end: 3,
         kind: 16384,
         start: 3,
-        type: 'bilat'
+        type: 'CST'
       },
       fileName: 'recovery.js',
-      hasBeenIncrementallyParsed: false,
-      intersectsChange: false,
+      isIncremental: false,
+      detached: false,
       kind: 209,
       leafs: [
         {
@@ -303,15 +303,15 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 3,
-      endOfFileToken: {
+      EOF: {
         end: 3,
         kind: 16384,
         start: 3,
-        type: 'bilat'
+        type: 'CST'
       },
       fileName: 'recovery.js',
-      hasBeenIncrementallyParsed: false,
-      intersectsChange: false,
+      isIncremental: false,
+      detached: false,
       kind: 209,
       leafs: [
         {
@@ -354,15 +354,15 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 2,
-      endOfFileToken: {
+      EOF: {
         end: 2,
         kind: 16384,
         start: 2,
-        type: 'bilat'
+        type: 'CST'
       },
       fileName: 'recovery.js',
-      hasBeenIncrementallyParsed: false,
-      intersectsChange: false,
+      isIncremental: false,
+      detached: false,
       kind: 209,
       leafs: [
         {
@@ -405,15 +405,15 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 6,
-      endOfFileToken: {
+      EOF: {
         end: 6,
         kind: 16384,
         start: 6,
-        type: 'bilat'
+        type: 'CST'
       },
       fileName: 'recovery.js',
-      hasBeenIncrementallyParsed: false,
-      intersectsChange: false,
+      isIncremental: false,
+      detached: false,
       kind: 209,
       leafs: [
         {

@@ -59,12 +59,12 @@ describe('Recovery - Block', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 4,
         end: 4
@@ -90,15 +90,15 @@ describe('Recovery - Block', () => {
       ],
       directives: [],
       end: 6,
-      endOfFileToken: {
+      EOF: {
         end: 6,
         kind: 16384,
         start: 6,
-        type: 'bilat'
+        type: 'CST'
       },
       fileName: 'recovery.js',
-      hasBeenIncrementallyParsed: false,
-      intersectsChange: false,
+      isIncremental: false,
+      detached: false,
       kind: 209,
       length: 6,
       mutualFlags: 0,

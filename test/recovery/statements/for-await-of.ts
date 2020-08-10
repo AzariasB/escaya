@@ -18,15 +18,15 @@ describe('Recovery - For await of', () => {
       ],
       directives: [],
       end: 9,
-      endOfFileToken: {
+      EOF: {
         end: 9,
         kind: 16384,
         start: 9,
-        type: 'bilat'
+        type: 'CST'
       },
       fileName: 'recovery.js',
-      hasBeenIncrementallyParsed: false,
-      intersectsChange: false,
+      isIncremental: false,
+      detached: false,
       kind: 209,
       length: 9,
       mutualFlags: 0,

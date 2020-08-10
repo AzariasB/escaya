@@ -406,7 +406,7 @@ export const KeywordDescTable = [
 
 export function createToken<T extends TokenSyntaxKind>(source: string, tokenKind: T): SyntaxToken<T> {
   return {
-    type: 'bilat',
+    type: 'CST',
     kind: tokenKind,
     start: source.length,
     end: source.length

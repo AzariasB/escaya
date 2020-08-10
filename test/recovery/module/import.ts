@@ -90,12 +90,12 @@ describe('Module - Import', () => {
           length: 4
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 22,
         end: 22
@@ -193,12 +193,12 @@ describe('Module - Import', () => {
           length: 3
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 22,
         end: 22
@@ -287,12 +287,12 @@ describe('Module - Import', () => {
           length: 3
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 21,
         end: 21
@@ -391,12 +391,12 @@ describe('Module - Import', () => {
           length: 3
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 24,
         end: 24
@@ -498,12 +498,12 @@ describe('Module - Import', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 20,
         end: 20
@@ -688,12 +688,12 @@ describe('Module - Import', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 21,
         end: 21
@@ -766,12 +766,12 @@ describe('Module - Import', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 8,
         end: 8
@@ -987,12 +987,12 @@ describe('Module - Import', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 27,
         end: 27
@@ -1406,12 +1406,12 @@ describe('Module - Import', () => {
             length: 1
           }
         ],
-        intersectsChange: false,
-        hasBeenIncrementallyParsed: false,
+        detached: false,
+        isIncremental: false,
         parent: null,
         children: [],
-        endOfFileToken: {
-          type: 'bilat',
+        EOF: {
+          type: 'CST',
           kind: 16384,
           start: 127,
           end: 127
@@ -1469,12 +1469,12 @@ describe('Module - Import', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 8,
         end: 8
@@ -1531,12 +1531,12 @@ describe('Module - Import', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 8,
         end: 8
@@ -1626,12 +1626,12 @@ describe('Module - Import', () => {
           length: 1
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 17,
         end: 17
@@ -1802,12 +1802,12 @@ describe('Module - Import', () => {
           length: 6
         }
       ],
-      intersectsChange: false,
-      hasBeenIncrementallyParsed: false,
+      detached: false,
+      isIncremental: false,
       parent: null,
       children: [],
-      endOfFileToken: {
-        type: 'bilat',
+      EOF: {
+        type: 'CST',
         kind: 16384,
         start: 50,
         end: 50
@@ -2103,12 +2103,12 @@ describe('Module - Import', () => {
             length: 4
           }
         ],
-        intersectsChange: false,
-        hasBeenIncrementallyParsed: false,
+        detached: false,
+        isIncremental: false,
         parent: null,
         children: [],
-        endOfFileToken: {
-          type: 'bilat',
+        EOF: {
+          type: 'CST',
           kind: 16384,
           start: 63,
           end: 63
@@ -2477,12 +2477,12 @@ describe('Module - Import', () => {
             length: 1
           }
         ],
-        intersectsChange: false,
-        hasBeenIncrementallyParsed: false,
+        detached: false,
+        isIncremental: false,
         parent: null,
         children: [],
-        endOfFileToken: {
-          type: 'bilat',
+        EOF: {
+          type: 'CST',
           kind: 16384,
           start: 69,
           end: 69
@@ -2836,12 +2836,12 @@ describe('Module - Import', () => {
             length: 1
           }
         ],
-        intersectsChange: false,
-        hasBeenIncrementallyParsed: false,
+        detached: false,
+        isIncremental: false,
         parent: null,
         children: [],
-        endOfFileToken: {
-          type: 'bilat',
+        EOF: {
+          type: 'CST',
           kind: 16384,
           start: 79,
           end: 79
