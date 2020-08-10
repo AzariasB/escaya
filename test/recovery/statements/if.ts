@@ -892,7 +892,7 @@ describe('Recovery - If', () => {
     });
   });
 
-  it('Unclosed block statementewrfd', () => {
+  it('if((((xx))))', () => {
     t.deepEqual(recovery('if((((xx))))', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -907,10 +907,10 @@ describe('Recovery - If', () => {
                 type: 'ParenthesizedExpression',
                 expression: {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: 'xx',
                   start: 6,
                   end: 8,
+                  kind: 13,
                   flags: 0
                 },
                 start: 5,
@@ -932,10 +932,10 @@ describe('Recovery - If', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: '',
               start: 12,
               end: 12,
+              kind: 13,
               flags: 2
             },
             start: 12,
@@ -1646,7 +1646,7 @@ describe('Recovery - If', () => {
     });
   });
 
-  it('Unclosed block statementew', () => {
+  it('ifx(function{x', () => {
     t.deepEqual(recovery('ifx(function{x', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1657,16 +1657,23 @@ describe('Recovery - If', () => {
             type: 'CallExpression',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: 'ifx',
               start: 0,
               end: 3,
+              kind: 13,
               flags: 0
             },
             arguments: [
               {
                 type: 'FunctionExpression',
-                name: null,
+                name: {
+                  type: 'BindingIdentifier',
+                  name: '',
+                  start: 12,
+                  end: 12,
+                  kind: 168,
+                  flags: 0
+                },
                 generator: false,
                 async: false,
                 params: [],
@@ -1678,10 +1685,10 @@ describe('Recovery - If', () => {
                       type: 'ExpressionStatement',
                       expression: {
                         type: 'IdentifierReference',
-                        kind: 13,
                         name: 'x',
                         start: 13,
                         end: 14,
+                        kind: 13,
                         flags: 0
                       },
                       start: 13,
@@ -1719,9 +1726,9 @@ describe('Recovery - If', () => {
       diagnostics: [
         {
           kind: 2,
-          source: 2,
-          message: '`(` expected',
-          code: 5,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
           start: 12,
           length: 1
         },

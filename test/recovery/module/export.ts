@@ -169,7 +169,14 @@ describe('Recovery - Export', () => {
           type: 'ExportDeclaration',
           declaration: {
             type: 'FunctionDeclaration',
-            name: null,
+            name: {
+              type: 'BindingIdentifier',
+              name: '',
+              start: 15,
+              end: 15,
+              kind: 168,
+              flags: 0
+            },
             generator: false,
             async: false,
             params: [],
@@ -225,10 +232,10 @@ describe('Recovery - Export', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
-          source: 2,
-          message: 'Function declaration require a name in this context',
-          code: 10,
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
           start: 16,
           length: 1
         }
@@ -446,7 +453,7 @@ describe('Recovery - Export', () => {
               type: 'BindingIdentifier',
               name: '',
               start: 25,
-              end: 25,
+              end: 31,
               kind: 168,
               flags: 0
             },
@@ -457,23 +464,14 @@ describe('Recovery - Export', () => {
               type: 'FunctionBody',
               directives: [],
               leafs: [],
-              start: 25,
-              end: 25,
+              start: 31,
+              end: 31,
               kind: 184,
               flags: 0
             },
             start: 12,
-            end: 25,
-            kind: 186,
-            flags: 0
-          },
-          {
-            type: 'LexicalDeclaration',
-            isConst: true,
-            declarations: [],
-            start: 25,
             end: 31,
-            kind: 145,
+            kind: 186,
             flags: 0
           },
           {
@@ -573,6 +571,14 @@ describe('Recovery - Export', () => {
             code: 18,
             start: 26,
             length: 5
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`(` expected',
+            code: 5,
+            start: 32,
+            length: 3
           },
           {
             kind: 2,

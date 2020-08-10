@@ -2664,7 +2664,14 @@ describe('Recovery - Expressions', () => {
                       type: 'ParenthesizedExpression',
                       expression: {
                         type: 'FunctionExpression',
-                        name: null,
+                        name: {
+                          type: 'BindingIdentifier',
+                          name: '',
+                          start: 27,
+                          end: 27,
+                          kind: 168,
+                          flags: 0
+                        },
                         generator: false,
                         async: false,
                         params: [],
@@ -2728,6 +2735,14 @@ describe('Recovery - Expressions', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
+          start: 28,
+          length: 1
+        },
         {
           kind: 3,
           source: 2,

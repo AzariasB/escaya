@@ -138,73 +138,80 @@ describe('Recovery - Function', () => {
 
   it('Unterminated regexp after function', () => {
     t.deepEqual(recovery('function /a', 'recovery.js'), {
-      children: [],
-      context: 0,
-      diagnostics: [
-        {
-          code: 12,
-          kind: 2,
-          length: 2,
-          message: 'Unterminated regular expression',
-          source: 0,
-          start: 9
-        }
-      ],
-      directives: [],
-      end: 11,
-      EOF: {
-        end: 11,
-        kind: 16384,
-        start: 11,
-        type: 'CST'
-      },
-      fileName: 'recovery.js',
-      isIncremental: false,
-      detached: false,
       kind: 209,
-      length: 11,
-      mutualFlags: 0,
-      parent: null,
-      start: 0,
+      directives: [],
       leafs: [
         {
-          async: false,
-          contents: {
-            directives: [],
-            end: 8,
-            flags: 0,
-            kind: 184,
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
             start: 8,
-            leafs: [],
-            type: 'FunctionBody'
+            end: 8,
+            kind: 168,
+            flags: 0
           },
-          end: 8,
-          flags: 0,
           generator: false,
-          kind: 186,
-          name: null,
+          async: false,
           params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 8,
+            end: 8,
+            kind: 184,
+            flags: 0
+          },
           start: 0,
-          type: 'FunctionDeclaration'
+          end: 8,
+          kind: 186,
+          flags: 0
         },
         {
-          end: 11,
+          type: 'ExpressionStatement',
           expression: {
-            end: 11,
-            flag: '',
-            flags: 0,
-            kind: 15,
+            type: 'RegularExpressionLiteral',
             pattern: '',
+            flag: '',
             start: 8,
-            type: 'RegularExpressionLiteral'
+            end: 11,
+            kind: 15,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 8,
-          type: 'ExpressionStatement'
+          end: 11,
+          kind: 122,
+          flags: 0
         }
       ],
-      text: 'function /a'
+      text: 'function /a',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Unterminated regular expression',
+          code: 12,
+          start: 9,
+          length: 2
+        }
+      ],
+      detached: false,
+      isIncremental: false,
+      parent: null,
+      children: [],
+      EOF: {
+        type: 'CST',
+        kind: 16384,
+        start: 11,
+        end: 11
+      },
+      start: 0,
+      length: 11,
+      end: 11
     });
   });
 
@@ -215,7 +222,14 @@ describe('Recovery - Function', () => {
       leafs: [
         {
           type: 'FunctionDeclaration',
-          name: null,
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 8,
+            end: 8,
+            kind: 168,
+            flags: 0
+          },
           generator: false,
           async: false,
           params: [],
@@ -240,10 +254,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
-          source: 2,
-          message: 'Function declaration require a name in this context',
-          code: 10,
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
           start: 8,
           length: 1
         }
@@ -422,7 +436,14 @@ describe('Recovery - Function', () => {
       leafs: [
         {
           type: 'FunctionDeclaration',
-          name: null,
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 8,
+            end: 8,
+            kind: 168,
+            flags: 0
+          },
           generator: false,
           async: false,
           params: [
@@ -472,10 +493,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
-          source: 2,
-          message: 'Function declaration require a name in this context',
-          code: 10,
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
           start: 9,
           length: 1
         },
@@ -519,7 +540,14 @@ describe('Recovery - Function', () => {
       leafs: [
         {
           type: 'FunctionDeclaration',
-          name: null,
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 8,
+            end: 8,
+            kind: 168,
+            flags: 0
+          },
           generator: false,
           async: false,
           params: [
@@ -561,10 +589,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
-          source: 2,
-          message: 'Function declaration require a name in this context',
-          code: 10,
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
           start: 9,
           length: 1
         },
@@ -649,14 +677,21 @@ describe('Recovery - Function', () => {
     });
   });
 
-  it('Unclosed block statement8dasf', () => {
+  it('function !(', () => {
     t.deepEqual(recovery('function !(', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
         {
           type: 'FunctionDeclaration',
-          name: null,
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 8,
+            end: 8,
+            kind: 168,
+            flags: 0
+          },
           generator: false,
           async: false,
           params: [],
@@ -683,10 +718,10 @@ describe('Recovery - Function', () => {
               type: 'ParenthesizedExpression',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 11,
                 end: 11,
+                kind: 13,
                 flags: 2
               },
               start: 10,
@@ -711,10 +746,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
-          source: 2,
-          message: 'Function declaration require a name in this context',
-          code: 10,
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
           start: 9,
           length: 1
         },
@@ -886,14 +921,21 @@ describe('Recovery - Function', () => {
     });
   });
 
-  it('Unclosed block statement3244', () => {
+  it('async function * {', () => {
     t.deepEqual(recovery('async function * {', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
         {
           type: 'FunctionDeclaration',
-          name: null,
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 16,
+            end: 16,
+            kind: 168,
+            flags: 0
+          },
           generator: true,
           async: true,
           params: [],
@@ -918,10 +960,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
-          source: 2,
-          message: 'Function declaration require a name in this context',
-          code: 10,
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
           start: 17,
           length: 1
         }
@@ -1012,7 +1054,14 @@ describe('Recovery - Function', () => {
       leafs: [
         {
           type: 'FunctionDeclaration',
-          name: null,
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 8,
+            end: 8,
+            kind: 168,
+            flags: 0
+          },
           generator: false,
           async: false,
           params: [
@@ -1108,10 +1157,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
-          source: 2,
-          message: 'Function declaration require a name in this context',
-          code: 10,
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
           start: 8,
           length: 1
         },
@@ -1163,7 +1212,14 @@ describe('Recovery - Function', () => {
       leafs: [
         {
           type: 'FunctionDeclaration',
-          name: null,
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 8,
+            end: 8,
+            kind: 168,
+            flags: 0
+          },
           generator: false,
           async: false,
           params: [
@@ -1260,10 +1316,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
-          source: 2,
-          message: 'Function declaration require a name in this context',
-          code: 10,
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
           start: 9,
           length: 1
         },

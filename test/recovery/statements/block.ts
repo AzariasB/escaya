@@ -471,14 +471,21 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statementkjfdøjkldfk', () => {
+  it('function!{', () => {
     t.deepEqual(recovery('function!{', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
         {
           type: 'FunctionDeclaration',
-          name: null,
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 8,
+            end: 8,
+            kind: 168,
+            flags: 0
+          },
           generator: false,
           async: false,
           params: [],
@@ -526,10 +533,10 @@ describe('Recovery - Block', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
-          source: 2,
-          message: 'Function declaration require a name in this context',
-          code: 10,
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
           start: 8,
           length: 1
         },

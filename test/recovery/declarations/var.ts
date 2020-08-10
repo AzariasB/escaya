@@ -1093,7 +1093,14 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'FunctionExpression',
-                      name: null,
+                      name: {
+                        type: 'BindingIdentifier',
+                        name: '',
+                        start: 22,
+                        end: 22,
+                        kind: 168,
+                        flags: 0
+                      },
                       generator: false,
                       async: false,
                       params: [],
@@ -1164,6 +1171,14 @@ describe('Recovery - Var', () => {
       diagnostics: [
         {
           kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
+          start: 22,
+          length: 1
+        },
+        {
+          kind: 2,
           source: 2,
           message: '`,` expected',
           code: 5,
@@ -1219,7 +1234,14 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'FunctionExpression',
-                      name: null,
+                      name: {
+                        type: 'BindingIdentifier',
+                        name: '',
+                        start: 22,
+                        end: 22,
+                        kind: 168,
+                        flags: 0
+                      },
                       generator: false,
                       async: false,
                       params: [],
@@ -1313,6 +1335,14 @@ describe('Recovery - Var', () => {
       diagnostics: [
         {
           kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
+          start: 22,
+          length: 1
+        },
+        {
+          kind: 2,
           source: 2,
           message: '`,` expected',
           code: 5,
@@ -1376,7 +1406,14 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'FunctionExpression',
-                      name: null,
+                      name: {
+                        type: 'BindingIdentifier',
+                        name: '',
+                        start: 22,
+                        end: 22,
+                        kind: 168,
+                        flags: 0
+                      },
                       generator: false,
                       async: false,
                       params: [],
@@ -1493,6 +1530,14 @@ describe('Recovery - Var', () => {
       diagnostics: [
         {
           kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
+          start: 22,
+          length: 1
+        },
+        {
+          kind: 2,
           source: 2,
           message: '`,` expected',
           code: 5,
@@ -1556,7 +1601,14 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'FunctionExpression',
-                      name: null,
+                      name: {
+                        type: 'BindingIdentifier',
+                        name: '',
+                        start: 22,
+                        end: 22,
+                        kind: 168,
+                        flags: 0
+                      },
                       generator: false,
                       async: false,
                       params: [],
@@ -1718,6 +1770,14 @@ describe('Recovery - Var', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
+          start: 22,
+          length: 1
+        },
         {
           kind: 2,
           source: 2,

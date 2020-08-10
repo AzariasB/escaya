@@ -260,24 +260,40 @@ export function reinterpretToAssignment(node: any): void {
 }
 export function validateFunctionName(state: ParserState, context: Context): any {
   let { tokenValue, startIndex, token } = state;
-  nextToken(state, context);
+
   if (context & Context.Strict && (token & Token.IsFutureReserved) > 0) {
+    nextToken(state, context);
     addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.StrictModeReserved, DiagnosticKind.Error);
     tokenValue = '';
     startIndex = state.endIndex;
   } else if ((token & Token.IsKeyword) === Token.IsKeyword) {
+    nextToken(state, context);
     addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
     tokenValue = '';
     startIndex = state.endIndex;
   } else if ((context & (Context.Await | Context.Module)) > 0 && token === Token.AwaitKeyword) {
+    nextToken(state, context);
     addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnexpectedAwaitAsIdent, DiagnosticKind.Error);
     tokenValue = '';
     startIndex = state.endIndex;
   } else if (context & (Context.Yield | Context.Strict) && token === Token.YieldKeyword) {
+    nextToken(state, context);
     addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnexpectedYieldAsIdent, DiagnosticKind.Error);
     tokenValue = '';
     startIndex = state.endIndex;
+  } else if ((token & (Token.IsIdentifier | Token.IsFutureReserved)) === 0) {
+    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.ExpectedAnIdentifier, DiagnosticKind.Error);
+    tokenValue = '';
+    startIndex = state.endIndex;
+    return finishNode(
+      state,
+      context,
+      startIndex,
+      DictionaryMap.BindingIdentifier(tokenValue),
+      SyntaxKind.BindingIdentifier
+    );
   }
+  nextToken(state, context);
   return finishNode(
     state,
     context,

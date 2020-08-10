@@ -39,5 +39,5 @@ export function skipMultiLineComment(state: ParserState, context: Context): void
       state.index++;
     }
   }
-  addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error);
+  addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnclosedComment, DiagnosticKind.Error);
 }

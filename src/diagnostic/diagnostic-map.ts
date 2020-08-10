@@ -95,6 +95,7 @@ export const diagnosticMap: {
   [DiagnosticCode.BlockBodyAccessedWithoutGroup]: 'Block body arrows can not be immediately accessed without a group',
   [DiagnosticCode.BlockBodyTaggedWithoutGroup]: 'Block body arrows can not be immediately tagged without a group',
   [DiagnosticCode.ArrowOperatorToRight]: 'An arrow function can not be part of an operator to the right',
+  [DiagnosticCode.UnclosedComment]: '`*/` expected',
 
   [DiagnosticCode.StrictInvalidLetInExprPos]: 'An arrow function can not be part of an operator to the right'
 };

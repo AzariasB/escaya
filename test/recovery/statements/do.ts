@@ -984,7 +984,7 @@ describe('Declarations - Do while', () => {
     });
   });
 
-  it('Unclosed block statement23', () => {
+  it('do(yield function ( {x } while)', () => {
     t.deepEqual(recovery('do(yield function ( {x } while)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -993,7 +993,14 @@ describe('Declarations - Do while', () => {
           type: 'DoWhileStatement',
           expression: {
             type: 'FunctionExpression',
-            name: null,
+            name: {
+              type: 'BindingIdentifier',
+              name: '',
+              start: 17,
+              end: 17,
+              kind: 168,
+              flags: 0
+            },
             generator: false,
             async: false,
             params: [
@@ -1107,6 +1114,14 @@ describe('Declarations - Do while', () => {
           code: 5,
           start: 9,
           length: 8
+        },
+        {
+          kind: 2,
+          source: 0,
+          message: 'Expected an identifier',
+          code: 20,
+          start: 18,
+          length: 1
         },
         {
           kind: 2,

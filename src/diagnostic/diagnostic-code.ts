@@ -91,6 +91,7 @@ export enum DiagnosticCode {
   BlockBodyInvokedWithoutGroup,
   BlockBodyTaggedWithoutGroup,
   StrictInvalidLetInExprPos,
+  UnclosedComment,
 
   /* Annex B */
   AnnexBB32,

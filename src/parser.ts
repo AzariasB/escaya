@@ -23,7 +23,7 @@ import { NewTarget } from './ast/expressions/new-target';
 import { AssignmentElement } from './ast/expressions/assignment-element';
 import { Expression, Parameter, BindingPattern, LeftHandSideExpression } from './ast/expressions/index';
 import { parseBlockElements, parseBindingElements, parseListElements } from './incremental/incremental';
-import { createIdentifier } from './incremental/common';
+import { createIdentifier, createBindingIdentifier } from './incremental/common';
 import { MemberExpression } from './ast/expressions/member-expr';
 import { Elison } from './ast/expressions/elison';
 import { IdentifierReference, createIdentifierReference } from './ast/expressions/identifierreference';
@@ -325,6 +325,9 @@ export function parseWithStatement(state: ParserState, context: Context): WithSt
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
   const expression = parseExpressions(state, context);
   consume(state, context, Token.RightParen);
+  // 'with(true) let a' is an edge case here. For this case we parse out
+  // 'let' as an statement / body of the 'With statement', and after we parse
+  // out 'a' separately as an 'IdentifierReference'.
   const statement = parseStatement(state, context | Context.InIteration);
   return finishNode(
     state,
@@ -1482,7 +1485,7 @@ export function parsePropertyOrPrivatePropertyName(
   state: ParserState,
   context: Context
 ): IdentifierName | IdentifierReference {
-  if (state.token & (Token.IsIdentifier | Token.IsKeyword | Token.IsFutureReserved)) {
+  if (state.token & Constants.IsIdentifierOrKeyword) {
     const { startIndex: start, tokenValue } = state;
     nextToken(state, context);
     return finishNode(state, context, start, DictionaryMap.IdentifierName(tokenValue), SyntaxKind.Identifier);
@@ -2045,7 +2048,7 @@ export function parseBindingProperty(
 ): PropertyName | BindingElement | BindingIdentifier {
   const start = state.startIndex;
 
-  if (state.token & (Token.IsIdentifier | Token.IsKeyword | Token.IsFutureReserved)) {
+  if (state.token & Constants.IsIdentifierOrKeyword) {
     const tokenValue = state.tokenValue;
     nextToken(state, context);
     if (consumeOpt(state, context, Token.Colon)) {
@@ -2618,7 +2621,7 @@ export function parseFunctionExpression(
 
   if (
     state.token &
-    (context & Context.ErrorRecovery ? Constants.IsIdentifierOrKeywordRecovery : Constants.IsIdentifierOrKeywordNormal)
+    (context & Context.ErrorRecovery ? Constants.FuntionNameRecovery : Constants.IsIdentifierOrKeywordNormal)
   ) {
     name = validateFunctionName(state, context | ((context & 0b0000000000000000000_1100_00000000) << 11));
   }
@@ -2709,7 +2712,7 @@ export function parseFunctionDeclaration(
 
   if (
     state.token &
-    (context & Context.ErrorRecovery ? Constants.IsIdentifierOrKeywordRecovery : Constants.IsIdentifierOrKeywordNormal)
+    (context & Context.ErrorRecovery ? Constants.FuntionNameRecovery : Constants.IsIdentifierOrKeywordNormal)
   ) {
     name = validateFunctionName(state, context | ((context & 0b0000000000000000000_1100_00000000) << 11));
   } else if ((context & Context.Default) !== Context.Default) {
