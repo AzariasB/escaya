@@ -397,102 +397,128 @@ describe('Recovery - Let', () => {
 
   it('Unclosed block statement233', () => {
     t.deepEqual(recovery('let a.b[[', 'recovery.js'), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          isConst: false,
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'BindingIdentifier',
-                name: 'a',
-                start: 3,
-                end: 5,
-                kind: 168,
-                flags: 0
-              },
-              initializer: null,
-              start: 3,
-              end: 5,
-              kind: 146,
-              flags: 0
-            }
-          ],
-          start: 0,
-          end: 5,
-          kind: 145,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'MemberExpression',
-            member: {
-              type: 'IdentifierReference',
-              kind: 13,
-              name: 'b',
-              start: 6,
-              end: 7,
-              flags: 0
-            },
-            expression: {
-              type: 'ArrayLiteral',
-              kind: 178,
-              elements: [],
-              flags: 0,
-              start: 8,
-              end: 9
-            },
-            computed: true,
-            start: 6,
-            end: 9,
-            kind: 154,
-            flags: 0
-          },
-          start: 6,
-          end: 9,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: 'let a.b[[',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: 'Variable declaration or lexical binding expected',
-          code: 16,
-          start: 5,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`]` expected',
-          code: 5,
-          start: 8,
-          length: 1
-        }
-      ],
-      detached: false,
-      isIncremental: false,
-      parent: null,
-      children: [],
       EOF: {
-        type: 'CST',
+        end: 9,
         kind: 16384,
         start: 9,
-        end: 9
+        type: 'CST'
       },
-      start: 0,
+      children: [],
+      context: 0,
+      detached: false,
+      diagnostics: [
+        {
+          code: 5,
+          kind: 2,
+          length: 1,
+          message: '`,` expected',
+          source: 2,
+          start: 6
+        },
+        {
+          code: 16,
+          kind: 2,
+          length: 1,
+          message: 'Variable declaration or lexical binding expected',
+          source: 2,
+          start: 7
+        },
+        {
+          code: 5,
+          kind: 2,
+          length: 1,
+          message: '`]` expected',
+          source: 2,
+          start: 8
+        }
+      ],
+      directives: [],
+      end: 9,
+      fileName: 'recovery.js',
+      isIncremental: false,
+      kind: 209,
+      leafs: [
+        {
+          declarations: [
+            {
+              binding: {
+                end: 5,
+                flags: 0,
+                kind: 168,
+                name: 'a',
+                start: 3,
+                type: 'BindingIdentifier'
+              },
+              end: 5,
+              flags: 0,
+              initializer: null,
+              kind: 146,
+              start: 3,
+              type: 'LexicalBinding'
+            },
+            {
+              binding: {
+                end: 7,
+                flags: 0,
+                kind: 168,
+                name: 'b',
+                start: 6,
+                type: 'BindingIdentifier'
+              },
+              end: 7,
+              flags: 0,
+              initializer: null,
+              kind: 146,
+              start: 6,
+              type: 'LexicalBinding'
+            },
+            {
+              binding: {
+                elements: [
+                  {
+                    end: 9,
+                    flags: 0,
+                    kind: 172,
+                    left: {
+                      elements: [],
+                      end: 9,
+                      flags: 0,
+                      kind: 174,
+                      start: 8,
+                      type: 'ArrayBindingPattern'
+                    },
+                    right: null,
+                    start: 8,
+                    type: 'BindingElement'
+                  }
+                ],
+                end: 9,
+                flags: 0,
+                kind: 174,
+                start: 7,
+                type: 'ArrayBindingPattern'
+              },
+              end: 9,
+              flags: 0,
+              initializer: null,
+              kind: 146,
+              start: 7,
+              type: 'LexicalBinding'
+            }
+          ],
+          end: 9,
+          flags: 0,
+          isConst: false,
+          kind: 145,
+          start: 0,
+          type: 'LexicalDeclaration'
+        }
+      ],
       length: 9,
-      end: 9
+      mutualFlags: 0,
+      parent: null,
+      start: 0,
+      text: 'let a.b[['
     });
   });
 
@@ -901,7 +927,7 @@ describe('Recovery - Let', () => {
     });
   });
 
-  it('Unclosed block statement987', () => {
+  it('let let let ! let . let /a/', () => {
     t.deepEqual(recovery('let let let ! let . let /a/', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1025,6 +1051,14 @@ describe('Recovery - Let', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'A lexical declaration can not define a `let` binding',
+          code: 87,
+          start: 4,
+          length: 3
+        },
         {
           kind: 2,
           source: 2,

@@ -96,6 +96,7 @@ export const diagnosticMap: {
   [DiagnosticCode.BlockBodyTaggedWithoutGroup]: 'Block body arrows can not be immediately tagged without a group',
   [DiagnosticCode.ArrowOperatorToRight]: 'An arrow function can not be part of an operator to the right',
   [DiagnosticCode.UnclosedComment]: '`*/` expected',
+  [DiagnosticCode.InvalidLetConstBinding]: 'A lexical declaration can not define a `let` binding',
 
   [DiagnosticCode.StrictInvalidLetInExprPos]: 'An arrow function can not be part of an operator to the right'
 };

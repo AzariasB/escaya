@@ -9,7 +9,6 @@ import { createCallExpression } from '../ast/expressions/call-expr';
 import { createIdentifierReference } from '../ast/expressions/identifierreference';
 import { createOptionalExpression } from '../ast/expressions/optional-expr';
 import { createOptionalChain } from '../ast/expressions/optional-chain';
-import { createFunctionRestParameter } from '../ast/expressions/function-rest-parameter';
 import { createFunctionExpression } from '../ast/expressions/function-expr';
 import { createFunctionDeclaration } from '../ast/declarations/function-declaration';
 import { createForDeclaration } from '../ast/declarations/for-declaration';
@@ -121,7 +120,6 @@ export const DictionaryMap = {
   IfStatement: createIfStatement,
   CommaOperator: createCommaOperator,
   RegularExpressionLiteral: createRegularExpressionLiteral,
-  FunctionRestParameter: createFunctionRestParameter,
   MemberExpression: createMemberExpression,
   CallExpression: createCallExpression,
   IdentifierReference: createIdentifierReference,

@@ -1045,7 +1045,7 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
 //   Identifier
 //   `yield`
 //   `await`
-export function parseBindingIdentifier(state: ParserState, context: Context, _type: BindingType): BindingIdentifier {
+export function parseBindingIdentifier(state: ParserState, context: Context, type: BindingType): BindingIdentifier {
   let value = state.tokenValue;
   if ((state.token & Constants.IsIdentifierOrKeyword) === 0) {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
@@ -1057,6 +1057,11 @@ export function parseBindingIdentifier(state: ParserState, context: Context, _ty
     value = '';
   }
 
+  // The BoundNames of LexicalDeclaration and ForDeclaration must not
+  // contain 'let'.
+  if (type & (BindingType.Let | BindingType.Const) && state.token === Token.LetKeyword) {
+    addEarlyDiagnostic(state, context, DiagnosticCode.InvalidLetConstBinding);
+  }
   let start = state.startIndex;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.BindingIdentifier(value), SyntaxKind.BindingIdentifier);
@@ -1219,6 +1224,14 @@ export function parseBindingOrDeclarationList(
     declarationList.push(parseBindingElements(state, context, type, cb));
 
     if (consumeOpt(state, context, Token.Comma)) continue;
+    // A typical typo is to hit '.' instead of ',' because they are next to each other on the keyboard.
+    // If that's the case we just skip it and continue. This ensures we get back on track and don't
+    // result in tons of parse errors.
+    if (consumeOpt(state, context, Token.Period)) {
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
+      continue;
+    }
+
     if (state.token & Token.IsAutomaticSemicolon || state.lineTerminatorBeforeNextToken) break;
 
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedVarOrLexDecl, DiagnosticKind.Error);
@@ -2436,8 +2449,9 @@ export function parsePropertyDefinition(state: ParserState, context: Context): S
       SyntaxKind.PropertyName
     );
   }
+  if (state.token === Token.LeftParen) return parseMethodDefinition(state, context, key, kind);
 
-  return parseMethodDefinition(state, context, key, kind);
+  return key;
 }
 
 // PropertyName :
@@ -2498,9 +2512,9 @@ export function parseFormalParameters(state: ParserState, context: Context): Par
       }
       params.push(parseBindingElements(state, context, BindingType.ArgumentList, parseBindingElement));
 
+      if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
       if (state.token === Token.RightParen) break;
-      consume(state, context | Context.AllowRegExp, Token.Comma);
-      if (state.token === Token.RightParen) break;
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
     }
 
     consume(state, context, Token.RightParen);

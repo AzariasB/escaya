@@ -281,6 +281,9 @@ export function validateFunctionName(state: ParserState, context: Context): any 
     addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnexpectedYieldAsIdent, DiagnosticKind.Error);
     tokenValue = '';
     startIndex = state.endIndex;
+    // In recovery mode we allow everything that can start an expression as an function name so we can insert an
+    // dummy identifier without priming the scanner. It makes a clear distinction when it comes to cases
+    // like 'function while() {}', 'function true() {}' and 'function function (function)'.
   } else if ((token & (Token.IsIdentifier | Token.IsFutureReserved)) === 0) {
     addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.ExpectedAnIdentifier, DiagnosticKind.Error);
     tokenValue = '';
