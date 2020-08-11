@@ -1,10 +1,10 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('Expressions - Binary', () => {
+describe('Expressions - Yield', () => {
   // Invalid cases
   for (const arg of [
-    // '({ *method(x = yield) {} })',
+    '({ *method(x = yield) {} })',
     //'(a=yield) {}',
     '(yield 3) {}',
     //'(yield = 1) {}',
@@ -17,8 +17,8 @@ describe('Expressions - Binary', () => {
     //'let gfe = function* yield() { }',
     //'function *gf({yield}){}',
     '"use strict"; (function *g() { ( x = class { [(yield, 1)]() { }  ) => {} });',
-    //'function *gen(val = yield * g) {}',
-    //'function *gen(val = yield) {}',
+    'function *gen(val = yield * g) {}',
+    'function *gen(val = yield) {}',
     'function *f(yield){ }',
     //'function *f(){ ({x} = yield x) => {} }',
     'function *g(a, b, c, ...yield){}',
@@ -29,14 +29,14 @@ describe('Expressions - Binary', () => {
     `(function*() { function*(x = yield 3) {} })`,
     `o = {async *f(yield) {}}`,
     `async function as(){ async function f(x=yield 100) {} }`,
-    //`async function as(){ async function *f(x=yield 100) {} }`,
+    `async function as(){ async function *f(x=yield 100) {} }`,
     'function *g() { try { } catch (yield) { }}',
     'function *g() { var {foo: yield} = {a: 42};}',
     'function *g() { var [yield 24] = [42];}',
     'function *g() { class C extends yield { }}',
     'function *f(yield){ }',
-    //'function *f(x=yield){ }',
-    //'function *f(){  x = {*foo(a=yield x){}}  }',
+    'function *f(x=yield){ }',
+    'function *f(){  x = {*foo(a=yield x){}}  }',
     'function *f(){  return function(x=yield y) {};  }',
     'function *g() { function f(x = x + foo(a, yield y)) {}; }',
     'function* gf() { const yield = 10; }',

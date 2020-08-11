@@ -1035,8 +1035,8 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
     nextToken(state, context);
     return finishNode(state, context, state.endIndex, DictionaryMap.IdentifierName(''), SyntaxKind.Identifier);
   }
-  let start = state.startIndex;
-  let value = state.tokenValue;
+  const start = state.startIndex;
+  const value = state.tokenValue;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.IdentifierName(value), SyntaxKind.Identifier);
 }
@@ -1066,7 +1066,7 @@ export function parseBindingIdentifier(state: ParserState, context: Context, typ
   if (type & (BindingType.Let | BindingType.Const) && state.token === Token.LetKeyword) {
     addEarlyDiagnostic(state, context, DiagnosticCode.InvalidLetConstBinding);
   }
-  let start = state.startIndex;
+  const start = state.startIndex;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.BindingIdentifier(value), SyntaxKind.BindingIdentifier);
 }
@@ -1711,6 +1711,7 @@ export function parsePrefixUpdateExpression(state: ParserState, context: Context
 }
 
 export function parseAwaitExpression(state: ParserState, context: Context): AwaitExpression {
+  if (context & Context.Parameters) addEarlyDiagnostic(state, context, DiagnosticCode.AwaitInParameter);
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   return finishNode(
@@ -1727,6 +1728,7 @@ export function parseAwaitExpression(state: ParserState, context: Context): Awai
 //   `yield` [no LineTerminator here] AssignmentExpression
 //   `yield` [no LineTerminator here] `*` AssignmentExpression
 export function parseYieldExpression(state: ParserState, context: Context): YieldExpression {
+  if (context & Context.Parameters) addEarlyDiagnostic(state, context, DiagnosticCode.YieldInParameter);
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   let delegate = false;
@@ -1897,9 +1899,8 @@ export function parseImportMetaOrCall(state: ParserState, context: Context): Imp
 export function parseNewExpression(state: ParserState, context: Context): NewExpression | NewTarget {
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
-  if (context & Context.NewTarget && state.token === Token.Period) {
-    nextToken(state, context);
-    // TargetIdentifier
+  if (context & Context.NewTarget && consumeOpt(state, context, Token.Period)) {
+    consume(state, context, Token.TargetIdentifier);
     return finishNode(state, context, start, DictionaryMap.Target(), SyntaxKind.NewTarget);
   }
   let expression = parsePrimaryExpression(state, context);
@@ -2679,7 +2680,13 @@ export function parseAsyncArrowExpression(state: ParserState, context: Context, 
       );
     }
   }
-  let expr: any = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'), SyntaxKind.Identifier);
+  const expr: any = finishNode(
+    state,
+    context,
+    start,
+    DictionaryMap.IdentifierReference('async'),
+    SyntaxKind.Identifier
+  );
 
   // `async ()`, `async () => ...`
   if (state.token === Token.LeftParen) {
@@ -3051,7 +3058,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
   // 12.16 Comma Operator
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
-    let expressions = [expression];
+    const expressions = [expression];
     isDelimitedList = true;
 
     const check =

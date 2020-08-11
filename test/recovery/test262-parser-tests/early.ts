@@ -381,7 +381,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 24,
+          kind: 3,
+          length: 5,
+          message: '`Yield` expression cannot be used in function parameters',
+          source: 2,
+          start: 29
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -2942,7 +2951,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 24,
+          kind: 3,
+          length: 5,
+          message: '`Yield` expression cannot be used in function parameters',
+          source: 2,
+          start: 31
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -6590,7 +6608,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 24,
+          kind: 3,
+          length: 5,
+          message: '`Yield` expression cannot be used in function parameters',
+          source: 2,
+          start: 25
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,

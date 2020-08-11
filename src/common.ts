@@ -259,7 +259,7 @@ export function reinterpretToAssignment(node: any): void {
   }
 }
 export function validateFunctionName(state: ParserState, context: Context): any {
-  let { tokenValue, startIndex, token } = state;
+  const { tokenValue, startIndex, token } = state;
   if (context & (Context.Yield | Context.Strict) && token === Token.YieldKeyword) {
     addEarlyDiagnostic(state, context, DiagnosticCode.YieldAsFuncName);
   } else if ((context & (Context.Await | Context.Module)) > 0 && token === Token.AwaitKeyword) {
