@@ -31,7 +31,7 @@ describe('Recovery - Var', () => {
     });
   });
 
-  it('Unclosed block statement2342', () => {
+  it('var !', () => {
     t.deepEqual(recovery('var !', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -51,10 +51,10 @@ describe('Recovery - Var', () => {
             operator: '!',
             operand: {
               type: 'IdentifierReference',
-              kind: 13,
               name: '',
               start: 5,
               end: 5,
+              kind: 13,
               flags: 2
             },
             start: 3,
@@ -76,8 +76,8 @@ describe('Recovery - Var', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Expression expected',
-          code: 7,
+          message: '`;` expected',
+          code: 92,
           start: 4,
           length: 1
         }
@@ -92,7 +92,7 @@ describe('Recovery - Var', () => {
     });
   });
 
-  it('Unclosed block statement4235', () => {
+  it('var {', () => {
     t.deepEqual(recovery('var {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1647,176 +1647,6 @@ describe('Recovery - Var', () => {
       start: 0,
       length: 69,
       end: 69
-    });
-  });
-  it('Unclosed block statement0987324', () => {
-    t.deepEqual(recovery('{var let foo const try const = finally', 'recovery.js'), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'BlockStatement',
-          leafs: [
-            {
-              type: 'VariableStatement',
-              declarations: [
-                {
-                  type: 'VariableDeclaration',
-                  binding: {
-                    type: 'BindingIdentifier',
-                    name: 'let',
-                    start: 4,
-                    end: 8,
-                    kind: 168,
-                    flags: 0
-                  },
-                  initializer: null,
-                  start: 4,
-                  end: 8,
-                  kind: 144,
-                  flags: 0
-                },
-                {
-                  type: 'VariableDeclaration',
-                  binding: {
-                    type: 'BindingIdentifier',
-                    name: 'foo',
-                    start: 8,
-                    end: 12,
-                    kind: 168,
-                    flags: 0
-                  },
-                  initializer: null,
-                  start: 8,
-                  end: 12,
-                  kind: 144,
-                  flags: 0
-                }
-              ],
-              start: 1,
-              end: 12,
-              kind: 143,
-              flags: 0
-            },
-            {
-              type: 'LexicalDeclaration',
-              isConst: true,
-              declarations: [],
-              start: 12,
-              end: 18,
-              kind: 145,
-              flags: 0
-            },
-            {
-              type: 'TryStatement',
-              block: {
-                type: 'BlockStatement',
-                leafs: [],
-                start: 22,
-                end: 22,
-                kind: 123,
-                flags: 0
-              },
-              catchClause: null,
-              finalizer: null,
-              start: 18,
-              end: 22,
-              kind: 138,
-              flags: 0
-            },
-            {
-              type: 'LexicalDeclaration',
-              isConst: true,
-              declarations: [],
-              start: 22,
-              end: 28,
-              kind: 145,
-              flags: 0
-            }
-          ],
-          start: 0,
-          end: 28,
-          kind: 123,
-          flags: 0
-        },
-        {
-          type: 'TryStatement',
-          block: {
-            type: 'BlockStatement',
-            leafs: [],
-            start: 30,
-            end: 30,
-            kind: 123,
-            flags: 0
-          },
-          catchClause: null,
-          finalizer: {
-            type: 'BlockStatement',
-            leafs: [],
-            start: 38,
-            end: 38,
-            kind: 123,
-            flags: 0
-          },
-          start: 30,
-          end: 38,
-          kind: 138,
-          flags: 0
-        }
-      ],
-      text: '{var let foo const try const = finally',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: 'Variable declaration or lexical binding expected',
-          code: 16,
-          start: 9,
-          length: 3
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Variable declaration or lexical binding expected',
-          code: 16,
-          start: 13,
-          length: 5
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`{` expected',
-          code: 5,
-          start: 23,
-          length: 5
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`}` expected',
-          code: 5,
-          start: 29,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`try` expected',
-          code: 5,
-          start: 31,
-          length: 7
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 38,
-      end: 38
     });
   });
 });

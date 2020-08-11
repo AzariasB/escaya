@@ -53,6 +53,14 @@ describe('Recovery - Class', () => {
           code: 11,
           start: 6,
           length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 11,
+          length: 1
         }
       ],
       detached: false,
@@ -602,10 +610,18 @@ describe('Recovery - Class', () => {
           length: 5
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Class declaration require a name in this context',
-          code: 11,
+          message: '`;` expected',
+          code: 92,
+          start: 27,
+          length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
           start: 33,
           length: 5
         }
@@ -1034,6 +1050,22 @@ describe('Recovery - Class', () => {
           message: '`{` expected',
           code: 5,
           start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 11,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 18,
           length: 1
         },
         {

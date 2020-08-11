@@ -2,7 +2,7 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Block', () => {
-  it('Unclosed block statement33', () => {
+  it('{', () => {
     t.deepEqual(recovery('{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -40,7 +40,7 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statement323', () => {
+  it('{!', () => {
     t.deepEqual(recovery('{!', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -102,7 +102,7 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statementesdf', () => {
+  it('{;;;,,,', () => {
     t.deepEqual(recovery('{;;;,,,', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -178,7 +178,7 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statementadsfsdf', () => {
+  it('{async(,,', () => {
     t.deepEqual(recovery('{async(,,', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -366,7 +366,7 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statement243545', () => {
+  it('!{}}}}', () => {
     t.deepEqual(recovery('!{}}}}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -522,7 +522,8 @@ describe('Recovery - Block', () => {
       end: 10
     });
   });
-  it('Unclosed block statementdfskj89243', () => {
+
+  it('class!{', () => {
     t.deepEqual(recovery('class!{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -651,7 +652,7 @@ describe('Recovery - Block', () => {
       end: 3
     });
   });
-  it('Unclosed block statement', () => {
+  it('({){/a/}', () => {
     t.deepEqual(recovery('({){/a/}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -716,6 +717,14 @@ describe('Recovery - Block', () => {
           code: 5,
           start: 2,
           length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 3,
+          length: 1
         }
       ],
       detached: false,
@@ -728,7 +737,7 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statementadsfsdf', () => {
+  it('{!}', () => {
     t.deepEqual(recovery('{!}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -789,7 +798,7 @@ describe('Recovery - Block', () => {
       end: 3
     });
   });
-  it('Unclosed block statement3321', () => {
+  it('{while !} do while {', () => {
     t.deepEqual(recovery('{while !} do while {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -804,10 +813,10 @@ describe('Recovery - Block', () => {
                 operator: '!',
                 operand: {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: '',
                   start: 8,
                   end: 8,
+                  kind: 13,
                   flags: 2
                 },
                 start: 6,
@@ -819,10 +828,10 @@ describe('Recovery - Block', () => {
                 type: 'ExpressionStatement',
                 expression: {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: '',
                   start: 8,
                   end: 8,
+                  kind: 13,
                   flags: 2
                 },
                 start: 8,
@@ -845,10 +854,10 @@ describe('Recovery - Block', () => {
           type: 'DoWhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
             name: '',
             start: 20,
             end: 20,
+            kind: 13,
             flags: 2
           },
           statement: {
@@ -865,10 +874,10 @@ describe('Recovery - Block', () => {
               type: 'ExpressionStatement',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 20,
                 end: 20,
+                kind: 13,
                 flags: 2
               },
               start: 20,
@@ -927,7 +936,7 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statement324', () => {
+  it('{!', () => {
     t.deepEqual(recovery('{!', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -988,7 +997,7 @@ describe('Recovery - Block', () => {
       end: 2
     });
   });
-  it('Unclosed block statementwer', () => {
+  it('{=v', () => {
     t.deepEqual(recovery('{=v', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1040,7 +1049,7 @@ describe('Recovery - Block', () => {
       end: 3
     });
   });
-  it('Unclosed block statement4235', () => {
+  it('{/aaa?b', () => {
     t.deepEqual(recovery('{/aaa?b', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1256,6 +1265,14 @@ describe('Recovery - Block', () => {
         {
           kind: 2,
           source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
           message: '`}` expected',
           code: 5,
           start: 8,
@@ -1271,7 +1288,7 @@ describe('Recovery - Block', () => {
       end: 9
     });
   });
-  it('Unclosed block statementrwtsfd', () => {
+  it('{!////////', () => {
     t.deepEqual(recovery('{!////////', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1426,8 +1443,8 @@ describe('Recovery - Block', () => {
         {
           kind: 2,
           source: 2,
-          message: '`}` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 11,
           length: 1
         }
@@ -1692,7 +1709,7 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statement8405', () => {
+  it('switch!{', () => {
     t.deepEqual(recovery('switch!{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1753,7 +1770,7 @@ describe('Recovery - Block', () => {
       end: 8
     });
   });
-  it('Unclosed block statementadsf', () => {
+  it('{switch !', () => {
     t.deepEqual(recovery('{switch !', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1768,10 +1785,10 @@ describe('Recovery - Block', () => {
                 operator: '!',
                 operand: {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: '',
                   start: 9,
                   end: 9,
+                  kind: 13,
                   flags: 2
                 },
                 start: 7,
@@ -1815,7 +1832,7 @@ describe('Recovery - Block', () => {
       end: 9
     });
   });
-  it('Unclosed block statement3940809', () => {
+  it('for = {', () => {
     t.deepEqual(recovery('for = {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1914,7 +1931,7 @@ describe('Recovery - Block', () => {
       end: 7
     });
   });
-  it('Unclosed block statement90+82340', () => {
+  it('{for = b', () => {
     t.deepEqual(recovery('{for = b', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2022,7 +2039,7 @@ describe('Recovery - Block', () => {
       end: 8
     });
   });
-  it('Unclosed block statement098765', () => {
+  it('new {', () => {
     t.deepEqual(recovery('new {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2354,7 +2371,7 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statement2454532', () => {
+  it('{ new', () => {
     t.deepEqual(recovery('{ new', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2415,7 +2432,8 @@ describe('Recovery - Block', () => {
       end: 5
     });
   });
-  it('Unclosed block statementewr', () => {
+
+  it('{"dd"', () => {
     t.deepEqual(recovery('{"dd"', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2468,7 +2486,8 @@ describe('Recovery - Block', () => {
       end: 5
     });
   });
-  it('Unclosed block statement342', () => {
+
+  it('{++', () => {
     t.deepEqual(recovery('{++', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2529,7 +2548,8 @@ describe('Recovery - Block', () => {
       end: 3
     });
   });
-  it('Unclosed block statement324234', () => {
+
+  it('aa0+{', () => {
     t.deepEqual(recovery('aa0+{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2589,7 +2609,7 @@ describe('Recovery - Block', () => {
       end: 5
     });
   });
-  it('Unclosed block statement2345hgfdjyfh', () => {
+  it('2=3{!!', () => {
     t.deepEqual(recovery('2=3{!!', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2674,6 +2694,14 @@ describe('Recovery - Block', () => {
         {
           kind: 2,
           source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 3,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
           message: 'Expression expected',
           code: 7,
           start: 5,
@@ -2689,7 +2717,7 @@ describe('Recovery - Block', () => {
       end: 6
     });
   });
-  it('Unclosed block statementewsfdapodsui', () => {
+  it('1/2{', () => {
     t.deepEqual(recovery('1/2{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2742,8 +2770,8 @@ describe('Recovery - Block', () => {
         {
           kind: 2,
           source: 2,
-          message: '`}` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 3,
           length: 1
         }
@@ -2757,7 +2785,7 @@ describe('Recovery - Block', () => {
       end: 4
     });
   });
-  it('Unclosed block statementrfsgsdfaiuet', () => {
+  it('{2/--3', () => {
     t.deepEqual(recovery('{2/--3', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2834,7 +2862,7 @@ describe('Recovery - Block', () => {
       end: 6
     });
   });
-  it('Unclosed block statement897453', () => {
+  it('{p++ ! a - /3 =/ b', () => {
     t.deepEqual(recovery('{p++ ! a - /3 =/ b', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2935,8 +2963,16 @@ describe('Recovery - Block', () => {
         {
           kind: 2,
           source: 2,
-          message: '`}` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
+          start: 5,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
           start: 17,
           length: 1
         }
@@ -2950,7 +2986,8 @@ describe('Recovery - Block', () => {
       end: 18
     });
   });
-  it('Unclosed block statement79+0', () => {
+
+  it('{..b', () => {
     t.deepEqual(recovery('{..b', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3010,7 +3047,7 @@ describe('Recovery - Block', () => {
       end: 4
     });
   });
-  it('Unclosed block statement425', () => {
+  it('x={...b}{}', () => {
     t.deepEqual(recovery('x={...b}{}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3075,7 +3112,16 @@ describe('Recovery - Block', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 8,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,

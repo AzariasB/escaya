@@ -88,6 +88,14 @@ describe('Module - Import', () => {
           code: 30,
           start: 14,
           length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 19,
+          length: 3
         }
       ],
       detached: false,
@@ -472,6 +480,22 @@ describe('Module - Import', () => {
           code: 8,
           start: 7,
           length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 12,
+          length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 17,
+          length: 3
         }
       ],
       detached: false,
@@ -652,8 +676,8 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Expression expected',
-          code: 7,
+          message: '`;` expected',
+          code: 92,
           start: 20,
           length: 1
         }
@@ -740,7 +764,7 @@ describe('Module - Import', () => {
     });
   });
 
-  it('crazy long human senence', () => {
+  it('import {,,,,,,,,,,,,,,,,, !', () => {
     t.deepEqual(recovery('import {,,,,,,,,,,,,,,,,, !', 'recovery.js', { module: true }), {
       kind: 209,
       directives: [],
@@ -1288,6 +1312,62 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 20,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 24,
+            length: 10
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 35,
+            length: 9
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 45,
+            length: 4
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 50,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 54,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 58,
+            length: 6
+          },
+          {
+            kind: 2,
+            source: 2,
             message: 'Export declaration expected',
             code: 30,
             start: 65,
@@ -1296,10 +1376,26 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 68,
+            length: 7
+          },
+          {
+            kind: 2,
+            source: 2,
             message: 'Expression expected',
             code: 7,
             start: 76,
             length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 79,
+            length: 3
           },
           {
             kind: 2,
@@ -1324,6 +1420,14 @@ describe('Module - Import', () => {
             code: 5,
             start: 97,
             length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 100,
+            length: 6
           },
           {
             kind: 2,
@@ -1570,7 +1674,7 @@ describe('Module - Import', () => {
     });
   });
 
-  it('import !  33', () => {
+  it('export import still module code ! script or import', () => {
     t.deepEqual(recovery('export import still module code ! script or import', 'recovery.js', { module: true }), {
       kind: 209,
       directives: [],
@@ -1724,8 +1828,32 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
+          start: 27,
+          length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 32,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 41,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
           start: 44,
           length: 6
         }
@@ -1963,6 +2091,22 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 9,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 12,
+            length: 6
+          },
+          {
+            kind: 2,
+            source: 2,
             message: 'Export declaration expected',
             code: 30,
             start: 19,
@@ -2007,6 +2151,22 @@ describe('Module - Import', () => {
             code: 5,
             start: 42,
             length: 4
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 50,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 53,
+            length: 3
           },
           {
             kind: 2,
@@ -2315,6 +2475,14 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 22,
+            length: 6
+          },
+          {
+            kind: 2,
+            source: 2,
             message: 'Export declaration expected',
             code: 30,
             start: 29,
@@ -2327,6 +2495,14 @@ describe('Module - Import', () => {
             code: 8,
             start: 35,
             length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 39,
+            length: 3
           },
           {
             kind: 2,
@@ -2351,6 +2527,14 @@ describe('Module - Import', () => {
             code: 5,
             start: 51,
             length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 54,
+            length: 1
           },
           {
             kind: 2,
@@ -2404,7 +2588,7 @@ describe('Module - Import', () => {
     );
   });
 
-  it('import ! 333', () => {
+  it('i try count! export, import for break what else? ah! while with class function.', () => {
     t.deepEqual(
       recovery('i try count! export, import for break what else? ah! while with class function.', 'recovery.js', {
         module: true
@@ -2660,10 +2844,26 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 2,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
             message: '`{` expected',
             code: 5,
             start: 6,
             length: 5
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 11,
+            length: 1
           },
           {
             kind: 2,
@@ -2688,6 +2888,14 @@ describe('Module - Import', () => {
             code: 5,
             start: 32,
             length: 5
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 43,
+            length: 4
           },
           {
             kind: 2,

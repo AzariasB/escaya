@@ -1869,8 +1869,72 @@ describe('Declarations - Do while', () => {
           {
             kind: 2,
             source: 2,
-            message: '`}` expected',
-            code: 5,
+            message: '`;` expected',
+            code: 92,
+            start: 34,
+            length: 8
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 47,
+            length: 5
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 53,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 55,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 57,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 59,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 61,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 63,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
             start: 64,
             length: 1
           },
@@ -2067,7 +2131,7 @@ describe('Declarations - Do while', () => {
     });
   });
 
-  it('Unclosed block statement452389', () => {
+  it('do {} while sleeeeeeping on the keyboard,,,,,,,,,,,,,,,,,(while)', () => {
     t.deepEqual(recovery('do {} while sleeeeeeping on the keyboard,,,,,,,,,,,,,,,,,(while)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2076,10 +2140,10 @@ describe('Declarations - Do while', () => {
           type: 'DoWhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
             name: 'sleeeeeeping',
             start: 11,
             end: 24,
+            kind: 13,
             flags: 0
           },
           statement: {
@@ -2099,10 +2163,10 @@ describe('Declarations - Do while', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
             name: 'on',
             start: 24,
             end: 27,
+            kind: 13,
             flags: 0
           },
           start: 24,
@@ -2114,10 +2178,10 @@ describe('Declarations - Do while', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
             name: 'the',
             start: 27,
             end: 31,
+            kind: 13,
             flags: 0
           },
           start: 27,
@@ -2132,84 +2196,84 @@ describe('Declarations - Do while', () => {
             expressions: [
               {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: 'keyboard',
                 start: 31,
                 end: 40,
+                kind: 13,
                 flags: 0
               },
               {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 42,
                 end: 42,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 44,
                 end: 44,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 46,
                 end: 46,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 48,
                 end: 48,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 50,
                 end: 50,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 52,
                 end: 52,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 54,
                 end: 54,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 56,
                 end: 56,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'ParenthesizedExpression',
                 expression: {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: '',
                   start: 58,
                   end: 58,
+                  kind: 13,
                   flags: 2
                 },
                 start: 57,
@@ -2232,20 +2296,20 @@ describe('Declarations - Do while', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
             name: '',
             start: 64,
             end: 64,
+            kind: 13,
             flags: 2
           },
           statement: {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: '',
               start: 64,
               end: 64,
+              kind: 13,
               flags: 2
             },
             start: 64,
@@ -2279,6 +2343,22 @@ describe('Declarations - Do while', () => {
           code: 5,
           start: 25,
           length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 28,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 32,
+          length: 8
         },
         {
           kind: 2,

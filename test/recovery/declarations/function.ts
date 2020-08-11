@@ -271,6 +271,14 @@ describe('Recovery - Function', () => {
           code: 19,
           start: 9,
           length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 14,
+          length: 1
         }
       ],
       detached: false,

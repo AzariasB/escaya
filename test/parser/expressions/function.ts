@@ -18,7 +18,6 @@ describe('Expressions - Function', () => {
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
-    'let f = function f(await) {}',
     '(function([[,] = function* g() {}]) {})',
     '(function([cover = (function () {}), xCover = (0, function() {})]) {})',
     '(function([fn = function () {}, xFn = function x() {}]) {})',

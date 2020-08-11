@@ -430,7 +430,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement23', () => {
+  it('try(x, y catch,', () => {
     t.deepEqual(recovery('try(x, y catch,', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -461,18 +461,18 @@ describe('Recovery - Try', () => {
               expressions: [
                 {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: 'x',
                   start: 4,
                   end: 5,
+                  kind: 13,
                   flags: 0
                 },
                 {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: 'y',
                   start: 6,
                   end: 8,
+                  kind: 13,
                   flags: 0
                 }
               ],
@@ -503,7 +503,6 @@ describe('Recovery - Try', () => {
           },
           catchClause: {
             type: 'CatchClause',
-            kind: 140,
             binding: null,
             block: {
               type: 'BlockStatement',
@@ -513,9 +512,10 @@ describe('Recovery - Try', () => {
               kind: 123,
               flags: 0
             },
-            flags: 0,
             start: 8,
-            end: 14
+            end: 14,
+            kind: 140,
+            flags: 0
           },
           finalizer: null,
           start: 8,
@@ -564,7 +564,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement23', () => {
+  it('try(x, y, catch', () => {
     t.deepEqual(recovery('try(x, y, catch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -595,18 +595,18 @@ describe('Recovery - Try', () => {
               expressions: [
                 {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: 'x',
                   start: 4,
                   end: 5,
+                  kind: 13,
                   flags: 0
                 },
                 {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: 'y',
                   start: 6,
                   end: 8,
+                  kind: 13,
                   flags: 0
                 }
               ],
@@ -637,7 +637,6 @@ describe('Recovery - Try', () => {
           },
           catchClause: {
             type: 'CatchClause',
-            kind: 140,
             binding: null,
             block: {
               type: 'BlockStatement',
@@ -647,9 +646,10 @@ describe('Recovery - Try', () => {
               kind: 123,
               flags: 0
             },
-            flags: 0,
             start: 9,
-            end: 15
+            end: 15,
+            kind: 140,
+            flags: 0
           },
           finalizer: null,
           start: 9,
@@ -690,7 +690,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement234342324', () => {
+  it('try(x, y,,,,, catch', () => {
     t.deepEqual(recovery('try(x, y,,,,, catch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -857,7 +857,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statementafd', () => {
+  it('try(x,,,,,, y catch', () => {
     t.deepEqual(recovery('try(x,,,,,, y catch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1016,8 +1016,8 @@ describe('Recovery - Try', () => {
         {
           kind: 2,
           source: 2,
-          message: '`try` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 14,
           length: 5
         }
@@ -1032,7 +1032,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement5768', () => {
+  it('try(x,,,, y,,,, catch', () => {
     t.deepEqual(recovery('try(x,,,, y,,,, catch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1215,7 +1215,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement243', () => {
+  it(',try(x, y catch', () => {
     t.deepEqual(recovery(',try(x, y catch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1246,18 +1246,18 @@ describe('Recovery - Try', () => {
               expressions: [
                 {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: 'x',
                   start: 5,
                   end: 6,
+                  kind: 13,
                   flags: 0
                 },
                 {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: 'y',
                   start: 7,
                   end: 9,
+                  kind: 13,
                   flags: 0
                 }
               ],
@@ -1288,7 +1288,6 @@ describe('Recovery - Try', () => {
           },
           catchClause: {
             type: 'CatchClause',
-            kind: 140,
             binding: null,
             block: {
               type: 'BlockStatement',
@@ -1298,9 +1297,10 @@ describe('Recovery - Try', () => {
               kind: 123,
               flags: 0
             },
-            flags: 0,
             start: 9,
-            end: 15
+            end: 15,
+            kind: 140,
+            flags: 0
           },
           finalizer: null,
           start: 9,
@@ -1539,7 +1539,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statementdfas', () => {
+  it('try /a/ catch /a/ finally', () => {
     t.deepEqual(recovery('try /a/ catch /a/ finally', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1589,7 +1589,6 @@ describe('Recovery - Try', () => {
           },
           catchClause: {
             type: 'CatchClause',
-            kind: 140,
             binding: null,
             block: {
               type: 'BlockStatement',
@@ -1599,9 +1598,10 @@ describe('Recovery - Try', () => {
               kind: 123,
               flags: 0
             },
-            flags: 0,
             start: 7,
-            end: 13
+            end: 13,
+            kind: 140,
+            flags: 0
           },
           finalizer: null,
           start: 7,
@@ -1666,8 +1666,8 @@ describe('Recovery - Try', () => {
         {
           kind: 2,
           source: 2,
-          message: '`try` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 8,
           length: 5
         },
@@ -1682,8 +1682,8 @@ describe('Recovery - Try', () => {
         {
           kind: 2,
           source: 2,
-          message: '`try` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 18,
           length: 7
         }
@@ -1698,7 +1698,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement4235', () => {
+  it('try/{', () => {
     t.deepEqual(recovery('try/{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1761,7 +1761,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statementdsaf', () => {
+  it('{try', () => {
     t.deepEqual(recovery('{try', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1817,7 +1817,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement', () => {
+  it('{catch', () => {
     t.deepEqual(recovery('{catch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1888,7 +1888,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement', () => {
+  it('{finally', () => {
     t.deepEqual(recovery('{finally', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1951,7 +1951,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement', () => {
+  it('(finally{', () => {
     t.deepEqual(recovery('(finally{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2035,7 +2035,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement', () => {
+  it('catch/a/a{', () => {
     t.deepEqual(recovery('catch/a/a{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2052,7 +2052,6 @@ describe('Recovery - Try', () => {
           },
           catchClause: {
             type: 'CatchClause',
-            kind: 140,
             binding: null,
             block: {
               type: 'BlockStatement',
@@ -2062,9 +2061,10 @@ describe('Recovery - Try', () => {
               kind: 123,
               flags: 0
             },
-            flags: 0,
             start: 0,
-            end: 5
+            end: 5,
+            kind: 140,
+            flags: 0
           },
           finalizer: null,
           start: 0,
@@ -2121,8 +2121,8 @@ describe('Recovery - Try', () => {
         {
           kind: 2,
           source: 2,
-          message: '`}` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 9,
           length: 1
         }
@@ -2137,7 +2137,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement', () => {
+  it('try/catch/finally/{', () => {
     t.deepEqual(recovery('try/catch/finally/{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2224,7 +2224,7 @@ describe('Recovery - Try', () => {
     });
   });
 
-  it('Unclosed block statement', () => {
+  it('try try try { I have tried it !! } or I try again and finally catch some sleep :)', () => {
     t.deepEqual(
       recovery('try try try { I have tried it !! } or I try again and finally catch some sleep :)', 'recovery.js'),
       {
@@ -2274,10 +2274,10 @@ describe('Recovery - Try', () => {
                   type: 'ExpressionStatement',
                   expression: {
                     type: 'IdentifierReference',
-                    kind: 13,
                     name: 'I',
                     start: 13,
                     end: 15,
+                    kind: 13,
                     flags: 0
                   },
                   start: 13,
@@ -2289,10 +2289,10 @@ describe('Recovery - Try', () => {
                   type: 'ExpressionStatement',
                   expression: {
                     type: 'IdentifierReference',
-                    kind: 13,
                     name: 'have',
                     start: 15,
                     end: 20,
+                    kind: 13,
                     flags: 0
                   },
                   start: 15,
@@ -2304,10 +2304,10 @@ describe('Recovery - Try', () => {
                   type: 'ExpressionStatement',
                   expression: {
                     type: 'IdentifierReference',
-                    kind: 13,
                     name: 'tried',
                     start: 20,
                     end: 26,
+                    kind: 13,
                     flags: 0
                   },
                   start: 20,
@@ -2319,10 +2319,10 @@ describe('Recovery - Try', () => {
                   type: 'ExpressionStatement',
                   expression: {
                     type: 'IdentifierReference',
-                    kind: 13,
                     name: 'it',
                     start: 26,
                     end: 29,
+                    kind: 13,
                     flags: 0
                   },
                   start: 26,
@@ -2340,10 +2340,10 @@ describe('Recovery - Try', () => {
                       operator: '!',
                       operand: {
                         type: 'IdentifierReference',
-                        kind: 13,
                         name: '',
                         start: 32,
                         end: 32,
+                        kind: 13,
                         flags: 2
                       },
                       start: 31,
@@ -2378,10 +2378,10 @@ describe('Recovery - Try', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: 'or',
               start: 34,
               end: 37,
+              kind: 13,
               flags: 0
             },
             start: 34,
@@ -2393,10 +2393,10 @@ describe('Recovery - Try', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: 'I',
               start: 37,
               end: 39,
+              kind: 13,
               flags: 0
             },
             start: 37,
@@ -2425,10 +2425,10 @@ describe('Recovery - Try', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: 'again',
               start: 43,
               end: 49,
+              kind: 13,
               flags: 0
             },
             start: 43,
@@ -2440,10 +2440,10 @@ describe('Recovery - Try', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: 'and',
               start: 49,
               end: 53,
+              kind: 13,
               flags: 0
             },
             start: 49,
@@ -2487,7 +2487,6 @@ describe('Recovery - Try', () => {
             },
             catchClause: {
               type: 'CatchClause',
-              kind: 140,
               binding: null,
               block: {
                 type: 'BlockStatement',
@@ -2497,9 +2496,10 @@ describe('Recovery - Try', () => {
                 kind: 123,
                 flags: 0
               },
-              flags: 0,
               start: 61,
-              end: 67
+              end: 67,
+              kind: 140,
+              flags: 0
             },
             finalizer: null,
             start: 61,
@@ -2511,10 +2511,10 @@ describe('Recovery - Try', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: 'some',
               start: 67,
               end: 72,
+              kind: 13,
               flags: 0
             },
             start: 67,
@@ -2528,20 +2528,20 @@ describe('Recovery - Try', () => {
               type: 'LabelledStatement',
               label: {
                 type: 'LabelIdentifier',
-                kind: 13,
                 name: 'sleep',
                 start: 72,
                 end: 80,
+                kind: 13,
                 flags: 0
               },
               labelledItem: {
                 type: 'ExpressionStatement',
                 expression: {
                   type: 'IdentifierReference',
-                  kind: 13,
                   name: '',
                   start: 81,
                   end: 81,
+                  kind: 13,
                   flags: 2
                 },
                 start: 80,
@@ -2584,10 +2584,58 @@ describe('Recovery - Try', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 16,
+            length: 4
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 21,
+            length: 5
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 27,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 30,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
             message: 'Expression expected',
             code: 7,
             start: 33,
             length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 38,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 40,
+            length: 3
           },
           {
             kind: 2,
@@ -2600,8 +2648,16 @@ describe('Recovery - Try', () => {
           {
             kind: 2,
             source: 2,
-            message: '`try` expected',
-            code: 5,
+            message: '`;` expected',
+            code: 92,
+            start: 50,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
             start: 54,
             length: 7
           },
@@ -2624,6 +2680,14 @@ describe('Recovery - Try', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 73,
+            length: 5
+          },
+          {
+            kind: 2,
+            source: 2,
             message: 'Expression expected',
             code: 7,
             start: 80,
@@ -2641,7 +2705,7 @@ describe('Recovery - Try', () => {
     );
   });
 
-  it('Unclosed block statement', () => {
+  it('finaly I tried it! or { maybe I (should) try again ?', () => {
     t.deepEqual(recovery('finaly I tried it! or { maybe I (should) try again ?', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2846,6 +2910,62 @@ describe('Recovery - Try', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 7,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 9,
+          length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 15,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 17,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 22,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 30,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 41,
+          length: 3
+        },
         {
           kind: 2,
           source: 2,
@@ -3592,37 +3712,37 @@ describe('Recovery - Try', () => {
                   type: 'ConditionalExpression',
                   shortCircuit: {
                     type: 'IdentifierReference',
-                    kind: 13,
                     name: 'a',
                     start: 5,
                     end: 6,
+                    kind: 13,
                     flags: 0
                   },
                   consequent: {
                     type: 'IdentifierReference',
-                    kind: 13,
                     name: 'b',
                     start: 7,
                     end: 8,
+                    kind: 13,
                     flags: 0
                   },
                   alternate: {
                     type: 'BinaryExpression',
                     left: {
                       type: 'IdentifierReference',
-                      kind: 13,
                       name: 'c',
                       start: 9,
                       end: 10,
+                      kind: 13,
                       flags: 0
                     },
                     operator: '/',
                     right: {
                       type: 'IdentifierReference',
-                      kind: 13,
                       name: 'a',
                       start: 11,
                       end: 12,
+                      kind: 13,
                       flags: 0
                     },
                     start: 9,
@@ -3656,10 +3776,10 @@ describe('Recovery - Try', () => {
                           operator: '!',
                           operand: {
                             type: 'IdentifierReference',
-                            kind: 13,
                             name: '',
                             start: 16,
                             end: 16,
+                            kind: 13,
                             flags: 2
                           },
                           start: 15,
@@ -3696,7 +3816,6 @@ describe('Recovery - Try', () => {
           },
           catchClause: {
             type: 'CatchClause',
-            kind: 140,
             binding: {
               type: 'BindingIdentifier',
               name: 'x',
@@ -3713,9 +3832,10 @@ describe('Recovery - Try', () => {
               kind: 123,
               flags: 0
             },
-            flags: 0,
             start: 18,
-            end: 27
+            end: 27,
+            kind: 140,
+            flags: 0
           },
           finalizer: null,
           start: 0,
@@ -3729,6 +3849,14 @@ describe('Recovery - Try', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 12,
+          length: 1
+        },
         {
           kind: 2,
           source: 2,
@@ -4055,8 +4183,8 @@ describe('Recovery - Try', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 18,
           length: 1
         }

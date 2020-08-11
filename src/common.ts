@@ -106,12 +106,10 @@ export function consumeSemicolon(state: ParserState, context: Context): boolean 
   // the rules given in ECMA-262, section 7.9, page 21.
   if (state.token & Token.IsAutomaticSemicolon || state.lineTerminatorBeforeNextToken) {
     // consume the semicolon if it was explicitly provided.
-    if (state.token === Token.Semicolon) {
-      nextToken(state, context);
-    }
-    return true;
+    return consumeOpt(state, context, Token.Semicolon);
   }
-  return consumeOpt(state, context, Token.Semicolon);
+  addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedSemicolon, DiagnosticKind.Error);
+  return false;
 }
 
 export function consume<T extends Token>(state: ParserState, context: Context, t: T): boolean {
@@ -262,25 +260,16 @@ export function reinterpretToAssignment(node: any): void {
 }
 export function validateFunctionName(state: ParserState, context: Context): any {
   let { tokenValue, startIndex, token } = state;
-  nextToken(state, context);
-  if (context & Context.Strict && (token & Token.IsFutureReserved) > 0) {
+  if (context & (Context.Yield | Context.Strict) && token === Token.YieldKeyword) {
+    addEarlyDiagnostic(state, context, DiagnosticCode.YieldAsFuncName);
+  } else if ((context & (Context.Await | Context.Module)) > 0 && token === Token.AwaitKeyword) {
+    addEarlyDiagnostic(state, context, DiagnosticCode.AwaitAsFuncName);
+  } else if (context & Context.Strict && (token & Token.IsFutureReserved) > 0) {
     addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.StrictModeReserved, DiagnosticKind.Error);
-    tokenValue = '';
-    startIndex = state.endIndex;
   } else if ((token & Token.IsKeyword) === Token.IsKeyword) {
     addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
-    tokenValue = '';
-    startIndex = state.endIndex;
-  } else if ((context & (Context.Await | Context.Module)) > 0 && token === Token.AwaitKeyword) {
-    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnexpectedAwaitAsIdent, DiagnosticKind.Error);
-    tokenValue = '';
-    startIndex = state.endIndex;
-  } else if (context & (Context.Yield | Context.Strict) && token === Token.YieldKeyword) {
-    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnexpectedYieldAsIdent, DiagnosticKind.Error);
-    tokenValue = '';
-    startIndex = state.endIndex;
   }
-
+  nextToken(state, context);
   return finishNode(
     state,
     context,

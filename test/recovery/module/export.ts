@@ -415,8 +415,8 @@ describe('Recovery - Export', () => {
             type: 'FunctionDeclaration',
             name: {
               type: 'BindingIdentifier',
-              name: '',
-              start: 25,
+              name: 'let',
+              start: 21,
               end: 25,
               kind: 168,
               flags: 0
@@ -542,8 +542,24 @@ describe('Recovery - Export', () => {
             source: 0,
             message: 'Unexpected reserved word in strict mode',
             code: 18,
+            start: 22,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`(` expected',
+            code: 5,
             start: 26,
             length: 5
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 32,
+            length: 3
           },
           {
             kind: 2,
@@ -1089,6 +1105,22 @@ describe('Recovery - Export', () => {
         {
           kind: 2,
           source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 22,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 24,
+          length: 6
+        },
+        {
+          kind: 2,
+          source: 2,
           message: 'Statement expected',
           code: 8,
           start: 31,
@@ -1113,8 +1145,24 @@ describe('Recovery - Export', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Expression expected',
-          code: 7,
+          message: '`;` expected',
+          code: 92,
+          start: 39,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 41,
+          length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
           start: 45,
           length: 1
         }
@@ -1239,277 +1287,6 @@ describe('Recovery - Export', () => {
       start: 0,
       length: 18,
       end: 18
-    });
-  });
-
-  it('export {,,,,,,,,,, from', () => {
-    t.deepEqual(recovery('export {,,,,,,,,,, from', 'recovery.js', { module: true }), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExportDeclaration',
-          declaration: null,
-          namedExports: [],
-          namedBinding: null,
-          fromClause: null,
-          start: 0,
-          end: 8,
-          kind: 223,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'from',
-            start: 18,
-            end: 23,
-            kind: 13,
-            flags: 0
-          },
-          start: 18,
-          end: 23,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: 'export {,,,,,,,,,, from',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`}` expected',
-          code: 5,
-          start: 8,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 9,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 10,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 11,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 12,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 13,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 14,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 15,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 16,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 17,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 23,
-      end: 23
-    });
-  });
-
-  it('export {,,,,,,,,,,', () => {
-    t.deepEqual(recovery('export {,,,,,,,,,, from "string"', 'recovery.js', { module: true }), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExportDeclaration',
-          declaration: null,
-          namedExports: [],
-          namedBinding: null,
-          fromClause: null,
-          start: 0,
-          end: 8,
-          kind: 223,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'from',
-            start: 18,
-            end: 23,
-            kind: 13,
-            flags: 0
-          },
-          start: 18,
-          end: 23,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: 'string',
-            start: 23,
-            end: 32,
-            kind: 12,
-            flags: 0
-          },
-          start: 23,
-          end: 32,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: 'export {,,,,,,,,,, from "string"',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`}` expected',
-          code: 5,
-          start: 8,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 9,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 10,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 11,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 12,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 13,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 14,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 15,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 16,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 17,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 32,
-      end: 32
     });
   });
 
@@ -1648,143 +1425,6 @@ describe('Recovery - Export', () => {
       start: 0,
       length: 19,
       end: 19
-    });
-  });
-
-  it('export {a,,b,,,,,c from', () => {
-    t.deepEqual(recovery('export {a,,b,,,,,c from ', 'recovery.js', { module: true }), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExportDeclaration',
-          declaration: null,
-          namedExports: [
-            {
-              type: 'ExportSpecifier',
-              name: {
-                type: 'IdentifierName',
-                name: 'a',
-                start: 8,
-                end: 9,
-                kind: 13,
-                flags: 0
-              },
-              binding: null,
-              start: 8,
-              end: 9,
-              kind: 225,
-              flags: 0
-            }
-          ],
-          namedBinding: null,
-          fromClause: null,
-          start: 0,
-          end: 10,
-          kind: 223,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'CommaOperator',
-            expressions: [
-              {
-                type: 'IdentifierReference',
-                name: 'b',
-                start: 11,
-                end: 12,
-                kind: 13,
-                flags: 0
-              },
-              {
-                type: 'IdentifierReference',
-                name: '',
-                start: 14,
-                end: 14,
-                kind: 13,
-                flags: 2
-              },
-              {
-                type: 'IdentifierReference',
-                name: '',
-                start: 16,
-                end: 16,
-                kind: 13,
-                flags: 2
-              },
-              {
-                type: 'IdentifierReference',
-                name: 'c',
-                start: 17,
-                end: 18,
-                kind: 13,
-                flags: 0
-              }
-            ],
-            start: 11,
-            end: 18,
-            kind: 147,
-            flags: 0
-          },
-          start: 11,
-          end: 18,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'from',
-            start: 18,
-            end: 23,
-            kind: 13,
-            flags: 0
-          },
-          start: 18,
-          end: 23,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: 'export {a,,b,,,,,c from ',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`}` expected',
-          code: 5,
-          start: 10,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 14,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 16,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 24,
-      end: 24
     });
   });
 
@@ -1928,6 +1568,22 @@ describe('Recovery - Export', () => {
           code: 7,
           start: 16,
           length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 19,
+          length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 24,
+          length: 8
         }
       ],
       detached: false,
@@ -2163,6 +1819,22 @@ describe('Recovery - Export', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 9,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 12,
+            length: 6
+          },
+          {
+            kind: 2,
+            source: 2,
             message: 'Export declaration expected',
             code: 30,
             start: 19,
@@ -2207,6 +1879,22 @@ describe('Recovery - Export', () => {
             code: 5,
             start: 42,
             length: 4
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 50,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 53,
+            length: 3
           },
           {
             kind: 2,

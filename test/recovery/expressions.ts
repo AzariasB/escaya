@@ -662,6 +662,22 @@ describe('Recovery - Expressions', () => {
           code: 50,
           start: 0,
           length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 1,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 2,
+          length: 1
         }
       ],
       detached: false,
@@ -1372,6 +1388,14 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 4,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
           message: '`(` expected',
           code: 5,
           start: 7,
@@ -1673,7 +1697,16 @@ describe('Recovery - Expressions', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 6,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1779,6 +1812,14 @@ describe('Recovery - Expressions', () => {
           message: '`,` expected',
           code: 5,
           start: 12,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 14,
           length: 1
         },
         {
@@ -2035,8 +2076,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 6,
           length: 2
         }
@@ -2109,8 +2150,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 9,
           length: 2
         }
@@ -2767,8 +2808,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 21,
           length: 1
         }
@@ -3518,8 +3559,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 7,
           length: 1
         }
@@ -3716,8 +3757,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 9,
           length: 1
         },
@@ -4285,8 +4326,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 1,
           length: 3
         },
@@ -4393,8 +4434,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 1,
           length: 3
         },
@@ -5978,99 +6019,6 @@ describe('Recovery - Expressions', () => {
     });
   });
 
-  it('foo.\nif (3===4) {}\n', () => {
-    t.deepEqual(recovery('foo.\nif (3===4) {}\n', 'recovery.js', { module: true }), {
-      children: [],
-      context: 0,
-      diagnostics: [],
-      directives: [],
-      end: 19,
-      fileName: 'recovery.js',
-      incremental: false,
-      detached: false,
-      kind: 209,
-      length: 19,
-      mutualFlags: 0,
-      parent: null,
-      start: 0,
-      leafs: [
-        {
-          end: 15,
-          expression: {
-            arguments: [
-              {
-                end: 14,
-                flags: 0,
-                kind: 155,
-                left: {
-                  end: 10,
-                  flags: 0,
-                  kind: 10,
-                  start: 9,
-                  type: 'NumericLiteral',
-                  value: 3
-                },
-                operator: '===',
-                right: {
-                  end: 14,
-                  flags: 0,
-                  kind: 10,
-                  start: 13,
-                  type: 'NumericLiteral',
-                  value: 4
-                },
-                start: 9,
-                type: 'BinaryExpression'
-              }
-            ],
-            end: 15,
-            expression: {
-              computed: false,
-              end: 7,
-              expression: {
-                end: 7,
-                flags: 0,
-                kind: 13,
-                name: 'if',
-                start: 4,
-                type: 'IdentifierName'
-              },
-              flags: 0,
-              kind: 154,
-              member: {
-                end: 3,
-                flags: 0,
-                kind: 13,
-                name: 'foo',
-                start: 0,
-                type: 'IdentifierReference'
-              },
-              start: 0,
-              type: 'MemberExpression'
-            },
-            flags: 0,
-            kind: 156,
-            start: 0,
-            type: 'CallExpression'
-          },
-          flags: 0,
-          kind: 122,
-          start: 0,
-          type: 'ExpressionStatement'
-        },
-        {
-          end: 18,
-          flags: 0,
-          kind: 123,
-          start: 15,
-          leafs: [],
-          type: 'BlockStatement'
-        }
-      ],
-      text: 'foo.\nif (3===4) {}\n'
-    });
-  });
-
   it('foo. && true;', () => {
     t.deepEqual(recovery('foo. && true;', 'recovery.js', { module: true }), {
       kind: 209,
@@ -7220,10 +7168,10 @@ describe('Recovery - Expressions', () => {
           length: 3
         },
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: 'Unexpected reserved word in strict mode',
-          code: 18,
+          message: 'Unexpected `yield` as binding identifier in this context',
+          code: 90,
           start: 9,
           length: 5
         },
@@ -7254,8 +7202,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 37,
           length: 1
         }
@@ -7671,6 +7619,14 @@ describe('Recovery - Expressions', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 1,
+          length: 1
+        },
         {
           kind: 2,
           source: 2,

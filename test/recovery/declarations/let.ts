@@ -38,7 +38,7 @@ describe('Recovery - Let', () => {
     });
   });
 
-  it('Unclosed block statement3', () => {
+  it('let {', () => {
     t.deepEqual(recovery('let {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -94,7 +94,7 @@ describe('Recovery - Let', () => {
     });
   });
 
-  it('Unclosed block statement3', () => {
+  it('let.', () => {
     t.deepEqual(recovery('let.', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -155,7 +155,7 @@ describe('Recovery - Let', () => {
     });
   });
 
-  it('Unclosed block statement324', () => {
+  it('let =>', () => {
     t.deepEqual(recovery('let =>', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -225,7 +225,7 @@ describe('Recovery - Let', () => {
     });
   });
 
-  it('Unclosed block statement234', () => {
+  it('=> let {', () => {
     t.deepEqual(recovery('=> let {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -289,7 +289,7 @@ describe('Recovery - Let', () => {
     });
   });
 
-  it('Unclosed block statementfds', () => {
+  it('let =>', () => {
     t.deepEqual(recovery('let =>', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -359,7 +359,7 @@ describe('Recovery - Let', () => {
     });
   });
 
-  it('Unclosed block statement233', () => {
+  it('let a.b[[', () => {
     t.deepEqual(recovery('let a.b[[', 'recovery.js'), {
       children: [],
       context: 0,
@@ -640,7 +640,7 @@ describe('Recovery - Let', () => {
     });
   });
 
-  it('Unclosed block statementdasf', () => {
+  it('let catch', () => {
     t.deepEqual(recovery('let catch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -666,7 +666,6 @@ describe('Recovery - Let', () => {
           },
           catchClause: {
             type: 'CatchClause',
-            kind: 140,
             binding: null,
             block: {
               type: 'BlockStatement',
@@ -676,9 +675,10 @@ describe('Recovery - Let', () => {
               kind: 123,
               flags: 0
             },
-            flags: 0,
             start: 3,
-            end: 9
+            end: 9,
+            kind: 140,
+            flags: 0
           },
           finalizer: null,
           start: 3,
@@ -695,8 +695,8 @@ describe('Recovery - Let', () => {
         {
           kind: 2,
           source: 2,
-          message: '`try` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 4,
           length: 5
         }
@@ -711,7 +711,7 @@ describe('Recovery - Let', () => {
     });
   });
 
-  it('Unclosed block statementdfs', () => {
+  it('let (catch)', () => {
     t.deepEqual(recovery('let (catch)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -803,7 +803,8 @@ describe('Recovery - Let', () => {
       end: 11
     });
   });
-  it('Unclosed block statementafdadsf', () => {
+
+  it('let.catch', () => {
     t.deepEqual(recovery('let.catch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1021,7 +1022,8 @@ describe('Recovery - Let', () => {
       end: 27
     });
   });
-  it('Unclosed block statement879', () => {
+
+  it('let const y = ;', () => {
     t.deepEqual(recovery('let const y = ;', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1077,6 +1079,14 @@ describe('Recovery - Let', () => {
         {
           kind: 2,
           source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 4,
+          length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
           message: 'Expression expected',
           code: 7,
           start: 14,
@@ -1092,7 +1102,7 @@ describe('Recovery - Let', () => {
       end: 15
     });
   });
-  it('Unclosed block statement', () => {
+  it('let const = b', () => {
     t.deepEqual(recovery('let const = b', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1139,8 +1149,16 @@ describe('Recovery - Let', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
+          start: 4,
+          length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
           start: 10,
           length: 1
         }

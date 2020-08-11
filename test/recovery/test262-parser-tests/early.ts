@@ -381,16 +381,7 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 3,
-          source: 2,
-          message: '`Yield` expression not allowed in formal parameters',
-          code: 24,
-          start: 29,
-          length: 5
-        }
-      ],
+      diagnostics: [],
       detached: false,
       incremental: false,
       parent: null,
@@ -2600,7 +2591,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 92,
+          kind: 2,
+          length: 6,
+          message: '`;` expected',
+          source: 2,
+          start: 3
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -2942,16 +2942,7 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 3,
-          source: 2,
-          message: '`Yield` expression not allowed in formal parameters',
-          code: 24,
-          start: 31,
-          length: 5
-        }
-      ],
+      diagnostics: [],
       detached: false,
       incremental: false,
       parent: null,
@@ -6599,16 +6590,7 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 3,
-          source: 2,
-          message: '`Yield` expression not allowed in formal parameters',
-          code: 24,
-          start: 25,
-          length: 5
-        }
-      ],
+      diagnostics: [],
       detached: false,
       incremental: false,
       parent: null,

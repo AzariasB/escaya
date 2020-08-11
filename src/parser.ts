@@ -502,7 +502,7 @@ export function parseBreakStatement(state: ParserState, context: Context): Break
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   let label = null;
-  if (state.token & Token.IsIdentifier) {
+  if (state.token & (Token.IsFutureReserved | Token.IsIdentifier)) {
     label = parseIdentifierReference(state, context);
   } else if ((context & (Context.InSwitch | Context.InIteration)) === 0) {
     addEarlyDiagnostic(state, context, DiagnosticCode.InvalidBreak);
@@ -519,7 +519,7 @@ export function parseContinueStatement(state: ParserState, context: Context): Co
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   let label = null;
-  if (state.token & Token.IsIdentifier) label = parseIdentifierReference(state, context);
+  if (state.token & (Token.IsFutureReserved | Token.IsIdentifier)) label = parseIdentifierReference(state, context);
   consumeSemicolon(state, context);
   return finishNode(state, context, start, DictionaryMap.ContinueStatement(label), SyntaxKind.ContinueStatement);
 }
@@ -1035,8 +1035,8 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
     nextToken(state, context);
     return finishNode(state, context, state.endIndex, DictionaryMap.IdentifierName(''), SyntaxKind.Identifier);
   }
-  const start = state.startIndex;
-  const value = state.tokenValue;
+  let start = state.startIndex;
+  let value = state.tokenValue;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.IdentifierName(value), SyntaxKind.Identifier);
 }
@@ -1047,7 +1047,11 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
 //   `await`
 export function parseBindingIdentifier(state: ParserState, context: Context, type: BindingType): BindingIdentifier {
   let value = state.tokenValue;
-  if ((state.token & Constants.IsIdentifierOrKeyword) === 0) {
+  if (context & (Context.Yield | Context.Strict) && state.token === Token.YieldKeyword) {
+    addEarlyDiagnostic(state, context, DiagnosticCode.UnexpectedYieldAsBIdent);
+  } else if ((context & (Context.Await | Context.Module)) > 0 && state.token === Token.AwaitKeyword) {
+    addEarlyDiagnostic(state, context, DiagnosticCode.UnexpectedAwaitAsBIdent);
+  } else if ((state.token & Constants.IsIdentifierOrKeyword) === 0) {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
     value = '';
   }
@@ -1062,7 +1066,7 @@ export function parseBindingIdentifier(state: ParserState, context: Context, typ
   if (type & (BindingType.Let | BindingType.Const) && state.token === Token.LetKeyword) {
     addEarlyDiagnostic(state, context, DiagnosticCode.InvalidLetConstBinding);
   }
-  const start = state.startIndex;
+  let start = state.startIndex;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.BindingIdentifier(value), SyntaxKind.BindingIdentifier);
 }
@@ -1372,6 +1376,7 @@ export function parseBinaryExpression(
 export function parseLeftHandSideExpression(state: ParserState, context: Context): Expression {
   const start = state.startIndex;
   let expr: LeftHandSideExpression = parsePrimaryExpression(state, context);
+
   expr = parseMemberExpression(state, context, expr, true, start);
   return expr;
 }
@@ -1722,7 +1727,6 @@ export function parseAwaitExpression(state: ParserState, context: Context): Awai
 //   `yield` [no LineTerminator here] AssignmentExpression
 //   `yield` [no LineTerminator here] `*` AssignmentExpression
 export function parseYieldExpression(state: ParserState, context: Context): YieldExpression {
-  if (context & Context.Parameters) addEarlyDiagnostic(state, context, DiagnosticCode.YieldInParameter);
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   let delegate = false;
@@ -1894,7 +1898,6 @@ export function parseNewExpression(state: ParserState, context: Context): NewExp
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   if (context & Context.NewTarget && state.token === Token.Period) {
-    console.log(state.token === Token.Period);
     nextToken(state, context);
     // TargetIdentifier
     return finishNode(state, context, start, DictionaryMap.Target(), SyntaxKind.NewTarget);
@@ -2017,6 +2020,7 @@ export function parseObjectBindingPattern(
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   consume(state, context, Token.LeftBrace);
   const properties = [];
+
   while (state.token & Constants.ObjectList) {
     if (state.token === Token.Ellipsis) {
       properties.push(parseBindingRestProperty(state, context, type));
@@ -2074,6 +2078,7 @@ export function parseBindingProperty(
         SyntaxKind.PropertyName
       );
     }
+
     const binding = finishNode(
       state,
       context,
@@ -2637,7 +2642,10 @@ export function parseFunctionExpression(
     state.token &
     (context & Context.ErrorRecovery ? Constants.IsIdentifierOrKeywordRecovery : Constants.IsIdentifierOrKeywordNormal)
   ) {
-    name = validateFunctionName(state, context | ((context & 0b0000000000000000000_1100_00000000) << 11));
+    name = validateFunctionName(
+      state,
+      ((context | 0b00000001111111101010000000000000) ^ 0b00000001111111101010000000000000) | generatorAndAsyncFlags
+    );
   } else if (state.token !== Token.LeftParen) {
     name = createBindingIdentifier(state, context, DiagnosticCode.ExpectedBindingIdent, /* shouldConsume */ false);
   }
@@ -3043,7 +3051,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
   // 12.16 Comma Operator
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
-    const expressions = [expression];
+    let expressions = [expression];
     isDelimitedList = true;
 
     const check =

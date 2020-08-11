@@ -2,7 +2,7 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Continue', () => {
-  it('Unclosed block statement', () => {
+  it('while ! continue {', () => {
     t.deepEqual(recovery('while ! continue {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -14,10 +14,10 @@ describe('Recovery - Continue', () => {
             operator: '!',
             operand: {
               type: 'IdentifierReference',
-              kind: 13,
               name: '',
               start: 7,
               end: 7,
+              kind: 13,
               flags: 2
             },
             start: 5,
@@ -71,8 +71,8 @@ describe('Recovery - Continue', () => {
         {
           kind: 2,
           source: 2,
-          message: '`}` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 17,
           length: 1
         }

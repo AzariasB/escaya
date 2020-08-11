@@ -27,6 +27,8 @@ export const diagnosticMap: {
   [DiagnosticCode.ExpectedAnIdentifier]: 'Expected an identifier',
   [DiagnosticCode.UnexpectedYieldAsIdent]: 'Unexpected `yield` as identifier in this context',
   [DiagnosticCode.UnexpectedAwaitAsIdent]: 'Unexpected `await` as identifier in this context',
+  [DiagnosticCode.UnexpectedYieldAsBIdent]: 'Unexpected `yield` as binding identifier in this context',
+  [DiagnosticCode.UnexpectedAwaitAsBIdent]: 'Unexpected `await` as binding identifier in this context',
   [DiagnosticCode.AwaitInParameter]: '`Await` expression not allowed in formal parameters',
   [DiagnosticCode.YieldInParameter]: '`Yield` expression not allowed in formal parameters',
   [DiagnosticCode.NewlineAfterThrow]: 'Line break not allowed after `throw`',
@@ -97,6 +99,8 @@ export const diagnosticMap: {
   [DiagnosticCode.ArrowOperatorToRight]: 'An arrow function can not be part of an operator to the right',
   [DiagnosticCode.UnclosedComment]: '`*/` expected',
   [DiagnosticCode.InvalidLetConstBinding]: 'A lexical declaration can not define a `let` binding',
-
-  [DiagnosticCode.StrictInvalidLetInExprPos]: 'An arrow function can not be part of an operator to the right'
+  [DiagnosticCode.StrictInvalidLetInExprPos]: 'An arrow function can not be part of an operator to the right',
+  [DiagnosticCode.YieldAsFuncName]: '`yield` can not be used as a function name in this context',
+  [DiagnosticCode.AwaitAsFuncName]: '`await` can not be used as a function name in this context',
+  [DiagnosticCode.ExpectedSemicolon]: '`;` expected'
 };

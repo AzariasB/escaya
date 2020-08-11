@@ -4,61 +4,69 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Numbers', () => {
   it('0b1__2', () => {
     t.deepEqual(recovery('0b1__2', 'recovery.js'), {
-      children: [],
-      context: 0,
-      diagnostics: [
-        {
-          code: 69,
-          kind: 2,
-          length: 1,
-          message: 'Multiple consecutive numeric separators are not permitted',
-          source: 0,
-          start: 3
-        }
-      ],
-      directives: [],
-      end: 6,
-      fileName: 'recovery.js',
-      incremental: false,
-      detached: false,
       kind: 209,
+      directives: [],
       leafs: [
         {
-          end: 5,
+          type: 'ExpressionStatement',
           expression: {
-            end: 5,
-            flags: 0,
-            kind: 10,
-            start: 0,
             type: 'NumericLiteral',
-            value: 1
+            value: 1,
+            start: 0,
+            end: 5,
+            kind: 10,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 0,
-          type: 'ExpressionStatement'
+          end: 5,
+          kind: 122,
+          flags: 0
         },
         {
-          end: 6,
+          type: 'ExpressionStatement',
           expression: {
-            end: 6,
-            flags: 0,
-            kind: 10,
-            start: 5,
             type: 'NumericLiteral',
-            value: 2
+            value: 2,
+            start: 5,
+            end: 6,
+            kind: 10,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 5,
-          type: 'ExpressionStatement'
+          end: 6,
+          kind: 122,
+          flags: 0
         }
       ],
-      length: 6,
+      text: '0b1__2',
+      fileName: 'recovery.js',
+      context: 0,
       mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Multiple consecutive numeric separators are not permitted',
+          code: 69,
+          start: 3,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 5,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
       parent: null,
+      children: [],
       start: 0,
-      text: '0b1__2'
+      length: 6,
+      end: 6
     });
   });
 

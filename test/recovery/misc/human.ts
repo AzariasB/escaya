@@ -797,6 +797,158 @@ describe('Recovery - Human', () => {
         diagnostics: [
           {
             kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 9,
+            length: 6
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 16,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 19,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 23,
+            length: 6
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 30,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 33,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 37,
+            length: 8
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 46,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 54,
+            length: 8
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 82,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 86,
+            length: 12
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 99,
+            length: 8
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 108,
+            length: 4
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 113,
+            length: 10
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 134,
+            length: 7
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 142,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 146,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 150,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 153,
+            length: 3
+          },
+          {
+            kind: 2,
             source: 0,
             message: 'An identifier or keyword cannot immediately follow a numeric literal',
             code: 58,
@@ -805,11 +957,187 @@ describe('Recovery - Human', () => {
           },
           {
             kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 157,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 159,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 162,
+            length: 7
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 174,
+            length: 8
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 183,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 185,
+            length: 8
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 194,
+            length: 7
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 202,
+            length: 10
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 213,
+            length: 13
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 227,
+            length: 5
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 233,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 236,
+            length: 3
+          },
+          {
+            kind: 2,
             source: 0,
             message: 'An identifier or keyword cannot immediately follow a numeric literal',
             code: 58,
             start: 242,
             length: 0
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 240,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 242,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 245,
+            length: 7
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 257,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 261,
+            length: 6
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 268,
+            length: 13
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 282,
+            length: 4
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 287,
+            length: 4
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 292,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 295,
+            length: 4
           }
         ],
         detached: false,
@@ -1079,6 +1407,14 @@ describe('Recovery - Human', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 4,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
             message: 'Expression expected',
             code: 7,
             start: 16,
@@ -1095,6 +1431,46 @@ describe('Recovery - Human', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 23,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 26,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 28,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 32,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 35,
+            length: 7
+          },
+          {
+            kind: 2,
+            source: 2,
             message: 'Expression expected',
             code: 7,
             start: 72,
@@ -1103,8 +1479,8 @@ describe('Recovery - Human', () => {
           {
             kind: 2,
             source: 2,
-            message: 'Statement expected',
-            code: 8,
+            message: '`;` expected',
+            code: 92,
             start: 79,
             length: 1
           },

@@ -424,6 +424,14 @@ describe('test262-parser-tests - failing tests', () => {
           code: 19,
           start: 9,
           length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 16,
+          length: 1
         }
       ],
       detached: false,
@@ -608,8 +616,8 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 19,
           length: 1
         }
@@ -650,8 +658,8 @@ describe('test262-parser-tests - failing tests', () => {
                 type: 'FunctionDeclaration',
                 name: {
                   type: 'BindingIdentifier',
-                  name: '',
-                  start: 30,
+                  name: 'yield',
+                  start: 24,
                   end: 30,
                   kind: 168,
                   flags: 0
@@ -691,12 +699,12 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Unexpected `yield` as identifier in this context',
-          code: 21,
-          start: 30,
-          length: 1
+          kind: 3,
+          source: 2,
+          message: '`yield` can not be used as a function name in this context',
+          code: 88,
+          start: 25,
+          length: 5
         }
       ],
       detached: false,
@@ -997,7 +1005,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 6,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1162,8 +1179,8 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 5,
           length: 2
         }
@@ -1732,7 +1749,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Unexpected `yield` as binding identifier in this context',
+          code: 90,
+          start: 18,
+          length: 5
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1836,6 +1862,14 @@ describe('test262-parser-tests - failing tests', () => {
           code: 50,
           start: 0,
           length: 3
+        },
+        {
+          code: 92,
+          kind: 2,
+          length: 2,
+          message: '`;` expected',
+          source: 2,
+          start: 1
         }
       ],
       detached: false,
@@ -2059,6 +2093,14 @@ describe('test262-parser-tests - failing tests', () => {
           code: 48,
           start: 0,
           length: 0
+        },
+        {
+          code: 92,
+          kind: 2,
+          length: 1,
+          message: '`;` expected',
+          source: 2,
+          start: 1
         }
       ],
       detached: false,
@@ -2147,6 +2189,14 @@ describe('test262-parser-tests - failing tests', () => {
           code: 19,
           start: 9,
           length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 16,
+          length: 1
         }
       ],
       detached: false,
@@ -2346,7 +2396,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 20,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -2513,7 +2572,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 15,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -2789,8 +2857,8 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 9,
           length: 1
         },
@@ -2875,7 +2943,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 7,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -3172,7 +3249,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 6,
+          length: 5
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -3278,6 +3364,14 @@ describe('test262-parser-tests - failing tests', () => {
           message: '`,` expected',
           code: 5,
           start: 12,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 14,
           length: 1
         },
         {
@@ -3673,8 +3767,8 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 21,
           length: 1
         }
@@ -3975,7 +4069,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 4,
+          length: 4
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4063,7 +4166,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Unexpected `yield` as binding identifier in this context',
+          code: 90,
+          start: 30,
+          length: 5
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4536,8 +4648,8 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 23,
           length: 1
         }
@@ -5359,6 +5471,14 @@ describe('test262-parser-tests - failing tests', () => {
           code: 19,
           start: 9,
           length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 17,
+          length: 1
         }
       ],
       detached: false,
@@ -5563,6 +5683,14 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 2,
+          length: 5
+        },
+        {
           kind: 3,
           source: 2,
           message: 'Class declaration require a name in this context',
@@ -5645,7 +5773,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Unexpected `yield` as binding identifier in this context',
+          code: 90,
+          start: 19,
+          length: 5
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,

@@ -175,7 +175,7 @@ describe('Recovery - Const', () => {
     });
   });
 
-  it('Unclosed block statement33', () => {
+  it('const ({', () => {
     t.deepEqual(recovery('const ({', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -217,6 +217,14 @@ describe('Recovery - Const', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 6,
+          length: 1
+        },
         {
           kind: 2,
           source: 2,

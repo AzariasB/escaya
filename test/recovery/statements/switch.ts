@@ -863,6 +863,14 @@ describe('Recovery - Switch', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 2,
+            length: 6
+          },
+          {
+            kind: 2,
+            source: 2,
             message: '`(` expected',
             code: 5,
             start: 9,
@@ -887,10 +895,34 @@ describe('Recovery - Switch', () => {
           {
             kind: 2,
             source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 21,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
             message: 'Expression expected',
             code: 7,
             start: 23,
             length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 28,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 39,
+            length: 5
           },
           {
             kind: 2,
@@ -1433,6 +1465,14 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 14,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
           message: 'Expression expected',
           code: 7,
           start: 16,
@@ -1517,150 +1557,6 @@ describe('Recovery - Switch', () => {
       start: 0,
       length: 8,
       end: 8
-    });
-  });
-
-  it('{switch ++ x default: foo + bar = switch', () => {
-    t.deepEqual(recovery('{switch ++ x default: foo + bar = switch ', 'recovery.js'), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'BlockStatement',
-          leafs: [
-            {
-              type: 'SwitchStatement',
-              expression: {
-                type: 'PrefixUpdateExpression',
-                operator: '++',
-                operand: {
-                  type: 'IdentifierReference',
-                  kind: 13,
-                  name: 'x',
-                  start: 10,
-                  end: 12,
-                  flags: 0
-                },
-                start: 7,
-                end: 12,
-                kind: 161,
-                flags: 0
-              },
-              clauses: [
-                {
-                  type: 'DefaultClause',
-                  leafs: [
-                    {
-                      type: 'ExpressionStatement',
-                      expression: {
-                        type: 'BinaryExpression',
-                        left: {
-                          type: 'IdentifierReference',
-                          kind: 13,
-                          name: 'foo',
-                          start: 21,
-                          end: 25,
-                          flags: 0
-                        },
-                        operator: '+',
-                        right: {
-                          type: 'IdentifierReference',
-                          kind: 13,
-                          name: 'bar',
-                          start: 27,
-                          end: 31,
-                          flags: 0
-                        },
-                        start: 21,
-                        end: 31,
-                        kind: 155,
-                        flags: 0
-                      },
-                      start: 21,
-                      end: 31,
-                      kind: 122,
-                      flags: 0
-                    }
-                  ],
-                  start: 12,
-                  end: 31,
-                  kind: 142,
-                  flags: 0
-                }
-              ],
-              start: 1,
-              end: 31,
-              kind: 136,
-              flags: 0
-            }
-          ],
-          start: 0,
-          end: 31,
-          kind: 123,
-          flags: 0
-        },
-        {
-          type: 'SwitchStatement',
-          expression: {
-            type: 'IdentifierReference',
-            kind: 13,
-            name: '',
-            start: 40,
-            end: 40,
-            flags: 2
-          },
-          clauses: [],
-          start: 33,
-          end: 40,
-          kind: 136,
-          flags: 0
-        }
-      ],
-      text: '{switch ++ x default: foo + bar = switch ',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`(` expected',
-          code: 5,
-          start: 8,
-          length: 2
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`)` expected',
-          code: 5,
-          start: 13,
-          length: 7
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`}` expected',
-          code: 5,
-          start: 32,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`(` expected',
-          code: 5,
-          start: 40,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 41,
-      end: 41
     });
   });
 

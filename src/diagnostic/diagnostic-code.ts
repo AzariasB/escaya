@@ -93,6 +93,11 @@ export enum DiagnosticCode {
   StrictInvalidLetInExprPos,
   UnclosedComment,
   InvalidLetConstBinding,
+  YieldAsFuncName,
+  AwaitAsFuncName,
+  UnexpectedYieldAsBIdent,
+  UnexpectedAwaitAsBIdent,
+  ExpectedSemicolon,
 
   /* Annex B */
   AnnexBB32,

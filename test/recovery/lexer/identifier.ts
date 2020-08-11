@@ -56,91 +56,107 @@ describe('Recovery - Identifier', () => {
   });
   it('x\\u foo', () => {
     t.deepEqual(recovery('x\\u foo', 'recovery.js'), {
-      children: [],
-      context: 0,
-      diagnostics: [
-        {
-          code: 50,
-          kind: 2,
-          length: 2,
-          message: 'Invalid hexadecimal escape sequence',
-          source: 0,
-          start: 1
-        }
-      ],
-      directives: [],
-      end: 7,
-      fileName: 'recovery.js',
-      incremental: false,
-      detached: false,
       kind: 209,
+      directives: [],
       leafs: [
         {
-          end: 1,
+          type: 'ExpressionStatement',
           expression: {
-            end: 1,
-            flags: 0,
-            kind: 13,
+            type: 'IdentifierReference',
             name: 'x',
             start: 0,
-            type: 'IdentifierReference'
+            end: 1,
+            kind: 13,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 0,
-          type: 'ExpressionStatement'
+          end: 1,
+          kind: 122,
+          flags: 0
         },
         {
-          end: 2,
+          type: 'ExpressionStatement',
           expression: {
-            end: 2,
-            flags: 0,
-            kind: 13,
+            type: 'IdentifierReference',
             name: '￿',
             start: 1,
-            type: 'IdentifierReference'
+            end: 2,
+            kind: 13,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 1,
-          type: 'ExpressionStatement'
+          end: 2,
+          kind: 122,
+          flags: 0
         },
         {
-          end: 3,
+          type: 'ExpressionStatement',
           expression: {
-            end: 3,
-            flags: 0,
-            kind: 13,
+            type: 'IdentifierReference',
             name: 'u',
             start: 2,
-            type: 'IdentifierReference'
+            end: 3,
+            kind: 13,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 2,
-          type: 'ExpressionStatement'
+          end: 3,
+          kind: 122,
+          flags: 0
         },
         {
-          end: 7,
+          type: 'ExpressionStatement',
           expression: {
-            end: 7,
-            flags: 0,
-            kind: 13,
+            type: 'IdentifierReference',
             name: 'foo',
             start: 3,
-            type: 'IdentifierReference'
+            end: 7,
+            kind: 13,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 3,
-          type: 'ExpressionStatement'
+          end: 7,
+          kind: 122,
+          flags: 0
         }
       ],
-      length: 7,
+      text: 'x\\u foo',
+      fileName: 'recovery.js',
+      context: 0,
       mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Invalid hexadecimal escape sequence',
+          code: 50,
+          start: 1,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 2,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 4,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
       parent: null,
+      children: [],
       start: 0,
-      text: 'x\\u foo'
+      length: 7,
+      end: 7
     });
   });
 
@@ -206,123 +222,139 @@ describe('Recovery - Identifier', () => {
 
   it('x\\u{0 foo', () => {
     t.deepEqual(recovery('x\\u{0 foo', 'recovery.js'), {
-      children: [],
-      context: 0,
-      diagnostics: [
-        {
-          code: 50,
-          kind: 2,
-          length: 4,
-          message: 'Invalid hexadecimal escape sequence',
-          source: 0,
-          start: 1
-        },
-        {
-          code: 5,
-          kind: 2,
-          length: 3,
-          message: '`}` expected',
-          source: 2,
-          start: 6
-        }
-      ],
-      directives: [],
-      end: 9,
-      fileName: 'recovery.js',
-      incremental: false,
-      detached: false,
       kind: 209,
+      directives: [],
       leafs: [
         {
-          end: 1,
+          type: 'ExpressionStatement',
           expression: {
-            end: 1,
-            flags: 0,
-            kind: 13,
+            type: 'IdentifierReference',
             name: 'x',
             start: 0,
-            type: 'IdentifierReference'
+            end: 1,
+            kind: 13,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 0,
-          type: 'ExpressionStatement'
+          end: 1,
+          kind: 122,
+          flags: 0
         },
         {
-          end: 2,
+          type: 'ExpressionStatement',
           expression: {
-            end: 2,
-            flags: 0,
-            kind: 13,
+            type: 'IdentifierReference',
             name: '￿',
             start: 1,
-            type: 'IdentifierReference'
+            end: 2,
+            kind: 13,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 1,
-          type: 'ExpressionStatement'
+          end: 2,
+          kind: 122,
+          flags: 0
         },
         {
-          end: 3,
+          type: 'ExpressionStatement',
           expression: {
-            end: 3,
-            flags: 0,
-            kind: 13,
+            type: 'IdentifierReference',
             name: 'u',
             start: 2,
-            type: 'IdentifierReference'
+            end: 3,
+            kind: 13,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 2,
-          type: 'ExpressionStatement'
+          end: 3,
+          kind: 122,
+          flags: 0
         },
         {
-          end: 9,
-          flags: 0,
-          kind: 123,
+          type: 'BlockStatement',
           leafs: [
             {
-              end: 5,
+              type: 'ExpressionStatement',
               expression: {
-                end: 5,
-                flags: 0,
-                kind: 10,
-                start: 4,
                 type: 'NumericLiteral',
-                value: 0
+                value: 0,
+                start: 4,
+                end: 5,
+                kind: 10,
+                flags: 0
               },
-              flags: 0,
-              kind: 122,
               start: 4,
-              type: 'ExpressionStatement'
+              end: 5,
+              kind: 122,
+              flags: 0
             },
             {
-              end: 9,
+              type: 'ExpressionStatement',
               expression: {
-                end: 9,
-                flags: 0,
-                kind: 13,
+                type: 'IdentifierReference',
                 name: 'foo',
                 start: 5,
-                type: 'IdentifierReference'
+                end: 9,
+                kind: 13,
+                flags: 0
               },
-              flags: 0,
-              kind: 122,
               start: 5,
-              type: 'ExpressionStatement'
+              end: 9,
+              kind: 122,
+              flags: 0
             }
           ],
           start: 3,
-          type: 'BlockStatement'
+          end: 9,
+          kind: 123,
+          flags: 0
         }
       ],
-      length: 9,
+      text: 'x\\u{0 foo',
+      fileName: 'recovery.js',
+      context: 0,
       mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Invalid hexadecimal escape sequence',
+          code: 50,
+          start: 1,
+          length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 2,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 3,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 6,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
       parent: null,
+      children: [],
       start: 0,
-      text: 'x\\u{0 foo'
+      length: 9,
+      end: 9
     });
   });
 });

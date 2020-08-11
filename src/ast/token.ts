@@ -158,7 +158,7 @@ export const enum Token {
   /* Unary/binary operators */
   TypeofKeyword = 46 | IsExpressionStart | IsKeyword,
   DeleteKeyword = 47 | IsExpressionStart | IsKeyword,
-  VoidKeyword = 48 | IsKeyword,
+  VoidKeyword = 48 | IsKeyword | IsExpressionStart,
   Negate = 49 | IsExpressionStart, // !
   Complement = 50 | IsExpressionStart, // ~
   Add = 51 | IsExpressionStart | IsBinaryOp | (5 << PrecStart), // +

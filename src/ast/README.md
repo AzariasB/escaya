@@ -45,7 +45,7 @@ interface SyntaxNode {
 The `SyntaxNode` is equal to `Node` in `ESTree` and contains all AST nodes represented as
 `Node` object, which may have any prototype inheritance.
 
-The `type` field is a string representing the AST variant type, and the `type` and `type`
+The `type` field is a string representing the AST variant type, and the `start` and `end`
 are optional properties representing the start and end values of each `AST node`.
 
 
