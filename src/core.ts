@@ -4,7 +4,6 @@ import { createRootNode, RootNode } from './ast/root-node';
 import { Script } from './ast/script-node';
 import { Module } from './ast/module-node';
 import { Statement } from './ast/statements';
-import { createToken } from './ast/token';
 import { nextToken } from './lexer/scan';
 import { TextChangeRange } from './types';
 import { DictionaryMap, Dictionary } from './dictionary/dictionary-map';

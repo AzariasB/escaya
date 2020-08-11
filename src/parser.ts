@@ -1035,8 +1035,8 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
     nextToken(state, context);
     return finishNode(state, context, state.endIndex, DictionaryMap.IdentifierName(''), SyntaxKind.Identifier);
   }
-  let start = state.startIndex;
-  let value = state.tokenValue;
+  const start = state.startIndex;
+  const value = state.tokenValue;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.IdentifierName(value), SyntaxKind.Identifier);
 }
@@ -1062,7 +1062,7 @@ export function parseBindingIdentifier(state: ParserState, context: Context, typ
   if (type & (BindingType.Let | BindingType.Const) && state.token === Token.LetKeyword) {
     addEarlyDiagnostic(state, context, DiagnosticCode.InvalidLetConstBinding);
   }
-  let start = state.startIndex;
+  const start = state.startIndex;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.BindingIdentifier(value), SyntaxKind.BindingIdentifier);
 }
@@ -2675,7 +2675,7 @@ export function parseAsyncArrowExpression(state: ParserState, context: Context, 
 
   // `async ()`, `async () => ...`
   if (state.token === Token.LeftParen) {
-    return (expr = parseCoverCallExpressionAndAsyncArrowHead(state, context, expr, start));
+    return parseCoverCallExpressionAndAsyncArrowHead(state, context, expr, start);
   }
 
   // IdentifierReference [no LineTerminator here] `=>`
@@ -3043,7 +3043,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
   // 12.16 Comma Operator
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
-    let expressions = [expression];
+    const expressions = [expression];
     isDelimitedList = true;
 
     const check =

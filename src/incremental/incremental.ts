@@ -1,5 +1,4 @@
 import { Context, ParserState, BindingType } from '../common';
-import { nextToken } from '../lexer/scan';
 
 /**
  * Parse block statement nodes. E.g. 'BlockStatement', 'FunctionBody'
