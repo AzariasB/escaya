@@ -32,13 +32,29 @@ interface Module {
 
 'leafs' are used for every new block scope.
 
-## Error recovery
+## SyntaxNode
 
-In `error recovery mode` the `RootNode` represent both `Module` and `Script`, and the
-current `mutualFlags` property keeps track of which context you are currently parsing in.
+```js
+interface SyntaxNode {
+    type: string;
+    start?: number;
+    end?: number;
+}
+```
 
-The `mutualFlags` property contains a serie of bit masks that can be parsed by reference, and this
-information isn't known from outside or exposed through any API.
+The `SyntaxNode` is equal to `Node` in `ESTree` and contains all AST nodes represented as
+`Node` object, which may have any prototype inheritance.
+
+The `type` field is a string representing the AST variant type, and the `type` and `type`
+are optional properties representing the start and end values of each `AST node`.
+
+
+## RootNode
+
+This ASt node is for `error recovery mode` and represent both `Module` and `Script`.
+The current `mutualFlags` property keeps track of which context you are currently parsing in,
+and it's property contains a serie of bit masks that can be parsed by reference. This
+information isn't known from outside, or exposed through any API.
 
 ```js
 interface RootNode {
@@ -53,15 +69,5 @@ interface RootNode {
     children: [ Statement | ModuleDeclaration ];
     length: number;
     end: number;
-}
-```
-
-## SyntaxNode
-
-```js
-interface SyntaxNode {
-    type: string;
-    start?: number;
-    end?: number;
 }
 ```

@@ -6,12 +6,16 @@ interface Expression <: SyntaxNode { }
 
 ## 12.1 Identifiers
 
+### IdentifierName
+
 ```js
 interface IdentifierName <: Expression {
     type: 'IdentifierName';
     name: string;
 }
 ```
+
+### IdentifierReference
 
 ```js
 interface IdentifierReference <: Expression {
@@ -20,6 +24,11 @@ interface IdentifierReference <: Expression {
 }
 ```
 
+An identifier that is a `PrimaryExpression`. E.g. `id in id()`
+
+
+### BindingIdentifier
+
 ```js
 interface BindingIdentifier <: Expression {
     type: 'BindingIdentifier';
@@ -27,12 +36,15 @@ interface BindingIdentifier <: Expression {
 }
 ```
 
+### LabelIdentifier
+
 ```js
 interface LabelIdentifier <: Expression {
     type: 'LabelIdentifier';
     name: string;
 }
 ```
+
 ## 12.2.4 Literals
 
 ### NumericLiteral
