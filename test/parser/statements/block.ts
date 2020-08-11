@@ -4,16 +4,21 @@ import { parseScript, recovery } from '../../../src/escaya';
 describe('Statements - Block', () => {
   // Invalid cases
   for (const arg of [
-    'switch/("',
-    'switch\nx;',
-    'switch\n/x/g',
-    'switch\n',
-    'switch',
-    'switch catch',
-    'switch(x) { case y: {...x} }',
-    'switch(x) { case y: foo /a/ }',
-    'switch(x) { case y:{ class { x() {} } }}'
-    //'switch({x=y}) { case y: [...a] }'
+    '{',
+    '}',
+    `{ let x; `,
+    `{ var f; var`,
+    `{ function a(){`,
+    `{ function* f() {} async `,
+    `{ function let{ }`,
+    '}/("',
+    '}\nx;',
+    '}\n/x/g',
+    '{\n',
+    '{ catch',
+    '{(x) { case y: {...x} }',
+    '{(x) { case y: foo /a/ }',
+    '{(x) { case y:{ class { x() {} } }}'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -49,6 +54,9 @@ describe('Statements - Block', () => {
     `{ async *[await = 5]()
       {}
     }`,
+    '{ let x = 42 }',
+    '{ let x }',
+    '{ let x = 14, y = 3, z = 1977 }',
     `{ (x = [yield]) }`,
     `{ (x = [yield]) => z }`,
     `{ function f(){} async function f(){} }`,

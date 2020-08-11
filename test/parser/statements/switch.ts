@@ -5,15 +5,23 @@ describe('Statements - Switch', () => {
   // Invalid cases
   for (const arg of [
     'switch/("',
-    'switch\nx;'
-    //'switch\n/x/g',
-    //'switch\n',
-    //'switch',
-    //'switch catch',
-    //'switch(x) { case y: {...x} }',
-    //'switch(x) { case y: foo /a/ }',
-    //'switch(x) { case y:{ class { x() {} } }}',
-    //'switch({x=y}) { case y: [...a] }'
+    'switch\nx;',
+    'switch\n/x/g',
+    'switch\n',
+    'switch',
+    'switch catch',
+    'switch(x) { case y: {...x} }',
+    'switch(x) { case y: foo /a/ }',
+    'switch(x) { case y:{ class { x() {} } }}',
+    'switch(x/',
+    'switch (x) {',
+    'switch(x) { case',
+    'switch(x) { case y',
+    'switch(x) { case y:',
+    'switch(x/b[(c)]) { case',
+    'switch (x) { case foo: function *',
+    'switch(x) { case y: (foo',
+    'switch(x) { case y: (foo, '
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -39,6 +47,8 @@ describe('Statements - Switch', () => {
     'switch([/a/]) { case y: !x }',
     'switch(x) { case y: {x = b} }',
     'switch(x) { case y: [a / b] }',
+    'switch (x) { case 42: y(); break; default: break }',
+    'switch (answer) { case 42: let t = 42; break; }',
     'switch(x) { case y: [a / b, c, (d)] }',
     'switch(x) { case y: a }',
     'switch(x) { case y: x(foo) }',

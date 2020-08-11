@@ -4,6 +4,11 @@ import { parseScript, recovery, parseModule } from '../../../src/escaya';
 describe('Statements - While', () => {
   // Invalid cases
   for (const arg of [
+    'while ((',
+    'while(/a/ { ',
+    'while(/a/  /b/ ',
+    'while (/}',
+    'while(x=}',
     'while(x=)=y) {}',
     'while((x=(y,i,o..y))) {}',
     'while/("',
@@ -12,7 +17,8 @@ describe('Statements - While', () => {
     'while\n',
     'while',
     'while catch',
-    //'while({[a] = {}}) {}/x/',
+    'while(x=y) { new.target; }',
+    'while({[a] = {}}) {}/x/',
     'with((x=(y,i,o..y))) {}',
     'while(x=y) { a/}',
     'while(x) { case y: {...x} }',
@@ -47,6 +53,7 @@ describe('Statements - While', () => {
     'while(/a/)  /b/ ',
     'while (/["-{-]/gmuy[true] >>>= (((2e308)))) {}',
     'while(x=y) { function a() {} }',
+    'while (x < 10) { x++; y--; }',
     'while(x=y) { async function *a() {} }',
     'while(x=y) { async function *a() {} }',
     'while(x=y) { async function *a() { yield foo; await x;} }',
@@ -56,7 +63,6 @@ describe('Statements - While', () => {
     'while(x=y) { x--;}',
     'while(x=y) { !y = typeof x; }',
     'while(x=y) { !y === typeof x; }',
-    //'while(x=y) { new.target; }',
     'while(x=y) { new twitter(x); }',
     'while( {"a": x}) {}/x/',
     'while( {["a"]: x}) {}/x/'

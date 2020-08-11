@@ -9,7 +9,8 @@ describe('Expressions - Binary', () => {
     '({set * bar(x){})',
     '({static * bar(x){})',
     'x({set 123: x});',
-    'x({set "abc": x});'
+    'x({set "abc": x});',
+    'x = { set f(...y) {} }'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -36,6 +37,21 @@ describe('Expressions - Binary', () => {
     '({y:y2} = {y:y2-2})',
     '({yield: 10 });',
     '({[foo]: x} = x) => y',
+    'x = { y, z }',
+    'x = { method(test) { } }',
+    'x = { "method"() { } }',
+    'x = { set() { } }',
+    'o = { f: function(a, ...b) {} }',
+    'x = { f: function(a=1) {} }',
+    'x = { method(...test) { } }',
+    '({ __proto__: null, get __proto__(){} })',
+    '({ __proto__: null, __proto__(){}, })',
+    '({ __proto__: null, set __proto__(x){} })',
+    '({ "__proto__": null, get __proto__(){}, set __proto__(x){} })',
+    '({ "__proto__": null, __proto__(){}, })',
+    '({ "__proto__": null, set __proto__(x){} })',
+    '({ "__proto__": null, __proto__ })',
+    '({ __proto__, __proto__ })',
     '({[foo](){}, get [bar](){}});',
     '({ toast(a, b = 10, c) {}  });',
     '({ x([ a, b ]){} });',

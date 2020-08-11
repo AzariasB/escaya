@@ -9,6 +9,10 @@ describe('Statements - If', () => {
     'if\nelse /x/g',
     'if\n else',
     'if else',
+    `if(a,,,,,)b;else c;`,
+    `if(a,,,,,b;else c;`,
+    'if (++a;',
+    'if (a --a;',
     'if catch else',
     'if(x) { case y: {...x} } else',
     'if(x) { case y: foo /a/ } else',
@@ -18,6 +22,30 @@ describe('Statements - If', () => {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`, { loc: true });
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
+  }
+
+  // Invalid cases (AnnexB disabled & module)
+  for (const arg of [
+    '"use strict"; if (true) function f(){} else {}',
+    '"use strict"; if (true) function f(){}',
+    '"use strict"; if (true) {} else function f(){}',
+    '"use strict"; if (true) function f(){} else function g(){}'
+  ]) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseScript(`${arg}`, { loc: true, impliedStrict: true });
+      });
+    });
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseScript(`${arg}`, { loc: true, disableWebCompat: true });
       });
     });
     it(`${arg}`, () => {
@@ -38,10 +66,13 @@ describe('Statements - If', () => {
     `if(foo) a = b;`,
     `if (a) function a(){}`,
     `if (a) b()`,
+    'if (x) var x = 0;',
     `if(a)b;else c;`,
     'if (++a);',
     'if (a) --a;',
     `if (1) { eval(42) }`,
+    'if (x) y(); else z()',
+    'if (true) that(); else;',
     `if (true) if (false) {} else ; else {}`
   ]) {
     it(`${arg}`, () => {

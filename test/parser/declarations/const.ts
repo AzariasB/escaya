@@ -3,7 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Declarations - Const', () => {
   // Invalid cases
-  for (const arg of ['switch/("']) {
+  for (const arg of ['const const;', 'const let']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`, { loc: true });

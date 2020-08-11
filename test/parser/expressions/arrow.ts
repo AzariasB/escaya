@@ -22,6 +22,9 @@ describe('Expressions - Arrow', () => {
     `(w, o, e, m) => { "use strict"; "use strict" }`,
     `(eval, interface) => {}`,
     `(bar, eval) => {}`,
+    '() => "test"',
+    '(e) => "test"',
+    '(a, ...{b}) => c',
     `(bar, yield) => {}`,
     `(bar, interface) => {}`,
     '() => ok()',
@@ -29,6 +32,7 @@ describe('Expressions - Arrow', () => {
     `arguments => {}`,
     `eval => 42;`,
     `(a) => 00;`,
+    '(sun) => earth',
     `()=>{}
     [x]`,
     `() => {};

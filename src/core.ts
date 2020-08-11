@@ -15,6 +15,7 @@ export interface Options {
   next?: boolean;
   loc?: boolean;
   disableWebCompat?: boolean;
+  impliedStrict?: true;
   // *only* for recovery / incremental mode
   module?: boolean;
 }
@@ -31,6 +32,7 @@ export function parseRoot(
   if (options != null) {
     if (options.next) context |= Context.OptionsNext;
     if (options.loc) context |= Context.OptionsLoc;
+    if (options.impliedStrict) context |= Context.Strict;
     if (options.disableWebCompat) context |= Context.OptionsDisableWebCompat;
   }
 
@@ -85,6 +87,7 @@ export function parseInNormalMode(
 export function parseInRecoveryMode(text: string, filename: string, context: Context, options?: Options): RootNode {
   if (options != null) {
     if (options.next) context |= Context.OptionsNext;
+    if (options.impliedStrict) context |= Context.Strict;
     if (options.module) context |= Context.Strict | Context.Module;
     if (options.disableWebCompat) context |= Context.OptionsDisableWebCompat;
   }

@@ -2,6 +2,125 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('test262-parser-tests - failing tests', () => {
+  it(',,,,,,let x, y, ;', () => {
+    t.deepEqual(recovery(',,,,,,let x, y, ;', 'recovery.js'), {
+      children: [],
+      context: 0,
+      detached: false,
+      diagnostics: [
+        {
+          code: 8,
+          kind: 2,
+          length: 1,
+          message: 'Statement expected',
+          source: 2,
+          start: 0
+        },
+        {
+          code: 8,
+          kind: 2,
+          length: 1,
+          message: 'Statement expected',
+          source: 2,
+          start: 1
+        },
+        {
+          code: 8,
+          kind: 2,
+          length: 1,
+          message: 'Statement expected',
+          source: 2,
+          start: 2
+        },
+        {
+          code: 8,
+          kind: 2,
+          length: 1,
+          message: 'Statement expected',
+          source: 2,
+          start: 3
+        },
+        {
+          code: 8,
+          kind: 2,
+          length: 1,
+          message: 'Statement expected',
+          source: 2,
+          start: 4
+        },
+        {
+          code: 8,
+          kind: 2,
+          length: 1,
+          message: 'Statement expected',
+          source: 2,
+          start: 5
+        },
+        {
+          code: 16,
+          kind: 2,
+          length: 1,
+          message: 'Variable declaration or lexical binding expected',
+          source: 2,
+          start: 16
+        }
+      ],
+      directives: [],
+      end: 17,
+      fileName: 'recovery.js',
+      incremental: false,
+      kind: 209,
+      leafs: [
+        {
+          declarations: [
+            {
+              binding: {
+                end: 11,
+                flags: 0,
+                kind: 168,
+                name: 'x',
+                start: 9,
+                type: 'BindingIdentifier'
+              },
+              end: 11,
+              flags: 0,
+              initializer: null,
+              kind: 146,
+              start: 9,
+              type: 'LexicalBinding'
+            },
+            {
+              binding: {
+                end: 14,
+                flags: 0,
+                kind: 168,
+                name: 'y',
+                start: 12,
+                type: 'BindingIdentifier'
+              },
+              end: 14,
+              flags: 0,
+              initializer: null,
+              kind: 146,
+              start: 12,
+              type: 'LexicalBinding'
+            }
+          ],
+          end: 17,
+          flags: 0,
+          isConst: false,
+          kind: 145,
+          start: 6,
+          type: 'LexicalDeclaration'
+        }
+      ],
+      length: 17,
+      mutualFlags: 0,
+      parent: null,
+      start: 0,
+      text: ',,,,,,let x, y, ;'
+    });
+  });
   it('var x, ;', () => {
     t.deepEqual(recovery('var x, ;', 'recovery.js'), {
       kind: 209,
@@ -37,7 +156,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 16,
+          kind: 2,
+          length: 1,
+          message: 'Variable declaration or lexical binding expected',
+          source: 2,
+          start: 7
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1920,7 +2048,7 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'A destructuring declaration must have an initializer',
           code: 45,

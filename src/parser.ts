@@ -811,10 +811,6 @@ export function parseBindingList(
 ): (LexicalBinding | VariableDeclaration)[] {
   const declarationList = [];
 
-  // Consumes all leading commas in recovery mode. Example 'const ,,,' or 'var ,,,'.
-  while (consumeOpt(state, context, Token.Comma)) {
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedVarOrLexDecl, DiagnosticKind.Error);
-  }
   const check =
     context & Context.ErrorRecovery ? Constants.IsPatternOrIdentifierRecovery : Constants.IsPatternOrIdentifierNormal;
   while (state.token & check) {
@@ -1035,8 +1031,8 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
     nextToken(state, context);
     return finishNode(state, context, state.endIndex, DictionaryMap.IdentifierName(''), SyntaxKind.Identifier);
   }
-  const start = state.startIndex;
-  const value = state.tokenValue;
+  let start = state.startIndex;
+  let value = state.tokenValue;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.IdentifierName(value), SyntaxKind.Identifier);
 }
@@ -1066,7 +1062,7 @@ export function parseBindingIdentifier(state: ParserState, context: Context, typ
   if (type & (BindingType.Let | BindingType.Const) && state.token === Token.LetKeyword) {
     addEarlyDiagnostic(state, context, DiagnosticCode.InvalidLetConstBinding);
   }
-  const start = state.startIndex;
+  let start = state.startIndex;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.BindingIdentifier(value), SyntaxKind.BindingIdentifier);
 }
@@ -1088,12 +1084,13 @@ export function parseVariableStatement(state: ParserState, context: Context): Va
 //   BindingPattern Initializer
 export function parseVariableDeclaration(state: ParserState, context: Context, type: BindingType): VariableDeclaration {
   const start = state.startIndex;
+  const token = state.token;
   const binding = parseBindingPatternOrIdentifier(state, context, type);
   let initializer = null;
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
     initializer = parseExpression(state, context);
-  } else if (state.token & Token.IsPatternStart) {
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.MissingDestructInit, DiagnosticKind.Error);
+  } else if (token & Token.IsPatternStart) {
+    addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
   }
   return finishNode(
     state,
@@ -1188,7 +1185,7 @@ export function parseLexicalBinding(state: ParserState, context: Context, type: 
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
     initializer = parseExpression(state, context);
   } else if (token & Token.IsPatternStart || type === BindingType.Const) {
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.MissingDestructInit, DiagnosticKind.Error);
+    addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
   }
   return finishNode(
     state,
@@ -1218,16 +1215,23 @@ export function parseBindingOrDeclarationList(
 ): (LexicalBinding | VariableDeclaration)[] {
   const declarationList = [];
 
-  // Consumes all leading commas in recovery mode. Example 'const ,,,' or 'var ,,,'.
-  while (consumeOpt(state, context, Token.Comma)) {
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedVarOrLexDecl, DiagnosticKind.Error);
-  }
   const check =
     context & Context.ErrorRecovery ? Constants.IsPatternOrIdentifierRecovery : Constants.IsPatternOrIdentifierNormal;
   while (state.token & check) {
     declarationList.push(parseBindingElements(state, context, type, cb));
 
-    if (consumeOpt(state, context, Token.Comma)) continue;
+    if (consumeOpt(state, context, Token.Comma)) {
+      if ((state.token & check) === 0) {
+        addDiagnostic(
+          state,
+          context,
+          DiagnosticSource.Parser,
+          DiagnosticCode.ExpectedVarOrLexDecl,
+          DiagnosticKind.Error
+        );
+      }
+      continue;
+    }
     // A typical typo is to hit '.' instead of ',' because they are next to each other on the keyboard.
     // If that's the case we just skip it and continue. This ensures we get back on track and don't
     // result in tons of parse errors.
@@ -2680,13 +2684,7 @@ export function parseAsyncArrowExpression(state: ParserState, context: Context, 
       );
     }
   }
-  const expr: any = finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.IdentifierReference('async'),
-    SyntaxKind.Identifier
-  );
+  let expr: any = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'), SyntaxKind.Identifier);
 
   // `async ()`, `async () => ...`
   if (state.token === Token.LeftParen) {
@@ -3058,7 +3056,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
   // 12.16 Comma Operator
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
-    const expressions = [expression];
+    let expressions = [expression];
     isDelimitedList = true;
 
     const check =

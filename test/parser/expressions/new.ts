@@ -3,7 +3,7 @@ import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
 describe('Expressions - Binary', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of ['new f(..g);', 'new f(....g);', 'new f(... ... g);']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -33,6 +33,10 @@ describe('Expressions - Binary', () => {
     'new function(foo) {\n    this.foo = foo;\n}();',
     'new function test(foo) {\n    this.foo = foo;\n}(1);',
     'new function test(foo) {\n    this.foo = foo;\n}();',
+    'new f(g, ...h = i);',
+    'new f(...x, y, z);',
+    'new f(...g);',
+    'new f(...x, ...y, ...z);',
     'new async()()',
     'new a()().b.c[d];',
     'new async()().b.c[d];',

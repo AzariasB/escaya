@@ -2242,7 +2242,7 @@ describe('test262-parser-tests - early tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'A destructuring declaration must have an initializer',
           code: 45,

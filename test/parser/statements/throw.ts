@@ -73,6 +73,8 @@ describe('Statements - Throw', () => {
     'throw async',
     'throw await',
     'throw ((x))',
+    'throw { x: "Error" }',
+    'throw x * y',
     'throw (a,b,c = d, 123, [a], {x})',
     'throw {x}',
     'throw {x:y}',

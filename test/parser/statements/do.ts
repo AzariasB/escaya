@@ -11,15 +11,16 @@ describe('Statements - Do', () => {
     'do while',
     'do catch while',
     'do let {} = y',
-    // 'do debugger while(x) x',
-    // 'do x: function s(){}while(y)',
-    // 'do foo while (bar);',
+    'do {} while (',
+    'do debugger while(x) x',
+    'do x: function s(){}while(y)',
+    'do foo while (bar);',
     'do async \n f(){}; while (y)',
     'do let x = 1; while (false)',
     'do async \n f(){}; while (y)',
-    // 'do x, y while (z)',
-    //'do foo while (bar);',
-    //'do ()=>x while(c)',
+    'do x, y while (z)',
+    'do foo while (bar);',
+    'do ()=>x while(c)',
     'do(x) { case y: {...x} } while',
     'do(x) { case y: foo /a/ while }',
     'do(x) { case y:{ class { x() {} } while }}',
@@ -38,7 +39,13 @@ describe('Statements - Do', () => {
   }
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
-  for (const arg of ['switch(x) /* comment */ { case y: foo }', `do { var [[foo]=[42]] = [] } while (j)`]) {
+  for (const arg of [
+    'do x(); while (true);',
+    `do { var [[foo]=[42]] = [] } while (j)`,
+    '{ do { } while (false) false }',
+    'do x();while (true)',
+    '{ do { } while (false) false }'
+  ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`, { loc: true });

@@ -4,16 +4,16 @@ import { parseScript, recovery } from '../../../src/escaya';
 describe('Statements - Return', () => {
   // Invalid cases
   for (const arg of [
-    'switch/("',
-    'switch\nx;',
-    'switch\n/x/g',
-    'switch\n',
-    'switch',
-    'switch catch',
-    'switch(x) { case y: {...x} }',
-    'switch(x) { case y: foo /a/ }',
-    'switch(x) { case y:{ class { x() {} } }}',
-    //'switch({x=y}) { case y: [...a] }',
+    'return',
+    'return/("',
+    'return\nx;',
+    'return\n/x/g',
+    'return\n',
+    'return',
+    'return catch',
+    'return(x) { case y: {...x} }',
+    'return(x) { case y: foo /a/ }',
+    'return(x) { case y:{ class { x() {} } }}',
     '*() => {return}',
     '() => return'
   ]) {

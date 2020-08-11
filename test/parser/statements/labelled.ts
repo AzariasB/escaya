@@ -9,6 +9,7 @@ describe('Statements - Labelled', () => {
     'foo\n/x/g:',
     '123:\n',
     'bar:',
+    'x:£',
     'label catch:',
     'catch: (x) { case y: {...x} }:',
     'finally: (x) { case y: foo /a/ }:',

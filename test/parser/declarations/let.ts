@@ -3,7 +3,16 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Declarations - Let', () => {
   // Invalid cases
-  for (const arg of ['switch/("', 'let [1 <= 0] = "foo"']) {
+  for (const arg of [
+    'let []"',
+    'let [1 <= 0] = "foo"',
+    'let x, y, z, let = 1;',
+    'let let;',
+    'let x,;',
+    'let x, y, ;',
+    ',,,,,,let x, y, ;',
+    'let x, y, z, let;'
+  ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`, { loc: true });
@@ -29,6 +38,7 @@ describe('Declarations - Let', () => {
     'let {let: foo} = x;',
     `while (x) let
     {}`,
+    'let = 42;',
     'function let() { }',
     '(function let() { })',
     '(let).foo in x;',

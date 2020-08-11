@@ -3,7 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Declarations - Var', () => {
   // Invalid cases
-  for (const arg of ['switch/("']) {
+  for (const arg of ['var x,;', 'var x,', 'var x, y,', 'var x, ;', `var x,\ny,;`, 'var x = 42,', 'var []']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -18,6 +18,14 @@ describe('Declarations - Var', () => {
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
+    'var x',
+    'var x, y;',
+    'var x = 42',
+    'var eval = 42, arguments = 42',
+    'var x = 14, y = 3, z = 1977',
+    'var implements, interface, package',
+    'var private, protected, public, static',
+    'var let;',
     'var foo = { x = 10 } = {};',
     'var foo = { q } = { x = 10 } = {};',
     'var foo; foo = { x = 10 } = {};',
