@@ -418,7 +418,7 @@ describe('Declarations - Var', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {

@@ -1,9 +1,9 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('leafs - Break', () => {
+describe('Statements - Break', () => {
   it('labels and while', () => {
-    t.deepEqual(parseScript('foo: do break foo; while(foo);'), {
+    t.deepEqual(parseScript('foo: do break foo; while(foo);', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -55,7 +55,7 @@ describe('leafs - Break', () => {
   });
 
   it('with break and no block body', () => {
-    t.deepEqual(parseScript('while (x) break'), {
+    t.deepEqual(parseScript('while (x) break', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -84,7 +84,7 @@ describe('leafs - Break', () => {
   });
 
   it('block wrapped in paren', () => {
-    t.deepEqual(parseScript('for (x of y) break'), {
+    t.deepEqual(parseScript('for (x of y) break', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -120,7 +120,7 @@ describe('leafs - Break', () => {
   });
 
   it('do break while', () => {
-    t.deepEqual(parseScript('do break; while(foo);'), {
+    t.deepEqual(parseScript('do break; while(foo);', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -149,7 +149,7 @@ describe('leafs - Break', () => {
   });
 
   it('same level', () => {
-    t.deepEqual(parseScript('foo: while (true) { break foo; }'), {
+    t.deepEqual(parseScript('foo: while (true) { break foo; }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -205,7 +205,7 @@ describe('leafs - Break', () => {
   });
 
   it('foo: while (true) if (x); else break foo;', () => {
-    t.deepEqual(parseScript('foo: while (true) if (x); else break foo;'), {
+    t.deepEqual(parseScript('foo: while (true) if (x); else break foo;', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [

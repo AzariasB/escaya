@@ -3,7 +3,7 @@ import { parseScript } from '../../../src/escaya';
 
 describe('Misc - Assignment', () => {
   it('[{a=0},{a=0}] = 0', () => {
-    t.deepEqual(parseScript('[{a=0},{a=0}] = 0'), {
+    t.deepEqual(parseScript('[{a=0},{a=0}] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -85,7 +85,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[x,] = 0', () => {
-    t.deepEqual(parseScript('[x,] = 0'), {
+    t.deepEqual(parseScript('[x,] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -125,7 +125,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[x,,] = 0', () => {
-    t.deepEqual(parseScript('[x,,] = 0'), {
+    t.deepEqual(parseScript('[x,,] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -170,7 +170,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[[x]] = 0', () => {
-    t.deepEqual(parseScript('[[x]] = 0'), {
+    t.deepEqual(parseScript('[[x]] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -218,7 +218,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[x, y, ...z] = 0', () => {
-    t.deepEqual(parseScript('[x, y, ...z] = 0'), {
+    t.deepEqual(parseScript('[x, y, ...z] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -275,7 +275,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[, x,,] = 0', () => {
-    t.deepEqual(parseScript('[, x,,] = 0'), {
+    t.deepEqual(parseScript('[, x,,] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -325,7 +325,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[...[x]] = 0', () => {
-    t.deepEqual(parseScript('[...[x]] = 0'), {
+    t.deepEqual(parseScript('[...[x]] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -378,7 +378,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[x, ...{0: y}] = 0', () => {
-    t.deepEqual(parseScript('[x, ...{0: y}] = 0'), {
+    t.deepEqual(parseScript('[x, ...{0: y}] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -447,7 +447,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[x, x] = 0', () => {
-    t.deepEqual(parseScript('[x, x] = 0'), {
+    t.deepEqual(parseScript('[x, x] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -493,7 +493,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[x, ...x] = 0', () => {
-    t.deepEqual(parseScript('[x, ...x] = 0'), {
+    t.deepEqual(parseScript('[x, ...x] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -544,7 +544,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[x.a=a] = b', () => {
-    t.deepEqual(parseScript('[x.a=a] = b'), {
+    t.deepEqual(parseScript('[x.a=a] = b', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -607,7 +607,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[x[a]=a] = b', () => {
-    t.deepEqual(parseScript('[x[a]=a] = b'), {
+    t.deepEqual(parseScript('[x[a]=a] = b', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -670,7 +670,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[...[...a[x]]] = b', () => {
-    t.deepEqual(parseScript('[...[...a[x]]] = b'), {
+    t.deepEqual(parseScript('[...[...a[x]]] = b', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -740,7 +740,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[{a=0},{a=0}] = 0', () => {
-    t.deepEqual(parseScript('[{a=0},{a=0}] = 0'), {
+    t.deepEqual(parseScript('[{a=0},{a=0}] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -822,7 +822,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[a = 0, ...{b = 0}] = 0', () => {
-    t.deepEqual(parseScript('[a = 0, ...{b = 0}] = 0'), {
+    t.deepEqual(parseScript('[a = 0, ...{b = 0}] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -902,7 +902,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('[{a=0}, ...b] = 0', () => {
-    t.deepEqual(parseScript('[{a=0}, ...b] = 0'), {
+    t.deepEqual(parseScript('[{a=0}, ...b] = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -971,7 +971,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('({x} = 0)', () => {
-    t.deepEqual(parseScript('({x} = 0)'), {
+    t.deepEqual(parseScript('({x} = 0)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1016,7 +1016,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('({x,} = 0)', () => {
-    t.deepEqual(parseScript('({x,} = 0)'), {
+    t.deepEqual(parseScript('({x,} = 0)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1061,7 +1061,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('({x,y} = 0)', () => {
-    t.deepEqual(parseScript('({x,y} = 0)'), {
+    t.deepEqual(parseScript('({x,y} = 0)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1112,7 +1112,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('({x,y,} = 0)', () => {
-    t.deepEqual(parseScript('({x,y,} = 0)'), {
+    t.deepEqual(parseScript('({x,y,} = 0)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1162,7 +1162,7 @@ describe('Misc - Assignment', () => {
     });
   });
   it('({x = 0,} = 1)', () => {
-    t.deepEqual(parseScript('({x = 0,} = 1)'), {
+    t.deepEqual(parseScript('({x = 0,} = 1)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1218,7 +1218,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('({0: y} = 0)', () => {
-    t.deepEqual(parseScript('({0: y} = 0)'), {
+    t.deepEqual(parseScript('({0: y} = 0)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1274,7 +1274,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('({0: x, 1: x} = 0)', () => {
-    t.deepEqual(parseScript('({0: x, 1: x} = 0)'), {
+    t.deepEqual(parseScript('({0: x, 1: x} = 0)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1347,7 +1347,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('({x: y = z = 0} = 1)', () => {
-    t.deepEqual(parseScript('({x: y = z = 0} = 1)'), {
+    t.deepEqual(parseScript('({x: y = z = 0} = 1)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1426,7 +1426,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('({x: [y] = 0} = 1)', () => {
-    t.deepEqual(parseScript('({x: [y] = 0} = 1)'), {
+    t.deepEqual(parseScript('({x: [y] = 0} = 1)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1499,7 +1499,7 @@ describe('Misc - Assignment', () => {
     });
   });
   it('({a:let} = 0);', () => {
-    t.deepEqual(parseScript('({a:let} = 0);'), {
+    t.deepEqual(parseScript('({a:let} = 0);', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1555,7 +1555,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('({a:yield} = 0);', () => {
-    t.deepEqual(parseScript('({a:yield} = 0);'), {
+    t.deepEqual(parseScript('({a:yield} = 0);', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1611,7 +1611,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('({yield = 0} = 0);', () => {
-    t.deepEqual(parseScript('({yield = 0} = 0);'), {
+    t.deepEqual(parseScript('({yield = 0} = 0);', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1667,7 +1667,7 @@ describe('Misc - Assignment', () => {
   });
 
   it('(function*() { [...{ x = yield }] = 0; })', () => {
-    t.deepEqual(parseScript('(function*() { [...{ x = yield }] = 0; })'), {
+    t.deepEqual(parseScript('(function*() { [...{ x = yield }] = 0; })', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [

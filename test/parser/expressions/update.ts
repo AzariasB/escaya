@@ -98,7 +98,7 @@ describe('Expressions - Binary', () => {
   }
 
   it('++a.a', () => {
-    t.deepEqual(parseScript('++a.a'), {
+    t.deepEqual(parseScript('++a.a', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -138,7 +138,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('bar++', () => {
-    t.deepEqual(parseScript('bar++'), {
+    t.deepEqual(parseScript('bar++', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [

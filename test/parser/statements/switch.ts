@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { parseScript, recovery, parseModule } from '../../../src/escaya';
 
-describe('leafs - Switch', () => {
+describe('Statements - Switch', () => {
   // Invalid cases
   for (const arg of [
     'switch/("',
@@ -17,7 +17,7 @@ describe('leafs - Switch', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -119,7 +119,7 @@ describe('leafs - Switch', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -135,7 +135,7 @@ describe('leafs - Switch', () => {
   }
 
   it('switch (0) { case 1: var f; default: var f }', () => {
-    t.deepEqual(parseScript('switch (0) { case 1: var f; default: var f }'), {
+    t.deepEqual(parseScript('switch (0) { case 1: var f; default: var f }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -217,7 +217,7 @@ describe('leafs - Switch', () => {
   });
 
   it('switch (x) { case a: var foo; break; default: var foo; break; }', () => {
-    t.deepEqual(parseScript('switch (x) { case a: var foo; break; default: var foo; break; }'), {
+    t.deepEqual(parseScript('switch (x) { case a: var foo; break; default: var foo; break; }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -311,121 +311,124 @@ describe('leafs - Switch', () => {
   });
 
   it('switch (x) {case a: function f(){}; break; case b: function f(){}; break; }', () => {
-    t.deepEqual(parseScript('switch (x) {case a: function f(){}; break; case b: function f(){}; break; }'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'SwitchStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'x',
-            start: 8,
-            end: 9
-          },
-          clauses: [
-            {
-              type: 'CaseClause',
-              expression: {
-                type: 'IdentifierReference',
-                name: 'a',
-                start: 17,
-                end: 18
-              },
-              leafs: [
-                {
-                  type: 'FunctionDeclaration',
-                  name: {
-                    type: 'BindingIdentifier',
-                    name: 'f',
-                    start: 29,
-                    end: 30
-                  },
-                  generator: false,
-                  async: false,
-                  params: [],
-                  contents: {
-                    type: 'FunctionBody',
-                    directives: [],
-                    leafs: [],
-                    start: 32,
+    t.deepEqual(
+      parseScript('switch (x) {case a: function f(){}; break; case b: function f(){}; break; }', { loc: true }),
+      {
+        type: 'Script',
+        directives: [],
+        leafs: [
+          {
+            type: 'SwitchStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'x',
+              start: 8,
+              end: 9
+            },
+            clauses: [
+              {
+                type: 'CaseClause',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 17,
+                  end: 18
+                },
+                leafs: [
+                  {
+                    type: 'FunctionDeclaration',
+                    name: {
+                      type: 'BindingIdentifier',
+                      name: 'f',
+                      start: 29,
+                      end: 30
+                    },
+                    generator: false,
+                    async: false,
+                    params: [],
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
+                      start: 32,
+                      end: 34
+                    },
+                    start: 20,
                     end: 34
                   },
-                  start: 20,
-                  end: 34
-                },
-                {
-                  type: 'EmptyStatement',
-                  start: 34,
-                  end: 35
-                },
-                {
-                  type: 'BreakStatement',
-                  label: null,
-                  start: 36,
-                  end: 42
-                }
-              ],
-              start: 12,
-              end: 42
-            },
-            {
-              type: 'CaseClause',
-              expression: {
-                type: 'IdentifierReference',
-                name: 'b',
-                start: 48,
-                end: 49
-              },
-              leafs: [
-                {
-                  type: 'FunctionDeclaration',
-                  name: {
-                    type: 'BindingIdentifier',
-                    name: 'f',
-                    start: 60,
-                    end: 61
+                  {
+                    type: 'EmptyStatement',
+                    start: 34,
+                    end: 35
                   },
-                  generator: false,
-                  async: false,
-                  params: [],
-                  contents: {
-                    type: 'FunctionBody',
-                    directives: [],
-                    leafs: [],
-                    start: 63,
+                  {
+                    type: 'BreakStatement',
+                    label: null,
+                    start: 36,
+                    end: 42
+                  }
+                ],
+                start: 12,
+                end: 42
+              },
+              {
+                type: 'CaseClause',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: 'b',
+                  start: 48,
+                  end: 49
+                },
+                leafs: [
+                  {
+                    type: 'FunctionDeclaration',
+                    name: {
+                      type: 'BindingIdentifier',
+                      name: 'f',
+                      start: 60,
+                      end: 61
+                    },
+                    generator: false,
+                    async: false,
+                    params: [],
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
+                      start: 63,
+                      end: 65
+                    },
+                    start: 51,
                     end: 65
                   },
-                  start: 51,
-                  end: 65
-                },
-                {
-                  type: 'EmptyStatement',
-                  start: 65,
-                  end: 66
-                },
-                {
-                  type: 'BreakStatement',
-                  label: null,
-                  start: 67,
-                  end: 73
-                }
-              ],
-              start: 43,
-              end: 73
-            }
-          ],
-          start: 0,
-          end: 75
-        }
-      ],
-      start: 0,
-      end: 75
-    });
+                  {
+                    type: 'EmptyStatement',
+                    start: 65,
+                    end: 66
+                  },
+                  {
+                    type: 'BreakStatement',
+                    label: null,
+                    start: 67,
+                    end: 73
+                  }
+                ],
+                start: 43,
+                end: 73
+              }
+            ],
+            start: 0,
+            end: 75
+          }
+        ],
+        start: 0,
+        end: 75
+      }
+    );
   });
 
   it('switch (x) { case c: function *f(){} function *f(){} }', () => {
-    t.deepEqual(parseScript('switch (x) { case c: function *f(){} function *f(){} }'), {
+    t.deepEqual(parseScript('switch (x) { case c: function *f(){} function *f(){} }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -506,8 +509,11 @@ describe('leafs - Switch', () => {
   it(`switch (0) { case 1: let f = 0; default: [f] }
                   switch (0) { case 1: let f = 0; default: [f] }`, () => {
     t.deepEqual(
-      parseScript(`switch (0) { case 1: let f = 0; default: [f] }
-                    switch (0) { case 1: let f = 0; default: [f] }`),
+      parseScript(
+        `switch (0) { case 1: let f = 0; default: [f] }
+                    switch (0) { case 1: let f = 0; default: [f] }`,
+        { loc: true }
+      ),
       {
         type: 'Script',
         directives: [],
@@ -674,7 +680,7 @@ describe('leafs - Switch', () => {
   });
 
   it('switch (0) { default: let f; if (false) ; else function f() {  } }', () => {
-    t.deepEqual(parseScript('switch (0) { default: let f; if (false) ; else function f() {  } }'), {
+    t.deepEqual(parseScript('switch (0) { default: let f; if (false) ; else function f() {  } }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -762,7 +768,7 @@ describe('leafs - Switch', () => {
   });
 
   it('switch (0) { case 1: var f; default: var f; }', () => {
-    t.deepEqual(parseScript('switch (0) { case 1: var f; default: var f; }'), {
+    t.deepEqual(parseScript('switch (0) { case 1: var f; default: var f; }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -844,7 +850,7 @@ describe('leafs - Switch', () => {
   });
 
   it('switch (x) { case c: function f(){} function f(){} }', () => {
-    t.deepEqual(parseScript('switch (x) { case c: function f(){} function f(){} }'), {
+    t.deepEqual(parseScript('switch (x) { case c: function f(){} function f(){} }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -923,7 +929,7 @@ describe('leafs - Switch', () => {
   });
 
   it('switch (x) { case c: async function *f(){} async function *f(){} }', () => {
-    t.deepEqual(parseScript('switch (x) { case c: async function *f(){} async function *f(){} }'), {
+    t.deepEqual(parseScript('switch (x) { case c: async function *f(){} async function *f(){} }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1002,7 +1008,7 @@ describe('leafs - Switch', () => {
   });
 
   it('switch (X) {}', () => {
-    t.deepEqual(parseScript('switch (X) {}'), {
+    t.deepEqual(parseScript('switch (X) {}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1025,7 +1031,7 @@ describe('leafs - Switch', () => {
   });
 
   it('switch (A) {default: B;}', () => {
-    t.deepEqual(parseScript('switch (A) {default: B;}'), {
+    t.deepEqual(parseScript('switch (A) {default: B;}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1067,7 +1073,7 @@ describe('leafs - Switch', () => {
   });
 
   it('switch (A) {case B: C; default: D;}', () => {
-    t.deepEqual(parseScript('switch (A) {case B: C; default: D;}'), {
+    t.deepEqual(parseScript('switch (A) {case B: C; default: D;}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1133,7 +1139,7 @@ describe('leafs - Switch', () => {
   });
 
   it('switch (A) {case B: C; break; case D: E; break;}', () => {
-    t.deepEqual(parseScript('switch (A) {case B: C; break; case D: E; break;}'), {
+    t.deepEqual(parseScript('switch (A) {case B: C; break; case D: E; break;}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [

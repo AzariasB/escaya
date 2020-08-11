@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
-describe('leafs - Throw', () => {
+describe('Statements - Throw', () => {
   // Invalid cases
   for (const arg of [
     'throw/("',
@@ -50,7 +50,7 @@ describe('leafs - Throw', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -104,7 +104,7 @@ describe('leafs - Throw', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -115,7 +115,7 @@ describe('leafs - Throw', () => {
   }
 
   it('throw /(?=[^\\x4f-\\xF5(-)])/imy', () => {
-    t.deepEqual(parseScript('throw /(?=[^\\x4f-\\xF5(-)])/imy'), {
+    t.deepEqual(parseScript('throw /(?=[^\\x4f-\\xF5(-)])/imy', { loc: true }), {
       directives: [],
       end: 30,
       start: 0,
@@ -141,9 +141,12 @@ describe('leafs - Throw', () => {
     while(x);
   }`, () => {
     t.deepEqual(
-      parseScript(`function f() { do throw pass
+      parseScript(
+        `function f() { do throw pass
       while(x);
-    }`),
+    }`,
+        { loc: true }
+      ),
       {
         type: 'Script',
         directives: [],
@@ -202,7 +205,7 @@ describe('leafs - Throw', () => {
   });
 
   it('throw foo;', () => {
-    t.deepEqual(parseScript('throw foo;'), {
+    t.deepEqual(parseScript('throw foo;', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -225,7 +228,7 @@ describe('leafs - Throw', () => {
   });
 
   it('throw 12', () => {
-    t.deepEqual(parseScript('throw 12'), {
+    t.deepEqual(parseScript('throw 12', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -247,7 +250,7 @@ describe('leafs - Throw', () => {
   });
 
   it('throw x * y', () => {
-    t.deepEqual(parseScript('throw x * y'), {
+    t.deepEqual(parseScript('throw x * y', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [

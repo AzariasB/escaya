@@ -41,7 +41,7 @@ describe('Expressions - Binary', () => {
   }
 
   it('a < b == c', () => {
-    t.deepEqual(parseScript('a < b == c'), {
+    t.deepEqual(parseScript('a < b == c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -87,7 +87,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a in (b == c)', () => {
-    t.deepEqual(parseScript('a in (b == c)'), {
+    t.deepEqual(parseScript('a in (b == c)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -138,7 +138,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a != (b != c)', () => {
-    t.deepEqual(parseScript('a != (b != c)'), {
+    t.deepEqual(parseScript('a != (b != c)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -189,7 +189,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a === (b === c)', () => {
-    t.deepEqual(parseScript('a === (b === c)'), {
+    t.deepEqual(parseScript('a === (b === c)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -240,7 +240,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a ^ b ^ c', () => {
-    t.deepEqual(parseScript('a ^ b ^ c'), {
+    t.deepEqual(parseScript('a ^ b ^ c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -286,7 +286,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('void a + b', () => {
-    t.deepEqual(parseScript('void a + b'), {
+    t.deepEqual(parseScript('void a + b', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -326,7 +326,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a + (b |= c)', () => {
-    t.deepEqual(parseScript('a + (b |= c)'), {
+    t.deepEqual(parseScript('a + (b |= c)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -377,7 +377,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('(-1).a += b', () => {
-    t.deepEqual(parseScript('(-1).a += b'), {
+    t.deepEqual(parseScript('(-1).a += b', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -434,7 +434,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('(- 0)[a] = b', () => {
-    t.deepEqual(parseScript('(- 0)[a] = b'), {
+    t.deepEqual(parseScript('(- 0)[a] = b', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -491,7 +491,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a << b > c', () => {
-    t.deepEqual(parseScript('a << b > c'), {
+    t.deepEqual(parseScript('a << b > c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -537,7 +537,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a << b < c', () => {
-    t.deepEqual(parseScript('a << b < c'), {
+    t.deepEqual(parseScript('a << b < c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -583,7 +583,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('(1).a++', () => {
-    t.deepEqual(parseScript('(1).a++'), {
+    t.deepEqual(parseScript('(1).a++', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -628,7 +628,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('(- 0)[a]().a++', () => {
-    t.deepEqual(parseScript('(- 0)[a]().a++'), {
+    t.deepEqual(parseScript('(- 0)[a]().a++', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -697,7 +697,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a != (b & c)', () => {
-    t.deepEqual(parseScript('a != (b & c)'), {
+    t.deepEqual(parseScript('a != (b & c)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -748,7 +748,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('(a << b) >> c', () => {
-    t.deepEqual(parseScript('(a << b) >> c'), {
+    t.deepEqual(parseScript('(a << b) >> c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -799,7 +799,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a << b in c', () => {
-    t.deepEqual(parseScript('a << b in c'), {
+    t.deepEqual(parseScript('a << b in c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -845,7 +845,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a / b / c', () => {
-    t.deepEqual(parseScript('a / b / c'), {
+    t.deepEqual(parseScript('a / b / c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -891,7 +891,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a|=b^=c&=d>>>=e>>=f<<=g%=h/=i*=j**=k-=l+=m=n', () => {
-    t.deepEqual(parseScript('a|=b^=c&=d>>>=e>>=f<<=g%=h/=i*=j**=k-=l+=m=n'), {
+    t.deepEqual(parseScript('a|=b^=c&=d>>>=e>>=f<<=g%=h/=i*=j**=k-=l+=m=n', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1068,7 +1068,7 @@ describe('Expressions - Binary', () => {
     });
   });
   it('a=b+=c-=d**=e*=f/=g%=h<<=i>>=j>>>=k&=l^=m|=n', () => {
-    t.deepEqual(parseScript('a=b+=c-=d**=e*=f/=g%=h<<=i>>=j>>>=k&=l^=m|=n'), {
+    t.deepEqual(parseScript('a=b+=c-=d**=e*=f/=g%=h<<=i>>=j>>>=k&=l^=m|=n', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1246,7 +1246,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('x in y', () => {
-    t.deepEqual(parseScript('x in y'), {
+    t.deepEqual(parseScript('x in y', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1279,7 +1279,7 @@ describe('Expressions - Binary', () => {
     });
   });
   it('-(x ** y)', () => {
-    t.deepEqual(parseScript('-(x ** y)'), {
+    t.deepEqual(parseScript('-(x ** y)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1324,7 +1324,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('x * y % z', () => {
-    t.deepEqual(parseScript('x * y % z'), {
+    t.deepEqual(parseScript('x * y % z', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1370,7 +1370,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('x - y + z', () => {
-    t.deepEqual(parseScript('x - y + z'), {
+    t.deepEqual(parseScript('x - y + z', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1416,7 +1416,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('1+2;', () => {
-    t.deepEqual(parseScript('1+2;'), {
+    t.deepEqual(parseScript('1+2;', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1450,7 +1450,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('(1)[a] += b', () => {
-    t.deepEqual(parseScript('(1)[a] += b'), {
+    t.deepEqual(parseScript('(1)[a] += b', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1501,7 +1501,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a % b & c >>> d ^ e instanceof f - g || h && i != j | k', () => {
-    t.deepEqual(parseScript('a % b & c >>> d ^ e instanceof f - g || h && i != j | k'), {
+    t.deepEqual(parseScript('a % b & c >>> d ^ e instanceof f - g || h && i != j | k', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1643,7 +1643,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a % b & c << d ^ e instanceof f - g || h && i != j | k', () => {
-    t.deepEqual(parseScript('a % b & c << d ^ e instanceof f - g || h && i != j | k'), {
+    t.deepEqual(parseScript('a % b & c << d ^ e instanceof f - g || h && i != j | k', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1785,7 +1785,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a * b & c >>> d ^ e < f - g || h && i != j | k', () => {
-    t.deepEqual(parseScript('a * b & c >>> d ^ e < f - g || h && i != j | k'), {
+    t.deepEqual(parseScript('a * b & c >>> d ^ e < f - g || h && i != j | k', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -1927,7 +1927,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a / b & c << d ^ e instanceof f + g || h && i != j | k', () => {
-    t.deepEqual(parseScript('a / b & c << d ^ e instanceof f + g || h && i != j | k'), {
+    t.deepEqual(parseScript('a / b & c << d ^ e instanceof f + g || h && i != j | k', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2069,7 +2069,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a * b + c', () => {
-    t.deepEqual(parseScript('a * b + c'), {
+    t.deepEqual(parseScript('a * b + c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2115,7 +2115,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a & b ^ c', () => {
-    t.deepEqual(parseScript('a & b ^ c'), {
+    t.deepEqual(parseScript('a & b ^ c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2161,7 +2161,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a&&b', () => {
-    t.deepEqual(parseScript('a&&b'), {
+    t.deepEqual(parseScript('a&&b', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2195,7 +2195,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a << b >> c >>> d', () => {
-    t.deepEqual(parseScript('a << b >> c >>> d'), {
+    t.deepEqual(parseScript('a << b >> c >>> d', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2253,7 +2253,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a == b < c', () => {
-    t.deepEqual(parseScript('a == b < c'), {
+    t.deepEqual(parseScript('a == b < c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2299,7 +2299,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a | b ^ c', () => {
-    t.deepEqual(parseScript('a | b ^ c'), {
+    t.deepEqual(parseScript('a | b ^ c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2345,7 +2345,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a * x ? b : c ? d : e', () => {
-    t.deepEqual(parseScript('a * x ? b : c ? d : e'), {
+    t.deepEqual(parseScript('a * x ? b : c ? d : e', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2413,7 +2413,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('x = a > b instanceof c', () => {
-    t.deepEqual(parseScript('x = a > b instanceof c'), {
+    t.deepEqual(parseScript('x = a > b instanceof c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2471,7 +2471,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('foo( a instanceof b + c )', () => {
-    t.deepEqual(parseScript('foo( a instanceof b + c )'), {
+    t.deepEqual(parseScript('foo( a instanceof b + c )', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2530,7 +2530,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('foo( a instanceof b > c )', () => {
-    t.deepEqual(parseScript('foo( a instanceof b > c )'), {
+    t.deepEqual(parseScript('foo( a instanceof b > c )', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2589,7 +2589,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('foo( a / b + c )', () => {
-    t.deepEqual(parseScript('foo( a / b + c )'), {
+    t.deepEqual(parseScript('foo( a / b + c )', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2648,7 +2648,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('(a << b) in c', () => {
-    t.deepEqual(parseScript('(a << b) in c'), {
+    t.deepEqual(parseScript('(a << b) in c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2699,7 +2699,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a << b instanceof c', () => {
-    t.deepEqual(parseScript('a << b instanceof c'), {
+    t.deepEqual(parseScript('a << b instanceof c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2745,7 +2745,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('a >> (b >> c)', () => {
-    t.deepEqual(parseScript('a >> (b >> c)'), {
+    t.deepEqual(parseScript('a >> (b >> c)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -2796,7 +2796,7 @@ describe('Expressions - Binary', () => {
   });
 
   it('simple block', () => {
-    t.deepEqual(parseScript('(a + b) >> c'), {
+    t.deepEqual(parseScript('(a + b) >> c', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [

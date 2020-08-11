@@ -6,7 +6,7 @@ describe('Declarations - Const', () => {
   for (const arg of ['switch/("']) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {

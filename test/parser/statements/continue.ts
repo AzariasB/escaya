@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('leafs - Continue', () => {
+describe('Statements - Continue', () => {
   // Invalid cases
   for (const arg of [
     'switch/("',
@@ -17,7 +17,7 @@ describe('leafs - Continue', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -117,7 +117,7 @@ describe('leafs - Continue', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -128,7 +128,7 @@ describe('leafs - Continue', () => {
   }
 
   it('foo: bar: do continue foo; while(z)', () => {
-    t.deepEqual(parseScript('foo: bar: do continue foo; while(z)'), {
+    t.deepEqual(parseScript('foo: bar: do continue foo; while(z)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -197,7 +197,7 @@ describe('leafs - Continue', () => {
   });
 
   it('while (true) { x: while (true) continue x; }', () => {
-    t.deepEqual(parseScript('while (true) { x: while (true) continue x; }'), {
+    t.deepEqual(parseScript('while (true) { x: while (true) continue x; }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [

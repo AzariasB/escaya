@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('leafs - Return', () => {
+describe('Statements - Return', () => {
   // Invalid cases
   for (const arg of [
     'switch/("',
@@ -19,7 +19,7 @@ describe('leafs - Return', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -38,7 +38,7 @@ describe('leafs - Return', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {

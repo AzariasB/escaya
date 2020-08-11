@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('leafs - For', () => {
+describe('Statements - For', () => {
   // Invalid cases
   for (const arg of [
     'do/("while',
@@ -27,7 +27,7 @@ describe('leafs - For', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -348,7 +348,7 @@ describe('leafs - For', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -359,7 +359,7 @@ describe('leafs - For', () => {
   }
 
   it('simple block', () => {
-    t.deepEqual(parseScript('{}'), {
+    t.deepEqual(parseScript('{}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -376,7 +376,7 @@ describe('leafs - For', () => {
   });
 
   it('block with lexical', () => {
-    t.deepEqual(parseScript('{let foo = bar;}'), {
+    t.deepEqual(parseScript('{let foo = bar;}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -420,7 +420,7 @@ describe('leafs - For', () => {
   });
 
   it('block wrapped in paren', () => {
-    t.deepEqual(parseScript('({})'), {
+    t.deepEqual(parseScript('({})', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -447,7 +447,7 @@ describe('leafs - For', () => {
   });
 
   it('with ; separation', () => {
-    t.deepEqual(parseScript('{};{};;;;{};'), {
+    t.deepEqual(parseScript('{};{};;;;{};', { loc: true }), {
       directives: [],
       end: 12,
       start: 0,
@@ -506,7 +506,7 @@ describe('leafs - For', () => {
   });
 
   it('same level', () => {
-    t.deepEqual(parseScript('{}{}{}'), {
+    t.deepEqual(parseScript('{}{}{}', { loc: true }), {
       directives: [],
       end: 6,
       start: 0,
@@ -535,7 +535,7 @@ describe('leafs - For', () => {
   });
 
   it('nested', () => {
-    t.deepEqual(parseScript('{{}}'), {
+    t.deepEqual(parseScript('{{}}', { loc: true }), {
       directives: [],
       end: 4,
       start: 0,

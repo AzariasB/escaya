@@ -3,7 +3,7 @@ import { parseScript } from '../../../src/escaya';
 
 describe('Misc - Pattern', () => {
   it('var [,a] = 0;', () => {
-    t.deepEqual(parseScript('var [,a] = 0;'), {
+    t.deepEqual(parseScript('var [,a] = 0;', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -50,7 +50,7 @@ describe('Misc - Pattern', () => {
   });
 
   it('var [a]=[1];', () => {
-    t.deepEqual(parseScript('var [a]=[1];'), {
+    t.deepEqual(parseScript('var [a]=[1];', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -100,7 +100,7 @@ describe('Misc - Pattern', () => {
   });
 
   it('var [a, a] = 0;', () => {
-    t.deepEqual(parseScript('var [a, a] = 0;'), {
+    t.deepEqual(parseScript('var [a, a] = 0;', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -148,7 +148,7 @@ describe('Misc - Pattern', () => {
   });
 
   it('try {} catch ([e]) {}', () => {
-    t.deepEqual(parseScript('try {} catch ([e]) {}'), {
+    t.deepEqual(parseScript('try {} catch ([e]) {}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -195,7 +195,7 @@ describe('Misc - Pattern', () => {
   });
 
   it('try {} catch ([e, ...a]) {}', () => {
-    t.deepEqual(parseScript('try {} catch ([e, ...a]) {}'), {
+    t.deepEqual(parseScript('try {} catch ([e, ...a]) {}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -253,7 +253,7 @@ describe('Misc - Pattern', () => {
   });
 
   it('var [{a = 0}] = 0;', () => {
-    t.deepEqual(parseScript('var [{a = 0}] = 0;'), {
+    t.deepEqual(parseScript('var [{a = 0}] = 0;', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -319,7 +319,7 @@ describe('Misc - Pattern', () => {
   });
 
   it('var [{__proto__:a, __proto__:b}] = 0;', () => {
-    t.deepEqual(parseScript('var [{__proto__:a, __proto__:b}] = 0;'), {
+    t.deepEqual(parseScript('var [{__proto__:a, __proto__:b}] = 0;', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -402,7 +402,7 @@ describe('Misc - Pattern', () => {
   });
 
   it('var a, {x: {y: a}} = 0', () => {
-    t.deepEqual(parseScript('var a, {x: {y: a}} = 0'), {
+    t.deepEqual(parseScript('var a, {x: {y: a}} = 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -491,7 +491,7 @@ describe('Misc - Pattern', () => {
   });
 
   it('(a, b, [c]) => 0', () => {
-    t.deepEqual(parseScript('(a, b, [c]) => 0'), {
+    t.deepEqual(parseScript('(a, b, [c]) => 0', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -552,7 +552,7 @@ describe('Misc - Pattern', () => {
   });
 
   it('try {} catch ({e}) {}', () => {
-    t.deepEqual(parseScript('try {} catch ({e}) {}'), {
+    t.deepEqual(parseScript('try {} catch ({e}) {}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -599,7 +599,7 @@ describe('Misc - Pattern', () => {
   });
 
   it('try {} catch ({e = 0}) {}', () => {
-    t.deepEqual(parseScript('try {} catch ({e = 0}) {}'), {
+    t.deepEqual(parseScript('try {} catch ({e = 0}) {}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [

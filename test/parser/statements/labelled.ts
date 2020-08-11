@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('leafs - Labelled', () => {
+describe('Statements - Labelled', () => {
   // Invalid cases
   for (const arg of [
     'switch/(":',
@@ -17,7 +17,7 @@ describe('leafs - Labelled', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -117,7 +117,7 @@ describe('leafs - Labelled', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -128,7 +128,7 @@ describe('leafs - Labelled', () => {
   }
 
   it('yield: x', () => {
-    t.deepEqual(parseScript('yield: x'), {
+    t.deepEqual(parseScript('yield: x', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -168,7 +168,7 @@ describe('leafs - Labelled', () => {
   });
 
   it('await: x', () => {
-    t.deepEqual(parseScript('await: x'), {
+    t.deepEqual(parseScript('await: x', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -208,7 +208,7 @@ describe('leafs - Labelled', () => {
   });
 
   it('foo: bar;', () => {
-    t.deepEqual(parseScript('foo: bar;'), {
+    t.deepEqual(parseScript('foo: bar;', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -248,7 +248,7 @@ describe('leafs - Labelled', () => {
   });
 
   it('await: while (await) { continue await; }', () => {
-    t.deepEqual(parseScript('await: while (await) { continue await; }'), {
+    t.deepEqual(parseScript('await: while (await) { continue await; }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -307,7 +307,7 @@ describe('leafs - Labelled', () => {
   });
 
   it('async: while (async) { continue async; }', () => {
-    t.deepEqual(parseScript('async: while (async) { continue async; }'), {
+    t.deepEqual(parseScript('async: while (async) { continue async; }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -366,7 +366,7 @@ describe('leafs - Labelled', () => {
   });
 
   it('let: foo', () => {
-    t.deepEqual(parseScript('let: foo'), {
+    t.deepEqual(parseScript('let: foo', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -406,7 +406,7 @@ describe('leafs - Labelled', () => {
   });
 
   it('yield: await', () => {
-    t.deepEqual(parseScript('yield: await'), {
+    t.deepEqual(parseScript('yield: await', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -446,7 +446,7 @@ describe('leafs - Labelled', () => {
   });
 
   it('`__proto__: test', () => {
-    t.deepEqual(parseScript('__proto__: test'), {
+    t.deepEqual(parseScript('__proto__: test', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -486,7 +486,7 @@ describe('leafs - Labelled', () => {
   });
 
   it('a:{break a;}', () => {
-    t.deepEqual(parseScript('a:{break a;}'), {
+    t.deepEqual(parseScript('a:{break a;}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -533,7 +533,7 @@ describe('leafs - Labelled', () => {
   });
 
   it('start: while (true) break start', () => {
-    t.deepEqual(parseScript('start: while (true) break start'), {
+    t.deepEqual(parseScript('start: while (true) break start', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -582,7 +582,7 @@ describe('leafs - Labelled', () => {
   });
 
   it('function w(casecase){y:j:function casecase(){}}', () => {
-    t.deepEqual(parseScript('function w(casecase){y:j:function casecase(){}}'), {
+    t.deepEqual(parseScript('function w(casecase){y:j:function casecase(){}}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -677,8 +677,11 @@ describe('leafs - Labelled', () => {
   it(`foo:
   /bar/`, () => {
     t.deepEqual(
-      parseScript(`foo:
-    /bar/`),
+      parseScript(
+        `foo:
+    /bar/`,
+        { loc: true }
+      ),
       {
         type: 'Script',
         directives: [],
@@ -720,7 +723,7 @@ describe('leafs - Labelled', () => {
   });
 
   it('`foo:/bar/`', () => {
-    t.deepEqual(parseScript('foo:/bar/'), {
+    t.deepEqual(parseScript('foo:/bar/', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [

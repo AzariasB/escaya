@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { parseScript, recovery, parseModule } from '../../../src/escaya';
 
-describe('leafs - For await of', () => {
+describe('Statements - For await of', () => {
   // Invalid cases
   for (const arg of [
     'do/("while',
@@ -27,7 +27,7 @@ describe('leafs - For await of', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -85,7 +85,7 @@ describe('leafs - For await of', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -96,7 +96,7 @@ describe('leafs - For await of', () => {
   }
 
   it('simple block', () => {
-    t.deepEqual(parseScript('{}'), {
+    t.deepEqual(parseScript('{}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -113,7 +113,7 @@ describe('leafs - For await of', () => {
   });
 
   it('block with lexical', () => {
-    t.deepEqual(parseScript('{let foo = bar;}'), {
+    t.deepEqual(parseScript('{let foo = bar;}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -157,7 +157,7 @@ describe('leafs - For await of', () => {
   });
 
   it('block wrapped in paren', () => {
-    t.deepEqual(parseScript('({})'), {
+    t.deepEqual(parseScript('({})', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -184,7 +184,7 @@ describe('leafs - For await of', () => {
   });
 
   it('with ; separation', () => {
-    t.deepEqual(parseScript('{};{};;;;{};'), {
+    t.deepEqual(parseScript('{};{};;;;{};', { loc: true }), {
       directives: [],
       end: 12,
       start: 0,
@@ -243,7 +243,7 @@ describe('leafs - For await of', () => {
   });
 
   it('same level', () => {
-    t.deepEqual(parseScript('{}{}{}'), {
+    t.deepEqual(parseScript('{}{}{}', { loc: true }), {
       directives: [],
       end: 6,
       start: 0,
@@ -272,7 +272,7 @@ describe('leafs - For await of', () => {
   });
 
   it('nested', () => {
-    t.deepEqual(parseScript('{{}}'), {
+    t.deepEqual(parseScript('{{}}', { loc: true }), {
       directives: [],
       end: 4,
       start: 0,

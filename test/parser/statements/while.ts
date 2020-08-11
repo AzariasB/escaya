@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { parseScript, recovery, parseModule } from '../../../src/escaya';
 
-describe('leafs - While', () => {
+describe('Statements - While', () => {
   // Invalid cases
   for (const arg of [
     'while(x=)=y) {}',
@@ -22,7 +22,7 @@ describe('leafs - While', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -63,7 +63,7 @@ describe('leafs - While', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -79,7 +79,7 @@ describe('leafs - While', () => {
   }
 
   it('simple block', () => {
-    t.deepEqual(parseScript('{}'), {
+    t.deepEqual(parseScript('{}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -96,7 +96,7 @@ describe('leafs - While', () => {
   });
 
   it('block with lexical', () => {
-    t.deepEqual(parseScript('{let foo = bar;}'), {
+    t.deepEqual(parseScript('{let foo = bar;}', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -140,7 +140,7 @@ describe('leafs - While', () => {
   });
 
   it('block wrapped in paren', () => {
-    t.deepEqual(parseScript('({})'), {
+    t.deepEqual(parseScript('({})', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -167,7 +167,7 @@ describe('leafs - While', () => {
   });
 
   it('with ; separation', () => {
-    t.deepEqual(parseScript('{};{};;;;{};'), {
+    t.deepEqual(parseScript('{};{};;;;{};', { loc: true }), {
       directives: [],
       end: 12,
       start: 0,
@@ -226,7 +226,7 @@ describe('leafs - While', () => {
   });
 
   it('same level', () => {
-    t.deepEqual(parseScript('{}{}{}'), {
+    t.deepEqual(parseScript('{}{}{}', { loc: true }), {
       directives: [],
       end: 6,
       start: 0,
@@ -255,7 +255,7 @@ describe('leafs - While', () => {
   });
 
   it('nested', () => {
-    t.deepEqual(parseScript('{{}}'), {
+    t.deepEqual(parseScript('{{}}', { loc: true }), {
       directives: [],
       end: 4,
       start: 0,

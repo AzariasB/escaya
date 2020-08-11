@@ -11,7 +11,7 @@ describe('Declarations - Function', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`, { disableWebCompat: true });
+        parseScript(`${arg}`, { disableWebCompat: true, loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -425,7 +425,7 @@ describe('Declarations - Function', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {

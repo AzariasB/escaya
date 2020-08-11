@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
-describe('leafs - With', () => {
+describe('Statements - With', () => {
   // Invalid cases
   for (const arg of [
     'with/("',
@@ -23,7 +23,7 @@ describe('leafs - With', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -51,7 +51,7 @@ describe('leafs - With', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -62,7 +62,7 @@ describe('leafs - With', () => {
   }
 
   it('with ({}) let', () => {
-    t.deepEqual(parseScript('with ({}) let'), {
+    t.deepEqual(parseScript('with ({}) let', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -95,7 +95,7 @@ describe('leafs - With', () => {
   });
 
   it('with (x) { foo }', () => {
-    t.deepEqual(parseScript('with (x) { foo }'), {
+    t.deepEqual(parseScript('with (x) { foo }', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -135,7 +135,7 @@ describe('leafs - With', () => {
   });
 
   it('with (x) foo;', () => {
-    t.deepEqual(parseScript('with (x) foo;'), {
+    t.deepEqual(parseScript('with (x) foo;', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [

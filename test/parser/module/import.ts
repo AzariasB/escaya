@@ -128,7 +128,7 @@ describe('Module - Import', () => {
   }
 
   it('import X from "y"', () => {
-    t.deepEqual(parseModule('import X from "y"'), {
+    t.deepEqual(parseModule('import X from "y"', { loc: true }), {
       directives: [],
       end: 17,
       start: 0,
@@ -164,7 +164,7 @@ describe('Module - Import', () => {
   });
 
   it('import a, {} from "foo"', () => {
-    t.deepEqual(parseModule('import a, {} from "foo"'), {
+    t.deepEqual(parseModule('import a, {} from "foo"', { loc: true }), {
       directives: [],
       end: 23,
       start: 0,
@@ -205,7 +205,7 @@ describe('Module - Import', () => {
   });
 
   it('import b, * as c from "module";', () => {
-    t.deepEqual(parseModule('import b, * as c from "module";'), {
+    t.deepEqual(parseModule('import b, * as c from "module";', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -246,7 +246,7 @@ describe('Module - Import', () => {
   });
 
   it('import { a as of } from "k";', () => {
-    t.deepEqual(parseModule('import { a as of } from "k";'), {
+    t.deepEqual(parseModule('import { a as of } from "k";', { loc: true }), {
       directives: [],
       end: 28,
       start: 0,
@@ -300,7 +300,7 @@ describe('Module - Import', () => {
   });
 
   it('import { let as l } from "foo";', () => {
-    t.deepEqual(parseModule('import { let as l } from "foo";'), {
+    t.deepEqual(parseModule('import { let as l } from "foo";', { loc: true }), {
       directives: [],
       end: 31,
       start: 0,
@@ -354,7 +354,7 @@ describe('Module - Import', () => {
   });
 
   it('import "string"', () => {
-    t.deepEqual(parseModule('import "string"'), {
+    t.deepEqual(parseModule('import "string"', { loc: true }), {
       directives: [],
       end: 15,
       start: 0,
@@ -378,7 +378,7 @@ describe('Module - Import', () => {
   });
 
   it('import {x, z,} from "y"', () => {
-    t.deepEqual(parseModule('import {x, z,} from "y"'), {
+    t.deepEqual(parseModule('import {x, z,} from "y"', { loc: true }), {
       directives: [],
       end: 23,
       start: 0,
@@ -439,7 +439,7 @@ describe('Module - Import', () => {
   });
 
   it('import thing, * as rest from "x"', () => {
-    t.deepEqual(parseModule('import thing, * as rest from "x"'), {
+    t.deepEqual(parseModule('import thing, * as rest from "x"', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -480,19 +480,19 @@ describe('Module - Import', () => {
   });
 
   /*  it('simple block', () => {
-    t.deepEqual(parseModule('(a, b)'), {});
+    t.deepEqual(parseModule('(a, b)', { loc: true}), {});
   });
 
   it('simple block', () => {
-    t.deepEqual(parseModule('(a, b)'), {});
+    t.deepEqual(parseModule('(a, b)', { loc: true}), {});
   });
 
   it('simple block', () => {
-    t.deepEqual(parseModule('(a, b)'), {});
+    t.deepEqual(parseModule('(a, b)', { loc: true}), {});
   });
 
   it('simple block', () => {
-    t.deepEqual(parseModule('(a, b)'), {});
+    t.deepEqual(parseModule('(a, b)', { loc: true}), {});
   });
 
 */

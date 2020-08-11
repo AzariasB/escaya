@@ -154,11 +154,13 @@ export function lastOrUndefined<T>(array: readonly T[]): T | undefined {
 }
 
 export function finishNode(state: ParserState, context: Context, start: number, node: any, kind: SyntaxKind): any {
-  node.start = start;
-  node.end = state.endIndex;
-  if ((context & Context.ErrorRecovery) === Context.ErrorRecovery) {
-    node.kind = kind;
-    node.flags = SyntaxNodeFlags.None;
+  if (context & (Context.OptionsLoc | Context.ErrorRecovery)) {
+    node.start = start;
+    node.end = state.endIndex;
+    if ((context & Context.ErrorRecovery) === Context.ErrorRecovery) {
+      node.kind = kind;
+      node.flags = SyntaxNodeFlags.None;
+    }
   }
   return node;
 }

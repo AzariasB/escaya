@@ -6,7 +6,7 @@ describe('Declarations - Let', () => {
   for (const arg of ['switch/("', 'let [1 <= 0] = "foo"']) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -325,7 +325,7 @@ describe('Declarations - Let', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {

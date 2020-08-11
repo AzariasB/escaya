@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('leafs - Do', () => {
+describe('Statements - Do', () => {
   // Invalid cases
   for (const arg of [
     'do/("while',
@@ -27,7 +27,7 @@ describe('leafs - Do', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -41,7 +41,7 @@ describe('leafs - Do', () => {
   for (const arg of ['switch(x) /* comment */ { case y: foo }', `do { var [[foo]=[42]] = [] } while (j)`]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -52,7 +52,7 @@ describe('leafs - Do', () => {
   }
 
   it('do if (x) {} while(x) x', () => {
-    t.deepEqual(parseScript('do if (x) {} while(x) x'), {
+    t.deepEqual(parseScript('do if (x) {} while(x) x', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -106,7 +106,7 @@ describe('leafs - Do', () => {
   });
 
   it('do; while (1)', () => {
-    t.deepEqual(parseScript('do; while (1)'), {
+    t.deepEqual(parseScript('do; while (1)', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -133,7 +133,7 @@ describe('leafs - Do', () => {
   });
 
   it('do async \n while (y)', () => {
-    t.deepEqual(parseScript('do async \n while (y)'), {
+    t.deepEqual(parseScript('do async \n while (y)', { loc: true }), {
       directives: [],
       end: 20,
       start: 0,

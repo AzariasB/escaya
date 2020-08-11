@@ -1,9 +1,9 @@
 import * as t from 'assert';
 import { parseScript } from '../../../src/escaya';
 
-describe('leafs - Empty', () => {
+describe('Statements - Empty', () => {
   it(';;;', () => {
-    t.deepEqual(parseScript(';;;'), {
+    t.deepEqual(parseScript(';;;', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
@@ -29,7 +29,7 @@ describe('leafs - Empty', () => {
   });
 
   it(';;; EMPTY;;;', () => {
-    t.deepEqual(parseScript(';;; EMPTY;;;'), {
+    t.deepEqual(parseScript(';;; EMPTY;;;', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [

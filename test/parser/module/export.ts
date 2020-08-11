@@ -347,7 +347,7 @@ for (const arg of [
 
 describe('Module - Export', () => {
   it('export let x = 0;', () => {
-    t.deepEqual(parseModule('export let x = 0;'), {
+    t.deepEqual(parseModule('export let x = 0;', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -391,7 +391,7 @@ describe('Module - Export', () => {
   });
 
   it('export const z = 0;', () => {
-    t.deepEqual(parseModule('export const z = 0;'), {
+    t.deepEqual(parseModule('export const z = 0;', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -435,11 +435,11 @@ describe('Module - Export', () => {
   });
 
   // it('export default async function() {}', () => {
-  // t.deepEqual(parseModule('export default async function() {}'), {});
+  // t.deepEqual(parseModule('export default async function() {}', { loc: true}), {});
   // });
 
   it('export default x;', () => {
-    t.deepEqual(parseModule('export default x;'), {
+    t.deepEqual(parseModule('export default x;', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -461,7 +461,7 @@ describe('Module - Export', () => {
   });
 
   it('export class C { };', () => {
-    t.deepEqual(parseModule('export class C { };'), {
+    t.deepEqual(parseModule('export class C { };', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -498,7 +498,7 @@ describe('Module - Export', () => {
   });
 
   it('export { };', () => {
-    t.deepEqual(parseModule('export { };'), {
+    t.deepEqual(parseModule('export { };', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -523,7 +523,7 @@ describe('Module - Export', () => {
   });
 
   it('export {get};', () => {
-    t.deepEqual(parseModule('export {get};'), {
+    t.deepEqual(parseModule('export {get};', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -561,7 +561,7 @@ describe('Module - Export', () => {
   });
 
   it('export class y {};', () => {
-    t.deepEqual(parseModule('export class y {};'), {
+    t.deepEqual(parseModule('export class y {};', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -598,7 +598,7 @@ describe('Module - Export', () => {
   });
 
   it('export { a as b } from "x";', () => {
-    t.deepEqual(parseModule('export { a as b } from "x";'), {
+    t.deepEqual(parseModule('export { a as b } from "x";', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -646,7 +646,7 @@ describe('Module - Export', () => {
   });
 
   it('export const joo = 42;', () => {
-    t.deepEqual(parseModule('export const joo = 42;'), {
+    t.deepEqual(parseModule('export const joo = 42;', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -690,7 +690,7 @@ describe('Module - Export', () => {
   });
 
   it('export * from "x"', () => {
-    t.deepEqual(parseModule('export * from "x"'), {
+    t.deepEqual(parseModule('export * from "x"', { loc: true }), {
       type: 'Module',
       directives: [],
       leafs: [
