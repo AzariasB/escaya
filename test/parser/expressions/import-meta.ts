@@ -1,71 +1,29 @@
 import * as t from 'assert';
-import { parseModule } from '../../../src/escaya';
+import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
 describe('Expressions - Import meta', () => {
   // Invalid cases
-  for (const arg of [
-    `import?.meta`,
-    `import?.meta`,
-    `(import?.meta)`,
-    `(import.meta([1 = ()](x = 123)))`,
-    `import.(meta([0](x = 123)))`,
-    `import.meta[0]() = 123`,
-    `[import.meta] = [];`,
-    `[...import.meta] = [];`,
-    `import.meta = 0;`,
-    `async function* f() { for await (import.meta of null) ; }`,
-    `for (import.meta in null) ;`,
-    `({a: import.meta} = {});`,
-    `({...import.meta} = {});`,
-    `import.meta++;`,
-    '(import?.meta)',
-    'import?.meta',
-    '[import.meta] = [];',
-    '[...import.meta] = [];',
-    'for (import.meta in null) ;',
-    '({a: import.meta} = {});',
-    'var x, y, z; ( { import.meta } = {});',
-    'var x, y, z; ( { x: import.meta } = {});',
-    'var x, y, z; ( [import.meta] = {});',
-    '"use strict"; let x, y, z; for (x in [import.meta] = {});',
-    '"use strict"; let x, y, z; for (x in [import.meta = 1] = {});',
-    '"use strict"; let x, y, z; for (x of { x: import.meta } = {});',
-    'for (import.meta of null) ;',
-    'var import.meta',
-    `([import.meta] = [1])`,
-    `var import.meta`,
-    `for (var import.meta of [1]) {}`
-  ]) {
+  for (const arg of ['[', '[,', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseModule(`${arg}`);
+        parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'if (1) { import.meta }',
     'var f = function() {import.meta.couldBeMutable = true}',
-    'import.meta[0]',
+
     'do { import.meta } while (0)',
-    'import.meta()',
-    'delete import.meta',
     't = [...import.meta]',
-    'export var meta = import.meta;',
-    'export function getMeta() { return import.meta;}',
-    'import.meta.url',
-    '(import.meta([x = (a??a)](x = a?.b123)))',
-    'import.meta[0]',
-    'import.meta[0] = 123',
-    'import.meta[0] = 123',
-    't = [...import.meta]',
-    'export var meta = import.meta;',
-    'export function getMeta() { return import.meta;}',
-    'import.meta.url',
-    '(a?.import("string")?.import.meta??(a))',
-    'import.meta?.(a?.import("string")?.import.meta??(a))',
-    'var a = import.meta;',
+    // 'import.meta.url',
     '({m() { do { import.meta } while (0)}})',
     'class C {set x(_) { import.meta.url }}',
     'class C {set x(_) { import.meta[0] }}',
@@ -76,13 +34,76 @@ describe('Expressions - Import meta', () => {
     '({set x(_) { t = [...import.meta]}})',
     'class C {set x(_) { f = {...import.meta} }}',
     'class C {set x(_) { delete import.meta }}',
-    "'use strict'; import.meta",
+    //"'use strict'; import.meta",
     "'use strict'; () => { import.meta }",
     "'use strict'; () => import.meta",
     "'use strict'; if (1) { import.meta }",
     "'use strict'; if (1) {} else { import.meta }",
     "'use strict'; while (0) { import.meta }",
     "'use strict'; do { import.meta } while (0)",
+    'class C {m() { import.meta }}',
+    'class C {m() { () => { import.meta } }}',
+    'class C {m() { () => import.meta }}',
+    'class C {m() { if (1) { import.meta } }}',
+    'class C {m() { if (1) {} else { import.meta } }}',
+    '({m() { do { import.meta } while (0)}})',
+    '({m() { import.meta.url}})',
+    '({m() { import.meta[0]}})',
+    '({m() { import.meta.couldBeMutable = true}})',
+    '({m() { import.meta()}})',
+    '({m() { new import.meta.MagicClass}})',
+    '({m: function() {new import.meta}})',
+    '({m: function() {t = [...import.meta]}})',
+    '({m: function() {f = {...import.meta}}})',
+    '({m: function() {delete import.meta}})',
+    '() => { import.meta }',
+    '() => import.meta',
+    'if (1) { import.meta }',
+    'if (1) {} else { import.meta }',
+    'while (0) { import.meta }',
+    'do { import.meta } while (0)',
+    'var f = function() {import.meta.url}',
+    'var f = function() {import.meta[0]}',
+    'var f = function() {import.meta.couldBeMutable = true}',
+    'var f = function() {import.meta()}',
+    'var f = function() {new import.meta.MagicClass}',
+    'var f = function() {new import.meta}',
+    'var f = function() {t = [...import.meta]}',
+    'var f = function() {f = {...import.meta}}',
+    'var f = function() {delete import.meta}',
+    'f = {...import.meta}',
+    '(import.meta([x = (import.meta([x = (x)](x = 123)))](x = 123)))',
+    '(import.meta([x = (a??a)](x = 123)))',
+    'class C {set x(_) { () => import.meta }}',
+    '({m() { if (1) {} else { import.meta }}})',
+    '({m() { while (0) { import.meta }}})',
+    'function f() { import.meta}',
+    '() => { import.meta }',
+    't = [...import.meta]'
+    /*
+
+
+       'import.meta[0]',
+    'import.meta()',
+    'delete import.meta',
+
+    'export var meta = import.meta;',
+    'export function getMeta() { return import.meta;}',
+    'import.meta.url',
+    '(import.meta([x = (a??a)](x = a?.b123)))',
+    'import.meta[0]',
+    'import.meta[0] = 123',
+    'import.meta[0] = 123',
+    't = [...import.meta]',
+    'export var meta = import.meta;',
+    'export function getMeta() { return import.meta;}',
+
+    '(a?.import("string")?.import.meta??(a))',
+    'import.meta?.(a?.import("string")?.import.meta??(a))',
+    'var a = import.meta;',
+
+
+
     "'use strict'; import.meta.url",
     "'use strict'; import.meta[0]",
     "'use strict'; import.meta.couldBeMutable = true",
@@ -94,54 +115,22 @@ describe('Expressions - Import meta', () => {
     '(import.meta?.a)',
     '(a?.import.meta)',
     "'use strict'; delete import.meta",
-    'class C {m() { import.meta }}',
-    'class C {m() { () => { import.meta } }}',
-    'class C {m() { () => import.meta }}',
-    'class C {m() { if (1) { import.meta } }}',
-    'class C {m() { if (1) {} else { import.meta } }}',
+
     'class C {m() { while (0) { import.meta } }}',
-    '({m() { do { import.meta } while (0)}})',
-    '({m() { import.meta.url}})',
-    '({m() { import.meta[0]}})',
-    '({m() { import.meta.couldBeMutable = true}})',
-    '({m() { import.meta()}})',
-    '({m() { new import.meta.MagicClass}})',
-    '({m: function() {new import.meta}})',
-    '({m: function() {t = [...import.meta]}})',
-    '({m: function() {f = {...import.meta}}})',
-    '({m: function() {delete import.meta}})',
+
     '({set x(_) {import.meta}})',
     "'use strict'; ({m: function() { while (0) { import.meta }}})",
     'function f() { do { import.meta } while (0)}',
-    'var f = function() {import.meta.url}',
-    'var f = function() {import.meta[0]}',
-    'var f = function() {import.meta.couldBeMutable = true}',
-    'var f = function() {import.meta()}',
-    'var f = function() {new import.meta.MagicClass}',
-    'var f = function() {new import.meta}',
-    'var f = function() {t = [...import.meta]}',
-    'var f = function() {f = {...import.meta}}',
-    'var f = function() {delete import.meta}',
-    'f = {...import.meta}',
+
     'delete import.meta',
     'import.meta',
-    '() => { import.meta }',
-    '() => import.meta',
-    'if (1) { import.meta }',
-    'if (1) {} else { import.meta }',
-    'while (0) { import.meta }',
-    'do { import.meta } while (0)',
+
     'import.meta.url',
     'import.meta[0]()',
     'import.meta[0](x = 123) ',
     'import.meta([0](x = 123))',
     '(import.meta([0](x = 123)))',
-    '(import.meta([x = (import.meta([x = (x)](x = 123)))](x = 123)))',
-    '(import.meta([x = (a??a)](x = 123)))',
-    'class C {set x(_) { () => import.meta }}',
-    '({m() { if (1) {} else { import.meta }}})',
-    '({m() { while (0) { import.meta }}})',
-    'function f() { import.meta}',
+
     'import.meta;',
     'import.meta.couldBeMutable = true',
     '(import.meta.couldBeMutable = true)',
@@ -151,12 +140,17 @@ describe('Expressions - Import meta', () => {
     'import.meta.resolve("something")',
     'const size = import.meta.scriptElement.dataset.size || 300;',
     'x = import.meta',
-    '() => { import.meta }',
-    't = [...import.meta]'
+
+    */
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseModule(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js', { module: true });
       });
     });
   }

@@ -1,138 +1,69 @@
 import * as t from 'assert';
 import { parseModule, recovery } from '../../../src/escaya';
 
-describe('Module - Export', () => {
-  // Invalid cases
+describe('Module - Import', () => {
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
-    'import',
-    'import;',
-    'import {}',
-    'import {};',
-    'import {a: b} from "bar";',
-    'import {foo',
-    'import foo;',
-    'import * asr x from "y"',
-    'import {...foo} from "bar";',
-    'import a, *= from "f";',
-    'import a, ** from "f";',
-    'import a, **= from "f";',
-    'import * asr x from "f";',
-    'import {...foo} from  "f";',
-    'import a, *= from "f";',
-    'import a, *= from "f";',
-    'import a, *= from "f";',
-    'import a, *= from "f";',
-    'import a, *= from "f";',
-    //'import { y as static  } from "foo"',
-    // 'import { y as let } from "foo"',
-    //'import { y as await  } from "foo"',
-    // 'import { y as enum } from "foo"',
-    //'import { y as yield } from "foo"',
-    'import(a, b);',
-    'import(/foo/) /bar/',
-    // 'new import(x);',
-    'import {a, b} fromx "c";',
-    // 'import {} from',
-    // 'import {,} from "a";',
-    'import {a: b} from "bar"',
-    // 'import { class } from "beast";',
-    // 'import { class, var } from "beast"',
-    'import {...foo} from "bar";',
-    // 'import {b as,} from "a"',
-    '{import {x} from "y";}',
-    'function f(){import {x} from "y";}',
-    'f (x); else import {x} from "y";',
-    'switch (x) { case x: import {x} from "y"; }',
-    // 'import { x as 1 } from "x";',
-    'import [ foo ] from "foo.js"',
-    'import * foo from "foo.js";;',
-    'import { foo as bar',
-    'import { foo, , } from "module";',
-    'import { };',
-    'import {;',
-    'import {x}, {y} from "foo";',
-    'import * as x, {y} from "foo";',
-    'import / as a from "foo";',
-    'import * as a from 12;',
-    'import { x }, def from "foo";',
-    'import {};',
-    'import x from []',
-    'import x from 12',
-    'import foo, from "bar";',
-    '() => { import arrow from ""; }',
-    'try { import _try from ""; } catch(e) { }',
-    'import * 12',
-    "import a, 12 from 'foo'",
-    "import * as x, * as y from 'foo';",
-    "import {x}, {y} from 'foo';",
-    "import {b,,} from 'a';",
-    // 'import {a as 12} from "foo"',
-    'import * as a from 12',
-    'import {a as b, e as l 12',
-    'import { };',
-    'import {;',
-    'import };',
-    'import { , };',
-    "import { , } from 'm.js';",
-    'import { a } from;',
-    'import { foo as bar ',
-    'import { foo as bar, ',
-    "import {x}, {y} from 'm.js';",
-    "import * as x, {y} from 'm.js';",
-    'import * as x',
-    'import * as from',
-    "import {,} from 'a';",
-    'import foo, from "bar";',
-    'import { foo as bar, ',
-    'import { foo, , } from "module";',
-    'for(var i=0; i<1; i++) import { default } from "module";',
-    '{ export default null; }',
-    'import(() => {} + x).promise',
-    //'import { null } from "null"',
-    //'import { switch } from "module";',
-    // 'import { foo as switch } from "module";',
-    'import { 123 } from "foo";',
-    'import a, *= from "foo"',
-    'import a, ** from "foo"',
-    'import ghost from [];',
-    'import { [123] } from "foo"'
-  ]) {
-    it(`${arg}`, () => {
-      t.throws(() => {
-        parseModule(`${arg}`);
-      });
-    });
-    it(`${arg}`, () => {
-      t.doesNotThrow(() => {
-        recovery(`${arg}`, 'recovery.js');
-      });
-    });
-  }
-
-  // Valid cases
-  for (const arg of [
-    'import x from "y"',
-    'import {x as a, z} from "y"',
-    'import {x, z as b} from "y"',
-    'import {x as a, z as b} from "y"',
-    'import {x as a, z as b,} from "y"',
-    'import(() => {})',
-    'import {} from "y"',
-    'import {x} from "y"',
-    'import * as a from "y"',
-    'import x, * as a from "y"',
+    "import 'foo';",
+    "import { a } from 'foo';",
+    `import  * as set from "a"`,
+    "import { a, b as d, c, } from 'baz';",
+    "import * as thing from 'baz';",
+    "import thing from 'foo';",
+    "import thing, * as rest from 'foo';",
+    "import thing, { a, b, c } from 'foo';",
+    "import { arguments as a } from 'baz';",
+    `import a, {as} from 'foo'`,
+    `import a, {b as c} from 'foo'`,
+    `import { static as s } from 'm.js';`,
+    `import { } from 'm.js';`,
+    `import { a } from 'm.js';`,
+    `import { a as implement } from "beast"`,
+    `import {x as a, z as b} from "y"`,
+    `import {x, z,} from "y"`,
+    `import thing, * as rest from 'foo';`,
+    `import {m as mm} from 'foo';`,
+    `import * as foob from 'bar.js';`,
+    `import { a } from 'm.js';`,
+    `import * as foo from "foo.js"; try { (() => { foo = 12; })() } catch(e) { assert.areEqual("Assignment to const", e.message); }`,
+    `import { foo } from "foo.js"; try { (() => { foo = 12; })() } catch(e) { assert.areEqual("Assignment to const", e.message); }`,
+    `import e, {f as g, h as i, j} from "module";`,
+    `import {n, o as p} from "module";`,
+    `import  * as set from "a"`,
+    `import $ from "foo"`,
+    `import {n, o as p} from "module";`,
+    `import {k as l, m} from "module";`,
+    `import foo, {bar} from "foo";`,
+    `import { null as nil } from "bar"`,
+    `import x, * as ns from "foo"`,
+    `import x, * as a from "y"`,
+    `import {as as as} from 'as'`,
+    `import a, {function as c} from 'baz'`,
+    `import { as, get, set, from } from "baz"`,
+    `import $ from "foo"`,
+    `import { yield as y } from 'm.js';`,
+    `import foo from "foo.js"; try { (() => { foo = 12; })() } catch(e) {}`,
+    `import {x as z} from "y"`,
+    "import { for as f } from 'foo';",
+    "import { yield as y } from 'foo';",
+    "import { static as s } from 'foo';",
+    "import { let as l } from 'foo';",
+    "import { q as z } from 'foo';",
+    'import { null as nil } from "bar"',
+    'import {bar, baz} from "foo";',
+    'import {bar as baz, xyz} from "foo";',
+    'import foo, {bar} from "foo";',
+    'import C from "foo";',
+    'import a, { b, c as d } from "foo"',
+    'import * as async from "async";',
+    "import foo, * as bar from 'baz';",
     'import $ from "foo"',
     'import {} from "foo";',
     "import n from 'n.js';",
     'import a from "module";',
     'import b, * as c from "module";',
     'import * as d from "module";',
-    'import x from "y"',
-    'import {x as a, z} from "y"',
     'import e, {f as g, h as i, j} from "module";',
-    'import "y"',
-    'import {x as z} from "y"',
-    'import x, * as a from "y"',
     'import {k as l, m} from "module";',
     'import {n, o as p} from "module";',
     "import 'q.js';",
@@ -152,8 +83,6 @@ describe('Module - Export', () => {
     'import icefapper from "await"',
     "import 'foo';",
     "import get from './get.js';",
-    'import(a)',
-    'import.meta',
     "import { a } from 'foo';",
     "import { a, b as d, c, } from 'baz';",
     "import * as foob from 'bar.js';",
@@ -167,21 +96,6 @@ describe('Module - Export', () => {
     'import {} from "foo";',
     "import n from 'n.js';",
     'import a from "module";',
-    `import  * as set from "a"`,
-    "import { a, b as d, c, } from 'baz';",
-    "import * as thing from 'baz';",
-    "import thing from 'foo';",
-    "import thing, * as rest from 'foo';",
-    "import thing, { a, b, c } from 'foo';",
-    "import { arguments as a } from 'baz';",
-    "import { for as f } from 'foo';",
-    'import dlr, {tasinvcplbgq} from "foo";',
-    "import { yield as y } from 'foo';",
-    "import { static as s } from 'foo';",
-    "import { let as l } from 'foo';",
-    "import { q as z } from 'foo';",
-    'import { null as nil } from "bar"',
-    'import {bar, baz} from "foo";',
     'import b, * as c from "module";',
     "import { yield as y } from 'm.js';",
     "import { static as s } from 'm.js';",
@@ -208,8 +122,378 @@ describe('Module - Export', () => {
     });
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        recovery(`${arg}`, 'recovery.js');
+        recovery(`${arg}`, 'recovery.js', { module: true });
       });
     });
   }
+
+  it('import X from "y"', () => {
+    t.deepEqual(parseModule('import X from "y"'), {
+      directives: [],
+      end: 17,
+      start: 0,
+      leafs: [
+        {
+          end: 17,
+          fromClause: {
+            end: 17,
+            start: 14,
+            type: 'StringLiteral',
+            value: 'y'
+          },
+          importClause: {
+            defaultBinding: {
+              end: 8,
+              name: 'X',
+              start: 7,
+              type: 'BindingIdentifier'
+            },
+            end: 8,
+            nameSpaceImport: null,
+            namedImports: null,
+            start: 7,
+            type: 'ImportClause'
+          },
+          moduleSpecifier: null,
+          start: 0,
+          type: 'ImportDeclaration'
+        }
+      ],
+      type: 'Module'
+    });
+  });
+
+  it('import a, {} from "foo"', () => {
+    t.deepEqual(parseModule('import a, {} from "foo"'), {
+      directives: [],
+      end: 23,
+      start: 0,
+      leafs: [
+        {
+          end: 23,
+          fromClause: {
+            end: 23,
+            start: 18,
+            type: 'StringLiteral',
+            value: 'foo'
+          },
+          importClause: {
+            defaultBinding: {
+              end: 8,
+              name: 'a',
+              start: 7,
+              type: 'BindingIdentifier'
+            },
+            end: 12,
+            nameSpaceImport: null,
+            namedImports: {
+              end: 12,
+              importsList: [],
+              start: 10,
+              type: 'NamedImports'
+            },
+            start: 7,
+            type: 'ImportClause'
+          },
+          moduleSpecifier: null,
+          start: 0,
+          type: 'ImportDeclaration'
+        }
+      ],
+      type: 'Module'
+    });
+  });
+
+  it('import b, * as c from "module";', () => {
+    t.deepEqual(parseModule('import b, * as c from "module";'), {
+      type: 'Module',
+      directives: [],
+      leafs: [
+        {
+          type: 'ImportDeclaration',
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'module',
+            start: 22,
+            end: 30
+          },
+          moduleSpecifier: null,
+          importClause: {
+            type: 'ImportClause',
+            defaultBinding: {
+              type: 'BindingIdentifier',
+              name: 'b',
+              start: 7,
+              end: 8
+            },
+            nameSpaceImport: {
+              type: 'BindingIdentifier',
+              name: 'c',
+              start: 15,
+              end: 16
+            },
+            namedImports: null,
+            start: 7,
+            end: 16
+          },
+          start: 0,
+          end: 31
+        }
+      ],
+      start: 0,
+      end: 31
+    });
+  });
+
+  it('import { a as of } from "k";', () => {
+    t.deepEqual(parseModule('import { a as of } from "k";'), {
+      directives: [],
+      end: 28,
+      start: 0,
+      leafs: [
+        {
+          end: 28,
+          fromClause: {
+            end: 27,
+            start: 24,
+            type: 'StringLiteral',
+            value: 'k'
+          },
+          importClause: {
+            defaultBinding: null,
+            end: 18,
+            nameSpaceImport: null,
+            namedImports: {
+              end: 18,
+              importsList: [
+                {
+                  binding: {
+                    end: 16,
+                    name: 'of',
+                    start: 14,
+                    type: 'BindingIdentifier'
+                  },
+                  end: 16,
+                  name: {
+                    end: 10,
+                    name: 'a',
+                    start: 9,
+                    type: 'IdentifierName'
+                  },
+                  start: 9,
+                  type: 'ImportSpecifier'
+                }
+              ],
+              start: 7,
+              type: 'NamedImports'
+            },
+            start: 7,
+            type: 'ImportClause'
+          },
+          moduleSpecifier: null,
+          start: 0,
+          type: 'ImportDeclaration'
+        }
+      ],
+      type: 'Module'
+    });
+  });
+
+  it('import { let as l } from "foo";', () => {
+    t.deepEqual(parseModule('import { let as l } from "foo";'), {
+      directives: [],
+      end: 31,
+      start: 0,
+      leafs: [
+        {
+          end: 31,
+          fromClause: {
+            end: 30,
+            start: 25,
+            type: 'StringLiteral',
+            value: 'foo'
+          },
+          importClause: {
+            defaultBinding: null,
+            end: 19,
+            nameSpaceImport: null,
+            namedImports: {
+              end: 19,
+              importsList: [
+                {
+                  binding: {
+                    end: 17,
+                    name: 'l',
+                    start: 16,
+                    type: 'BindingIdentifier'
+                  },
+                  end: 17,
+                  name: {
+                    end: 12,
+                    name: 'let',
+                    start: 9,
+                    type: 'IdentifierName'
+                  },
+                  start: 9,
+                  type: 'ImportSpecifier'
+                }
+              ],
+              start: 7,
+              type: 'NamedImports'
+            },
+            start: 7,
+            type: 'ImportClause'
+          },
+          moduleSpecifier: null,
+          start: 0,
+          type: 'ImportDeclaration'
+        }
+      ],
+      type: 'Module'
+    });
+  });
+
+  it('import "string"', () => {
+    t.deepEqual(parseModule('import "string"'), {
+      directives: [],
+      end: 15,
+      start: 0,
+      leafs: [
+        {
+          end: 15,
+          fromClause: null,
+          importClause: null,
+          moduleSpecifier: {
+            end: 15,
+            start: 7,
+            type: 'StringLiteral',
+            value: 'string'
+          },
+          start: 0,
+          type: 'ImportDeclaration'
+        }
+      ],
+      type: 'Module'
+    });
+  });
+
+  it('import {x, z,} from "y"', () => {
+    t.deepEqual(parseModule('import {x, z,} from "y"'), {
+      directives: [],
+      end: 23,
+      start: 0,
+      leafs: [
+        {
+          end: 23,
+          fromClause: {
+            end: 23,
+            start: 20,
+            type: 'StringLiteral',
+            value: 'y'
+          },
+          importClause: {
+            defaultBinding: null,
+            end: 14,
+            nameSpaceImport: null,
+            namedImports: {
+              end: 14,
+              importsList: [
+                {
+                  binding: {
+                    end: 9,
+                    name: 'x',
+                    start: 8,
+                    type: 'IdentifierName'
+                  },
+                  end: 9,
+                  name: null,
+                  start: 8,
+                  type: 'ImportSpecifier'
+                },
+                {
+                  binding: {
+                    end: 12,
+                    name: 'z',
+                    start: 11,
+                    type: 'IdentifierName'
+                  },
+                  end: 12,
+                  name: null,
+                  start: 11,
+                  type: 'ImportSpecifier'
+                }
+              ],
+              start: 7,
+              type: 'NamedImports'
+            },
+            start: 7,
+            type: 'ImportClause'
+          },
+          moduleSpecifier: null,
+          start: 0,
+          type: 'ImportDeclaration'
+        }
+      ],
+      type: 'Module'
+    });
+  });
+
+  it('import thing, * as rest from "x"', () => {
+    t.deepEqual(parseModule('import thing, * as rest from "x"'), {
+      type: 'Module',
+      directives: [],
+      leafs: [
+        {
+          type: 'ImportDeclaration',
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'x',
+            start: 29,
+            end: 32
+          },
+          moduleSpecifier: null,
+          importClause: {
+            type: 'ImportClause',
+            defaultBinding: {
+              type: 'BindingIdentifier',
+              name: 'thing',
+              start: 7,
+              end: 12
+            },
+            nameSpaceImport: {
+              type: 'BindingIdentifier',
+              name: 'rest',
+              start: 19,
+              end: 23
+            },
+            namedImports: null,
+            start: 7,
+            end: 23
+          },
+          start: 0,
+          end: 32
+        }
+      ],
+      start: 0,
+      end: 32
+    });
+  });
+
+  /*  it('simple block', () => {
+    t.deepEqual(parseModule('(a, b)'), {});
+  });
+
+  it('simple block', () => {
+    t.deepEqual(parseModule('(a, b)'), {});
+  });
+
+  it('simple block', () => {
+    t.deepEqual(parseModule('(a, b)'), {});
+  });
+
+  it('simple block', () => {
+    t.deepEqual(parseModule('(a, b)'), {});
+  });
+
+*/
 });

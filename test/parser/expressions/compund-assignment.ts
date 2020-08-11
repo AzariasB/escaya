@@ -1,37 +1,22 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
-describe('Expressions - Compound assignment', () => {
+describe('Expressions - Binary', () => {
   // Invalid cases
-  for (const arg of [
-    '({a *= -1})',
-    '({a} *= -1)',
-    '({a}) *=	-1',
-    '({a} += a);',
-    '([a] += a);',
-    `({a} += {a});`,
-    `[a >>>= {a} += {a}];`,
-    '[1 >>>= a];',
-    '[a >>>= a] += 1;',
-    '[a >>>= a] += a;',
-    '({a: (b = 0)} = {})',
-    '([(a = b)] = []',
-    // '({a: b += 0} = {})',
-    '[a += b] = []',
-    '0.toString',
-    '1 |= 1;',
-    '1 = 1;',
-    '1 &= 1;',
-    '0.toString'
-  ]) {
+  for (const arg of ['[', '[,', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
       });
     });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     '[a >>>= a];',
     '([a += a] );',
@@ -87,83 +72,10 @@ describe('Expressions - Compound assignment', () => {
         parseScript(`${arg}`);
       });
     });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
   }
-
-  it('Double wrapped group in the middle', () => {
-    t.deepEqual(parseScript('x = ((y)) = z'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'AssignmentExpression',
-            left: {
-              type: 'IdentifierReference',
-              name: 'x'
-            },
-            operator: '=',
-            right: {
-              type: 'AssignmentExpression',
-              left: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'ParenthesizedExpression',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: 'y'
-                  }
-                }
-              },
-              operator: '=',
-              right: {
-                type: 'IdentifierReference',
-                name: 'z'
-              }
-            }
-          }
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('Assign with dud group', () => {
-    t.deepEqual(parseScript('a = ((b)) = c;'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'AssignmentExpression',
-            left: {
-              type: 'IdentifierReference',
-              name: 'a'
-            },
-            operator: '=',
-            right: {
-              type: 'AssignmentExpression',
-              left: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'ParenthesizedExpression',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: 'b'
-                  }
-                }
-              },
-              operator: '=',
-              right: {
-                type: 'IdentifierReference',
-                name: 'c'
-              }
-            }
-          }
-        }
-      ],
-      webCompat: true
-    });
-  });
 });

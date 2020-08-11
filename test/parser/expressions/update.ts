@@ -1,43 +1,33 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('Expressions - Update', () => {
+describe('Expressions - Binary', () => {
   // Invalid cases
   for (const arg of [
-    'foo\n++',
-    'if (foo\n++);',
-    '++([])',
-    '([])++',
-    'if (a) a\n--;',
-    '(((x)))\n++;',
-    'a\n--',
-    '(x)\n--;',
-    '(((x)))\n--;',
-    'class x extends ++a {}',
-    'class x extends --a {}',
-    '({}--)',
-    '++(x) => b',
-    '++x => b',
-    `if (a
-  ++b);`,
-    `if (a
-    ++
-    b);`,
-    'x.foo++.bar',
-    `a
-++`,
-    `function f(){ return a
-  ++; }`,
-    `let x = () => a
-  ++;`,
-    `z=[b
-    ++c];`,
-    `for (;b
-      ++c;);`,
-    `z={x:b
-        ++c};`,
-    `(b
-          ++c);`
+    '(}.x++)',
+
+    '(this x++)',
+    //'this x++',
+    'let x = ( => a++;',
+    'let x = ( => a++;',
+    'let x = ( => a++;',
+    'let x != ( => a++ !;',
+    'let x = -/ => a++;',
+    'let x = ( ++=> a++;',
+    '++€',
+
+    '€++',
+    '++€--',
+    '+]+[',
+    '++while',
+    '++break',
+    '++wfor(a',
+    '++{while',
+    '++!{while',
+
+    'function f(){ return ++; }',
+    '(x++;',
+    '((x)))++;'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -51,9 +41,8 @@ describe('Expressions - Update', () => {
     });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
-    '+a++ / 1',
     '({}.x++)',
     '[].x++',
     '(this.x++)',
@@ -107,4 +96,72 @@ describe('Expressions - Update', () => {
       });
     });
   }
+
+  it('++a.a', () => {
+    t.deepEqual(parseScript('++a.a'), {
+      type: 'Script',
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'PrefixUpdateExpression',
+            operator: '++',
+            operand: {
+              type: 'MemberExpression',
+              member: {
+                type: 'IdentifierReference',
+                name: 'a',
+                start: 2,
+                end: 3
+              },
+              expression: {
+                type: 'IdentifierName',
+                name: 'a',
+                start: 4,
+                end: 5
+              },
+              computed: false,
+              start: 2,
+              end: 5
+            },
+            start: 0,
+            end: 5
+          },
+          start: 0,
+          end: 5
+        }
+      ],
+      start: 0,
+      end: 5
+    });
+  });
+
+  it('bar++', () => {
+    t.deepEqual(parseScript('bar++'), {
+      type: 'Script',
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'PostfixUpdateExpression',
+            operator: '++',
+            operand: {
+              type: 'IdentifierReference',
+              name: 'bar',
+              start: 0,
+              end: 3
+            },
+            start: 3,
+            end: 5
+          },
+          start: 0,
+          end: 5
+        }
+      ],
+      start: 0,
+      end: 5
+    });
+  });
 });

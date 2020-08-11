@@ -1,41 +1,78 @@
 import * as t from 'assert';
 import { parseScript } from '../../../src/escaya';
 
-describe('Statements - Empty', () => {
-  it(';/a*/', () => {
-    t.deepEqual(parseScript(';/a*/'), {
+describe('leafs - Empty', () => {
+  it(';;;', () => {
+    t.deepEqual(parseScript(';;;'), {
+      type: 'Script',
       directives: [],
       leafs: [
         {
-          type: 'EmptyStatement'
+          type: 'EmptyStatement',
+          start: 0,
+          end: 1
         },
         {
-          expression: {
-            flags: '',
-            pattern: 'a*',
-            type: 'RegularExpressionLiteral'
-          },
-          type: 'ExpressionStatement'
+          type: 'EmptyStatement',
+          start: 1,
+          end: 2
+        },
+        {
+          type: 'EmptyStatement',
+          start: 2,
+          end: 3
         }
       ],
-      type: 'Script',
-      webCompat: true
+      start: 0,
+      end: 3
     });
   });
 
-  it(';;', () => {
-    t.deepEqual(parseScript(';;'), {
+  it(';;; EMPTY;;;', () => {
+    t.deepEqual(parseScript(';;; EMPTY;;;'), {
       type: 'Script',
       directives: [],
       leafs: [
         {
-          type: 'EmptyStatement'
+          type: 'EmptyStatement',
+          start: 0,
+          end: 1
         },
         {
-          type: 'EmptyStatement'
+          type: 'EmptyStatement',
+          start: 1,
+          end: 2
+        },
+        {
+          type: 'EmptyStatement',
+          start: 2,
+          end: 3
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+
+            name: 'EMPTY',
+            start: 4,
+            end: 9
+          },
+          start: 4,
+          end: 10
+        },
+        {
+          type: 'EmptyStatement',
+          start: 10,
+          end: 11
+        },
+        {
+          type: 'EmptyStatement',
+          start: 11,
+          end: 12
         }
       ],
-      webCompat: true
+      start: 0,
+      end: 12
     });
   });
 });

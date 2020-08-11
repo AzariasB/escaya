@@ -3,18 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Async', () => {
   // Invalid cases
-  for (const arg of [
-    'foo(async[])',
-    'x = {x=y};',
-    '({a:(a,y) = 0} = 1)',
-    '({...obj1,} = foo)',
-    '({...obj1,a} = foo)',
-    '({...(a,b)} = foo)',
-    'x, {a: {a: 1} = []};',
-    'x, [foo + y, bar] = doo;',
-    '({foo: {x:y} += x})',
-    '...{a: b}.c = [])'
-  ]) {
+  for (const arg of ['[', '[,', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -27,7 +16,7 @@ describe('Expressions - Async', () => {
     });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'async(...x/y);',
     'async(...a, b);',
@@ -69,6 +58,11 @@ describe('Expressions - Async', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         recovery(`${arg}`, 'recovery.js');
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js', { module: true });
       });
     });
   }

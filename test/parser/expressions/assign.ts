@@ -1,49 +1,9 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('Expressions - Assignment', () => {
+describe('Expressions - Assign', () => {
   // Invalid cases
-  for (const arg of [
-    '[(a = 0)] = 1',
-    // Assignment of a pattern
-    'x = {x=y};',
-    // 'y/[]=x',
-    '"x" = 42;',
-    '42 = 42;',
-    '(([a])=0);',
-    '(({a})=0);',
-    'a = b + c = d',
-    'x in [2=y]',
-    'x in [2=y]',
-    'x = {x=y};',
-    '[(a = 0)] = 1',
-    'a = b + c = d',
-    '({...(a,b)} = foo)',
-    '({...{}} = {})',
-    '({...obj1,} = foo)',
-    '(case = "sentinal 453543")',
-    '(1) = (y) = x',
-    'y = (1) = x',
-    '(y) = (1) = x',
-    '(1) = x',
-    '({a:(a,y) = 0} = 1)',
-    'x in [2=y]',
-    '[(a = 0)] = 1',
-    '1 = x',
-    'x, {a: 1} = [];',
-    '(catch = "sentinal 453543")',
-
-    // Destructuring
-
-    '({a:(a,y) = 0} = 1)',
-    '({...obj1,} = foo)',
-    '({...obj1,a} = foo)',
-    '({...(a,b)} = foo)',
-    'x, {a: {a: 1} = []};',
-    'x, [foo + y, bar] = doo;',
-    '({foo: {x:y} += x})',
-    '...{a: b}.c = [])'
-  ]) {
+  for (const arg of ['a = b + c = d', '[,', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -56,12 +16,13 @@ describe('Expressions - Assignment', () => {
     });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'a -= b',
     '[a, b] = c = d',
     '[(a)] = x',
     'a *= b',
+    'a |= b',
     'a += b',
     'a = b = c = d',
     'a=(b=c)',
@@ -90,37 +51,11 @@ describe('Expressions - Assignment', () => {
     'x.x *= 0',
     'a = b = c',
     '(a) = b;',
+    'a = ((b)) = c;',
     '((a)) = b;',
     'x = ((y)) = z',
     'x = x = y = null;',
     '({...(obj)} = foo),({...obj} = foo),({...obj.x} = foo),({...{}.x} = foo),({...[].x} = foo)',
-    '({ a: {prop: 1}.prop } = {})',
-    'x = {async, bar}',
-    '({...{}.x} = foo)',
-    'of = 42',
-    'a=b',
-    'a += b',
-    'a /= b',
-    '(a) = b;',
-    '((a)) = b;',
-    'a = ((b)) = c',
-    'a = b = c',
-    '(a) = b;',
-    '((a)) = b;',
-    '(a**b).c=0',
-    '[0].length = 0',
-    'x = ((y)) = z',
-    'await = 16',
-    'if (from === undefined) {}',
-    'x = x = y = null;',
-    'of = 42',
-    '((((((((((((((((((((((((((((((((((((((((a)))))))))))))))))))))))))))))))))))))))) = 0;',
-    'a = (b, c)',
-    '(a)=(0);',
-    'x.x *= 0',
-    '[(a), b] = [];',
-    '[((((a)))), b] = [];',
-    'x = [a, b] = y',
     '[[1].c] = [];',
     'from === undefined',
     'of = 42',
@@ -156,14 +91,6 @@ describe('Expressions - Assignment', () => {
     'x = { xFn = function x() {}, fn = function() {} } = {}',
     'x = { x: arrow = () => {} } = {};',
     'x = { x: xCover = (0, function() {}), x: cover = (function() {}) } = {};',
-    '0, { x: x = y } = {};',
-    '0, { x: [ x ] } = { x: null };',
-    '0, { x: [ x ] } = {};',
-    '0, { a: c } = { a: 2 };',
-    'x = { xy: x.y } = { xy: 4 };',
-    '(arguments = "sentinal 543665")',
-    // Destructuring
-
     '({...obj.x} = foo)',
     '({...[].x} = foo)',
     '({...{}.x} = foo)',
@@ -171,7 +98,39 @@ describe('Expressions - Assignment', () => {
     '[([1].c)] = [];',
     '({a:(b) = c})',
     '({a:(b) = c} = 1)',
-    '({a:(b) = 0} = 1)'
+    '({a:(b) = 0} = 1)',
+    '0, { x: x = y } = {};',
+    '0, { x: [ x ] } = { x: null };',
+    '0, { x: [ x ] } = {};',
+    '0, { a: c } = { a: 2 };',
+    'x = { xy: x.y } = { xy: 4 };',
+    '({ a: {prop: 1}.prop } = {})',
+    'x = {async, bar}',
+    '({...{}.x} = foo)',
+    'of = 42',
+    'a=b',
+    'a += b',
+    'a /= b',
+    '(a) = b;',
+    '((a)) = b;',
+    'a = ((b)) = c',
+    'a = b = c',
+    '(a) = b;',
+    '((a)) = b;',
+    '(a**b).c=0',
+    '[0].length = 0',
+    'x = ((y)) = z',
+    'await = 16',
+    'if (from === undefined) {}',
+    'x = x = y = null;',
+    'of = 42',
+    '((((((((((((((((((((((((((((((((((((((((a)))))))))))))))))))))))))))))))))))))))) = 0;',
+    'a = (b, c)',
+    '(a)=(0);',
+    'x.x *= 0',
+    '[(a), b] = [];',
+    '[((((a)))), b] = [];',
+    'x = [a, b] = y'
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
@@ -184,82 +143,4 @@ describe('Expressions - Assignment', () => {
       });
     });
   }
-
-  it('Double wrapped group in the middle', () => {
-    t.deepEqual(parseScript('x = ((y)) = z'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'AssignmentExpression',
-            left: {
-              type: 'IdentifierReference',
-              name: 'x'
-            },
-            operator: '=',
-            right: {
-              type: 'AssignmentExpression',
-              left: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'ParenthesizedExpression',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: 'y'
-                  }
-                }
-              },
-              operator: '=',
-              right: {
-                type: 'IdentifierReference',
-                name: 'z'
-              }
-            }
-          }
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('Assign with dud group', () => {
-    t.deepEqual(parseScript('a = ((b)) = c;'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'AssignmentExpression',
-            left: {
-              type: 'IdentifierReference',
-              name: 'a'
-            },
-            operator: '=',
-            right: {
-              type: 'AssignmentExpression',
-              left: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'ParenthesizedExpression',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: 'b'
-                  }
-                }
-              },
-              operator: '=',
-              right: {
-                type: 'IdentifierReference',
-                name: 'c'
-              }
-            }
-          }
-        }
-      ],
-      webCompat: true
-    });
-  });
 });

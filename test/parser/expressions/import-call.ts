@@ -1,48 +1,9 @@
 import * as t from 'assert';
-import { parseScript, parseModule, recovery } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Import call', () => {
   // Invalid cases
-  for (const arg of [
-    'import(x, y).then(z);',
-    'import.then(doLoad);',
-    'import(',
-    'import[]',
-    'import]',
-    'import[x]',
-    'import(...y)',
-    'import+',
-    'import = 1',
-    '[import(x).then()] = [1];',
-    'import("") -= 5',
-    'import("") = 2',
-    'import("") >>>= 2',
-    //'new import(x);',
-    '(import(1)) => {}',
-    '(import(y=x)) => {}',
-    '(a, import(x).then()) => {}',
-    '(1, import(foo)) => {}',
-    '(a, import(x).then()) => {}',
-    'function x() { return import.then(); }',
-    'import()',
-    'import(a, b)',
-    '(import(foo)) => {}',
-    '[import(y=x)] = [1];',
-    'import("") --',
-    'import(x,);',
-    'import("") >>>= 2',
-    'function *f(x = import(yield)) {}',
-    'import(a b)',
-    'import(a, b);',
-    'import(...a);',
-    'import("")++',
-    '[import]',
-    'import();',
-    'import("", "");',
-    'import("",);',
-    'import(/foo/) /bar/',
-    'import(() => {} + x).promise'
-  ]) {
+  for (const arg of ['[', '[,', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -55,7 +16,7 @@ describe('Expressions - Import call', () => {
     });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'f(...[import(y=x)])',
     'x = {[import(y=x)]: 1}',
@@ -111,11 +72,6 @@ describe('Expressions - Import call', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
-      });
-    });
-    it(`${arg}`, () => {
-      t.doesNotThrow(() => {
-        parseModule(`${arg}`);
       });
     });
     it(`${arg}`, () => {

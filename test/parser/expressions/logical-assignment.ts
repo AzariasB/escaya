@@ -1,17 +1,22 @@
 import * as t from 'assert';
-import { parseModule } from '../../../src/escaya';
+import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
-describe('Expressions - Logical assignment', () => {
+describe('Expressions - Logical Assignment', () => {
   // Invalid cases
-  for (const arg of ['with (x) {a ||= true; }', 'a &&= (delete a, 2);']) {
+  for (const arg of ['[', '[,', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseModule(`${arg}`);
+        parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'a.foo["baz"] &&= result.foo.baz',
     'a.foo.bar().baz &&= result.foo.bar().baz',
@@ -19,7 +24,7 @@ describe('Expressions - Logical assignment', () => {
     'x &&= "foo"',
     'x &&= 42',
     'x ||= 42',
-    'bar?.value ?? [] : []',
+    //'bar?.value ?? [] : []',
     `class a extends (a ??= 0) {}`,
     '() => { let a = (a &&= 0); }',
     '() => { fn &&= 1; }',
@@ -50,7 +55,17 @@ describe('Expressions - Logical assignment', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
+        parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
         parseModule(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }

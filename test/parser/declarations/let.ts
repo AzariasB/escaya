@@ -3,110 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Declarations - Let', () => {
   // Invalid cases
-  for (const arg of [
-    'let [o.x=1]=[]',
-    'let let',
-    'const let',
-    'let {}',
-    'let [a, let, b] = [1, 2, 3];',
-    'let ];',
-    'let foo, [bar];',
-    '"use strict"; let;',
-    'let { [f]: ...await f } = {};',
-    'let { f: ...await f } = {};',
-    'let [foo];',
-    'let [...,] = obj;',
-    'let [...bar = foo] = obj;',
-    'let [...foo,,] = obj;',
-    'let async => async',
-    'let f = a + b + async()=>d',
-    'let async \n  => async',
-    'let f = async \n  => (g) => g',
-    'let f = async \n  (g = await foo) => g',
-    'let x = async function f(await){}',
-    'let x = async function *f(await){}',
-    'let f = () => (y=await foo) => y;',
-    'let f = async function f(await) {}',
-    //'let {x:o.f=1}={x:1}',
-    // 'let [(x) = y] = [];',
-    'let []',
-    //'let [(x)] = [];',
-    'let [({x: 1})] = [];',
-    'let {,,} = obj;',
-    'if (1) let x = 10;',
-    'let a; [a--] = [];',
-    'let [...foo,] = obj;',
-    'let [...foo,,] = obj;',
-    'let [.x] = obj;',
-    'let [...[foo, bar],] = obj;',
-    'let a; [...a = 1] = [];',
-    'let\neval(foo)',
-    'let a; [((a)] = [];',
-    'let [((a)] = [];',
-    'a = { let {x} }',
-    'let[x].foo in x;',
-    'let in x',
-    'function foo() { return {}; }; let [foo().x] = [];',
-    'function foo() { return {}; }; [foo()] = [];',
-    'let {x:y=z}, {a:b=c} = obj;',
-    'let b = async () => []; for (a in await b());',
-    'let x = y, {z};',
-    'let x, {y};',
-    'let await 0',
-    'let {x};',
-    'let [[(a)], ((((((([b])))))))] = [[],[]];',
-    'let [...a = 1] = [];',
-    'let a; [...a = 1] = [];',
-    'let [a--] = [];',
-    'let [++a] = [];',
-    'let {[x]} = z;',
-    'let {[x]};',
-    'let {...obj1,a} = foo',
-    'let {...obj1,...obj2} = foo',
-    'let {...(obj)} = foo',
-    'let {...(a,b)} = foo',
-    'let {...{a,b}} = foo',
-    'let {...[a,b]} = foo',
-    'let {...let} = {a: 1, b: 2};',
-    'let x = (a)\n=>a;',
-    'let obj = {x:x?.1}; [...obj["x"]] = [10];',
-    'let [...[...[...x?.a]]] = [x?.[[]]];',
-    'let [...[...[...x?.a]]] = [[[]]];',
-    'let [...[...[...x]]] = [?.a[[]]];',
-    // 'do let [x] = 0; while (false);',
-    'let [...x = []] = [];',
-    'let {...{}} = {};',
-    'let { ...x, y, z } = obj;',
-    'for (let\nfoo);',
-    'let {...obj1,} = foo',
-    'let {...[a,b]} = foo',
-    'for (let\nfoo());',
-    /*`do let
-    [x] = 0
-    while (false);`,*/
-    // 'for (let\nfoo();;);',
-    'class x { foo() { let[foo]; }}',
-    'function f(){ let[foo]; }',
-    'let {foo: let = y} = x;',
-    'let {foo: let} = x;',
-    'let [a, let] = x;',
-    'let [let = y] = x;',
-    'let let;',
-    //'let {let = y} = x;',
-    `class x { foo() { let
-      {foo}; }}`,
-    `let
-    debugger`,
-    `let
-    {foo};`,
-    `let
-    [foo];`,
-    'let p/',
-    'let foo,)',
-    'while (x) let {} = y',
-    'let {[x]: y};',
-    'label: let x;'
-  ]) {
+  for (const arg of ['switch/("', 'let [1 <= 0] = "foo"']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -119,12 +16,13 @@ describe('Declarations - Let', () => {
     });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'var let;',
     'var foo, let;',
     'let',
-    'var {let} = x;',
+    'let x = function *f(foo = await){}',
+    'let o = {f(foo = await){}}',
     `do let
     while(x)`,
     'try { } catch (let) { }',
@@ -181,8 +79,6 @@ describe('Declarations - Let', () => {
     'for (var [let] in {}) {}',
     'var let',
     'let;',
-    `let.let = foo`,
-    'var [let] = []',
     'let f = /* before */async /* a */ ( /* b */ a /* c */ , /* d */ b /* e */ ) /* f */ => /* g */ { /* h */ ; /* i */ }/* after */;',
     'let g = /* before */async /* a */ ( /* b */ ) /* c */ => /* d */ 0/* after */;',
     'let h = /* before */async /* a */ a /* b */ => /* c */ 0/* after */;',
@@ -196,8 +92,8 @@ describe('Declarations - Let', () => {
     'let a1; [a1, b1, c1, d1, ...rest1] = "testing";',
     'let arrow = () => {};',
     `let x = class x {};
-  let y = class {};
-  let z = class { static name() {} };`,
+   let y = class {};
+   let z = class { static name() {} };`,
     'let [{ a }, { b }, { c = "" }] = [a, b, c];',
     'let [{ x }] = [x];',
     'let [[x]] = [null];',
@@ -257,7 +153,6 @@ describe('Declarations - Let', () => {
     '[1 <= 0]',
     `let y = async x => { await x; }`,
     `let o = {*f(await){}}`,
-    'let [1 <= 0] = "foo"',
     'let a; [a] = [];',
     'let a, b; [a, b] = [1];',
     'let [a] = [1, 2];',
@@ -276,31 +171,6 @@ describe('Declarations - Let', () => {
     'let [[...x] = [2, 1, 3]] = [];',
     'let [[] = function() {}()] = [[23]];',
     'let [[] = function() { return function*() {}(); }()] = [];',
-    'let [foo] = arr;',
-    'let [,] = x;',
-    `if (false) {
-    L: let // ASI
-    x = 1;
-  }`,
-    `if (false) {
-    L: let // ASI
-    x = 1;
-  }`,
-    `if (false) {
-    L: let // ASI
-    x = 1;
-  }`,
-    'for (;let;);',
-    'let.foo;',
-    'let {let: foo} = x;',
-    'let {a, let: foo} = x;',
-    'let();',
-    'let [x, ...[foo, bar]] = obj;',
-    'let {} = obj;',
-    'let {x} = obj;',
-    'let {x, y} = obj;',
-    `a = let;
-  []`,
     'let [,,] = x;',
     'letarguments',
     'letarguments.length',
@@ -328,7 +198,7 @@ describe('Declarations - Let', () => {
     'let x = y, [foo] = z;',
     'let [foo,bar] = x;',
     `while (x) let
-    {}`,
+   {}`,
     'let [foo] = x;',
     'let [foo] = arr, [bar] = arr2;',
     'let [foo] = arr, bar;',
@@ -340,7 +210,7 @@ describe('Declarations - Let', () => {
     'let [foo, bar=b] = arr;',
     'let [foo=a, bar=b] = arr;',
     `let async
-    function f(){}`,
+   function f(){}`,
     'let [foo, ...bar] = obj;',
     'let [...[foo, bar]] = obj;',
     'let [x, ...[foo, bar]] = obj;',
@@ -385,18 +255,13 @@ describe('Declarations - Let', () => {
     'for (let [] = x;;);',
     'let [] = x;',
     'let [foo,,] = arr;',
-
-    'let x = {y=z} = d',
-    'let x = ({y=z}) => d',
-    'let x = ({y=z}=e) => d',
-
     'let { w = a(), x = b(), y = c(), z = d() } = { w: null, x: 0, y: false, z: "" };',
     'let { fn = function () {}, xFn = function x() {} } = {};',
     'switch (true) { case true: let x = 1; }',
     `let a = [];
-  for (let i = 0; i < 5; a.push(function () { return i; }), ++i) { }
-  for (let k = 0; k < 5; ++k) {
-  }`,
+ for (let i = 0; i < 5; a.push(function () { return i; }), ++i) { }
+ for (let k = 0; k < 5; ++k) {
+ }`,
     'let { x, } = { x: 23 };',
     'let { w: [x, y, z] = [4, 5, 6] } = {};',
     'let { w: [x, y, z] = [4, 5, 6] } = { w: [7, undefined, ] };',
@@ -428,7 +293,35 @@ describe('Declarations - Let', () => {
     'let {a, b} = c, d;',
     'let {a, b, c} = {}, e, f;',
     'if (1) let\n{}',
-    'let {a, b} = {}, c = 0;'
+    'let {a, b} = {}, c = 0;',
+    'let x = {y=z} = d',
+    'let x = ({y=z}) => d',
+    'let x = ({y=z}=e) => d',
+    'let [foo] = arr;',
+    'let [,] = x;',
+    `if (false) {
+    L: let // ASI
+    x = 1;
+  }`,
+    `if (false) {
+    L: let // ASI
+    x = 1;
+  }`,
+    `if (false) {
+    L: let // ASI
+    x = 1;
+  }`,
+    'for (;let;);',
+    'let.foo;',
+    'let {let: foo} = x;',
+    'let {a, let: foo} = x;',
+    'let();',
+    'let [x, ...[foo, bar]] = obj;',
+    'let {} = obj;',
+    'let {x} = obj;',
+    'let {x, y} = obj;',
+    `let.let = foo`,
+    'var [let] = []'
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
@@ -441,477 +334,4 @@ describe('Declarations - Let', () => {
       });
     });
   }
-
-  it('const [foo=a,bar=b] = x;', () => {
-    t.deepEqual(parseScript('const [foo=a,bar=b] = x;'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          kind: 'const',
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'ArrayBindingPattern',
-                leafs: [
-                  {
-                    type: 'AssignmentPattern',
-                    left: {
-                      type: 'BindingIdentifier',
-                      name: 'foo'
-                    },
-                    right: {
-                      type: 'BindingIdentifier',
-                      name: 'a'
-                    }
-                  },
-                  {
-                    type: 'AssignmentPattern',
-                    left: {
-                      type: 'BindingIdentifier',
-                      name: 'bar'
-                    },
-                    right: {
-                      type: 'BindingIdentifier',
-                      name: 'b'
-                    }
-                  }
-                ]
-              },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'x'
-              }
-            }
-          ]
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('const x = y, {foo} = z;', () => {
-    t.deepEqual(parseScript('const x = y, {foo} = z;'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          kind: 'const',
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'BindingIdentifier',
-                name: 'x'
-              },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'y'
-              }
-            },
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'foo'
-                  }
-                ]
-              },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'z'
-              }
-            }
-          ]
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('const { a: { ...bar }, b: { ...baz }, ...foo } = obj;', () => {
-    t.deepEqual(parseScript('const { a: { ...bar }, b: { ...baz }, ...foo } = obj;'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          kind: 'const',
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'PropertyName',
-                    key: {
-                      type: 'BindingIdentifier',
-                      name: 'a'
-                    },
-                    value: {
-                      type: 'ObjectBindingPattern',
-                      properties: [
-                        {
-                          type: 'BindingRestProperty',
-                          argument: {
-                            type: 'BindingIdentifier',
-                            name: 'bar'
-                          }
-                        }
-                      ]
-                    },
-                    computed: false
-                  },
-                  {
-                    type: 'PropertyName',
-                    key: {
-                      type: 'BindingIdentifier',
-                      name: 'b'
-                    },
-                    value: {
-                      type: 'ObjectBindingPattern',
-                      properties: [
-                        {
-                          type: 'BindingRestProperty',
-                          argument: {
-                            type: 'BindingIdentifier',
-                            name: 'baz'
-                          }
-                        }
-                      ]
-                    },
-                    computed: false
-                  },
-                  {
-                    type: 'BindingRestProperty',
-                    argument: {
-                      type: 'BindingIdentifier',
-                      name: 'foo'
-                    }
-                  }
-                ]
-              },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'obj'
-              }
-            }
-          ]
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('const [ a, ...bar ] = foo;', () => {
-    t.deepEqual(parseScript('const [ a, ...bar ] = foo;'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          kind: 'const',
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'ArrayBindingPattern',
-                leafs: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'a'
-                  },
-                  {
-                    type: 'BindingRestElement',
-                    argument: {
-                      type: 'BindingIdentifier',
-                      name: 'bar'
-                    }
-                  }
-                ]
-              },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'foo'
-              }
-            }
-          ]
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('const { [eval]: []} = a;', () => {
-    t.deepEqual(parseScript('const { [eval]: []} = a;'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          kind: 'const',
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'PropertyName',
-                    key: {
-                      type: 'IdentifierReference',
-                      name: 'eval'
-                    },
-                    value: {
-                      type: 'ArrayBindingPattern',
-                      leafs: []
-                    },
-                    computed: true
-                  }
-                ]
-              },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'a'
-              }
-            }
-          ]
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('const {foo=a,bar=b} = x;', () => {
-    t.deepEqual(parseScript('const {foo=a,bar=b} = x;'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          kind: 'const',
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingElement',
-                    binding: {
-                      type: 'BindingIdentifier',
-                      name: 'foo'
-                    },
-                    initializer: {
-                      type: 'IdentifierReference',
-                      name: 'a'
-                    }
-                  },
-                  {
-                    type: 'BindingElement',
-                    binding: {
-                      type: 'BindingIdentifier',
-                      name: 'bar'
-                    },
-                    initializer: {
-                      type: 'IdentifierReference',
-                      name: 'b'
-                    }
-                  }
-                ]
-              },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'x'
-              }
-            }
-          ]
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('const {x} = a, {y} = obj;', () => {
-    t.deepEqual(parseScript('const {x} = a, {y} = obj;'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          kind: 'const',
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'x'
-                  }
-                ]
-              },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'a'
-              }
-            },
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'y'
-                  }
-                ]
-              },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'obj'
-              }
-            }
-          ]
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('const [x, ...[foo, bar]] = obj;', () => {
-    t.deepEqual(parseScript('const [x, ...[foo, bar]] = obj;'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          kind: 'const',
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'ArrayBindingPattern',
-                leafs: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'x'
-                  },
-                  {
-                    type: 'BindingRestElement',
-                    argument: {
-                      type: 'ArrayBindingPattern',
-                      leafs: [
-                        {
-                          type: 'BindingIdentifier',
-                          name: 'foo'
-                        },
-                        {
-                          type: 'BindingIdentifier',
-                          name: 'bar'
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'obj'
-              }
-            }
-          ]
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('const {[a.b]: c} = v;', () => {
-    t.deepEqual(parseScript('const {[a.b]: c} = v;'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          kind: 'const',
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'PropertyName',
-                    key: {
-                      type: 'MemberExpression',
-                      member: {
-                        type: 'IdentifierReference',
-                        name: 'a'
-                      },
-                      expression: {
-                        type: 'IdentifierName',
-                        name: 'b'
-                      },
-                      computed: false
-                    },
-                    value: {
-                      type: 'BindingIdentifier',
-                      name: 'c'
-                    },
-                    computed: true
-                  }
-                ]
-              },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'v'
-              }
-            }
-          ]
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('const x = class x {};', () => {
-    t.deepEqual(parseScript('const x = class x {};'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          kind: 'const',
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'BindingIdentifier',
-                name: 'x'
-              },
-              initializer: {
-                type: 'ClassExpression',
-                name: {
-                  type: 'BindingIdentifier',
-                  name: 'x'
-                },
-                super: null,
-                leafs: []
-              }
-            }
-          ]
-        }
-      ],
-      webCompat: true
-    });
-  });
 });

@@ -1,107 +1,50 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
-describe('Statements - Return', () => {
+describe('leafs - Return', () => {
   // Invalid cases
   for (const arg of [
-    '() => return',
-    'return;return',
-    `{return
-    foo}`,
-    'return foo;',
-    'return',
-    `return
-   /x/`
+    'switch/("',
+    'switch\nx;',
+    'switch\n/x/g',
+    'switch\n',
+    'switch',
+    'switch catch',
+    'switch(x) { case y: {...x} }',
+    'switch(x) { case y: foo /a/ }',
+    'switch(x) { case y:{ class { x() {} } }}',
+    //'switch({x=y}) { case y: [...a] }',
+    '*() => {return}',
+    '() => return'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
       });
     });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
-    'function f(){   return   }',
-    'function f(){   return;    }',
-    'function f(){   return 15;    }',
-    '(a, b) => {return}',
-    'async foo => {return}',
-    'async () => {return}',
-    'async function f(){ return; }',
-    '(function(){ return })',
-    `function f(){
-      return
-      /x/
-    }`
+    `x => {return}`,
+    `(a, b) => {return}`,
+    `function f(){   return 15;    }`,
+    `function f(){   {return}    }`
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
       });
     });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
   }
-
-  it('function x() { return; }', () => {
-    t.deepEqual(parseScript('function x() { return; }'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'FunctionDeclaration',
-          name: {
-            type: 'BindingIdentifier',
-            name: 'x'
-          },
-          params: { leafs: [], type: 'FormalParameters' },
-          contents: {
-            type: 'FunctionBody',
-            statements: [
-              {
-                type: 'ReturnStatement',
-                expression: null
-              }
-            ],
-            directives: []
-          },
-          async: false,
-          generator: false
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('function x() { return 1; }', () => {
-    t.deepEqual(parseScript('function x() { return 1; }'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'FunctionDeclaration',
-          name: {
-            type: 'BindingIdentifier',
-            name: 'x'
-          },
-          params: { leafs: [], type: 'FormalParameters' },
-          contents: {
-            type: 'FunctionBody',
-            statements: [
-              {
-                type: 'ReturnStatement',
-                expression: {
-                  type: 'NumericLiteral',
-                  value: 1
-                }
-              }
-            ],
-            directives: []
-          },
-          async: false,
-          generator: false
-        }
-      ],
-      webCompat: true
-    });
-  });
 });

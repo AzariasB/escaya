@@ -1,25 +1,36 @@
 import * as t from 'assert';
-import { parseScript, recovery } from '../../../src/escaya';
+import { parseScript, recovery, parseModule } from '../../../src/escaya';
 
-describe('Statements - While', () => {
+describe('leafs - While', () => {
   // Invalid cases
   for (const arg of [
-    'while 1 break;',
-    'while "hood" break;',
-    `while '' break;`,
-    'while(0) { function f(){ break; } }',
-    'while (false) label1: label2: function f() {}',
-    'while (false) const x = null;',
-    'while (false) function* g() {}',
-    'while({1}){ break ; };',
-    'while({1}){ break ; };',
-    'while (function* () {} += x);'
+    'while(x=)=y) {}',
+    'while((x=(y,i,o..y))) {}',
+    'while/("',
+    'while\nx;',
+    'while\n/x/g',
+    'while\n',
+    'while',
+    'while catch',
+    //'while({[a] = {}}) {}/x/',
+    'with((x=(y,i,o..y))) {}',
+    'while(x=y) { a/}',
+    'while(x) { case y: {...x} }',
+    'while(x) { case y: foo /a/ }',
+    'while(x) { case y:{ class { x() {} } }}',
+    'while({x=y}) { case y: [...a] }'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`, { disableWebCompat: true });
+        parseScript(`${arg}`);
       });
     });
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseModule(`${arg}`);
+      });
+    });
+
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         recovery(`${arg}`, 'recovery.js');
@@ -27,14 +38,28 @@ describe('Statements - While', () => {
     });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'while (foo) bar;',
     'while (function* () {} === x);',
     'while ((/(?!$\\x92$)/gimy)){}',
     'while(/a/) { /b/ }',
     'while(/a/)  /b/ ',
-    'while (/["-{-]/gmuy[true] >>>= (((2e308)))) {}'
+    'while (/["-{-]/gmuy[true] >>>= (((2e308)))) {}',
+    'while(x=y) { function a() {} }',
+    'while(x=y) { async function *a() {} }',
+    'while(x=y) { async function *a() {} }',
+    'while(x=y) { async function *a() { yield foo; await x;} }',
+    'while(x=y) { a/b}',
+    'while(x=y) { (x)(y)}',
+    'while(x=y) { ++x; }',
+    'while(x=y) { x--;}',
+    'while(x=y) { !y = typeof x; }',
+    'while(x=y) { !y === typeof x; }',
+    //'while(x=y) { new.target; }',
+    'while(x=y) { new twitter(x); }',
+    'while( {"a": x}) {}/x/',
+    'while( {["a"]: x}) {}/x/'
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
@@ -43,328 +68,213 @@ describe('Statements - While', () => {
     });
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
+        parseModule(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
         recovery(`${arg}`, 'recovery.js');
       });
     });
   }
 
-  it('while({}){}', () => {
-    t.deepEqual(parseScript('while({}){}'), {
+  it('simple block', () => {
+    t.deepEqual(parseScript('{}'), {
       type: 'Script',
       directives: [],
       leafs: [
         {
-          type: 'WhileStatement',
-          expression: {
-            type: 'ObjectLiteral',
-            properties: []
-          },
-          statement: {
-            type: 'BlockStatement',
-            statements: []
-          }
+          type: 'BlockStatement',
+          leafs: [],
+          start: 0,
+          end: 2
         }
       ],
-      webCompat: true
+      start: 0,
+      end: 2
     });
   });
 
-  it('while(1)  {}', () => {
-    t.deepEqual(parseScript('while(1)  {}'), {
+  it('block with lexical', () => {
+    t.deepEqual(parseScript('{let foo = bar;}'), {
       type: 'Script',
       directives: [],
       leafs: [
         {
-          type: 'WhileStatement',
-          expression: {
-            type: 'NumericLiteral',
-            value: 1
-          },
-          statement: {
-            type: 'BlockStatement',
-            statements: []
-          }
+          type: 'BlockStatement',
+          leafs: [
+            {
+              type: 'LexicalDeclaration',
+              isConst: false,
+              declarations: [
+                {
+                  type: 'LexicalBinding',
+                  binding: {
+                    type: 'BindingIdentifier',
+                    name: 'foo',
+                    start: 5,
+                    end: 8
+                  },
+                  initializer: {
+                    type: 'IdentifierReference',
+
+                    name: 'bar',
+                    start: 11,
+                    end: 14
+                  },
+                  start: 5,
+                  end: 14
+                }
+              ],
+              start: 1,
+              end: 15
+            }
+          ],
+          start: 0,
+          end: 16
         }
       ],
-      webCompat: true
+      start: 0,
+      end: 16
     });
   });
 
-  it('while (a<5) {}', () => {
-    t.deepEqual(parseScript('while (a<5) {}'), {
+  it('block wrapped in paren', () => {
+    t.deepEqual(parseScript('({})'), {
       type: 'Script',
       directives: [],
       leafs: [
         {
-          type: 'WhileStatement',
+          type: 'ExpressionStatement',
           expression: {
-            type: 'BinaryExpression',
-            left: {
-              type: 'IdentifierReference',
-              name: 'a'
-            },
-            right: {
-              type: 'NumericLiteral',
-              value: 5
-            },
-            operator: '<'
-          },
-          statement: {
-            type: 'BlockStatement',
-            statements: []
-          }
-        }
-      ],
-      webCompat: true
-    });
-  });
-
-  it('while(1===1) {}', () => {
-    t.deepEqual(parseScript('while(1===1) {}'), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'WhileStatement',
-          expression: {
-            type: 'BinaryExpression',
-            left: {
-              type: 'NumericLiteral',
-              value: 1
-            },
-            right: {
-              type: 'NumericLiteral',
-              value: 1
-            },
-            operator: '==='
-          },
-          statement: {
-            type: 'BlockStatement',
-            statements: []
-          }
-        }
-      ],
-      webCompat: true
-    });
-  });
-  /*
-  it(`while (false) let // ASI
-  x = 1;`, () => {
-    t.deepEqual(
-      parseScript(
-        `while (false) let // ASI
-    x = 1;`
-      ),
-      {
-        directives: [],
-        leafs: [
-          {
+            type: 'ParenthesizedExpression',
             expression: {
-              type: 'BooleanLiteral',
-              value: false
+              type: 'ObjectLiteral',
+              properties: [],
+              start: 1,
+              end: 3
             },
-            statement: {
-              expression: {
-                name: 'let',
-                type: 'IdentifierReference'
-              },
-              type: 'ExpressionStatement'
-            },
-            type: 'WhileStatement'
+            start: 0,
+            end: 4
           },
-          {
-            expression: {
-              binding: {
-                name: 'x',
-                type: 'IdentifierReference'
-              },
-              expression: {
-                type: 'NumericLiteral',
-                value: 1
-              },
-              operator: '=',
-              type: 'AssignmentExpression'
-            },
-            type: 'ExpressionStatement'
-          }
-        ],
-        type: 'Script',
-        webCompat: true
-      }
-    );
-  });
-*/
-  it('while (i-->1) {}', () => {
-    t.deepEqual(parseScript('while (i-->1) {}'), {
-      directives: [],
-      leafs: [
-        {
-          expression: {
-            left: {
-              operand: {
-                name: 'i',
-                type: 'IdentifierReference'
-              },
-              operator: '--',
-              type: 'PostfixUpdateExpression'
-            },
-            operator: '>',
-            right: {
-              type: 'NumericLiteral',
-              value: 1
-            },
-            type: 'BinaryExpression'
-          },
-          statement: {
-            statements: [],
-            type: 'BlockStatement'
-          },
-          type: 'WhileStatement'
+          start: 0,
+          end: 4
         }
       ],
-      type: 'Script',
-      webCompat: true
+      start: 0,
+      end: 4
     });
   });
 
-  it('a: while (true) continue a;', () => {
-    t.deepEqual(parseScript('a: while (true) continue a;'), {
+  it('with ; separation', () => {
+    t.deepEqual(parseScript('{};{};;;;{};'), {
       directives: [],
+      end: 12,
+      start: 0,
       leafs: [
         {
-          label: {
-            name: 'a',
-            type: 'LabelIdentifier'
-          },
-          labelledItem: {
-            expression: {
-              type: 'BooleanLiteral',
-              value: true
-            },
-            statement: {
-              label: {
-                name: 'a',
-                type: 'LabelIdentifier'
-              },
-              type: 'ContinueStatement'
-            },
-            type: 'WhileStatement'
-          },
-          type: 'LabelledStatement'
+          end: 2,
+          start: 0,
+          leafs: [],
+          type: 'BlockStatement'
+        },
+        {
+          end: 3,
+          start: 2,
+          type: 'EmptyStatement'
+        },
+        {
+          end: 5,
+          start: 3,
+          leafs: [],
+          type: 'BlockStatement'
+        },
+        {
+          end: 6,
+          start: 5,
+          type: 'EmptyStatement'
+        },
+        {
+          end: 7,
+          start: 6,
+          type: 'EmptyStatement'
+        },
+        {
+          end: 8,
+          start: 7,
+          type: 'EmptyStatement'
+        },
+        {
+          end: 9,
+          start: 8,
+          type: 'EmptyStatement'
+        },
+        {
+          end: 11,
+          start: 9,
+          leafs: [],
+          type: 'BlockStatement'
+        },
+        {
+          end: 12,
+          start: 11,
+          type: 'EmptyStatement'
         }
       ],
-      type: 'Script',
-      webCompat: true
+      type: 'Script'
     });
   });
 
-  it('while (this) try {} catch (h) {}', () => {
-    t.deepEqual(parseScript('while (this) try {} catch (h) {}'), {
+  it('same level', () => {
+    t.deepEqual(parseScript('{}{}{}'), {
       directives: [],
+      end: 6,
+      start: 0,
       leafs: [
         {
-          expression: {
-            type: 'ThisExpression'
-          },
-          statement: {
-            block: {
-              statements: [],
+          end: 2,
+          start: 0,
+          leafs: [],
+          type: 'BlockStatement'
+        },
+        {
+          end: 4,
+          start: 2,
+          leafs: [],
+          type: 'BlockStatement'
+        },
+        {
+          end: 6,
+          start: 4,
+          leafs: [],
+          type: 'BlockStatement'
+        }
+      ],
+      type: 'Script'
+    });
+  });
+
+  it('nested', () => {
+    t.deepEqual(parseScript('{{}}'), {
+      directives: [],
+      end: 4,
+      start: 0,
+      leafs: [
+        {
+          end: 4,
+          start: 0,
+          leafs: [
+            {
+              end: 3,
+              start: 1,
+              leafs: [],
               type: 'BlockStatement'
-            },
-            catchClause: {
-              binding: {
-                name: 'h',
-                type: 'BindingIdentifier'
-              },
-              block: {
-                statements: [],
-                type: 'BlockStatement'
-              },
-              type: 'CatchClause'
-            },
-            finalizer: null,
-            type: 'TryStatement'
-          },
-          type: 'WhileStatement'
+            }
+          ],
+          type: 'BlockStatement'
         }
       ],
-      type: 'Script',
-      webCompat: true
-    });
-  });
-  it('while (foo) bar;', () => {
-    t.deepEqual(parseScript('while (foo) bar;'), {
-      directives: [],
-      leafs: [
-        {
-          expression: {
-            name: 'foo',
-            type: 'IdentifierReference'
-          },
-          statement: {
-            expression: {
-              name: 'bar',
-              type: 'IdentifierReference'
-            },
-            type: 'ExpressionStatement'
-          },
-          type: 'WhileStatement'
-        }
-      ],
-      type: 'Script',
-      webCompat: true
-    });
-  });
-
-  it('while (x < 10) { x++; y--; }', () => {
-    t.deepEqual(parseScript('while (x < 10) { x++; y--; }'), {
-      directives: [],
-      leafs: [
-        {
-          expression: {
-            left: {
-              name: 'x',
-              type: 'IdentifierReference'
-            },
-            operator: '<',
-            right: {
-              type: 'NumericLiteral',
-              value: 10
-            },
-            type: 'BinaryExpression'
-          },
-          statement: {
-            statements: [
-              {
-                expression: {
-                  operand: {
-                    name: 'x',
-                    type: 'IdentifierReference'
-                  },
-                  operator: '++',
-                  type: 'PostfixUpdateExpression'
-                },
-                type: 'ExpressionStatement'
-              },
-              {
-                expression: {
-                  operand: {
-                    name: 'y',
-                    type: 'IdentifierReference'
-                  },
-                  operator: '--',
-                  type: 'PostfixUpdateExpression'
-                },
-                type: 'ExpressionStatement'
-              }
-            ],
-            type: 'BlockStatement'
-          },
-          type: 'WhileStatement'
-        }
-      ],
-      type: 'Script',
-      webCompat: true
+      type: 'Script'
     });
   });
 });

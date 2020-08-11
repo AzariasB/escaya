@@ -1,66 +1,48 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, recovery, parseModule } from '../../../src/escaya';
 
-describe('Statements - For await of', () => {
+describe('leafs - For await of', () => {
+  // Invalid cases
   for (const arg of [
-    'async function f() { for await (a = 1 of []); }',
-    'async function f() { for await (a = 1) of []); }',
-    'async function f() { for await (a.b = 1 of []); }',
-    'async function f() { for await ((a.b = 1) of []); }',
-    'for await (a of b) let [x]',
-    // 'async function f() { "use strict"; for await ([a] = 1 of []); }',
-    'async function f() { for await (([a] = 1) of []){ } }',
-    // 'async function * f() { for await ([a = 1] = 1 of []){ } }',
-    'async function f() { for await (([a = 1] = 1) of []){ } }',
-    'async function * f() { for await ([a = 1 = 1, ...b] = 1 of []){ } }',
-    'async function f() { for await (([a = 1 = 1, ...b] = 1) of []){ } }',
-    //'async function * f() { for await ({a} = 1 of []){ } }',
-    'async function f() { for await (({a} = 1) of []){ } }',
-    //'async function * f() { for await ({a: a} = 1 of []){ } }',
-    'async function f() { for await (({a: a} = 1) of []); }',
-    //'async function f() { for await ({"a": a} = 1 of []); }',
-    //'async function f() { for await ({[Symbol.iterator]: a} = 1 of []); }',
-    'async function f() { for await (({[Symbol.iterator]: a} = 1) of []); }',
-    //'async function f() { "use strict"; for await ({0: a} = 1 of []); }',
-    'async function f() { for await (({0: a} = 1) of []){ } }',
-    //'async function * f() { for await ({a = 1} = 1 of []){ } }',
-    'async function f() { for await (({a = 1} = 1) of []){ } }',
-    //'async function * f() { for await ({a: a = 1} = 1 of []){ } }',
-    'async function f() { for await (({a: a = 1} = 1) of []){ } }',
-    //'async function * f() { for await ({[Symbol.iterator]: a = 1} = 1 of []){ } }',
-    'async function f() { for await (({[Symbol.iterator]: a = 1} = 1) of []){ } }',
-    'async function * f() { for await (function a() {} of []){ } }',
-    'async function f() { for await (({0: a = 1} = 1) of []); }',
-    //'async function f() { for await ({0: a = 1} = 1 of []); }',
-    'async function f() { for await (var {a}, b of []){ } }',
-    'async function * f() { for await (var {a: a} = 1 of []){ } }',
-    'async function f() { for await (var {a: a}, b of []){ } }',
-    'async function f() { for await (const {0: a = 1}, b of []); }',
-    'async function f() { for await (const {a}, b of []); }',
-    'async function f() { for await (const {a} = 1 of []); }',
-    'async function f() { for await (const [a = 1] = 1 of []); }',
-    'async function f() { "use strict"; for await ", " ; }',
-    'async function f() { for await (const [a = 1, ...b] = 1 of []){ } }',
-    'async function * f() { for await (const {0: a}, b of []){ } }',
-    'async function f() { for await (const {a: a = 1} = 1 of []){ } }',
-    'async function * f() { for await (const {a: a = 1}, b of []){ } }',
-    'async function f() { for await (const {[Symbol.iterator]: a = 1}, b of []){ } }',
-    'async function * f() { for await (const {0: a = 1} = 1 of []){ } }',
-    'async function f() { for await (let {0: a} = 1 of []); }',
-    'async function f() { "use strict"; for await (let {0: a = 1} = 1 of []); }',
-    'async function f() { for await (const [a = 1] = 1 of []){ } }',
-    'async function * f() { for await (const [a = 1], b of []){ } }',
-    'async function f() { for await ([1] of []); }',
-    'async function f() { for await ({a: 1} of []); }',
-    'async function f() { "use strict"; for await (var [a = 1 = 1, ...b] of []); }'
+    'do/("while',
+    'do\nx;while',
+    'do\n/x/g while',
+    'do\nwhile',
+    'do while',
+    'do catch while',
+    'do let {} = y',
+    // 'do debugger while(x) x',
+    // 'do x: function s(){}while(y)',
+    // 'do foo while (bar);',
+    'do async \n f(){}; while (y)',
+    'do let x = 1; while (false)',
+    'do async \n f(){}; while (y)',
+    // 'do x, y while (z)',
+    //'do foo while (bar);',
+    //'do ()=>x while(c)',
+    'do(x) { case y: {...x} } while',
+    'do(x) { case y: foo /a/ while }',
+    'do(x) { case y:{ class { x() {} } while }}',
+    'do({x=y}) { case y: [...a]  while}'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
       });
     });
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseModule(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
   }
 
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'async function f() { for await (a of []) ; }',
     'async function f() { for await (a.b of []) ; }',
@@ -106,39 +88,210 @@ describe('Statements - For await of', () => {
         parseScript(`${arg}`);
       });
     });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
   }
 
-  it('for(var a in b);', () => {
-    t.deepEqual(parseScript('for(var a in b);'), {
+  it('simple block', () => {
+    t.deepEqual(parseScript('{}'), {
       type: 'Script',
       directives: [],
       leafs: [
         {
-          type: 'ForInStatement',
-          initializer: {
-            type: 'ForDeclaration',
-            declarations: [
-              {
-                type: 'VariableDeclaration',
-                binding: {
-                  type: 'BindingIdentifier',
-                  name: 'a'
-                },
-                initializer: null
-              }
-            ],
-            kind: 'var'
-          },
-          expression: {
-            type: 'IdentifierReference',
-            name: 'b'
-          },
-          statement: {
-            type: 'EmptyStatement'
-          }
+          type: 'BlockStatement',
+          leafs: [],
+          start: 0,
+          end: 2
         }
       ],
-      webCompat: true
+      start: 0,
+      end: 2
+    });
+  });
+
+  it('block with lexical', () => {
+    t.deepEqual(parseScript('{let foo = bar;}'), {
+      type: 'Script',
+      directives: [],
+      leafs: [
+        {
+          type: 'BlockStatement',
+          leafs: [
+            {
+              type: 'LexicalDeclaration',
+              isConst: false,
+              declarations: [
+                {
+                  type: 'LexicalBinding',
+                  binding: {
+                    type: 'BindingIdentifier',
+                    name: 'foo',
+                    start: 5,
+                    end: 8
+                  },
+                  initializer: {
+                    type: 'IdentifierReference',
+
+                    name: 'bar',
+                    start: 11,
+                    end: 14
+                  },
+                  start: 5,
+                  end: 14
+                }
+              ],
+              start: 1,
+              end: 15
+            }
+          ],
+          start: 0,
+          end: 16
+        }
+      ],
+      start: 0,
+      end: 16
+    });
+  });
+
+  it('block wrapped in paren', () => {
+    t.deepEqual(parseScript('({})'), {
+      type: 'Script',
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ObjectLiteral',
+              properties: [],
+              start: 1,
+              end: 3
+            },
+            start: 0,
+            end: 4
+          },
+          start: 0,
+          end: 4
+        }
+      ],
+      start: 0,
+      end: 4
+    });
+  });
+
+  it('with ; separation', () => {
+    t.deepEqual(parseScript('{};{};;;;{};'), {
+      directives: [],
+      end: 12,
+      start: 0,
+      leafs: [
+        {
+          end: 2,
+          start: 0,
+          leafs: [],
+          type: 'BlockStatement'
+        },
+        {
+          end: 3,
+          start: 2,
+          type: 'EmptyStatement'
+        },
+        {
+          end: 5,
+          start: 3,
+          leafs: [],
+          type: 'BlockStatement'
+        },
+        {
+          end: 6,
+          start: 5,
+          type: 'EmptyStatement'
+        },
+        {
+          end: 7,
+          start: 6,
+          type: 'EmptyStatement'
+        },
+        {
+          end: 8,
+          start: 7,
+          type: 'EmptyStatement'
+        },
+        {
+          end: 9,
+          start: 8,
+          type: 'EmptyStatement'
+        },
+        {
+          end: 11,
+          start: 9,
+          leafs: [],
+          type: 'BlockStatement'
+        },
+        {
+          end: 12,
+          start: 11,
+          type: 'EmptyStatement'
+        }
+      ],
+      type: 'Script'
+    });
+  });
+
+  it('same level', () => {
+    t.deepEqual(parseScript('{}{}{}'), {
+      directives: [],
+      end: 6,
+      start: 0,
+      leafs: [
+        {
+          end: 2,
+          start: 0,
+          leafs: [],
+          type: 'BlockStatement'
+        },
+        {
+          end: 4,
+          start: 2,
+          leafs: [],
+          type: 'BlockStatement'
+        },
+        {
+          end: 6,
+          start: 4,
+          leafs: [],
+          type: 'BlockStatement'
+        }
+      ],
+      type: 'Script'
+    });
+  });
+
+  it('nested', () => {
+    t.deepEqual(parseScript('{{}}'), {
+      directives: [],
+      end: 4,
+      start: 0,
+      leafs: [
+        {
+          end: 4,
+          start: 0,
+          leafs: [
+            {
+              end: 3,
+              start: 1,
+              leafs: [],
+              type: 'BlockStatement'
+            }
+          ],
+          type: 'BlockStatement'
+        }
+      ],
+      type: 'Script'
     });
   });
 });

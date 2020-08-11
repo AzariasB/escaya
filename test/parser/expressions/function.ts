@@ -1,18 +1,9 @@
 import * as t from 'assert';
-import { parseScript, recovery } from '../../../src/escaya';
+import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
 describe('Expressions - Function', () => {
   // Invalid cases
-  for (const arg of [
-    '(function f(...(x)){})',
-    '"use strict"; (function foo(){  007 })',
-    '(function break(){})',
-    '(function function(){})',
-    '(function f([...foo, bar] = obj){})',
-    `function f() {
-  do throw pass while(x);
-}`
-  ]) {
+  for (const arg of ['[', '[,', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -25,9 +16,8 @@ describe('Expressions - Function', () => {
     });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
-    'let f = async function f(yield) {}',
     'let f = function f(await) {}',
     '(function([[,] = function* g() {}]) {})',
     '(function([cover = (function () {}), xCover = (0, function() {})]) {})',
@@ -90,7 +80,6 @@ describe('Expressions - Function', () => {
     'function f([,] = x){}',
     'function f([,,]){}',
     'function f([,,] = x){}',
-
     '(function f(a, b, ...rest){})',
     '(function([x = 23] = [undefined]) {})',
     'function a5({a3, b2: { ba1, ...ba2 }, ...c3}) {}',
@@ -132,7 +121,6 @@ describe('Expressions - Function', () => {
     'function f({x:x = 1}, {y:b=(x=2)}) {}',
     'function f(x) {g(x)}',
     'function f({x:x = (x = 2)}) {}',
-    `(function package() { (function gave_away_the_package() { "use strict"; }) })`,
     '(function fn({a = 1, ...b} = {}) {   return {a, b}; })',
     `function iceFapper(idiot) {}`,
     '(function([{ u: v, w: x, y: z } = { u: 444, w: 555, y: 666 }] = [{ u: 777, w: 888, y: 999 }]) {})',
@@ -145,7 +133,17 @@ describe('Expressions - Function', () => {
     });
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
+        parseModule(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
         recovery(`${arg}`, 'recovery.js');
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js', { module: true });
       });
     });
   }

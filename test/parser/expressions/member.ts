@@ -1,17 +1,22 @@
 import * as t from 'assert';
-import { parseScript } from '../../../src/escaya';
+import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
-describe('Expressions - Member', () => {
+describe('Expressions - Binary', () => {
   // Invalid cases
-  for (const arg of ['abc???.£', 'foo.|1.', 'let[x]', `foo.123.`, 'abc.£', 'a.[b].c().d.toString()']) {
+  for (const arg of ['[', '[,', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
       });
     });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
   }
 
-  // Valid cases
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     '[x()[y] = a + b] = z',
     'await[x]',
@@ -45,6 +50,16 @@ describe('Expressions - Member', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        parseModule(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
       });
     });
   }
