@@ -2635,11 +2635,12 @@ export function parseFunctionExpression(
 
   if (
     state.token &
-    (context & Context.ErrorRecovery ? Constants.FuntionNameRecovery : Constants.IsIdentifierOrKeywordNormal)
+    (context & Context.ErrorRecovery ? Constants.IsIdentifierOrKeywordRecovery : Constants.IsIdentifierOrKeywordNormal)
   ) {
     name = validateFunctionName(state, context | ((context & 0b0000000000000000000_1100_00000000) << 11));
+  } else if (state.token !== Token.LeftParen) {
+    name = createBindingIdentifier(state, context, DiagnosticCode.ExpectedBindingIdent, /* shouldConsume */ false);
   }
-
   context =
     ((context | 0b00000001111111101010000000000000) ^ 0b00000001111111101010000000000000) | generatorAndAsyncFlags;
 
@@ -2723,14 +2724,21 @@ export function parseFunctionDeclaration(
   const generatorAndAsyncFlags = (isAsync * 2 + isGenerator) << 21;
 
   let name: BindingIdentifier | null = null;
-
+  //  (context & Context.ErrorRecovery ? Constants.FuntionNameRecovery : Constants.IsIdentifierOrKeywordNormal)
   if (
     state.token &
-    (context & Context.ErrorRecovery ? Constants.FuntionNameRecovery : Constants.IsIdentifierOrKeywordNormal)
+    (context & Context.ErrorRecovery ? Constants.IsIdentifierOrKeywordRecovery : Constants.IsIdentifierOrKeywordNormal)
   ) {
     name = validateFunctionName(state, context | ((context & 0b0000000000000000000_1100_00000000) << 11));
-  } else if ((context & Context.Default) !== Context.Default) {
-    addEarlyDiagnostic(state, context, DiagnosticCode.MissingFuncName);
+  } else {
+    // In recovery mode we allow everything that can start an expression as an function name so we can insert an
+    // dummy identifier without priming the scanner. It makes a clear distinction when it comes to cases
+    // like 'function while() {}', 'function true() {}' and 'function function (function)'.
+    if (state.token & Token.IsExpressionStart && (context & Context.Default) !== Context.Default) {
+      name = createBindingIdentifier(state, context, DiagnosticCode.ExpectedBindingIdent, /* shouldConsume */ false);
+    } else if ((context & Context.Default) !== Context.Default) {
+      addEarlyDiagnostic(state, context, DiagnosticCode.MissingFuncName);
+    }
   }
 
   context =

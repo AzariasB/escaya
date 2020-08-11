@@ -2520,14 +2520,7 @@ describe('Recovery - Switch', () => {
               },
               {
                 type: 'FunctionExpression',
-                name: {
-                  type: 'BindingIdentifier',
-                  name: '',
-                  start: 20,
-                  end: 20,
-                  kind: 168,
-                  flags: 0
-                },
+                name: null,
                 generator: false,
                 async: false,
                 params: [],
@@ -2663,14 +2656,6 @@ describe('Recovery - Switch', () => {
           code: 5,
           start: 12,
           length: 8
-        },
-        {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
-          start: 20,
-          length: 1
         },
         {
           kind: 2,

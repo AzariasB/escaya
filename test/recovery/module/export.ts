@@ -232,10 +232,10 @@ describe('Recovery - Export', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 16,
           length: 1
         }
@@ -453,7 +453,7 @@ describe('Recovery - Export', () => {
               type: 'BindingIdentifier',
               name: '',
               start: 25,
-              end: 31,
+              end: 25,
               kind: 168,
               flags: 0
             },
@@ -464,14 +464,23 @@ describe('Recovery - Export', () => {
               type: 'FunctionBody',
               directives: [],
               leafs: [],
-              start: 31,
-              end: 31,
+              start: 25,
+              end: 25,
               kind: 184,
               flags: 0
             },
             start: 12,
-            end: 31,
+            end: 25,
             kind: 186,
+            flags: 0
+          },
+          {
+            type: 'LexicalDeclaration',
+            isConst: true,
+            declarations: [],
+            start: 25,
+            end: 31,
+            kind: 145,
             flags: 0
           },
           {
@@ -571,14 +580,6 @@ describe('Recovery - Export', () => {
             code: 18,
             start: 26,
             length: 5
-          },
-          {
-            kind: 2,
-            source: 2,
-            message: '`(` expected',
-            code: 5,
-            start: 32,
-            length: 3
           },
           {
             kind: 2,

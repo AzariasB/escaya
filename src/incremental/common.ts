@@ -30,10 +30,11 @@ export function createIdentifier(
 export function createBindingIdentifier(
   state: ParserState,
   context: Context,
-  code: DiagnosticCode
+  code: DiagnosticCode,
+  shouldConsume = true
 ): IdentifierReference {
   addDiagnostic(state, context, DiagnosticSource.Parser, code, DiagnosticKind.Early);
   const start = state.startIndex;
-  nextToken(state, context);
+  if (shouldConsume) nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.BindingIdentifier(''), SyntaxKind.BindingIdentifier);
 }

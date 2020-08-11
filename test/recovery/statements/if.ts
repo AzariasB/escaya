@@ -94,7 +94,14 @@ describe('Recovery - If', () => {
           type: 'IfStatement',
           expression: {
             type: 'FunctionExpression',
-            name: null,
+            name: {
+              type: 'BindingIdentifier',
+              name: '',
+              start: 17,
+              end: 17,
+              kind: 168,
+              flags: 0
+            },
             generator: false,
             async: true,
             params: [],
@@ -171,10 +178,10 @@ describe('Recovery - If', () => {
           length: 5
         },
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`(` expected',
-          code: 5,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 18,
           length: 4
         },
@@ -368,7 +375,14 @@ describe('Recovery - If', () => {
                 type: 'IfStatement',
                 expression: {
                   type: 'FunctionExpression',
-                  name: null,
+                  name: {
+                    type: 'BindingIdentifier',
+                    name: '',
+                    start: 26,
+                    end: 26,
+                    kind: 168,
+                    flags: 0
+                  },
                   generator: false,
                   async: true,
                   params: [],
@@ -519,10 +533,10 @@ describe('Recovery - If', () => {
           length: 5
         },
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`(` expected',
-          code: 5,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 27,
           length: 4
         },
@@ -1725,10 +1739,10 @@ describe('Recovery - If', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 12,
           length: 1
         },

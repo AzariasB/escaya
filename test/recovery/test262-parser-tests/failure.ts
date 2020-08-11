@@ -454,10 +454,10 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 9,
           length: 4
         }
@@ -706,7 +706,7 @@ describe('test262-parser-tests - failing tests', () => {
                   type: 'BindingIdentifier',
                   name: '',
                   start: 30,
-                  end: 31,
+                  end: 30,
                   kind: 168,
                   flags: 0
                 },
@@ -717,33 +717,25 @@ describe('test262-parser-tests - failing tests', () => {
                   type: 'FunctionBody',
                   directives: [],
                   leafs: [],
-                  start: 31,
-                  end: 31,
+                  start: 32,
+                  end: 35,
                   kind: 184,
                   flags: 0
                 },
                 start: 15,
-                end: 31,
+                end: 35,
                 kind: 186,
                 flags: 0
               }
             ],
             start: 13,
-            end: 31,
+            end: 37,
             kind: 184,
             flags: 0
           },
           start: 0,
-          end: 31,
+          end: 37,
           kind: 186,
-          flags: 0
-        },
-        {
-          type: 'BlockStatement',
-          leafs: [],
-          start: 32,
-          end: 35,
-          kind: 123,
           flags: 0
         }
       ],
@@ -758,22 +750,6 @@ describe('test262-parser-tests - failing tests', () => {
           message: 'Unexpected `yield` as identifier in this context',
           code: 21,
           start: 30,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`(` expected',
-          code: 5,
-          start: 31,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 36,
           length: 1
         }
       ],
@@ -1824,14 +1800,7 @@ describe('test262-parser-tests - failing tests', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'FunctionExpression',
-              name: {
-                type: 'BindingIdentifier',
-                name: '',
-                start: 11,
-                end: 11,
-                kind: 168,
-                flags: 0
-              },
+              name: null,
               generator: true,
               async: false,
               params: [
@@ -1888,16 +1857,7 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
-          start: 11,
-          length: 1
-        }
-      ],
+      diagnostics: [],
       detached: false,
       isIncremental: false,
       parent: null,
@@ -2348,10 +2308,10 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 9,
           length: 4
         }
@@ -2501,14 +2461,7 @@ describe('test262-parser-tests - failing tests', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'FunctionExpression',
-              name: {
-                type: 'BindingIdentifier',
-                name: '',
-                start: 9,
-                end: 9,
-                kind: 168,
-                flags: 0
-              },
+              name: null,
               generator: false,
               async: false,
               params: [],
@@ -2572,16 +2525,7 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
-          start: 9,
-          length: 1
-        }
-      ],
+      diagnostics: [],
       detached: false,
       isIncremental: false,
       parent: null,
@@ -5792,10 +5736,10 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 9,
           length: 5
         }
@@ -6464,14 +6408,7 @@ describe('test262-parser-tests - failing tests', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'FunctionExpression',
-              name: {
-                type: 'BindingIdentifier',
-                name: '',
-                start: 10,
-                end: 10,
-                kind: 168,
-                flags: 0
-              },
+              name: null,
               generator: true,
               async: false,
               params: [],
@@ -6529,14 +6466,6 @@ describe('test262-parser-tests - failing tests', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
-        {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
-          start: 10,
-          length: 1
-        },
         {
           kind: 2,
           source: 2,

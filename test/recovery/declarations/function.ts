@@ -277,10 +277,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 9,
           length: 4
         }
@@ -339,10 +339,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 8,
           length: 1
         }
@@ -578,10 +578,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 9,
           length: 1
         },
@@ -674,10 +674,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 9,
           length: 1
         },
@@ -831,10 +831,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 9,
           length: 1
         },
@@ -1045,10 +1045,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 17,
           length: 1
         }
@@ -1242,10 +1242,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 8,
           length: 1
         },
@@ -1401,10 +1401,10 @@ describe('Recovery - Function', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
-          source: 0,
-          message: 'Expected an identifier',
-          code: 20,
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 9,
           length: 1
         },
