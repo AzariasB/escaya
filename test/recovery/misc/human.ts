@@ -5,6 +5,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Human', () => {
   for (const arg of [
+    'I ran into infite loop while try to develop this {',
     'while wait for the train i run for my life',
     'i switch then to my jacket to be protected',
     'try as much as you can for tomorrow it is too late',
@@ -812,15 +813,9 @@ describe('Recovery - Human', () => {
           }
         ],
         detached: false,
-        isIncremental: false,
+        incremental: false,
         parent: null,
         children: [],
-        EOF: {
-          type: 'CST',
-          kind: 16384,
-          start: 299,
-          end: 299
-        },
         start: 0,
         length: 299,
         end: 299
@@ -1123,15 +1118,9 @@ describe('Recovery - Human', () => {
           }
         ],
         detached: false,
-        isIncremental: false,
+        incremental: false,
         parent: null,
         children: [],
-        EOF: {
-          type: 'CST',
-          kind: 16384,
-          start: 82,
-          end: 82
-        },
         start: 0,
         length: 82,
         end: 82

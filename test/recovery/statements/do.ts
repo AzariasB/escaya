@@ -68,15 +68,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -141,15 +135,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -246,15 +234,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 24,
-        end: 24
-      },
       start: 0,
       length: 24,
       end: 24
@@ -341,15 +323,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 12,
-        end: 12
-      },
       start: 0,
       length: 12,
       end: 12
@@ -414,15 +390,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -575,15 +545,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 27,
-        end: 27
-      },
       start: 0,
       length: 27,
       end: 27
@@ -683,15 +647,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 30,
-        end: 30
-      },
       start: 0,
       length: 30,
       end: 30
@@ -888,15 +846,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 32,
-        end: 32
-      },
       start: 0,
       length: 32,
       end: 32
@@ -969,15 +921,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
@@ -1126,15 +1072,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 31,
-        end: 31
-      },
       start: 0,
       length: 31,
       end: 31
@@ -1320,15 +1260,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 51,
-        end: 51
-      },
       start: 0,
       length: 51,
       end: 51
@@ -1521,7 +1455,7 @@ describe('Declarations - Do while', () => {
           }
       ],
       "detached": false,
-      "isIncremental": false,
+      "incremental": false,
       "parent": null,
       "children": [],
       "EOF": {
@@ -1966,15 +1900,9 @@ describe('Declarations - Do while', () => {
           }
         ],
         detached: false,
-        isIncremental: false,
+        incremental: false,
         parent: null,
         children: [],
-        EOF: {
-          type: 'CST',
-          kind: 16384,
-          start: 94,
-          end: 94
-        },
         start: 0,
         length: 94,
         end: 94
@@ -2130,15 +2058,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 23,
-        end: 23
-      },
       start: 0,
       length: 23,
       end: 23
@@ -2440,15 +2362,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 64,
-        end: 64
-      },
       start: 0,
       length: 64,
       end: 64
@@ -2529,15 +2445,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -2610,15 +2520,9 @@ describe('Declarations - Do while', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9

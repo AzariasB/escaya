@@ -16,14 +16,13 @@ export interface RootNode extends SyntaxNode {
   readonly context: Context;
   readonly mutualFlags: Flags;
   readonly diagnostics: Diagnostic[];
-  detached: boolean;
-  isIncremental: boolean;
   readonly parent?: Node | null;
   readonly length?: number;
   readonly children: any[] | null;
-  readonly EOF: any;
   readonly start: number;
   readonly end: number;
+  detached: boolean;
+  incremental: boolean;
 }
 
 export function createRootNode(
@@ -31,8 +30,7 @@ export function createRootNode(
   leafs: ImportExport[],
   text: string,
   fileName: string,
-  diagnostics: Diagnostic[],
-  EOF: any
+  diagnostics: Diagnostic[]
 ): RootNode {
   return {
     kind: SyntaxKind.RootNode | SyntaxNodeFlags.None,
@@ -44,10 +42,9 @@ export function createRootNode(
     mutualFlags: Flags.Empty,
     diagnostics,
     detached: false,
-    isIncremental: false,
+    incremental: false,
     parent: null,
     children: [],
-    EOF,
     start: 0,
     length: text.length,
     end: text.length

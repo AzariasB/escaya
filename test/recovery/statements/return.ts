@@ -76,15 +76,9 @@ describe('Recovery - Return', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
@@ -142,15 +136,9 @@ describe('Recovery - Return', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -217,15 +205,9 @@ describe('Recovery - Return', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9

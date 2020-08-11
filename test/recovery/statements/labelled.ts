@@ -60,15 +60,9 @@ describe('Recovery - Block', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4
@@ -90,14 +84,8 @@ describe('Recovery - Block', () => {
       ],
       directives: [],
       end: 6,
-      EOF: {
-        end: 6,
-        kind: 16384,
-        start: 6,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       length: 6,

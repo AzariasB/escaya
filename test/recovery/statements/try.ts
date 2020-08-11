@@ -40,15 +40,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 3,
-        end: 3
-      },
       start: 0,
       length: 3,
       end: 3
@@ -115,15 +109,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
@@ -198,15 +186,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
@@ -313,15 +295,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
@@ -445,15 +421,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 14,
-        end: 14
-      },
       start: 0,
       length: 14,
       end: 14
@@ -585,15 +555,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
@@ -717,15 +681,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
@@ -890,15 +848,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -1071,15 +1023,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -1260,15 +1206,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 21,
-        end: 21
-      },
       start: 0,
       length: 21,
       end: 21
@@ -1400,15 +1340,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
@@ -1533,15 +1467,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 18,
-        end: 18
-      },
       start: 0,
       length: 18,
       end: 18
@@ -1602,15 +1530,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
@@ -1767,15 +1689,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 25,
-        end: 25
-      },
       start: 0,
       length: 25,
       end: 25
@@ -1836,15 +1752,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
@@ -1898,15 +1808,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4
@@ -1975,15 +1879,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 6,
-        end: 6
-      },
       start: 0,
       length: 6,
       end: 6
@@ -2044,15 +1942,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -2134,15 +2026,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -2242,15 +2128,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
@@ -2335,15 +2215,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -2757,15 +2631,9 @@ describe('Recovery - Try', () => {
           }
         ],
         detached: false,
-        isIncremental: false,
+        incremental: false,
         parent: null,
         children: [],
-        EOF: {
-          type: 'CST',
-          kind: 16384,
-          start: 81,
-          end: 81
-        },
         start: 0,
         length: 81,
         end: 81
@@ -2996,22 +2864,16 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 52,
-        end: 52
-      },
       start: 0,
       length: 52,
       end: 52
     });
   });
 
-  it('Unclosed block statement32', () => {
+  it('try {} catch(x)', () => {
     t.deepEqual(recovery('try {} catch(x)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3071,22 +2933,16 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
     });
   });
 
-  it('Unclosed block statement332', () => {
+  it('try {!} catch(x', () => {
     t.deepEqual(recovery('try {!} catch(x', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3178,22 +3034,16 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
     });
   });
 
-  it('Unclosed block statement23', () => {
+  it('try {,,,,,,} catch(x,,,)', () => {
     t.deepEqual(recovery('try {,,,,,,} catch(x,,,)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3358,22 +3208,16 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 24,
-        end: 24
-      },
       start: 0,
       length: 24,
       end: 24
     });
   });
 
-  it('Unclosed block statement23', () => {
+  it('try {/a//d -!} catch(x) { foo:', () => {
     t.deepEqual(recovery('try {/a//d -!} catch(x) { foo:', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3536,21 +3380,16 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 30,
-        end: 30
-      },
       start: 0,
       length: 30,
       end: 30
     });
   });
-  it('Unclosed block statementasdf', () => {
+
+  it('try {/a//d -!} catch(x) { foo:  ? : b', () => {
     t.deepEqual(recovery('try {/a//d -!} catch(x) { foo:  ? : b', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3728,21 +3567,16 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 37,
-        end: 37
-      },
       start: 0,
       length: 37,
       end: 37
     });
   });
-  it('Unclosed block statement4123', () => {
+
+  it('try {a?b:c/a{!!!}} catch(x)', () => {
     t.deepEqual(recovery('try {a?b:c/a{!!!}} catch(x)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3913,21 +3747,16 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 27,
-        end: 27
-      },
       start: 0,
       length: 27,
       end: 27
     });
   });
-  it('Unclosed block statementadf', () => {
+
+  it('try {} catch(x/[])', () => {
     t.deepEqual(recovery('try {} catch(x/[])', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -4003,21 +3832,16 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 18,
-        end: 18
-      },
       start: 0,
       length: 18,
       end: 18
     });
   });
-  it('Unclosed block statement234576', () => {
+
+  it('try {} catch([[[{x}]]])', () => {
     t.deepEqual(recovery('try {} catch([[[{x}]]])', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -4137,21 +3961,16 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 23,
-        end: 23
-      },
       start: 0,
       length: 23,
       end: 23
     });
   });
-  it('Unclosed block statement23434232442324432543', () => {
+
+  it('try {} catch(x,[x])', () => {
     t.deepEqual(recovery('try {} catch(x,[x])', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -4243,21 +4062,16 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
     });
   });
-  it('Unclosed block statementadsfadsfdf', () => {
+
+  it('try {} catch(break,,,)', () => {
     t.deepEqual(recovery('try {} catch(break,,,)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -4341,15 +4155,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 22,
-        end: 22
-      },
       start: 0,
       length: 22,
       end: 22
@@ -4807,15 +4615,9 @@ describe('Recovery - Try', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 39,
-        end: 39
-      },
       start: 0,
       length: 39,
       end: 39

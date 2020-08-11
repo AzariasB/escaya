@@ -22,15 +22,9 @@ describe('Recovery - Var', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 3,
-        end: 3
-      },
       start: 0,
       length: 3,
       end: 3
@@ -89,15 +83,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
@@ -150,15 +138,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
@@ -203,15 +185,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4
@@ -273,15 +249,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 6,
-        end: 6
-      },
       start: 0,
       length: 6,
       end: 6
@@ -653,15 +623,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 46,
-        end: 46
-      },
       start: 0,
       length: 46,
       end: 46
@@ -705,15 +669,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
@@ -813,15 +771,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 14,
-        end: 14
-      },
       start: 0,
       length: 14,
       end: 14
@@ -844,14 +796,8 @@ describe('Recovery - Var', () => {
       ],
       directives: [],
       end: 5,
-      EOF: {
-        end: 5,
-        kind: 16384,
-        start: 5,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       length: 5,
@@ -1020,15 +966,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 23,
-        end: 23
-      },
       start: 0,
       length: 23,
       end: 23
@@ -1147,15 +1087,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 35,
-        end: 35
-      },
       start: 0,
       length: 35,
       end: 35
@@ -1304,15 +1238,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 44,
-        end: 44
-      },
       start: 0,
       length: 44,
       end: 44
@@ -1484,15 +1412,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 54,
-        end: 54
-      },
       start: 0,
       length: 54,
       end: 54
@@ -1719,15 +1641,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 69,
-        end: 69
-      },
       start: 0,
       length: 69,
       end: 69
@@ -1895,15 +1811,9 @@ describe('Recovery - Var', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 38,
-        end: 38
-      },
       start: 0,
       length: 38,
       end: 38

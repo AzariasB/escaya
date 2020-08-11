@@ -53,15 +53,9 @@ describe('Recovery - Throw', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 16,
-        end: 16
-      },
       start: 0,
       length: 16,
       end: 16
@@ -127,15 +121,9 @@ describe('Recovery - Throw', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
@@ -296,15 +284,9 @@ describe('Recovery - Throw', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 33,
-        end: 33
-      },
       start: 0,
       length: 33,
       end: 33
@@ -347,15 +329,9 @@ describe('Recovery - Throw', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
@@ -405,15 +381,9 @@ describe('Recovery - Throw', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 6,
-        end: 6
-      },
       start: 0,
       length: 6,
       end: 6
@@ -462,15 +432,9 @@ describe('Recovery - Throw', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 12,
-        end: 12
-      },
       start: 0,
       length: 12,
       end: 12
@@ -554,15 +518,9 @@ describe('Recovery - Throw', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
@@ -646,15 +604,9 @@ describe('Recovery - Throw', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
@@ -730,15 +682,9 @@ describe('Recovery - Throw', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 17,
-        end: 17
-      },
       start: 0,
       length: 17,
       end: 17
@@ -837,15 +783,9 @@ describe('Recovery - Throw', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 23,
-        end: 23
-      },
       start: 0,
       length: 23,
       end: 23

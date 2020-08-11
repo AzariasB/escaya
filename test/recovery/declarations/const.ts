@@ -23,15 +23,9 @@ describe('Recovery - Const', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
@@ -85,15 +79,9 @@ describe('Recovery - Const', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
@@ -178,15 +166,9 @@ describe('Recovery - Const', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
@@ -245,15 +227,9 @@ describe('Recovery - Const', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8

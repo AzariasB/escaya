@@ -39,22 +39,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 6,
-        end: 6
-      },
       start: 0,
       length: 6,
       end: 6
     });
   });
 
-  it('Unclosed block statement33', () => {
+  it('switch{', () => {
     t.deepEqual(recovery('switch{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -91,22 +85,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
     });
   });
 
-  it('Unclosed block statement234', () => {
+  it('{switch', () => {
     t.deepEqual(recovery('{switch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -152,22 +140,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
     });
   });
 
-  it('Unclosed block statement4352', () => {
+  it('switch({', () => {
     t.deepEqual(recovery('switch({', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -204,22 +186,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
     });
   });
 
-  it('Unclosed block statementewr', () => {
+  it('switch default {', () => {
     t.deepEqual(recovery('switch default {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -264,15 +240,9 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 16,
-        end: 16
-      },
       start: 0,
       length: 16,
       end: 16
@@ -356,15 +326,9 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 20,
-        end: 20
-      },
       start: 0,
       length: 20,
       end: 20
@@ -473,22 +437,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 32,
-        end: 32
-      },
       start: 0,
       length: 32,
       end: 32
     });
   });
 
-  it('Unclosed block statement0+9', () => {
+  it('switch(x switch', () => {
     t.deepEqual(recovery('switch(x switch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -541,22 +499,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
     });
   });
 
-  it('Unclosed block statement4985032443+032459+34259+0935+093w9+035', () => {
+  it('switch ! switch { default switch ', () => {
     t.deepEqual(recovery('switch ! switch { default switch ', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -666,22 +618,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 33,
-        end: 33
-      },
       start: 0,
       length: 33,
       end: 33
     });
   });
 
-  it('Unclosed block statement4535432354', () => {
+  it('I switch to try this ! in a { but in a while loop with in a switch { default clause', () => {
     t.deepEqual(
       recovery('I switch to try this ! in a { but in a while loop with in a switch { default clause', 'recovery.js'),
       {
@@ -996,15 +942,9 @@ describe('Recovery - Switch', () => {
           }
         ],
         detached: false,
-        isIncremental: false,
+        incremental: false,
         parent: null,
         children: [],
-        EOF: {
-          type: 'CST',
-          kind: 16384,
-          start: 83,
-          end: 83
-        },
         start: 0,
         length: 83,
         end: 83
@@ -1012,8 +952,7 @@ describe('Recovery - Switch', () => {
     );
   });
 
-  // default should be consumed and never seen again
-  it('Unclosed block statementaa3', () => {
+  it('default {', () => {
     t.deepEqual(recovery('default {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1057,22 +996,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
     });
   });
 
-  it('Unclosed block statement234', () => {
+  it('case {', () => {
     t.deepEqual(recovery('case {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1116,22 +1049,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 6,
-        end: 6
-      },
       start: 0,
       length: 6,
       end: 6
     });
   });
 
-  it('Unclosed block statementdsaf', () => {
+  it('switch switch default', () => {
     t.deepEqual(recovery('switch switch default', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1192,22 +1119,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 21,
-        end: 21
-      },
       start: 0,
       length: 21,
       end: 21
     });
   });
 
-  it('Unclosed block statement543980', () => {
+  it('default{switch', () => {
     t.deepEqual(recovery('default{switch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1276,22 +1197,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 14,
-        end: 14
-      },
       start: 0,
       length: 14,
       end: 14
     });
   });
 
-  it('Unclosed block statement453467758', () => {
+  it('case{switch default', () => {
     t.deepEqual(recovery('case{switch default', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1360,15 +1275,9 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -1547,22 +1456,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 43,
-        end: 43
-      },
       start: 0,
       length: 43,
       end: 43
     });
   });
 
-  it('Unclosed block statementdsaf', () => {
+  it('{ switch', () => {
     t.deepEqual(recovery('{ switch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1608,22 +1511,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
     });
   });
 
-  it('Unclosed block statementdasfadfads', () => {
+  it('{switch ++ x default: foo + bar = switch', () => {
     t.deepEqual(recovery('{switch ++ x default: foo + bar = switch ', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1758,22 +1655,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 41,
-        end: 41
-      },
       start: 0,
       length: 41,
       end: 41
     });
   });
 
-  it('Unclosed block statementdsafd', () => {
+  it('switch !', () => {
     t.deepEqual(recovery('switch !', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1818,15 +1709,9 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -1903,22 +1788,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 18,
-        end: 18
-      },
       start: 0,
       length: 18,
       end: 18
     });
   });
 
-  it('Unclosed block statement333234243453235435456353673', () => {
+  it('switch (x) { case: default !!', () => {
     t.deepEqual(recovery('switch (x) { case: default !!', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2028,22 +1907,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 29,
-        end: 29
-      },
       start: 0,
       length: 29,
       end: 29
     });
   });
 
-  it('Unclosed block statement498524389', () => {
+  it('switch x {  case :::', () => {
     t.deepEqual(recovery('switch x {  case :::', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2121,15 +1994,9 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 20,
-        end: 20
-      },
       start: 0,
       length: 20,
       end: 20
@@ -2252,22 +2119,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 21,
-        end: 21
-      },
       start: 0,
       length: 21,
       end: 21
     });
   });
 
-  it('Unclosed block statementdf', () => {
+  it('switch (x) { case x: { !}', () => {
     t.deepEqual(recovery('switch (x) { case x: { !}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2354,15 +2215,9 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 25,
-        end: 25
-      },
       start: 0,
       length: 25,
       end: 25
@@ -2477,15 +2332,9 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 33,
-        end: 33
-      },
       start: 0,
       length: 33,
       end: 33
@@ -2699,22 +2548,16 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 47,
-        end: 47
-      },
       start: 0,
       length: 47,
       end: 47
     });
   });
 
-  it('Unclosed block statementdf', () => {
+  it('switch (x) { default x: { !}', () => {
     t.deepEqual(recovery('switch (x) { default x: { !}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2823,15 +2666,9 @@ describe('Recovery - Switch', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 28,
-        end: 28
-      },
       start: 0,
       length: 28,
       end: 28

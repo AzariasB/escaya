@@ -71,8 +71,7 @@ export function parseSourceFile(text: string, filename: string, context: Context
       ? parseStatementList(state, context, parseModuleItem)
       : parseStatementList(state, context, parseStatementListItem);
 
-  const endOfFileToken = createToken(text, state.token as any);
-  return createRootNode(directives, statements, text, filename, state.diagnostics, endOfFileToken);
+  return createRootNode(directives, statements, text, filename, state.diagnostics);
 }
 
 export function parseInNormalMode(

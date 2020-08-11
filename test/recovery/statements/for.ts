@@ -69,15 +69,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 3,
-        end: 3
-      },
       start: 0,
       length: 3,
       end: 3
@@ -151,15 +145,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4
@@ -240,15 +228,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
@@ -339,15 +321,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -436,15 +412,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
@@ -549,15 +519,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
@@ -654,15 +618,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
@@ -790,15 +748,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
@@ -858,15 +810,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
@@ -940,15 +886,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
@@ -1064,15 +1004,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 17,
-        end: 17
-      },
       start: 0,
       length: 17,
       end: 17
@@ -1162,15 +1096,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
@@ -1284,15 +1212,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -1375,15 +1297,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
@@ -1488,15 +1404,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -1585,15 +1495,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 6,
-        end: 6
-      },
       start: 0,
       length: 6,
       end: 6
@@ -1706,15 +1610,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -1884,15 +1782,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 16,
-        end: 16
-      },
       start: 0,
       length: 16,
       end: 16
@@ -2079,15 +1971,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 23,
-        end: 23
-      },
       start: 0,
       length: 23,
       end: 23
@@ -2168,15 +2054,9 @@ describe('Recovery - For', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4

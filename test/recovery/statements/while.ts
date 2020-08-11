@@ -53,22 +53,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
     });
   });
 
-  it('Unclosed block statement324', () => {
+  it('while{', () => {
     t.deepEqual(recovery('while{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -119,22 +113,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 6,
-        end: 6
-      },
       start: 0,
       length: 6,
       end: 6
     });
   });
 
-  it('Unclosed block statement3', () => {
+  it('{while', () => {
     t.deepEqual(recovery('{while', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -194,22 +182,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 6,
-        end: 6
-      },
       start: 0,
       length: 6,
       end: 6
     });
   });
 
-  it('Unclosed block statement3', () => {
+  it('while/{', () => {
     t.deepEqual(recovery('while/{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -261,22 +243,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
     });
   });
 
-  it('Unclosed block statement3', () => {
+  it('while while{', () => {
     t.deepEqual(recovery('while while{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -350,22 +326,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 12,
-        end: 12
-      },
       start: 0,
       length: 12,
       end: 12
     });
   });
 
-  it('Unclosed block statement3254', () => {
+  it('{while while', () => {
     t.deepEqual(recovery('{while while', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -440,22 +410,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 12,
-        end: 12
-      },
       start: 0,
       length: 12,
       end: 12
     });
   });
 
-  it('Unclosed block statemen322t', () => {
+  it('while (x {', () => {
     t.deepEqual(recovery('while (x {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -499,22 +463,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
     });
   });
 
-  it('Unclosed block statement2', () => {
+  it('{ while {}', () => {
     t.deepEqual(recovery('{ while {}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -582,22 +540,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
     });
   });
 
-  it('Unclosed block statement24', () => {
+  it('while {}{', () => {
     t.deepEqual(recovery('while {}{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -649,22 +601,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
     });
   });
 
-  it('Unclosed block statement3245', () => {
+  it('while(x/{', () => {
     t.deepEqual(recovery('while(x/{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -731,22 +677,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
     });
   });
 
-  it('Unclosed block statement23443', () => {
+  it('while(do) {', () => {
     t.deepEqual(recovery('while(do) {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -820,22 +760,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
     });
   });
 
-  it('Unclosed block statemen42435t', () => {
+  it('while(catch){', () => {
     t.deepEqual(recovery('while(catch){', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -927,22 +861,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 13,
-        end: 13
-      },
       start: 0,
       length: 13,
       end: 13
     });
   });
 
-  it('Unclosed block statement2435', () => {
+  it('while label', () => {
     t.deepEqual(recovery('while label', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -993,22 +921,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
     });
   });
 
-  it('Unclosed block statement324', () => {
+  it('while { break', () => {
     t.deepEqual(recovery('while { break', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1076,22 +998,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 13,
-        end: 13
-      },
       start: 0,
       length: 13,
       end: 13
     });
   });
 
-  it('Unclosed block statementrew', () => {
+  it('while I wait for the train', () => {
     t.deepEqual(recovery('while I wait for the train', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1212,22 +1128,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 26,
-        end: 26
-      },
       start: 0,
       length: 26,
       end: 26
     });
   });
 
-  it('Unclosed block statementewr', () => {
+  it('while wait for the train I take a break and finally try to sleep !!', () => {
     t.deepEqual(recovery('while wait for the train I take a break and finally try to sleep !!', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1513,22 +1423,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 67,
-        end: 67
-      },
       start: 0,
       length: 67,
       end: 67
     });
   });
 
-  it('Unclosed block statementadsf', () => {
+  it('I ran into infite loop while try to develop this {', () => {
     t.deepEqual(recovery('I ran into infite loop while try to develop this {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1724,22 +1628,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 50,
-        end: 50
-      },
       start: 0,
       length: 50,
       end: 50
     });
   });
 
-  it('Unclosed block statementfdsa', () => {
+  it('while !', () => {
     t.deepEqual(recovery('while !', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1798,22 +1696,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
     });
   });
 
-  it('Unclosed block statementasdfe', () => {
+  it('while class', () => {
     t.deepEqual(recovery('while class', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1866,22 +1758,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
     });
   });
 
-  it('Unclosed block statementfed', () => {
+  it('while!{!', () => {
     t.deepEqual(recovery('while!{!', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1956,22 +1842,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
     });
   });
 
-  it('Unclosed block statement324', () => {
+  it('(while(x,,,,,', () => {
     t.deepEqual(recovery('(while(x,,,,,', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2093,22 +1973,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 13,
-        end: 13
-      },
       start: 0,
       length: 13,
       end: 13
     });
   });
 
-  it('Unclosed block statement32', () => {
+  it('while(,,,,,,,,,,', () => {
     t.deepEqual(recovery('while(,,,,,,,,,,', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2240,22 +2114,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 16,
-        end: 16
-      },
       start: 0,
       length: 16,
       end: 16
     });
   });
 
-  it('Unclosed block statement123412342431', () => {
+  it('while(/a/,,,/bb while x() {} while ', () => {
     t.deepEqual(recovery('while(/a/,,,/bb while x() {} while ', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2341,22 +2209,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 35,
-        end: 35
-      },
       start: 0,
       length: 35,
       end: 35
     });
   });
 
-  it('Unclosed block statement434530985', () => {
+  it('while ! (x) {}', () => {
     t.deepEqual(recovery('while ! (x) {}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2423,22 +2285,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 14,
-        end: 14
-      },
       start: 0,
       length: 14,
       end: 14
     });
   });
 
-  it('Unclosed block statement90238', () => {
+  it('while({} [] ! {', () => {
     t.deepEqual(recovery('while({} [] ! {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2521,22 +2377,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
     });
   });
 
-  it('Unclosed block statement54390', () => {
+  it('while x break {}', () => {
     t.deepEqual(recovery('while x break {}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2596,22 +2446,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 16,
-        end: 16
-      },
       start: 0,
       length: 16,
       end: 16
     });
   });
 
-  it('Unclosed block statement435980', () => {
+  it('while(x){', () => {
     t.deepEqual(recovery('while(x){', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2655,22 +2499,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
     });
   });
 
-  it('Unclosed block statementrsfdgk', () => {
+  it('while x do{', () => {
     t.deepEqual(recovery('while x do{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2745,22 +2583,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
     });
   });
 
-  it('Unclosed block statementsfdg', () => {
+  it('while for{', () => {
     t.deepEqual(recovery('while for{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2850,22 +2682,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
     });
   });
 
-  it('Unclosed block statementdsafdsf', () => {
+  it('while try{', () => {
     t.deepEqual(recovery('while try{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2926,22 +2752,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
     });
   });
 
-  it('Unclosed block statement33', () => {
+  it('while continue{', () => {
     t.deepEqual(recovery('while continue{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3001,22 +2821,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
     });
   });
 
-  it('Unclosed block statement3214243', () => {
+  it('while let{', () => {
     t.deepEqual(recovery('while let{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3068,22 +2882,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
     });
   });
 
-  it('Unclosed block statementdf4325', () => {
+  it('while let.let => {{', () => {
     t.deepEqual(recovery('while let.let => {{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3191,22 +2999,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
     });
   });
 
-  it('Unclosed block statementdasf', () => {
+  it('while ;;;;;;;;;;;;;;;;;;;;;;;;;;; ,,, do{', () => {
     t.deepEqual(recovery('while ;;;;;;;;;;;;;;;;;;;;;;;;;;; ,,, do{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3486,22 +3288,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 41,
-        end: 41
-      },
       start: 0,
       length: 41,
       end: 41
     });
   });
 
-  it('Unclosed block statementdasf', () => {
+  it('while x) {}', () => {
     t.deepEqual(recovery('while x) {}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3545,22 +3341,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
     });
   });
 
-  it('Unclosed block statementadsf', () => {
+  it('while !do{', () => {
     t.deepEqual(recovery('while !do{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3643,22 +3433,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
     });
   });
 
-  it('Unclosed block statementdfsa', () => {
+  it('{!while!foo!bar;', () => {
     t.deepEqual(recovery('{!while!foo!bar;', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3781,22 +3565,16 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 16,
-        end: 16
-      },
       start: 0,
       length: 16,
       end: 16
     });
   });
 
-  it('Unclosed block statementdasf', () => {
+  it('a(while){', () => {
     t.deepEqual(recovery('a(while){', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3879,15 +3657,9 @@ describe('Recovery - While', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9

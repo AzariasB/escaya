@@ -39,15 +39,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -169,15 +163,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 12,
-        end: 12
-      },
       start: 0,
       length: 12,
       end: 12
@@ -204,15 +192,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4
@@ -264,15 +246,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 27,
-        end: 27
-      },
       start: 0,
       length: 27,
       end: 27
@@ -316,15 +292,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 3,
-        end: 3
-      },
       start: 0,
       length: 3,
       end: 3
@@ -369,15 +339,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
@@ -463,15 +427,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -553,15 +511,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 12,
-        end: 12
-      },
       start: 0,
       length: 12,
       end: 12
@@ -663,15 +615,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 22,
-        end: 22
-      },
       start: 0,
       length: 22,
       end: 22
@@ -754,15 +700,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 37,
-        end: 37
-      },
       start: 0,
       length: 37,
       end: 37
@@ -828,15 +768,10 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
+
       start: 0,
       length: 8,
       end: 8
@@ -874,15 +809,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
@@ -957,15 +886,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
@@ -1025,15 +948,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
@@ -1082,15 +999,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
@@ -1191,15 +1102,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -1264,15 +1169,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -1371,15 +1270,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 36,
-        end: 36
-      },
       start: 0,
       length: 36,
       end: 36
@@ -1465,15 +1358,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 15,
-        end: 15
-      },
       start: 0,
       length: 15,
       end: 15
@@ -1649,15 +1536,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 17,
-        end: 17
-      },
       start: 0,
       length: 17,
       end: 17
@@ -1666,12 +1547,6 @@ describe('test262-parser-tests - failing tests', () => {
 
   it('var [a.b] = 0', () => {
     t.deepEqual(recovery('var [a.b] = 0', 'recovery.js'), {
-      EOF: {
-        end: 13,
-        kind: 16384,
-        start: 13,
-        type: 'CST'
-      },
       children: [],
       context: 0,
       detached: false,
@@ -1712,7 +1587,7 @@ describe('test262-parser-tests - failing tests', () => {
       directives: [],
       end: 13,
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       kind: 209,
       leafs: [
         {
@@ -1859,15 +1734,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 27,
-        end: 27
-      },
       start: 0,
       length: 27,
       end: 27
@@ -1910,15 +1779,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -1976,15 +1839,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 3,
-        end: 3
-      },
       start: 0,
       length: 3,
       end: 3
@@ -2038,15 +1895,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 6,
-        end: 6
-      },
       start: 0,
       length: 6,
       end: 6
@@ -2089,15 +1940,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4
@@ -2157,15 +2002,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 13,
-        end: 13
-      },
       start: 0,
       length: 13,
       end: 13
@@ -2223,15 +2062,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 2,
-        end: 2
-      },
       start: 0,
       length: 2,
       end: 2
@@ -2317,15 +2150,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -2435,15 +2262,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 38,
-        end: 38
-      },
       start: 0,
       length: 38,
       end: 38
@@ -2527,15 +2348,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 25,
-        end: 25
-      },
       start: 0,
       length: 25,
       end: 25
@@ -2634,15 +2449,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 13,
-        end: 13
-      },
       start: 0,
       length: 13,
       end: 13
@@ -2706,15 +2515,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 16,
-        end: 16
-      },
       start: 0,
       length: 16,
       end: 16
@@ -2723,12 +2526,6 @@ describe('test262-parser-tests - failing tests', () => {
 
   it('({ * })', () => {
     t.deepEqual(recovery('({ * })', 'recovery.js'), {
-      EOF: {
-        end: 7,
-        kind: 16384,
-        start: 7,
-        type: 'CST'
-      },
       children: [],
       context: 0,
       detached: false,
@@ -2753,7 +2550,7 @@ describe('test262-parser-tests - failing tests', () => {
       directives: [],
       end: 7,
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       kind: 209,
       leafs: [
         {
@@ -2885,15 +2682,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -3013,15 +2804,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 16,
-        end: 16
-      },
       start: 0,
       length: 16,
       end: 16
@@ -3092,15 +2877,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -3249,15 +3028,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 28,
-        end: 28
-      },
       start: 0,
       length: 28,
       end: 28
@@ -3362,15 +3135,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 16,
-        end: 16
-      },
       start: 0,
       length: 16,
       end: 16
@@ -3407,15 +3174,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 12,
-        end: 12
-      },
       start: 0,
       length: 12,
       end: 12
@@ -3537,15 +3298,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 20,
-        end: 20
-      },
       start: 0,
       length: 20,
       end: 20
@@ -3610,15 +3365,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -3692,15 +3441,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 20,
-        end: 20
-      },
       start: 0,
       length: 20,
       end: 20
@@ -3825,15 +3568,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -3943,15 +3680,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 24,
-        end: 24
-      },
       start: 0,
       length: 24,
       end: 24
@@ -4043,15 +3774,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 14,
-        end: 14
-      },
       start: 0,
       length: 14,
       end: 14
@@ -4125,15 +3850,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 23,
-        end: 23
-      },
       start: 0,
       length: 23,
       end: 23
@@ -4199,15 +3918,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 22,
-        end: 22
-      },
       start: 0,
       length: 22,
       end: 22
@@ -4264,15 +3977,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 14,
-        end: 14
-      },
       start: 0,
       length: 14,
       end: 14
@@ -4358,15 +4065,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 41,
-        end: 41
-      },
       start: 0,
       length: 41,
       end: 41
@@ -4465,15 +4166,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 36,
-        end: 36
-      },
       start: 0,
       length: 36,
       end: 36
@@ -4569,15 +4264,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 33,
-        end: 33
-      },
       start: 0,
       length: 33,
       end: 33
@@ -4612,15 +4301,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 6,
-        end: 6
-      },
       start: 0,
       length: 6,
       end: 6
@@ -4670,15 +4353,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -4757,15 +4434,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 21,
-        end: 21
-      },
       start: 0,
       length: 21,
       end: 21
@@ -4872,15 +4543,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 28,
-        end: 28
-      },
       start: 0,
       length: 28,
       end: 28
@@ -4955,15 +4620,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
@@ -5067,15 +4726,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 17,
-        end: 17
-      },
       start: 0,
       length: 17,
       end: 17
@@ -5193,15 +4846,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 21,
-        end: 21
-      },
       start: 0,
       length: 21,
       end: 21
@@ -5259,15 +4906,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
@@ -5310,15 +4951,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 3,
-        end: 3
-      },
       start: 0,
       length: 3,
       end: 3
@@ -5495,15 +5130,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 46,
-        end: 46
-      },
       start: 0,
       length: 46,
       end: 46
@@ -5600,15 +5229,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 14,
-        end: 14
-      },
       start: 0,
       length: 14,
       end: 14
@@ -5651,15 +5274,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 2,
-        end: 2
-      },
       start: 0,
       length: 2,
       end: 2
@@ -5745,15 +5362,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 20,
-        end: 20
-      },
       start: 0,
       length: 20,
       end: 20
@@ -5823,15 +5434,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -5905,15 +5510,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 13,
-        end: 13
-      },
       start: 0,
       length: 13,
       end: 13
@@ -5973,15 +5572,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -6054,15 +5647,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 27,
-        end: 27
-      },
       start: 0,
       length: 27,
       end: 27
@@ -6089,15 +5676,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 3,
-        end: 3
-      },
       start: 0,
       length: 3,
       end: 3
@@ -6382,15 +5963,9 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 54,
-        end: 54
-      },
       start: 0,
       length: 54,
       end: 54
@@ -6476,15 +6051,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 24,
-        end: 24
-      },
       start: 0,
       length: 24,
       end: 24
@@ -6559,15 +6128,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 12,
-        end: 12
-      },
       start: 0,
       length: 12,
       end: 12
@@ -6634,15 +6197,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -6763,15 +6320,9 @@ describe('test262-parser-tests - failing tests', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 50,
-        end: 50
-      },
       start: 0,
       length: 50,
       end: 50

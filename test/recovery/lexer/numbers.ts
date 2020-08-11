@@ -18,14 +18,8 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 6,
-      EOF: {
-        end: 6,
-        kind: 16384,
-        start: 6,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       leafs: [
@@ -84,14 +78,8 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 3,
-      EOF: {
-        end: 3,
-        kind: 16384,
-        start: 3,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       leafs: [
@@ -170,15 +158,9 @@ describe('Recovery - Numbers', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 2,
-        end: 2
-      },
       start: 0,
       length: 2,
       end: 2
@@ -221,15 +203,9 @@ describe('Recovery - Numbers', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 2,
-        end: 2
-      },
       start: 0,
       length: 2,
       end: 2
@@ -252,14 +228,8 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 3,
-      EOF: {
-        end: 3,
-        kind: 16384,
-        start: 3,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       leafs: [
@@ -303,14 +273,8 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 3,
-      EOF: {
-        end: 3,
-        kind: 16384,
-        start: 3,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       leafs: [
@@ -354,14 +318,8 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 2,
-      EOF: {
-        end: 2,
-        kind: 16384,
-        start: 2,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       leafs: [
@@ -405,14 +363,8 @@ describe('Recovery - Numbers', () => {
       ],
       directives: [],
       end: 6,
-      EOF: {
-        end: 6,
-        kind: 16384,
-        start: 6,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       leafs: [

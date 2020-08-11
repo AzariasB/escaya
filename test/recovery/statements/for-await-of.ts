@@ -18,14 +18,8 @@ describe('Recovery - For await of', () => {
       ],
       directives: [],
       end: 9,
-      EOF: {
-        end: 9,
-        kind: 16384,
-        start: 9,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       length: 9,

@@ -78,15 +78,9 @@ describe('Recovery - Continue', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 18,
-        end: 18
-      },
       start: 0,
       length: 18,
       end: 18
@@ -122,15 +116,9 @@ describe('Recovery - Continue', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8

@@ -83,15 +83,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 24,
-        end: 24
-      },
       start: 0,
       length: 24,
       end: 24
@@ -146,15 +140,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -241,15 +229,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 17,
-        end: 17
-      },
       start: 0,
       length: 17,
       end: 17
@@ -262,14 +244,8 @@ describe('Recovery - Export', () => {
       diagnostics: [],
       directives: [],
       end: 8,
-      EOF: {
-        end: 8,
-        kind: 16384,
-        start: 8,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       length: 8,
@@ -341,15 +317,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -405,15 +375,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
@@ -607,15 +571,9 @@ describe('Recovery - Export', () => {
           }
         ],
         detached: false,
-        isIncremental: false,
+        incremental: false,
         parent: null,
         children: [],
-        EOF: {
-          type: 'CST',
-          kind: 16384,
-          start: 64,
-          end: 64
-        },
         start: 0,
         length: 64,
         end: 64
@@ -680,15 +638,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 14,
-        end: 14
-      },
       start: 0,
       length: 14,
       end: 14
@@ -750,15 +702,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
@@ -830,15 +776,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 17,
-        end: 17
-      },
       start: 0,
       length: 17,
       end: 17
@@ -925,15 +865,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 32,
-        end: 32
-      },
       start: 0,
       length: 32,
       end: 32
@@ -1186,15 +1120,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 46,
-        end: 46
-      },
       start: 0,
       length: 46,
       end: 46
@@ -1305,15 +1233,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 18,
-        end: 18
-      },
       start: 0,
       length: 18,
       end: 18
@@ -1439,15 +1361,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 23,
-        end: 23
-      },
       start: 0,
       length: 23,
       end: 23
@@ -1588,15 +1504,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 32,
-        end: 32
-      },
       start: 0,
       length: 32,
       end: 32
@@ -1732,15 +1642,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -1875,15 +1779,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 24,
-        end: 24
-      },
       start: 0,
       length: 24,
       end: 24
@@ -2033,15 +1931,9 @@ describe('Recovery - Export', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 32,
-        end: 32
-      },
       start: 0,
       length: 32,
       end: 32
@@ -2334,15 +2226,9 @@ describe('Recovery - Export', () => {
           }
         ],
         detached: false,
-        isIncremental: false,
+        incremental: false,
         parent: null,
         children: [],
-        EOF: {
-          type: 'CST',
-          kind: 16384,
-          start: 63,
-          end: 63
-        },
         start: 0,
         length: 63,
         end: 63

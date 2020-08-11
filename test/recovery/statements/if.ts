@@ -70,15 +70,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -203,15 +197,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 30,
-        end: 30
-      },
       start: 0,
       length: 30,
       end: 30
@@ -321,15 +309,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 24,
-        end: 24
-      },
       start: 0,
       length: 24,
       end: 24
@@ -574,15 +556,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 44,
-        end: 44
-      },
       start: 0,
       length: 44,
       end: 44
@@ -641,15 +617,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 2,
-        end: 2
-      },
       start: 0,
       length: 2,
       end: 2
@@ -708,22 +678,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 3,
-        end: 3
-      },
       start: 0,
       length: 3,
       end: 3
     });
   });
 
-  it('Unclosed block statement2435', () => {
+  it('if(x', () => {
     t.deepEqual(recovery('if(x', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -775,22 +739,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4
     });
   });
 
-  it('Unclosed block statementdasdf', () => {
+  it('if((((((((', () => {
     t.deepEqual(recovery('if((((((((', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -891,15 +849,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 10,
-        end: 10
-      },
       start: 0,
       length: 10,
       end: 10
@@ -979,22 +931,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 12,
-        end: 12
-      },
       start: 0,
       length: 12,
       end: 12
     });
   });
 
-  it('Unclosed block statementdsa3', () => {
+  it('if(((()', () => {
     t.deepEqual(recovery('if(((()', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1060,22 +1006,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
     });
   });
 
-  it('Unclosed block statement3', () => {
+  it('if((( {}', () => {
     t.deepEqual(recovery('if((( {}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1141,22 +1081,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
     });
   });
 
-  it('Unclosed block statement3241', () => {
+  it('if(((((({{{{{{{{{{{]}', () => {
     t.deepEqual(recovery('if(((((({{{{{{{{{{{]}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1333,15 +1267,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 21,
-        end: 21
-      },
       start: 0,
       length: 21,
       end: 21
@@ -1393,15 +1321,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
@@ -1477,22 +1399,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
     });
   });
 
-  it('Unclosed block statement23', () => {
+  it('{if{}', () => {
     t.deepEqual(recovery('{if{}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1561,22 +1477,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
     });
   });
 
-  it('Unclosed block statementer233dsdd', () => {
+  it('if{else', () => {
     t.deepEqual(recovery('if{else', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1645,15 +1555,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 7,
-        end: 7
-      },
       start: 0,
       length: 7,
       end: 7
@@ -1756,22 +1660,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 14,
-        end: 14
-      },
       start: 0,
       length: 14,
       end: 14
     });
   });
 
-  it('Unclosed block statement324523984', () => {
+  it('if(x){function x( { ', () => {
     t.deepEqual(recovery('if(x){function x( { ', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1862,22 +1760,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 20,
-        end: 20
-      },
       start: 0,
       length: 20,
       end: 20
     });
   });
 
-  it('Unclosed block statement333', () => {
+  it('if else function', () => {
     t.deepEqual(recovery('if else function', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1942,22 +1834,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 16,
-        end: 16
-      },
       start: 0,
       length: 16,
       end: 16
     });
   });
 
-  it('run for my life', () => {
+  it('if I try while I run for my life. then if I fall then i may scream while running', () => {
     t.deepEqual(
       recovery('if I try while I run for my life. then if I fall then i may scream while running', 'recovery.js'),
       {
@@ -2291,15 +2177,9 @@ describe('Recovery - If', () => {
           }
         ],
         detached: false,
-        isIncremental: false,
+        incremental: false,
         parent: null,
         children: [],
-        EOF: {
-          type: 'CST',
-          kind: 16384,
-          start: 80,
-          end: 80
-        },
         start: 0,
         length: 80,
         end: 80
@@ -2307,7 +2187,7 @@ describe('Recovery - If', () => {
     );
   });
 
-  it('Unclosed block statement332', () => {
+  it('{if with missing ! & bracket and { and bullshit and (x) {}', () => {
     t.deepEqual(recovery('{if with missing ! & bracket and { and bullshit and (x) {}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2533,22 +2413,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 58,
-        end: 58
-      },
       start: 0,
       length: 58,
       end: 58
     });
   });
 
-  it('Unclosed block statement324231', () => {
+  it('if( hello!! while acorn can not do this', () => {
     t.deepEqual(recovery('if( hello!! while acorn can not do this', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2722,22 +2596,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 39,
-        end: 39
-      },
       start: 0,
       length: 39,
       end: 39
     });
   });
 
-  it('Unclosed block statement243234', () => {
+  it('{if if if', () => {
     t.deepEqual(recovery('{if if if', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2838,15 +2706,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
@@ -2922,22 +2784,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
     });
   });
 
-  it('Unclosed block statementewr', () => {
+  it('else{if x=)', () => {
     t.deepEqual(recovery('else{if x=)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3045,22 +2901,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
     });
   });
 
-  it('Unclosed block statement+', () => {
+  it('if{acorn = sloppy this ! loose while this fast', () => {
     t.deepEqual(recovery('if{acorn = sloppy this ! loose while this fast', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3213,22 +3063,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 46,
-        end: 46
-      },
       start: 0,
       length: 46,
       end: 46
     });
   });
 
-  it('Unclosed block statement8976', () => {
+  it('if waiting for my package while do this', () => {
     t.deepEqual(recovery('if waiting for my package while do this', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3388,22 +3232,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 39,
-        end: 39
-      },
       start: 0,
       length: 39,
       end: 39
     });
   });
 
-  it('Unclosed block statement74', () => {
+  it('if {', () => {
     t.deepEqual(recovery('if {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3455,22 +3293,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4
     });
   });
 
-  it('Unclosed block statement0+', () => {
+  it('{}}}}}if!!&', () => {
     t.deepEqual(recovery('{}}}}}if!!&', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3602,22 +3434,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 11,
-        end: 11
-      },
       start: 0,
       length: 11,
       end: 11
     });
   });
 
-  it('Unclosed block statement67890', () => {
+  it('if /{', () => {
     t.deepEqual(recovery('if /{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3670,22 +3496,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
     });
   });
 
-  it('Unclosed block statement678u9i0+', () => {
+  it('if else/{', () => {
     t.deepEqual(recovery('if else/{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3769,22 +3589,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 9,
-        end: 9
-      },
       start: 0,
       length: 9,
       end: 9
     });
   });
 
-  it('Unclosed block statement90', () => {
+  it('if finally I try this ! {', () => {
     t.deepEqual(recovery('if finally I try this ! {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3938,15 +3752,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 25,
-        end: 25
-      },
       start: 0,
       length: 25,
       end: 25
@@ -4079,15 +3887,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 19,
-        end: 19
-      },
       start: 0,
       length: 19,
       end: 19
@@ -4347,15 +4149,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 28,
-        end: 28
-      },
       start: 0,
       length: 28,
       end: 28
@@ -4592,15 +4388,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 28,
-        end: 28
-      },
       start: 0,
       length: 28,
       end: 28
@@ -4895,15 +4685,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 54,
-        end: 54
-      },
       start: 0,
       length: 54,
       end: 54
@@ -4963,15 +4747,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 5,
-        end: 5
-      },
       start: 0,
       length: 5,
       end: 5
@@ -5055,15 +4833,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 6,
-        end: 6
-      },
       start: 0,
       length: 6,
       end: 6
@@ -5183,22 +4955,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 8,
-        end: 8
-      },
       start: 0,
       length: 8,
       end: 8
     });
   });
 
-  it('Unclosed block statement53496+', () => {
+  it(']if]{', () => {
     t.deepEqual(recovery(']if]{', 'recovery.js'), {
       children: [],
       context: 0,
@@ -5230,14 +4996,8 @@ describe('Recovery - If', () => {
       ],
       directives: [],
       end: 5,
-      EOF: {
-        end: 5,
-        kind: 16384,
-        start: 5,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       length: 5,
@@ -5314,14 +5074,8 @@ describe('Recovery - If', () => {
       ],
       directives: [],
       end: 9,
-      EOF: {
-        end: 9,
-        kind: 16384,
-        start: 9,
-        type: 'CST'
-      },
       fileName: 'recovery.js',
-      isIncremental: false,
+      incremental: false,
       detached: false,
       kind: 209,
       length: 9,
@@ -5461,15 +5215,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4
@@ -5536,22 +5284,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4
     });
   });
 
-  it('Unclosed block statement203409', () => {
+  it('{if', () => {
     t.deepEqual(recovery('{if,', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -5612,22 +5354,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 4,
-        end: 4
-      },
       start: 0,
       length: 4,
       end: 4
     });
   });
 
-  it('Unclosed block comment', () => {
+  it('/* /* if(foo) {}', () => {
     t.deepEqual(recovery('/* /* if(foo) {}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -5647,22 +5383,16 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 16,
-        end: 16
-      },
       start: 0,
       length: 16,
       end: 16
     });
   });
 
-  it('Unclosed block statement2452543', () => {
+  it('if else catch', () => {
     t.deepEqual(recovery('if else catch', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -5739,15 +5469,9 @@ describe('Recovery - If', () => {
         }
       ],
       detached: false,
-      isIncremental: false,
+      incremental: false,
       parent: null,
       children: [],
-      EOF: {
-        type: 'CST',
-        kind: 16384,
-        start: 13,
-        end: 13
-      },
       start: 0,
       length: 13,
       end: 13
