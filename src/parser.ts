@@ -149,6 +149,7 @@ export function create(source: string, nodeCursor?: any): ParserState {
 //   StatementList StatementListItem
 export function parseStatementList(state: ParserState, context: Context, cb: any): Statement[] {
   const statementList = [];
+
   while (state.token !== Token.EOF) {
     if (state.token & Constants.IsSourceElement) {
       statementList.push(parseBlockElements(state, context, cb));
@@ -185,6 +186,7 @@ export function parseStatementListItem(state: ParserState, context: Context): St
       return parseLexicalDeclaration(state, context, BindingType.Const);
     case Token.LetKeyword:
       return parseLexicalDeclaration(state, context, BindingType.Let);
+    // TODO! Fix this
     // case Token.ImportKeyword:
     // return parseImportDeclaration(state, context);
     case Token.ExportKeyword:
