@@ -103,5 +103,6 @@ export const diagnosticMap: {
   [DiagnosticCode.YieldAsFuncName]: '`yield` can not be used as a function name in this context',
   [DiagnosticCode.AwaitAsFuncName]: '`await` can not be used as a function name in this context',
   [DiagnosticCode.ExpectedSemicolon]: '`;` expected',
-  [DiagnosticCode.InvalidNewTarget]: '`%0` is not a valid meta-property for keyword `new`.'
+  [DiagnosticCode.InvalidNewTarget]: '`%0` is not a valid meta-property for keyword `new`.',
+  [DiagnosticCode.ExportInScript]: 'The `export` keyword can only be used with the module goal'
 };

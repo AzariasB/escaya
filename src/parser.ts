@@ -188,7 +188,7 @@ export function parseStatementListItem(state: ParserState, context: Context): St
     // case Token.ImportKeyword:
     // return parseImportDeclaration(state, context);
     case Token.ExportKeyword:
-      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, 'Kuvos');
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExportInScript, DiagnosticKind.Error);
       return parseExportDeclaration(state, context);
     // falls through
     default:
@@ -1043,8 +1043,8 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
     nextToken(state, context);
     return finishNode(state, context, state.endIndex, DictionaryMap.IdentifierName(''), SyntaxKind.Identifier);
   }
-  let start = state.startIndex;
-  let value = state.tokenValue;
+  const start = state.startIndex;
+  const value = state.tokenValue;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.IdentifierName(value), SyntaxKind.Identifier);
 }
@@ -1074,7 +1074,7 @@ export function parseBindingIdentifier(state: ParserState, context: Context, typ
   if (type & (BindingType.Let | BindingType.Const) && state.token === Token.LetKeyword) {
     addEarlyDiagnostic(state, context, DiagnosticCode.InvalidLetConstBinding);
   }
-  let start = state.startIndex;
+  const start = state.startIndex;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.BindingIdentifier(value), SyntaxKind.BindingIdentifier);
 }
@@ -2686,7 +2686,13 @@ export function parseAsyncArrowExpression(state: ParserState, context: Context, 
       );
     }
   }
-  let expr: any = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'), SyntaxKind.Identifier);
+  const expr: any = finishNode(
+    state,
+    context,
+    start,
+    DictionaryMap.IdentifierReference('async'),
+    SyntaxKind.Identifier
+  );
 
   // `async ()`, `async () => ...`
   if (state.token === Token.LeftParen) {
@@ -3067,7 +3073,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
     // have seen a comma and continue to parse it as an sequence. This ensures we get back on track
     // and don't result in tons of parse errors.
 
-    let expressions = [expression];
+    const expressions = [expression];
     isDelimitedList = true;
 
     const check =

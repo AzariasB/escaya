@@ -99,7 +99,7 @@ export enum DiagnosticCode {
   UnexpectedAwaitAsBIdent,
   ExpectedSemicolon,
   InvalidNewTarget,
-
+  ExportInScript,
   /* Annex B */
   AnnexBB32,
   AnnexBB34
