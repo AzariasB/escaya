@@ -1333,18 +1333,18 @@ describe('Recovery - Function', () => {
           length: 1
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`,` expected',
+          code: 5,
           start: 20,
           length: 1
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`,` expected',
+          code: 5,
           start: 30,
           length: 1
         }

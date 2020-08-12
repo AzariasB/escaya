@@ -1642,7 +1642,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 2,
           source: 2,
-          message: '`}` expected',
+          message: '`,` expected',
           code: 5,
           start: 9,
           length: 1

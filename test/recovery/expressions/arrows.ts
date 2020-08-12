@@ -63,6 +63,116 @@ describe('Recovery - Expressions - Arrows', () => {
     });
   });
 
+  it('a => var v = 0; }', () => {
+    t.deepEqual(recovery('a => var v = 0; }', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrowFunction',
+            params: [
+              {
+                type: 'BindingIdentifier',
+                name: 'a',
+                start: 0,
+                end: 1,
+                kind: 168,
+                flags: 0
+              }
+            ],
+            contents: {
+              type: 'ConciseBody',
+              expression: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 4,
+                end: 4,
+                kind: 13,
+                flags: 2
+              },
+              start: 4,
+              end: 4,
+              kind: 187,
+              flags: 0
+            },
+            async: false,
+            start: 0,
+            end: 4,
+            kind: 188,
+            flags: 0
+          },
+          start: 0,
+          end: 4,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'VariableStatement',
+          declarations: [
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'v',
+                start: 8,
+                end: 10,
+                kind: 168,
+                flags: 0
+              },
+              initializer: {
+                type: 'NumericLiteral',
+                value: 0,
+                start: 12,
+                end: 14,
+                kind: 10,
+                flags: 0
+              },
+              start: 8,
+              end: 14,
+              kind: 144,
+              flags: 0
+            }
+          ],
+          start: 4,
+          end: 15,
+          kind: 143,
+          flags: 0
+        }
+      ],
+      text: 'a => var v = 0; }',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 5,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 16,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 17,
+      end: 17
+    });
+  });
+
   it('() =>(', () => {
     t.deepEqual(recovery('() =>(', 'recovery.js'), {
       kind: 209,

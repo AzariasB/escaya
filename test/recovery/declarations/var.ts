@@ -856,7 +856,926 @@ describe('Recovery - Var', () => {
     });
   });
 
-  it('Unclosed block statementasdf', () => {
+  it('var b = new B; // no error', () => {
+    t.deepEqual(recovery('var b = new B; // no error', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'VariableStatement',
+          declarations: [
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'b',
+                start: 3,
+                end: 5,
+                kind: 168,
+                flags: 0
+              },
+              initializer: {
+                type: 'NewExpression',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: 'B',
+                  start: 11,
+                  end: 13,
+                  kind: 13,
+                  flags: 0
+                },
+                arguments: [],
+                start: 7,
+                end: 13,
+                kind: 163,
+                flags: 0
+              },
+              start: 3,
+              end: 13,
+              kind: 144,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 14,
+          kind: 143,
+          flags: 0
+        }
+      ],
+      text: 'var b = new B; // no error',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 26,
+      end: 26
+    });
+  });
+
+  it(`var v = { foo: function () {
+  }, a: b, get baz() {
+  } };`, () => {
+    t.deepEqual(
+      recovery(
+        `var v = { foo: function () {
+    }, a: b, get baz() {
+    } };`,
+        'recovery.js'
+      ),
+      {
+        kind: 209,
+        directives: [],
+        leafs: [
+          {
+            type: 'VariableStatement',
+            declarations: [
+              {
+                type: 'VariableDeclaration',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'v',
+                  start: 3,
+                  end: 5,
+                  kind: 168,
+                  flags: 0
+                },
+                initializer: {
+                  type: 'ObjectLiteral',
+                  properties: [
+                    {
+                      type: 'PropertyName',
+                      key: {
+                        type: 'IdentifierName',
+                        name: 'foo',
+                        start: 9,
+                        end: 14,
+                        kind: 13,
+                        flags: 0
+                      },
+                      value: {
+                        type: 'FunctionExpression',
+                        name: null,
+                        generator: false,
+                        async: false,
+                        params: [],
+                        contents: {
+                          type: 'FunctionBody',
+                          directives: [],
+                          leafs: [],
+                          start: 26,
+                          end: 34,
+                          kind: 184,
+                          flags: 0
+                        },
+                        start: 14,
+                        end: 34,
+                        kind: 185,
+                        flags: 0
+                      },
+                      start: 9,
+                      end: 34,
+                      kind: 227,
+                      flags: 0
+                    },
+                    {
+                      type: 'PropertyName',
+                      key: {
+                        type: 'IdentifierName',
+                        name: 'a',
+                        start: 35,
+                        end: 38,
+                        kind: 13,
+                        flags: 0
+                      },
+                      value: {
+                        type: 'IdentifierReference',
+                        name: 'b',
+                        start: 38,
+                        end: 40,
+                        kind: 13,
+                        flags: 0
+                      },
+                      start: 35,
+                      end: 40,
+                      kind: 227,
+                      flags: 0
+                    },
+                    {
+                      type: 'MethodDefinition',
+                      async: false,
+                      generator: false,
+                      propertySetParameterList: [],
+                      uniqueFormalParameters: [],
+                      name: {
+                        type: 'IdentifierName',
+                        name: 'baz',
+                        start: 45,
+                        end: 49,
+                        kind: 13,
+                        flags: 0
+                      },
+                      contents: {
+                        type: 'FunctionBody',
+                        directives: [],
+                        leafs: [],
+                        start: 51,
+                        end: 59,
+                        kind: 184,
+                        flags: 0
+                      },
+                      start: 49,
+                      end: 59,
+                      kind: 182,
+                      flags: 0
+                    }
+                  ],
+                  start: 7,
+                  end: 61,
+                  kind: 179,
+                  flags: 0
+                },
+                start: 3,
+                end: 61,
+                kind: 144,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 62,
+            kind: 143,
+            flags: 0
+          }
+        ],
+        text: 'var v = { foo: function () {\n    }, a: b, get baz() {\n    } };',
+        fileName: 'recovery.js',
+        context: 0,
+        mutualFlags: 0,
+        diagnostics: [],
+        detached: false,
+        incremental: false,
+        parent: null,
+        children: [],
+        start: 0,
+        length: 62,
+        end: 62
+      }
+    );
+  });
+
+  it('var tt = { aa:  };', () => {
+    t.deepEqual(recovery('var tt = { aa:  };', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'VariableStatement',
+          declarations: [
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'tt',
+                start: 3,
+                end: 6,
+                kind: 168,
+                flags: 0
+              },
+              initializer: {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'IdentifierName',
+                      name: 'aa',
+                      start: 10,
+                      end: 14,
+                      kind: 13,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'IdentifierReference',
+                      name: 'aa',
+                      start: 14,
+                      end: 17,
+                      kind: 13,
+                      flags: 0
+                    },
+                    start: 10,
+                    end: 17,
+                    kind: 227,
+                    flags: 0
+                  }
+                ],
+                start: 8,
+                end: 17,
+                kind: 179,
+                flags: 0
+              },
+              start: 3,
+              end: 17,
+              kind: 144,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 18,
+          kind: 143,
+          flags: 0
+        }
+      ],
+      text: 'var tt = { aa:  };',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 17,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 18,
+      end: 18
+    });
+  });
+
+  it('var v = { a', () => {
+    t.deepEqual(recovery('var v = { a', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'VariableStatement',
+          declarations: [
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'v',
+                start: 3,
+                end: 5,
+                kind: 168,
+                flags: 0
+              },
+              initializer: {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'IdentifierReference',
+                    name: 'a',
+                    start: 9,
+                    end: 11,
+                    kind: 13,
+                    flags: 0
+                  }
+                ],
+                start: 7,
+                end: 11,
+                kind: 179,
+                flags: 0
+              },
+              start: 3,
+              end: 11,
+              kind: 144,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 11,
+          kind: 143,
+          flags: 0
+        }
+      ],
+      text: 'var v = { a',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 10,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 11,
+      end: 11
+    });
+  });
+
+  it('var v = { a: 1', () => {
+    t.deepEqual(recovery('var v = { a: 1', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'VariableStatement',
+          declarations: [
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'v',
+                start: 3,
+                end: 5,
+                kind: 168,
+                flags: 0
+              },
+              initializer: {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'IdentifierName',
+                      name: 'a',
+                      start: 9,
+                      end: 12,
+                      kind: 13,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'NumericLiteral',
+                      value: 1,
+                      start: 12,
+                      end: 14,
+                      kind: 10,
+                      flags: 0
+                    },
+                    start: 9,
+                    end: 14,
+                    kind: 227,
+                    flags: 0
+                  }
+                ],
+                start: 7,
+                end: 14,
+                kind: 179,
+                flags: 0
+              },
+              start: 3,
+              end: 14,
+              kind: 144,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 14,
+          kind: 143,
+          flags: 0
+        }
+      ],
+      text: 'var v = { a: 1',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 13,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 14,
+      end: 14
+    });
+  });
+
+  it('var x = {', () => {
+    t.deepEqual(recovery('var x = {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'VariableStatement',
+          declarations: [
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'x',
+                start: 3,
+                end: 5,
+                kind: 168,
+                flags: 0
+              },
+              initializer: {
+                type: 'ObjectLiteral',
+                properties: [],
+                start: 7,
+                end: 9,
+                kind: 179,
+                flags: 0
+              },
+              start: 3,
+              end: 9,
+              kind: 144,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 9,
+          kind: 143,
+          flags: 0
+        }
+      ],
+      text: 'var x = {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 8,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 9,
+      end: 9
+    });
+  });
+
+  it(`var v = {
+      a
+    ; `, () => {
+    t.deepEqual(
+      recovery(
+        `var v = {
+        a
+      ;`,
+        'recovery.js'
+      ),
+      {
+        kind: 209,
+        directives: [],
+        leafs: [
+          {
+            type: 'VariableStatement',
+            declarations: [
+              {
+                type: 'VariableDeclaration',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'v',
+                  start: 3,
+                  end: 5,
+                  kind: 168,
+                  flags: 0
+                },
+                initializer: {
+                  type: 'ObjectLiteral',
+                  properties: [
+                    {
+                      type: 'IdentifierReference',
+                      name: 'a',
+                      start: 9,
+                      end: 19,
+                      kind: 13,
+                      flags: 0
+                    }
+                  ],
+                  start: 7,
+                  end: 19,
+                  kind: 179,
+                  flags: 0
+                },
+                start: 3,
+                end: 19,
+                kind: 144,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 27,
+            kind: 143,
+            flags: 0
+          }
+        ],
+        text: 'var v = {\n        a\n      ;',
+        fileName: 'recovery.js',
+        context: 0,
+        mutualFlags: 0,
+        diagnostics: [
+          {
+            kind: 2,
+            source: 2,
+            message: '`,` expected',
+            code: 5,
+            start: 26,
+            length: 1
+          }
+        ],
+        detached: false,
+        incremental: false,
+        parent: null,
+        children: [],
+        start: 0,
+        length: 27,
+        end: 27
+      }
+    );
+  });
+
+  it('var v = { foo() { }; a: b; get baz() { }; } ', () => {
+    t.deepEqual(recovery('var v = { foo() { }; a: b; get baz() { }; } ', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'VariableStatement',
+          declarations: [
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'v',
+                start: 3,
+                end: 5,
+                kind: 168,
+                flags: 0
+              },
+              initializer: {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'MethodDefinition',
+                    async: false,
+                    generator: false,
+                    propertySetParameterList: [],
+                    uniqueFormalParameters: [],
+                    name: {
+                      type: 'IdentifierName',
+                      name: 'foo',
+                      start: 9,
+                      end: 13,
+                      kind: 13,
+                      flags: 0
+                    },
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
+                      start: 15,
+                      end: 19,
+                      kind: 184,
+                      flags: 0
+                    },
+                    start: 13,
+                    end: 19,
+                    kind: 182,
+                    flags: 0
+                  }
+                ],
+                start: 7,
+                end: 19,
+                kind: 179,
+                flags: 0
+              },
+              start: 3,
+              end: 19,
+              kind: 144,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 20,
+          kind: 143,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'LabelledStatement',
+            label: {
+              type: 'LabelIdentifier',
+              name: 'a',
+              start: 20,
+              end: 23,
+              kind: 13,
+              flags: 0
+            },
+            labelledItem: {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: 'b',
+                start: 23,
+                end: 25,
+                kind: 13,
+                flags: 0
+              },
+              start: 23,
+              end: 26,
+              kind: 122,
+              flags: 0
+            },
+            start: 20,
+            end: 26,
+            kind: 134,
+            flags: 0
+          },
+          start: 20,
+          end: 26,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'get',
+            start: 26,
+            end: 30,
+            kind: 13,
+            flags: 0
+          },
+          start: 26,
+          end: 30,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'CallExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'baz',
+              start: 30,
+              end: 34,
+              kind: 13,
+              flags: 0
+            },
+            arguments: [],
+            start: 30,
+            end: 36,
+            kind: 156,
+            flags: 0
+          },
+          start: 30,
+          end: 36,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'BlockStatement',
+          leafs: [],
+          start: 36,
+          end: 40,
+          kind: 123,
+          flags: 0
+        },
+        {
+          type: 'EmptyStatement',
+          start: 40,
+          end: 41,
+          kind: 148,
+          flags: 0
+        }
+      ],
+      text: 'var v = { foo() { }; a: b; get baz() { }; } ',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 19,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 27,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 31,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 37,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 42,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 44,
+      end: 44
+    });
+  });
+
+  it('var v = { a; b; c }', () => {
+    t.deepEqual(recovery('var v = { a; b; c }', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'VariableStatement',
+          declarations: [
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'v',
+                start: 3,
+                end: 5,
+                kind: 168,
+                flags: 0
+              },
+              initializer: {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'IdentifierReference',
+                    name: 'a',
+                    start: 9,
+                    end: 11,
+                    kind: 13,
+                    flags: 0
+                  }
+                ],
+                start: 7,
+                end: 11,
+                kind: 179,
+                flags: 0
+              },
+              start: 3,
+              end: 11,
+              kind: 144,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 12,
+          kind: 143,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'b',
+            start: 12,
+            end: 14,
+            kind: 13,
+            flags: 0
+          },
+          start: 12,
+          end: 15,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'c',
+            start: 15,
+            end: 17,
+            kind: 13,
+            flags: 0
+          },
+          start: 15,
+          end: 17,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'var v = { a; b; c }',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 11,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 18,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 19,
+      end: 19
+    });
+  });
+
+  it('{,var', () => {
     t.deepEqual(recovery('{,var', 'recovery.js'), {
       kind: 209,
       directives: [],

@@ -227,4 +227,145 @@ describe('Recovery - For of', () => {
       end: 12
     });
   });
+
+  it('for (var of; ;) { }', () => {
+    t.deepEqual(recovery('for (var of; ;) { }', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'ForDeclaration',
+            isConst: false,
+            declarations: [
+              {
+                type: 'VariableDeclaration',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'of',
+                  start: 8,
+                  end: 11,
+                  kind: 168,
+                  flags: 0
+                },
+                initializer: null,
+                start: 8,
+                end: 11,
+                kind: 144,
+                flags: 0
+              }
+            ],
+            start: 5,
+            end: 11,
+            kind: 201,
+            flags: 0
+          },
+          condition: null,
+          incrementor: null,
+          statement: {
+            type: 'BlockStatement',
+            leafs: [],
+            start: 15,
+            end: 19,
+            kind: 123,
+            flags: 0
+          },
+          start: 0,
+          end: 19,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for (var of; ;) { }',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 19,
+      end: 19
+    });
+  });
+
+  it('for (var of = 0 in of) { }', () => {
+    t.deepEqual(recovery('for (var of = 0 in of) { }', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForInStatement',
+          initializer: {
+            type: 'ForDeclaration',
+            isConst: false,
+            declarations: [
+              {
+                type: 'VariableDeclaration',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'of',
+                  start: 8,
+                  end: 11,
+                  kind: 168,
+                  flags: 0
+                },
+                initializer: {
+                  type: 'NumericLiteral',
+                  value: 0,
+                  start: 13,
+                  end: 15,
+                  kind: 10,
+                  flags: 0
+                },
+                start: 8,
+                end: 15,
+                kind: 144,
+                flags: 0
+              }
+            ],
+            start: 5,
+            end: 15,
+            kind: 201,
+            flags: 0
+          },
+          expression: {
+            type: 'IdentifierReference',
+            name: 'of',
+            start: 18,
+            end: 21,
+            kind: 13,
+            flags: 0
+          },
+          statement: {
+            type: 'BlockStatement',
+            leafs: [],
+            start: 22,
+            end: 26,
+            kind: 123,
+            flags: 0
+          },
+          start: 0,
+          end: 26,
+          kind: 130,
+          flags: 0
+        }
+      ],
+      text: 'for (var of = 0 in of) { }',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 26,
+      end: 26
+    });
+  });
 });

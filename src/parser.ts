@@ -823,11 +823,10 @@ export function parseBindingList(
     context & Context.ErrorRecovery ? Constants.IsPatternOrIdentifierRecovery : Constants.IsPatternOrIdentifierNormal;
   while (state.token & check) {
     declarationList.push(parseBindingElements(state, context, type, cb));
-
     if (consumeOpt(state, context, Token.Comma)) continue;
     if (state.token & (Token.IsInOrOf | Token.IsAutomaticSemicolon) || state.lineTerminatorBeforeNextToken) break;
 
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedVarOrLexDecl, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedForDecl, DiagnosticKind.Error);
   }
   return declarationList;
 }
@@ -2030,9 +2029,9 @@ export function parseObjectBindingPattern(
       break;
     }
     properties.push(parseBindingProperty(state, context, type));
-    if (consumeOpt(state, context, Token.Comma)) continue;
-
     if (state.token === Token.RightBrace) break;
+    if (consumeOpt(state, context, Token.Comma)) continue;
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
   }
   consume(state, context, Token.RightBrace);
   return finishNode(
@@ -2184,7 +2183,7 @@ export function parseArrayBindingPattern(state: ParserState, context: Context, t
   const list = [];
   const check = context & Context.ErrorRecovery ? Constants.ArrayListRecovery : Constants.ArrayListNormal;
   while (state.token & check) {
-    if (consumeOpt(state, context, Token.Comma)) {
+    if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
       list.push(finishNode(state, context, start, DictionaryMap.Elison(), SyntaxKind.Elison));
     } else {
       if (state.token === Token.Ellipsis) {
@@ -2223,7 +2222,7 @@ export function parseArrayLiteral(state: ParserState, context: Context): ArrayLi
   const elements = [];
   const check = context & Context.ErrorRecovery ? Constants.ArrayListRecovery : Constants.ArrayListNormal;
   while (state.token & check) {
-    if (consumeOpt(state, context, Token.Comma)) {
+    if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
       elements.push(finishNode(state, context, state.startIndex, DictionaryMap.Elison(), SyntaxKind.Elison));
     } else {
       if (state.token === Token.Ellipsis) {
@@ -2304,8 +2303,8 @@ export function parseObjectLiteral(state: ParserState, context: Context): Object
   const properties = [];
   while (state.token & Constants.ObjectListRecovery) {
     properties.push(parsePropertyDefinition(state, context));
-    if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
     if (state.token === Token.RightBrace) break;
+    if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
   }
   consume(state, context, Token.RightBrace);
@@ -2551,7 +2550,6 @@ export function parseFunctionBody(state: ParserState, context: Context, isStatem
     }
     consume(state, isStatement ? context | Context.AllowRegExp : context, Token.RightBrace);
   }
-
   return finishNode(state, context, start, DictionaryMap.FunctionBody(directives, statements), SyntaxKind.FunctionBody);
 }
 
@@ -2996,11 +2994,11 @@ export function parseConciseOrFunctionBody(state: ParserState, context: Context)
     }
     return body;
   }
-  const start = state.startIndex;
+
   return finishNode(
     state,
     context,
-    start,
+    state.startIndex,
     DictionaryMap.ConciseBody(parseExpression(state, context)),
     SyntaxKind.ConciseBody
   );

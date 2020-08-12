@@ -2,7 +2,7 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - For', () => {
-  it('for keyword3', () => {
+  it('for', () => {
     t.deepEqual(recovery('for', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -976,6 +976,147 @@ describe('Recovery - For', () => {
       end: 17
     });
   });
+
+  it('for ( of of) { }', () => {
+    t.deepEqual(recovery('for ( of of) { }', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForAwaitStatement',
+          initializer: {
+            type: 'IdentifierReference',
+            name: 'of',
+            start: 5,
+            end: 8,
+            kind: 13,
+            flags: 0
+          },
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 11,
+            end: 11,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'BlockStatement',
+            leafs: [],
+            start: 12,
+            end: 16,
+            kind: 123,
+            flags: 0
+          },
+          start: 0,
+          end: 16,
+          kind: 131,
+          flags: 0
+        }
+      ],
+      text: 'for ( of of) { }',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 11,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 16,
+      end: 16
+    });
+  });
+
+  it('for (var of of) { }', () => {
+    t.deepEqual(recovery('for (var of of) { }', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForAwaitStatement',
+          initializer: {
+            type: 'ForDeclaration',
+            isConst: false,
+            declarations: [
+              {
+                type: 'VariableDeclaration',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'of',
+                  start: 8,
+                  end: 11,
+                  kind: 168,
+                  flags: 0
+                },
+                initializer: null,
+                start: 8,
+                end: 11,
+                kind: 144,
+                flags: 0
+              }
+            ],
+            start: 5,
+            end: 11,
+            kind: 201,
+            flags: 0
+          },
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 14,
+            end: 14,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'BlockStatement',
+            leafs: [],
+            start: 15,
+            end: 19,
+            kind: 123,
+            flags: 0
+          },
+          start: 0,
+          end: 19,
+          kind: 129,
+          flags: 0
+        }
+      ],
+      text: 'for (var of of) { }',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 14,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 19,
+      end: 19
+    });
+  });
+
   it('for(const =', () => {
     t.deepEqual(recovery('for(const =', 'recovery.js'), {
       kind: 209,

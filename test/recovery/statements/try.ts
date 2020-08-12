@@ -4774,18 +4774,18 @@ describe('Recovery - Try', () => {
           length: 1
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`,` expected',
+          code: 5,
           start: 16,
           length: 1
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`,` expected',
+          code: 5,
           start: 19,
           length: 1
         },
@@ -4798,18 +4798,18 @@ describe('Recovery - Try', () => {
           length: 1
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`,` expected',
+          code: 5,
           start: 21,
           length: 1
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`,` expected',
+          code: 5,
           start: 24,
           length: 1
         },
@@ -4822,10 +4822,10 @@ describe('Recovery - Try', () => {
           length: 1
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`,` expected',
+          code: 5,
           start: 26,
           length: 1
         },
@@ -4838,10 +4838,10 @@ describe('Recovery - Try', () => {
           length: 1
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`,` expected',
+          code: 5,
           start: 28,
           length: 1
         },
@@ -4854,10 +4854,10 @@ describe('Recovery - Try', () => {
           length: 1
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`,` expected',
+          code: 5,
           start: 30,
           length: 1
         },
@@ -4870,17 +4870,17 @@ describe('Recovery - Try', () => {
           length: 1
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`,` expected',
+          code: 5,
           start: 32,
           length: 1
         },
         {
           kind: 2,
           source: 2,
-          message: '`}` expected',
+          message: '`,` expected',
           code: 5,
           start: 35,
           length: 1

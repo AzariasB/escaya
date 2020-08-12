@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
-describe('Declarations - Do while', () => {
+describe('Statements - Do while', () => {
   it('incomplete do while', () => {
     t.deepEqual(recovery('do while', 'recovery.js'), {
       kind: 209,
@@ -815,7 +815,7 @@ describe('Declarations - Do while', () => {
         {
           kind: 2,
           source: 2,
-          message: '`}` expected',
+          message: '`,` expected',
           code: 5,
           start: 20,
           length: 1

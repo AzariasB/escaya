@@ -365,6 +365,420 @@ describe('Recovery - Expressions - Array', () => {
     });
   });
 
+  it('[,,(a]', () => {
+    t.deepEqual(recovery('[,,(a]', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrayLiteral',
+            kind: 178,
+            elements: [
+              {
+                type: 'Elison',
+                start: 2,
+                end: 2,
+                kind: 176,
+                flags: 0
+              },
+              {
+                type: 'ParenthesizedExpression',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 4,
+                  end: 5,
+                  kind: 13,
+                  flags: 0
+                },
+                start: 3,
+                end: 5,
+                kind: 189,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 6,
+            flags: 0
+          },
+          start: 0,
+          end: 6,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '[,,(a]',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 5,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 6,
+      end: 6
+    });
+  });
+
+  it('[!,,a]', () => {
+    t.deepEqual(recovery('[!,,a]', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrayLiteral',
+            kind: 178,
+            elements: [
+              {
+                type: 'UnaryExpression',
+                operator: '!',
+                operand: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 2,
+                  end: 2,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 1,
+                end: 2,
+                kind: 160,
+                flags: 0
+              },
+              {
+                type: 'Elison',
+                start: 4,
+                end: 4,
+                kind: 176,
+                flags: 0
+              },
+              {
+                type: 'IdentifierReference',
+                name: 'a',
+                start: 4,
+                end: 5,
+                kind: 13,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 6,
+            flags: 0
+          },
+          start: 0,
+          end: 6,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '[!,,a]',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 2,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 6,
+      end: 6
+    });
+  });
+
+  it('[,,a(])', () => {
+    t.deepEqual(recovery('[,,a(])', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrayLiteral',
+            kind: 178,
+            elements: [
+              {
+                type: 'Elison',
+                start: 2,
+                end: 2,
+                kind: 176,
+                flags: 0
+              },
+              {
+                type: 'CallExpression',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 3,
+                  end: 4,
+                  kind: 13,
+                  flags: 0
+                },
+                arguments: [],
+                start: 3,
+                end: 5,
+                kind: 156,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 6,
+            flags: 0
+          },
+          start: 0,
+          end: 6,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '[,,a(])',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 5,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 6,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
+  it('[,/,a]', () => {
+    t.deepEqual(recovery('[,/,a]', 'recovery.js'), {
+      children: [],
+      context: 0,
+      detached: false,
+      diagnostics: [
+        {
+          code: 12,
+          kind: 2,
+          length: 4,
+          message: 'Unterminated regular expression',
+          source: 0,
+          start: 2
+        }
+      ],
+      directives: [],
+      end: 6,
+      fileName: 'recovery.js',
+      incremental: false,
+      kind: 209,
+      leafs: [
+        {
+          end: 6,
+          expression: {
+            elements: [
+              {
+                end: 2,
+                flags: 0,
+                kind: 176,
+                start: 2,
+                type: 'Elison'
+              },
+              {
+                end: 6,
+                flag: '',
+                flags: 0,
+                kind: 15,
+                pattern: ',a',
+                start: 2,
+                type: 'RegularExpressionLiteral'
+              }
+            ],
+            end: 6,
+            flags: 0,
+            kind: 178,
+            start: 0,
+            type: 'ArrayLiteral'
+          },
+          flags: 0,
+          kind: 122,
+          start: 0,
+          type: 'ExpressionStatement'
+        }
+      ],
+      length: 6,
+      mutualFlags: 0,
+      parent: null,
+      start: 0,
+      text: '[,/,a]'
+    });
+  });
+
+  it(',,a]', () => {
+    t.deepEqual(recovery(',,a]', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'a',
+            start: 2,
+            end: 3,
+            kind: 13,
+            flags: 0
+          },
+          start: 2,
+          end: 3,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: ',,a]',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 0,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 1,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 3,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 4,
+      end: 4
+    });
+  });
+
+  it(',{,a]', () => {
+    t.deepEqual(recovery(',{,a]', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'BlockStatement',
+          leafs: [],
+          start: 1,
+          end: 2,
+          kind: 123,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'a',
+            start: 3,
+            end: 4,
+            kind: 13,
+            flags: 0
+          },
+          start: 3,
+          end: 4,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: ',{,a]',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 0,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 2,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 4,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 5,
+      end: 5
+    });
+  });
+
   it('[,,a]', () => {
     t.deepEqual(recovery('[,,a]', 'recovery.js'), {
       kind: 209,

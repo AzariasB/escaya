@@ -273,7 +273,7 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statemendsfadsf24t', () => {
+  it('{(catch)', () => {
     t.deepEqual(recovery('{(catch)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -601,7 +601,7 @@ describe('Recovery - Block', () => {
       end: 7
     });
   });
-  it('Unclosed block statemen56+067t', () => {
+  it('(!{', () => {
     t.deepEqual(recovery('(!{', 'recovery.js'), {
       kind: 209,
       directives: [],

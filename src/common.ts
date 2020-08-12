@@ -127,7 +127,6 @@ export function consume<T extends Token>(state: ParserState, context: Context, t
   );
   return false;
 }
-
 export function consumeOpt<T extends Token>(state: ParserState, context: Context, t: T): boolean {
   if (state.token === t) {
     nextToken(state, context);
