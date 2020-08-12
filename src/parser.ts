@@ -217,7 +217,6 @@ export function parseStatement(state: ParserState, context: Context): Statement 
     case Token.DebuggerKeyword:
       return parseDebuggerStatement(state, context);
     case Token.IfKeyword:
-    case Token.ElseKeyword:
       return parseIfStatement(state, context);
     case Token.WhileKeyword:
       return parseWhileStatement(state, context);
@@ -260,6 +259,8 @@ export function parseStatement(state: ParserState, context: Context): Statement 
       // See the comment above. Same rules apply.
       addEarlyDiagnostic(state, context, DiagnosticCode.ClassForbiddenAsStatement);
       return parseClassDeclaration(state, context);
+    case Token.ElseKeyword:
+      if (context & Context.ErrorRecovery) return parseIfStatement(state, context);
     default:
       return parseExpressionOrLabelledStatement(state, context);
   }
