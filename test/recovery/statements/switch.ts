@@ -2312,57 +2312,50 @@ describe('Recovery - Switch', () => {
           flags: 0
         },
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-              name: 'x',
-              start: 39,
-              end: 42,
-              kind: 13,
-              flags: 0
-            },
-            labelledItem: {
-              type: 'BlockStatement',
-              leafs: [
-                {
-                  type: 'ExpressionStatement',
-                  expression: {
-                    type: 'UnaryExpression',
-                    operator: '!',
-                    operand: {
-                      type: 'IdentifierReference',
-                      name: '',
-                      start: 46,
-                      end: 46,
-                      kind: 13,
-                      flags: 2
-                    },
-                    start: 44,
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'x',
+            start: 39,
+            end: 42,
+            kind: 13,
+            flags: 0
+          },
+          labelledItem: {
+            type: 'BlockStatement',
+            leafs: [
+              {
+                type: 'ExpressionStatement',
+                expression: {
+                  type: 'UnaryExpression',
+                  operator: '!',
+                  operand: {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 46,
                     end: 46,
-                    kind: 160,
-                    flags: 0
+                    kind: 13,
+                    flags: 2
                   },
                   start: 44,
                   end: 46,
-                  kind: 122,
+                  kind: 160,
                   flags: 0
-                }
-              ],
-              start: 42,
-              end: 47,
-              kind: 123,
-              flags: 0
-            },
-            start: 39,
+                },
+                start: 44,
+                end: 46,
+                kind: 122,
+                flags: 0
+              }
+            ],
+            start: 42,
             end: 47,
-            kind: 134,
+            kind: 123,
             flags: 0
           },
           start: 39,
           end: 47,
-          kind: 122,
+          kind: 134,
           flags: 0
         }
       ],
@@ -2439,10 +2432,10 @@ describe('Recovery - Switch', () => {
           type: 'SwitchStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
             name: 'x',
             start: 8,
             end: 9,
+            kind: 13,
             flags: 0
           },
           clauses: [
@@ -2450,57 +2443,50 @@ describe('Recovery - Switch', () => {
               type: 'DefaultClause',
               leafs: [
                 {
-                  type: 'ExpressionStatement',
-                  expression: {
-                    type: 'LabelledStatement',
-                    label: {
-                      type: 'LabelIdentifier',
-                      kind: 13,
-                      name: 'x',
-                      start: 20,
-                      end: 23,
-                      flags: 0
-                    },
-                    labelledItem: {
-                      type: 'BlockStatement',
-                      leafs: [
-                        {
-                          type: 'ExpressionStatement',
-                          expression: {
-                            type: 'UnaryExpression',
-                            operator: '!',
-                            operand: {
-                              type: 'IdentifierReference',
-                              kind: 13,
-                              name: '',
-                              start: 27,
-                              end: 27,
-                              flags: 2
-                            },
-                            start: 25,
+                  type: 'LabelledStatement',
+                  label: {
+                    type: 'LabelIdentifier',
+                    name: 'x',
+                    start: 20,
+                    end: 23,
+                    kind: 13,
+                    flags: 0
+                  },
+                  labelledItem: {
+                    type: 'BlockStatement',
+                    leafs: [
+                      {
+                        type: 'ExpressionStatement',
+                        expression: {
+                          type: 'UnaryExpression',
+                          operator: '!',
+                          operand: {
+                            type: 'IdentifierReference',
+                            name: '',
+                            start: 27,
                             end: 27,
-                            kind: 160,
-                            flags: 0
+                            kind: 13,
+                            flags: 2
                           },
                           start: 25,
                           end: 27,
-                          kind: 122,
+                          kind: 160,
                           flags: 0
-                        }
-                      ],
-                      start: 23,
-                      end: 28,
-                      kind: 123,
-                      flags: 0
-                    },
-                    start: 20,
+                        },
+                        start: 25,
+                        end: 27,
+                        kind: 122,
+                        flags: 0
+                      }
+                    ],
+                    start: 23,
                     end: 28,
-                    kind: 134,
+                    kind: 123,
                     flags: 0
                   },
                   start: 20,
                   end: 28,
-                  kind: 122,
+                  kind: 134,
                   flags: 0
                 }
               ],

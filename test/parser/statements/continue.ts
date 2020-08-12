@@ -133,58 +133,44 @@ describe('Statements - Continue', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'foo',
+            start: 0,
+            end: 4
+          },
+          labelledItem: {
             type: 'LabelledStatement',
             label: {
               type: 'LabelIdentifier',
-
-              name: 'foo',
-              start: 0,
-              end: 4
+              name: 'bar',
+              start: 5,
+              end: 9
             },
             labelledItem: {
-              type: 'ExpressionStatement',
+              type: 'DoWhileStatement',
               expression: {
-                type: 'LabelledStatement',
-                label: {
-                  type: 'LabelIdentifier',
-
-                  name: 'bar',
-                  start: 5,
-                  end: 9
-                },
-                labelledItem: {
-                  type: 'DoWhileStatement',
-                  expression: {
-                    type: 'IdentifierReference',
-
-                    name: 'z',
-                    start: 33,
-                    end: 34
-                  },
-                  statement: {
-                    type: 'ContinueStatement',
-                    label: {
-                      type: 'IdentifierReference',
-
-                      name: 'foo',
-                      start: 22,
-                      end: 25
-                    },
-                    start: 13,
-                    end: 26
-                  },
-                  start: 10,
-                  end: 35
-                },
-                start: 5,
-                end: 35
+                type: 'IdentifierReference',
+                name: 'z',
+                start: 33,
+                end: 34
               },
-              start: 5,
+              statement: {
+                type: 'ContinueStatement',
+                label: {
+                  type: 'IdentifierReference',
+                  name: 'foo',
+                  start: 22,
+                  end: 25
+                },
+                start: 13,
+                end: 26
+              },
+              start: 10,
               end: 35
             },
-            start: 0,
+            start: 5,
             end: 35
           },
           start: 0,
@@ -213,38 +199,33 @@ describe('Statements - Continue', () => {
             type: 'BlockStatement',
             leafs: [
               {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'LabelledStatement',
-                  label: {
-                    type: 'LabelIdentifier',
-                    name: 'x',
-                    start: 15,
-                    end: 17
+                type: 'LabelledStatement',
+                label: {
+                  type: 'LabelIdentifier',
+                  name: 'x',
+                  start: 15,
+                  end: 17
+                },
+                labelledItem: {
+                  type: 'WhileStatement',
+                  expression: {
+                    type: 'BooleanLiteral',
+                    value: true,
+                    start: 25,
+                    end: 29
                   },
-                  labelledItem: {
-                    type: 'WhileStatement',
-                    expression: {
-                      type: 'BooleanLiteral',
-                      value: true,
-                      start: 25,
-                      end: 29
+                  statement: {
+                    type: 'ContinueStatement',
+                    label: {
+                      type: 'IdentifierReference',
+                      name: 'x',
+                      start: 40,
+                      end: 41
                     },
-                    statement: {
-                      type: 'ContinueStatement',
-                      label: {
-                        type: 'IdentifierReference',
-                        name: 'x',
-                        start: 40,
-                        end: 41
-                      },
-                      start: 31,
-                      end: 42
-                    },
-                    start: 18,
+                    start: 31,
                     end: 42
                   },
-                  start: 15,
+                  start: 18,
                   end: 42
                 },
                 start: 15,

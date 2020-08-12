@@ -1061,32 +1061,25 @@ describe('test262-parser-tests - early tests', () => {
           flags: 0
         },
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-              name: 'yield',
-              start: 13,
-              end: 20,
-              kind: 13,
-              flags: 0
-            },
-            labelledItem: {
-              type: 'EmptyStatement',
-              start: 20,
-              end: 21,
-              kind: 148,
-              flags: 0
-            },
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'yield',
             start: 13,
+            end: 20,
+            kind: 13,
+            flags: 0
+          },
+          labelledItem: {
+            type: 'EmptyStatement',
+            start: 20,
             end: 21,
-            kind: 134,
+            kind: 148,
             flags: 0
           },
           start: 13,
           end: 21,
-          kind: 122,
+          kind: 134,
           flags: 0
         }
       ],
@@ -2473,55 +2466,48 @@ describe('test262-parser-tests - early tests', () => {
             directives: [],
             leafs: [
               {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'LabelledStatement',
-                  label: {
-                    type: 'LabelIdentifier',
-                    name: 'c',
-                    start: 13,
-                    end: 16,
-                    kind: 13,
-                    flags: 0
-                  },
-                  labelledItem: {
-                    type: 'WhileStatement',
-                    expression: {
-                      type: 'NumericLiteral',
-                      value: 1,
-                      start: 23,
-                      end: 24,
-                      kind: 10,
-                      flags: 0
-                    },
-                    statement: {
-                      type: 'ContinueStatement',
-                      label: {
-                        type: 'IdentifierReference',
-                        name: 'b',
-                        start: 34,
-                        end: 36,
-                        kind: 13,
-                        flags: 0
-                      },
-                      start: 25,
-                      end: 37,
-                      kind: 125,
-                      flags: 0
-                    },
-                    start: 16,
-                    end: 37,
-                    kind: 139,
-                    flags: 0
-                  },
+                type: 'LabelledStatement',
+                label: {
+                  type: 'LabelIdentifier',
+                  name: 'c',
                   start: 13,
+                  end: 16,
+                  kind: 13,
+                  flags: 0
+                },
+                labelledItem: {
+                  type: 'WhileStatement',
+                  expression: {
+                    type: 'NumericLiteral',
+                    value: 1,
+                    start: 23,
+                    end: 24,
+                    kind: 10,
+                    flags: 0
+                  },
+                  statement: {
+                    type: 'ContinueStatement',
+                    label: {
+                      type: 'IdentifierReference',
+                      name: 'b',
+                      start: 34,
+                      end: 36,
+                      kind: 13,
+                      flags: 0
+                    },
+                    start: 25,
+                    end: 37,
+                    kind: 125,
+                    flags: 0
+                  },
+                  start: 16,
                   end: 37,
-                  kind: 134,
+                  kind: 139,
                   flags: 0
                 },
                 start: 13,
                 end: 37,
-                kind: 122,
+                kind: 134,
                 flags: 0
               }
             ],
@@ -3498,40 +3484,33 @@ describe('test262-parser-tests - early tests', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'b',
+            start: 0,
+            end: 2,
+            kind: 13,
+            flags: 0
+          },
+          labelledItem: {
+            type: 'BreakStatement',
             label: {
-              type: 'LabelIdentifier',
-              name: 'b',
-              start: 0,
-              end: 2,
+              type: 'IdentifierReference',
+              name: 'a',
+              start: 8,
+              end: 10,
               kind: 13,
               flags: 0
             },
-            labelledItem: {
-              type: 'BreakStatement',
-              label: {
-                type: 'IdentifierReference',
-                name: 'a',
-                start: 8,
-                end: 10,
-                kind: 13,
-                flags: 0
-              },
-              start: 2,
-              end: 11,
-              kind: 124,
-              flags: 0
-            },
-            start: 0,
+            start: 2,
             end: 11,
-            kind: 134,
+            kind: 124,
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 122,
+          kind: 134,
           flags: 0
         }
       ],
@@ -3623,62 +3602,48 @@ describe('test262-parser-tests - early tests', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: '__proto__',
+            start: 0,
+            end: 10,
+            kind: 13,
+            flags: 0
+          },
+          labelledItem: {
             type: 'LabelledStatement',
             label: {
               type: 'LabelIdentifier',
               name: '__proto__',
-              start: 0,
-              end: 10,
+              start: 10,
+              end: 21,
               kind: 13,
               flags: 0
             },
             labelledItem: {
               type: 'ExpressionStatement',
               expression: {
-                type: 'LabelledStatement',
-                label: {
-                  type: 'LabelIdentifier',
-                  name: '__proto__',
-                  start: 10,
-                  end: 21,
-                  kind: 13,
-                  flags: 0
-                },
-                labelledItem: {
-                  type: 'ExpressionStatement',
-                  expression: {
-                    type: 'NumericLiteral',
-                    value: 1,
-                    start: 21,
-                    end: 23,
-                    kind: 10,
-                    flags: 0
-                  },
-                  start: 21,
-                  end: 24,
-                  kind: 122,
-                  flags: 0
-                },
-                start: 10,
-                end: 24,
-                kind: 134,
+                type: 'NumericLiteral',
+                value: 1,
+                start: 21,
+                end: 23,
+                kind: 10,
                 flags: 0
               },
-              start: 10,
+              start: 21,
               end: 24,
               kind: 122,
               flags: 0
             },
-            start: 0,
+            start: 10,
             end: 24,
             kind: 134,
             flags: 0
           },
           start: 0,
           end: 24,
-          kind: 122,
+          kind: 134,
           flags: 0
         }
       ],
@@ -4025,52 +3990,45 @@ describe('test262-parser-tests - early tests', () => {
             flags: 0
           },
           statement: {
-            type: 'ExpressionStatement',
-            expression: {
-              type: 'LabelledStatement',
-              label: {
-                type: 'LabelIdentifier',
-                name: 'd',
-                start: 15,
-                end: 18,
-                kind: 13,
-                flags: 0
-              },
-              labelledItem: {
-                type: 'FunctionDeclaration',
-                name: {
-                  type: 'BindingIdentifier',
-                  name: 'c',
-                  start: 27,
-                  end: 29,
-                  kind: 168,
-                  flags: 0
-                },
-                generator: false,
-                async: false,
-                params: [],
-                contents: {
-                  type: 'FunctionBody',
-                  directives: [],
-                  leafs: [],
-                  start: 31,
-                  end: 33,
-                  kind: 184,
-                  flags: 0
-                },
-                start: 18,
-                end: 33,
-                kind: 186,
-                flags: 0
-              },
+            type: 'LabelledStatement',
+            label: {
+              type: 'LabelIdentifier',
+              name: 'd',
               start: 15,
+              end: 18,
+              kind: 13,
+              flags: 0
+            },
+            labelledItem: {
+              type: 'FunctionDeclaration',
+              name: {
+                type: 'BindingIdentifier',
+                name: 'c',
+                start: 27,
+                end: 29,
+                kind: 168,
+                flags: 0
+              },
+              generator: false,
+              async: false,
+              params: [],
+              contents: {
+                type: 'FunctionBody',
+                directives: [],
+                leafs: [],
+                start: 31,
+                end: 33,
+                kind: 184,
+                flags: 0
+              },
+              start: 18,
               end: 33,
-              kind: 134,
+              kind: 186,
               flags: 0
             },
             start: 15,
             end: 33,
-            kind: 122,
+            kind: 134,
             flags: 0
           },
           start: 0,
@@ -4110,74 +4068,60 @@ describe('test262-parser-tests - early tests', () => {
             flags: 0
           },
           consequent: {
-            type: 'ExpressionStatement',
-            expression: {
+            type: 'LabelledStatement',
+            label: {
+              type: 'LabelIdentifier',
+              name: 'c',
+              start: 5,
+              end: 8,
+              kind: 13,
+              flags: 0
+            },
+            labelledItem: {
               type: 'LabelledStatement',
               label: {
                 type: 'LabelIdentifier',
-                name: 'c',
-                start: 5,
-                end: 8,
+                name: 'b',
+                start: 8,
+                end: 11,
                 kind: 13,
                 flags: 0
               },
               labelledItem: {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'LabelledStatement',
-                  label: {
-                    type: 'LabelIdentifier',
-                    name: 'b',
-                    start: 8,
-                    end: 11,
-                    kind: 13,
-                    flags: 0
-                  },
-                  labelledItem: {
-                    type: 'FunctionDeclaration',
-                    name: {
-                      type: 'BindingIdentifier',
-                      name: 'a',
-                      start: 20,
-                      end: 22,
-                      kind: 168,
-                      flags: 0
-                    },
-                    generator: false,
-                    async: false,
-                    params: [],
-                    contents: {
-                      type: 'FunctionBody',
-                      directives: [],
-                      leafs: [],
-                      start: 24,
-                      end: 26,
-                      kind: 184,
-                      flags: 0
-                    },
-                    start: 11,
-                    end: 26,
-                    kind: 186,
-                    flags: 0
-                  },
-                  start: 8,
-                  end: 26,
-                  kind: 134,
+                type: 'FunctionDeclaration',
+                name: {
+                  type: 'BindingIdentifier',
+                  name: 'a',
+                  start: 20,
+                  end: 22,
+                  kind: 168,
                   flags: 0
                 },
-                start: 8,
+                generator: false,
+                async: false,
+                params: [],
+                contents: {
+                  type: 'FunctionBody',
+                  directives: [],
+                  leafs: [],
+                  start: 24,
+                  end: 26,
+                  kind: 184,
+                  flags: 0
+                },
+                start: 11,
                 end: 26,
-                kind: 122,
+                kind: 186,
                 flags: 0
               },
-              start: 5,
+              start: 8,
               end: 26,
               kind: 134,
               flags: 0
             },
             start: 5,
             end: 26,
-            kind: 122,
+            kind: 134,
             flags: 0
           },
           alternate: null,

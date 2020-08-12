@@ -3015,40 +3015,33 @@ describe('test262-parser-tests - failing tests', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-              name: 'a',
-              start: 0,
-              end: 2,
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'a',
+            start: 0,
+            end: 2,
+            kind: 13,
+            flags: 0
+          },
+          labelledItem: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'let',
+              start: 2,
+              end: 6,
               kind: 13,
               flags: 0
             },
-            labelledItem: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-                name: 'let',
-                start: 2,
-                end: 6,
-                kind: 13,
-                flags: 0
-              },
-              start: 2,
-              end: 6,
-              kind: 122,
-              flags: 0
-            },
-            start: 0,
+            start: 2,
             end: 6,
-            kind: 134,
+            kind: 122,
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
+          kind: 134,
           flags: 0
         },
         {

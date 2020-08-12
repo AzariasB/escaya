@@ -1520,40 +1520,33 @@ describe('Recovery - Var', () => {
           flags: 0
         },
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-              name: 'a',
-              start: 20,
-              end: 23,
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'a',
+            start: 20,
+            end: 23,
+            kind: 13,
+            flags: 0
+          },
+          labelledItem: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'b',
+              start: 23,
+              end: 25,
               kind: 13,
               flags: 0
             },
-            labelledItem: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-                name: 'b',
-                start: 23,
-                end: 25,
-                kind: 13,
-                flags: 0
-              },
-              start: 23,
-              end: 26,
-              kind: 122,
-              flags: 0
-            },
-            start: 20,
+            start: 23,
             end: 26,
-            kind: 134,
+            kind: 122,
             flags: 0
           },
           start: 20,
           end: 26,
-          kind: 122,
+          kind: 134,
           flags: 0
         },
         {
@@ -1622,14 +1615,6 @@ describe('Recovery - Var', () => {
           code: 5,
           start: 19,
           length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`;` expected',
-          code: 92,
-          start: 27,
-          length: 3
         },
         {
           kind: 2,

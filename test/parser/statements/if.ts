@@ -96,35 +96,27 @@ describe('Statements - If', () => {
           type: 'IfStatement',
           expression: {
             type: 'IdentifierReference',
-
             name: 'x',
             start: 4,
             end: 5
           },
           consequent: {
-            type: 'ExpressionStatement',
-            expression: {
-              type: 'LabelledStatement',
-              label: {
-                type: 'LabelIdentifier',
-
-                name: 'let',
-                start: 7,
-                end: 11
-              },
-              labelledItem: {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'IdentifierReference',
-
-                  name: 'y',
-                  start: 12,
-                  end: 13
-                },
-                start: 12,
-                end: 14
-              },
+            type: 'LabelledStatement',
+            label: {
+              type: 'LabelIdentifier',
+              name: 'let',
               start: 7,
+              end: 11
+            },
+            labelledItem: {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: 'y',
+                start: 12,
+                end: 13
+              },
+              start: 12,
               end: 14
             },
             start: 7,

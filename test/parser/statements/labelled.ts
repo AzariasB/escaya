@@ -134,29 +134,22 @@ describe('Statements - Labelled', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-
-              name: 'yield',
-              start: 0,
-              end: 6
-            },
-            labelledItem: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-
-                name: 'x',
-                start: 7,
-                end: 8
-              },
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'yield',
+            start: 0,
+            end: 6
+          },
+          labelledItem: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'x',
               start: 7,
               end: 8
             },
-            start: 0,
+            start: 7,
             end: 8
           },
           start: 0,
@@ -168,35 +161,78 @@ describe('Statements - Labelled', () => {
     });
   });
 
+  it('a:b;!c', () => {
+    t.deepEqual(parseScript('a:b;!c', { loc: true }), {
+      type: 'Script',
+      directives: [],
+      leafs: [
+        {
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'a',
+            start: 0,
+            end: 2
+          },
+          labelledItem: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'b',
+              start: 2,
+              end: 3
+            },
+            start: 2,
+            end: 4
+          },
+          start: 0,
+          end: 4
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: 'c',
+              start: 5,
+              end: 6
+            },
+            start: 4,
+            end: 6
+          },
+          start: 4,
+          end: 6
+        }
+      ],
+      start: 0,
+      end: 6
+    });
+  });
+
   it('await: x', () => {
     t.deepEqual(parseScript('await: x', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-
-              name: 'await',
-              start: 0,
-              end: 6
-            },
-            labelledItem: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-
-                name: 'x',
-                start: 7,
-                end: 8
-              },
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'await',
+            start: 0,
+            end: 6
+          },
+          labelledItem: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'x',
               start: 7,
               end: 8
             },
-            start: 0,
+            start: 7,
             end: 8
           },
           start: 0,
@@ -214,29 +250,22 @@ describe('Statements - Labelled', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-
-              name: 'foo',
-              start: 0,
-              end: 4
-            },
-            labelledItem: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-
-                name: 'bar',
-                start: 5,
-                end: 8
-              },
-              start: 5,
-              end: 9
-            },
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'foo',
             start: 0,
+            end: 4
+          },
+          labelledItem: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'bar',
+              start: 5,
+              end: 8
+            },
+            start: 5,
             end: 9
           },
           start: 0,
@@ -254,48 +283,40 @@ describe('Statements - Labelled', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'await',
+            start: 0,
+            end: 6
+          },
+          labelledItem: {
+            type: 'WhileStatement',
+            expression: {
+              type: 'IdentifierReference',
               name: 'await',
-              start: 0,
-              end: 6
+              start: 14,
+              end: 19
             },
-            labelledItem: {
-              type: 'WhileStatement',
-              expression: {
-                type: 'IdentifierReference',
-
-                name: 'await',
-                start: 14,
-                end: 19
-              },
-              statement: {
-                type: 'BlockStatement',
-                leafs: [
-                  {
-                    type: 'ContinueStatement',
-                    label: {
-                      type: 'IdentifierReference',
-
-                      name: 'await',
-                      start: 32,
-                      end: 37
-                    },
-                    start: 23,
-                    end: 38
-                  }
-                ],
-                start: 21,
-                end: 40
-              },
-              start: 7,
+            statement: {
+              type: 'BlockStatement',
+              leafs: [
+                {
+                  type: 'ContinueStatement',
+                  label: {
+                    type: 'IdentifierReference',
+                    name: 'await',
+                    start: 32,
+                    end: 37
+                  },
+                  start: 23,
+                  end: 38
+                }
+              ],
+              start: 21,
               end: 40
             },
-            start: 0,
+            start: 7,
             end: 40
           },
           start: 0,
@@ -313,48 +334,40 @@ describe('Statements - Labelled', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'async',
+            start: 0,
+            end: 6
+          },
+          labelledItem: {
+            type: 'WhileStatement',
+            expression: {
+              type: 'IdentifierReference',
               name: 'async',
-              start: 0,
-              end: 6
+              start: 14,
+              end: 19
             },
-            labelledItem: {
-              type: 'WhileStatement',
-              expression: {
-                type: 'IdentifierReference',
-
-                name: 'async',
-                start: 14,
-                end: 19
-              },
-              statement: {
-                type: 'BlockStatement',
-                leafs: [
-                  {
-                    type: 'ContinueStatement',
-                    label: {
-                      type: 'IdentifierReference',
-
-                      name: 'async',
-                      start: 32,
-                      end: 37
-                    },
-                    start: 23,
-                    end: 38
-                  }
-                ],
-                start: 21,
-                end: 40
-              },
-              start: 7,
+            statement: {
+              type: 'BlockStatement',
+              leafs: [
+                {
+                  type: 'ContinueStatement',
+                  label: {
+                    type: 'IdentifierReference',
+                    name: 'async',
+                    start: 32,
+                    end: 37
+                  },
+                  start: 23,
+                  end: 38
+                }
+              ],
+              start: 21,
               end: 40
             },
-            start: 0,
+            start: 7,
             end: 40
           },
           start: 0,
@@ -372,29 +385,22 @@ describe('Statements - Labelled', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-
-              name: 'let',
-              start: 0,
-              end: 4
-            },
-            labelledItem: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-
-                name: 'foo',
-                start: 5,
-                end: 8
-              },
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'let',
+            start: 0,
+            end: 4
+          },
+          labelledItem: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'foo',
               start: 5,
               end: 8
             },
-            start: 0,
+            start: 5,
             end: 8
           },
           start: 0,
@@ -412,29 +418,22 @@ describe('Statements - Labelled', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-
-              name: 'yield',
-              start: 0,
-              end: 6
-            },
-            labelledItem: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-
-                name: 'await',
-                start: 7,
-                end: 12
-              },
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'yield',
+            start: 0,
+            end: 6
+          },
+          labelledItem: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'await',
               start: 7,
               end: 12
             },
-            start: 0,
+            start: 7,
             end: 12
           },
           start: 0,
@@ -446,35 +445,28 @@ describe('Statements - Labelled', () => {
     });
   });
 
-  it('`__proto__: test', () => {
+  it('__proto__: test', () => {
     t.deepEqual(parseScript('__proto__: test', { loc: true }), {
       type: 'Script',
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-
-              name: '__proto__',
-              start: 0,
-              end: 10
-            },
-            labelledItem: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-
-                name: 'test',
-                start: 11,
-                end: 15
-              },
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: '__proto__',
+            start: 0,
+            end: 10
+          },
+          labelledItem: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'test',
               start: 11,
               end: 15
             },
-            start: 0,
+            start: 11,
             end: 15
           },
           start: 0,
@@ -492,36 +484,29 @@ describe('Statements - Labelled', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-
-              name: 'a',
-              start: 0,
-              end: 2
-            },
-            labelledItem: {
-              type: 'BlockStatement',
-              leafs: [
-                {
-                  type: 'BreakStatement',
-                  label: {
-                    type: 'IdentifierReference',
-
-                    name: 'a',
-                    start: 9,
-                    end: 10
-                  },
-                  start: 3,
-                  end: 11
-                }
-              ],
-              start: 2,
-              end: 12
-            },
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'a',
             start: 0,
+            end: 2
+          },
+          labelledItem: {
+            type: 'BlockStatement',
+            leafs: [
+              {
+                type: 'BreakStatement',
+                label: {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 9,
+                  end: 10
+                },
+                start: 3,
+                end: 11
+              }
+            ],
+            start: 2,
             end: 12
           },
           start: 0,
@@ -539,38 +524,33 @@ describe('Statements - Labelled', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-              name: 'start',
-              start: 0,
-              end: 6
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'start',
+            start: 0,
+            end: 6
+          },
+          labelledItem: {
+            type: 'WhileStatement',
+            expression: {
+              type: 'BooleanLiteral',
+              value: true,
+              start: 14,
+              end: 18
             },
-            labelledItem: {
-              type: 'WhileStatement',
-              expression: {
-                type: 'BooleanLiteral',
-                value: true,
-                start: 14,
-                end: 18
-              },
-              statement: {
-                type: 'BreakStatement',
-                label: {
-                  type: 'IdentifierReference',
-                  name: 'start',
-                  start: 26,
-                  end: 31
-                },
-                start: 20,
+            statement: {
+              type: 'BreakStatement',
+              label: {
+                type: 'IdentifierReference',
+                name: 'start',
+                start: 26,
                 end: 31
               },
-              start: 7,
+              start: 20,
               end: 31
             },
-            start: 0,
+            start: 7,
             end: 31
           },
           start: 0,
@@ -610,53 +590,43 @@ describe('Statements - Labelled', () => {
             directives: [],
             leafs: [
               {
-                type: 'ExpressionStatement',
-                expression: {
+                type: 'LabelledStatement',
+                label: {
+                  type: 'LabelIdentifier',
+                  name: 'y',
+                  start: 21,
+                  end: 23
+                },
+                labelledItem: {
                   type: 'LabelledStatement',
                   label: {
                     type: 'LabelIdentifier',
-                    name: 'y',
-                    start: 21,
-                    end: 23
+                    name: 'j',
+                    start: 23,
+                    end: 25
                   },
                   labelledItem: {
-                    type: 'ExpressionStatement',
-                    expression: {
-                      type: 'LabelledStatement',
-                      label: {
-                        type: 'LabelIdentifier',
-                        name: 'j',
-                        start: 23,
-                        end: 25
-                      },
-                      labelledItem: {
-                        type: 'FunctionDeclaration',
-                        name: {
-                          type: 'BindingIdentifier',
-                          name: 'casecase',
-                          start: 34,
-                          end: 42
-                        },
-                        generator: false,
-                        async: false,
-                        params: [],
-                        contents: {
-                          type: 'FunctionBody',
-                          directives: [],
-                          leafs: [],
-                          start: 44,
-                          end: 46
-                        },
-                        start: 25,
-                        end: 46
-                      },
-                      start: 23,
+                    type: 'FunctionDeclaration',
+                    name: {
+                      type: 'BindingIdentifier',
+                      name: 'casecase',
+                      start: 34,
+                      end: 42
+                    },
+                    generator: false,
+                    async: false,
+                    params: [],
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
+                      start: 44,
                       end: 46
                     },
-                    start: 23,
+                    start: 25,
                     end: 46
                   },
-                  start: 21,
+                  start: 23,
                   end: 46
                 },
                 start: 21,
@@ -688,53 +658,9 @@ describe('Statements - Labelled', () => {
         directives: [],
         leafs: [
           {
-            type: 'ExpressionStatement',
-            expression: {
-              type: 'LabelledStatement',
-              label: {
-                type: 'LabelIdentifier',
-
-                name: 'foo',
-                start: 0,
-                end: 4
-              },
-              labelledItem: {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'RegularExpressionLiteral',
-                  pattern: 'bar',
-                  flag: '',
-                  start: 9,
-                  end: 14
-                },
-                start: 9,
-                end: 14
-              },
-              start: 0,
-              end: 14
-            },
-            start: 0,
-            end: 14
-          }
-        ],
-        start: 0,
-        end: 14
-      }
-    );
-  });
-
-  it('`foo:/bar/`', () => {
-    t.deepEqual(parseScript('foo:/bar/', { loc: true }), {
-      type: 'Script',
-      directives: [],
-      leafs: [
-        {
-          type: 'ExpressionStatement',
-          expression: {
             type: 'LabelledStatement',
             label: {
               type: 'LabelIdentifier',
-
               name: 'foo',
               start: 0,
               end: 4
@@ -745,21 +671,19 @@ describe('Statements - Labelled', () => {
                 type: 'RegularExpressionLiteral',
                 pattern: 'bar',
                 flag: '',
-                start: 4,
-                end: 9
+                start: 9,
+                end: 14
               },
-              start: 4,
-              end: 9
+              start: 9,
+              end: 14
             },
             start: 0,
-            end: 9
-          },
-          start: 0,
-          end: 9
-        }
-      ],
-      start: 0,
-      end: 9
-    });
+            end: 14
+          }
+        ],
+        start: 0,
+        end: 14
+      }
+    );
   });
 });

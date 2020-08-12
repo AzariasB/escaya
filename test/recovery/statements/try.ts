@@ -2651,40 +2651,33 @@ describe('Recovery - Try', () => {
             flags: 0
           },
           {
-            type: 'ExpressionStatement',
-            expression: {
-              type: 'LabelledStatement',
-              label: {
-                type: 'LabelIdentifier',
-                name: 'sleep',
-                start: 72,
-                end: 80,
-                kind: 13,
-                flags: 0
-              },
-              labelledItem: {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 80,
-                  end: 80,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 80,
-                end: 80,
-                kind: 122,
-                flags: 0
-              },
+            type: 'LabelledStatement',
+            label: {
+              type: 'LabelIdentifier',
+              name: 'sleep',
               start: 72,
               end: 80,
-              kind: 134,
+              kind: 13,
+              flags: 0
+            },
+            labelledItem: {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 80,
+                end: 80,
+                kind: 13,
+                flags: 2
+              },
+              start: 80,
+              end: 80,
+              kind: 122,
               flags: 0
             },
             start: 72,
             end: 80,
-            kind: 122,
+            kind: 134,
             flags: 0
           }
         ],
@@ -3493,10 +3486,10 @@ describe('Recovery - Try', () => {
                     operator: '/',
                     right: {
                       type: 'IdentifierReference',
-                      kind: 13,
                       name: 'd',
                       start: 9,
                       end: 10,
+                      kind: 13,
                       flags: 0
                     },
                     start: 5,
@@ -3510,10 +3503,10 @@ describe('Recovery - Try', () => {
                     operator: '!',
                     operand: {
                       type: 'IdentifierReference',
-                      kind: 13,
                       name: '',
                       start: 13,
                       end: 13,
+                      kind: 13,
                       flags: 2
                     },
                     start: 12,
@@ -3539,7 +3532,6 @@ describe('Recovery - Try', () => {
           },
           catchClause: {
             type: 'CatchClause',
-            kind: 140,
             binding: {
               type: 'BindingIdentifier',
               name: 'x',
@@ -3552,40 +3544,33 @@ describe('Recovery - Try', () => {
               type: 'BlockStatement',
               leafs: [
                 {
-                  type: 'ExpressionStatement',
-                  expression: {
-                    type: 'LabelledStatement',
-                    label: {
-                      type: 'LabelIdentifier',
-                      kind: 13,
-                      name: 'foo',
-                      start: 25,
-                      end: 30,
-                      flags: 0
-                    },
-                    labelledItem: {
-                      type: 'ExpressionStatement',
-                      expression: {
-                        type: 'IdentifierReference',
-                        kind: 13,
-                        name: '',
-                        start: 30,
-                        end: 30,
-                        flags: 2
-                      },
-                      start: 30,
-                      end: 30,
-                      kind: 122,
-                      flags: 0
-                    },
+                  type: 'LabelledStatement',
+                  label: {
+                    type: 'LabelIdentifier',
+                    name: 'foo',
                     start: 25,
                     end: 30,
-                    kind: 134,
+                    kind: 13,
+                    flags: 0
+                  },
+                  labelledItem: {
+                    type: 'ExpressionStatement',
+                    expression: {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 30,
+                      end: 30,
+                      kind: 13,
+                      flags: 2
+                    },
+                    start: 30,
+                    end: 30,
+                    kind: 122,
                     flags: 0
                   },
                   start: 25,
                   end: 30,
-                  kind: 122,
+                  kind: 134,
                   flags: 0
                 }
               ],
@@ -3594,9 +3579,10 @@ describe('Recovery - Try', () => {
               kind: 123,
               flags: 0
             },
-            flags: 0,
             start: 14,
-            end: 30
+            end: 30,
+            kind: 140,
+            flags: 0
           },
           finalizer: null,
           start: 0,
@@ -3723,63 +3709,56 @@ describe('Recovery - Try', () => {
               type: 'BlockStatement',
               leafs: [
                 {
-                  type: 'ExpressionStatement',
-                  expression: {
-                    type: 'LabelledStatement',
-                    label: {
-                      type: 'LabelIdentifier',
-                      name: 'foo',
-                      start: 25,
-                      end: 30,
-                      kind: 13,
-                      flags: 0
-                    },
-                    labelledItem: {
-                      type: 'ExpressionStatement',
-                      expression: {
-                        type: 'ConditionalExpression',
-                        shortCircuit: {
-                          type: 'IdentifierReference',
-                          name: '',
-                          start: 30,
-                          end: 30,
-                          kind: 13,
-                          flags: 2
-                        },
-                        consequent: {
-                          type: 'IdentifierReference',
-                          name: '',
-                          start: 33,
-                          end: 33,
-                          kind: 13,
-                          flags: 2
-                        },
-                        alternate: {
-                          type: 'IdentifierReference',
-                          name: 'b',
-                          start: 35,
-                          end: 37,
-                          kind: 13,
-                          flags: 0
-                        },
+                  type: 'LabelledStatement',
+                  label: {
+                    type: 'LabelIdentifier',
+                    name: 'foo',
+                    start: 25,
+                    end: 30,
+                    kind: 13,
+                    flags: 0
+                  },
+                  labelledItem: {
+                    type: 'ExpressionStatement',
+                    expression: {
+                      type: 'ConditionalExpression',
+                      shortCircuit: {
+                        type: 'IdentifierReference',
+                        name: '',
                         start: 30,
+                        end: 30,
+                        kind: 13,
+                        flags: 2
+                      },
+                      consequent: {
+                        type: 'IdentifierReference',
+                        name: '',
+                        start: 33,
+                        end: 33,
+                        kind: 13,
+                        flags: 2
+                      },
+                      alternate: {
+                        type: 'IdentifierReference',
+                        name: 'b',
+                        start: 35,
                         end: 37,
-                        kind: 153,
+                        kind: 13,
                         flags: 0
                       },
                       start: 30,
                       end: 37,
-                      kind: 122,
+                      kind: 153,
                       flags: 0
                     },
-                    start: 25,
+                    start: 30,
                     end: 37,
-                    kind: 134,
+                    kind: 122,
                     flags: 0
                   },
                   start: 25,
                   end: 37,
-                  kind: 122,
+                  kind: 134,
                   flags: 0
                 }
               ],

@@ -1752,40 +1752,33 @@ describe('Statements - Do while', () => {
                 type: 'BlockStatement',
                 leafs: [
                   {
-                    type: 'ExpressionStatement',
-                    expression: {
-                      type: 'LabelledStatement',
-                      label: {
-                        type: 'LabelIdentifier',
-                        name: 'async',
-                        start: 74,
-                        end: 80,
+                    type: 'LabelledStatement',
+                    label: {
+                      type: 'LabelIdentifier',
+                      name: 'async',
+                      start: 74,
+                      end: 80,
+                      kind: 13,
+                      flags: 0
+                    },
+                    labelledItem: {
+                      type: 'ExpressionStatement',
+                      expression: {
+                        type: 'IdentifierReference',
+                        name: 'await',
+                        start: 80,
+                        end: 86,
                         kind: 13,
                         flags: 0
                       },
-                      labelledItem: {
-                        type: 'ExpressionStatement',
-                        expression: {
-                          type: 'IdentifierReference',
-                          name: 'await',
-                          start: 80,
-                          end: 86,
-                          kind: 13,
-                          flags: 0
-                        },
-                        start: 80,
-                        end: 86,
-                        kind: 122,
-                        flags: 0
-                      },
-                      start: 74,
+                      start: 80,
                       end: 86,
-                      kind: 134,
+                      kind: 122,
                       flags: 0
                     },
                     start: 74,
                     end: 86,
-                    kind: 122,
+                    kind: 134,
                     flags: 0
                   }
                 ],

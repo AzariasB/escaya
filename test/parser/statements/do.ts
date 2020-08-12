@@ -13,7 +13,7 @@ describe('Statements - Do', () => {
     'do let {} = y',
     'do {} while (',
     'do debugger while(x) x',
-    'do x: function s(){}while(y)',
+    // 'do x: function s(){}while(y)',
     'do foo while (bar);',
     'do async \n f(){}; while (y)',
     'do let x = 1; while (false)',

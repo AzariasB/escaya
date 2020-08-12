@@ -2439,92 +2439,85 @@ describe('Recovery - Expressions', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-              name: 'x',
-              start: 0,
-              end: 2,
-              kind: 13,
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'x',
+            start: 0,
+            end: 2,
+            kind: 13,
+            flags: 0
+          },
+          labelledItem: {
+            type: 'WhileStatement',
+            expression: {
+              type: 'BooleanLiteral',
+              value: true,
+              start: 10,
+              end: 14,
+              kind: 166,
               flags: 0
             },
-            labelledItem: {
-              type: 'WhileStatement',
-              expression: {
-                type: 'BooleanLiteral',
-                value: true,
-                start: 10,
-                end: 14,
-                kind: 166,
-                flags: 0
-              },
-              statement: {
-                type: 'BlockStatement',
-                leafs: [
-                  {
-                    type: 'ExpressionStatement',
+            statement: {
+              type: 'BlockStatement',
+              leafs: [
+                {
+                  type: 'ExpressionStatement',
+                  expression: {
+                    type: 'ParenthesizedExpression',
                     expression: {
-                      type: 'ParenthesizedExpression',
-                      expression: {
-                        type: 'FunctionExpression',
-                        name: null,
-                        generator: false,
-                        async: false,
-                        params: [],
-                        contents: {
-                          type: 'FunctionBody',
-                          directives: [],
-                          leafs: [
-                            {
-                              type: 'BreakStatement',
-                              label: null,
-                              start: 32,
-                              end: 39,
-                              kind: 124,
-                              flags: 0
-                            }
-                          ],
-                          start: 30,
-                          end: 41,
-                          kind: 184,
-                          flags: 0
-                        },
-                        start: 19,
+                      type: 'FunctionExpression',
+                      name: null,
+                      generator: false,
+                      async: false,
+                      params: [],
+                      contents: {
+                        type: 'FunctionBody',
+                        directives: [],
+                        leafs: [
+                          {
+                            type: 'BreakStatement',
+                            label: null,
+                            start: 32,
+                            end: 39,
+                            kind: 124,
+                            flags: 0
+                          }
+                        ],
+                        start: 30,
                         end: 41,
-                        kind: 185,
+                        kind: 184,
                         flags: 0
                       },
-                      start: 17,
-                      end: 42,
-                      kind: 189,
+                      start: 19,
+                      end: 41,
+                      kind: 185,
                       flags: 0
                     },
                     start: 17,
-                    end: 43,
-                    kind: 122,
+                    end: 42,
+                    kind: 189,
                     flags: 0
-                  }
-                ],
-                start: 15,
-                end: 45,
-                kind: 123,
-                flags: 0
-              },
-              start: 2,
+                  },
+                  start: 17,
+                  end: 43,
+                  kind: 122,
+                  flags: 0
+                }
+              ],
+              start: 15,
               end: 45,
-              kind: 139,
+              kind: 123,
               flags: 0
             },
-            start: 0,
+            start: 2,
             end: 45,
-            kind: 134,
+            kind: 139,
             flags: 0
           },
           start: 0,
           end: 45,
-          kind: 122,
+          kind: 134,
           flags: 0
         }
       ],
@@ -6377,40 +6370,33 @@ describe('Recovery - Expressions', () => {
           type: 'BlockStatement',
           leafs: [
             {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'LabelledStatement',
-                label: {
-                  type: 'LabelIdentifier',
-                  name: 'foo',
-                  start: 1,
-                  end: 6,
-                  kind: 13,
-                  flags: 0
-                },
-                labelledItem: {
-                  type: 'ExpressionStatement',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: '',
-                    start: 6,
-                    end: 6,
-                    kind: 13,
-                    flags: 2
-                  },
-                  start: 6,
-                  end: 6,
-                  kind: 122,
-                  flags: 0
-                },
+              type: 'LabelledStatement',
+              label: {
+                type: 'LabelIdentifier',
+                name: 'foo',
                 start: 1,
                 end: 6,
-                kind: 134,
+                kind: 13,
+                flags: 0
+              },
+              labelledItem: {
+                type: 'ExpressionStatement',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 6,
+                  end: 6,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 6,
+                end: 6,
+                kind: 122,
                 flags: 0
               },
               start: 1,
               end: 6,
-              kind: 122,
+              kind: 134,
               flags: 0
             }
           ],
@@ -6453,57 +6439,50 @@ describe('Recovery - Expressions', () => {
           type: 'BlockStatement',
           leafs: [
             {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'LabelledStatement',
-                label: {
-                  type: 'LabelIdentifier',
-                  name: 'foo',
-                  start: 1,
-                  end: 6,
-                  kind: 13,
-                  flags: 0
-                },
-                labelledItem: {
-                  type: 'ExpressionStatement',
-                  expression: {
-                    type: 'CommaOperator',
-                    expressions: [
-                      {
-                        type: 'IdentifierReference',
-                        name: 'bar',
-                        start: 6,
-                        end: 10,
-                        kind: 13,
-                        flags: 0
-                      },
-                      {
-                        type: 'IdentifierReference',
-                        name: '',
-                        start: 11,
-                        end: 11,
-                        kind: 13,
-                        flags: 2
-                      }
-                    ],
-                    start: 6,
-                    end: 11,
-                    kind: 147,
-                    flags: 0
-                  },
+              type: 'LabelledStatement',
+              label: {
+                type: 'LabelIdentifier',
+                name: 'foo',
+                start: 1,
+                end: 6,
+                kind: 13,
+                flags: 0
+              },
+              labelledItem: {
+                type: 'ExpressionStatement',
+                expression: {
+                  type: 'CommaOperator',
+                  expressions: [
+                    {
+                      type: 'IdentifierReference',
+                      name: 'bar',
+                      start: 6,
+                      end: 10,
+                      kind: 13,
+                      flags: 0
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 11,
+                      end: 11,
+                      kind: 13,
+                      flags: 2
+                    }
+                  ],
                   start: 6,
                   end: 11,
-                  kind: 122,
+                  kind: 147,
                   flags: 0
                 },
-                start: 1,
+                start: 6,
                 end: 11,
-                kind: 134,
+                kind: 122,
                 flags: 0
               },
               start: 1,
               end: 11,
-              kind: 122,
+              kind: 134,
               flags: 0
             }
           ],

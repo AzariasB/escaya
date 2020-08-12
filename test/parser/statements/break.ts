@@ -8,41 +8,33 @@ describe('Statements - Break', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-
-              name: 'foo',
-              start: 0,
-              end: 4
-            },
-            labelledItem: {
-              type: 'DoWhileStatement',
-              expression: {
-                type: 'IdentifierReference',
-
-                name: 'foo',
-                start: 25,
-                end: 28
-              },
-              statement: {
-                type: 'BreakStatement',
-                label: {
-                  type: 'IdentifierReference',
-
-                  name: 'foo',
-                  start: 14,
-                  end: 17
-                },
-                start: 8,
-                end: 18
-              },
-              start: 5,
-              end: 30
-            },
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'foo',
             start: 0,
+            end: 4
+          },
+          labelledItem: {
+            type: 'DoWhileStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'foo',
+              start: 25,
+              end: 28
+            },
+            statement: {
+              type: 'BreakStatement',
+              label: {
+                type: 'IdentifierReference',
+                name: 'foo',
+                start: 14,
+                end: 17
+              },
+              start: 8,
+              end: 18
+            },
+            start: 5,
             end: 30
           },
           start: 0,
@@ -154,45 +146,40 @@ describe('Statements - Break', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-              name: 'foo',
-              start: 0,
-              end: 4
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'foo',
+            start: 0,
+            end: 4
+          },
+          labelledItem: {
+            type: 'WhileStatement',
+            expression: {
+              type: 'BooleanLiteral',
+              value: true,
+              start: 12,
+              end: 16
             },
-            labelledItem: {
-              type: 'WhileStatement',
-              expression: {
-                type: 'BooleanLiteral',
-                value: true,
-                start: 12,
-                end: 16
-              },
-              statement: {
-                type: 'BlockStatement',
-                leafs: [
-                  {
-                    type: 'BreakStatement',
-                    label: {
-                      type: 'IdentifierReference',
-                      name: 'foo',
-                      start: 26,
-                      end: 29
-                    },
-                    start: 20,
-                    end: 30
-                  }
-                ],
-                start: 18,
-                end: 32
-              },
-              start: 5,
+            statement: {
+              type: 'BlockStatement',
+              leafs: [
+                {
+                  type: 'BreakStatement',
+                  label: {
+                    type: 'IdentifierReference',
+                    name: 'foo',
+                    start: 26,
+                    end: 29
+                  },
+                  start: 20,
+                  end: 30
+                }
+              ],
+              start: 18,
               end: 32
             },
-            start: 0,
+            start: 5,
             end: 32
           },
           start: 0,
@@ -210,54 +197,49 @@ describe('Statements - Break', () => {
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-              name: 'foo',
-              start: 0,
-              end: 4
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'foo',
+            start: 0,
+            end: 4
+          },
+          labelledItem: {
+            type: 'WhileStatement',
+            expression: {
+              type: 'BooleanLiteral',
+              value: true,
+              start: 12,
+              end: 16
             },
-            labelledItem: {
-              type: 'WhileStatement',
+            statement: {
+              type: 'IfStatement',
               expression: {
-                type: 'BooleanLiteral',
-                value: true,
-                start: 12,
-                end: 16
+                type: 'IdentifierReference',
+                name: 'x',
+                start: 22,
+                end: 23
               },
-              statement: {
-                type: 'IfStatement',
-                expression: {
+              consequent: {
+                type: 'EmptyStatement',
+                start: 24,
+                end: 25
+              },
+              alternate: {
+                type: 'BreakStatement',
+                label: {
                   type: 'IdentifierReference',
-                  name: 'x',
-                  start: 22,
-                  end: 23
+                  name: 'foo',
+                  start: 37,
+                  end: 40
                 },
-                consequent: {
-                  type: 'EmptyStatement',
-                  start: 24,
-                  end: 25
-                },
-                alternate: {
-                  type: 'BreakStatement',
-                  label: {
-                    type: 'IdentifierReference',
-                    name: 'foo',
-                    start: 37,
-                    end: 40
-                  },
-                  start: 31,
-                  end: 41
-                },
-                start: 18,
+                start: 31,
                 end: 41
               },
-              start: 5,
+              start: 18,
               end: 41
             },
-            start: 0,
+            start: 5,
             end: 41
           },
           start: 0,

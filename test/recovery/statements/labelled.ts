@@ -1,47 +1,40 @@
 import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
-describe('Recovery - Block', () => {
+describe('Recovery - Labelled', () => {
   it('missing label', () => {
     t.deepEqual(recovery('foo:', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'LabelledStatement',
-            label: {
-              type: 'LabelIdentifier',
-              kind: 13,
-              name: 'foo',
-              start: 0,
-              end: 4,
-              flags: 0
-            },
-            labelledItem: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-                kind: 13,
-                name: '',
-                start: 4,
-                end: 4,
-                flags: 2
-              },
-              start: 4,
-              end: 4,
-              kind: 122,
-              flags: 0
-            },
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'foo',
             start: 0,
             end: 4,
-            kind: 134,
+            kind: 13,
+            flags: 0
+          },
+          labelledItem: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 4,
+              end: 4,
+              kind: 13,
+              flags: 2
+            },
+            start: 4,
+            end: 4,
+            kind: 122,
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+          kind: 134,
           flags: 0
         }
       ],
@@ -70,68 +63,61 @@ describe('Recovery - Block', () => {
   });
   it('async ident with missing label', () => {
     t.deepEqual(recovery('async:', 'recovery.js'), {
-      children: [],
-      context: 0,
-      diagnostics: [
-        {
-          code: 7,
-          kind: 2,
-          length: 1,
-          message: 'Expression expected',
-          source: 2,
-          start: 5
-        }
-      ],
-      directives: [],
-      end: 6,
-      fileName: 'recovery.js',
-      incremental: false,
-      detached: false,
       kind: 209,
-      length: 6,
-      mutualFlags: 0,
-      parent: null,
-      start: 0,
+      directives: [],
       leafs: [
         {
-          end: 6,
-          expression: {
-            end: 6,
-            flags: 0,
-            kind: 134,
-            label: {
-              end: 6,
-              flags: 0,
-              kind: 13,
-              start: 0,
-              type: 'LabelIdentifier',
-              name: 'async'
-            },
-            labelledItem: {
-              end: 6,
-              expression: {
-                end: 6,
-                flags: 2,
-                kind: 13,
-                start: 6,
-                type: 'IdentifierReference',
-                name: ''
-              },
-              flags: 0,
-              kind: 122,
-              start: 6,
-              type: 'ExpressionStatement'
-            },
+          type: 'LabelledStatement',
+          label: {
+            type: 'LabelIdentifier',
+            name: 'async',
             start: 0,
-            type: 'LabelledStatement'
+            end: 6,
+            kind: 13,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
+          labelledItem: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 6,
+              end: 6,
+              kind: 13,
+              flags: 2
+            },
+            start: 6,
+            end: 6,
+            kind: 122,
+            flags: 0
+          },
           start: 0,
-          type: 'ExpressionStatement'
+          end: 6,
+          kind: 134,
+          flags: 0
         }
       ],
-      text: 'async:'
+      text: 'async:',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 5,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 6,
+      end: 6
     });
   });
 });

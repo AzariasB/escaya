@@ -928,18 +928,12 @@ export function parseLabelledStatement(
   nextToken(state, context | Context.AllowRegExp);
   const label = finishNode(state, context, start, DictionaryMap.LabelIdentifier(value), SyntaxKind.Identifier);
   const labelledItem = parseAnnexBExceptions(state, context, DiagnosticCode.AnnexBB32);
-
-  return parseExpressionStatement(
+  return finishNode(
     state,
     context,
-    finishNode(
-      state,
-      context,
-      start,
-      DictionaryMap.LabelledStatement(label, labelledItem),
-      SyntaxKind.LabelledStatement
-    ),
-    start
+    start,
+    DictionaryMap.LabelledStatement(label, labelledItem),
+    SyntaxKind.LabelledStatement
   );
 }
 
