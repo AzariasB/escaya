@@ -1854,7 +1854,7 @@ export function parsePrimaryExpression(state: ParserState, context: Context): Le
     case Token.TemplateTail:
       return parseTemplateLiteral(state, context);
     case Token.TemplateCont:
-      return parseTemplateExpression(state, context) as any;
+      return parseTemplateExpression(state, context);
     default:
       // There are only four possibilities that the parser are here:
       //
@@ -1903,8 +1903,19 @@ export function parseImportMetaOrCall(state: ParserState, context: Context): Imp
 export function parseNewExpression(state: ParserState, context: Context): NewExpression | NewTarget {
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
-  if (context & Context.NewTarget && consumeOpt(state, context, Token.Period)) {
-    consume(state, context, Token.TargetIdentifier);
+  if (context & Context.NewTarget && state.token === Token.Period) {
+    nextToken(state, context);
+    if (state.token !== Token.TargetIdentifier) {
+      addDiagnostic(
+        state,
+        context,
+        DiagnosticSource.Parser,
+        DiagnosticCode.InvalidNewTarget,
+        DiagnosticKind.Early,
+        state.tokenValue
+      );
+    }
+    nextToken(state, context);
     return finishNode(state, context, start, DictionaryMap.Target(), SyntaxKind.NewTarget);
   }
   let expression = parsePrimaryExpression(state, context);
@@ -3056,6 +3067,15 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
   // 12.16 Comma Operator
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
+    // In recovery mode where a comma is missing - for example '(a b' - this is no longer considered
+    // as a start of a sequence. The parser will break out of the loop and parse 'a' as its own production.
+    //
+    // This is in line with how we are dealing with invalid 'CommaOperator' cases.
+    //
+    // However if we already are inside an sequence - cases like '(a b c foo' - we will just pretend that we
+    // have seen a comma and continue to parse it as an sequence. This ensures we get back on track
+    // and don't result in tons of parse errors.
+
     let expressions = [expression];
     isDelimitedList = true;
 

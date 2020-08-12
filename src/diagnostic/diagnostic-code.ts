@@ -98,6 +98,7 @@ export enum DiagnosticCode {
   UnexpectedYieldAsBIdent,
   UnexpectedAwaitAsBIdent,
   ExpectedSemicolon,
+  InvalidNewTarget,
 
   /* Annex B */
   AnnexBB32,

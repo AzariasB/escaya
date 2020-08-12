@@ -102,5 +102,6 @@ export const diagnosticMap: {
   [DiagnosticCode.StrictInvalidLetInExprPos]: 'An arrow function can not be part of an operator to the right',
   [DiagnosticCode.YieldAsFuncName]: '`yield` can not be used as a function name in this context',
   [DiagnosticCode.AwaitAsFuncName]: '`await` can not be used as a function name in this context',
-  [DiagnosticCode.ExpectedSemicolon]: '`;` expected'
+  [DiagnosticCode.ExpectedSemicolon]: '`;` expected',
+  [DiagnosticCode.InvalidNewTarget]: '`%0` is not a valid meta-property for keyword `new`.'
 };

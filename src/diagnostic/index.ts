@@ -84,7 +84,9 @@ export function addEarlyDiagnostic(
   const length = state.index - start;
 
   if ((context & Context.ErrorRecovery) === 0) {
-    throw new SyntaxError(`line:${state.line}, column:${state.positionBeforeToken - state.columnOffset} - ${message}`);
+    throw new SyntaxError(
+      `line:${state.line + 1}, column:${state.positionBeforeToken - state.columnOffset} - ${message}`
+    );
   }
 
   if (!lastError || start !== lastError.start) {
