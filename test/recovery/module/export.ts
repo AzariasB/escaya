@@ -509,18 +509,28 @@ describe('Recovery - Export', () => {
             flags: 0
           },
           {
-            type: 'ExpressionStatement',
+            type: 'SwitchStatement',
             expression: {
               type: 'IdentifierReference',
               name: '',
-              start: 64,
-              end: 64,
+              start: 56,
+              end: 56,
               kind: 13,
               flags: 2
             },
+            clauses: [
+              {
+                type: 'DefaultClause',
+                leafs: [],
+                start: 56,
+                end: 64,
+                kind: 142,
+                flags: 0
+              }
+            ],
             start: 56,
             end: 64,
-            kind: 122,
+            kind: 136,
             flags: 0
           }
         ],
@@ -1339,8 +1349,24 @@ describe('Recovery - Export', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 13,
+                end: 13,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 14,
                 end: 14,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 15,
+                end: 15,
                 kind: 13,
                 flags: 2
               },
@@ -1398,7 +1424,23 @@ describe('Recovery - Export', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 13,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 14,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 15,
           length: 1
         },
         {
@@ -1477,8 +1519,24 @@ describe('Recovery - Export', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 13,
+                end: 13,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 14,
                 end: 14,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 15,
+                end: 15,
                 kind: 13,
                 flags: 2
               },
@@ -1558,7 +1616,23 @@ describe('Recovery - Export', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 13,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 14,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 15,
           length: 1
         },
         {

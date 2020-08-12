@@ -337,21 +337,45 @@ describe('Recovery - Expressions - Parenthesized', () => {
                   right: {
                     type: 'IdentifierReference',
                     name: '',
-                    start: 4,
-                    end: 4,
+                    start: 3,
+                    end: 3,
                     kind: 13,
                     flags: 2
                   },
                   start: 1,
-                  end: 4,
+                  end: 3,
                   kind: 155,
                   flags: 0
                 },
                 {
                   type: 'IdentifierReference',
                   name: '',
+                  start: 4,
+                  end: 4,
+                  kind: 13,
+                  flags: 2
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 5,
+                  end: 5,
+                  kind: 13,
+                  flags: 2
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: '',
                   start: 6,
                   end: 6,
+                  kind: 13,
+                  flags: 2
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 7,
+                  end: 7,
                   kind: 13,
                   flags: 2
                 },
@@ -406,6 +430,14 @@ describe('Recovery - Expressions - Parenthesized', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 3,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 4,
           length: 1
         },
@@ -414,7 +446,23 @@ describe('Recovery - Expressions - Parenthesized', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 5,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 7,
           length: 1
         },
         {
@@ -1027,8 +1075,8 @@ describe('Recovery - Expressions - Parenthesized', () => {
             expression: {
               type: 'IdentifierReference',
               name: '',
-              start: 9,
-              end: 9,
+              start: 8,
+              end: 8,
               kind: 13,
               flags: 2
             },
@@ -1078,6 +1126,14 @@ describe('Recovery - Expressions - Parenthesized', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
           start: 10,
           length: 1
         },

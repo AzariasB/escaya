@@ -3142,45 +3142,53 @@ describe('Recovery - Expressions', () => {
                 type: 'UnaryExpression',
                 operator: '!',
                 operand: {
-                  type: 'MemberExpression',
-                  member: {
-                    type: 'IdentifierReference',
-                    name: '',
-                    start: 4,
-                    end: 4,
-                    kind: 13,
-                    flags: 2
-                  },
-                  expression: {
-                    type: 'NumericLiteral',
-                    value: 1,
-                    start: 5,
-                    end: 6,
-                    kind: 10,
-                    flags: 0
-                  },
-                  computed: true,
+                  type: 'IdentifierReference',
+                  name: '',
                   start: 3,
-                  end: 6,
-                  kind: 154,
-                  flags: 0
+                  end: 3,
+                  kind: 13,
+                  flags: 2
                 },
                 start: 2,
-                end: 6,
+                end: 3,
                 kind: 160,
                 flags: 0
               },
               start: 1,
-              end: 6,
+              end: 3,
               kind: 160,
               flags: 0
             },
             start: 0,
-            end: 6,
+            end: 3,
             kind: 189,
             flags: 0
           },
           start: 0,
+          end: 3,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrayLiteral',
+            kind: 178,
+            elements: [
+              {
+                type: 'NumericLiteral',
+                value: 1,
+                start: 5,
+                end: 6,
+                kind: 10,
+                flags: 0
+              }
+            ],
+            start: 4,
+            end: 6,
+            flags: 0
+          },
+          start: 4,
           end: 6,
           kind: 122,
           flags: 0
@@ -3196,7 +3204,7 @@ describe('Recovery - Expressions', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 4,
+          start: 3,
           length: 1
         },
         {
@@ -3496,40 +3504,41 @@ describe('Recovery - Expressions', () => {
             contents: {
               type: 'ConciseBody',
               expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 6,
-                end: 6,
-                kind: 13,
-                flags: 2
+                type: 'MemberExpression',
+                member: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 5,
+                  end: 5,
+                  kind: 13,
+                  flags: 2
+                },
+                expression: {
+                  type: 'IdentifierName',
+                  name: 'y',
+                  start: 6,
+                  end: 7,
+                  kind: 13,
+                  flags: 0
+                },
+                computed: false,
+                start: 5,
+                end: 7,
+                kind: 154,
+                flags: 0
               },
               start: 5,
-              end: 6,
+              end: 7,
               kind: 187,
               flags: 0
             },
             async: false,
             start: 0,
-            end: 6,
+            end: 7,
             kind: 188,
             flags: 0
           },
           start: 0,
-          end: 6,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'y',
-            start: 6,
-            end: 7,
-            kind: 13,
-            flags: 0
-          },
-          start: 6,
           end: 7,
           kind: 122,
           flags: 0
@@ -3546,14 +3555,6 @@ describe('Recovery - Expressions', () => {
           message: '`)` expected',
           code: 5,
           start: 5,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 6,
           length: 1
         },
         {
@@ -4780,12 +4781,28 @@ describe('Recovery - Expressions', () => {
               },
               operator: '=',
               right: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 4,
+                type: 'MemberExpression',
+                member: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 3,
+                  end: 3,
+                  kind: 13,
+                  flags: 2
+                },
+                expression: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 4,
+                  end: 4,
+                  kind: 13,
+                  flags: 2
+                },
+                computed: false,
+                start: 3,
                 end: 4,
-                kind: 13,
-                flags: 2
+                kind: 154,
+                flags: 0
               },
               start: 2,
               end: 4,
@@ -5213,18 +5230,18 @@ describe('Recovery - Expressions', () => {
             operand: {
               type: 'IdentifierReference',
               name: '',
-              start: 4,
-              end: 4,
+              start: 1,
+              end: 1,
               kind: 13,
               flags: 2
             },
             start: 0,
-            end: 4,
+            end: 1,
             kind: 160,
             flags: 0
           },
           start: 0,
-          end: 4,
+          end: 1,
           kind: 122,
           flags: 0
         }
@@ -6916,8 +6933,8 @@ describe('Recovery - Expressions', () => {
             consequent: {
               type: 'IdentifierReference',
               name: '',
-              start: 6,
-              end: 6,
+              start: 5,
+              end: 5,
               kind: 13,
               flags: 2
             },
@@ -7764,69 +7781,74 @@ describe('Recovery - Expressions', () => {
             },
             operator: '==',
             right: {
-              type: 'CallExpression',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 11,
-                end: 11,
-                kind: 13,
-                flags: 2
-              },
-              arguments: [
-                {
-                  type: 'BinaryExpression',
-                  left: {
-                    type: 'RegularExpressionLiteral',
-                    pattern: '&%*',
-                    flag: '',
-                    start: 12,
-                    end: 17,
-                    kind: 15,
-                    flags: 0
-                  },
-                  operator: '/',
-                  right: {
-                    type: 'UnaryExpression',
-                    operator: '+',
-                    operand: {
-                      type: 'UnaryExpression',
-                      operator: '-',
-                      operand: {
-                        type: 'NumericLiteral',
-                        value: 345,
-                        start: 20,
-                        end: 23,
-                        kind: 10,
-                        flags: 0
-                      },
-                      start: 19,
-                      end: 23,
-                      kind: 160,
-                      flags: 0
-                    },
-                    start: 18,
-                    end: 23,
-                    kind: 160,
-                    flags: 0
-                  },
-                  start: 12,
-                  end: 23,
-                  kind: 155,
-                  flags: 0
-                }
-              ],
+              type: 'IdentifierReference',
+              name: '',
               start: 10,
-              end: 23,
-              kind: 156,
-              flags: 0
+              end: 10,
+              kind: 13,
+              flags: 2
             },
             start: 0,
-            end: 23,
+            end: 10,
             kind: 155,
             flags: 0
           },
           start: 0,
+          end: 10,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'BinaryExpression',
+              left: {
+                type: 'RegularExpressionLiteral',
+                pattern: '&%*',
+                flag: '',
+                start: 12,
+                end: 17,
+                kind: 15,
+                flags: 0
+              },
+              operator: '/',
+              right: {
+                type: 'UnaryExpression',
+                operator: '+',
+                operand: {
+                  type: 'UnaryExpression',
+                  operator: '-',
+                  operand: {
+                    type: 'NumericLiteral',
+                    value: 345,
+                    start: 20,
+                    end: 23,
+                    kind: 10,
+                    flags: 0
+                  },
+                  start: 19,
+                  end: 23,
+                  kind: 160,
+                  flags: 0
+                },
+                start: 18,
+                end: 23,
+                kind: 160,
+                flags: 0
+              },
+              start: 12,
+              end: 23,
+              kind: 155,
+              flags: 0
+            },
+            start: 11,
+            end: 23,
+            kind: 189,
+            flags: 0
+          },
+          start: 11,
           end: 23,
           kind: 122,
           flags: 0
@@ -7842,13 +7864,13 @@ describe('Recovery - Expressions', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 11,
+          start: 10,
           length: 1
         },
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
+          message: '`)` expected',
           code: 5,
           start: 20,
           length: 3
@@ -7956,105 +7978,110 @@ describe('Recovery - Expressions', () => {
               },
               operator: '==',
               right: {
-                type: 'CallExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 8,
-                  end: 8,
-                  kind: 13,
-                  flags: 2
-                },
-                arguments: [
-                  {
-                    type: 'BinaryExpression',
-                    left: {
-                      type: 'BinaryExpression',
-                      left: {
-                        type: 'IdentifierReference',
-                        name: '',
-                        start: 9,
-                        end: 9,
-                        kind: 13,
-                        flags: 2
-                      },
-                      operator: '&',
-                      right: {
-                        type: 'BinaryExpression',
-                        left: {
-                          type: 'IdentifierReference',
-                          name: '',
-                          start: 10,
-                          end: 10,
-                          kind: 13,
-                          flags: 2
-                        },
-                        operator: '%',
-                        right: {
-                          type: 'IdentifierReference',
-                          name: '',
-                          start: 11,
-                          end: 11,
-                          kind: 13,
-                          flags: 2
-                        },
-                        start: 10,
-                        end: 11,
-                        kind: 155,
-                        flags: 0
-                      },
-                      start: 9,
-                      end: 11,
-                      kind: 155,
-                      flags: 0
-                    },
-                    operator: '*',
-                    right: {
-                      type: 'UnaryExpression',
-                      operator: '+',
-                      operand: {
-                        type: 'UnaryExpression',
-                        operator: '-',
-                        operand: {
-                          type: 'NumericLiteral',
-                          value: 345,
-                          start: 14,
-                          end: 17,
-                          kind: 10,
-                          flags: 0
-                        },
-                        start: 13,
-                        end: 17,
-                        kind: 160,
-                        flags: 0
-                      },
-                      start: 12,
-                      end: 17,
-                      kind: 160,
-                      flags: 0
-                    },
-                    start: 9,
-                    end: 17,
-                    kind: 155,
-                    flags: 0
-                  }
-                ],
+                type: 'IdentifierReference',
+                name: '',
                 start: 7,
-                end: 17,
-                kind: 156,
-                flags: 0
+                end: 7,
+                kind: 13,
+                flags: 2
               },
               start: 5,
-              end: 17,
+              end: 7,
               kind: 155,
               flags: 0
             },
             start: 0,
-            end: 17,
+            end: 7,
             kind: 155,
             flags: 0
           },
           start: 0,
+          end: 7,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'BinaryExpression',
+              left: {
+                type: 'BinaryExpression',
+                left: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 9,
+                  end: 9,
+                  kind: 13,
+                  flags: 2
+                },
+                operator: '&',
+                right: {
+                  type: 'BinaryExpression',
+                  left: {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 10,
+                    end: 10,
+                    kind: 13,
+                    flags: 2
+                  },
+                  operator: '%',
+                  right: {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 11,
+                    end: 11,
+                    kind: 13,
+                    flags: 2
+                  },
+                  start: 10,
+                  end: 11,
+                  kind: 155,
+                  flags: 0
+                },
+                start: 9,
+                end: 11,
+                kind: 155,
+                flags: 0
+              },
+              operator: '*',
+              right: {
+                type: 'UnaryExpression',
+                operator: '+',
+                operand: {
+                  type: 'UnaryExpression',
+                  operator: '-',
+                  operand: {
+                    type: 'NumericLiteral',
+                    value: 345,
+                    start: 14,
+                    end: 17,
+                    kind: 10,
+                    flags: 0
+                  },
+                  start: 13,
+                  end: 17,
+                  kind: 160,
+                  flags: 0
+                },
+                start: 12,
+                end: 17,
+                kind: 160,
+                flags: 0
+              },
+              start: 9,
+              end: 17,
+              kind: 155,
+              flags: 0
+            },
+            start: 8,
+            end: 17,
+            kind: 189,
+            flags: 0
+          },
+          start: 8,
           end: 17,
           kind: 122,
           flags: 0
@@ -8102,7 +8129,7 @@ describe('Recovery - Expressions', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 8,
+          start: 7,
           length: 1
         },
         {
@@ -8132,7 +8159,7 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
+          message: '`)` expected',
           code: 5,
           start: 14,
           length: 3

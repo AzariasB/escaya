@@ -301,8 +301,24 @@ describe('Recovery - Var', () => {
                     {
                       type: 'IdentifierReference',
                       name: '',
+                      start: 8,
+                      end: 8,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
                       start: 9,
                       end: 9,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 10,
+                      end: 10,
                       kind: 13,
                       flags: 2
                     },
@@ -317,8 +333,24 @@ describe('Recovery - Var', () => {
                     {
                       type: 'IdentifierReference',
                       name: '',
+                      start: 12,
+                      end: 12,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
                       start: 13,
                       end: 13,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 14,
+                      end: 14,
                       kind: 13,
                       flags: 2
                     },
@@ -333,8 +365,24 @@ describe('Recovery - Var', () => {
                     {
                       type: 'IdentifierReference',
                       name: '',
+                      start: 16,
+                      end: 16,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
                       start: 17,
                       end: 17,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 18,
+                      end: 18,
                       kind: 13,
                       flags: 2
                     },
@@ -349,8 +397,24 @@ describe('Recovery - Var', () => {
                     {
                       type: 'IdentifierReference',
                       name: '',
+                      start: 20,
+                      end: 20,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
                       start: 21,
                       end: 21,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 22,
+                      end: 22,
                       kind: 13,
                       flags: 2
                     },
@@ -365,8 +429,24 @@ describe('Recovery - Var', () => {
                     {
                       type: 'IdentifierReference',
                       name: '',
+                      start: 24,
+                      end: 24,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
                       start: 25,
                       end: 25,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 26,
+                      end: 26,
                       kind: 13,
                       flags: 2
                     },
@@ -381,8 +461,24 @@ describe('Recovery - Var', () => {
                     {
                       type: 'IdentifierReference',
                       name: '',
+                      start: 28,
+                      end: 28,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
                       start: 29,
                       end: 29,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 30,
+                      end: 30,
                       kind: 13,
                       flags: 2
                     },
@@ -397,8 +493,24 @@ describe('Recovery - Var', () => {
                     {
                       type: 'IdentifierReference',
                       name: '',
+                      start: 32,
+                      end: 32,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
                       start: 33,
                       end: 33,
+                      kind: 13,
+                      flags: 2
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 34,
+                      end: 34,
                       kind: 13,
                       flags: 2
                     },
@@ -498,7 +610,23 @@ describe('Recovery - Var', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 10,
           length: 1
         },
         {
@@ -514,7 +642,23 @@ describe('Recovery - Var', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 12,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 13,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 14,
           length: 1
         },
         {
@@ -530,7 +674,23 @@ describe('Recovery - Var', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 16,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 17,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 18,
           length: 1
         },
         {
@@ -546,7 +706,23 @@ describe('Recovery - Var', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 20,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 21,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 22,
           length: 1
         },
         {
@@ -562,7 +738,23 @@ describe('Recovery - Var', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 24,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 25,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 26,
           length: 1
         },
         {
@@ -578,7 +770,23 @@ describe('Recovery - Var', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 28,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 29,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 30,
           length: 1
         },
         {
@@ -594,7 +802,23 @@ describe('Recovery - Var', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 32,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 33,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 34,
           length: 1
         },
         {
@@ -891,13 +1115,13 @@ describe('Recovery - Var', () => {
                     right: {
                       type: 'IdentifierReference',
                       name: '',
-                      start: 18,
-                      end: 18,
+                      start: 17,
+                      end: 17,
                       kind: 13,
                       flags: 2
                     },
                     start: 14,
-                    end: 18,
+                    end: 17,
                     kind: 172,
                     flags: 0
                   },
@@ -953,8 +1177,8 @@ describe('Recovery - Var', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 19,
-          length: 3
+          start: 17,
+          length: 1
         },
         {
           kind: 2,

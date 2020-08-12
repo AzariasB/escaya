@@ -272,8 +272,8 @@ describe('Recovery - Expressions - Array', () => {
                 expression: {
                   type: 'IdentifierReference',
                   name: '',
-                  start: 10,
-                  end: 10,
+                  start: 9,
+                  end: 9,
                   kind: 13,
                   flags: 2
                 },
@@ -343,7 +343,7 @@ describe('Recovery - Expressions - Array', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 11,
+          start: 9,
           length: 1
         },
         {
@@ -490,6 +490,592 @@ describe('Recovery - Expressions - Array', () => {
       start: 0,
       length: 7,
       end: 7
+    });
+  });
+
+  it('[1...=>(', () => {
+    t.deepEqual(recovery('[1...=>(', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrayLiteral',
+            kind: 178,
+            elements: [
+              {
+                type: 'MemberExpression',
+                member: {
+                  type: 'MemberExpression',
+                  member: {
+                    type: 'NumericLiteral',
+                    value: 1,
+                    start: 1,
+                    end: 3,
+                    kind: 10,
+                    flags: 0
+                  },
+                  expression: {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 4,
+                    end: 4,
+                    kind: 13,
+                    flags: 2
+                  },
+                  computed: false,
+                  start: 1,
+                  end: 4,
+                  kind: 154,
+                  flags: 0
+                },
+                expression: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 5,
+                  end: 5,
+                  kind: 13,
+                  flags: 2
+                },
+                computed: false,
+                start: 1,
+                end: 5,
+                kind: 154,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 5,
+            flags: 0
+          },
+          start: 0,
+          end: 5,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 8,
+              end: 8,
+              kind: 13,
+              flags: 2
+            },
+            start: 7,
+            end: 8,
+            kind: 189,
+            flags: 0
+          },
+          start: 7,
+          end: 8,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '[1...=>(',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 4,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 5,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 7,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 8,
+      end: 8
+    });
+  });
+
+  it('[[[[]...](', () => {
+    t.deepEqual(recovery('[[[[]...](', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrayLiteral',
+            kind: 178,
+            elements: [
+              {
+                type: 'ArrayLiteral',
+                kind: 178,
+                elements: [
+                  {
+                    type: 'CallExpression',
+                    expression: {
+                      type: 'ArrayLiteral',
+                      kind: 178,
+                      elements: [
+                        {
+                          type: 'ArrayLiteral',
+                          kind: 178,
+                          elements: [],
+                          start: 3,
+                          end: 5,
+                          flags: 0
+                        },
+                        {
+                          type: 'SpreadElement',
+                          argument: {
+                            type: 'IdentifierReference',
+                            name: '',
+                            start: 8,
+                            end: 8,
+                            kind: 13,
+                            flags: 2
+                          },
+                          start: 5,
+                          end: 8,
+                          kind: 177,
+                          flags: 0
+                        }
+                      ],
+                      start: 2,
+                      end: 9,
+                      flags: 0
+                    },
+                    arguments: [],
+                    start: 2,
+                    end: 10,
+                    kind: 156,
+                    flags: 0
+                  }
+                ],
+                start: 1,
+                end: 10,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 10,
+            flags: 0
+          },
+          start: 0,
+          end: 10,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '[[[[]...](',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 9,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 10,
+      end: 10
+    });
+  });
+
+  it('...](', () => {
+    t.deepEqual(recovery('...](', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 5,
+              end: 5,
+              kind: 13,
+              flags: 2
+            },
+            start: 4,
+            end: 5,
+            kind: 189,
+            flags: 0
+          },
+          start: 4,
+          end: 5,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '...](',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 0,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 3,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 4,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 5,
+      end: 5
+    });
+  });
+
+  it(']...](', () => {
+    t.deepEqual(recovery(']...](', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 6,
+              end: 6,
+              kind: 13,
+              flags: 2
+            },
+            start: 5,
+            end: 6,
+            kind: 189,
+            flags: 0
+          },
+          start: 5,
+          end: 6,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: ']...](',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 0,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 1,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 4,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 5,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 6,
+      end: 6
+    });
+  });
+
+  it('[...](', () => {
+    t.deepEqual(recovery('[...](', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'CallExpression',
+            expression: {
+              type: 'ArrayLiteral',
+              kind: 178,
+              elements: [
+                {
+                  type: 'SpreadElement',
+                  argument: {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 4,
+                    end: 4,
+                    kind: 13,
+                    flags: 2
+                  },
+                  start: 1,
+                  end: 4,
+                  kind: 177,
+                  flags: 0
+                }
+              ],
+              start: 0,
+              end: 5,
+              flags: 0
+            },
+            arguments: [],
+            start: 0,
+            end: 6,
+            kind: 156,
+            flags: 0
+          },
+          start: 0,
+          end: 6,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '[...](',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 4,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 5,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 6,
+      end: 6
+    });
+  });
+
+  it('[...]', () => {
+    t.deepEqual(recovery('[...]', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrayLiteral',
+            kind: 178,
+            elements: [
+              {
+                type: 'SpreadElement',
+                argument: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 4,
+                  end: 4,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 1,
+                end: 4,
+                kind: 177,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 5,
+            flags: 0
+          },
+          start: 0,
+          end: 5,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '[...]',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 4,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 5,
+      end: 5
+    });
+  });
+
+  it('[...](', () => {
+    t.deepEqual(recovery('[...](', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'CallExpression',
+            expression: {
+              type: 'ArrayLiteral',
+              kind: 178,
+              elements: [
+                {
+                  type: 'SpreadElement',
+                  argument: {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 4,
+                    end: 4,
+                    kind: 13,
+                    flags: 2
+                  },
+                  start: 1,
+                  end: 4,
+                  kind: 177,
+                  flags: 0
+                }
+              ],
+              start: 0,
+              end: 5,
+              flags: 0
+            },
+            arguments: [],
+            start: 0,
+            end: 6,
+            kind: 156,
+            flags: 0
+          },
+          start: 0,
+          end: 6,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '[...](',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 4,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 5,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 6,
+      end: 6
     });
   });
 });

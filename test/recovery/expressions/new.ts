@@ -12,12 +12,28 @@ describe('Recovery - Expressions - New', () => {
           expression: {
             type: 'NewExpression',
             expression: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 4,
+              type: 'MemberExpression',
+              member: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 3,
+                end: 3,
+                kind: 13,
+                flags: 2
+              },
+              expression: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 4,
+                end: 4,
+                kind: 13,
+                flags: 2
+              },
+              computed: false,
+              start: 0,
               end: 4,
-              kind: 13,
-              flags: 2
+              kind: 154,
+              flags: 0
             },
             arguments: [],
             start: 0,
@@ -36,6 +52,14 @@ describe('Recovery - Expressions - New', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 3,
+          length: 1
+        },
         {
           kind: 2,
           source: 2,
@@ -65,35 +89,36 @@ describe('Recovery - Expressions - New', () => {
           expression: {
             type: 'NewExpression',
             expression: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 4,
-              end: 4,
-              kind: 13,
-              flags: 2
+              type: 'MemberExpression',
+              member: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 3,
+                end: 3,
+                kind: 13,
+                flags: 2
+              },
+              expression: {
+                type: 'IdentifierName',
+                name: 'target',
+                start: 4,
+                end: 10,
+                kind: 13,
+                flags: 0
+              },
+              computed: false,
+              start: 0,
+              end: 10,
+              kind: 154,
+              flags: 0
             },
             arguments: [],
             start: 0,
-            end: 4,
+            end: 10,
             kind: 163,
             flags: 0
           },
           start: 0,
-          end: 4,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'target',
-            start: 4,
-            end: 10,
-            kind: 13,
-            flags: 0
-          },
-          start: 4,
           end: 10,
           kind: 122,
           flags: 0
@@ -109,8 +134,8 @@ describe('Recovery - Expressions - New', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 4,
-          length: 6
+          start: 3,
+          length: 1
         }
       ],
       detached: false,

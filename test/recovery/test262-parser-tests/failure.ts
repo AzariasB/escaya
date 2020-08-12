@@ -855,35 +855,36 @@ describe('test262-parser-tests - failing tests', () => {
           expression: {
             type: 'NewExpression',
             expression: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 4,
-              end: 4,
-              kind: 13,
-              flags: 2
+              type: 'MemberExpression',
+              member: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 3,
+                end: 3,
+                kind: 13,
+                flags: 2
+              },
+              expression: {
+                type: 'IdentifierName',
+                name: 'prop',
+                start: 4,
+                end: 8,
+                kind: 13,
+                flags: 0
+              },
+              computed: false,
+              start: 0,
+              end: 8,
+              kind: 154,
+              flags: 0
             },
             arguments: [],
             start: 0,
-            end: 4,
+            end: 8,
             kind: 163,
             flags: 0
           },
           start: 0,
-          end: 4,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'prop',
-            start: 4,
-            end: 8,
-            kind: 13,
-            flags: 0
-          },
-          start: 4,
           end: 8,
           kind: 122,
           flags: 0
@@ -899,15 +900,14 @@ describe('test262-parser-tests - failing tests', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 4,
-          length: 4
+          start: 3,
+          length: 1
         }
       ],
       detached: false,
       incremental: false,
       parent: null,
       children: [],
-
       start: 0,
       length: 8,
       end: 8
@@ -2917,24 +2917,24 @@ describe('test262-parser-tests - failing tests', () => {
                 {
                   type: 'IdentifierReference',
                   name: '',
-                  start: 8,
-                  end: 8,
+                  start: 5,
+                  end: 5,
                   kind: 13,
                   flags: 2
                 }
               ],
               start: 0,
-              end: 8,
+              end: 5,
               kind: 147,
               flags: 0
             },
             start: 0,
-            end: 8,
+            end: 5,
             kind: 189,
             flags: 0
           },
           start: 0,
-          end: 8,
+          end: 5,
           kind: 122,
           flags: 0
         },
@@ -2979,8 +2979,8 @@ describe('test262-parser-tests - failing tests', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 8,
-          length: 1
+          start: 5,
+          length: 3
         },
         {
           kind: 2,
@@ -3280,35 +3280,20 @@ describe('test262-parser-tests - failing tests', () => {
             kind: 189,
             flags: 0
           },
-          condition: {
-            type: 'IdentifierReference',
-            name: '',
-            start: 16,
-            end: 16,
-            kind: 13,
-            flags: 2
-          },
+          condition: null,
           incrementor: {
             type: 'IdentifierReference',
             name: '',
-            start: 15,
-            end: 15,
+            start: 14,
+            end: 14,
             kind: 13,
             flags: 2
           },
           statement: {
-            type: 'ExpressionStatement',
-            expression: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 16,
-              end: 16,
-              kind: 13,
-              flags: 2
-            },
-            start: 16,
+            type: 'EmptyStatement',
+            start: 15,
             end: 16,
-            kind: 122,
+            kind: 148,
             flags: 0
           },
           start: 0,
@@ -3328,14 +3313,6 @@ describe('test262-parser-tests - failing tests', () => {
           message: '`;` expected',
           code: 5,
           start: 14,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 15,
           length: 1
         }
       ],
@@ -6348,22 +6325,29 @@ describe('test262-parser-tests - failing tests', () => {
                 argument: {
                   type: 'IdentifierReference',
                   name: '',
-                  start: 9,
-                  end: 9,
+                  start: 5,
+                  end: 5,
                   kind: 13,
                   flags: 2
                 },
                 start: 5,
-                end: 9,
+                end: 5,
                 kind: 200,
                 flags: 0
               },
               {
-                type: 'IdentifierReference',
-                name: 'a',
+                type: 'AssignmentRestElement',
+                argument: {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 9,
+                  end: 11,
+                  kind: 13,
+                  flags: 0
+                },
                 start: 9,
                 end: 11,
-                kind: 13,
+                kind: 200,
                 flags: 0
               }
             ],
@@ -6388,8 +6372,8 @@ describe('test262-parser-tests - failing tests', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 10,
-          length: 1
+          start: 6,
+          length: 3
         }
       ],
       detached: false,

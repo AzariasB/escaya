@@ -88,24 +88,17 @@ describe('Recovery - For', () => {
           initializer: {
             type: 'IdentifierReference',
             name: '',
-            start: 4,
-            end: 4,
+            start: 3,
+            end: 3,
             kind: 13,
             flags: 2
           },
-          condition: {
-            type: 'IdentifierReference',
-            name: '',
-            start: 4,
-            end: 4,
-            kind: 13,
-            flags: 2
-          },
+          condition: null,
           incrementor: {
             type: 'IdentifierReference',
             name: '',
-            start: 4,
-            end: 4,
+            start: 3,
+            end: 3,
             kind: 13,
             flags: 2
           },
@@ -626,7 +619,7 @@ describe('Recovery - For', () => {
       end: 11
     });
   });
-  it('for keyword222', () => {
+  it('for(for) {}', () => {
     t.deepEqual(recovery('for(for) {}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -662,40 +655,26 @@ describe('Recovery - For', () => {
             initializer: {
               type: 'IdentifierReference',
               name: '',
-              start: 8,
-              end: 8,
+              start: 7,
+              end: 7,
               kind: 13,
               flags: 2
             },
-            condition: {
+            condition: null,
+            incrementor: {
               type: 'IdentifierReference',
               name: '',
-              start: 11,
-              end: 11,
+              start: 7,
+              end: 7,
               kind: 13,
               flags: 2
             },
-            incrementor: {
-              type: 'ObjectLiteral',
-              properties: [],
+            statement: {
+              type: 'BlockStatement',
+              leafs: [],
               start: 8,
               end: 11,
-              kind: 179,
-              flags: 0
-            },
-            statement: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 11,
-                end: 11,
-                kind: 13,
-                flags: 2
-              },
-              start: 11,
-              end: 11,
-              kind: 122,
+              kind: 123,
               flags: 0
             },
             start: 4,
@@ -729,22 +708,6 @@ describe('Recovery - For', () => {
           code: 5,
           start: 7,
           length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 9,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`;` expected',
-          code: 5,
-          start: 10,
-          length: 1
         }
       ],
       detached: false,
@@ -757,7 +720,7 @@ describe('Recovery - For', () => {
     });
   });
 
-  it('for keyword90', () => {
+  it('for(var in x) {', () => {
     t.deepEqual(recovery('for(var in x) {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -828,24 +791,17 @@ describe('Recovery - For', () => {
           initializer: {
             type: 'IdentifierReference',
             name: '',
-            start: 4,
-            end: 4,
+            start: 3,
+            end: 3,
             kind: 13,
             flags: 2
           },
-          condition: {
-            type: 'IdentifierReference',
-            name: '',
-            start: 4,
-            end: 4,
-            kind: 13,
-            flags: 2
-          },
+          condition: null,
           incrementor: {
             type: 'IdentifierReference',
             name: '',
-            start: 4,
-            end: 4,
+            start: 3,
+            end: 3,
             kind: 13,
             flags: 2
           },
@@ -875,14 +831,6 @@ describe('Recovery - For', () => {
           code: 5,
           start: 3,
           length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 4,
-          length: 3
         }
       ],
       detached: false,
@@ -943,8 +891,24 @@ describe('Recovery - For', () => {
                 {
                   type: 'IdentifierReference',
                   name: '',
+                  start: 14,
+                  end: 14,
+                  kind: 13,
+                  flags: 2
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: '',
                   start: 15,
                   end: 15,
+                  kind: 13,
+                  flags: 2
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 16,
+                  end: 16,
                   kind: 13,
                   flags: 2
                 },
@@ -1618,7 +1582,7 @@ describe('Recovery - For', () => {
       end: 9
     });
   });
-  it('for keyword4253', () => {
+  it('for(,,,,,,,,,,,,', () => {
     t.deepEqual(recovery('for(,,,,,,,,,,,,', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1631,8 +1595,24 @@ describe('Recovery - For', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 4,
+                end: 4,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 5,
                 end: 5,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 6,
+                end: 6,
                 kind: 13,
                 flags: 2
               },
@@ -1647,8 +1627,24 @@ describe('Recovery - For', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 8,
+                end: 8,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 9,
                 end: 9,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 10,
+                end: 10,
                 kind: 13,
                 flags: 2
               },
@@ -1663,8 +1659,24 @@ describe('Recovery - For', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 12,
+                end: 12,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 13,
                 end: 13,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 14,
+                end: 14,
                 kind: 13,
                 flags: 2
               },
@@ -1685,7 +1697,7 @@ describe('Recovery - For', () => {
                 flags: 2
               }
             ],
-            start: 5,
+            start: 4,
             end: 16,
             kind: 147,
             flags: 0
@@ -1737,7 +1749,23 @@ describe('Recovery - For', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 4,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 5,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 6,
           length: 1
         },
         {
@@ -1753,7 +1781,23 @@ describe('Recovery - For', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 10,
           length: 1
         },
         {
@@ -1769,7 +1813,23 @@ describe('Recovery - For', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 12,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 13,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 14,
           length: 1
         },
         {
@@ -1803,8 +1863,24 @@ describe('Recovery - For', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 4,
+                end: 4,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 5,
                 end: 5,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 6,
+                end: 6,
                 kind: 13,
                 flags: 2
               },
@@ -1819,8 +1895,24 @@ describe('Recovery - For', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 8,
+                end: 8,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 9,
                 end: 9,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 10,
+                end: 10,
                 kind: 13,
                 flags: 2
               },
@@ -1833,73 +1925,51 @@ describe('Recovery - For', () => {
                 flags: 2
               },
               {
-                type: 'MemberExpression',
-                member: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 13,
-                  end: 13,
-                  kind: 13,
-                  flags: 2
-                },
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 15,
-                  end: 15,
-                  kind: 13,
-                  flags: 2
-                },
-                computed: true,
+                type: 'IdentifierReference',
+                name: '',
                 start: 12,
-                end: 15,
-                kind: 154,
+                end: 12,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'ArrayLiteral',
+                kind: 178,
+                elements: [],
+                start: 13,
+                end: 14,
                 flags: 0
               }
             ],
-            start: 5,
-            end: 15,
+            start: 4,
+            end: 14,
             kind: 147,
             flags: 0
           },
-          condition: {
+          condition: null,
+          incrementor: {
             type: 'IdentifierReference',
             name: '',
-            start: 23,
-            end: 23,
+            start: 14,
+            end: 14,
             kind: 13,
             flags: 2
           },
-          incrementor: {
-            type: 'ObjectLiteral',
-            properties: [
+          statement: {
+            type: 'BlockStatement',
+            leafs: [
               {
-                type: 'IdentifierReference',
-                name: 'break',
+                type: 'BreakStatement',
+                label: null,
                 start: 17,
-                end: 22,
-                kind: 13,
+                end: 23,
+                kind: 124,
                 flags: 0
               }
             ],
             start: 15,
-            end: 22,
-            kind: 179,
-            flags: 0
-          },
-          statement: {
-            type: 'ExpressionStatement',
-            expression: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 23,
-              end: 23,
-              kind: 13,
-              flags: 2
-            },
-            start: 23,
             end: 23,
-            kind: 122,
+            kind: 123,
             flags: 0
           },
           start: 0,
@@ -1918,7 +1988,23 @@ describe('Recovery - For', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 4,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 5,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 6,
           length: 1
         },
         {
@@ -1934,7 +2020,23 @@ describe('Recovery - For', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 10,
           length: 1
         },
         {
@@ -1950,21 +2052,21 @@ describe('Recovery - For', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 13,
+          start: 12,
           length: 1
         },
         {
           kind: 2,
           source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 16,
+          message: '`]` expected',
+          code: 5,
+          start: 14,
           length: 1
         },
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
+          message: '`}` expected',
           code: 5,
           start: 22,
           length: 1

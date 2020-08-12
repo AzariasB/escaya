@@ -192,13 +192,13 @@ export const enum Token {
   ConstKeyword = 77 | IsStatementStart | IsVarLexical | IsKeyword,
 
   /* Other Keyword words */
-  BreakKeyword = 78 | IsStatementStart | IsKeyword,
+  BreakKeyword = 78 | IsStatementStart | IsKeyword | IsSwitchClauce,
   CaseKeyword = 79 | IsCaseOrDefault | IsKeyword,
   CatchKeyword = 80 | IsStatementStart | IsKeyword,
   ClassKeyword = 81 | IsExpressionStart | IsSwitchClauce | IsKeyword,
   ContinueKeyword = 82 | IsStatementStart | IsSwitchClauce | IsKeyword,
   DebuggerKeyword = 83 | IsStatementStart | IsSwitchClauce | IsKeyword,
-  DefaultKeyword = 84 | IsCaseOrDefault | IsKeyword,
+  DefaultKeyword = 84 | IsCaseOrDefault | IsKeyword | IsStatementStart,
   DoKeyword = 85 | IsStatementStart | IsSwitchClauce | IsKeyword,
   ElseKeyword = 86 | IsKeyword,
   ExportKeyword = 87 | IsKeyword,

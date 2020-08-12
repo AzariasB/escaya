@@ -488,8 +488,8 @@ describe('Declarations - Do while', () => {
           expression: {
             type: 'IdentifierReference',
             name: '',
-            start: 27,
-            end: 27,
+            start: 26,
+            end: 26,
             kind: 13,
             flags: 2
           },
@@ -554,7 +554,7 @@ describe('Declarations - Do while', () => {
     });
   });
 
-  it('Unclosed block statement4235', () => {
+  it('do { foo("bar") = baz } while)', () => {
     t.deepEqual(recovery('do { foo("bar") = baz } while)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -564,8 +564,8 @@ describe('Declarations - Do while', () => {
           expression: {
             type: 'IdentifierReference',
             name: '',
-            start: 30,
-            end: 30,
+            start: 29,
+            end: 29,
             kind: 13,
             flags: 2
           },
@@ -699,8 +699,8 @@ describe('Declarations - Do while', () => {
                             expression: {
                               type: 'IdentifierReference',
                               name: '',
-                              start: 19,
-                              end: 19,
+                              start: 18,
+                              end: 18,
                               kind: 13,
                               flags: 2
                             },
@@ -765,8 +765,8 @@ describe('Declarations - Do while', () => {
           expression: {
             type: 'IdentifierReference',
             name: '',
-            start: 32,
-            end: 32,
+            start: 31,
+            end: 31,
             kind: 13,
             flags: 2
           },
@@ -801,6 +801,14 @@ describe('Declarations - Do while', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 18,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 19,
           length: 1
         },
@@ -855,7 +863,7 @@ describe('Declarations - Do while', () => {
     });
   });
 
-  it('Unclosed block statement4325', () => {
+  it('do(async while)', () => {
     t.deepEqual(recovery('do(async while)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -864,10 +872,10 @@ describe('Declarations - Do while', () => {
           type: 'DoWhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
             name: '',
-            start: 15,
-            end: 15,
+            start: 14,
+            end: 14,
+            kind: 13,
             flags: 2
           },
           statement: {
@@ -876,10 +884,10 @@ describe('Declarations - Do while', () => {
               type: 'ParenthesizedExpression',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: 'async',
                 start: 3,
                 end: 8,
+                kind: 13,
                 flags: 0
               },
               start: 2,
@@ -1015,8 +1023,8 @@ describe('Declarations - Do while', () => {
           expression: {
             type: 'IdentifierReference',
             name: '',
-            start: 31,
-            end: 31,
+            start: 30,
+            end: 30,
             kind: 13,
             flags: 2
           },
@@ -1485,8 +1493,8 @@ describe('Declarations - Do while', () => {
             expression: {
               type: 'IdentifierReference',
               name: '',
-              start: 65,
-              end: 65,
+              start: 64,
+              end: 64,
               kind: 13,
               flags: 2
             },
@@ -1813,8 +1821,8 @@ describe('Declarations - Do while', () => {
                 expression: {
                   type: 'IdentifierReference',
                   name: '',
-                  start: 94,
-                  end: 94,
+                  start: 93,
+                  end: 93,
                   kind: 13,
                   flags: 2
                 },
@@ -1941,8 +1949,8 @@ describe('Declarations - Do while', () => {
           {
             kind: 2,
             source: 2,
-            message: 'Expression expected',
-            code: 7,
+            message: 'Statement expected',
+            code: 8,
             start: 65,
             length: 1
           },
@@ -1974,7 +1982,7 @@ describe('Declarations - Do while', () => {
     );
   });
 
-  it('Unclosed block statementd333', () => {
+  it('do{{{}}[][[[]]]}(while)', () => {
     t.deepEqual(recovery('do{{{}}[][[[]]]}(while)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1983,10 +1991,10 @@ describe('Declarations - Do while', () => {
           type: 'DoWhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
             name: '',
             start: 17,
             end: 17,
+            kind: 13,
             flags: 2
           },
           statement: {
@@ -2017,9 +2025,9 @@ describe('Declarations - Do while', () => {
                     type: 'ArrayLiteral',
                     kind: 178,
                     elements: [],
-                    flags: 0,
                     start: 7,
-                    end: 9
+                    end: 9,
+                    flags: 0
                   },
                   expression: {
                     type: 'ArrayLiteral',
@@ -2029,14 +2037,14 @@ describe('Declarations - Do while', () => {
                         type: 'ArrayLiteral',
                         kind: 178,
                         elements: [],
-                        flags: 0,
                         start: 11,
-                        end: 13
+                        end: 13,
+                        flags: 0
                       }
                     ],
-                    flags: 0,
                     start: 10,
-                    end: 14
+                    end: 14,
+                    flags: 0
                   },
                   computed: true,
                   start: 7,
@@ -2064,20 +2072,20 @@ describe('Declarations - Do while', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
             name: '',
-            start: 23,
-            end: 23,
+            start: 22,
+            end: 22,
+            kind: 13,
             flags: 2
           },
           statement: {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: '',
               start: 23,
               end: 23,
+              kind: 13,
               flags: 2
             },
             start: 23,
@@ -2205,8 +2213,24 @@ describe('Declarations - Do while', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 41,
+                end: 41,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 42,
                 end: 42,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 43,
+                end: 43,
                 kind: 13,
                 flags: 2
               },
@@ -2221,8 +2245,24 @@ describe('Declarations - Do while', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 45,
+                end: 45,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 46,
                 end: 46,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 47,
+                end: 47,
                 kind: 13,
                 flags: 2
               },
@@ -2237,8 +2277,24 @@ describe('Declarations - Do while', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 49,
+                end: 49,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 50,
                 end: 50,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 51,
+                end: 51,
                 kind: 13,
                 flags: 2
               },
@@ -2253,8 +2309,24 @@ describe('Declarations - Do while', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 53,
+                end: 53,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 54,
                 end: 54,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 55,
+                end: 55,
                 kind: 13,
                 flags: 2
               },
@@ -2297,8 +2369,8 @@ describe('Declarations - Do while', () => {
           expression: {
             type: 'IdentifierReference',
             name: '',
-            start: 64,
-            end: 64,
+            start: 63,
+            end: 63,
             kind: 13,
             flags: 2
           },
@@ -2365,7 +2437,23 @@ describe('Declarations - Do while', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 41,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 42,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 43,
           length: 1
         },
         {
@@ -2381,7 +2469,23 @@ describe('Declarations - Do while', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 45,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 46,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 47,
           length: 1
         },
         {
@@ -2397,7 +2501,23 @@ describe('Declarations - Do while', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 49,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 50,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 51,
           length: 1
         },
         {
@@ -2413,7 +2533,23 @@ describe('Declarations - Do while', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 53,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 54,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 55,
           length: 1
         },
         {
@@ -2534,7 +2670,7 @@ describe('Declarations - Do while', () => {
     });
   });
 
-  it('Unclosed block statement24334', () => {
+  it('do(while)', () => {
     t.deepEqual(recovery('do(while)', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2543,10 +2679,10 @@ describe('Declarations - Do while', () => {
           type: 'DoWhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
             name: '',
-            start: 9,
-            end: 9,
+            start: 8,
+            end: 8,
+            kind: 13,
             flags: 2
           },
           statement: {
@@ -2555,10 +2691,10 @@ describe('Declarations - Do while', () => {
               type: 'ParenthesizedExpression',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 3,
                 end: 3,
+                kind: 13,
                 flags: 2
               },
               start: 2,

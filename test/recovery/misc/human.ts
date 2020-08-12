@@ -1205,19 +1205,19 @@ describe('Recovery - Human', () => {
                 {
                   type: 'IdentifierReference',
                   name: '',
-                  start: 16,
-                  end: 16,
+                  start: 13,
+                  end: 13,
                   kind: 13,
                   flags: 2
                 }
               ],
               start: 3,
-              end: 16,
+              end: 13,
               kind: 147,
               flags: 0
             },
             start: 3,
-            end: 16,
+            end: 13,
             kind: 122,
             flags: 0
           },
@@ -1328,34 +1328,34 @@ describe('Recovery - Human', () => {
                       operand: {
                         type: 'IdentifierReference',
                         name: '',
-                        start: 72,
-                        end: 72,
+                        start: 69,
+                        end: 69,
                         kind: 13,
                         flags: 2
                       },
                       start: 68,
-                      end: 72,
+                      end: 69,
                       kind: 160,
                       flags: 0
                     },
                     start: 53,
-                    end: 72,
+                    end: 69,
                     kind: 189,
                     flags: 0
                   },
                   start: 43,
-                  end: 72,
+                  end: 69,
                   kind: 152,
                   flags: 0
                 }
               ],
               start: 34,
-              end: 72,
+              end: 69,
               kind: 147,
               flags: 0
             },
             start: 34,
-            end: 72,
+            end: 69,
             kind: 122,
             flags: 0
           },
@@ -1417,6 +1417,14 @@ describe('Recovery - Human', () => {
             source: 2,
             message: 'Expression expected',
             code: 7,
+            start: 13,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: 'Statement expected',
+            code: 8,
             start: 16,
             length: 3
           },
@@ -1473,6 +1481,14 @@ describe('Recovery - Human', () => {
             source: 2,
             message: 'Expression expected',
             code: 7,
+            start: 69,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: 'Statement expected',
+            code: 8,
             start: 72,
             length: 3
           },

@@ -185,6 +185,12 @@ export function parseStatementListItem(state: ParserState, context: Context): St
       return parseLexicalDeclaration(state, context, BindingType.Const);
     case Token.LetKeyword:
       return parseLexicalDeclaration(state, context, BindingType.Let);
+    // case Token.ImportKeyword:
+    // return parseImportDeclaration(state, context);
+    case Token.ExportKeyword:
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, 'Kuvos');
+      return parseExportDeclaration(state, context);
+    // falls through
     default:
       return parseStatement(state, context);
   }
@@ -209,12 +215,16 @@ export function parseStatement(state: ParserState, context: Context): Statement 
     case Token.DebuggerKeyword:
       return parseDebuggerStatement(state, context);
     case Token.IfKeyword:
+    case Token.ElseKeyword:
       return parseIfStatement(state, context);
     case Token.WhileKeyword:
       return parseWhileStatement(state, context);
     case Token.DoKeyword:
       return parseDoWhileStatement(state, context);
     case Token.SwitchKeyword:
+    // Miscellaneous error cases arguably better caught here than elsewhere.
+    case Token.CaseKeyword:
+    case Token.DefaultKeyword:
       return parseSwitchStatement(state, context);
     case Token.ContinueKeyword:
       return parseContinueStatement(state, context);
@@ -223,6 +233,7 @@ export function parseStatement(state: ParserState, context: Context): Statement 
     case Token.ThrowKeyword:
       return parseThrowStatement(state, context);
     case Token.TryKeyword:
+    // Samme as for 'SwitchStatement' and 'IfStatement'.
     // Miscellaneous error cases arguably better caught here than elsewhere.
     case Token.CatchKeyword:
     case Token.FinallyKeyword:
@@ -256,7 +267,7 @@ export function parseStatement(state: ParserState, context: Context): Statement 
 //   `switch` `(` Expression `)` CaseBlock
 export function parseSwitchStatement(state: ParserState, context: Context): SwitchStatement {
   const start = state.startIndex;
-  nextToken(state, context | Context.AllowRegExp);
+  consume(state, context, Token.SwitchKeyword);
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
   const expression = parseExpressions(state, context);
   consume(state, context, Token.RightParen);
@@ -276,7 +287,7 @@ export function parseSwitchStatement(state: ParserState, context: Context): Swit
 //   `{` CaseClauses? `}`
 //   `{` CaseClauses? DefaultClause CaseClauses? `}`
 export function parseCaseBlock(state: ParserState, context: Context): CaseBlock[] {
-  const clauses = [];
+  const clauses: any = [];
   while (state.token & Token.IsCaseOrDefault) {
     clauses.push(parseBlockElements(state, context, parseCaseOrDefaultClause));
   }
@@ -310,6 +321,7 @@ export function parseCaseOrDefaultClause(state: ParserState, context: Context): 
   consume(state, context, Token.DefaultKeyword);
   consume(state, context | Context.AllowRegExp, Token.Colon);
   const check = context & Context.ErrorRecovery ? Constants.IsClauseRecovery : Constants.IsClauseNormal;
+
   while (state.token & check) {
     statements.push(parseStatementListItem(state, context | Context.InSwitch));
   }
@@ -1856,27 +1868,6 @@ export function parsePrimaryExpression(state: ParserState, context: Context): Le
     case Token.TemplateCont:
       return parseTemplateExpression(state, context);
     default:
-      // There are only four possibilities that the parser are here:
-      //
-      // 1) ASI have kicked in (EndOfSource)
-      //
-      // 2) Invalid syntax mixed with a valid statement start -  i.e. 'while ( if'
-      //
-      // 3) Invalid characters -  i.e. 'while ( ¤'
-      //
-      // 4) No expressions on the right side of the operators in 'BinaryExpression'
-      //    and 'AssignmentExpression', i.e 'a |= '.
-      //
-      // We avoid priming the scanner for 1) and 2) so we safely can continue
-      // to parse out valid syntax, or stop parsing (EndOfSource).
-      //
-      // For 3) and 4) the token will be consumed. The same goes for keywords
-      // that aren't a valid statement start - e.i 'case'.
-      //
-      // In all cases, we insert a dummy identifier into the AST.
-      //
-      if ((state.token & Constants.PrimaryExpr) === 0) nextToken(state, context);
-
       return createIdentifier(state, context);
   }
 }

@@ -12,42 +12,43 @@ describe('Recovery - Expressions - Import meta', () => {
           expression: {
             type: 'ImportCall',
             import: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 7,
-              end: 7,
-              kind: 13,
-              flags: 2
+              type: 'CallExpression',
+              expression: {
+                type: 'MemberExpression',
+                member: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 6,
+                  end: 6,
+                  kind: 13,
+                  flags: 2
+                },
+                expression: {
+                  type: 'IdentifierName',
+                  name: 'meta',
+                  start: 7,
+                  end: 11,
+                  kind: 13,
+                  flags: 0
+                },
+                computed: false,
+                start: 6,
+                end: 11,
+                kind: 154,
+                flags: 0
+              },
+              arguments: [],
+              start: 6,
+              end: 12,
+              kind: 156,
+              flags: 0
             },
             start: 0,
-            end: 7,
+            end: 12,
             kind: 199,
             flags: 0
           },
           start: 0,
-          end: 7,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'CallExpression',
-            expression: {
-              type: 'IdentifierReference',
-              name: 'meta',
-              start: 7,
-              end: 11,
-              kind: 13,
-              flags: 0
-            },
-            arguments: [],
-            start: 7,
-            end: 12,
-            kind: 156,
-            flags: 0
-          },
-          start: 7,
           end: 12,
           kind: 122,
           flags: 0
@@ -65,14 +66,6 @@ describe('Recovery - Expressions - Import meta', () => {
           code: 5,
           start: 6,
           length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 7,
-          length: 4
         },
         {
           kind: 2,

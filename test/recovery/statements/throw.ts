@@ -12,13 +12,13 @@ describe('Recovery - Throw', () => {
           expression: {
             type: 'IdentifierReference',
             name: '',
-            start: 7,
-            end: 7,
+            start: 5,
+            end: 5,
             kind: 13,
             flags: 2
           },
           start: 0,
-          end: 7,
+          end: 5,
           kind: 137,
           flags: 0
         },
@@ -48,6 +48,14 @@ describe('Recovery - Throw', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
           start: 8,
           length: 2
         }
@@ -142,18 +150,18 @@ describe('Recovery - Throw', () => {
             expression: {
               type: 'IdentifierReference',
               name: '',
-              start: 9,
-              end: 9,
+              start: 7,
+              end: 7,
               kind: 13,
               flags: 2
             },
             start: 5,
-            end: 9,
+            end: 7,
             kind: 189,
             flags: 0
           },
           start: 0,
-          end: 9,
+          end: 7,
           kind: 137,
           flags: 0
         },
@@ -223,6 +231,14 @@ describe('Recovery - Throw', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
           start: 9,
           length: 1
         },

@@ -126,6 +126,14 @@ describe('Recovery - Const', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 10,
+                end: 10,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 11,
                 end: 11,
                 kind: 13,

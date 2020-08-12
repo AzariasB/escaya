@@ -695,45 +695,53 @@ describe('Recovery - While', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
             name: '',
             start: 6,
             end: 6,
+            kind: 13,
             flags: 2
           },
           statement: {
             type: 'DoWhileStatement',
             expression: {
-              type: 'ObjectLiteral',
-              properties: [],
-              start: 9,
-              end: 11,
-              kind: 179,
-              flags: 0
+              type: 'IdentifierReference',
+              name: '',
+              start: 8,
+              end: 8,
+              kind: 13,
+              flags: 2
             },
             statement: {
               type: 'ExpressionStatement',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
-                start: 9,
-                end: 9,
+                start: 8,
+                end: 8,
+                kind: 13,
                 flags: 2
               },
               start: 8,
-              end: 9,
+              end: 8,
               kind: 122,
               flags: 0
             },
             start: 6,
-            end: 11,
+            end: 9,
             kind: 127,
             flags: 0
           },
           start: 0,
-          end: 11,
+          end: 9,
           kind: 139,
+          flags: 0
+        },
+        {
+          type: 'BlockStatement',
+          leafs: [],
+          start: 9,
+          end: 11,
+          kind: 123,
           flags: 0
         }
       ],
@@ -755,6 +763,14 @@ describe('Recovery - While', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
           start: 10,
           length: 1
         }
@@ -1990,8 +2006,24 @@ describe('Recovery - While', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 9,
+                end: 9,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 10,
                 end: 10,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 11,
+                end: 11,
                 kind: 13,
                 flags: 2
               },
@@ -2056,7 +2088,23 @@ describe('Recovery - While', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 10,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 11,
           length: 1
         },
         {
@@ -2090,50 +2138,90 @@ describe('Recovery - While', () => {
             expressions: [
               {
                 type: 'IdentifierReference',
+                name: '',
+                start: 6,
+                end: 6,
                 kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
                 name: '',
                 start: 7,
                 end: 7,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
+                name: '',
+                start: 8,
+                end: 8,
                 kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
                 name: '',
                 start: 9,
                 end: 9,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
+                name: '',
+                start: 10,
+                end: 10,
                 kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
                 name: '',
                 start: 11,
                 end: 11,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
+                name: '',
+                start: 12,
+                end: 12,
                 kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
                 name: '',
                 start: 13,
                 end: 13,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
+                name: '',
+                start: 14,
+                end: 14,
                 kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
                 name: '',
                 start: 15,
                 end: 15,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'IdentifierReference',
-                kind: 13,
                 name: '',
                 start: 16,
                 end: 16,
+                kind: 13,
                 flags: 2
               }
             ],
@@ -2146,10 +2234,10 @@ describe('Recovery - While', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: '',
               start: 16,
               end: 16,
+              kind: 13,
               flags: 2
             },
             start: 16,
@@ -2173,7 +2261,23 @@ describe('Recovery - While', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 7,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 8,
           length: 1
         },
         {
@@ -2189,6 +2293,14 @@ describe('Recovery - While', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 10,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 11,
           length: 1
         },
@@ -2197,7 +2309,23 @@ describe('Recovery - While', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 12,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 13,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 14,
           length: 1
         },
         {
@@ -2220,7 +2348,7 @@ describe('Recovery - While', () => {
   });
 
   it('while(/a/,,,/bb while x() {} while ', () => {
-    t.deepEqual(recovery('while(/a/,,,/bb while x() {} while ', 'recovery.js'), {
+    t.deepEqual(recovery('while(/a/,,,/bb while x() {} while', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
@@ -2240,24 +2368,32 @@ describe('Recovery - While', () => {
               },
               {
                 type: 'IdentifierReference',
+                name: '',
+                start: 10,
+                end: 10,
                 kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
                 name: '',
                 start: 11,
                 end: 11,
+                kind: 13,
                 flags: 2
               },
               {
                 type: 'RegularExpressionLiteral',
-                pattern: 'bb while x() {} while',
+                pattern: 'bb while x() {} whil',
                 flag: '',
                 start: 12,
-                end: 35,
+                end: 34,
                 kind: 15,
                 flags: 0
               }
             ],
             start: 6,
-            end: 35,
+            end: 34,
             kind: 147,
             flags: 0
           },
@@ -2265,28 +2401,36 @@ describe('Recovery - While', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: '',
-              start: 35,
-              end: 35,
+              start: 34,
+              end: 34,
+              kind: 13,
               flags: 2
             },
-            start: 35,
-            end: 35,
+            start: 34,
+            end: 34,
             kind: 122,
             flags: 0
           },
           start: 0,
-          end: 35,
+          end: 34,
           kind: 139,
           flags: 0
         }
       ],
-      text: 'while(/a/,,,/bb while x() {} while ',
+      text: 'while(/a/,,,/bb while x() {} while',
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 10,
+          length: 1
+        },
         {
           kind: 2,
           source: 2,
@@ -2301,7 +2445,7 @@ describe('Recovery - While', () => {
           message: 'Unterminated regular expression',
           code: 12,
           start: 12,
-          length: 23
+          length: 22
         }
       ],
       detached: false,
@@ -2309,8 +2453,8 @@ describe('Recovery - While', () => {
       parent: null,
       children: [],
       start: 0,
-      length: 35,
-      end: 35
+      length: 34,
+      end: 34
     });
   });
 
@@ -2409,10 +2553,10 @@ describe('Recovery - While', () => {
             },
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: '',
-              start: 11,
-              end: 11,
+              start: 10,
+              end: 10,
+              kind: 13,
               flags: 2
             },
             computed: true,
@@ -2460,6 +2604,14 @@ describe('Recovery - While', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 10,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
           start: 12,
           length: 1
         },
@@ -3031,18 +3183,18 @@ describe('Recovery - While', () => {
             expression: {
               type: 'IdentifierReference',
               name: '',
-              start: 16,
-              end: 16,
+              start: 13,
+              end: 13,
               kind: 13,
               flags: 2
             },
             start: 13,
-            end: 16,
+            end: 13,
             kind: 122,
             flags: 0
           },
           start: 0,
-          end: 16,
+          end: 13,
           kind: 139,
           flags: 0
         },
@@ -3084,14 +3236,6 @@ describe('Recovery - While', () => {
           code: 5,
           start: 14,
           length: 2
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 17,
-          length: 1
         },
         {
           kind: 2,
@@ -3711,8 +3855,8 @@ describe('Recovery - While', () => {
           expression: {
             type: 'IdentifierReference',
             name: '',
-            start: 8,
-            end: 8,
+            start: 7,
+            end: 7,
             kind: 13,
             flags: 2
           },
@@ -3754,8 +3898,8 @@ describe('Recovery - While', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Expression expected',
-          code: 7,
+          message: '`}` expected',
+          code: 5,
           start: 8,
           length: 1
         }

@@ -752,8 +752,24 @@ describe('Recovery - Try', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 10,
+                end: 10,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 11,
                 end: 11,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 12,
+                end: 12,
                 kind: 13,
                 flags: 2
               },
@@ -835,7 +851,23 @@ describe('Recovery - Try', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 10,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 11,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 12,
           length: 1
         },
         {
@@ -911,8 +943,24 @@ describe('Recovery - Try', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 7,
+                end: 7,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 8,
                 end: 8,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 9,
+                end: 9,
                 kind: 13,
                 flags: 2
               },
@@ -1002,7 +1050,23 @@ describe('Recovery - Try', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 7,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 9,
           length: 1
         },
         {
@@ -1086,6 +1150,14 @@ describe('Recovery - Try', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 7,
+                end: 7,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 8,
                 end: 8,
                 kind: 13,
@@ -1102,8 +1174,24 @@ describe('Recovery - Try', () => {
               {
                 type: 'IdentifierReference',
                 name: '',
+                start: 12,
+                end: 12,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
                 start: 13,
                 end: 13,
+                kind: 13,
+                flags: 2
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 14,
+                end: 14,
                 kind: 13,
                 flags: 2
               },
@@ -1185,6 +1273,14 @@ describe('Recovery - Try', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 7,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 8,
           length: 1
         },
@@ -1193,7 +1289,23 @@ describe('Recovery - Try', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 12,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 13,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 14,
           length: 1
         },
         {
@@ -1390,6 +1502,14 @@ describe('Recovery - Try', () => {
                 {
                   type: 'IdentifierReference',
                   name: '',
+                  start: 11,
+                  end: 11,
+                  kind: 13,
+                  flags: 2
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: '',
                   start: 12,
                   end: 12,
                   kind: 13,
@@ -1455,6 +1575,14 @@ describe('Recovery - Try', () => {
           message: '`{` expected',
           code: 5,
           start: 3,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 11,
           length: 1
         },
         {
@@ -2539,23 +2667,23 @@ describe('Recovery - Try', () => {
                 expression: {
                   type: 'IdentifierReference',
                   name: '',
-                  start: 81,
-                  end: 81,
+                  start: 80,
+                  end: 80,
                   kind: 13,
                   flags: 2
                 },
                 start: 80,
-                end: 81,
+                end: 80,
                 kind: 122,
                 flags: 0
               },
               start: 72,
-              end: 81,
+              end: 80,
               kind: 134,
               flags: 0
             },
             start: 72,
-            end: 81,
+            end: 80,
             kind: 122,
             flags: 0
           }
@@ -3537,10 +3665,10 @@ describe('Recovery - Try', () => {
                     operator: '/',
                     right: {
                       type: 'IdentifierReference',
-                      kind: 13,
                       name: 'd',
                       start: 9,
                       end: 10,
+                      kind: 13,
                       flags: 0
                     },
                     start: 5,
@@ -3554,10 +3682,10 @@ describe('Recovery - Try', () => {
                     operator: '!',
                     operand: {
                       type: 'IdentifierReference',
-                      kind: 13,
                       name: '',
                       start: 13,
                       end: 13,
+                      kind: 13,
                       flags: 2
                     },
                     start: 12,
@@ -3583,7 +3711,6 @@ describe('Recovery - Try', () => {
           },
           catchClause: {
             type: 'CatchClause',
-            kind: 140,
             binding: {
               type: 'BindingIdentifier',
               name: 'x',
@@ -3601,66 +3728,75 @@ describe('Recovery - Try', () => {
                     type: 'LabelledStatement',
                     label: {
                       type: 'LabelIdentifier',
-                      kind: 13,
                       name: 'foo',
                       start: 25,
                       end: 30,
+                      kind: 13,
                       flags: 0
                     },
                     labelledItem: {
                       type: 'ExpressionStatement',
                       expression: {
-                        type: 'IdentifierReference',
-                        kind: 13,
-                        name: '',
-                        start: 33,
-                        end: 33,
-                        flags: 2
+                        type: 'ConditionalExpression',
+                        shortCircuit: {
+                          type: 'IdentifierReference',
+                          name: '',
+                          start: 30,
+                          end: 30,
+                          kind: 13,
+                          flags: 2
+                        },
+                        consequent: {
+                          type: 'IdentifierReference',
+                          name: '',
+                          start: 33,
+                          end: 33,
+                          kind: 13,
+                          flags: 2
+                        },
+                        alternate: {
+                          type: 'IdentifierReference',
+                          name: 'b',
+                          start: 35,
+                          end: 37,
+                          kind: 13,
+                          flags: 0
+                        },
+                        start: 30,
+                        end: 37,
+                        kind: 153,
+                        flags: 0
                       },
                       start: 30,
-                      end: 33,
+                      end: 37,
                       kind: 122,
                       flags: 0
                     },
                     start: 25,
-                    end: 33,
+                    end: 37,
                     kind: 134,
                     flags: 0
                   },
                   start: 25,
-                  end: 33,
+                  end: 37,
                   kind: 122,
                   flags: 0
                 }
               ],
               start: 23,
-              end: 33,
+              end: 37,
               kind: 123,
               flags: 0
             },
-            flags: 0,
             start: 14,
-            end: 33
+            end: 37,
+            kind: 140,
+            flags: 0
           },
           finalizer: null,
           start: 0,
-          end: 33,
-          kind: 138,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            kind: 13,
-            name: 'b',
-            start: 35,
-            end: 37,
-            flags: 0
-          },
-          start: 35,
           end: 37,
-          kind: 122,
+          kind: 138,
           flags: 0
         }
       ],
@@ -3682,7 +3818,23 @@ describe('Recovery - Try', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
+          start: 32,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 34,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 36,
           length: 1
         }
       ],

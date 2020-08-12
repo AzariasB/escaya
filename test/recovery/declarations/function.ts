@@ -847,8 +847,8 @@ describe('Recovery - Function', () => {
           expression: {
             type: 'IdentifierReference',
             name: '',
-            start: 16,
-            end: 16,
+            start: 15,
+            end: 15,
             kind: 13,
             flags: 2
           },
@@ -884,7 +884,7 @@ describe('Recovery - Function', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 17,
+          start: 15,
           length: 1
         }
       ],

@@ -2131,24 +2131,24 @@ describe('test262-parser-tests - early tests', () => {
                   expression: {
                     type: 'IdentifierReference',
                     name: '',
-                    start: 9,
-                    end: 9,
+                    start: 8,
+                    end: 8,
                     kind: 13,
                     flags: 2
                   },
                   start: 8,
-                  end: 9,
+                  end: 8,
                   kind: 187,
                   flags: 0
                 },
                 async: false,
                 start: 2,
-                end: 9,
+                end: 8,
                 kind: 188,
                 flags: 0
               },
               start: 1,
-              end: 10,
+              end: 9,
               kind: 189,
               flags: 0
             },
@@ -2174,14 +2174,6 @@ describe('test262-parser-tests - early tests', () => {
           message: '`=>` expected',
           code: 5,
           start: 8,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 9,
           length: 1
         }
       ],
