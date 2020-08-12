@@ -1008,37 +1008,11 @@ describe('Recovery - Switch', () => {
       directives: [],
       leafs: [
         {
-          type: 'SwitchStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: '',
-            start: 0,
-            end: 0,
-            kind: 13,
-            flags: 2
-          },
-          clauses: [
-            {
-              type: 'DefaultClause',
-              leafs: [
-                {
-                  type: 'BlockStatement',
-                  leafs: [],
-                  start: 7,
-                  end: 9,
-                  kind: 123,
-                  flags: 0
-                }
-              ],
-              start: 0,
-              end: 9,
-              kind: 142,
-              flags: 0
-            }
-          ],
-          start: 0,
+          type: 'BlockStatement',
+          leafs: [],
+          start: 7,
           end: 9,
-          kind: 136,
+          kind: 123,
           flags: 0
         }
       ],
@@ -1050,15 +1024,15 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`switch` expected',
-          code: 5,
+          message: 'Statement expected',
+          code: 8,
           start: 0,
           length: 7
         },
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`}` expected',
           code: 5,
           start: 8,
           length: 1
@@ -1080,36 +1054,11 @@ describe('Recovery - Switch', () => {
       directives: [],
       leafs: [
         {
-          type: 'SwitchStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: '',
-            start: 0,
-            end: 0,
-            kind: 13,
-            flags: 2
-          },
-          clauses: [
-            {
-              type: 'CaseClause',
-              expression: {
-                type: 'ObjectLiteral',
-                properties: [],
-                start: 4,
-                end: 6,
-                kind: 179,
-                flags: 0
-              },
-              leafs: [],
-              start: 0,
-              end: 6,
-              kind: 141,
-              flags: 0
-            }
-          ],
-          start: 0,
+          type: 'BlockStatement',
+          leafs: [],
+          start: 4,
           end: 6,
-          kind: 136,
+          kind: 123,
           flags: 0
         }
       ],
@@ -1121,8 +1070,8 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`switch` expected',
-          code: 5,
+          message: 'Statement expected',
+          code: 8,
           start: 0,
           length: 4
         },
@@ -1230,54 +1179,28 @@ describe('Recovery - Switch', () => {
       directives: [],
       leafs: [
         {
-          type: 'SwitchStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: '',
-            start: 0,
-            end: 0,
-            kind: 13,
-            flags: 2
-          },
-          clauses: [
+          type: 'BlockStatement',
+          leafs: [
             {
-              type: 'DefaultClause',
-              leafs: [
-                {
-                  type: 'BlockStatement',
-                  leafs: [
-                    {
-                      type: 'SwitchStatement',
-                      expression: {
-                        type: 'IdentifierReference',
-                        name: '',
-                        start: 14,
-                        end: 14,
-                        kind: 13,
-                        flags: 2
-                      },
-                      clauses: [],
-                      start: 8,
-                      end: 14,
-                      kind: 136,
-                      flags: 0
-                    }
-                  ],
-                  start: 7,
-                  end: 14,
-                  kind: 123,
-                  flags: 0
-                }
-              ],
-              start: 0,
+              type: 'SwitchStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 14,
+                end: 14,
+                kind: 13,
+                flags: 2
+              },
+              clauses: [],
+              start: 8,
               end: 14,
-              kind: 142,
+              kind: 136,
               flags: 0
             }
           ],
-          start: 0,
+          start: 7,
           end: 14,
-          kind: 136,
+          kind: 123,
           flags: 0
         }
       ],
@@ -1289,18 +1212,10 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`switch` expected',
-          code: 5,
+          message: 'Statement expected',
+          code: 8,
           start: 0,
           length: 7
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`:` expected',
-          code: 5,
-          start: 7,
-          length: 1
         },
         {
           kind: 2,
@@ -1327,53 +1242,37 @@ describe('Recovery - Switch', () => {
       directives: [],
       leafs: [
         {
-          type: 'SwitchStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: '',
-            start: 0,
-            end: 0,
-            kind: 13,
-            flags: 2
-          },
-          clauses: [
+          type: 'BlockStatement',
+          leafs: [
             {
-              type: 'CaseClause',
+              type: 'SwitchStatement',
               expression: {
-                type: 'ObjectLiteral',
-                properties: [
-                  {
-                    type: 'IdentifierReference',
-                    name: 'switch',
-                    start: 5,
-                    end: 11,
-                    kind: 13,
-                    flags: 0
-                  },
-                  {
-                    type: 'IdentifierReference',
-                    name: 'default',
-                    start: 11,
-                    end: 19,
-                    kind: 13,
-                    flags: 0
-                  }
-                ],
-                start: 4,
-                end: 19,
-                kind: 179,
-                flags: 0
+                type: 'IdentifierReference',
+                name: '',
+                start: 11,
+                end: 11,
+                kind: 13,
+                flags: 2
               },
-              leafs: [],
-              start: 0,
+              clauses: [
+                {
+                  type: 'DefaultClause',
+                  leafs: [],
+                  start: 11,
+                  end: 19,
+                  kind: 142,
+                  flags: 0
+                }
+              ],
+              start: 5,
               end: 19,
-              kind: 141,
+              kind: 136,
               flags: 0
             }
           ],
-          start: 0,
+          start: 4,
           end: 19,
-          kind: 136,
+          kind: 123,
           flags: 0
         }
       ],
@@ -1385,15 +1284,15 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`switch` expected',
-          code: 5,
+          message: 'Statement expected',
+          code: 8,
           start: 0,
           length: 4
         },
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`(` expected',
           code: 5,
           start: 12,
           length: 7
@@ -2406,91 +2305,64 @@ describe('Recovery - Switch', () => {
         },
         {
           type: 'BlockStatement',
-          leafs: [
-            {
-              type: 'SwitchStatement',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 31,
-                end: 31,
-                kind: 13,
-                flags: 2
-              },
-              clauses: [
+          leafs: [],
+          start: 29,
+          end: 31,
+          kind: 123,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'LabelledStatement',
+            label: {
+              type: 'LabelIdentifier',
+              name: 'x',
+              start: 39,
+              end: 42,
+              kind: 13,
+              flags: 0
+            },
+            labelledItem: {
+              type: 'BlockStatement',
+              leafs: [
                 {
-                  type: 'DefaultClause',
-                  leafs: [
-                    {
-                      type: 'ExpressionStatement',
-                      expression: {
-                        type: 'LabelledStatement',
-                        label: {
-                          type: 'LabelIdentifier',
-                          name: 'x',
-                          start: 39,
-                          end: 42,
-                          kind: 13,
-                          flags: 0
-                        },
-                        labelledItem: {
-                          type: 'BlockStatement',
-                          leafs: [
-                            {
-                              type: 'ExpressionStatement',
-                              expression: {
-                                type: 'UnaryExpression',
-                                operator: '!',
-                                operand: {
-                                  type: 'IdentifierReference',
-                                  name: '',
-                                  start: 46,
-                                  end: 46,
-                                  kind: 13,
-                                  flags: 2
-                                },
-                                start: 44,
-                                end: 46,
-                                kind: 160,
-                                flags: 0
-                              },
-                              start: 44,
-                              end: 46,
-                              kind: 122,
-                              flags: 0
-                            }
-                          ],
-                          start: 42,
-                          end: 47,
-                          kind: 123,
-                          flags: 0
-                        },
-                        start: 39,
-                        end: 47,
-                        kind: 134,
-                        flags: 0
-                      },
-                      start: 39,
-                      end: 47,
-                      kind: 122,
-                      flags: 0
-                    }
-                  ],
-                  start: 31,
-                  end: 47,
-                  kind: 142,
+                  type: 'ExpressionStatement',
+                  expression: {
+                    type: 'UnaryExpression',
+                    operator: '!',
+                    operand: {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 46,
+                      end: 46,
+                      kind: 13,
+                      flags: 2
+                    },
+                    start: 44,
+                    end: 46,
+                    kind: 160,
+                    flags: 0
+                  },
+                  start: 44,
+                  end: 46,
+                  kind: 122,
                   flags: 0
                 }
               ],
-              start: 31,
+              start: 42,
               end: 47,
-              kind: 136,
+              kind: 123,
               flags: 0
-            }
-          ],
-          start: 29,
+            },
+            start: 39,
+            end: 47,
+            kind: 134,
+            flags: 0
+          },
+          start: 39,
           end: 47,
-          kind: 123,
+          kind: 122,
           flags: 0
         }
       ],
@@ -2534,18 +2406,10 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`switch` expected',
+          message: '`}` expected',
           code: 5,
           start: 32,
           length: 7
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`:` expected',
-          code: 5,
-          start: 40,
-          length: 1
         },
         {
           kind: 2,

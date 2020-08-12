@@ -1180,161 +1180,135 @@ describe('Module - Import', () => {
             flags: 0
           },
           {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'or',
+              start: 75,
+              end: 78,
+              kind: 13,
+              flags: 0
+            },
+            start: 75,
+            end: 78,
+            kind: 122,
+            flags: 0
+          },
+          {
+            type: 'TryStatement',
+            block: {
+              type: 'BlockStatement',
+              leafs: [],
+              start: 82,
+              end: 82,
+              kind: 123,
+              flags: 0
+            },
+            catchClause: null,
+            finalizer: null,
+            start: 78,
+            end: 82,
+            kind: 138,
+            flags: 0
+          },
+          {
+            type: 'WhileStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'waiting',
+              start: 88,
+              end: 96,
+              kind: 13,
+              flags: 0
+            },
+            statement: {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: 'to',
+                start: 96,
+                end: 99,
+                kind: 13,
+                flags: 0
+              },
+              start: 96,
+              end: 99,
+              kind: 122,
+              flags: 0
+            },
+            start: 82,
+            end: 99,
+            kind: 139,
+            flags: 0
+          },
+          {
             type: 'SwitchStatement',
             expression: {
               type: 'IdentifierReference',
               name: '',
-              start: 67,
-              end: 67,
+              start: 106,
+              end: 106,
               kind: 13,
               flags: 2
             },
-            clauses: [
-              {
-                type: 'DefaultClause',
-                leafs: [
-                  {
-                    type: 'ExpressionStatement',
-                    expression: {
-                      type: 'IdentifierReference',
-                      name: 'or',
-                      start: 75,
-                      end: 78,
-                      kind: 13,
-                      flags: 0
-                    },
-                    start: 75,
-                    end: 78,
-                    kind: 122,
-                    flags: 0
-                  },
-                  {
-                    type: 'TryStatement',
-                    block: {
-                      type: 'BlockStatement',
-                      leafs: [],
-                      start: 82,
-                      end: 82,
-                      kind: 123,
-                      flags: 0
-                    },
-                    catchClause: null,
-                    finalizer: null,
-                    start: 78,
-                    end: 82,
-                    kind: 138,
-                    flags: 0
-                  },
-                  {
-                    type: 'WhileStatement',
-                    expression: {
-                      type: 'IdentifierReference',
-                      name: 'waiting',
-                      start: 88,
-                      end: 96,
-                      kind: 13,
-                      flags: 0
-                    },
-                    statement: {
-                      type: 'ExpressionStatement',
-                      expression: {
-                        type: 'IdentifierReference',
-                        name: 'to',
-                        start: 96,
-                        end: 99,
-                        kind: 13,
-                        flags: 0
-                      },
-                      start: 96,
-                      end: 99,
-                      kind: 122,
-                      flags: 0
-                    },
-                    start: 82,
-                    end: 99,
-                    kind: 139,
-                    flags: 0
-                  },
-                  {
-                    type: 'SwitchStatement',
-                    expression: {
-                      type: 'IdentifierReference',
-                      name: '',
-                      start: 106,
-                      end: 106,
-                      kind: 13,
-                      flags: 2
-                    },
-                    clauses: [],
-                    start: 99,
-                    end: 106,
-                    kind: 136,
-                    flags: 0
-                  },
-                  {
-                    type: 'ForStatement',
-                    initializer: {
-                      type: 'IdentifierReference',
-                      name: 'something',
-                      start: 110,
-                      end: 120,
-                      kind: 13,
-                      flags: 0
-                    },
-                    condition: {
-                      type: 'UnaryExpression',
-                      operator: '!',
-                      operand: {
-                        type: 'IdentifierReference',
-                        name: '',
-                        start: 127,
-                        end: 127,
-                        kind: 13,
-                        flags: 2
-                      },
-                      start: 125,
-                      end: 127,
-                      kind: 160,
-                      flags: 0
-                    },
-                    incrementor: {
-                      type: 'IdentifierReference',
-                      name: 'fast',
-                      start: 120,
-                      end: 125,
-                      kind: 13,
-                      flags: 0
-                    },
-                    statement: {
-                      type: 'ExpressionStatement',
-                      expression: {
-                        type: 'IdentifierReference',
-                        name: '',
-                        start: 127,
-                        end: 127,
-                        kind: 13,
-                        flags: 2
-                      },
-                      start: 127,
-                      end: 127,
-                      kind: 122,
-                      flags: 0
-                    },
-                    start: 106,
-                    end: 127,
-                    kind: 132,
-                    flags: 0
-                  }
-                ],
-                start: 67,
-                end: 127,
-                kind: 142,
-                flags: 0
-              }
-            ],
-            start: 67,
-            end: 127,
+            clauses: [],
+            start: 99,
+            end: 106,
             kind: 136,
+            flags: 0
+          },
+          {
+            type: 'ForStatement',
+            initializer: {
+              type: 'IdentifierReference',
+              name: 'something',
+              start: 110,
+              end: 120,
+              kind: 13,
+              flags: 0
+            },
+            condition: {
+              type: 'UnaryExpression',
+              operator: '!',
+              operand: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 127,
+                end: 127,
+                kind: 13,
+                flags: 2
+              },
+              start: 125,
+              end: 127,
+              kind: 160,
+              flags: 0
+            },
+            incrementor: {
+              type: 'IdentifierReference',
+              name: 'fast',
+              start: 120,
+              end: 125,
+              kind: 13,
+              flags: 0
+            },
+            statement: {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 127,
+                end: 127,
+                kind: 13,
+                flags: 2
+              },
+              start: 127,
+              end: 127,
+              kind: 122,
+              flags: 0
+            },
+            start: 106,
+            end: 127,
+            kind: 132,
             flags: 0
           }
         ],
@@ -1423,14 +1397,6 @@ describe('Module - Import', () => {
             code: 92,
             start: 68,
             length: 7
-          },
-          {
-            kind: 2,
-            source: 2,
-            message: '`:` expected',
-            code: 5,
-            start: 76,
-            length: 2
           },
           {
             kind: 2,
@@ -2787,102 +2753,93 @@ describe('Module - Import', () => {
             flags: 0
           },
           {
-            type: 'IfStatement',
+            type: 'ExpressionStatement',
             expression: {
-              type: 'ConditionalExpression',
-              shortCircuit: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 47,
-                end: 47,
-                kind: 13,
-                flags: 2
-              },
-              consequent: {
-                type: 'IdentifierReference',
-                name: 'ah',
-                start: 48,
-                end: 51,
-                kind: 13,
-                flags: 0
-              },
-              alternate: {
-                type: 'UnaryExpression',
-                operator: '!',
-                operand: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 52,
-                  end: 52,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 51,
-                end: 52,
-                kind: 160,
-                flags: 0
-              },
-              start: 47,
-              end: 52,
-              kind: 153,
+              type: 'IdentifierReference',
+              name: 'ah',
+              start: 48,
+              end: 51,
+              kind: 13,
               flags: 0
             },
-            consequent: {
-              type: 'WhileStatement',
-              expression: {
+            start: 48,
+            end: 51,
+            kind: 122,
+            flags: 0
+          },
+          {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'UnaryExpression',
+              operator: '!',
+              operand: {
                 type: 'IdentifierReference',
                 name: '',
-                start: 58,
-                end: 58,
+                start: 52,
+                end: 52,
                 kind: 13,
                 flags: 2
+              },
+              start: 51,
+              end: 52,
+              kind: 160,
+              flags: 0
+            },
+            start: 51,
+            end: 52,
+            kind: 122,
+            flags: 0
+          },
+          {
+            type: 'WhileStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 58,
+              end: 58,
+              kind: 13,
+              flags: 2
+            },
+            statement: {
+              type: 'WithStatement',
+              expression: {
+                type: 'ClassExpression',
+                name: null,
+                heritage: null,
+                elements: [],
+                start: 63,
+                end: 69,
+                kind: 149,
+                flags: 0
               },
               statement: {
-                type: 'WithStatement',
-                expression: {
-                  type: 'ClassExpression',
-                  name: null,
-                  heritage: null,
-                  elements: [],
-                  start: 63,
-                  end: 69,
-                  kind: 149,
-                  flags: 0
-                },
-                statement: {
-                  type: 'FunctionDeclaration',
-                  name: null,
-                  generator: false,
-                  async: false,
-                  params: [],
-                  contents: {
-                    type: 'FunctionBody',
-                    directives: [],
-                    leafs: [],
-                    start: 78,
-                    end: 78,
-                    kind: 184,
-                    flags: 0
-                  },
-                  start: 69,
+                type: 'FunctionDeclaration',
+                name: null,
+                generator: false,
+                async: false,
+                params: [],
+                contents: {
+                  type: 'FunctionBody',
+                  directives: [],
+                  leafs: [],
+                  start: 78,
                   end: 78,
-                  kind: 186,
+                  kind: 184,
                   flags: 0
                 },
-                start: 58,
+                start: 69,
                 end: 78,
-                kind: 128,
+                kind: 186,
                 flags: 0
               },
-              start: 52,
+              start: 58,
               end: 78,
-              kind: 139,
+              kind: 128,
               flags: 0
             },
-            alternate: null,
-            start: 42,
+            start: 52,
             end: 78,
-            kind: 133,
+            kind: 139,
             flags: 0
           }
         ],
@@ -2958,16 +2915,16 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
-            message: '`(` expected',
-            code: 5,
+            message: 'Statement expected',
+            code: 8,
             start: 47,
             length: 1
           },
           {
             kind: 2,
             source: 2,
-            message: '`:` expected',
-            code: 5,
+            message: '`;` expected',
+            code: 92,
             start: 51,
             length: 1
           },

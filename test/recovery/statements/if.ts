@@ -18,17 +18,24 @@ describe('Recovery - If', () => {
             flags: 2
           },
           consequent: {
-            type: 'IfStatement',
+            type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
               name: '',
-              start: 9,
-              end: 9,
+              start: 2,
+              end: 2,
               kind: 13,
               flags: 2
             },
-            consequent: {
-              type: 'ExpressionStatement',
+            start: 2,
+            end: 2,
+            kind: 122,
+            flags: 0
+          },
+          alternate: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'ParenthesizedExpression',
               expression: {
                 type: 'IdentifierReference',
                 name: '',
@@ -37,18 +44,16 @@ describe('Recovery - If', () => {
                 kind: 13,
                 flags: 2
               },
-              start: 9,
+              start: 7,
               end: 9,
-              kind: 122,
+              kind: 189,
               flags: 0
             },
-            alternate: null,
-            start: 2,
+            start: 7,
             end: 9,
-            kind: 133,
+            kind: 122,
             flags: 0
           },
-          alternate: null,
           start: 0,
           end: 9,
           kind: 133,
@@ -122,7 +127,22 @@ describe('Recovery - If', () => {
             flags: 0
           },
           consequent: {
-            type: 'IfStatement',
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 17,
+              end: 17,
+              kind: 13,
+              flags: 2
+            },
+            start: 17,
+            end: 17,
+            kind: 122,
+            flags: 0
+          },
+          alternate: {
+            type: 'ExpressionStatement',
             expression: {
               type: 'CallExpression',
               expression: {
@@ -139,28 +159,11 @@ describe('Recovery - If', () => {
               kind: 156,
               flags: 0
             },
-            consequent: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 30,
-                end: 30,
-                kind: 13,
-                flags: 2
-              },
-              start: 30,
-              end: 30,
-              kind: 122,
-              flags: 0
-            },
-            alternate: null,
-            start: 17,
+            start: 22,
             end: 30,
-            kind: 133,
+            kind: 122,
             flags: 0
           },
-          alternate: null,
           start: 0,
           end: 30,
           kind: 133,
@@ -187,14 +190,6 @@ describe('Recovery - If', () => {
           code: 19,
           start: 18,
           length: 4
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`(` expected',
-          code: 5,
-          start: 23,
-          length: 5
         },
         {
           kind: 2,
@@ -392,12 +387,27 @@ describe('Recovery - If', () => {
                   flags: 0
                 },
                 consequent: {
+                  type: 'ExpressionStatement',
+                  expression: {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 26,
+                    end: 26,
+                    kind: 13,
+                    flags: 2
+                  },
+                  start: 26,
+                  end: 26,
+                  kind: 122,
+                  flags: 0
+                },
+                alternate: {
                   type: 'IfStatement',
                   expression: {
                     type: 'IdentifierReference',
                     name: '',
-                    start: 31,
-                    end: 31,
+                    start: 34,
+                    end: 34,
                     kind: 13,
                     flags: 2
                   },
@@ -406,13 +416,13 @@ describe('Recovery - If', () => {
                     expression: {
                       type: 'IdentifierReference',
                       name: '',
-                      start: 34,
-                      end: 34,
+                      start: 37,
+                      end: 37,
                       kind: 13,
                       flags: 2
                     },
                     consequent: {
-                      type: 'IfStatement',
+                      type: 'ExpressionStatement',
                       expression: {
                         type: 'IdentifierReference',
                         name: '',
@@ -421,8 +431,15 @@ describe('Recovery - If', () => {
                         kind: 13,
                         flags: 2
                       },
-                      consequent: {
-                        type: 'IfStatement',
+                      start: 37,
+                      end: 37,
+                      kind: 122,
+                      flags: 0
+                    },
+                    alternate: {
+                      type: 'ExpressionStatement',
+                      expression: {
+                        type: 'ParenthesizedExpression',
                         expression: {
                           type: 'IdentifierReference',
                           name: '',
@@ -431,46 +448,27 @@ describe('Recovery - If', () => {
                           kind: 13,
                           flags: 2
                         },
-                        consequent: {
-                          type: 'ExpressionStatement',
-                          expression: {
-                            type: 'IdentifierReference',
-                            name: '',
-                            start: 44,
-                            end: 44,
-                            kind: 13,
-                            flags: 2
-                          },
-                          start: 44,
-                          end: 44,
-                          kind: 122,
-                          flags: 0
-                        },
-                        alternate: null,
-                        start: 37,
+                        start: 42,
                         end: 44,
-                        kind: 133,
+                        kind: 189,
                         flags: 0
                       },
-                      alternate: null,
-                      start: 34,
+                      start: 42,
                       end: 44,
-                      kind: 133,
+                      kind: 122,
                       flags: 0
                     },
-                    alternate: null,
-                    start: 31,
+                    start: 34,
                     end: 44,
                     kind: 133,
                     flags: 0
                   },
                   alternate: null,
-                  start: 26,
+                  start: 31,
                   end: 44,
                   kind: 133,
                   flags: 0
                 },
-                alternate: null,
                 start: 8,
                 end: 44,
                 kind: 133,
@@ -539,14 +537,6 @@ describe('Recovery - If', () => {
           code: 19,
           start: 27,
           length: 4
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`(` expected',
-          code: 5,
-          start: 32,
-          length: 2
         },
         {
           kind: 2,
@@ -1803,56 +1793,40 @@ describe('Recovery - If', () => {
             flags: 2
           },
           consequent: {
-            type: 'IfStatement',
+            type: 'ExpressionStatement',
             expression: {
-              type: 'FunctionExpression',
-              name: {
-                type: 'BindingIdentifier',
-                name: '',
-                start: 16,
-                end: 16,
-                kind: 168,
-                flags: 0
-              },
-              generator: false,
-              async: false,
-              params: [],
-              contents: {
-                type: 'FunctionBody',
-                directives: [],
-                leafs: [],
-                start: 16,
-                end: 16,
-                kind: 184,
-                flags: 0
-              },
-              start: 7,
-              end: 16,
-              kind: 185,
-              flags: 0
+              type: 'IdentifierReference',
+              name: '',
+              start: 2,
+              end: 2,
+              kind: 13,
+              flags: 2
             },
-            consequent: {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 16,
-                end: 16,
-                kind: 13,
-                flags: 2
-              },
-              start: 16,
-              end: 16,
-              kind: 122,
-              flags: 0
-            },
-            alternate: null,
             start: 2,
-            end: 16,
-            kind: 133,
+            end: 2,
+            kind: 122,
             flags: 0
           },
-          alternate: null,
+          alternate: {
+            type: 'FunctionDeclaration',
+            name: null,
+            generator: false,
+            async: false,
+            params: [],
+            contents: {
+              type: 'FunctionBody',
+              directives: [],
+              leafs: [],
+              start: 16,
+              end: 16,
+              kind: 184,
+              flags: 0
+            },
+            start: 7,
+            end: 16,
+            kind: 186,
+            flags: 0
+          },
           start: 0,
           end: 16,
           kind: 133,
@@ -1873,10 +1847,10 @@ describe('Recovery - If', () => {
           length: 4
         },
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`(` expected',
-          code: 5,
+          message: 'Function declaration require a name in this context',
+          code: 10,
           start: 8,
           length: 8
         }
@@ -2769,40 +2743,40 @@ describe('Recovery - If', () => {
               type: 'IfStatement',
               expression: {
                 type: 'IdentifierReference',
+                kind: 13,
                 name: '',
                 start: 3,
                 end: 3,
-                kind: 13,
                 flags: 2
               },
               consequent: {
                 type: 'IfStatement',
                 expression: {
                   type: 'IdentifierReference',
+                  kind: 13,
                   name: '',
                   start: 6,
                   end: 6,
-                  kind: 13,
                   flags: 2
                 },
                 consequent: {
                   type: 'IfStatement',
                   expression: {
                     type: 'IdentifierReference',
+                    kind: 13,
                     name: '',
                     start: 9,
                     end: 9,
-                    kind: 13,
                     flags: 2
                   },
                   consequent: {
                     type: 'ExpressionStatement',
                     expression: {
                       type: 'IdentifierReference',
+                      kind: 13,
                       name: '',
                       start: 9,
                       end: 9,
-                      kind: 13,
                       flags: 2
                     },
                     start: 9,
@@ -2951,28 +2925,21 @@ describe('Recovery - If', () => {
       directives: [],
       leafs: [
         {
-          type: 'IfStatement',
-          expression: {
-            type: 'ObjectLiteral',
-            properties: [
-              {
-                type: 'IdentifierReference',
-                name: 'if',
-                start: 5,
-                end: 7,
-                kind: 13,
-                flags: 0
-              },
-              {
-                type: 'CoverInitializedName',
+          type: 'BlockStatement',
+          leafs: [
+            {
+              type: 'IfStatement',
+              expression: {
+                type: 'AssignmentExpression',
                 left: {
-                  type: 'IdentifierName',
+                  type: 'IdentifierReference',
                   name: 'x',
                   start: 7,
-                  end: 10,
+                  end: 9,
                   kind: 13,
                   flags: 0
                 },
+                operator: '=',
                 right: {
                   type: 'IdentifierReference',
                   name: '',
@@ -2983,34 +2950,34 @@ describe('Recovery - If', () => {
                 },
                 start: 7,
                 end: 10,
-                kind: 181,
+                kind: 152,
                 flags: 0
-              }
-            ],
-            start: 4,
-            end: 10,
-            kind: 179,
-            flags: 0
-          },
-          consequent: {
-            type: 'ExpressionStatement',
-            expression: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 11,
+              },
+              consequent: {
+                type: 'ExpressionStatement',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 11,
+                  end: 11,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 11,
+                end: 11,
+                kind: 122,
+                flags: 0
+              },
+              alternate: null,
+              start: 5,
               end: 11,
-              kind: 13,
-              flags: 2
-            },
-            start: 11,
-            end: 11,
-            kind: 122,
-            flags: 0
-          },
-          alternate: null,
-          start: 0,
+              kind: 133,
+              flags: 0
+            }
+          ],
+          start: 4,
           end: 11,
-          kind: 133,
+          kind: 123,
           flags: 0
         }
       ],
@@ -3022,15 +2989,15 @@ describe('Recovery - If', () => {
         {
           kind: 2,
           source: 2,
-          message: '`(` expected',
-          code: 5,
-          start: 4,
-          length: 1
+          message: 'Statement expected',
+          code: 8,
+          start: 0,
+          length: 4
         },
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`(` expected',
           code: 5,
           start: 8,
           length: 1
@@ -3673,38 +3640,51 @@ describe('Recovery - If', () => {
             flags: 2
           },
           consequent: {
-            type: 'IfStatement',
+            type: 'ExpressionStatement',
             expression: {
-              type: 'RegularExpressionLiteral',
-              pattern: '',
-              flag: '',
-              start: 7,
-              end: 9,
-              kind: 15,
-              flags: 0
+              type: 'IdentifierReference',
+              name: '',
+              start: 2,
+              end: 2,
+              kind: 13,
+              flags: 2
             },
-            consequent: {
-              type: 'ExpressionStatement',
-              expression: {
+            start: 2,
+            end: 2,
+            kind: 122,
+            flags: 0
+          },
+          alternate: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'BinaryExpression',
+              left: {
                 type: 'IdentifierReference',
                 name: '',
-                start: 9,
-                end: 9,
+                start: 7,
+                end: 7,
                 kind: 13,
                 flags: 2
               },
-              start: 9,
+              operator: '/',
+              right: {
+                type: 'ObjectLiteral',
+                properties: [],
+                start: 8,
+                end: 9,
+                kind: 179,
+                flags: 0
+              },
+              start: 7,
               end: 9,
-              kind: 122,
+              kind: 155,
               flags: 0
             },
-            alternate: null,
-            start: 2,
+            start: 7,
             end: 9,
-            kind: 133,
+            kind: 122,
             flags: 0
           },
-          alternate: null,
           start: 0,
           end: 9,
           kind: 133,
@@ -3726,11 +3706,19 @@ describe('Recovery - If', () => {
         },
         {
           kind: 2,
-          source: 0,
-          message: 'Unterminated regular expression',
-          code: 12,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
           start: 7,
-          length: 2
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 8,
+          length: 1
         }
       ],
       detached: false,
@@ -4954,7 +4942,22 @@ describe('Recovery - If', () => {
                     flags: 2
                   },
                   consequent: {
-                    type: 'IfStatement',
+                    type: 'ExpressionStatement',
+                    expression: {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 41,
+                      end: 41,
+                      kind: 13,
+                      flags: 2
+                    },
+                    start: 41,
+                    end: 41,
+                    kind: 122,
+                    flags: 0
+                  },
+                  alternate: {
+                    type: 'ExpressionStatement',
                     expression: {
                       type: 'IdentifierReference',
                       name: 'get',
@@ -4963,42 +4966,40 @@ describe('Recovery - If', () => {
                       kind: 13,
                       flags: 0
                     },
-                    consequent: {
-                      type: 'ExpressionStatement',
-                      expression: {
-                        type: 'IdentifierReference',
-                        name: 'mad',
-                        start: 50,
-                        end: 54,
-                        kind: 13,
-                        flags: 0
-                      },
-                      start: 50,
-                      end: 54,
-                      kind: 122,
-                      flags: 0
-                    },
-                    alternate: null,
-                    start: 41,
-                    end: 54,
-                    kind: 133,
+                    start: 46,
+                    end: 50,
+                    kind: 122,
                     flags: 0
                   },
-                  alternate: null,
                   start: 38,
-                  end: 54,
+                  end: 50,
                   kind: 133,
                   flags: 0
                 },
                 start: 22,
-                end: 54,
+                end: 50,
                 kind: 139,
                 flags: 0
               },
               alternate: null,
               start: 6,
-              end: 54,
+              end: 50,
               kind: 133,
+              flags: 0
+            },
+            {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'IdentifierReference',
+                name: 'mad',
+                start: 50,
+                end: 54,
+                kind: 13,
+                flags: 0
+              },
+              start: 50,
+              end: 54,
+              kind: 122,
               flags: 0
             }
           ],
@@ -5056,16 +5057,8 @@ describe('Recovery - If', () => {
         {
           kind: 2,
           source: 2,
-          message: '`(` expected',
-          code: 5,
-          start: 47,
-          length: 3
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`)` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 51,
           length: 3
         }
@@ -5493,37 +5486,6 @@ describe('Recovery - If', () => {
           end: 3,
           kind: 133,
           flags: 0
-        },
-        {
-          type: 'IfStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: '',
-            start: 9,
-            end: 9,
-            kind: 13,
-            flags: 2
-          },
-          consequent: {
-            type: 'ExpressionStatement',
-            expression: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 9,
-              end: 9,
-              kind: 13,
-              flags: 2
-            },
-            start: 9,
-            end: 9,
-            kind: 122,
-            flags: 0
-          },
-          alternate: null,
-          start: 5,
-          end: 9,
-          kind: 133,
-          flags: 0
         }
       ],
       text: '[if]]else',
@@ -5558,8 +5520,8 @@ describe('Recovery - If', () => {
         {
           kind: 2,
           source: 2,
-          message: '`(` expected',
-          code: 5,
+          message: 'Statement expected',
+          code: 8,
           start: 5,
           length: 4
         }
@@ -5719,6 +5681,93 @@ describe('Recovery - If', () => {
     });
   });
 
+  it('{if', () => {
+    t.deepEqual(recovery('{if,', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'BlockStatement',
+          leafs: [
+            {
+              type: 'IfStatement',
+              expression: {
+                type: 'CommaOperator',
+                expressions: [
+                  {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 3,
+                    end: 3,
+                    kind: 13,
+                    flags: 2
+                  },
+                  {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 4,
+                    end: 4,
+                    kind: 13,
+                    flags: 2
+                  }
+                ],
+                start: 3,
+                end: 4,
+                kind: 147,
+                flags: 0
+              },
+              consequent: {
+                type: 'ExpressionStatement',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 4,
+                  end: 4,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 4,
+                end: 4,
+                kind: 122,
+                flags: 0
+              },
+              alternate: null,
+              start: 1,
+              end: 4,
+              kind: 133,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 4,
+          kind: 123,
+          flags: 0
+        }
+      ],
+      text: '{if,',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 3,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 4,
+      end: 4
+    });
+  });
+
   it('/* /* if(foo) {}', () => {
     t.deepEqual(recovery('/* /* if(foo) {}', 'recovery.js'), {
       kind: 209,
@@ -5764,54 +5813,52 @@ describe('Recovery - If', () => {
             flags: 2
           },
           consequent: {
-            type: 'IfStatement',
+            type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
               name: '',
-              start: 7,
-              end: 7,
+              start: 2,
+              end: 2,
               kind: 13,
               flags: 2
             },
-            consequent: {
-              type: 'TryStatement',
+            start: 2,
+            end: 2,
+            kind: 122,
+            flags: 0
+          },
+          alternate: {
+            type: 'TryStatement',
+            block: {
+              type: 'BlockStatement',
+              leafs: [],
+              start: 7,
+              end: 7,
+              kind: 123,
+              flags: 0
+            },
+            catchClause: {
+              type: 'CatchClause',
+              binding: null,
               block: {
                 type: 'BlockStatement',
                 leafs: [],
-                start: 7,
-                end: 7,
+                start: 13,
+                end: 13,
                 kind: 123,
                 flags: 0
               },
-              catchClause: {
-                type: 'CatchClause',
-                binding: null,
-                block: {
-                  type: 'BlockStatement',
-                  leafs: [],
-                  start: 13,
-                  end: 13,
-                  kind: 123,
-                  flags: 0
-                },
-                start: 7,
-                end: 13,
-                kind: 140,
-                flags: 0
-              },
-              finalizer: null,
               start: 7,
               end: 13,
-              kind: 138,
+              kind: 140,
               flags: 0
             },
-            alternate: null,
-            start: 2,
+            finalizer: null,
+            start: 7,
             end: 13,
-            kind: 133,
+            kind: 138,
             flags: 0
           },
-          alternate: null,
           start: 0,
           end: 13,
           kind: 133,
@@ -5834,7 +5881,7 @@ describe('Recovery - If', () => {
         {
           kind: 2,
           source: 2,
-          message: '`(` expected',
+          message: '`try` expected',
           code: 5,
           start: 8,
           length: 5

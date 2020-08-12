@@ -149,7 +149,6 @@ export function create(source: string, nodeCursor?: any): ParserState {
 //   StatementList StatementListItem
 export function parseStatementList(state: ParserState, context: Context, cb: any): Statement[] {
   const statementList = [];
-
   while (state.token !== Token.EOF) {
     if (state.token & Constants.IsSourceElement) {
       statementList.push(parseBlockElements(state, context, cb));
@@ -223,9 +222,6 @@ export function parseStatement(state: ParserState, context: Context): Statement 
     case Token.DoKeyword:
       return parseDoWhileStatement(state, context);
     case Token.SwitchKeyword:
-    // Miscellaneous error cases arguably better caught here than elsewhere.
-    case Token.CaseKeyword:
-    case Token.DefaultKeyword:
       return parseSwitchStatement(state, context);
     case Token.ContinueKeyword:
       return parseContinueStatement(state, context);
@@ -234,7 +230,6 @@ export function parseStatement(state: ParserState, context: Context): Statement 
     case Token.ThrowKeyword:
       return parseThrowStatement(state, context);
     case Token.TryKeyword:
-    // Samme as for 'SwitchStatement' and 'IfStatement'.
     // Miscellaneous error cases arguably better caught here than elsewhere.
     case Token.CatchKeyword:
     case Token.FinallyKeyword:
@@ -259,8 +254,6 @@ export function parseStatement(state: ParserState, context: Context): Statement 
       // See the comment above. Same rules apply.
       addEarlyDiagnostic(state, context, DiagnosticCode.ClassForbiddenAsStatement);
       return parseClassDeclaration(state, context);
-    case Token.ElseKeyword:
-      if (context & Context.ErrorRecovery) return parseIfStatement(state, context);
     default:
       return parseExpressionOrLabelledStatement(state, context);
   }
@@ -306,7 +299,7 @@ export function parseCaseBlock(state: ParserState, context: Context): CaseBlock[
 // DefaultClause :
 //   `default` `:` StatementList?
 export function parseCaseOrDefaultClause(state: ParserState, context: Context): CaseBlock {
-  const statements = [];
+  const statements: any[] = [];
   const start = state.startIndex;
   if (consumeOpt(state, context | Context.AllowRegExp, Token.CaseKeyword)) {
     const expression = parseExpressions(state, context);
@@ -2239,8 +2232,9 @@ export function parseArrayLiteral(state: ParserState, context: Context): ArrayLi
         elements.push(parseExpression(state, context));
       }
     }
-    if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
     if (state.token === Token.RightBracket) break;
+    if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
+
     //  addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
   }
 

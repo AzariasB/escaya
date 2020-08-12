@@ -507,31 +507,6 @@ describe('Recovery - Export', () => {
             end: 56,
             kind: 186,
             flags: 0
-          },
-          {
-            type: 'SwitchStatement',
-            expression: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 56,
-              end: 56,
-              kind: 13,
-              flags: 2
-            },
-            clauses: [
-              {
-                type: 'DefaultClause',
-                leafs: [],
-                start: 56,
-                end: 64,
-                kind: 142,
-                flags: 0
-              }
-            ],
-            start: 56,
-            end: 64,
-            kind: 136,
-            flags: 0
           }
         ],
         text: 'export class function let const var async async function default',
