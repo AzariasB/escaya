@@ -3203,7 +3203,7 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: '`]` expected',
+          message: '`,` expected',
           code: 5,
           start: 5,
           length: 1
@@ -5056,7 +5056,7 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: '`]` expected',
+          message: '`,` expected',
           code: 5,
           start: 1,
           length: 1
@@ -7050,167 +7050,6 @@ describe('Recovery - Expressions', () => {
       start: 0,
       length: 20,
       end: 20
-    });
-  });
-
-  it('let[ let yield foo; var package: bar ]', () => {
-    t.deepEqual(recovery('let[ let yield foo; var package: bar ]', 'recovery.js', { module: true }), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'LexicalDeclaration',
-          isConst: false,
-          declarations: [
-            {
-              type: 'LexicalBinding',
-              binding: {
-                type: 'ArrayBindingPattern',
-                elements: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: '',
-                    start: 4,
-                    end: 8,
-                    kind: 168,
-                    flags: 0
-                  },
-                  {
-                    type: 'BindingIdentifier',
-                    name: '',
-                    start: 8,
-                    end: 14,
-                    kind: 168,
-                    flags: 0
-                  },
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'foo',
-                    start: 14,
-                    end: 18,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
-                start: 3,
-                end: 18,
-                kind: 174,
-                flags: 0
-              },
-              initializer: null,
-              start: 3,
-              end: 18,
-              kind: 146,
-              flags: 0
-            }
-          ],
-          start: 0,
-          end: 19,
-          kind: 145,
-          flags: 0
-        },
-        {
-          type: 'VariableStatement',
-          declarations: [
-            {
-              type: 'VariableDeclaration',
-              binding: {
-                type: 'BindingIdentifier',
-                name: '',
-                start: 23,
-                end: 31,
-                kind: 168,
-                flags: 0
-              },
-              initializer: null,
-              start: 23,
-              end: 31,
-              kind: 144,
-              flags: 0
-            }
-          ],
-          start: 19,
-          end: 31,
-          kind: 143,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'bar',
-            start: 32,
-            end: 36,
-            kind: 13,
-            flags: 0
-          },
-          start: 32,
-          end: 36,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: 'let[ let yield foo; var package: bar ]',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: 'Unexpected reserved word in strict mode',
-          code: 18,
-          start: 5,
-          length: 3
-        },
-        {
-          kind: 3,
-          source: 2,
-          message: 'Unexpected `yield` as binding identifier in this context',
-          code: 90,
-          start: 9,
-          length: 5
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`]` expected',
-          code: 5,
-          start: 18,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Unexpected reserved word in strict mode',
-          code: 18,
-          start: 24,
-          length: 7
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Variable declaration or lexical binding expected',
-          code: 16,
-          start: 31,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`;` expected',
-          code: 92,
-          start: 37,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 38,
-      end: 38
     });
   });
 

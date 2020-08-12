@@ -185,9 +185,19 @@ export function parseStatementListItem(state: ParserState, context: Context): St
       return parseLexicalDeclaration(state, context, BindingType.Const);
     case Token.LetKeyword:
       return parseLexicalDeclaration(state, context, BindingType.Let);
-    // TODO! Fix this
-    // case Token.ImportKeyword:
-    // return parseImportDeclaration(state, context);
+    case Token.ImportKeyword:
+      const start = state.startIndex;
+      nextToken(state, context | Context.AllowRegExp);
+      // `import` `(`
+      if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftParen)) {
+        return parseImportCall(state, context, start);
+      }
+      // `import` `.`
+      if (consumeOpt(state, context, Token.Period)) {
+        return parseImportMeta(state, context, start);
+      }
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ImportInScript, DiagnosticKind.Error);
+      return parseImportDeclaration(state, context, start);
     case Token.ExportKeyword:
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExportInScript, DiagnosticKind.Error);
       return parseExportDeclaration(state, context);
@@ -2173,6 +2183,7 @@ export function parseBindingPatternOrIdentifier(
 //   `[` BindingElementList `,` Elision `,` BindingRestElement `]`
 export function parseArrayBindingPattern(state: ParserState, context: Context, type: BindingType): ArrayBindingPattern {
   const start = state.startIndex;
+  context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   nextToken(state, context | Context.AllowRegExp);
   const list = [];
   const check = context & Context.ErrorRecovery ? Constants.ArrayListRecovery : Constants.ArrayListNormal;
@@ -2185,9 +2196,10 @@ export function parseArrayBindingPattern(state: ParserState, context: Context, t
         break;
       }
       list.push(parseBindingElement(state, context, type));
+      if (state.token === Token.RightBracket) break;
+      if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
     }
-    if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
-    if (state.token === Token.RightBracket) break;
   }
   consume(state, context, Token.RightBracket);
   return finishNode(state, context, start, DictionaryMap.ArrayBindingPattern(list), SyntaxKind.ArrayBindingPattern);
@@ -2215,20 +2227,18 @@ export function parseArrayLiteral(state: ParserState, context: Context): ArrayLi
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   const elements = [];
   const check = context & Context.ErrorRecovery ? Constants.ArrayListRecovery : Constants.ArrayListNormal;
+
   while (state.token & check) {
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
       elements.push(finishNode(state, context, state.startIndex, DictionaryMap.Elison(), SyntaxKind.Elison));
     } else {
-      if (state.token === Token.Ellipsis) {
-        elements.push(parseSpreadElement(state, context));
-      } else {
-        elements.push(parseExpression(state, context));
-      }
+      elements.push(
+        state.token === Token.Ellipsis ? parseSpreadElement(state, context) : parseExpression(state, context)
+      );
+      if (state.token === Token.RightBracket) break;
+      if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
     }
-    if (state.token === Token.RightBracket) break;
-    if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
-
-    //  addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
   }
 
   consume(state, context, Token.RightBracket);
@@ -3416,7 +3426,17 @@ export function parseExpressionOrHigher(
 export function parseModuleItem(state: ParserState, context: Context): ImportExport {
   switch (state.token) {
     case Token.ImportKeyword:
-      return parseImportDeclaration(state, context);
+      const start = state.startIndex;
+      nextToken(state, context | Context.AllowRegExp);
+      // `import` `(`
+      if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftParen)) {
+        return parseImportCall(state, context, start);
+      }
+      // `import` `.`
+      if (consumeOpt(state, context, Token.Period)) {
+        return parseImportMeta(state, context, start);
+      }
+      return parseImportDeclaration(state, context, start);
     case Token.ExportKeyword:
       return parseExportDeclaration(state, context);
     default:
@@ -3427,9 +3447,11 @@ export function parseModuleItem(state: ParserState, context: Context): ImportExp
 // ImportDeclaration :
 //   `import` ImportClause FromClause `;`
 //   `import` ModuleSpecifier `;`
-export function parseImportDeclaration(state: ParserState, context: Context): ImportDeclaration | ExpressionStatement {
-  const start = state.startIndex;
-  nextToken(state, context);
+export function parseImportDeclaration(
+  state: ParserState,
+  context: Context,
+  start: number
+): ImportDeclaration | ExpressionStatement {
   let moduleSpecifier = null;
   let importClause = null;
   let fromClause = null;
@@ -3437,17 +3459,9 @@ export function parseImportDeclaration(state: ParserState, context: Context): Im
   if (state.token === Token.StringLiteral) {
     moduleSpecifier = parseStringLiteral(state, context);
   } else {
-    // `import` `(`
-    if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftParen)) {
-      return parseImportCallFromModule(state, context, start);
-    }
-    // `import` `.`
-    if (consumeOpt(state, context, Token.Period)) {
-      return parseImportMetaFromModule(state, context, start);
-    }
     importClause = parseImportClause(state, context);
-    if (consume(state, context, Token.FromKeyword)) {
-      fromClause = parseStringLiteral(state, context);
+    if (state.token === Token.FromKeyword) {
+      fromClause = parseFromClause(state, context);
     }
   }
   consumeSemicolon(state, context);
@@ -3477,7 +3491,7 @@ export function parseImportClause(state: ParserState, context: Context): ImportC
   let defaultBinding = null;
   let namespace = null;
   let namedImports = null;
-  if (state.token & Token.IsIdentifier) {
+  if (state.token & (Token.IsFutureReserved | Token.IsIdentifier)) {
     defaultBinding = parseBindingIdentifier(state, context, BindingType.None);
     if (!consumeOpt(state, context, Token.Comma)) {
       return finishNode(
@@ -3557,17 +3571,18 @@ export function parseImportSpecifier(state: ParserState, context: Context): Impo
 
 // ImportCall :
 //  import
-export function parseImportCallFromModule(state: ParserState, context: Context, start: number): ExpressionStatement {
+export function parseImportCall(state: ParserState, context: Context, start: number): ExpressionStatement {
   let expr = parseExpression(state, context);
   consume(state, context, Token.RightParen);
   expr = finishNode(state, context, start, DictionaryMap.ImportCall(expr), SyntaxKind.ImportCall);
+  expr = parseExpressionOrHigher(state, context, expr, start);
   consumeSemicolon(state, context);
   return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ExpressionStatement);
 }
 
 // ImportMeta:
 //   import.meta
-export function parseImportMetaFromModule(state: ParserState, context: Context, start: number): ExpressionStatement {
+export function parseImportMeta(state: ParserState, context: Context, start: number): ExpressionStatement {
   consume(state, context, Token.MetaIdentifier);
   let expr = finishNode(state, context, start, DictionaryMap.ImportMeta(), SyntaxKind.ImportMeta);
   expr = parseExpressionOrHigher(state, context, expr, start);

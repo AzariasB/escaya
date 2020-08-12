@@ -100,6 +100,8 @@ export enum DiagnosticCode {
   ExpectedSemicolon,
   InvalidNewTarget,
   ExportInScript,
+  ImportInScript,
+
   /* Annex B */
   AnnexBB32,
   AnnexBB34

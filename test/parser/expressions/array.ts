@@ -3,7 +3,7 @@ import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
 describe('Expressions - Array', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of ['[', '[,', '[] += a', '[a b c e f]']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -20,6 +20,7 @@ describe('Expressions - Array', () => {
   for (const arg of [
     '[{}[x]] = y',
     '[[][x]] = y',
+    '[a,]',
     '[a[x.y] = a] = z',
     '[a[x.y] = a + b] = z',
     '[x()[y] = a + b] = z',

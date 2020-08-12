@@ -918,7 +918,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
         {
           kind: 2,
           source: 2,
-          message: '`]` expected',
+          message: '`,` expected',
           code: 5,
           start: 5,
           length: 1
@@ -1002,8 +1002,8 @@ describe('Recovery - Expressions - Parenthesized', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Expression expected',
-          code: 7,
+          message: '`,` expected',
+          code: 5,
           start: 6,
           length: 1
         }

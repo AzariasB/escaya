@@ -1692,120 +1692,120 @@ describe('test262-parser-tests - failing tests', () => {
 
   it('var [a.b] = 0', () => {
     t.deepEqual(recovery('var [a.b] = 0', 'recovery.js'), {
-      children: [],
-      context: 0,
-      detached: false,
-      diagnostics: [
-        {
-          code: 5,
-          kind: 2,
-          length: 1,
-          message: '`]` expected',
-          source: 2,
-          start: 6
-        },
-        {
-          code: 5,
-          kind: 2,
-          length: 1,
-          message: '`,` expected',
-          source: 2,
-          start: 7
-        },
-        {
-          code: 16,
-          kind: 2,
-          length: 1,
-          message: 'Variable declaration or lexical binding expected',
-          source: 2,
-          start: 8
-        },
-        {
-          code: 8,
-          kind: 2,
-          length: 1,
-          message: 'Statement expected',
-          source: 2,
-          start: 10
-        }
-      ],
-      directives: [],
-      end: 13,
-      fileName: 'recovery.js',
-      incremental: false,
       kind: 209,
+      directives: [],
       leafs: [
         {
+          type: 'VariableStatement',
           declarations: [
             {
+              type: 'VariableDeclaration',
               binding: {
+                type: 'ArrayBindingPattern',
                 elements: [
                   {
-                    end: 6,
-                    flags: 0,
-                    kind: 168,
+                    type: 'BindingIdentifier',
                     name: 'a',
                     start: 5,
-                    type: 'BindingIdentifier'
+                    end: 6,
+                    kind: 168,
+                    flags: 0
                   }
                 ],
-                end: 6,
-                flags: 0,
-                kind: 174,
                 start: 3,
-                type: 'ArrayBindingPattern'
+                end: 6,
+                kind: 174,
+                flags: 0
               },
-              end: 6,
-              flags: 0,
               initializer: null,
-              kind: 144,
               start: 3,
-              type: 'VariableDeclaration'
+              end: 6,
+              kind: 144,
+              flags: 0
             },
             {
+              type: 'VariableDeclaration',
               binding: {
-                end: 8,
-                flags: 0,
-                kind: 168,
+                type: 'BindingIdentifier',
                 name: 'b',
                 start: 7,
-                type: 'BindingIdentifier'
+                end: 8,
+                kind: 168,
+                flags: 0
               },
-              end: 8,
-              flags: 0,
               initializer: null,
-              kind: 144,
               start: 7,
-              type: 'VariableDeclaration'
+              end: 8,
+              kind: 144,
+              flags: 0
             }
           ],
-          end: 8,
-          flags: 0,
-          kind: 143,
           start: 0,
-          type: 'VariableStatement'
+          end: 8,
+          kind: 143,
+          flags: 0
         },
         {
-          end: 13,
+          type: 'ExpressionStatement',
           expression: {
-            end: 13,
-            flags: 0,
-            kind: 10,
-            start: 11,
             type: 'NumericLiteral',
-            value: 0
+            value: 0,
+            start: 11,
+            end: 13,
+            kind: 10,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 11,
-          type: 'ExpressionStatement'
+          end: 13,
+          kind: 122,
+          flags: 0
         }
       ],
-      length: 13,
+      text: 'var [a.b] = 0',
+      fileName: 'recovery.js',
+      context: 0,
       mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 7,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Variable declaration or lexical binding expected',
+          code: 16,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 10,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
       parent: null,
+      children: [],
       start: 0,
-      text: 'var [a.b] = 0'
+      length: 13,
+      end: 13
     });
   });
 

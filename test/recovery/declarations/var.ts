@@ -1991,6 +1991,13 @@ describe('Recovery - Var', () => {
                     flags: 0
                   },
                   {
+                    type: 'Elison',
+                    start: 3,
+                    end: 10,
+                    kind: 176,
+                    flags: 0
+                  },
+                  {
                     type: 'BindingIdentifier',
                     name: 'b',
                     start: 10,
@@ -2071,8 +2078,8 @@ describe('Recovery - Var', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
+          message: '`,` expected',
+          code: 5,
           start: 12,
           length: 1
         },

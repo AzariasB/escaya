@@ -85,7 +85,7 @@ describe('Recovery - Expressions - Array', () => {
         {
           kind: 2,
           source: 2,
-          message: '`]` expected',
+          message: '`,` expected',
           code: 5,
           start: 1,
           length: 1
@@ -147,7 +147,7 @@ describe('Recovery - Expressions - Array', () => {
         {
           kind: 2,
           source: 2,
-          message: '`]` expected',
+          message: '`,` expected',
           code: 5,
           start: 3,
           length: 1
@@ -341,9 +341,33 @@ describe('Recovery - Expressions - Array', () => {
         {
           kind: 2,
           source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 3,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
           message: 'Expression expected',
           code: 7,
           start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 11,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 14,
           length: 1
         },
         {
@@ -380,6 +404,13 @@ describe('Recovery - Expressions - Array', () => {
                 type: 'Elison',
                 start: 2,
                 end: 2,
+                kind: 176,
+                flags: 0
+              },
+              {
+                type: 'Elison',
+                start: 3,
+                end: 3,
                 kind: 176,
                 flags: 0
               },
@@ -525,6 +556,13 @@ describe('Recovery - Expressions - Array', () => {
                 type: 'Elison',
                 start: 2,
                 end: 2,
+                kind: 176,
+                flags: 0
+              },
+              {
+                type: 'Elison',
+                start: 3,
+                end: 3,
                 kind: 176,
                 flags: 0
               },
@@ -798,6 +836,13 @@ describe('Recovery - Expressions - Array', () => {
                 flags: 0
               },
               {
+                type: 'Elison',
+                start: 3,
+                end: 3,
+                kind: 176,
+                flags: 0
+              },
+              {
                 type: 'IdentifierReference',
                 name: 'a',
                 start: 3,
@@ -847,6 +892,13 @@ describe('Recovery - Expressions - Array', () => {
                   type: 'Elison',
                   start: 2,
                   end: 2,
+                  kind: 176,
+                  flags: 0
+                },
+                {
+                  type: 'Elison',
+                  start: 3,
+                  end: 3,
                   kind: 176,
                   flags: 0
                 },
@@ -1107,6 +1159,14 @@ describe('Recovery - Expressions - Array', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 5,
+          length: 3
+        },
         {
           kind: 2,
           source: 2,

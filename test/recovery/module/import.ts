@@ -189,8 +189,8 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: '`from` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 19,
           length: 3
         }
@@ -1321,8 +1321,8 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
-            message: '`from` expected',
-            code: 5,
+            message: '`;` expected',
+            code: 92,
             start: 13,
             length: 6
           },
@@ -1829,8 +1829,8 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: '`from` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 20,
           length: 6
         },

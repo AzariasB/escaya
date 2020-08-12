@@ -76,8 +76,8 @@ describe('Recovery - Export', () => {
         {
           kind: 2,
           source: 2,
-          message: '`from` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 19,
           length: 5
         }

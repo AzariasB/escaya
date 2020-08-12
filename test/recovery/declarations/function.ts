@@ -1138,6 +1138,13 @@ describe('Recovery - Function', () => {
                     end: 21,
                     kind: 176,
                     flags: 0
+                  },
+                  {
+                    type: 'Elison',
+                    start: 12,
+                    end: 22,
+                    kind: 176,
+                    flags: 0
                   }
                 ],
                 start: 12,
@@ -1211,6 +1218,98 @@ describe('Recovery - Function', () => {
       start: 0,
       length: 22,
       end: 22
+    });
+  });
+
+  it('function foo() { if(true) function bar() {} }', () => {
+    t.deepEqual(recovery('function foo() { if(true) function bar() {} }', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'foo',
+            start: 8,
+            end: 12,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [
+              {
+                type: 'IfStatement',
+                expression: {
+                  type: 'BooleanLiteral',
+                  value: true,
+                  start: 20,
+                  end: 24,
+                  kind: 166,
+                  flags: 0
+                },
+                consequent: {
+                  type: 'FunctionDeclaration',
+                  name: {
+                    type: 'BindingIdentifier',
+                    name: 'bar',
+                    start: 34,
+                    end: 38,
+                    kind: 168,
+                    flags: 0
+                  },
+                  generator: false,
+                  async: false,
+                  params: [],
+                  contents: {
+                    type: 'FunctionBody',
+                    directives: [],
+                    leafs: [],
+                    start: 40,
+                    end: 43,
+                    kind: 184,
+                    flags: 0
+                  },
+                  start: 25,
+                  end: 43,
+                  kind: 186,
+                  flags: 0
+                },
+                alternate: null,
+                start: 16,
+                end: 43,
+                kind: 133,
+                flags: 0
+              }
+            ],
+            start: 14,
+            end: 45,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 45,
+          kind: 186,
+          flags: 0
+        }
+      ],
+      text: 'function foo() { if(true) function bar() {} }',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 45,
+      end: 45
     });
   });
 
