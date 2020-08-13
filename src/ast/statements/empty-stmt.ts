@@ -1,7 +1,7 @@
 import { SyntaxNode } from '../syntax-node';
 
 /**
- * Do-while statement.
+ * Empty statement.
  */
 export type EmptyStatement = SyntaxNode;
 

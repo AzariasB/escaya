@@ -2,7 +2,7 @@ import { SyntaxNode } from '../syntax-node';
 import { IdentifierReference } from '../expressions/identifierreference';
 
 /**
- * A list of statements.
+ * Break statement.
  */
 export interface BreakStatement extends SyntaxNode {
   readonly label: IdentifierReference | null;

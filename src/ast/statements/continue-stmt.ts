@@ -2,7 +2,7 @@ import { SyntaxNode } from '../syntax-node';
 import { IdentifierReference } from '../expressions/identifierreference';
 
 /**
- * A list of statements.
+ * Continue statement.
  */
 export interface ContinueStatement extends SyntaxNode {
   readonly label: IdentifierReference | null;

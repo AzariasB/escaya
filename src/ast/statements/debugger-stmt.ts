@@ -1,7 +1,7 @@
 import { SyntaxNode } from '../syntax-node';
 
 /**
- * Debugger statement.
+ * Debugger statement
  */
 export type DebuggerStatement = SyntaxNode;
 

@@ -4,8 +4,8 @@ import { Expression, AssignmentPattern } from '../expressions/index';
 import { ForDeclaration } from '../declarations/for-declaration';
 
 export interface ForOfBase extends SyntaxNode {
-  // The expression or declaration before `of`.
-  readonly initializer: ForDeclaration | AssignmentPattern | Expression;
+  /* 'null' can only occur in recovery mode */
+  readonly initializer: ForDeclaration | AssignmentPattern | Expression | null;
   readonly expression: Expression;
   readonly statement: Statement;
 }
@@ -21,7 +21,7 @@ export type ForOfStatement = ForOfBase;
 export type ForAwaitStatement = ForOfBase;
 
 export function createForOfAwaitStatement(
-  initializer: ForDeclaration | AssignmentPattern | Expression,
+  initializer: ForDeclaration | AssignmentPattern | Expression | null,
   expression: Expression,
   statement: Statement,
   isAwait: boolean

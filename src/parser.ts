@@ -113,6 +113,20 @@ import {
 } from './common';
 
 /**
+ * Interface for statements
+ */
+export interface StatementCallback {
+  (parser: ParserState, context: Context): Statement;
+}
+
+/**
+ * Interface for variables and lexicals
+ */
+export interface PatternCallback {
+  (parser: ParserState, context: Context, type: BindingType): LexicalBinding | VariableDeclaration;
+}
+
+/**
  * Create a new parser instance.
  */
 export function create(source: string, nodeCursor?: any): ParserState {
@@ -147,7 +161,7 @@ export function create(source: string, nodeCursor?: any): ParserState {
 // StatementList :
 //   StatementListItem
 //   StatementList StatementListItem
-export function parseStatementList(state: ParserState, context: Context, cb: any): Statement[] {
+export function parseStatementList(state: ParserState, context: Context, cb: StatementCallback): Statement[] {
   const statementList = [];
   while (state.token !== Token.EOF) {
     if (state.token & Constants.IsSourceElement) {
@@ -293,7 +307,7 @@ export function parseSwitchStatement(state: ParserState, context: Context): Swit
 //   `{` CaseClauses? `}`
 //   `{` CaseClauses? DefaultClause CaseClauses? `}`
 export function parseCaseBlock(state: ParserState, context: Context): CaseBlock[] {
-  const clauses: any = [];
+  const clauses = [];
   while (state.token & Token.IsCaseOrDefault) {
     clauses.push(parseBlockElements(state, context, parseCaseOrDefaultClause));
   }
@@ -309,7 +323,7 @@ export function parseCaseBlock(state: ParserState, context: Context): CaseBlock[
 // DefaultClause :
 //   `default` `:` StatementList?
 export function parseCaseOrDefaultClause(state: ParserState, context: Context): CaseBlock {
-  const statements: any[] = [];
+  const statements = [];
   const start = state.startIndex;
   if (consumeOpt(state, context | Context.AllowRegExp, Token.CaseKeyword)) {
     const expression = parseExpressions(state, context);
@@ -590,7 +604,7 @@ export function parseForStatement(
     isAwait = true;
   }
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
-  let initializer: any = null;
+  let initializer = null;
 
   if (state.token !== Token.Semicolon) {
     if (state.token & Token.IsVarLexical) {
@@ -769,7 +783,7 @@ export function parseForStatement(
   let condition = null;
   let incrementor = null;
 
-  initializer = parseExpressionOrHigher(state, context, initializer, state.startIndex);
+  initializer = parseExpressionOrHigher(state, context, initializer as Expression, state.startIndex);
 
   consume(state, context | Context.AllowRegExp, Token.Semicolon);
 
@@ -801,7 +815,7 @@ export function parseForDeclaration(
   context: Context,
   isConst: boolean,
   type: BindingType,
-  cb: any,
+  cb: PatternCallback,
   start: number
 ): ForDeclaration {
   const declarations = parseBindingList(state, context, type, cb);
@@ -825,7 +839,7 @@ export function parseBindingList(
   state: ParserState,
   context: Context,
   type: BindingType,
-  cb: any
+  cb: PatternCallback
 ): (LexicalBinding | VariableDeclaration)[] {
   const declarationList = [];
 
@@ -1222,7 +1236,7 @@ export function parseBindingOrDeclarationList(
   state: ParserState,
   context: Context,
   type: BindingType,
-  cb: any
+  cb: PatternCallback
 ): (LexicalBinding | VariableDeclaration)[] {
   const declarationList = [];
 

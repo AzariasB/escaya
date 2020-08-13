@@ -3,7 +3,7 @@ import { Statement } from '.';
 import { Expression } from '../expressions/index';
 
 /**
- * A list of statements.
+ * With statements
  */
 export interface WithStatement extends SyntaxNode {
   readonly expression: Expression;
