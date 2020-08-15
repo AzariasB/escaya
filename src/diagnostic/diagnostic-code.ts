@@ -101,7 +101,7 @@ export enum DiagnosticCode {
   InvalidNewTarget,
   ExportInScript,
   ImportInScript,
-  InvalidBindingDestruct,
+  iBDestruct,
   InvalidLHS,
   LHSPreOp,
   LHSPostOp,

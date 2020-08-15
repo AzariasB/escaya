@@ -1673,17 +1673,21 @@ export function parseArguments(state: ParserState, context: Context): (Expressio
 //* ArgumentList, ...AssignmentExpression
 export function parseArgumentList(state: ParserState, context: Context): Expression | AssignmentRestElement {
   if (state.token === Token.Ellipsis) {
-    nextToken(state, context | Context.AllowRegExp);
-    const start = state.startIndex;
-    return finishNode(
-      state,
-      context,
-      start,
-      DictionaryMap.AssignmentRestElement(parseExpression(state, context)),
-      SyntaxKind.AssignmentRestElement
-    );
+    return parseAssignmentRestElement(state, context);
   }
   return parseExpression(state, context);
+}
+
+export function parseAssignmentRestElement(state: ParserState, context: Context) {
+  nextToken(state, context | Context.AllowRegExp);
+  const start = state.startIndex;
+  return finishNode(
+    state,
+    context,
+    start,
+    DictionaryMap.AssignmentRestElement(parseExpression(state, context)),
+    SyntaxKind.AssignmentRestElement
+  );
 }
 
 // UnaryExpression :
@@ -2445,7 +2449,7 @@ export function parseAssignmentElement(
   start: number
 ): AssignmentElement {
   if (destructible & Destructible.NotDestructible) {
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidBindingDestruct, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
   }
 
   nextToken(state, context | Context.AllowRegExp);
@@ -2524,13 +2528,7 @@ export function parseSpreadOrPropertyExpression(
     const token = state.token;
     if (token !== Token.Assign && token !== closingToken && token !== Token.Comma) {
       if (state.destructible & Destructible.MustDestruct) {
-        addDiagnostic(
-          state,
-          context,
-          DiagnosticSource.Parser,
-          DiagnosticCode.InvalidBindingDestruct,
-          DiagnosticKind.Error
-        );
+        addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
       }
       argument = parseMemberExpression(state, context, argument, true, start);
       destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
@@ -2628,7 +2626,7 @@ export function parseAssignmentElement1(
   start: number
 ): AssignmentElement {
   if (destructible & Destructible.NotDestructible) {
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidBindingDestruct, DiagnosticKind.Error);
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
   }
   nextToken(state, context | Context.AllowRegExp);
 
@@ -2784,13 +2782,7 @@ export function parsePropertyDefinition(
           // Catches cases like `({a:{x = y}.z} = x);` and `[{a = b}].x`  because a shorthand with initalizer
           // must be a pattern or the nested object must be a pattern
           if (state.destructible & Destructible.MustDestruct) {
-            addDiagnostic(
-              state,
-              context,
-              DiagnosticSource.Parser,
-              DiagnosticCode.InvalidBindingDestruct,
-              DiagnosticKind.Error
-            );
+            addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
           }
           // Note: The value must have a tail and it isn't (immediately) an assignment.
           value = parseMemberExpression(state, context, value, true, start);
@@ -2852,13 +2844,7 @@ export function parsePropertyDefinition(
         // Catches cases like `({a:{x = y}.z} = x);` and `[{a = b}].x`  because a shorthand with initalizer
         // must be a pattern or the nested object must be a pattern
         if (state.destructible & Destructible.MustDestruct) {
-          addDiagnostic(
-            state,
-            context,
-            DiagnosticSource.Parser,
-            DiagnosticCode.InvalidBindingDestruct,
-            DiagnosticKind.Error
-          );
+          addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
         }
         // Note: The value must have a tail and it isn't (immediately) an assignment.
         value = parseMemberExpression(state, context, value, true, start);
@@ -3253,15 +3239,13 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
   context: Context,
   expression: any,
   start: number
-): any {
+): ArrowFunction | Expression {
   nextToken(state, context | Context.AllowRegExp);
-  const params: Expression[] = [];
-  if (state.token === Token.RightParen) {
-    nextToken(state, context);
 
-    if (state.token === Token.Arrow) {
-      return parseArrowFunction(state, context, [], ArrowKind.ASYNC, start);
-    }
+  const params: Expression[] = [];
+
+  if (consumeOpt(state, context, Token.RightParen)) {
+    if (state.token === Token.Arrow) return parseArrowFunction(state, context, [], ArrowKind.ASYNC, start);
 
     return finishNode(
       state,
@@ -3274,96 +3258,63 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
 
   const check =
     context & Context.ErrorRecovery ? Constants.IsGroupParnethizedRecovery : Constants.IsGroupParnethizedNormal;
+
   let destructible: Destructible = Destructible.None;
+
   while (state.token & check) {
     const innerStart = state.startIndex;
-    if (state.token === Token.Ellipsis) {
-      nextToken(state, context | Context.AllowRegExp);
-      const arg = parseExpression(state, context);
-      state.destructible = Destructible.Destructible;
-      params.push(
-        finishNode(
-          state,
-          context,
-          innerStart,
-          DictionaryMap.AssignmentRestElement(arg),
-          SyntaxKind.AssignmentRestElement
-        )
-      );
-    } else {
-      if (state.token & Constants.IsIdentifierOrKeyword) {
-        expression = parsePrimaryExpression(state, context);
 
-        // (x, false) => y
-        if (state.token === Token.Comma || state.token === Token.RightParen) {
-          if (!state.assignable) destructible |= Destructible.NotDestructible;
-        } else {
-          if (state.token !== Token.Assign) destructible |= Destructible.NotDestructible;
-          expression = parseMemberExpression(state, context, expression, true, innerStart);
+    if (state.token & Constants.IsIdentifierOrKeyword) {
+      expression = parsePrimaryExpression(state, context);
 
-          if (state.token !== Token.RightParen && state.token !== Token.Comma) {
-            expression = parseAssignmentExpression(state, context, expression, innerStart);
-          }
-        }
-      } else if (state.token & Token.IsPatternStart) {
-        expression =
-          state.token === Token.LeftBracket
-            ? parseArrayLiteral(state, context, BindingType.ArgumentList)
-            : parseObjectLiteral(state, context, BindingType.ArgumentList);
-
-        destructible |= state.destructible;
-
+      // (x, false) => y
+      if (state.token === Token.Comma || state.token === Token.RightParen) {
+        if (!state.assignable) destructible |= Destructible.NotDestructible;
+      } else {
+        if (state.token !== Token.Assign) destructible |= Destructible.NotDestructible;
         expression = parseMemberExpression(state, context, expression, true, innerStart);
 
-        if (state.token !== Token.Comma && state.token !== Token.RightParen) {
-          if (destructible & Destructible.MustDestruct) {
-            addDiagnostic(
-              state,
-              context,
-              DiagnosticSource.Parser,
-              DiagnosticCode.InvalidBindingDestruct,
-              DiagnosticKind.Error
-            );
-          }
+        if (state.token !== Token.RightParen && state.token !== Token.Comma) {
           expression = parseAssignmentExpression(state, context, expression, innerStart);
-          destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
         }
-      } else {
-        do {
-          if (state.token === Token.Ellipsis) {
-            nextToken(state, context | Context.AllowRegExp);
-            const arg = parseExpression(state, context);
-            state.destructible = Destructible.Destructible;
-            params.push(
-              finishNode(
-                state,
-                context,
-                start,
-                DictionaryMap.AssignmentRestElement(arg),
-                SyntaxKind.AssignmentRestElement
-              )
-            );
-          } else {
-            params.push(parseExpression(state, context));
-          }
-        } while (consumeOpt(state, context | Context.AllowRegExp, Token.Comma));
-
-        consume(state, context, Token.RightParen);
-
-        state.destructible = Destructible.NotDestructible;
-
-        state.assignable = false;
-
-        return finishNode(
-          state,
-          context,
-          start,
-          DictionaryMap.CallExpression(expression, params),
-          SyntaxKind.CallExpression
-        );
       }
-      params.push(expression);
+    } else if (state.token & Token.IsPatternStart) {
+      expression =
+        state.token === Token.LeftBracket
+          ? parseArrayLiteral(state, context, BindingType.ArgumentList)
+          : parseObjectLiteral(state, context, BindingType.ArgumentList);
+
+      destructible |= state.destructible;
+
+      expression = parseMemberExpression(state, context, expression, true, innerStart);
+
+      if (state.token !== Token.Comma && state.token !== Token.RightParen) {
+        if (destructible & Destructible.MustDestruct) {
+          addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
+        }
+        expression = parseAssignmentExpression(state, context, expression, innerStart);
+        destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
+      }
+    } else if (state.token === Token.Ellipsis) {
+      expression = parseAssignmentRestElement(state, context);
+    } else {
+      do {
+        params.push(parseArgumentList(state, context));
+      } while (consumeOpt(state, context | Context.AllowRegExp, Token.Comma));
+
+      consume(state, context, Token.RightParen);
+
+      state.assignable = false;
+
+      return finishNode(
+        state,
+        context,
+        start,
+        DictionaryMap.CallExpression(expression, params),
+        SyntaxKind.CallExpression
+      );
     }
+    params.push(expression);
 
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
     if (state.token === Token.RightParen) break;
@@ -3532,13 +3483,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
     const param = parseBindingRestElement(state, context, BindingType.ArgumentList);
     // Invalid cases: '(...[ 5 ]) => {}', '(...a = b) => b' etc.
     if (state.destructible & Destructible.NotDestructible) {
-      addDiagnostic(
-        state,
-        context,
-        DiagnosticSource.Parser,
-        DiagnosticCode.InvalidBindingDestruct,
-        DiagnosticKind.Error
-      );
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
     }
     consume(state, context, Token.RightParen);
     return parseArrowFunction(state, context, [param], ArrowKind.NORMAL, start);
@@ -3573,13 +3518,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
     if (state.token !== Token.Comma && state.token !== Token.RightParen) {
       if (destructible & Destructible.MustDestruct) {
-        addDiagnostic(
-          state,
-          context,
-          DiagnosticSource.Parser,
-          DiagnosticCode.InvalidBindingDestruct,
-          DiagnosticKind.Error
-        );
+        addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
       }
 
       expression = parseMemberExpression(state, context, expression, true, innerStart);
@@ -3659,13 +3598,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
         if (state.token !== Token.Comma && state.token !== Token.RightParen) {
           if (destructible & Destructible.MustDestruct) {
-            addDiagnostic(
-              state,
-              context,
-              DiagnosticSource.Parser,
-              DiagnosticCode.InvalidBindingDestruct,
-              DiagnosticKind.Error
-            );
+            addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
           }
           expression = parseAssignmentExpression(state, context, expression, innerStart);
           destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
@@ -3718,9 +3651,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
       state,
       context,
       DiagnosticSource.Parser,
-      destructible & Destructible.DisallowTrailing
-        ? DiagnosticCode.ForbiddenTrailing
-        : DiagnosticCode.InvalidBindingDestruct,
+      destructible & Destructible.DisallowTrailing ? DiagnosticCode.ForbiddenTrailing : DiagnosticCode.iBDestruct,
       DiagnosticKind.Error
     );
   }
