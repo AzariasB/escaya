@@ -23,6 +23,7 @@ describe('Statements - With', () => {
     'with(x{',
     'with(x=y/',
     'with catch',
+    'with((x,y)=z) {}',
     'with(x) { case y: {...x} }',
     'with(x) { case y: foo /a/ }',
     'with(x) { case y:{ class { x() {} } }}',
@@ -57,7 +58,6 @@ describe('Statements - With', () => {
     'with({}) {}',
     'with([x=y]) {}',
     'with([x=y/(x)]) {}',
-    'with((x,y)=z) {}',
     'with({...b/c}) {}',
     'with(x=y) {}',
     'with(x=y) { function a() {} }'

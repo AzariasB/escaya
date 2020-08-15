@@ -13,6 +13,7 @@ import { CallChain } from './call-chain';
 import { UnaryExpression } from './unary-expr';
 import { PrefixUpdateExpression } from './prefix-update-expr';
 import { PostfixUpdateExpression } from './postfix-update-expr';
+import { AssignmentElement } from './assignment-element';
 import { NewExpression } from './new-expr';
 import { NullLiteral } from './null-expr';
 import { ThisExpression } from './this-expr';
@@ -91,6 +92,7 @@ export type LeftHandSideExpression =
   | NullLiteral
   | ThisExpression
   | BooleanLiteral
+  | AssignmentElement
   | ArrayLiteral
   | ObjectLiteral
   | PropertyName

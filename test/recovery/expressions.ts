@@ -723,7 +723,16 @@ describe('Recovery - Expressions', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 98,
+          kind: 3,
+          length: 2,
+          message: 'Invalid left-hand side expression in prefix operation',
+          source: 2,
+          start: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1530,7 +1539,16 @@ describe('Recovery - Expressions', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 3,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -7309,6 +7327,14 @@ describe('Recovery - Expressions', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          code: 98,
+          kind: 3,
+          length: 2,
+          message: 'Invalid left-hand side expression in prefix operation',
+          source: 2,
+          start: 1
+        },
         {
           kind: 2,
           source: 2,

@@ -1,4 +1,4 @@
-import { SyntaxKind, SyntaxNode } from '../syntax-node';
+import { SyntaxNode } from '../syntax-node';
 import { Expression } from '.';
 import { SpreadElement } from './spread-element';
 import { Elison } from './elison';
@@ -13,7 +13,6 @@ export interface ArrayLiteral extends SyntaxNode {
 export function createArrayLiteral(elements: (Elison | SpreadElement | Expression)[]): ArrayLiteral {
   return {
     type: 'ArrayLiteral',
-    kind: SyntaxKind.ArrayLiteral,
     elements
   };
 }

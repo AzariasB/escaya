@@ -3,7 +3,11 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Async arrow', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of [
+    // 'async ({} + 1) => x;',
+    //'async([].x) => x;',
+    '[] += a'
+  ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);

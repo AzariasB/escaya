@@ -640,6 +640,14 @@ describe('Statements - Do while', () => {
         {
           kind: 2,
           source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 16,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
           message: '`(` expected',
           code: 5,
           start: 29,

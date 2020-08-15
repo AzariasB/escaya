@@ -40,6 +40,7 @@ describe('Declarations - Class', () => {
     'class A {"constructor"(){}}',
     'class A {set "foo"(x){}}',
     'class A {static get "foo"(){}}',
+    'class x{ constructor(){  (super[a]) += 1;  }}',
     'class A {static "x"(){}}',
     'class A {static set "foo"(x){}}',
     'class A {"set"(){} "get"(){} "async"(){}}',

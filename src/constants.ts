@@ -26,6 +26,7 @@ export const enum Constants {
   ObjAfterCommaRecovery = 0b00000000000100010010000000000000,
   ImportExportSpecifier = 0b00001000000100010010000000000000,
   PrimaryExpr = 0b00000000000001100101000000000000,
+  IsAssignBinaryOrMemberExpr = 2490368,
 
   // AsciiChar
   DecimalOrSeparator = 0b00000000000000000000000000110000

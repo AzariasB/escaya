@@ -74,7 +74,7 @@ describe('Misc - Pattern', () => {
               },
               initializer: {
                 type: 'ArrayLiteral',
-                kind: 178,
+
                 elements: [
                   {
                     type: 'NumericLiteral',
@@ -514,7 +514,7 @@ describe('Misc - Pattern', () => {
               },
               {
                 type: 'ArrayBindingPattern',
-                kind: 178,
+
                 elements: [
                   {
                     type: 'BindingIdentifier',

@@ -3280,7 +3280,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 96,
+          kind: 2,
+          length: 1,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          source: 2,
+          start: 13
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -6139,7 +6148,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 96,
+          kind: 2,
+          length: 1,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          source: 2,
+          start: 10
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,

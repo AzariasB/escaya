@@ -2267,7 +2267,7 @@ describe('Recovery - Block', () => {
     });
   });
 
-  it('Unclosed block statement34950', () => {
+  it('{ 1 = 2', () => {
     t.deepEqual(recovery('{ 1 = 2', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2318,6 +2318,14 @@ describe('Recovery - Block', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 4,
+          length: 1
+        },
         {
           kind: 2,
           source: 2,
@@ -2775,6 +2783,14 @@ describe('Recovery - Block', () => {
         {
           kind: 2,
           source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 1,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
           message: '`;` expected',
           code: 92,
           start: 3,
@@ -2926,10 +2942,10 @@ describe('Recovery - Block', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`}` expected',
-          code: 5,
+          message: 'Invalid left-hand side expression in postfix operation',
+          code: 99,
           start: 5,
           length: 1
         }

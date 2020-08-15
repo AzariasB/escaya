@@ -99,6 +99,7 @@ import {
   Flags,
   BindingType,
   ParserState,
+  Destructible,
   consume,
   consumeOpt,
   consumeSemicolon,
@@ -152,6 +153,8 @@ export function create(source: string, nodeCursor?: any): ParserState {
     tokenValue: '',
     tokenRaw: '',
     tokenRegExp: undefined,
+    destructible: Destructible.None,
+    assignable: true,
     diagnostics: [],
     nodeCursor,
     lastChar: 0
@@ -642,13 +645,15 @@ export function parseForStatement(
               parseForLexicalBinding,
               innerStart
             );
-
+            state.assignable = true;
             // `for of` only allows LeftHandSideExpressions which do not start with `let`, and no other production matches
             if (state.token === Token.OfKeyword) {
               //addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ForOfLet, DiagnosticKind.Error);
             }
           }
         } else {
+          state.assignable = true;
+
           initializer = parseMemberExpression(state, context, initializer, true, start);
         }
       } else if (consumeOpt(state, context, Token.ConstKeyword)) {
@@ -660,6 +665,7 @@ export function parseForStatement(
           parseForLexicalBinding,
           innerStart
         );
+        state.assignable = true;
       } else {
         nextToken(state, context);
         initializer = parseForDeclaration(
@@ -670,6 +676,7 @@ export function parseForStatement(
           parseForVariableDeclaration,
           innerStart
         );
+        state.assignable = true;
       }
 
       if (
@@ -738,7 +745,9 @@ export function parseForStatement(
       );
     } else if (state.token & Token.IsPatternStart) {
       initializer =
-        state.token === Token.LeftBrace ? parseObjectLiteral(state, context) : parseArrayLiteral(state, context);
+        state.token === Token.LeftBrace
+          ? parseObjectLiteral(state, context, BindingType.Literal)
+          : parseArrayLiteral(state, context, BindingType.Literal);
       initializer = parseMemberExpression(state, context, initializer, true, state.index);
     } else {
       initializer = parseExpression(state, context | Context.DisallowIn);
@@ -1042,6 +1051,7 @@ export function parseIdentifierReference(state: ParserState, context: Context): 
   const value = validateIdentifierReference(state, context);
   const start = state.startIndex;
   nextToken(state, context);
+  state.assignable = true;
   return finishNode(state, context, start, DictionaryMap.IdentifierReference(value), SyntaxKind.Identifier);
 }
 
@@ -1059,6 +1069,7 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
   const start = state.startIndex;
   const value = state.tokenValue;
   nextToken(state, context);
+  state.assignable = true;
   return finishNode(state, context, start, DictionaryMap.IdentifierName(value), SyntaxKind.Identifier);
 }
 
@@ -1089,6 +1100,7 @@ export function parseBindingIdentifier(state: ParserState, context: Context, typ
   }
   const start = state.startIndex;
   nextToken(state, context);
+  state.assignable = true;
   return finishNode(state, context, start, DictionaryMap.BindingIdentifier(value), SyntaxKind.BindingIdentifier);
 }
 
@@ -1163,7 +1175,7 @@ export function parseLetAsIdentifierReference(state: ParserState, context: Conte
     );
     return parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start);
   }
-
+  state.assignable = true;
   expr = finishNode(state, context, start, DictionaryMap.IdentifierReference('let'), SyntaxKind.Identifier);
   if (state.token === Token.Colon) {
     return parseLabelledStatement(state, context, Token.LetKeyword, 'let', start);
@@ -1190,7 +1202,7 @@ export function parseAsyncAsIdentifierReference(state: ParserState, context: Con
     );
     return parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start);
   }
-
+  state.assignable = true;
   expr = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'), SyntaxKind.Identifier);
   if (state.token === Token.Colon) {
     return parseLabelledStatement(state, context, Token.LetKeyword, 'async', start);
@@ -1293,9 +1305,13 @@ export function parseAssignmentExpression(
   start: number
 ): AssignmentExpression | Expression {
   if ((state.token & Token.IsAssignOp) === Token.IsAssignOp) {
+    if (!state.assignable)
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidLHS, DiagnosticKind.Error);
     const operator = KeywordDescTable[state.token & Token.Type];
     nextToken(state, context | Context.AllowRegExp);
     const right = parseExpression(state, context);
+    state.assignable = false;
+    state.destructible = Destructible.None;
     return finishNode(
       state,
       context,
@@ -1395,6 +1411,8 @@ export function parseBinaryExpression(
       ),
       SyntaxKind.BinaryExpression
     );
+
+    state.assignable = false;
   }
 
   return left;
@@ -1457,6 +1475,7 @@ export function parseMemberExpression(
         nextToken(state, context | Context.AllowRegExp);
         const expression = parseExpressions(state, context);
         consume(state, context, Token.RightBracket);
+        state.assignable = true;
         member = finishNode(
           state,
           context,
@@ -1469,6 +1488,7 @@ export function parseMemberExpression(
 
       /* Property */
       case Token.Period:
+        state.assignable = true;
         nextToken(state, context | Context.AllowRegExp);
         member = finishNode(
           state,
@@ -1495,6 +1515,7 @@ export function parseMemberExpression(
           ),
           SyntaxKind.CallExpression
         );
+        state.assignable = false;
         break;
 
       /* Optional Property */
@@ -1506,6 +1527,7 @@ export function parseMemberExpression(
           DictionaryMap.OptionalExpression(member, parseOptionalChain(state, context)),
           SyntaxKind.OptionalExpression
         );
+        state.assignable = false;
         break;
 
       default:
@@ -1569,6 +1591,8 @@ export function parseOptionalChain(state: ParserState, context: Context): CallCh
     chain = parseMemberChain(state, context, chain, parseIdentifierReference(state, context), false, start);
   }
 
+  state.assignable = false;
+
   chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain), SyntaxKind.OptionalChain);
 
   while (true) {
@@ -1577,12 +1601,15 @@ export function parseOptionalChain(state: ParserState, context: Context): CallCh
       chain = parseCallChain(state, context, chain, parseArguments(state, context), start);
       chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain), SyntaxKind.OptionalChain);
     } else if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket)) {
+      state.assignable = false;
       chain = parseMemberChain(state, context, chain, parseExpression(state, context), true, start);
       consumeOpt(state, context, Token.RightBracket);
       chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain), SyntaxKind.OptionalChain);
+      state.assignable = false;
     } else if (consumeOpt(state, context | Context.AllowRegExp, Token.Period)) {
       chain = parseMemberChain(state, context, chain, parseIdentifierName(state, context), false, start);
       chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain), SyntaxKind.OptionalChain);
+      state.assignable = false;
     } else if (state.token === Token.TemplateCont || state.token === Token.TemplateTail) {
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ChainNoTemplate, DiagnosticKind.Error);
       return chain;
@@ -1590,6 +1617,7 @@ export function parseOptionalChain(state: ParserState, context: Context): CallCh
       if ((state.token & (Token.IsKeyword | Token.IsFutureReserved | Token.IsIdentifier)) === 0) return chain;
       chain = parseMemberChain(state, context, chain, parseIdentifierName(state, context), false, start);
       chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain), SyntaxKind.OptionalChain);
+      state.assignable = false;
     }
   }
 }
@@ -1684,6 +1712,7 @@ export function parseUnaryExpression(state: ParserState, context: Context): Unar
       addEarlyDiagnostic(state, context, DiagnosticCode.StrictDelete);
     }
   }
+  state.assignable = false;
   return finishNode(
     state,
     context,
@@ -1707,9 +1736,11 @@ export function parsePostfixUpdateExpression(
   operand: Expression
 ): PostfixUpdateExpression | Expression {
   if (state.lineTerminatorBeforeNextToken) return operand;
+  if (!state.assignable) addEarlyDiagnostic(state, context, DiagnosticCode.LHSPreOp);
   const start = state.startIndex;
   const operator = KeywordDescTable[state.token & Token.Type] as UpdateOp;
   nextToken(state, context);
+  state.assignable = false;
   return finishNode(
     state,
     context,
@@ -1730,6 +1761,8 @@ export function parsePrefixUpdateExpression(state: ParserState, context: Context
   const operator = KeywordDescTable[state.token & Token.Type] as UpdateOp;
   nextToken(state, context | Context.AllowRegExp);
   const operand = parseLeftHandSideExpression(state, context);
+  if (!state.assignable) addEarlyDiagnostic(state, context, DiagnosticCode.LHSPostOp);
+  state.assignable = false;
   return finishNode(
     state,
     context,
@@ -1827,7 +1860,7 @@ export function parsePrimaryExpression(state: ParserState, context: Context): Le
         start
       );
     }
-
+    state.assignable = true;
     return finishNode(state, context, start, DictionaryMap.IdentifierReference(value), SyntaxKind.Identifier);
   }
   switch (state.token) {
@@ -1869,9 +1902,19 @@ export function parsePrimaryExpression(state: ParserState, context: Context): Le
     case Token.ImportKeyword:
       return parseImportMetaOrCall(state, context) as any;
     case Token.LeftBracket:
-      return parseArrayLiteral(state, context);
-    case Token.LeftBrace:
-      return parseObjectLiteral(state, context);
+      const x = parseArrayLiteral(state, context, BindingType.Literal);
+      if ((state.destructible & Destructible.MustDestruct) === Destructible.MustDestruct) {
+        addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ObjCoverInit, DiagnosticKind.Error);
+      }
+      return x;
+    case Token.LeftBrace: {
+      const x = parseObjectLiteral(state, context, BindingType.Literal);
+      if ((state.destructible & Destructible.MustDestruct) === Destructible.MustDestruct) {
+        addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ObjCoverInit, DiagnosticKind.Error);
+      }
+      return x;
+    }
+
     case Token.SuperKeyword:
       return parseSuperCallOrProperty(state, context);
     case Token.RegularExpression:
@@ -1925,6 +1968,7 @@ export function parseNewExpression(state: ParserState, context: Context): NewExp
   let expression = parsePrimaryExpression(state, context);
   expression = parseMemberExpression(state, context, expression, false, start);
   const args = state.token === Token.LeftParen ? parseArguments(state, context) : [];
+  state.assignable = false;
   return finishNode(state, context, start, DictionaryMap.NewExpression(expression, args), SyntaxKind.NewExpression);
 }
 
@@ -1934,6 +1978,7 @@ export function parseNewExpression(state: ParserState, context: Context): NewExp
 export function parseBooleanLiteral(state: ParserState, context: Context): BooleanLiteral {
   const start = state.startIndex;
   const value = KeywordDescTable[state.token & Token.Type] === 'true';
+  state.assignable = false;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.BooleanLiteral(value), SyntaxKind.BooleanLiteral);
 }
@@ -1942,6 +1987,7 @@ export function parseBooleanLiteral(state: ParserState, context: Context): Boole
 export function parseNumericLiteral(state: ParserState, context: Context): NumericLiteral {
   const start = state.startIndex;
   const value = state.tokenValue;
+  state.assignable = false;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.NumericLiteral(value), SyntaxKind.NumericLiteral);
 }
@@ -1952,6 +1998,7 @@ export function parseTemplateLiteral(state: ParserState, context: Context): Temp
   nextToken(state, context);
   const value = state.tokenValue;
   const raw = state.tokenRaw;
+  state.assignable = false;
   return finishNode(state, context, start, DictionaryMap.TemplateLiteral(value, raw), SyntaxKind.TemplateLiteral);
 }
 
@@ -1960,6 +2007,7 @@ export function parseStringLiteral(state: ParserState, context: Context): String
   const start = state.startIndex;
   const value = state.tokenValue;
   nextToken(state, context);
+  state.assignable = false;
   return finishNode(state, context, start, DictionaryMap.StringLiteral(value), SyntaxKind.StringLiteral);
 }
 
@@ -1967,6 +2015,7 @@ export function parseStringLiteral(state: ParserState, context: Context): String
 export function parseNullLiteral(state: ParserState, context: Context): NullLiteral {
   const start = state.startIndex;
   nextToken(state, context);
+  state.assignable = false;
   return finishNode(state, context, start, DictionaryMap.NullExpression(), SyntaxKind.NullLiteral);
 }
 
@@ -1974,6 +2023,7 @@ export function parseNullLiteral(state: ParserState, context: Context): NullLite
 export function parseThisExpression(state: ParserState, context: Context): ThisExpression {
   const start = state.startIndex;
   nextToken(state, context);
+  state.assignable = false;
   return finishNode(state, context, start, DictionaryMap.ThisExpression(), SyntaxKind.ThisExpression);
 }
 
@@ -1984,6 +2034,7 @@ export function parseRegularExpressionLiteral(state: ParserState, context: Conte
   const flags = state.regExpFlags;
   const pattern = state.regExpPattern;
   nextToken(state, context);
+  state.assignable = false;
   return finishNode(
     state,
     context,
@@ -2235,20 +2286,23 @@ export function parseBindingRestElement(state: ParserState, context: Context, ty
 //   `[` ElementList `]`
 //   `[` ElementList `,` `]`
 //   `[` ElementList `,` Elision `]`
-export function parseArrayLiteral(state: ParserState, context: Context): ArrayLiteral | AssignmentElement {
+export function parseArrayLiteral(
+  state: ParserState,
+  context: Context,
+  type: BindingType
+): ArrayLiteral | AssignmentElement {
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   const elements = [];
+  let destructible = Destructible.None;
   const check = context & Context.ErrorRecovery ? Constants.ArrayListRecovery : Constants.ArrayListNormal;
-
   while (state.token & check) {
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
       elements.push(finishNode(state, context, state.startIndex, DictionaryMap.Elison(), SyntaxKind.Elison));
     } else {
-      elements.push(
-        state.token === Token.Ellipsis ? parseSpreadElement(state, context) : parseExpression(state, context)
-      );
+      elements.push(parseElementList(state, context, type));
+      destructible |= state.destructible;
       if (state.token === Token.RightBracket) break;
       if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
@@ -2262,18 +2316,138 @@ export function parseArrayLiteral(state: ParserState, context: Context): ArrayLi
       addEarlyDiagnostic(state, context, DiagnosticCode.CompundArrLit);
     }
 
-    return parseAssignmentElement(state, context, elements, start);
+    return parseAssignmentElement(state, context, elements, destructible, start);
   }
 
+  state.destructible = destructible;
+
   return finishNode(state, context, start, DictionaryMap.ArrayLiteral(elements), SyntaxKind.ArrayLiteral);
+}
+
+// ElementList :
+//   ` Elision `, `AssignmentExpression`
+//   ` ElementList `, `SpreadElement`
+//   ` ElementList `,` Elision `, `AssignmentExpression`
+//   ` ElementList `,` Elision `, `SpreadElement`
+export function parseElementList(
+  state: ParserState,
+  context: Context,
+  type: BindingType
+): SpreadElement | Expression | AssignmentExpression {
+  const start = state.startIndex;
+
+  if (state.token === Token.Ellipsis) return parseSpreadElement(state, context, type, start);
+
+  // Simple cases: "[a]", "[a,]", "[a = b]", "[a.[b] ...]",  "[a.b ... ]" and "[a.(b) ...]"'
+  if (state.token & Constants.IsIdentifierOrKeyword) {
+    let left = parsePrimaryExpression(state, context);
+
+    // Array with only one identifier, should be 'destructible' except for a few valid identifiers / keywords
+    // that can't be assigned to. For example `true` and `typeof`.
+    if (state.token === Token.RightBracket || state.token === Token.Comma) {
+      state.destructible = state.assignable ? Destructible.None : Destructible.NotDestructible;
+      return left;
+    }
+
+    // Array with only one identifier followed by an assignment, '[a = ', are destructible unless this is a keyword.
+    if (state.token === Token.Assign) return parseAssignmentExpression(state, context, left, start);
+
+    let destructible =
+      type & BindingType.ArgumentList
+        ? Destructible.Assignable
+        : (type & BindingType.Literal) !== BindingType.Literal
+        ? Destructible.NotDestructible
+        : Destructible.None;
+
+    // For complex cases like - '[x()]', '[x[y]]', '[x.y]', '[x.y = z]' - the identifier / keyword must be
+    // followed by a 'tail' - 'MemberExpression'.
+
+    left = parseMemberExpression(state, context, left, true, start);
+
+    // This isn't destructible if not assiignable or there are no '=', ',', or ']' - after the 'tail'.
+    if (
+      !state.assignable ||
+      (state.token !== Token.Assign && state.token !== Token.Comma && state.token !== Token.RightBracket)
+    ) {
+      destructible |= Destructible.NotDestructible;
+    }
+
+    left = parseAssignmentExpression(state, context, left, start);
+
+    state.destructible = destructible;
+
+    return left;
+  }
+
+  // '[[', '[{'
+  if (state.token & Token.IsPatternStart) {
+    let left: ArrayLiteral | ObjectLiteral | Expression =
+      state.token === Token.LeftBracket
+        ? parseArrayLiteral(state, context, type)
+        : parseObjectLiteral(state, context, type);
+
+    let destructible = state.destructible;
+
+    if (state.token & Constants.IsAssignBinaryOrMemberExpr) {
+      // '=' can only be used in an object literal property inside a destructuring assignment
+      if (destructible & Destructible.MustDestruct) {
+        addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidSPI, DiagnosticKind.Error);
+      }
+
+      left = parseMemberExpression(state, context, left, /* allowCalls */ true, start);
+
+      destructible = state.assignable ? Destructible.None : Destructible.NotDestructible;
+
+      left = parseAssignmentExpression(state, context, left, start);
+      state.destructible = destructible;
+
+      return left;
+    }
+
+    // ObjectLiteral or ArrayLiteral followed by ConditionalExpression
+    if (state.token === Token.QuestionMark) left = parseConditionalExpression(state, context, left, start);
+
+    state.destructible = destructible;
+
+    return left;
+  }
+
+  const token = state.token;
+
+  let destructible = Destructible.None;
+
+  let left = parseLeftHandSideExpression(state, context);
+
+  if (state.token !== Token.Comma && state.token !== Token.RightBracket) {
+    left = parseAssignmentExpression(state, context, left, start);
+    if ((BindingType.Literal | BindingType.ArgumentList) === 0 && token === Token.LeftParen) {
+      destructible |= Destructible.NotDestructible;
+    }
+  } else if (!state.assignable) {
+    destructible |= Destructible.NotDestructible;
+  } else if (token === Token.LeftParen) {
+    destructible |=
+      state.assignable && BindingType.Literal | BindingType.ArgumentList
+        ? Destructible.Assignable
+        : Destructible.NotDestructible;
+  }
+
+  state.destructible = destructible;
+
+  return left;
 }
 
 export function parseAssignmentElement(
   state: ParserState,
   context: Context,
   elements: (Elison | BindingRestElement | BindingElement | LeftHandSideExpression)[],
+  destructible: Destructible,
   start: number
 ): AssignmentElement {
+  if (destructible & Destructible.NotDestructible) {
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidBindingDestruct, DiagnosticKind.Error);
+  }
+
   nextToken(state, context | Context.AllowRegExp);
 
   let i = elements.length;
@@ -2288,39 +2462,147 @@ export function parseAssignmentElement(
     DictionaryMap.ArrayAssignmentPattern(elements),
     SyntaxKind.ArrayAssignmentPattern
   );
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.AssignmentElement(left, parseExpression(state, context)),
-    SyntaxKind.AssignmentElement
-  );
+
+  const right = parseExpression(state, context);
+
+  state.destructible = (destructible | Destructible.MustDestruct) ^ Destructible.MustDestruct;
+
+  return finishNode(state, context, start, DictionaryMap.AssignmentElement(left, right), SyntaxKind.AssignmentElement);
 }
 
 // SpreadElement :
 //   ...AssignmentExpression
-export function parseSpreadElement(state: ParserState, context: Context): SpreadElement {
-  const start = state.startIndex;
+
+export function parseSpreadElement(
+  state: ParserState,
+  context: Context,
+  type: BindingType,
+  start: number
+): SpreadElement {
+  const argument = parseSpreadOrPropertyExpression(state, context, Token.RightBracket, type, start);
+  return finishNode(state, context, start, DictionaryMap.SpreadElement(argument), SyntaxKind.SpreadElement);
+}
+
+// SpreadElement :
+//   ...AssignmentExpression
+export function parseSpreadOrPropertyExpression(
+  state: ParserState,
+  context: Context,
+  closingToken: Token,
+  type: BindingType,
+  start: number
+): any {
   nextToken(state, context | Context.AllowRegExp); // skips: '...'
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.SpreadElement(parseExpression(state, context)),
-    SyntaxKind.SpreadElement
-  );
+  const innerStart = state.startIndex;
+  let destructible = Destructible.None;
+  let argument;
+  if (state.token & (Token.IsIdentifier | Token.IsKeyword | Token.IsFutureReserved)) {
+    argument = parsePrimaryExpression(state, context);
+
+    const token = state.token;
+
+    argument = parseMemberExpression(state, context, argument, true, innerStart);
+
+    if (state.token !== Token.Comma && state.token !== closingToken) {
+      destructible |= Destructible.NotDestructible;
+      argument = parseAssignmentExpression(state, context, argument, innerStart);
+    }
+
+    if (!state.assignable) {
+      destructible |= Destructible.NotDestructible;
+    } else if (state.token !== Token.Comma && state.token !== closingToken) {
+      // TODO
+    } else {
+      destructible |= Destructible.Assignable;
+    }
+  } else if (state.token & Token.IsPatternStart) {
+    argument =
+      state.token === Token.LeftBracket
+        ? parseArrayLiteral(state, context, type)
+        : parseObjectLiteral(state, context, type);
+
+    const token = state.token;
+    if (token !== Token.Assign && token !== closingToken && token !== Token.Comma) {
+      if (state.destructible & Destructible.MustDestruct) {
+        addDiagnostic(
+          state,
+          context,
+          DiagnosticSource.Parser,
+          DiagnosticCode.InvalidBindingDestruct,
+          DiagnosticKind.Error
+        );
+      }
+      argument = parseMemberExpression(state, context, argument, true, start);
+      destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
+      argument = parseAssignmentExpression(state, context, argument, start);
+    } else {
+      destructible |=
+        closingToken === Token.RightBrace && token !== Token.Assign ? Destructible.NotDestructible : state.destructible;
+    }
+  } else {
+    destructible |= Destructible.Assignable;
+
+    argument = parseLeftHandSideExpression(state, context);
+
+    const token = state.token;
+
+    if (token === Token.Assign && token !== closingToken && state.token === Token.Comma) {
+      // if (parser.assignable === 0) report(parser, Errors.CantAssignTo);
+      argument = parseAssignmentExpression(state, context, argument, innerStart);
+      destructible |= Destructible.NotDestructible;
+    } else {
+      if (token === Token.Comma) {
+        destructible |= Destructible.NotDestructible;
+      } else if (token !== closingToken) {
+        argument = parseAssignmentExpression(state, context, argument, innerStart);
+      }
+      destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
+    }
+
+    state.destructible = destructible;
+
+    return argument;
+  }
+
+  if (state.token !== closingToken) {
+    //if (type & BindingType.ArgumentList)
+    // destructible |= isAsync ? Destructible.NotDestructible : Destructible.Assignable;
+    if (state.token === Token.Assign) {
+      nextToken(state, context);
+      const right = parseExpression(state, context);
+      console.log(right);
+      reinterpretToAssignment(argument);
+      argument = finishNode(
+        state,
+        context,
+        start,
+        DictionaryMap.AssignmentElement(argument, right),
+        SyntaxKind.AssignmentElement
+      );
+    }
+    destructible = Destructible.NotDestructible;
+  }
+
+  state.destructible = destructible;
+  return argument;
 }
 
 // ObjectLiteral :
 //   `{` `}`
 //   `{` PropertyDefinitionList `}`
 //   `{` PropertyDefinitionList `,` `}`
-export function parseObjectLiteral(state: ParserState, context: Context): ObjectLiteral | AssignmentElement {
+export function parseObjectLiteral(
+  state: ParserState,
+  context: Context,
+  type: BindingType
+): ObjectLiteral | AssignmentElement {
   const start = state.startIndex;
   consume(state, context | Context.AllowRegExp, Token.LeftBrace);
   const properties = [];
+  let destructible = Destructible.None;
   while (state.token & Constants.ObjectListRecovery) {
-    properties.push(parsePropertyDefinition(state, context));
+    properties.push(parsePropertyDefinition(state, context, type));
+    destructible |= state.destructible;
     if (state.token === Token.RightBrace) break;
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
@@ -2331,19 +2613,23 @@ export function parseObjectLiteral(state: ParserState, context: Context): Object
     if (state.token !== Token.Assign) {
       addEarlyDiagnostic(state, context, DiagnosticCode.CompundObjLit);
     }
-
-    return parseAssignmentElement1(state, context, properties, start);
+    state.destructible = destructible;
+    return parseAssignmentElement1(state, context, destructible, properties, start);
   }
-
+  state.destructible = destructible;
   return finishNode(state, context, start, DictionaryMap.ObjectLiteral(properties), SyntaxKind.ObjectLiteral);
 }
 
 export function parseAssignmentElement1(
   state: ParserState,
   context: Context,
+  destructible: Destructible,
   elements: (Elison | BindingRestElement | BindingElement | LeftHandSideExpression)[],
   start: number
 ): AssignmentElement {
+  if (destructible & Destructible.NotDestructible) {
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidBindingDestruct, DiagnosticKind.Error);
+  }
   nextToken(state, context | Context.AllowRegExp);
 
   let i = elements.length;
@@ -2358,6 +2644,9 @@ export function parseAssignmentElement1(
     DictionaryMap.ObjectAssignmentPattern(elements as any),
     SyntaxKind.ObjectAssignmentPattern
   );
+
+  state.destructible = (destructible | Destructible.MustDestruct) ^ Destructible.MustDestruct;
+
   return finishNode(
     state,
     context,
@@ -2367,14 +2656,14 @@ export function parseAssignmentElement1(
   );
 }
 
-export function parseSpreadProperty(state: ParserState, context: Context, start: number): SpreadProperty {
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.SpreadProperty(parseExpression(state, context)),
-    SyntaxKind.SpreadProperty
-  );
+export function parseSpreadProperty(
+  state: ParserState,
+  context: Context,
+  type: BindingType,
+  start: number
+): SpreadProperty {
+  const argument = parseSpreadOrPropertyExpression(state, context, Token.RightBrace, type, start);
+  return finishNode(state, context, start, DictionaryMap.SpreadProperty(argument), SyntaxKind.SpreadProperty);
 }
 
 // PropertyDefinition :
@@ -2396,10 +2685,14 @@ export function parseSpreadProperty(state: ParserState, context: Context, start:
 //   `async` [no LineTerminator here] PropertyName `(` UniqueFormalParameters `)` `{` AsyncFunctionBody `}`
 // AsyncGeneratorMethod :
 //   `async` [no LineTerminator here] `*` Propertyname `(` UniqueFormalParameters `)` `{` AsyncGeneratorBody `}`
-export function parsePropertyDefinition(state: ParserState, context: Context): SpreadProperty | MethodDefinition {
+export function parsePropertyDefinition(
+  state: ParserState,
+  context: Context,
+  type: BindingType
+): SpreadProperty | MethodDefinition {
   const start = state.startIndex;
-  if (consumeOpt(state, context | Context.AllowRegExp, Token.Ellipsis)) {
-    return parseSpreadProperty(state, context, start);
+  if (state.token === Token.Ellipsis) {
+    return parseSpreadProperty(state, context, type, start);
   }
   let key;
   let kind = optionalBit(state, context | Context.AllowRegExp, Token.Multiply)
@@ -2438,44 +2731,159 @@ export function parsePropertyDefinition(state: ParserState, context: Context): S
 
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
       key = finishNode(state, context, start, createIdentifierName(tokenValue), SyntaxKind.Identifier);
+
+      const initializer = parseExpression(state, context);
+      state.destructible = Destructible.MustDestruct;
+
       return finishNode(
         state,
         context,
         start,
-        DictionaryMap.CoverInitializedName(key, parseExpression(state, context)),
+        DictionaryMap.CoverInitializedName(key, initializer),
         SyntaxKind.CoverInitializedName
       );
     }
 
+    let destructible = Destructible.None;
+
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Colon)) {
       key = finishNode(state, context, start, createIdentifierName(tokenValue), SyntaxKind.Identifier);
       let value;
-      if (context & Context.ErrorRecovery) {
+      const colonStart = state.startIndex;
+      if (state.token & (Token.IsIdentifier | Token.IsKeyword | Token.IsFutureReserved)) {
+        if (context & Context.ErrorRecovery && (state.token & Token.IsExpressionStart) === 0) {
+          value = parseIdentifierReference(state, context);
+          return finishNode(state, context, start, DictionaryMap.PropertyName(key, value), SyntaxKind.PropertyName);
+        }
+
+        value = parsePrimaryExpression(state, context);
+
+        const token = state.token;
+
+        value = parseMemberExpression(state, context, value, true, colonStart);
+
+        if (state.token === Token.RightBrace || state.token === Token.Comma) {
+          if (token === Token.Assign || token === Token.Comma || token === Token.RightBrace) {
+            if (!state.assignable) destructible |= Destructible.NotDestructible;
+          } else {
+            destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
+          }
+        } else {
+          if ((state.token & Token.IsAssignOp) === 0) destructible |= Destructible.NotDestructible;
+          value = parseAssignmentExpression(state, context, value, colonStart);
+        }
+      } else if (state.token & Token.IsPatternStart) {
         value =
-          state.token & Token.IsExpressionStart
-            ? parseExpression(state, context)
-            : parseIdentifierReference(state, context);
-        return finishNode(state, context, start, DictionaryMap.PropertyName(key, value), SyntaxKind.PropertyName);
+          state.token === Token.LeftBrace
+            ? parseObjectLiteral(state, context, type)
+            : parseArrayLiteral(state, context, type);
+
+        destructible = state.destructible;
+
+        if (state.token !== Token.RightBrace && state.token !== Token.Comma) {
+          // Catches cases like `({a:{x = y}.z} = x);` and `[{a = b}].x`  because a shorthand with initalizer
+          // must be a pattern or the nested object must be a pattern
+          if (state.destructible & Destructible.MustDestruct) {
+            addDiagnostic(
+              state,
+              context,
+              DiagnosticSource.Parser,
+              DiagnosticCode.InvalidBindingDestruct,
+              DiagnosticKind.Error
+            );
+          }
+          // Note: The value must have a tail and it isn't (immediately) an assignment.
+          value = parseMemberExpression(state, context, value, true, start);
+
+          destructible = state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
+
+          value = parseAssignmentExpression(state, context, value, start);
+        }
+      } else {
+        value = parseLeftHandSideExpression(state, context);
+
+        const isAssignToken = state.token === Token.Assign;
+
+        value = parseAssignmentExpression(state, context, value, start);
+
+        destructible |= state.assignable || isAssignToken ? Destructible.Assignable : Destructible.NotDestructible;
       }
-      value = parseExpression(state, context);
+
+      state.destructible = destructible;
       return finishNode(state, context, start, DictionaryMap.PropertyName(key, value), SyntaxKind.PropertyName);
     }
-
+    state.destructible = destructible;
     return finishNode(state, context, start, createIdentifierReference(tokenValue), SyntaxKind.Identifier);
   }
 
   key = parsePropertyName(state, context);
 
+  let destructible = Destructible.None;
+
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Colon)) {
-    return finishNode(
-      state,
-      context,
-      start,
-      DictionaryMap.PropertyName(key, parseExpression(state, context)),
-      SyntaxKind.PropertyName
-    );
+    let value;
+    const colonStart = state.startIndex;
+    if (state.token & (Token.IsIdentifier | Token.IsKeyword | Token.IsFutureReserved)) {
+      value = parsePrimaryExpression(state, context);
+
+      const token = state.token;
+
+      value = parseMemberExpression(state, context, value, true, colonStart);
+
+      if (state.token === Token.RightBrace || state.token === Token.Comma) {
+        if (token === Token.Assign || token === Token.Comma || token === Token.RightBrace) {
+          if (!state.assignable) destructible |= Destructible.NotDestructible;
+        } else {
+          destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
+        }
+      } else {
+        if ((state.token & Token.IsAssignOp) === 0) destructible |= Destructible.NotDestructible;
+        value = parseAssignmentExpression(state, context, value, colonStart);
+      }
+    } else if (state.token & Token.IsPatternStart) {
+      value =
+        state.token === Token.LeftBrace
+          ? parseObjectLiteral(state, context, type)
+          : parseArrayLiteral(state, context, type);
+
+      destructible = state.destructible;
+
+      if (state.token !== Token.RightBrace && state.token !== Token.Comma) {
+        // Catches cases like `({a:{x = y}.z} = x);` and `[{a = b}].x`  because a shorthand with initalizer
+        // must be a pattern or the nested object must be a pattern
+        if (state.destructible & Destructible.MustDestruct) {
+          addDiagnostic(
+            state,
+            context,
+            DiagnosticSource.Parser,
+            DiagnosticCode.InvalidBindingDestruct,
+            DiagnosticKind.Error
+          );
+        }
+        // Note: The value must have a tail and it isn't (immediately) an assignment.
+        value = parseMemberExpression(state, context, value, true, start);
+
+        destructible = state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
+
+        value = parseAssignmentExpression(state, context, value, start);
+      }
+    } else {
+      value = parseLeftHandSideExpression(state, context);
+
+      const isAssignToken = state.token === Token.Assign;
+
+      value = parseAssignmentExpression(state, context, value, start);
+
+      destructible |= state.assignable || isAssignToken ? Destructible.Assignable : Destructible.NotDestructible;
+    }
+
+    state.destructible = destructible;
+    return finishNode(state, context, start, DictionaryMap.PropertyName(key, value), SyntaxKind.PropertyName);
   }
+
   if (state.token === Token.LeftParen) return parseMethodDefinition(state, context, key, kind);
+
+  addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ColonExpected, DiagnosticKind.Error);
 
   return key;
 }
@@ -2584,8 +2992,6 @@ export function parseMethodDefinition(
   key: Expression | IdentifierName,
   kind: PropertyKind
 ): MethodDefinition {
-  //
-
   const modifierFlags =
     (kind & PropertyKind.Constructor) === 0 ? 0b00000001111110100010000001000000 : 0b00000000111100100010000001000000;
 
@@ -2610,6 +3016,8 @@ export function parseMethodDefinition(
   } else {
     uniqueFormalParameters = parseUniqueFormalParameters(state, context);
   }
+
+  state.destructible = Destructible.NotDestructible;
 
   return finishNode(
     state,
@@ -2716,7 +3124,7 @@ export function parseAsyncArrowExpression(state: ParserState, context: Context, 
   if (state.token === Token.Arrow) {
     return parseArrowFunction(state, context, expr, ArrowKind.NORMAL, start);
   }
-
+  state.assignable = true;
   // `async`
   return expr;
 }
@@ -2822,7 +3230,7 @@ export function parseAsyncArrowDeclaration(state: ParserState, context: Context,
   } else if (state.token === Token.Arrow) {
     expr = parseArrowAfterIdentifier(state, context, expr, ArrowKind.NORMAL, start);
   }
-
+  state.assignable = true;
   // `async++`, `async`\n${0}`:`, `async?.()`
   expr = parseExpressionOrHigher(state, context, expr, start);
 
@@ -2866,22 +3274,95 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
 
   const check =
     context & Context.ErrorRecovery ? Constants.IsGroupParnethizedRecovery : Constants.IsGroupParnethizedNormal;
-
+  let destructible: Destructible = Destructible.None;
   while (state.token & check) {
+    const innerStart = state.startIndex;
     if (state.token === Token.Ellipsis) {
       nextToken(state, context | Context.AllowRegExp);
-      const start = state.startIndex;
+      const arg = parseExpression(state, context);
+      state.destructible = Destructible.Destructible;
       params.push(
         finishNode(
           state,
           context,
-          start,
-          DictionaryMap.AssignmentRestElement(parseExpression(state, context)),
+          innerStart,
+          DictionaryMap.AssignmentRestElement(arg),
           SyntaxKind.AssignmentRestElement
         )
       );
     } else {
-      params.push(parseExpression(state, context));
+      if (state.token & Constants.IsIdentifierOrKeyword) {
+        expression = parsePrimaryExpression(state, context);
+
+        // (x, false) => y
+        if (state.token === Token.Comma || state.token === Token.RightParen) {
+          if (!state.assignable) destructible |= Destructible.NotDestructible;
+        } else {
+          if (state.token !== Token.Assign) destructible |= Destructible.NotDestructible;
+          expression = parseMemberExpression(state, context, expression, true, innerStart);
+
+          if (state.token !== Token.RightParen && state.token !== Token.Comma) {
+            expression = parseAssignmentExpression(state, context, expression, innerStart);
+          }
+        }
+      } else if (state.token & Token.IsPatternStart) {
+        expression =
+          state.token === Token.LeftBracket
+            ? parseArrayLiteral(state, context, BindingType.ArgumentList)
+            : parseObjectLiteral(state, context, BindingType.ArgumentList);
+
+        destructible |= state.destructible;
+
+        expression = parseMemberExpression(state, context, expression, true, innerStart);
+
+        if (state.token !== Token.Comma && state.token !== Token.RightParen) {
+          if (destructible & Destructible.MustDestruct) {
+            addDiagnostic(
+              state,
+              context,
+              DiagnosticSource.Parser,
+              DiagnosticCode.InvalidBindingDestruct,
+              DiagnosticKind.Error
+            );
+          }
+          expression = parseAssignmentExpression(state, context, expression, innerStart);
+          destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
+        }
+      } else {
+        do {
+          if (state.token === Token.Ellipsis) {
+            nextToken(state, context | Context.AllowRegExp);
+            const arg = parseExpression(state, context);
+            state.destructible = Destructible.Destructible;
+            params.push(
+              finishNode(
+                state,
+                context,
+                start,
+                DictionaryMap.AssignmentRestElement(arg),
+                SyntaxKind.AssignmentRestElement
+              )
+            );
+          } else {
+            params.push(parseExpression(state, context));
+          }
+        } while (consumeOpt(state, context | Context.AllowRegExp, Token.Comma));
+
+        consume(state, context, Token.RightParen);
+
+        state.destructible = Destructible.NotDestructible;
+
+        state.assignable = false;
+
+        return finishNode(
+          state,
+          context,
+          start,
+          DictionaryMap.CallExpression(expression, params),
+          SyntaxKind.CallExpression
+        );
+      }
+      params.push(expression);
     }
 
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
@@ -2915,7 +3396,7 @@ export function parseArrowFunction(
   while (i--) {
     reinterpretToPattern(parameters[i]);
   }
-
+  state.assignable = false;
   return finishNode(
     state,
     context,
@@ -3045,25 +3526,82 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
     return createIdentifier(state, context, DiagnosticCode.ExpectedArrow);
   }
 
+  let innerStart = state.startIndex;
+
   if (state.token === Token.Ellipsis) {
     const param = parseBindingRestElement(state, context, BindingType.ArgumentList);
+    // Invalid cases: '(...[ 5 ]) => {}', '(...a = b) => b' etc.
+    if (state.destructible & Destructible.NotDestructible) {
+      addDiagnostic(
+        state,
+        context,
+        DiagnosticSource.Parser,
+        DiagnosticCode.InvalidBindingDestruct,
+        DiagnosticKind.Error
+      );
+    }
     consume(state, context, Token.RightParen);
     return parseArrowFunction(state, context, [param], ArrowKind.NORMAL, start);
   }
 
   let expression: any;
+  let destructible = Destructible.None;
 
   if (state.token & Constants.IsIdentifierOrKeyword) {
-    expression = parseExpression(state, context);
-  } else if (state.token & Token.IsPatternStart) {
-    expression = parseExpression(state, context);
-  } else {
-    expression = parseExpression(state, context);
-    if (state.token === Token.Comma) {
-      expression = parseCommaOperator(state, context, expression, start);
+    expression = parsePrimaryExpression(state, context);
+
+    if (state.token === Token.Comma || state.token === Token.RightBracket) {
+      if (!state.assignable) destructible |= Destructible.NotDestructible;
+    } else {
+      if (state.token !== Token.Assign) destructible |= Destructible.NotDestructible;
+
+      expression = parseMemberExpression(state, context, expression, true, innerStart);
+
+      if (state.token !== Token.RightParen && state.token !== Token.Comma) {
+        expression = parseAssignmentExpression(state, context, expression, innerStart);
+      }
     }
+  } else if (state.token & Token.IsPatternStart) {
+    expression =
+      state.token === Token.LeftBracket
+        ? parseArrayLiteral(state, context, BindingType.ArgumentList)
+        : parseObjectLiteral(state, context, BindingType.ArgumentList);
+
+    destructible |= state.destructible;
+
+    state.assignable = false;
+
+    if (state.token !== Token.Comma && state.token !== Token.RightParen) {
+      if (destructible & Destructible.MustDestruct) {
+        addDiagnostic(
+          state,
+          context,
+          DiagnosticSource.Parser,
+          DiagnosticCode.InvalidBindingDestruct,
+          DiagnosticKind.Error
+        );
+      }
+
+      expression = parseMemberExpression(state, context, expression, true, innerStart);
+
+      destructible |= Destructible.NotDestructible;
+
+      if (state.token !== Token.Comma || state.token !== Token.LeftParen) {
+        expression = parseAssignmentExpression(state, context, expression, innerStart);
+        destructible |= !state.assignable ? Destructible.NotDestructible : Destructible.Assignable;
+      }
+    }
+  } else {
+    destructible |= Destructible.NotDestructible;
+
+    expression = parseExpression(state, context);
+
+    expression = parseCommaOperator(state, context, expression, start);
 
     consume(state, context, Token.RightParen);
+
+    state.destructible = destructible;
+
     return finishNode(
       state,
       context,
@@ -3087,31 +3625,65 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
     // and don't result in tons of parse errors.
 
     const expressions = [expression];
+
     isDelimitedList = true;
+
+    if (state.token === Token.RightParen) destructible |= Destructible.DisallowTrailing;
 
     const check =
       context & Context.ErrorRecovery ? Constants.IsGroupParnethizedRecovery : Constants.IsGroupParnethizedNormal;
 
     while (state.token & check) {
-      if (state.token === Token.RightParen) break;
+      innerStart = state.startIndex;
+      if (state.token & Constants.IsIdentifierOrKeyword) {
+        expression = parsePrimaryExpression(state, context);
 
-      if (state.token === Token.Ellipsis) {
+        // (x, false) => y
+        if (state.token === Token.Comma || state.token === Token.RightParen) {
+          if (!state.assignable) destructible |= Destructible.NotDestructible;
+        } else {
+          if (state.token !== Token.Assign) destructible |= Destructible.NotDestructible;
+          expression = parseMemberExpression(state, context, expression, true, innerStart);
+
+          if (state.token !== Token.RightParen && state.token !== Token.Comma) {
+            expression = parseAssignmentExpression(state, context, expression, innerStart);
+          }
+        }
+      } else if (state.token & Token.IsPatternStart) {
+        expression =
+          state.token === Token.LeftBracket
+            ? parseArrayLiteral(state, context, BindingType.ArgumentList)
+            : parseObjectLiteral(state, context, BindingType.ArgumentList);
+
+        destructible |= state.destructible;
+
+        if (state.token !== Token.Comma && state.token !== Token.RightParen) {
+          if (destructible & Destructible.MustDestruct) {
+            addDiagnostic(
+              state,
+              context,
+              DiagnosticSource.Parser,
+              DiagnosticCode.InvalidBindingDestruct,
+              DiagnosticKind.Error
+            );
+          }
+          expression = parseAssignmentExpression(state, context, expression, innerStart);
+          destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
+        }
+      } else if (state.token === Token.Ellipsis) {
         expressions.push(parseBindingRestElement(state, context, BindingType.ArgumentList));
         break;
-      }
-
-      if (state.token & Constants.IsIdentifierOrKeyword) {
-        expression = parseExpression(state, context);
-      } else if (state.token & Token.IsPatternStart) {
-        expression = parseExpression(state, context);
       } else {
+        destructible |= Destructible.NotDestructible;
+
         expression = parseExpression(state, context);
 
-        if (state.token === Token.Comma) {
-          expression = parseCommaOperator(state, context, expression, start);
-        }
+        expression = parseCommaOperator(state, context, expression, start);
 
         consume(state, context, Token.RightParen);
+
+        state.destructible = destructible;
+
         return finishNode(
           state,
           context,
@@ -3126,6 +3698,9 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
       if (consumeOpt(state, context, Token.Comma)) continue;
       if (state.token === Token.RightParen) break;
     }
+
+    state.assignable = false;
+
     expression = finishNode(state, context, start, DictionaryMap.CommaOperator(expressions), SyntaxKind.CommaOperator);
   }
 
@@ -3137,6 +3712,19 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
     const param = isDelimitedList ? expression.expressions : [expression];
     return parseArrowFunction(state, context, param, ArrowKind.NORMAL, start);
   }
+
+  if (destructible & (Destructible.DisallowTrailing | Destructible.MustDestruct)) {
+    addDiagnostic(
+      state,
+      context,
+      DiagnosticSource.Parser,
+      destructible & Destructible.DisallowTrailing
+        ? DiagnosticCode.ForbiddenTrailing
+        : DiagnosticCode.InvalidBindingDestruct,
+      DiagnosticKind.Error
+    );
+  }
+  state.destructible = destructible;
 
   return finishNode(
     state,
@@ -3186,6 +3774,8 @@ export function parseClassDeclaration(state: ParserState, context: Context): Cla
     inheritedContext = (inheritedContext | Context.SuperCall) ^ Context.SuperCall;
   }
 
+  state.assignable = false;
+
   return finishNode(
     state,
     context,
@@ -3230,6 +3820,8 @@ export function parseClassExpression(state: ParserState, context: Context): Clas
   } else {
     inheritedContext = (inheritedContext | Context.SuperCall) ^ Context.SuperCall;
   }
+
+  state.assignable = false;
 
   return finishNode(
     state,
@@ -3363,7 +3955,9 @@ export function parseSuperCallOrProperty(state: ParserState, context: Context): 
   if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket)) {
     expression = parseExpression(state, context);
     consume(state, context, Token.RightBracket);
+    state.assignable = true;
   } else if (state.token === Token.Period) {
+    state.assignable = true;
     nextToken(state, context);
     name = parseIdentifierName(state, context);
   } else {
@@ -3599,6 +4193,7 @@ export function parseImportCall(state: ParserState, context: Context, start: num
 export function parseImportMeta(state: ParserState, context: Context, start: number): ExpressionStatement {
   consume(state, context, Token.MetaIdentifier);
   let expr = finishNode(state, context, start, DictionaryMap.ImportMeta(), SyntaxKind.ImportMeta);
+  state.assignable = false;
   expr = parseExpressionOrHigher(state, context, expr, start);
   consumeSemicolon(state, context);
   return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ExpressionStatement);

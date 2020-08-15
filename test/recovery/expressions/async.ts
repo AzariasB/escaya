@@ -67,8 +67,8 @@ describe('Recovery - Expressions - Async', () => {
             expression: {
               type: 'IdentifierReference',
               name: 'async',
-              start: 0,
-              end: 5,
+              start: 6,
+              end: 11,
               kind: 13,
               flags: 0
             },

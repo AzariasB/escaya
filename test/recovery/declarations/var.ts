@@ -1100,14 +1100,14 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'IdentifierReference',
-                      name: 'aa',
+                      name: '',
                       start: 14,
-                      end: 17,
+                      end: 14,
                       kind: 13,
-                      flags: 0
+                      flags: 2
                     },
                     start: 10,
-                    end: 17,
+                    end: 14,
                     kind: 227,
                     flags: 0
                   }
@@ -1137,9 +1137,9 @@ describe('Recovery - Var', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 17,
+          message: 'Expression expected',
+          code: 7,
+          start: 16,
           length: 1
         }
       ],

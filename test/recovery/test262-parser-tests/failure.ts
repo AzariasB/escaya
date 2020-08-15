@@ -645,7 +645,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 100,
+          kind: 2,
+          length: 1,
+          message: '`=` can only be used in an object literal property inside a destructuring ',
+          source: 2,
+          start: 11
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1020,7 +1029,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 100,
+          kind: 2,
+          length: 1,
+          message: '`=` can only be used in an object literal property inside a destructuring ',
+          source: 2,
+          start: 9
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1501,7 +1519,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 13,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -2735,10 +2762,10 @@ describe('test262-parser-tests - failing tests', () => {
           start: 5
         },
         {
-          code: 5,
+          code: 36,
           kind: 2,
           length: 1,
-          message: '`,` expected',
+          message: '`:` expected',
           source: 2,
           start: 6
         }
@@ -4175,6 +4202,14 @@ describe('test262-parser-tests - failing tests', () => {
           code: 92,
           start: 4,
           length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 9,
+          length: 1
         }
       ],
       detached: false,
@@ -4472,7 +4507,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 97,
+          kind: 2,
+          length: 1,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          source: 2,
+          start: 28
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4934,7 +4978,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 96,
+          start: 15,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -5114,7 +5167,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 7,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -5437,7 +5499,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 96,
+          start: 12,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -5726,7 +5797,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 100,
+          kind: 2,
+          length: 1,
+          message: '`=` can only be used in an object literal property inside a destructuring ',
+          source: 2,
+          start: 12
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,

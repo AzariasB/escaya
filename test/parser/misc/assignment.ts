@@ -183,7 +183,7 @@ describe('Misc - Assignment', () => {
               elements: [
                 {
                   type: 'ArrayAssignmentPattern',
-                  kind: 178,
+
                   elements: [
                     {
                       type: 'IdentifierReference',
@@ -340,7 +340,7 @@ describe('Misc - Assignment', () => {
                   type: 'AssignmentRestProperty',
                   argument: {
                     type: 'ArrayAssignmentPattern',
-                    kind: 178,
+
                     elements: [
                       {
                         type: 'IdentifierReference',
@@ -685,7 +685,7 @@ describe('Misc - Assignment', () => {
                   type: 'AssignmentRestProperty',
                   argument: {
                     type: 'ArrayAssignmentPattern',
-                    kind: 178,
+
                     elements: [
                       {
                         type: 'AssignmentRestProperty',

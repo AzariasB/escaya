@@ -101,6 +101,13 @@ export enum DiagnosticCode {
   InvalidNewTarget,
   ExportInScript,
   ImportInScript,
+  InvalidBindingDestruct,
+  InvalidLHS,
+  LHSPreOp,
+  LHSPostOp,
+  ObjCoverInit,
+  ForbiddenTrailing,
+  InvalidSPI,
 
   /* Annex B */
   AnnexBB32,

@@ -189,7 +189,7 @@ describe('Statements - Try', () => {
                 type: 'ThrowStatement',
                 expression: {
                   type: 'ArrayLiteral',
-                  kind: 178,
+
                   elements: [
                     {
                       type: 'NumericLiteral',

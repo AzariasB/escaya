@@ -105,5 +105,13 @@ export const diagnosticMap: {
   [DiagnosticCode.ExpectedSemicolon]: '`;` expected',
   [DiagnosticCode.InvalidNewTarget]: '`%0` is not a valid meta-property for keyword `new`.',
   [DiagnosticCode.ExportInScript]: 'The `export` keyword can only be used with the module goal',
-  [DiagnosticCode.ImportInScript]: 'The `import` keyword can only be used with the module goal'
+  [DiagnosticCode.ImportInScript]: 'The `import` keyword can only be used with the module goal',
+  [DiagnosticCode.InvalidBindingDestruct]:
+    'The left-hand side of an assignment expression must be a variable or a property access',
+  [DiagnosticCode.InvalidLHS]: 'The left-hand side of an assignment expression must be a variable or a property access',
+  [DiagnosticCode.LHSPreOp]: 'Invalid left-hand side expression in prefix operation',
+  [DiagnosticCode.LHSPostOp]: 'Invalid left-hand side expression in postfix operation',
+  [DiagnosticCode.ObjCoverInit]: '`=` can only be used in an object literal property inside a destructuring ',
+  [DiagnosticCode.ForbiddenTrailing]: 'Forbidden trailing comma',
+  [DiagnosticCode.InvalidSPI]: 'Invalid shorthand property initializer'
 };

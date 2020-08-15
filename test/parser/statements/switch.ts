@@ -582,7 +582,7 @@ describe('Statements - Switch', () => {
                     type: 'ExpressionStatement',
                     expression: {
                       type: 'ArrayLiteral',
-                      kind: 178,
+
                       elements: [
                         {
                           type: 'IdentifierReference',
@@ -659,7 +659,7 @@ describe('Statements - Switch', () => {
                     type: 'ExpressionStatement',
                     expression: {
                       type: 'ArrayLiteral',
-                      kind: 178,
+
                       elements: [
                         {
                           type: 'IdentifierReference',

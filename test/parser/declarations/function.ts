@@ -7,7 +7,8 @@ describe('Declarations - Function', () => {
     'while (true) function f(){}',
     'function x(,,,,,,,,,,,,,a) {}',
     'if (x) function f(){}',
-    'if (x) ; else function f(){}'
+    'if (x) ; else function f(){}',
+    'function *g() {   s = {"foo": yield a = x} = x   }'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -33,6 +34,8 @@ describe('Declarations - Function', () => {
     'function f(a = 1) {}',
     'function f([a, [b], c]) {}',
     'function* g() {   [...{ x = yield }] = y   }',
+    'function x({ a = "", b = 0, c = false }) {}',
+    'function f14([a = 1, [b = "hello", { x, y: c = false }]]) {}',
     'function fk({x: [a, {b: []}]}) {}',
     'function f([foo] = x, b = y){}',
     'function i(package,package){}',

@@ -59,13 +59,27 @@ export const enum PropertyKind {
 
 export const enum BindingType {
   None = 0,
-  Let = 1 << 0,
-  Const = 1 << 1,
-  Var = 1 << 2,
+  Pattern = 1 << 0,
+  Assignment = 1 << 1,
+  AllowLHS = 1 << 2,
   ArgumentList = 1 << 3,
-  CatchPattern = 1 << 3,
-  CatchIdentifier = 1 << 4
+  Let = 1 << 4,
+  Const = 1 << 5,
+  Var = 1 << 6,
+  CatchIdentifier = 1 << 7,
+  CatchPattern = 1 << 8,
+  Literal = 1 << 9
 }
+
+export const enum Destructible {
+  None = 0,
+  Destructible = 1 << 0,
+  Assignable = 1 << 1,
+  NotDestructible = 1 << 2,
+  MustDestruct = 1 << 3,
+  DisallowTrailing = 1 << 4
+}
+
 /**
  * The parser interface.
  */
@@ -90,6 +104,8 @@ export interface ParserState {
   token: Token;
   tokenValue: any;
   tokenRaw: string;
+  destructible: Destructible;
+  assignable: boolean;
   diagnostics: any[];
   nodeCursor: any;
   tokenRegExp: void | {
