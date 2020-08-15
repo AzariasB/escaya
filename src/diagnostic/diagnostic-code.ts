@@ -78,7 +78,7 @@ export enum DiagnosticCode {
   TrailingNumericSeparator,
   UnderscoreAfterZero,
   SeparatorsDisallowed,
-  DisallowedLetInStrict,
+  LetInStrict,
   ForOfLet,
   StrictFunction,
   WebCompatFunction,
@@ -110,6 +110,10 @@ export enum DiagnosticCode {
   InvalidSPI,
   LHSADestruct,
   LHSAForLoop,
+  RestTrailing,
+  RestInit,
+  RestNotLast,
+  RestNotLastParam,
 
   /* Annex B */
   AnnexBB32,

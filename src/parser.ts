@@ -618,28 +618,10 @@ export function parseForStatement(
 
       if (state.token === Token.LetKeyword) {
         initializer = parseIdentifierReference(state, context);
-
-        if (state.token & Constants.IsPatternOrIdentifierNormal) {
+        if (state.token & (Token.IsIdentifier | Token.IsFutureReserved | Token.IsKeyword | Token.IsPatternStart)) {
           if (state.token === Token.InKeyword) {
-            addDiagnostic(
-              state,
-              context,
-              DiagnosticSource.Parser,
-              DiagnosticCode.DisallowedLetInStrict,
-              DiagnosticKind.Error
-            );
+            if (context & Context.Strict) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
           } else {
-            // In sloppy mode, `let` must now be a regular var name.
-            if (context & Context.Strict) {
-              addDiagnostic(
-                state,
-                context,
-                DiagnosticSource.Parser,
-                DiagnosticCode.DisallowedLetInStrict,
-                DiagnosticKind.Error
-              );
-            }
-
             initializer = parseForDeclaration(
               state,
               context | Context.DisallowIn,
@@ -649,15 +631,21 @@ export function parseForStatement(
               innerStart
             );
             state.assignable = true;
-            // `for of` only allows LeftHandSideExpressions which do not start with `let`, and no other production matches
-            if (state.token === Token.OfKeyword) {
-              //addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ForOfLet, DiagnosticKind.Error);
-            }
           }
         } else {
+          // In sloppy mode, `let` must now be a regular var name.
+          if (context & Context.Strict) {
+            addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
+          }
+
+          // `for of` only allows LeftHandSideExpressions which do not start with `let`, and no other production matches
           state.assignable = true;
 
           initializer = parseMemberExpression(state, context, initializer, true, start);
+
+          if (state.token === Token.OfKeyword) {
+            addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
+          }
         }
       } else if (consumeOpt(state, context, Token.ConstKeyword)) {
         initializer = parseForDeclaration(
@@ -746,11 +734,16 @@ export function parseForStatement(
         ),
         SyntaxKind.ForStatement
       );
-    } else if (state.token & Token.IsPatternStart) {
+    }
+    if (state.token & Token.IsPatternStart) {
       initializer =
         state.token === Token.LeftBrace
           ? parseObjectLiteral(state, context, BindingType.Literal)
           : parseArrayLiteral(state, context, BindingType.Literal);
+
+      if (state.token & Token.IsAssignOp && state.token !== Token.Assign) {
+        addEarlyDiagnostic(state, context, DiagnosticCode.CompundArrLit); // InvalidCompoundAssign
+      }
 
       destructible = state.destructible;
 
@@ -758,17 +751,15 @@ export function parseForStatement(
 
       initializer = parseMemberExpression(state, context, initializer, true, state.index);
     } else {
-      initializer = parseExpression(state, context | Context.DisallowIn);
+      initializer = parseLeftHandSideExpression(state, context | Context.DisallowIn);
     }
   }
 
-  if (consumeOpt(state, context, Token.InKeyword)) {
-    if (!state.assignable) {
-      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.LHSAForLoop, DiagnosticKind.Error);
-    }
+  if (consumeOpt(state, context | Context.AllowRegExp, Token.InKeyword)) {
+    if (!state.assignable) addEarlyDiagnostic(state, context, DiagnosticCode.LHSAForLoop);
     reinterpretToAssignment(initializer);
     const expression = parseExpressions(state, context);
-    consume(state, context, Token.RightParen);
+    consume(state, context | Context.AllowRegExp, Token.RightParen);
     return finishNode(
       state,
       context,
@@ -782,12 +773,10 @@ export function parseForStatement(
       ? consume(state, context | Context.AllowRegExp, Token.OfKeyword)
       : consumeOpt(state, context | Context.AllowRegExp, Token.OfKeyword)
   ) {
-    if (!state.assignable) {
-      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.LHSAForLoop, DiagnosticKind.Error);
-    }
+    if (!state.assignable) addEarlyDiagnostic(state, context, DiagnosticCode.LHSAForLoop);
     reinterpretToAssignment(initializer);
     const expression = parseExpression(state, context);
-    consume(state, context, Token.RightParen);
+    consume(state, context | Context.AllowRegExp, Token.RightParen);
 
     return finishNode(
       state,
@@ -805,6 +794,8 @@ export function parseForStatement(
 
   let condition = null;
   let incrementor = null;
+
+  if (state.destructible & Destructible.MustDestruct) addEarlyDiagnostic(state, context, DiagnosticCode.ObjCoverInit);
 
   initializer = parseExpressionOrHigher(state, context, initializer as Expression, state.startIndex);
 
@@ -2113,7 +2104,13 @@ export function parseObjectBindingPattern(
   while (state.token & Constants.ObjectList) {
     if (state.token === Token.Ellipsis) {
       properties.push(parseBindingRestProperty(state, context, type));
-      break;
+      if (state.token !== Token.Comma) break;
+      nextToken(state, context);
+      addEarlyDiagnostic(
+        state,
+        context,
+        state.token === Token.RightBrace ? DiagnosticCode.RestTrailing : DiagnosticCode.RestNotLast
+      );
     }
     properties.push(parseBindingProperty(state, context, type));
     if (state.token === Token.RightBrace) break;
@@ -2135,13 +2132,9 @@ export function parseObjectBindingPattern(
 export function parseBindingRestProperty(state: ParserState, context: Context, type: BindingType): BindingRestProperty {
   const start = state.startIndex;
   nextToken(state, context);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.BindingRestProperty(parseBindingIdentifier(state, context, type)),
-    SyntaxKind.BindingRestProperty
-  );
+  const argument = parseBindingIdentifier(state, context, type);
+  if (state.token === Token.Assign) addEarlyDiagnostic(state, context, DiagnosticCode.RestInit);
+  return finishNode(state, context, start, DictionaryMap.BindingRestProperty(argument), SyntaxKind.BindingRestProperty);
 }
 
 // BindingProperty :
@@ -2276,7 +2269,13 @@ export function parseArrayBindingPattern(state: ParserState, context: Context, t
     } else {
       if (state.token === Token.Ellipsis) {
         list.push(parseBindingRestElement(state, context, type));
-        break;
+        if (state.token !== Token.Comma) break;
+        nextToken(state, context);
+        addEarlyDiagnostic(
+          state,
+          context,
+          state.token === Token.RightBrace ? DiagnosticCode.RestTrailing : DiagnosticCode.RestNotLast
+        );
       }
       list.push(parseBindingElement(state, context, type));
       if (state.token === Token.RightBracket) break;
@@ -2295,6 +2294,7 @@ export function parseBindingRestElement(state: ParserState, context: Context, ty
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   const binding = parseBindingPatternOrIdentifier(state, context, type);
+  if (state.token === Token.Assign) addEarlyDiagnostic(state, context, DiagnosticCode.RestInit);
   return finishNode(state, context, start, DictionaryMap.BindingRestElement(binding), SyntaxKind.BindingRestElement);
 }
 
@@ -2940,7 +2940,13 @@ export function parseFormalParameters(state: ParserState, context: Context): Par
     while (state.token & check) {
       if (state.token === Token.Ellipsis) {
         params.push(parseBindingRestElement(state, context, BindingType.None));
-        break;
+        if (state.token !== Token.Comma) break;
+        nextToken(state, context);
+        addEarlyDiagnostic(
+          state,
+          context,
+          state.token === Token.RightBrace ? DiagnosticCode.RestTrailing : DiagnosticCode.RestNotLastParam
+        );
       }
       params.push(parseBindingElements(state, context, BindingType.ArgumentList, parseBindingElement));
 
@@ -3505,8 +3511,13 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
   if (state.token === Token.Ellipsis) {
     const param = parseBindingRestElement(state, context, BindingType.ArgumentList);
     // Invalid cases: '(...[ 5 ]) => {}', '(...a = b) => b' etc.
-    if (state.destructible & Destructible.NotDestructible) {
-      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
+    if (state.token === Token.Comma) {
+      nextToken(state, context);
+      addEarlyDiagnostic(
+        state,
+        context,
+        state.token === Token.RightBrace ? DiagnosticCode.RestTrailing : DiagnosticCode.RestNotLast
+      );
     }
     consume(state, context, Token.RightParen);
     return parseArrowFunction(state, context, [param], ArrowKind.NORMAL, start);

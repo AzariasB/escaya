@@ -743,10 +743,10 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`)` expected',
-          code: 5,
+          message: 'A rest element cannot have an initializer',
+          code: 106,
           start: 16,
           length: 1
         },
@@ -3845,43 +3845,28 @@ describe('test262-parser-tests - failing tests', () => {
               end: 18,
               kind: 175,
               flags: 0
+            },
+            {
+              type: 'BindingIdentifier',
+              name: 'c',
+              start: 19,
+              end: 21,
+              kind: 168,
+              flags: 0
             }
           ],
           contents: {
             type: 'FunctionBody',
             directives: [],
             leafs: [],
-            start: 18,
-            end: 18,
+            start: 22,
+            end: 24,
             kind: 184,
             flags: 0
           },
           start: 0,
-          end: 18,
-          kind: 186,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'c',
-            start: 19,
-            end: 21,
-            kind: 13,
-            flags: 0
-          },
-          start: 19,
-          end: 21,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'BlockStatement',
-          leafs: [],
-          start: 22,
           end: 24,
-          kind: 123,
+          kind: 186,
           flags: 0
         }
       ],
@@ -3891,19 +3876,11 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`)` expected',
-          code: 5,
-          start: 18,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`;` expected',
-          code: 92,
-          start: 21,
+          message: 'A rest element must be last in a parameter list',
+          code: 108,
+          start: 20,
           length: 1
         }
       ],

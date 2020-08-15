@@ -24,7 +24,31 @@ describe('Statements - Try', () => {
     'switch(x) { case y: {...x} }',
     'try(x) { case y: foo /a/ }',
     'try(x) { case y:{ class { x() {} } }}',
-    'try({x=y}) { case y: [...a] }'
+    'try({x=y}) { case y: [...a] }',
+    'try {} catch([async(x,y) => z]) {}',
+    'try {} catch({ x: (async function() {}) }) {}',
+    'try {} catch({ x: function*() {} }) {}',
+    'try {} catch({ x: function() {} }) {}',
+    'try {} catch({ x: ("str") }) {}',
+    'try {} catch({ x: "str" }) {}',
+    'try {} catch([a,,...rest,]) {}',
+    'try {} catch([ ...([a]) ]) {}',
+    'try {} catch([...x--]) {}',
+    'try {} catch([...x,]) {}',
+    'try {} catch({ x : /foo/ }) {}',
+    'try {} catch({...{x} }) {}',
+    'try {} catch([...++x]) {}',
+    'try {} catch([x()]) {}',
+    'try {} catch([x--]) {}',
+    'try {} catch({ x : y * 2 }) {}',
+    'try { throw []; } catch ([...x = []]) {}',
+    'try {} catch({ ...function() {} }) {}',
+    'try {} catch({x: async (y) => z}) {}',
+    'try {} catch([async x => z]) {}',
+    'try {} catch({ x: (function*() {}) }) {}',
+    'try {} catch({ x: (function() {}) }) {}',
+    'try {} catch({ x: (foo()) }) {}',
+    'try {} catch({ x: "str" }) {}'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {

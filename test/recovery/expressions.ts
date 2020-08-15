@@ -834,7 +834,7 @@ describe('Recovery - Expressions', () => {
       diagnostics: [
         {
           code: 104,
-          kind: 2,
+          kind: 3,
           length: 4,
           message: 'Invalid left-hand side in for-loop',
           source: 2,
@@ -2732,118 +2732,6 @@ describe('Recovery - Expressions', () => {
     });
   });
 
-  it('function f(a, ...b, c){}', () => {
-    t.deepEqual(recovery('function f(a, ...b, c){}', 'recovery.js'), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'FunctionDeclaration',
-          name: {
-            type: 'BindingIdentifier',
-            name: 'f',
-            start: 8,
-            end: 10,
-            kind: 168,
-            flags: 0
-          },
-          generator: false,
-          async: false,
-          params: [
-            {
-              type: 'BindingIdentifier',
-              name: 'a',
-              start: 11,
-              end: 12,
-              kind: 168,
-              flags: 0
-            },
-            {
-              type: 'BindingRestElement',
-              argument: {
-                type: 'BindingIdentifier',
-                name: 'b',
-                start: 17,
-                end: 18,
-                kind: 168,
-                flags: 0
-              },
-              start: 13,
-              end: 18,
-              kind: 175,
-              flags: 0
-            }
-          ],
-          contents: {
-            type: 'FunctionBody',
-            directives: [],
-            leafs: [],
-            start: 18,
-            end: 18,
-            kind: 184,
-            flags: 0
-          },
-          start: 0,
-          end: 18,
-          kind: 186,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'c',
-            start: 19,
-            end: 21,
-            kind: 13,
-            flags: 0
-          },
-          start: 19,
-          end: 21,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'BlockStatement',
-          leafs: [],
-          start: 22,
-          end: 24,
-          kind: 123,
-          flags: 0
-        }
-      ],
-      text: 'function f(a, ...b, c){}',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`)` expected',
-          code: 5,
-          start: 18,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`;` expected',
-          code: 92,
-          start: 21,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 24,
-      end: 24
-    });
-  });
-
   it('[a] = [((1', () => {
     t.deepEqual(recovery('[a] = [((1', 'recovery.js'), {
       kind: 209,
@@ -3768,10 +3656,10 @@ describe('Recovery - Expressions', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`)` expected',
-          code: 5,
+          message: 'A rest element cannot have an initializer',
+          code: 106,
           start: 6,
           length: 1
         },

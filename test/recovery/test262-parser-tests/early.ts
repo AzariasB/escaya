@@ -460,7 +460,7 @@ describe('test262-parser-tests - early tests', () => {
       diagnostics: [
         {
           code: 104,
-          kind: 2,
+          kind: 3,
           length: 1,
           message: 'Invalid left-hand side in for-loop',
           source: 2,
@@ -3488,7 +3488,7 @@ describe('test262-parser-tests - early tests', () => {
       diagnostics: [
         {
           code: 104,
-          kind: 2,
+          kind: 3,
           length: 1,
           message: 'Invalid left-hand side in for-loop',
           source: 2,

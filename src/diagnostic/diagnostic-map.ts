@@ -81,7 +81,7 @@ export const diagnosticMap: {
   [DiagnosticCode.ContinuousNumericSeparator]: 'Multiple consecutive numeric separators are not permitted',
   [DiagnosticCode.TrailingNumericSeparator]: 'Numeric separators are not allowed at the end of numeric literals',
   [DiagnosticCode.UnderscoreAfterZero]: 'Numeric separator can not be used after leading 0',
-  [DiagnosticCode.DisallowedLetInStrict]: 'Identifier "let" disallowed as left-hand side expression in strict mode',
+  [DiagnosticCode.LetInStrict]: 'Identifier "let" disallowed as left-hand side expression in strict mode',
   [DiagnosticCode.ForOfLet]: "The left-hand side of a for-of loop may not start with 'let'",
   [DiagnosticCode.StrictFunction]:
     'In strict mode code or without web compability enabled, functions can only be declared at top level or inside a block',
@@ -114,5 +114,9 @@ export const diagnosticMap: {
   [DiagnosticCode.ForbiddenTrailing]: 'Forbidden trailing comma',
   [DiagnosticCode.InvalidSPI]: 'Invalid shorthand property initializer',
   [DiagnosticCode.LHSADestruct]: 'The left-hand side of an arrow function can only be destructed through assignment',
-  [DiagnosticCode.LHSAForLoop]: 'Invalid left-hand side in for-loop'
+  [DiagnosticCode.LHSAForLoop]: 'Invalid left-hand side in for-loop',
+  [DiagnosticCode.RestTrailing]: 'A rest parameter or binding pattern may not have a trailing comma',
+  [DiagnosticCode.RestInit]: 'A rest element cannot have an initializer',
+  [DiagnosticCode.RestNotLast]: 'A rest element must be last in destructuring pattern',
+  [DiagnosticCode.RestNotLastParam]: 'A rest element must be last in a parameter list'
 };
