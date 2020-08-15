@@ -457,7 +457,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 104,
+          kind: 2,
+          length: 1,
+          message: 'Invalid left-hand side in for-loop',
+          source: 2,
+          start: 13
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -3476,7 +3485,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 104,
+          kind: 2,
+          length: 1,
+          message: 'Invalid left-hand side in for-loop',
+          source: 2,
+          start: 14
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,

@@ -112,5 +112,7 @@ export const diagnosticMap: {
   [DiagnosticCode.LHSPostOp]: 'Invalid left-hand side expression in postfix operation',
   [DiagnosticCode.ObjCoverInit]: '`=` can only be used in an object literal property inside a destructuring ',
   [DiagnosticCode.ForbiddenTrailing]: 'Forbidden trailing comma',
-  [DiagnosticCode.InvalidSPI]: 'Invalid shorthand property initializer'
+  [DiagnosticCode.InvalidSPI]: 'Invalid shorthand property initializer',
+  [DiagnosticCode.LHSADestruct]: 'The left-hand side of an arrow function can only be destructed through assignment',
+  [DiagnosticCode.LHSAForLoop]: 'Invalid left-hand side in for-loop'
 };

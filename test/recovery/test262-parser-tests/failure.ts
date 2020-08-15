@@ -2661,7 +2661,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 103,
+          kind: 2,
+          length: 2,
+          message: 'The left-hand side of an arrow function can only be destructed through assignment',
+          source: 2,
+          start: 10
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -6276,7 +6285,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 103,
+          kind: 2,
+          length: 2,
+          message: 'The left-hand side of an arrow function can only be destructed through assignment',
+          source: 2,
+          start: 50
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,

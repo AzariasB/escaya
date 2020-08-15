@@ -108,6 +108,8 @@ export enum DiagnosticCode {
   ObjCoverInit,
   ForbiddenTrailing,
   InvalidSPI,
+  LHSADestruct,
+  LHSAForLoop,
 
   /* Annex B */
   AnnexBB32,

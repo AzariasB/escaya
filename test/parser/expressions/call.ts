@@ -3,7 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Call', () => {
   // Invalid cases
-  for (const arg of ['foo(,)', 'foo(,,);', '[', '[,', '[] += a', 'yield({a=1})', 'foo({a=1})']) {
+  for (const arg of ['foo(,)', 'foo(,,);', '[', '[,', '[] += a', 'yield({a=1})', 'foo({a=1})', 'async({a=1})']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -69,7 +69,6 @@ describe('Expressions - Call', () => {
     'a().b',
     '(async((a), ...[b] = xxx))',
     '(async((a), ...(b) = xxx))',
-    'async({a=1})',
     'a.b( c() ).d.e;',
     ` obj
     .foo

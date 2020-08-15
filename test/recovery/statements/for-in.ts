@@ -70,7 +70,7 @@ describe('Recovery - For in', () => {
     });
   });
 
-  it('missing closing and block34223', () => {
+  it('for (5 in []) {}', () => {
     t.deepEqual(recovery('for (5 in []) {}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -111,7 +111,16 @@ describe('Recovery - For in', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 104,
+          kind: 2,
+          length: 1,
+          message: 'Invalid left-hand side in for-loop',
+          source: 2,
+          start: 10
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -122,7 +131,7 @@ describe('Recovery - For in', () => {
     });
   });
 
-  it('missing closing and block32424', () => {
+  it('for(x in', () => {
     t.deepEqual(recovery('for(x in', 'recovery.js'), {
       kind: 209,
       directives: [],
