@@ -64,7 +64,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 15
+              end: 13
             },
             right: {
               type: 'NumericLiteral',
@@ -104,7 +104,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 6
+              end: 4
             },
             right: {
               type: 'NumericLiteral',
@@ -149,7 +149,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 7
+              end: 5
             },
             right: {
               type: 'NumericLiteral',
@@ -183,7 +183,6 @@ describe('Misc - Assignment', () => {
               elements: [
                 {
                   type: 'ArrayAssignmentPattern',
-
                   elements: [
                     {
                       type: 'IdentifierReference',
@@ -197,7 +196,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 7
+              end: 5
             },
             right: {
               type: 'NumericLiteral',
@@ -254,7 +253,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 14
+              end: 12
             },
             right: {
               type: 'NumericLiteral',
@@ -304,7 +303,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 9
+              end: 7
             },
             right: {
               type: 'NumericLiteral',
@@ -340,7 +339,6 @@ describe('Misc - Assignment', () => {
                   type: 'AssignmentRestProperty',
                   argument: {
                     type: 'ArrayAssignmentPattern',
-
                     elements: [
                       {
                         type: 'IdentifierReference',
@@ -357,7 +355,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 10
+              end: 8
             },
             right: {
               type: 'NumericLiteral',
@@ -426,7 +424,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 16
+              end: 14
             },
             right: {
               type: 'NumericLiteral',
@@ -472,7 +470,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 8
+              end: 6
             },
             right: {
               type: 'NumericLiteral',
@@ -523,7 +521,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 11
+              end: 9
             },
             right: {
               type: 'NumericLiteral',
@@ -586,7 +584,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 9
+              end: 7
             },
             right: {
               type: 'IdentifierReference',
@@ -649,7 +647,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 10
+              end: 8
             },
             right: {
               type: 'IdentifierReference',
@@ -685,7 +683,6 @@ describe('Misc - Assignment', () => {
                   type: 'AssignmentRestProperty',
                   argument: {
                     type: 'ArrayAssignmentPattern',
-
                     elements: [
                       {
                         type: 'AssignmentRestProperty',
@@ -719,7 +716,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 16
+              end: 14
             },
             right: {
               type: 'IdentifierReference',
@@ -801,7 +798,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 15
+              end: 13
             },
             right: {
               type: 'NumericLiteral',
@@ -881,7 +878,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 21
+              end: 19
             },
             right: {
               type: 'NumericLiteral',
@@ -950,7 +947,7 @@ describe('Misc - Assignment', () => {
                 }
               ],
               start: 0,
-              end: 15
+              end: 13
             },
             right: {
               type: 'NumericLiteral',
@@ -992,7 +989,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 6
+                end: 4
               },
               right: {
                 type: 'NumericLiteral',
@@ -1037,7 +1034,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 7
+                end: 5
               },
               right: {
                 type: 'NumericLiteral',
@@ -1088,7 +1085,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 8
+                end: 6
               },
               right: {
                 type: 'NumericLiteral',
@@ -1139,7 +1136,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 9
+                end: 7
               },
               right: {
                 type: 'NumericLiteral',
@@ -1194,7 +1191,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 11
+                end: 9
               },
               right: {
                 type: 'NumericLiteral',
@@ -1250,7 +1247,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 9
+                end: 7
               },
               right: {
                 type: 'NumericLiteral',
@@ -1323,7 +1320,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 15
+                end: 13
               },
               right: {
                 type: 'NumericLiteral',
@@ -1402,7 +1399,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 17
+                end: 15
               },
               right: {
                 type: 'NumericLiteral',
@@ -1460,7 +1457,7 @@ describe('Misc - Assignment', () => {
                           }
                         ],
                         start: 5,
-                        end: 10
+                        end: 8
                       },
                       right: {
                         type: 'NumericLiteral',
@@ -1476,7 +1473,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 15
+                end: 13
               },
               right: {
                 type: 'NumericLiteral',
@@ -1498,6 +1495,7 @@ describe('Misc - Assignment', () => {
       end: 18
     });
   });
+
   it('({a:let} = 0);', () => {
     t.deepEqual(parseScript('({a:let} = 0);', { loc: true }), {
       type: 'Script',
@@ -1531,7 +1529,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 10
+                end: 8
               },
               right: {
                 type: 'NumericLiteral',
@@ -1587,7 +1585,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 12
+                end: 10
               },
               right: {
                 type: 'NumericLiteral',
@@ -1643,7 +1641,7 @@ describe('Misc - Assignment', () => {
                   }
                 ],
                 start: 1,
-                end: 14
+                end: 12
               },
               right: {
                 type: 'NumericLiteral',
@@ -1724,7 +1722,7 @@ describe('Misc - Assignment', () => {
                           }
                         ],
                         start: 15,
-                        end: 35
+                        end: 33
                       },
                       right: {
                         type: 'NumericLiteral',

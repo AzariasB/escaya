@@ -3257,8 +3257,8 @@ describe('test262-parser-tests - early tests', () => {
                   }
                 ],
                 start: 1,
-                end: 14,
-                kind: 211,
+                end: 12,
+                kind: 179,
                 flags: 0
               },
               right: {
@@ -3291,12 +3291,12 @@ describe('test262-parser-tests - early tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 96,
           kind: 2,
-          length: 1,
-          message: 'The left-hand side of an assignment expression must be a variable or a property access',
           source: 2,
-          start: 13
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 96,
+          start: 13,
+          length: 1
         }
       ],
       detached: false,
@@ -6134,8 +6134,8 @@ describe('test262-parser-tests - early tests', () => {
                   }
                 ],
                 start: 1,
-                end: 11,
-                kind: 211,
+                end: 9,
+                kind: 179,
                 flags: 0
               },
               right: {
@@ -6168,12 +6168,12 @@ describe('test262-parser-tests - early tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 96,
           kind: 2,
-          length: 1,
-          message: 'The left-hand side of an assignment expression must be a variable or a property access',
           source: 2,
-          start: 10
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 96,
+          start: 10,
+          length: 1
         }
       ],
       detached: false,

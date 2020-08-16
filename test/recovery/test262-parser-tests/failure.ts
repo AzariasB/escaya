@@ -4937,8 +4937,8 @@ describe('test262-parser-tests - failing tests', () => {
                 }
               ],
               start: 0,
-              end: 16,
-              kind: 214,
+              end: 15,
+              kind: 178,
               flags: 0
             },
             right: {
@@ -5458,8 +5458,8 @@ describe('test262-parser-tests - failing tests', () => {
                 }
               ],
               start: 0,
-              end: 13,
-              kind: 214,
+              end: 12,
+              kind: 178,
               flags: 0
             },
             right: {
@@ -6476,8 +6476,8 @@ describe('test262-parser-tests - failing tests', () => {
                 }
               ],
               start: 0,
-              end: 6,
-              kind: 214,
+              end: 3,
+              kind: 178,
               flags: 0
             },
             right: {
@@ -6507,7 +6507,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 3,
           source: 2,
-          message: 'Cannot compound-assign to an array literal',
+          message: 'Cannot compound-assign to an array or object literal',
           code: 27,
           start: 4,
           length: 2

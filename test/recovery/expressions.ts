@@ -2754,13 +2754,12 @@ describe('Recovery - Expressions', () => {
                 }
               ],
               start: 0,
-              end: 5,
-              kind: 214,
+              end: 3,
+              kind: 178,
               flags: 0
             },
             right: {
               type: 'ArrayLiteral',
-              kind: 178,
               elements: [
                 {
                   type: 'ParenthesizedExpression',
@@ -2787,6 +2786,7 @@ describe('Recovery - Expressions', () => {
               ],
               start: 5,
               end: 10,
+              kind: 178,
               flags: 0
             },
             start: 0,
@@ -2839,8 +2839,8 @@ describe('Recovery - Expressions', () => {
                 type: 'ObjectAssignmentPattern',
                 properties: [],
                 start: 1,
-                end: 5,
-                kind: 211,
+                end: 3,
+                kind: 179,
                 flags: 0
               },
               right: {

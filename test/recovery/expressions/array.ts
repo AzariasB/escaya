@@ -241,7 +241,6 @@ describe('Recovery - Expressions - Array', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrayLiteral',
-            kind: 178,
             elements: [
               {
                 type: 'IdentifierReference',
@@ -297,8 +296,8 @@ describe('Recovery - Expressions - Array', () => {
                   type: 'ObjectAssignmentPattern',
                   properties: [],
                   start: 13,
-                  end: 18,
-                  kind: 211,
+                  end: 16,
+                  kind: 179,
                   flags: 0
                 },
                 right: {
@@ -325,6 +324,7 @@ describe('Recovery - Expressions - Array', () => {
             ],
             start: 0,
             end: 21,
+            kind: 178,
             flags: 0
           },
           start: 0,
@@ -912,8 +912,8 @@ describe('Recovery - Expressions - Array', () => {
                 }
               ],
               start: 0,
-              end: 7,
-              kind: 214,
+              end: 5,
+              kind: 178,
               flags: 0
             },
             right: {

@@ -355,8 +355,8 @@ describe('Recovery - Expressions - Object', () => {
                   }
                 ],
                 start: 1,
-                end: 14,
-                kind: 211,
+                end: 12,
+                kind: 179,
                 flags: 0
               },
               right: {

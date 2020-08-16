@@ -30,7 +30,7 @@ export enum DiagnosticCode {
   NewlineAfterThrow,
   IllegalReturn,
   CompundArrLit,
-  CompundObjLit,
+  CompundObjLit, // replace!
   ExpectedImportDecl,
   ExpectedExportDecl,
   InvalidSuperProperty,
