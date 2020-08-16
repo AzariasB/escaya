@@ -2456,7 +2456,6 @@ export function parseElementList(
 
 // SpreadElement :
 //   ...AssignmentExpression
-
 export function parseSpreadElement(
   state: ParserState,
   context: Context,
@@ -2467,7 +2466,22 @@ export function parseSpreadElement(
   return finishNode(state, context, start, DictionaryMap.SpreadElement(argument), SyntaxKind.SpreadElement);
 }
 
+// PropertyDefinition :   [MODIFIED]
+//   ...AssignmentExpression
+export function parseSpreadProperty(
+  state: ParserState,
+  context: Context,
+  type: BindingType,
+  start: number
+): SpreadProperty {
+  const argument = parseSpreadOrPropertyArgument(state, context, Token.RightBrace, type, start);
+  return finishNode(state, context, start, DictionaryMap.SpreadProperty(argument), SyntaxKind.SpreadProperty);
+}
+
 // SpreadElement :
+//   ...AssignmentExpression
+//
+// PropertyDefinition :   [MODIFIED]
 //   ...AssignmentExpression
 export function parseSpreadOrPropertyArgument(
   state: ParserState,
@@ -2609,16 +2623,6 @@ export function parseAssignmentElement(
   if (isRest) state.destructible = Destructible.NotDestructible;
 
   return finishNode(state, context, start, DictionaryMap.AssignmentElement(left, right), SyntaxKind.AssignmentElement);
-}
-
-export function parseSpreadProperty(
-  state: ParserState,
-  context: Context,
-  type: BindingType,
-  start: number
-): SpreadProperty {
-  const argument = parseSpreadOrPropertyArgument(state, context, Token.RightBrace, type, start);
-  return finishNode(state, context, start, DictionaryMap.SpreadProperty(argument), SyntaxKind.SpreadProperty);
 }
 
 // PropertyDefinition :
