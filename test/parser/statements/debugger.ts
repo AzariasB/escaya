@@ -1,12 +1,12 @@
 import * as t from 'assert';
-import { parseScript, recovery } from '../../../src/escaya';
+import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
-describe('Declarations - Async Function', () => {
+describe('Statements - Debugger', () => {
   // Invalid cases
-  for (const arg of ['async function * f(']) {
+  for (const arg of ['debugger /foo/']) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`, { disableWebCompat: true, loc: true });
+        parseScript(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
@@ -17,15 +17,7 @@ describe('Declarations - Async Function', () => {
   }
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
-  for (const arg of [
-    'async function f(){    function g(x=(await)=y){}   }',
-    'async function f(){ var f }',
-    'async function f(){ let f }',
-    'x=async function f(){ let f }',
-    'async function *f(){ var f }',
-    'async function * f(){}',
-    'async function * f(){}'
-  ]) {
+  for (const arg of [`debugger`, `{debugger;}`]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`, { loc: true });
@@ -33,7 +25,17 @@ describe('Declarations - Async Function', () => {
     });
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
+        parseModule(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
         recovery(`${arg}`, 'recovery.js');
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js', { module: true });
       });
     });
   }

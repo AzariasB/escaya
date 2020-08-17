@@ -12,6 +12,7 @@ describe('Declarations - Let', () => {
     'let {...obj1,} = foo',
     'let [1 <= 0] = "foo"',
     'let x, y, z, let = 1;',
+    'let l\\u0065t;',
     'let let;',
     'let x,;',
     // 'let {[a]: x, b: x} = obj',
@@ -109,6 +110,8 @@ describe('Declarations - Let', () => {
     'let [a, let] = x;',
     'let [let = y] = x;',
     'let let;',
+    'let {...{x, y}} = {}',
+    'let {...{...{x, y}}} = {}',
     //'let {let = y} = x;',
     `class x { foo() { let
       {foo}; }}`,
@@ -431,6 +434,7 @@ describe('Declarations - Let', () => {
     'let x = {y=z} = d',
     'let x = ({y=z}) => d',
     'let x = ({y=z}=e) => d',
+    'let {x, ...y} = v',
     'let [foo] = arr;',
     'let [,] = x;',
     `if (false) {

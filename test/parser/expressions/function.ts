@@ -3,7 +3,15 @@ import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
 describe('Expressions - Function', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of [
+    '(function(){',
+    '[,',
+    '[] += a',
+
+    '(function ([a, ...b = 20,,]) { })',
+    '(function ([a, ...b,]) { })',
+    '(function ([a, ...b,,]) { })'
+  ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -23,6 +31,7 @@ describe('Expressions - Function', () => {
     '(function([fn = function () {}, xFn = function x() {}]) {})',
     '(function([x = 23]) {})',
     '(function([...[x, y, z]]) {})',
+    '(function({x, ...y}) {})',
     '(function([...[,]]) {})',
     '(function([...x]) {})',
     '(function([...{ length }]) {})',
@@ -57,6 +66,12 @@ describe('Expressions - Function', () => {
     '(function foo(a = 0) { { let y = 3; function f(b = 0) { y = 2; } f(); } })();',
     '(function conditional() {  if (true) { function f() { return 1; } } else {  function f() { return 2; }} if (false) { function g() { return 1; }}  L: {break L;function f() { return 3; } }})();',
     '(function foo(x) { {  function x() {} } })(1);',
+    '(function({x}, {y} = {}, {z}, {v} = {}, ...a) {})',
+    '(function({x}, {}, {z} = {}, ...a) {})',
+    '(function({x}, {y} = {}, ...a) {})',
+    '(function({x}, {y} = {}) {})',
+    '(function({x}, {y} = {}, {z}, ...a) {})',
+    '(function(x, {y}, {z} = {}) {})',
     '(function([...[x, y, z]]) {})',
     '(function([...[,]]) {})',
     '(function([...{ length }]) {})',

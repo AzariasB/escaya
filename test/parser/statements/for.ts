@@ -244,7 +244,8 @@ describe('Statements - For', () => {
     'for (var [foo = x];;);',
     'for (const [foo];;);',
     'for (var {x};;);',
-    //'for (var [x, y] = {} in {});',
+    // 'for (var [x, y] = {} in {});',
+    'for (var x\n/foo/;;);',
     'for (var [..x] = obj;;);',
     'for (var [...foo,] = obj;;);',
     'for (var {,,x} = obj;;);',
@@ -547,6 +548,7 @@ describe('Statements - For', () => {
     'for (; false; ) let\n{}',
     'for (var x in obj) { const x = 1 }',
     'for(let\n{} = {};;);',
+
     'for (let [,] = x;;);',
     'for (let [,,] = x;;);',
     'for (let [foo] = arr;;);',

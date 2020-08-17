@@ -2,6 +2,48 @@ import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Arrow', () => {
+  const destructuringForms = [
+    (a: any) => `${a} = [];`,
+    (a: any) => `var ${a} = [];`,
+    (a: any) => `let ${a} = [];`,
+    (a: any) => `const ${a} = [];`,
+    (a: any) => `(${a}) => {};`,
+    (a: any) => `async (${a}) => {};`,
+    (a: any) => `(${a} = []) => {};`,
+    (a: any) => `function f(${a}) {}`,
+    (a: any) => `function *f(${a}) {}`,
+    (a: any) => `async function f(${a}) {}`,
+    (a: any) => `(function f(${a}) {})`,
+    (a: any) => `(async function *f(${a}) {})`
+  ];
+
+  for (const arg of [
+    '[...r, ]',
+    '[a, ...r, ]',
+    '[a = 0, ...r, ]',
+    '[[], ...r, ]',
+    '[[...r,]]',
+    '[[...r,], ]',
+    '[[...r,], a]'
+  ]) {
+    for (const fn of destructuringForms) {
+      it(fn(`${arg}`), () => {
+        t.throws(() => {
+          parseScript(fn(`${arg}`));
+        });
+      });
+
+      for (const arg of ['[, ]', '[a, ]', '[[], ]']) {
+        for (const fn of destructuringForms) {
+          it(fn(`${arg}`), () => {
+            t.doesNotThrow(() => {
+              parseScript(fn(`${arg}`));
+            });
+          });
+        }
+      }
+    }
+  }
   // Invalid cases
   for (const arg of [
     '(x, y) => {}.x',
@@ -14,10 +56,21 @@ describe('Expressions - Arrow', () => {
     '({"foo": this}) => x',
     '([...x=x]) => x',
     '({a:b[0]})=>0',
+    '([class{}]) => x;',
     //'x = (a)-c=>{};',
     '(...x = y) => x',
+    '([x()]) => x',
+    '([x().foo]) => x',
+    '([(x)]) => x',
+    '([false]) => x;',
+    '([function(){}]) => x;',
+    '([this]) => x;',
+    '([x + y]) => x;',
+    '([(x().foo)]) => x',
     '(...a)-c=>{};',
     '([(x().foo)]) => x',
+    '({[foo]: bar()}) => baz',
+    `({[foo]: a + b}) => baz`,
     'x = (...a)+c=>{}',
     '(w, ...x, y) => 10',
     '(...x, y) => 10',
@@ -136,6 +189,7 @@ describe('Expressions - Arrow', () => {
     `([...x.y] = z) => z`,
     `([...x.y]) => z`,
     `(([a, ...b = 0]) => {})`,
+    '(({a, ...b = 0}) => {})',
     `({a: {x = y}}.z) => obj`,
     `(localVar |= defaultValue) => {}`,
     '({a=b}[x]) => x',
@@ -371,6 +425,7 @@ describe('Expressions - Arrow', () => {
     //`(a,...a)/*\n*/ => 0`,
     '("a", b) => {}',
     '(a, b++) => {}',
+    '([delete x.y]) => x;',
     '(foo ? bar : baz) => {}',
     '(a, foo ? bar : baz) => {}',
     '(foo ? bar : baz, a) => {}',
@@ -515,7 +570,6 @@ describe('Expressions - Arrow', () => {
     '({}, a) => {}',
     '([]) => {}',
     '(a, []) => {}',
-
     '(a = b) => {}',
     '(a = b, c) => {}',
     '(a, b = c) => {}',
@@ -767,8 +821,6 @@ describe('Expressions - Arrow', () => {
     'foo(() => {})',
     'foo((x, y) => {})',
     'x => { function x() {} }',
-    '(a, ...b) => {}',
-    '(...a) => {}',
     '(x) => { function x() {} }',
     '(x) => { var x; }',
     '([x, y] = z) => x;',

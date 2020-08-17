@@ -1,9 +1,9 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('Expressions - Binary', () => {
+describe('Declarations - Class', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of ['class l\\u0065t {}', '[,', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);

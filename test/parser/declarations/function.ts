@@ -444,6 +444,8 @@ describe('Declarations - Function', () => {
     'function f() { class C { await() { } } }',
     'function f() { class C { *await() { } } }',
     'function f() { var fe = function await() { } }',
+    'function *f(){ return [...yield x]; }',
+    'function *f(){ return [...yield]; }',
     'function f([...x]) {}',
     'function f([x = 23] = []) {}',
     `function j(...a) {}

@@ -401,6 +401,7 @@ describe('Expressions - Async arrow', () => {
     'async (a = (...await) => {});',
     '(a, b) => 0, (c, d) => 1',
     '(a, b => {}, a => a + 1)',
+    'async x => [...await x]',
     'async((a, b) => {}, (a => a + 1))',
     'async ({}) => {}',
     'async (a, {}) => {}',

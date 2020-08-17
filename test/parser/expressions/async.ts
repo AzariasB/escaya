@@ -3,7 +3,19 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Async', () => {
   // Invalid cases
-  for (const arg of ['async({a: x, ...x = y} = obj)', 'async({a: x, ...{x}} = obj)', '[] += a']) {
+  for (const arg of [
+    'async({a: x, ...x = y} = obj)',
+    'async({a: x, ...{x}} = obj)',
+    //'async () => {} \n  /x/',
+    //'async (x, y) => {} \n  /x/',
+    'async async => {} \n  / x',
+    '()=>{}[x]',
+    '()=>{}{x}',
+    '()=>{}.x',
+    '()=>{}(foo)',
+    'a => {}() => {}',
+    'async => {} ++foo'
+  ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -28,10 +40,20 @@ describe('Expressions - Async', () => {
     'async/x',
     'async \n / x',
     'async\n()',
+    '()=>{}\n(foo)',
+    '()=>{}\n`x`',
+    'async => {}\n++foo',
+    'x({async foo(){}, bar(){}});',
     '(async((a), ...b))',
     '(async(a, ...b))',
     '(async(a, ...[b] = xxx))',
     '(async(a, ...([b] = xxx)))',
+    'async () => {} \n  /x/',
+    'async () => {} \n  /x/',
+    'async()=>{} \n [x]',
+    'async()=>{} \n {x}',
+    '()=>{} \n [x]',
+    '()=>{} \n {x}',
     'log(async()[foo]);',
     'f(async in {})',
     'f(a + async in b)',

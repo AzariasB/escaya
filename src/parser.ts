@@ -2181,12 +2181,12 @@ export function parseBindingProperty(
       DictionaryMap.BindingIdentifier(tokenValue),
       SyntaxKind.BindingIdentifier
     );
-    if (state.token === Token.Assign) {
+    if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
       return finishNode(
         state,
         context,
         start,
-        DictionaryMap.BindingElement(binding, parseInitializerOpt(state, context)),
+        DictionaryMap.BindingElement(binding, parseExpression(state, context)),
         SyntaxKind.BindingElement
       );
     }
@@ -2203,14 +2203,6 @@ export function parseBindingProperty(
     DictionaryMap.PropertyName(name, parseBindingElement(state, context, type)),
     SyntaxKind.PropertyName
   );
-}
-
-// Initializer : `=` AssignmentExpression
-export function parseInitializerOpt(state: ParserState, context: Context): Expression | null {
-  if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
-    return parseExpression(state, context);
-  }
-  return null;
 }
 
 // BindingElement :
@@ -2474,7 +2466,7 @@ export function parseSpreadElement(
   type: BindingType,
   start: number
 ): SpreadElement {
-  const argument = parseSpreadOrPropertyArgument(state, context, Token.RightBracket, type, start);
+  const argument = parseSpreadOrPropertyArgument(state, context, Token.RightBracket, false, type, start);
   return finishNode(state, context, start, DictionaryMap.SpreadElement(argument), SyntaxKind.SpreadElement);
 }
 
@@ -2486,7 +2478,7 @@ export function parseSpreadProperty(
   type: BindingType,
   start: number
 ): SpreadProperty {
-  const argument = parseSpreadOrPropertyArgument(state, context, Token.RightBrace, type, start);
+  const argument = parseSpreadOrPropertyArgument(state, context, Token.RightBrace, true, type, start);
   return finishNode(state, context, start, DictionaryMap.SpreadProperty(argument), SyntaxKind.SpreadProperty);
 }
 
@@ -2498,7 +2490,7 @@ export function parseAssignmentRestElement(
   type: BindingType,
   start: number
 ): AssignmentRestElement {
-  const argument = parseSpreadOrPropertyArgument(state, context, Token.RightParen, type, start);
+  const argument = parseSpreadOrPropertyArgument(state, context, Token.RightParen, false, type, start);
   return finishNode(
     state,
     context,
@@ -2517,81 +2509,91 @@ export function parseSpreadOrPropertyArgument(
   state: ParserState,
   context: Context,
   closingToken: Token,
+  isSpread: boolean,
   type: BindingType,
   start: number
 ): Expression {
   nextToken(state, context | Context.AllowRegExp); // skips: '...'
   const innerStart = state.startIndex;
-  let destructible = Destructible.None;
-  let argument;
 
   if (state.token & Constants.IsIdentifierOrKeyword) {
-    argument = parsePrimaryExpression(state, context);
+    let argument = parsePrimaryExpression(state, context);
 
-    const token = state.token;
+    // '... )' , '... ]' and '... }'
+    if (state.token === closingToken) {
+      state.destructible = state.assignable ? Destructible.Destructible : Destructible.NotDestructible;
+      return argument;
+    }
 
+    // A spread or rest element / property may not have a trailing comma, so we are setting the
+    // destructible state to 'NotDestructible' for cases like '..., )',  '..., }'  and '..., ]'.
+    if (state.token === Token.Comma) {
+      state.destructible = Destructible.NotDestructible;
+      return argument;
+    }
+
+    // This is the slow path. We shouldn't care too much about performance
     argument = parseMemberExpression(state, context, argument, true, innerStart);
+
+    let destructible = Destructible.None;
 
     if (state.token !== Token.Comma && state.token !== closingToken) {
       destructible |= Destructible.NotDestructible;
       argument = parseAssignmentExpression(state, context, argument, innerStart);
     }
 
-    if (!state.assignable) {
-      destructible |= Destructible.NotDestructible;
-    } else if (token === Token.Comma || token === closingToken) {
-      // TODO
-    } else {
-      destructible |= Destructible.Assignable;
-    }
-  } else if (state.token & Token.IsPatternStart) {
-    argument =
-      state.token === Token.LeftBracket
-        ? parseArrayLiteral(state, context, DestuctionKind.REST, type)
-        : parseObjectLiteral(state, context, DestuctionKind.REST, type);
-
-    const token = state.token;
-
-    if (token !== Token.Assign && token !== closingToken && token !== Token.Comma) {
-      if (state.destructible & Destructible.MustDestruct) {
-        addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
-      }
-      argument = parseMemberExpression(state, context, argument, true, start);
-      destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
-      argument = parseAssignmentExpression(state, context, argument, start);
-    } else {
-      destructible |=
-        closingToken === Token.RightBrace && token !== Token.Assign ? Destructible.NotDestructible : state.destructible;
-    }
-  } else {
-    destructible |= Destructible.Assignable;
-
-    argument = parseLeftHandSideExpression(state, context);
-
-    const token = state.token;
-
-    if (token & Token.IsExpressionStart) {
-      argument = parseAssignmentExpression(state, context, argument, innerStart);
-      // [..."foo"+bar] = x:
-      destructible |= Destructible.NotDestructible;
-    } else {
-      // [...(x), y] = z
-      if (token === Token.Comma) {
-        destructible |= Destructible.NotDestructible;
-      } else if (token !== closingToken) {
-        // ({ ...1 ? a : []}), '({ ...0 ? 1 : a => {} })'
-        argument = parseAssignmentExpression(state, context, argument, innerStart);
-      }
-
-      if (!state.assignable) destructible |= Destructible.NotDestructible;
-    }
-
-    state.destructible = destructible;
+    state.destructible = destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
 
     return argument;
   }
 
-  state.destructible = state.token !== closingToken ? Destructible.NotDestructible : destructible;
+  // '{', '['
+  if (state.token & Token.IsPatternStart) {
+    let argument: any =
+      state.token === Token.LeftBracket
+        ? parseArrayLiteral(state, context, DestuctionKind.REST, type)
+        : parseObjectLiteral(state, context, DestuctionKind.REST, type);
+
+    // '...[ ] )' , '... { } ]' etc.
+    if (state.token === closingToken) {
+      if (isSpread) state.destructible |= Destructible.NotDestructible;
+      return argument;
+    }
+
+    if (state.token === Token.Comma) {
+      state.destructible = Destructible.NotDestructible;
+      return argument;
+    }
+
+    if (state.destructible & Destructible.MustDestruct) {
+      addEarlyDiagnostic(state, context, DiagnosticCode.iBDestruct);
+    }
+
+    argument = parseMemberExpression(state, context, argument, true, start);
+
+    argument = parseAssignmentExpression(state, context, argument, start);
+
+    state.destructible = state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
+
+    return argument;
+  }
+
+  let argument = parseLeftHandSideExpression(state, context);
+
+  if (state.token & Token.IsExpressionStart) {
+    argument = parseAssignmentExpression(state, context, argument, innerStart);
+    state.destructible |= Destructible.NotDestructible;
+    return argument;
+  }
+
+  if (state.token === Token.Comma) {
+    state.destructible = Destructible.NotDestructible;
+    return argument;
+  }
+
+  argument = parseAssignmentExpression(state, context, argument, innerStart);
+
+  state.destructible = state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
 
   return argument;
 }
