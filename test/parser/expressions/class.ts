@@ -21,6 +21,8 @@ describe('Expressions - Binary', () => {
     '(class x {})',
     '(class x extends y {})',
     '(class x { a() {}})',
+    'class n extends ([] = x) {}',
+    'class n extends ({} = x) {}',
     'f = ([cls = class {}, xCls = class X {}, xCls2 = class { static name() {} }]) => {}',
     '(class o {f(){ function x(){}}})',
     '(class A {async * 34(){}})',

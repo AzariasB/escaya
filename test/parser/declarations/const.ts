@@ -24,6 +24,8 @@ describe('Declarations - Const', () => {
     //'const [(x)] = v',
     'const foo =x, bar;',
     //'const {typeof} = x;',
+    `const q
+    /d/`,
     'const [foo=a];',
     'const [foo];',
     'const [foo] = x, b;',

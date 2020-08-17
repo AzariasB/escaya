@@ -1206,39 +1206,39 @@ describe('Recovery - Expressions', () => {
                   flags: 0
                 },
                 initializer: {
-                  type: 'BinaryExpression',
-                  left: {
-                    type: 'RegularExpressionLiteral',
-                    pattern: '',
-                    flag: '',
-                    start: 7,
-                    end: 10,
-                    kind: 15,
-                    flags: 0
-                  },
-                  operator: '/',
-                  right: {
-                    type: 'IdentifierReference',
-                    name: '',
-                    start: 15,
-                    end: 15,
-                    kind: 13,
-                    flags: 2
-                  },
+                  type: 'RegularExpressionLiteral',
+                  pattern: '',
+                  flag: '',
                   start: 7,
-                  end: 15,
-                  kind: 155,
+                  end: 10,
+                  kind: 15,
                   flags: 0
                 },
                 start: 3,
-                end: 15,
+                end: 10,
                 kind: 144,
                 flags: 0
               }
             ],
             start: 0,
-            end: 15,
+            end: 10,
             kind: 143,
+            flags: 0
+          },
+          {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'RegularExpressionLiteral',
+              pattern: '',
+              flag: '',
+              start: 10,
+              end: 16,
+              kind: 15,
+              flags: 0
+            },
+            start: 10,
+            end: 16,
+            kind: 122,
             flags: 0
           }
         ],
@@ -1257,11 +1257,11 @@ describe('Recovery - Expressions', () => {
           },
           {
             kind: 2,
-            source: 2,
-            message: 'Expression expected',
-            code: 7,
+            source: 0,
+            message: 'Unterminated regular expression',
+            code: 12,
             start: 14,
-            length: 1
+            length: 2
           }
         ],
         detached: false,

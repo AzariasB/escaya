@@ -40,6 +40,9 @@ describe('Declarations - Class', () => {
     'class A {"constructor"(){}}',
     'class A {set "foo"(x){}}',
     'class A {static get "foo"(){}}',
+    'class X { constructor() { new.target }}',
+    'class X { foo() { new.target }}',
+    'class X { static foo() { new.target }}',
     'class x{ constructor(){  (super[a]) += 1;  }}',
     'class A {static "x"(){}}',
     'class A {static set "foo"(x){}}',
@@ -238,6 +241,9 @@ describe('Declarations - Class', () => {
     'class x {static set arguments(_) {}}',
     'class x {static async foo() { }}',
     'class x {async await() {}}',
+    'class x {static __proto__(){}; get __proto__(){}}',
+    'class v extends.9 {}',
+    'class v extends[x] {}',
     'class x {static async await() { }}',
     'class x {constructor() {}; static constructor() {}}',
     'class x {get get() {}}',
@@ -246,6 +252,9 @@ describe('Declarations - Class', () => {
     'class x {constructor(a, b, c) {}}',
     'class x {static ["prototype"](){}}',
     'class x {static constructor(){} static constructor(){}}',
+    'class x {f(f) { }}',
+    'class x {f(x) { function x() {} }}',
+    'class x {f(x) { var x; }}',
     'class foo extends class bar {} {}',
     'class foo extends class { constructor() {}} {}',
     'class foo extends class { constructor() {} } { constructor() {} }',
@@ -253,7 +262,35 @@ describe('Declarations - Class', () => {
     'class foo { static classMethod() {} method() {} }',
     'class foo { static get property() {} static set property(value) {} }',
     'class foo { async method(a, b = 39,) {} }',
-    'class foo { async method(a, b,) {} }'
+    'class foo { async method(a, b,) {} }',
+    'class A {constructor(x=new.target){}}',
+    'class A {a(x=new.target){}}',
+    'class A {static a(x=new.target){}}',
+    `class C {
+      a() { }
+      static b() { }
+      get c() { }
+      set c(val) { }
+      ''() { }
+      static ''() { }
+      42() { }
+      static 43() { }
+      get 44() { }
+      set 44(val) { }
+      static get constructor() { }
+      static set constructor(val) { }
+    };`,
+    `class C {
+      ['']() { }
+      static ''() {}
+      [a]() { }
+      [sym1]() { }
+      static [sym2]() { }
+      [symNoDescription]() { }
+
+      get [sym3]() { }
+      static set [b](val) { }
+    }`
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {

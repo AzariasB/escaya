@@ -53,7 +53,7 @@ export const diagnosticMap: {
   [DiagnosticCode.InvalidBreak]: 'A `break` statement can only be used within an enclosing iteration or switch',
   [DiagnosticCode.IllegalContinue]: 'A `continue` statement can only be used within an enclosing iteration statement',
   [DiagnosticCode.StrictWith]: 'A `with` statements are not allowed in strict mode',
-  [DiagnosticCode.MissingDestructInit]: 'A destructuring declaration must have an initializer',
+  [DiagnosticCode.MissingDestructInit]: 'Missing initializer in destructuring declaration',
   [DiagnosticCode.InvalidCoalescing]:
     'Coalescing and logical operators used together in the same expression must be disambiguated with parentheses',
   [DiagnosticCode.InvalidTrailSurrogate]: "Invalid lower surrogate '%0'",

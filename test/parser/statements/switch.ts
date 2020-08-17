@@ -22,6 +22,7 @@ describe('Statements - Switch', () => {
     'switch (x) { case foo: function *',
     'switch(x) { case y: (foo',
     'switch(x) { case y: (foo, '
+    //'switch(y&[]=y){}',
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {

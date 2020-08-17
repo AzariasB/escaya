@@ -1806,7 +1806,7 @@ describe('Recovery - Var', () => {
     });
   });
 
-  it('Unclosed block statementadsf', () => {
+  it('Z', () => {
     t.deepEqual(recovery('{var y = b ; /', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1849,37 +1849,22 @@ describe('Recovery - Var', () => {
             {
               type: 'ExpressionStatement',
               expression: {
-                type: 'BinaryExpression',
-                left: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 12,
-                  end: 12,
-                  kind: 13,
-                  flags: 2
-                },
-                operator: '/',
-                right: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 14,
-                  end: 14,
-                  kind: 13,
-                  flags: 2
-                },
+                type: 'RegularExpressionLiteral',
+                pattern: '',
+                flag: '',
                 start: 12,
-                end: 14,
-                kind: 155,
+                end: 15,
+                kind: 15,
                 flags: 0
               },
               start: 12,
-              end: 14,
+              end: 15,
               kind: 122,
               flags: 0
             }
           ],
           start: 0,
-          end: 14,
+          end: 15,
           kind: 123,
           flags: 0
         }
@@ -1891,11 +1876,11 @@ describe('Recovery - Var', () => {
       diagnostics: [
         {
           kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
+          source: 0,
+          message: 'Unterminated regular expression',
+          code: 12,
           start: 13,
-          length: 1
+          length: 2
         }
       ],
       detached: false,
@@ -1908,7 +1893,7 @@ describe('Recovery - Var', () => {
     });
   });
 
-  it('Unclosed block statement234765', () => {
+  it('var/{', () => {
     t.deepEqual(recovery('var/{', 'recovery.js'), {
       children: [],
       context: 0,
@@ -2009,46 +1994,8 @@ describe('Recovery - Var', () => {
                     type: 'BindingIdentifier',
                     name: '',
                     start: 12,
-                    end: 13,
-                    kind: 168,
-                    flags: 0
-                  },
-                  {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'BindingIdentifier',
-                      name: 'b',
-                      start: 14,
-                      end: 16,
-                      kind: 168,
-                      flags: 0
-                    },
-                    right: {
-                      type: 'IdentifierReference',
-                      name: '',
-                      start: 17,
-                      end: 17,
-                      kind: 13,
-                      flags: 2
-                    },
-                    start: 14,
-                    end: 17,
-                    kind: 172,
-                    flags: 0
-                  },
-                  {
-                    type: 'BindingRestElement',
-                    argument: {
-                      type: 'BindingIdentifier',
-                      name: 'a',
-                      start: 22,
-                      end: 23,
-                      kind: 168,
-                      flags: 0
-                    },
-                    start: 18,
                     end: 23,
-                    kind: 175,
+                    kind: 168,
                     flags: 0
                   }
                 ],
@@ -2077,27 +2024,11 @@ describe('Recovery - Var', () => {
       diagnostics: [
         {
           kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
+          source: 0,
+          message: 'Unterminated regular expression',
+          code: 12,
           start: 12,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 17,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`]` expected',
-          code: 5,
-          start: 22,
-          length: 1
+          length: 11
         }
       ],
       detached: false,

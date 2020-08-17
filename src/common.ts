@@ -42,9 +42,16 @@ export const enum Context {
 export const enum Flags {
   Empty = 0
 }
+
 export const enum ArrowKind {
   NORMAL,
   ASYNC
+}
+
+export const enum DestuctionKind {
+  NORMAL,
+  REST,
+  FOR
 }
 
 export const enum PropertyKind {
@@ -122,7 +129,7 @@ export function consumeSemicolon(state: ParserState, context: Context): boolean 
   // the rules given in ECMA-262, section 7.9, page 21.
   if (state.token & Token.IsAutomaticSemicolon || state.lineTerminatorBeforeNextToken) {
     // consume the semicolon if it was explicitly provided.
-    return consumeOpt(state, context, Token.Semicolon);
+    return consumeOpt(state, context | Context.AllowRegExp, Token.Semicolon);
   }
   addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedSemicolon, DiagnosticKind.Error);
   return false;

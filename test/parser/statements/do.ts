@@ -44,7 +44,19 @@ describe('Statements - Do', () => {
     `do { var [[foo]=[42]] = [] } while (j)`,
     '{ do { } while (false) false }',
     'do x();while (true)',
-    '{ do { } while (false) false }'
+    'do {} while(x) x',
+    'do x=>{}; while(y)',
+    'do debugger; while(x) x',
+    'do if (x) {} while(x) x',
+    'do switch(x){} while(x) x',
+    'do try {} catch {} while(x) x',
+    'do try {} catch {} while(x) x',
+    '{ do { } while (false) false }',
+    'do;while(x)y',
+    'do;while(j)try{}finally{}',
+    'do ; while(x) \n /foo/',
+    `do\n for((function(){});;)x \n while(x);`,
+    `do; while(x)\n /x/g`
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {

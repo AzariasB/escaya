@@ -2238,7 +2238,7 @@ describe('test262-parser-tests - early tests', () => {
         {
           kind: 3,
           source: 2,
-          message: 'A destructuring declaration must have an initializer',
+          message: 'Missing initializer in destructuring declaration',
           code: 45,
           start: 9,
           length: 1
@@ -3197,7 +3197,7 @@ describe('test262-parser-tests - early tests', () => {
         {
           kind: 2,
           source: 2,
-          message: 'A destructuring declaration must have an initializer',
+          message: 'Missing initializer in destructuring declaration',
           code: 45,
           start: 11,
           length: 1
