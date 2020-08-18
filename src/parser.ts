@@ -2157,8 +2157,8 @@ export function parseObjectBindingPattern(
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   consume(state, context, Token.LeftBrace);
   const properties = [];
-
-  while (state.token & Constants.ObjectList) {
+  const check = context & Context.ErrorRecovery ? Constants.ObjectPattern : Constants.ObjectList;
+  while (state.token & check) {
     if (state.token === Token.Ellipsis) {
       properties.push(parseBindingRestProperty(state, context, type));
       if (state.token !== Token.Comma) break;
@@ -2310,7 +2310,7 @@ export function parseArrayBindingPattern(state: ParserState, context: Context, t
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   nextToken(state, context | Context.AllowRegExp);
   const list = [];
-  const check = context & Context.ErrorRecovery ? Constants.ArrayListRecovery : Constants.ArrayListNormal;
+  const check = context & Context.ErrorRecovery ? Constants.ArrayPattern : Constants.ArrayListNormal;
   while (state.token & check) {
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
       list.push(finishNode(state, context, start, DictionaryMap.Elison(), SyntaxKind.Elison));

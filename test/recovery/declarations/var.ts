@@ -1989,31 +1989,39 @@ describe('Recovery - Var', () => {
                     end: 12,
                     kind: 168,
                     flags: 0
-                  },
-                  {
-                    type: 'BindingIdentifier',
-                    name: '',
-                    start: 12,
-                    end: 23,
-                    kind: 168,
-                    flags: 0
                   }
                 ],
                 start: 3,
-                end: 23,
+                end: 12,
                 kind: 174,
                 flags: 0
               },
               initializer: null,
               start: 3,
-              end: 23,
+              end: 12,
               kind: 144,
               flags: 0
             }
           ],
           start: 0,
-          end: 23,
+          end: 12,
           kind: 143,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'RegularExpressionLiteral',
+            pattern: ', b=, ...',
+            flag: '',
+            start: 12,
+            end: 23,
+            kind: 15,
+            flags: 0
+          },
+          start: 12,
+          end: 23,
+          kind: 122,
           flags: 0
         }
       ],

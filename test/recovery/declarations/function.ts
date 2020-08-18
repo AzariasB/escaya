@@ -1335,71 +1335,48 @@ describe('Recovery - Function', () => {
               type: 'BindingElement',
               left: {
                 type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'function',
-                    start: 11,
-                    end: 19,
-                    kind: 168,
-                    flags: 0
-                  },
-                  {
-                    type: 'PropertyName',
-                    key: {
-                      type: 'IdentifierName',
-                      name: '',
-                      start: 21,
-                      end: 21,
-                      kind: 13,
-                      flags: 0
-                    },
-                    value: {
-                      type: 'BindingIdentifier',
-                      name: 'function',
-                      start: 21,
-                      end: 29,
-                      kind: 168,
-                      flags: 0
-                    },
-                    start: 19,
-                    end: 29,
-                    kind: 227,
-                    flags: 0
-                  },
-                  {
-                    type: 'PropertyName',
-                    key: {
-                      type: 'IdentifierName',
-                      name: '',
-                      start: 31,
-                      end: 31,
-                      kind: 13,
-                      flags: 0
-                    },
-                    value: {
-                      type: 'BindingIdentifier',
-                      name: '',
-                      start: 31,
-                      end: 31,
-                      kind: 168,
-                      flags: 0
-                    },
-                    start: 29,
-                    end: 31,
-                    kind: 227,
-                    flags: 0
-                  }
-                ],
+                properties: [],
                 start: 10,
-                end: 31,
+                end: 11,
                 kind: 169,
                 flags: 0
               },
               right: null,
               start: 10,
-              end: 31,
+              end: 11,
               kind: 172,
+              flags: 0
+            },
+            {
+              type: 'BindingIdentifier',
+              name: 'function',
+              start: 11,
+              end: 19,
+              kind: 168,
+              flags: 0
+            },
+            {
+              type: 'BindingIdentifier',
+              name: '',
+              start: 19,
+              end: 21,
+              kind: 168,
+              flags: 0
+            },
+            {
+              type: 'BindingIdentifier',
+              name: 'function',
+              start: 21,
+              end: 29,
+              kind: 168,
+              flags: 0
+            },
+            {
+              type: 'BindingIdentifier',
+              name: '',
+              start: 29,
+              end: 31,
+              kind: 168,
               flags: 0
             }
           ],
@@ -1434,10 +1411,26 @@ describe('Recovery - Function', () => {
         {
           kind: 2,
           source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 11,
+          length: 8
+        },
+        {
+          kind: 2,
+          source: 2,
           message: '`,` expected',
           code: 5,
           start: 20,
           length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 21,
+          length: 8
         },
         {
           kind: 2,

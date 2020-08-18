@@ -4441,270 +4441,136 @@ describe('Recovery - Try', () => {
             type: 'CatchClause',
             binding: {
               type: 'ObjectBindingPattern',
-              properties: [
-                {
-                  type: 'PropertyName',
-                  key: {
-                    type: 'IdentifierName',
-                    name: '',
-                    start: 15,
-                    end: 15,
-                    kind: 13,
-                    flags: 0
-                  },
-                  value: {
-                    type: 'BindingIdentifier',
-                    name: '',
-                    start: 15,
-                    end: 16,
-                    kind: 168,
-                    flags: 0
-                  },
-                  start: 14,
-                  end: 16,
-                  kind: 227,
-                  flags: 0
-                },
-                {
-                  type: 'PropertyName',
-                  key: {
-                    type: 'IdentifierName',
-                    name: '',
-                    start: 17,
-                    end: 17,
-                    kind: 13,
-                    flags: 0
-                  },
-                  value: {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ObjectBindingPattern',
-                      properties: [],
-                      start: 17,
-                      end: 19,
-                      kind: 169,
-                      flags: 0
-                    },
-                    right: null,
-                    start: 17,
-                    end: 19,
-                    kind: 172,
-                    flags: 0
-                  },
-                  start: 16,
-                  end: 19,
-                  kind: 227,
-                  flags: 0
-                },
-                {
-                  type: 'PropertyName',
-                  key: {
-                    type: 'IdentifierName',
-                    name: '',
-                    start: 20,
-                    end: 20,
-                    kind: 13,
-                    flags: 0
-                  },
-                  value: {
-                    type: 'BindingIdentifier',
-                    name: '',
-                    start: 20,
-                    end: 21,
-                    kind: 168,
-                    flags: 0
-                  },
-                  start: 19,
-                  end: 21,
-                  kind: 227,
-                  flags: 0
-                },
-                {
-                  type: 'PropertyName',
-                  key: {
-                    type: 'IdentifierName',
-                    name: '',
-                    start: 22,
-                    end: 22,
-                    kind: 13,
-                    flags: 0
-                  },
-                  value: {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ObjectBindingPattern',
-                      properties: [],
-                      start: 22,
-                      end: 24,
-                      kind: 169,
-                      flags: 0
-                    },
-                    right: null,
-                    start: 22,
-                    end: 24,
-                    kind: 172,
-                    flags: 0
-                  },
-                  start: 21,
-                  end: 24,
-                  kind: 227,
-                  flags: 0
-                },
-                {
-                  type: 'PropertyName',
-                  key: {
-                    type: 'IdentifierName',
-                    name: '',
-                    start: 25,
-                    end: 25,
-                    kind: 13,
-                    flags: 0
-                  },
-                  value: {
-                    type: 'BindingIdentifier',
-                    name: '',
-                    start: 25,
-                    end: 26,
-                    kind: 168,
-                    flags: 0
-                  },
-                  start: 24,
-                  end: 26,
-                  kind: 227,
-                  flags: 0
-                },
-                {
-                  type: 'PropertyName',
-                  key: {
-                    type: 'IdentifierName',
-                    name: '',
-                    start: 27,
-                    end: 27,
-                    kind: 13,
-                    flags: 0
-                  },
-                  value: {
-                    type: 'BindingIdentifier',
-                    name: '',
-                    start: 27,
-                    end: 28,
-                    kind: 168,
-                    flags: 0
-                  },
-                  start: 26,
-                  end: 28,
-                  kind: 227,
-                  flags: 0
-                },
-                {
-                  type: 'PropertyName',
-                  key: {
-                    type: 'IdentifierName',
-                    name: '',
-                    start: 29,
-                    end: 29,
-                    kind: 13,
-                    flags: 0
-                  },
-                  value: {
-                    type: 'BindingIdentifier',
-                    name: '',
-                    start: 29,
-                    end: 30,
-                    kind: 168,
-                    flags: 0
-                  },
-                  start: 28,
-                  end: 30,
-                  kind: 227,
-                  flags: 0
-                },
-                {
-                  type: 'PropertyName',
-                  key: {
-                    type: 'IdentifierName',
-                    name: '',
-                    start: 31,
-                    end: 31,
-                    kind: 13,
-                    flags: 0
-                  },
-                  value: {
-                    type: 'BindingIdentifier',
-                    name: '',
-                    start: 31,
-                    end: 32,
-                    kind: 168,
-                    flags: 0
-                  },
-                  start: 30,
-                  end: 32,
-                  kind: 227,
-                  flags: 0
-                },
-                {
-                  type: 'PropertyName',
-                  key: {
-                    type: 'IdentifierName',
-                    name: '',
-                    start: 33,
-                    end: 33,
-                    kind: 13,
-                    flags: 0
-                  },
-                  value: {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ObjectBindingPattern',
-                      properties: [
-                        {
-                          type: 'BindingIdentifier',
-                          name: 'x',
-                          start: 34,
-                          end: 35,
-                          kind: 168,
-                          flags: 0
-                        }
-                      ],
-                      start: 33,
-                      end: 35,
-                      kind: 169,
-                      flags: 0
-                    },
-                    right: null,
-                    start: 33,
-                    end: 35,
-                    kind: 172,
-                    flags: 0
-                  },
-                  start: 32,
-                  end: 35,
-                  kind: 227,
-                  flags: 0
-                }
-              ],
+              properties: [],
               start: 13,
-              end: 35,
+              end: 14,
               kind: 169,
               flags: 0
             },
             block: {
               type: 'BlockStatement',
               leafs: [],
-              start: 36,
-              end: 36,
+              start: 14,
+              end: 16,
               kind: 123,
               flags: 0
             },
             start: 6,
-            end: 36,
+            end: 16,
             kind: 140,
             flags: 0
           },
           finalizer: null,
           start: 0,
-          end: 36,
+          end: 16,
           kind: 138,
+          flags: 0
+        },
+        {
+          type: 'BlockStatement',
+          leafs: [
+            {
+              type: 'BlockStatement',
+              leafs: [],
+              start: 17,
+              end: 19,
+              kind: 123,
+              flags: 0
+            },
+            {
+              type: 'BlockStatement',
+              leafs: [],
+              start: 19,
+              end: 21,
+              kind: 123,
+              flags: 0
+            },
+            {
+              type: 'BlockStatement',
+              leafs: [
+                {
+                  type: 'BlockStatement',
+                  leafs: [],
+                  start: 22,
+                  end: 24,
+                  kind: 123,
+                  flags: 0
+                },
+                {
+                  type: 'BlockStatement',
+                  leafs: [],
+                  start: 24,
+                  end: 26,
+                  kind: 123,
+                  flags: 0
+                },
+                {
+                  type: 'BlockStatement',
+                  leafs: [],
+                  start: 26,
+                  end: 28,
+                  kind: 123,
+                  flags: 0
+                },
+                {
+                  type: 'BlockStatement',
+                  leafs: [],
+                  start: 28,
+                  end: 30,
+                  kind: 123,
+                  flags: 0
+                },
+                {
+                  type: 'BlockStatement',
+                  leafs: [],
+                  start: 30,
+                  end: 32,
+                  kind: 123,
+                  flags: 0
+                },
+                {
+                  type: 'BlockStatement',
+                  leafs: [
+                    {
+                      type: 'BlockStatement',
+                      leafs: [
+                        {
+                          type: 'ExpressionStatement',
+                          expression: {
+                            type: 'IdentifierReference',
+                            name: 'x',
+                            start: 34,
+                            end: 35,
+                            kind: 13,
+                            flags: 0
+                          },
+                          start: 34,
+                          end: 35,
+                          kind: 122,
+                          flags: 0
+                        }
+                      ],
+                      start: 33,
+                      end: 35,
+                      kind: 123,
+                      flags: 0
+                    }
+                  ],
+                  start: 32,
+                  end: 35,
+                  kind: 123,
+                  flags: 0
+                }
+              ],
+              start: 21,
+              end: 35,
+              kind: 123,
+              flags: 0
+            }
+          ],
+          start: 16,
+          end: 35,
+          kind: 123,
           flags: 0
         },
         {
@@ -4737,139 +4603,19 @@ describe('Recovery - Try', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`}` expected',
+          code: 5,
           start: 14,
           length: 1
         },
         {
           kind: 2,
           source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
-          start: 15,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 16,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 19,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
-          start: 20,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 21,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 24,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
-          start: 25,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 26,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
-          start: 27,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 28,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
-          start: 29,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 30,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
-          start: 31,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 32,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 35,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`{` expected',
-          code: 5,
-          start: 36,
           length: 1
         }
       ],

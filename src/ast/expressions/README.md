@@ -287,7 +287,7 @@ interface BindingRestElement <: Expression {
 ```js
 interface ArrayBindingPattern <: Expression {
     type: 'ArrayBindingPattern';
-    elements: [ Elison | BindingRestElement | BindingElement ];
+    elements: [ Elison | BindingRestElement | BindingIdentifier | BindingElement ];
 }
 ```
 
