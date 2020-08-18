@@ -81,17 +81,15 @@ describe('Statements - Break', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'IdentifierReference',
-
             name: 'x',
             start: 5,
             end: 6
           },
           expression: {
             type: 'IdentifierReference',
-
             name: 'y',
             start: 10,
             end: 11

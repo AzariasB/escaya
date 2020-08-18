@@ -99,10 +99,10 @@ describe('Declarations - Let', () => {
     'for (let\nfoo);',
     'let {...obj1,} = foo',
     'for (let\nfoo());',
-    /*`do let
+    `do let
     [x] = 0
-    while (false);`,*/
-    // 'for (let\nfoo();;);',
+    while (false);`,
+    'for (let\nfoo();;);',
     'class x { foo() { let[foo]; }}',
     'function f(){ let[foo]; }',
     'let {foo: let = y} = x;',
@@ -131,7 +131,7 @@ describe('Declarations - Let', () => {
     'let [...[...[...x?.a]]] = [x?.[[]]];',
     'let [...[...[...x?.a]]] = [[[]]];',
     'let [...[...[...x]]] = [?.a[[]]];',
-    // 'do let [x] = 0; while (false);',
+    'do let [x] = 0; while (false);',
     'let [...x = []] = [];',
     'let {...{}} = {};',
     'let { ...x, y, z } = obj;'

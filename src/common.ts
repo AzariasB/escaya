@@ -124,6 +124,12 @@ export interface ParserState {
   lastChar: number;
 }
 
+export function canParseSemicolon(state: ParserState): boolean {
+  return (
+    state.lineTerminatorBeforeNextToken || (state.token & Token.IsAutomaticSemicolon) === Token.IsAutomaticSemicolon
+  );
+}
+
 export function consumeSemicolon(state: ParserState, context: Context): boolean {
   // Check for automatic semicolon insertion according to
   // the rules given in ECMA-262, section 7.9, page 21.

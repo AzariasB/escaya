@@ -447,7 +447,15 @@ describe('Declarations - Function', () => {
     'function *f(){ return [...yield x]; }',
     'function *f(){ return [...yield]; }',
     'function f([...x]) {}',
+    `function f(async = await){}`,
+    `function f([async = await]){}`,
     'function f([x = 23] = []) {}',
+    `(function () {
+      let q;
+      let w;
+      let e;
+      if (true) [q, w, e] = [1, 2, 3].map(()=>123);
+    })();`,
     `function j(...a) {}
     function k() {}
     var l = function () {};

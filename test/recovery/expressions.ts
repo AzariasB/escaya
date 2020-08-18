@@ -835,10 +835,10 @@ describe('Recovery - Expressions', () => {
         {
           code: 104,
           kind: 3,
-          length: 4,
+          length: 15,
           message: 'Invalid left-hand side in for-loop',
           source: 2,
-          start: 15
+          start: 4
         }
       ],
       detached: false,

@@ -848,7 +848,7 @@ describe('Recovery - For', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'ForDeclaration',
             isConst: false,
@@ -983,7 +983,7 @@ describe('Recovery - For', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'IdentifierReference',
             name: 'of',
@@ -1044,7 +1044,7 @@ describe('Recovery - For', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'ForDeclaration',
             isConst: false,
@@ -1215,7 +1215,7 @@ describe('Recovery - For', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'ForDeclaration',
             isConst: true,
@@ -1331,7 +1331,7 @@ describe('Recovery - For', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'ForDeclaration',
             isConst: true,
@@ -1410,7 +1410,7 @@ describe('Recovery - For', () => {
       end: 15
     });
   });
-  it('for keyword7890+', () => {
+  it('for (a.d.', () => {
     t.deepEqual(recovery('for (a.d.', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1517,7 +1517,7 @@ describe('Recovery - For', () => {
       end: 9
     });
   });
-  it('for keyword890435', () => {
+  it('for(a[', () => {
     t.deepEqual(recovery('for(a[', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1608,7 +1608,7 @@ describe('Recovery - For', () => {
       end: 6
     });
   });
-  it('for keyword09825', () => {
+  it('for(ab.[a', () => {
     t.deepEqual(recovery('for(ab.[a', 'recovery.js'), {
       kind: 209,
       directives: [],

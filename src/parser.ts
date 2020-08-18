@@ -25,7 +25,6 @@ import { Expression, Parameter, BindingPattern, LeftHandSideExpression } from '.
 import { parseBlockElements, parseBindingElements, parseListElements } from './incremental/incremental';
 import { createIdentifier, createBindingIdentifier } from './incremental/common';
 import { MemberExpression } from './ast/expressions/member-expr';
-import { Elison } from './ast/expressions/elison';
 import { IdentifierReference, createIdentifierReference } from './ast/expressions/identifierreference';
 import { OptionalExpression } from './ast/expressions/optional-expr';
 import { AssignmentRestElement } from './ast/expressions/assignment-rest-element';
@@ -86,7 +85,7 @@ import { LexicalDeclaration } from './ast/declarations/lexical-declaration';
 import { VariableStatement } from './ast/statements/variable-stmt';
 import { VariableDeclaration } from './ast/declarations/variable-declaration';
 import { SwitchStatement } from './ast/statements/switch-stmt';
-import { addDiagnostic, addEarlyDiagnostic, DiagnosticSource, DiagnosticKind } from './diagnostic';
+import { addDiagnostic, addparserDiagnostic, addEarlyDiagnostic, DiagnosticSource, DiagnosticKind } from './diagnostic';
 import { DiagnosticCode } from './diagnostic/diagnostic-code';
 import { Token, KeywordDescTable } from './ast/token';
 import { Constants } from './constants';
@@ -107,6 +106,7 @@ import {
   PropertyKind,
   ArrowKind,
   finishNode,
+  canParseSemicolon,
   validateFunctionName,
   validateIdentifierReference,
   reinterpretToPattern,
@@ -575,10 +575,7 @@ export function parseReturnStatement(state: ParserState, context: Context): Retu
   if ((context & Context.Return) === 0) addEarlyDiagnostic(state, context, DiagnosticCode.IllegalReturn);
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
-  const expression =
-    state.lineTerminatorBeforeNextToken || (state.token & Token.IsAutomaticSemicolon) === Token.IsAutomaticSemicolon
-      ? null
-      : parseExpressions(state, context);
+  const expression = canParseSemicolon(state) ? null : parseExpressions(state, context);
   consumeSemicolon(state, context);
   return finishNode(state, context, start, DictionaryMap.ReturnStatement(expression), SyntaxKind.ReturnStatement);
 }
@@ -601,25 +598,23 @@ export function parseForStatement(
   context: Context
 ): ForStatement | ForAwaitStatement | ForOfStatement | ForInStatement {
   const start = state.startIndex;
+
   consume(state, context, Token.ForKeyword);
-  let isAwait = false;
-  if (context & Context.Await && state.token === Token.AwaitKeyword) {
-    nextToken(state, context);
-    isAwait = true;
-  }
+
+  let isAwait = (context & Context.Await) === Context.Await && consumeOpt(state, context, Token.AwaitKeyword);
 
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
 
-  let initializer = null;
-  let destructible = Destructible.None;
+  let initializer!: ForDeclaration | Expression;
+  let innerStart = state.startIndex;
 
   if (state.token !== Token.Semicolon) {
+    // 'var', 'let', 'const'
     if (state.token & Token.IsVarLexical) {
-      const innerStart = state.startIndex;
-
       if (state.token === Token.LetKeyword) {
         initializer = parseIdentifierReference(state, context);
-        if (state.token & (Token.IsIdentifier | Token.IsFutureReserved | Token.IsKeyword | Token.IsPatternStart)) {
+
+        if (state.token & Constants.IsPatternOrIdentifierNormal) {
           if (state.token === Token.InKeyword) {
             if (context & Context.Strict) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
           } else {
@@ -634,19 +629,14 @@ export function parseForStatement(
             state.assignable = true;
           }
         } else {
-          // In sloppy mode, `let` must now be a regular var name.
-          if (context & Context.Strict) {
-            addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
-          }
+          if (context & Context.Strict) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
 
-          // `for of` only allows LeftHandSideExpressions which do not start with `let`, and no other production matches
           state.assignable = true;
 
           initializer = parseMemberExpression(state, context, initializer, true, start);
 
-          if (state.token === Token.OfKeyword) {
-            addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
-          }
+          // `for of` only allows LeftHandSideExpressions which do not start with `let`, and no other production matches
+          if (state.token === Token.OfKeyword) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
         }
       } else if (consumeOpt(state, context, Token.ConstKeyword)) {
         initializer = parseForDeclaration(
@@ -708,8 +698,8 @@ export function parseForStatement(
         );
       }
 
-      let condition = null;
-      let incrementor = null;
+      let condition: Expression | null = null;
+      let incrementor: Expression | null = null;
 
       initializer = parseExpressionOrHigher(state, context, initializer, state.startIndex);
 
@@ -736,6 +726,8 @@ export function parseForStatement(
         SyntaxKind.ForStatement
       );
     }
+
+    let destructible = Destructible.None;
     if (state.token & Token.IsPatternStart) {
       // Because we are parsing out initializer and transform to assignment pattern in
       // 'ObjectLiteral' and 'ArrayLiteral', we must pass 'DestuctionKind.FOR'. This because
@@ -747,17 +739,11 @@ export function parseForStatement(
           ? parseObjectLiteral(state, context, DestuctionKind.FOR, BindingType.Literal)
           : parseArrayLiteral(state, context, DestuctionKind.FOR, BindingType.Literal);
 
-      if (state.token & Token.IsAssignOp && state.token !== Token.Assign) {
-        addEarlyDiagnostic(state, context, DiagnosticCode.CompundArrLit); // InvalidCompoundAssign
-      }
-
       destructible = state.destructible;
 
       state.assignable = (destructible & Destructible.NotDestructible) !== Destructible.NotDestructible;
 
-      initializer = parseMemberExpression(state, context, initializer, true, state.index);
-
-      destructible = state.destructible;
+      initializer = parseMemberExpression(state, context, initializer, true, state.startIndex);
     } else {
       initializer = parseLeftHandSideExpression(state, context | Context.DisallowIn);
     }
@@ -768,7 +754,7 @@ export function parseForStatement(
       ? consume(state, context | Context.AllowRegExp, Token.OfKeyword)
       : consumeOpt(state, context | Context.AllowRegExp, Token.OfKeyword)
   ) {
-    if (!state.assignable) addEarlyDiagnostic(state, context, DiagnosticCode.LHSAForLoop);
+    if (!state.assignable) addparserDiagnostic(state, context, innerStart, DiagnosticCode.LHSAForLoop);
     reinterpretToAssignment(initializer);
     const expression = parseExpression(state, context);
     consume(state, context | Context.AllowRegExp, Token.RightParen);
@@ -788,7 +774,7 @@ export function parseForStatement(
   }
 
   if (consumeOpt(state, context | Context.AllowRegExp, Token.InKeyword)) {
-    if (!state.assignable) addEarlyDiagnostic(state, context, DiagnosticCode.LHSAForLoop);
+    if (!state.assignable) addparserDiagnostic(state, context, innerStart, DiagnosticCode.LHSAForLoop);
     reinterpretToAssignment(initializer);
     const expression = parseExpressions(state, context);
     consume(state, context | Context.AllowRegExp, Token.RightParen);
@@ -801,8 +787,8 @@ export function parseForStatement(
     );
   }
 
-  let condition = null;
-  let incrementor = null;
+  let condition: Expression | null = null;
+  let incrementor: Expression | null = null;
 
   if (state.destructible & Destructible.MustDestruct) addEarlyDiagnostic(state, context, DiagnosticCode.ObjCoverInit);
 
@@ -865,15 +851,20 @@ export function parseBindingList(
   cb: PatternCallback
 ): (LexicalBinding | VariableDeclaration)[] {
   const declarationList = [];
-
+  let count = 0;
   const check =
     context & Context.ErrorRecovery ? Constants.IsPatternOrIdentifierRecovery : Constants.IsPatternOrIdentifierNormal;
   while (state.token & check) {
     declarationList.push(parseBindingElements(state, context, type, cb));
+    count++;
     if (consumeOpt(state, context, Token.Comma)) continue;
     if (state.token & (Token.IsInOrOf | Token.IsAutomaticSemicolon) || state.lineTerminatorBeforeNextToken) break;
 
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedForDecl, DiagnosticKind.Error);
+  }
+  if (count > 1 && state.token & Token.IsInOrOf) {
+    const code = state.token === Token.OfKeyword ? DiagnosticCode.MultipleOfDecl : DiagnosticCode.MultipleInDecl;
+    addEarlyDiagnostic(state, context, code);
   }
   return declarationList;
 }
@@ -883,20 +874,20 @@ export function parseBindingList(
 //   BindingPattern Initializer
 export function parseForLexicalBinding(state: ParserState, context: Context, type: BindingType): LexicalBinding {
   const start = state.startIndex;
-  const token = state.token;
   let initializer = null;
-  const binding = parseBindingPatternOrIdentifier(state, context, type);
+  let isPattern = state.token & Token.IsPatternStart;
+  let binding = parseBindingPatternOrIdentifier(state, context, type);
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
     initializer = parseExpression(state, context);
-    if (state.token & Token.IsInOrOf && token & Token.IsPatternStart) {
-      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.MissingDestructInit, DiagnosticKind.Error);
+    if (state.token & Token.IsInOrOf) {
+      const code = state.token === Token.OfKeyword ? DiagnosticCode.LHSForOfD : DiagnosticCode.LHSForInD;
+      addEarlyDiagnostic(state, context, code);
     }
-  } else if (
-    (token & Token.IsPatternStart || type === BindingType.Const) &&
-    (state.token & Token.IsInOrOf) !== Token.IsInOrOf
-  ) {
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.MissingDestructInit, DiagnosticKind.Error);
+    // Normal const declarations, and const declarations in for(;;) heads, must be initialized.
+  } else if ((isPattern || type === BindingType.Const) && (state.token & Token.IsInOrOf) !== Token.IsInOrOf) {
+    addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
   }
+
   return finishNode(
     state,
     context,
@@ -906,7 +897,7 @@ export function parseForLexicalBinding(state: ParserState, context: Context, typ
   );
 }
 
-// VariableDeclaration :
+// VariableDeclaration :   [MODIFIED]
 //   BindingIdentifier Initializer?
 //   BindingPattern Initializer
 export function parseForVariableDeclaration(
@@ -915,14 +906,33 @@ export function parseForVariableDeclaration(
   type: BindingType
 ): VariableDeclaration {
   const start = state.startIndex;
-  const token = state.token;
-  const binding = parseBindingPatternOrIdentifier(state, context, type);
+  let binding!: BindingIdentifier | ArrayBindingPattern | ObjectBindingPattern;
   let initializer = null;
-  if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
-    initializer = parseExpression(state, context);
-  } else if (token & Token.IsPatternStart && (state.token & Token.IsInOrOf) !== Token.IsInOrOf) {
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.MissingDestructInit, DiagnosticKind.Error);
+  if (state.token & Token.IsPatternStart) {
+    binding = parseBindingPattern(state, context, type);
+    if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
+      initializer = parseExpression(state, context);
+      if (state.token & Token.IsInOrOf) {
+        const code = state.token === Token.OfKeyword ? DiagnosticCode.LHSForInD : DiagnosticCode.LHSForInD;
+        addEarlyDiagnostic(state, context, code);
+      }
+    } else if ((state.token & Token.IsInOrOf) !== Token.IsInOrOf) {
+      addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
+    }
+  } else {
+    binding = parseBindingIdentifier(state, context, type);
+    if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
+      initializer = parseExpression(state, context);
+      if (
+        state.token === Token.OfKeyword ||
+        (state.token === Token.InKeyword && context & (Context.Strict | Context.OptionsDisableWebCompat))
+      ) {
+        const code = state.token === Token.OfKeyword ? DiagnosticCode.LHSForInD : DiagnosticCode.LHSForInD;
+        addEarlyDiagnostic(state, context, code);
+      }
+    }
   }
+
   return finishNode(
     state,
     context,
@@ -952,6 +962,11 @@ export function parseExpressionOrLabelledStatement(
     state.token === Token.Colon
   ) {
     return parseLabelledStatement(state, context, token, tokenValue, startIndex);
+  }
+
+  // 'let' followed by '[' means a lexical declaration, which should not appear here.
+  if (token === Token.LetKeyword && state.token === Token.LeftBracket) {
+    addEarlyDiagnostic(state, context, DiagnosticCode.RestricedLet);
   }
 
   expr = parseExpressionOrHigher(state, context, expr, startIndex);
@@ -1140,14 +1155,23 @@ export function parseVariableStatement(state: ParserState, context: Context): Va
 //   BindingPattern Initializer
 export function parseVariableDeclaration(state: ParserState, context: Context, type: BindingType): VariableDeclaration {
   const start = state.startIndex;
-  const token = state.token;
-  const binding = parseBindingPatternOrIdentifier(state, context, type);
+  let binding!: BindingIdentifier | ArrayBindingPattern | ObjectBindingPattern;
   let initializer = null;
-  if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
-    initializer = parseExpression(state, context);
-  } else if (token & Token.IsPatternStart) {
-    addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
+  if (state.token & Token.IsPatternStart) {
+    binding = parseBindingPattern(state, context, type);
+    if (state.token === Token.Assign) {
+      nextToken(state, context | Context.AllowRegExp);
+      initializer = parseExpression(state, context);
+    } else {
+      addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
+    }
+  } else {
+    binding = parseBindingIdentifier(state, context, type);
+    if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
+      initializer = parseExpression(state, context);
+    }
   }
+
   return finishNode(
     state,
     context,
@@ -1235,13 +1259,23 @@ export function parseAsyncAsIdentifierReference(state: ParserState, context: Con
 //   BindingPattern Initializer
 export function parseLexicalBinding(state: ParserState, context: Context, type: BindingType): LexicalBinding {
   const start = state.startIndex;
-  const token = state.token;
+  let binding!: BindingIdentifier | ArrayBindingPattern | ObjectBindingPattern;
   let initializer = null;
-  const binding = parseBindingPatternOrIdentifier(state, context, type);
-  if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
-    initializer = parseExpression(state, context);
-  } else if (token & Token.IsPatternStart || type === BindingType.Const) {
-    addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
+  if (state.token & Token.IsPatternStart) {
+    binding = parseBindingPattern(state, context, type);
+    if (state.token === Token.Assign) {
+      nextToken(state, context | Context.AllowRegExp);
+      initializer = parseExpression(state, context);
+    } else {
+      addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
+    }
+  } else {
+    binding = parseBindingIdentifier(state, context, type);
+    if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
+      initializer = parseExpression(state, context);
+    } else if (type === BindingType.Const) {
+      addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
+    }
   }
   return finishNode(
     state,
@@ -1901,6 +1935,8 @@ export function parsePrimaryExpression(state: ParserState, context: Context): Le
       return parseUnaryExpression(state, context);
     case Token.NumericLiteral:
       return parseNumericLiteral(state, context);
+    case Token.BigIntLiteral:
+      return parseBigIntLiteral(state, context);
     case Token.StringLiteral:
       return parseStringLiteral(state, context);
     case Token.NullKeyword:
@@ -2012,6 +2048,13 @@ export function parseNumericLiteral(state: ParserState, context: Context): Numer
   state.assignable = false;
   nextToken(state, context);
   return finishNode(state, context, start, DictionaryMap.NumericLiteral(value), SyntaxKind.NumericLiteral);
+}
+export function parseBigIntLiteral(state: ParserState, context: Context): NumericLiteral {
+  const start = state.startIndex;
+  const value = state.tokenValue;
+  state.assignable = false;
+  nextToken(state, context);
+  return finishNode(state, context, start, DictionaryMap.BigInt(value), SyntaxKind.BigIntLiteral);
 }
 
 // TemplateLiteral
@@ -2219,17 +2262,16 @@ export function parseBindingElement(
   const start = state.startIndex;
 
   let left;
-  let right = null;
 
   if (state.token & Token.IsPatternStart) {
     left = parseBindingPattern(state, context, type);
-    if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) right = parseExpression(state, context);
-    return finishNode(state, context, start, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement);
+  } else {
+    left = parseBindingIdentifier(state, context, type);
+    if (state.token !== Token.Assign) return left;
   }
 
-  left = parseBindingIdentifier(state, context, type);
-  if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) return left;
-  right = parseExpression(state, context);
+  const right = consumeOpt(state, context | Context.AllowRegExp, Token.Assign) ? parseExpression(state, context) : null;
+
   return finishNode(state, context, start, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement);
 }
 
@@ -2364,15 +2406,15 @@ export function parseElementList(
   if (state.token & Constants.IsIdentifierOrKeyword) {
     let left = parsePrimaryExpression(state, context);
 
+    // Array with only one identifier followed by an assignment, '[a = ', are destructible unless this is a keyword.
+    if (state.token === Token.Assign) return parseAssignmentExpression(state, context, left, start);
+
     // Array with only one identifier, should be 'destructible' except for a few valid identifiers / keywords
     // that can't be assigned to. For example `true` and `typeof`.
     if (state.token === Token.RightBracket || state.token === Token.Comma) {
       state.destructible = state.assignable ? Destructible.None : Destructible.NotDestructible;
       return left;
     }
-
-    // Array with only one identifier followed by an assignment, '[a = ', are destructible unless this is a keyword.
-    if (state.token === Token.Assign) return parseAssignmentExpression(state, context, left, start);
 
     let destructible =
       type & BindingType.ArgumentList
@@ -2641,21 +2683,33 @@ export function parseAssignmentElement(
 ): AssignmentElement {
   if (state.token !== Token.Assign) addEarlyDiagnostic(state, context, DiagnosticCode.CompundArrLit);
 
-  if (destructible & Destructible.NotDestructible) {
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
-  }
+  if (destructible & Destructible.NotDestructible) addEarlyDiagnostic(state, context, DiagnosticCode.iBDestruct);
 
+  let innerStart = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
 
   reinterpretToAssignment(left);
 
-  const right = parseExpression(state, context);
+  if (kind === DestuctionKind.FOR) context |= Context.DisallowIn;
 
-  state.destructible = (destructible | Destructible.MustDestruct) ^ Destructible.MustDestruct;
+  const right = parseExpression(state, context);
+  destructible = (destructible | Destructible.MustDestruct) ^ Destructible.MustDestruct;
 
   // A rest element cannot have an initializer, so for cases like '[...{a = b} = c] = d;' , we
   // need to set the destructibe to 'NotDestructible'
-  if (kind !== DestuctionKind.NORMAL) state.destructible = Destructible.NotDestructible;
+  if (kind !== DestuctionKind.NORMAL) {
+    if (kind === DestuctionKind.FOR && state.token & Token.IsInOrOf) {
+      addparserDiagnostic(
+        state,
+        context,
+        innerStart,
+        state.token === Token.OfKeyword ? DiagnosticCode.LHSForOf : DiagnosticCode.LHSForIn
+      );
+    }
+    destructible = Destructible.NotDestructible;
+  }
+
+  state.destructible = destructible;
 
   return finishNode(state, context, start, DictionaryMap.AssignmentElement(left, right), SyntaxKind.AssignmentElement);
 }
@@ -2904,7 +2958,7 @@ export function parsePropertyName(state: ParserState, context: Context): any {
     return parseNumericLiteral(state, context);
   }
   if (state.token === Token.BigIntLiteral) {
-    //return parseBigint NumericLiteral(state, context);
+    return parseBigIntLiteral(state, context);
   }
   return parseIdentifierName(state, context);
 }
@@ -3843,6 +3897,10 @@ export function parseClassElement(
     let key: IdentifierName | Expression = parseIdentifierName(state, context);
 
     if (!isStatic && token === Token.StaticKeyword) {
+      if (state.token === Token.LeftParen) {
+        const method = parseMethodDefinition(state, context, key, kind);
+        return finishNode(state, context, start, DictionaryMap.ClassElement(isStatic, method), SyntaxKind.ClassElement);
+      }
       return parseClassElement(state, context, inheritedContext, true, kind);
     }
 
@@ -3859,6 +3917,9 @@ export function parseClassElement(
       if ((kind & (PropertyKind.Async | PropertyKind.Setter | PropertyKind.Generator | PropertyKind.Getter)) === 0) {
         addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedAccessor, DiagnosticKind.Error);
       }
+      if (state.token === Token.Multiply) {
+        addEarlyDiagnostic(state, context, DiagnosticCode.ExpectedAccessor);
+      }
       if (state.token === Token.LeftBracket) {
         consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket);
         key = parseExpression(state, (inheritedContext | Context.DisallowIn) ^ Context.DisallowIn);
@@ -3871,6 +3932,11 @@ export function parseClassElement(
           SyntaxKind.ComputedPropertyName
         );
       } else {
+        if (isStatic) {
+          if (state.tokenValue === 'prototype') {
+            addEarlyDiagnostic(state, context, DiagnosticCode.StaticPrototype);
+          }
+        }
         if (!isStatic && state.tokenValue === 'constructor') {
           addEarlyDiagnostic(state, context, DiagnosticCode.ExpectedAccessor);
         }
@@ -3887,8 +3953,14 @@ export function parseClassElement(
 
     return finishNode(state, context, start, DictionaryMap.ClassElement(isStatic, method), SyntaxKind.ClassElement);
   }
+
   if (consumeOpt(state, context, Token.Multiply)) kind |= PropertyKind.Generator;
-  if (state.tokenValue === 'constructor') kind |= PropertyKind.Constructor;
+  if (state.tokenValue === 'constructor') {
+    if (!isStatic && kind & PropertyKind.Generator) {
+      addEarlyDiagnostic(state, context, DiagnosticCode.ExpectedAccessor);
+    }
+    kind |= PropertyKind.Constructor;
+  }
   const method = parseMethodDefinition(state, context, parsePropertyName(state, inheritedContext), kind);
 
   return finishNode(state, context, start, DictionaryMap.ClassElement(isStatic, method), SyntaxKind.ClassElement);

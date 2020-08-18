@@ -1287,7 +1287,6 @@ describe('Expressions - Array', () => {
     '[delete x.y]',
     '[x, y, z, ...a] = [1, 2, 3];',
     '[...{eval}.x] = [];',
-
     '[...[...[...[...[]]]]] ',
     '[...a] = [1, "hello", true];',
     '[function(){}]',

@@ -195,7 +195,7 @@ describe('test262-parser-tests - early tests', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'ForDeclaration',
             isConst: false,
@@ -461,10 +461,10 @@ describe('test262-parser-tests - early tests', () => {
         {
           code: 104,
           kind: 3,
-          length: 1,
+          length: 10,
           message: 'Invalid left-hand side in for-loop',
           source: 2,
-          start: 13
+          start: 4
         }
       ],
       detached: false,
@@ -483,7 +483,7 @@ describe('test262-parser-tests - early tests', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'ForDeclaration',
             isConst: true,
@@ -3195,7 +3195,7 @@ describe('test262-parser-tests - early tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'Missing initializer in destructuring declaration',
           code: 45,
@@ -3291,7 +3291,7 @@ describe('test262-parser-tests - early tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'The left-hand side of an assignment expression must be a variable or a property access',
           code: 96,
@@ -3427,7 +3427,7 @@ describe('test262-parser-tests - early tests', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'ObjectAssignmentPattern',
             properties: [
@@ -3487,12 +3487,12 @@ describe('test262-parser-tests - early tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 104,
           kind: 3,
-          length: 1,
-          message: 'Invalid left-hand side in for-loop',
           source: 2,
-          start: 14
+          message: 'Invalid left-hand side in for-loop',
+          code: 104,
+          start: 4,
+          length: 11
         }
       ],
       detached: false,
@@ -5283,7 +5283,7 @@ describe('test262-parser-tests - early tests', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'ForDeclaration',
             isConst: true,
@@ -6168,7 +6168,7 @@ describe('test262-parser-tests - early tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'The left-hand side of an assignment expression must be a variable or a property access',
           code: 96,

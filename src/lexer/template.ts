@@ -147,11 +147,11 @@ export function scanTemplateSpan(state: ParserState, context: Context): Token {
   let ret: string | null = '';
   let lastIsCR = 0;
   const start = state.index;
-  let ch = source.charCodeAt(state.index);
+  let cp = source.charCodeAt(state.index);
 
   while (state.index < state.length) {
     // '`'
-    if (ch === Char.Backtick) {
+    if (cp === Char.Backtick) {
       state.tokenValue = ret;
       state.index++; // skips '`'
       state.tokenRaw = source.slice(start, state.index - 1);
@@ -159,7 +159,7 @@ export function scanTemplateSpan(state: ParserState, context: Context): Token {
     }
 
     // '${'
-    if (ch === Char.Dollar) {
+    if (cp === Char.Dollar) {
       const index = state.index + 1;
       if (index < state.length && source.charCodeAt(index) === Char.LeftBrace) {
         state.index = index + 1; // Consume '$', '{'
@@ -171,13 +171,13 @@ export function scanTemplateSpan(state: ParserState, context: Context): Token {
     }
 
     // Escape character
-    if (ch === Char.Backslash) {
+    if (cp === Char.Backslash) {
       state.index++;
-      const ch = source.charCodeAt(state.index);
+      const cp = source.charCodeAt(state.index);
       // The TV of LineContinuation :: \ LineTerminatorSequence is the empty
       // code unit sequence.
-      if ((unicodeLookup[(ch >>> 5) + 69632] >>> ch) & 31 & 1) {
-        if (ch === Char.CarriageReturn) {
+      if ((unicodeLookup[(cp >>> 5) + 69632] >>> cp) & 31 & 1) {
+        if (cp === Char.CarriageReturn) {
           state.index++;
           if (source.charCodeAt(state.index) === Char.LineFeed) {
             state.index++;
@@ -186,7 +186,7 @@ export function scanTemplateSpan(state: ParserState, context: Context): Token {
         state.columnOffset = state.index;
         state.line++;
       } else {
-        const code = parseTemplateEscape(state, context, source, ch);
+        const code = parseTemplateEscape(state, context, source, cp);
         // Invalid escape sequence checking is handled in the state
         ret = code < 0 ? null : (ret as string) + code;
       }
@@ -195,23 +195,23 @@ export function scanTemplateSpan(state: ParserState, context: Context): Token {
       // Fast check for characters that require special handling.
       // Catches 0, \n, \r, 0x2028, and 0x2029 as efficiently
       // as possible, and lets through all common ASCII characters
-      if ((ch - 0xe) & 0x2000) {
+      if ((cp - 0xe) & 0x2000) {
         // The TRV of LineTerminatorSequence :: <CR> is the CV 0x000A.
         // The TRV of LineTerminatorSequence :: <CR><LF> is the sequence
         // consisting of the CV 0x000A.
-        if (ch === Char.CarriageReturn) {
+        if (cp === Char.CarriageReturn) {
           lastIsCR = 1;
           state.line++;
           state.columnOffset = state.index;
-        } else if (ch === Char.LineFeed || (ch ^ Char.LineSeparator) <= 1) {
+        } else if (cp === Char.LineFeed || (cp ^ Char.LineSeparator) <= 1) {
           if (lastIsCR === 1) state.line++;
           state.columnOffset = state.index;
           lastIsCR = 0;
         }
       }
-      if (ret != null) ret += fromCodePoint(ch);
+      if (ret != null) ret += fromCodePoint(cp);
     }
-    ch = source.charCodeAt(state.index);
+    cp = source.charCodeAt(state.index);
   }
 
   addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedTemplate, DiagnosticKind.Error);
@@ -221,9 +221,9 @@ export function scanTemplateSpan(state: ParserState, context: Context): Token {
   return Token.TemplateTail;
 }
 
-export function parseTemplateEscape(state: ParserState, context: Context, source: string, ch: number): string | number {
+export function parseTemplateEscape(state: ParserState, context: Context, source: string, cp: number): string | number {
   state.index++;
-  switch (escapeChar[ch]) {
+  switch (escapeChar[cp]) {
     case Char.LowerB:
       return '\b';
     case Char.LowerT:
@@ -269,17 +269,17 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
 
     // UCS-2/Unicode escapes
     case Char.LowerU:
-      ch = source.charCodeAt(state.index);
+      cp = source.charCodeAt(state.index);
 
-      if (ch === Char.LeftBrace) {
+      if (cp === Char.LeftBrace) {
         state.index++; // skips: '{'
 
         // \u{N}
 
         // The first digit is required, so handle it *out* of the loop.
-        ch = source.charCodeAt(state.index);
+        cp = source.charCodeAt(state.index);
 
-        let digit = toHex(ch);
+        let digit = toHex(cp);
 
         if (digit < 0) {
           if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
@@ -336,11 +336,11 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
       }
 
       // \uNNNN
-      if ((AsciiCharTypes[ch] & AsciiCharFlags.Hex) === 0) return -1; // first one is mandatory
+      if ((AsciiCharTypes[cp] & AsciiCharFlags.Hex) === 0) return -1; // first one is mandatory
 
       let code = 0;
       for (let i = 0; i < 4; i++) {
-        const digit = toHex(ch);
+        const digit = toHex(cp);
         if (digit < 0) {
           if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
             addDiagnostic(
@@ -354,7 +354,7 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
           return -1;
         }
         state.index++;
-        ch = source.charCodeAt(state.index);
+        cp = source.charCodeAt(state.index);
         code = (code << 4) | digit;
       }
 
@@ -374,7 +374,7 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
       //   0 DecimalDigit
       //   DecimalDigit but not 0
 
-      if (ch === Char.Zero && (next < Char.Zero || next > Char.Nine)) return '\0';
+      if (cp === Char.Zero && (next < Char.Zero || next > Char.Nine)) return '\0';
 
       if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
         addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.TemplateBadEscape, DiagnosticKind.Error);
@@ -396,7 +396,7 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
   }
 
   // Other escaped characters are interpreted as their non-escaped version.
-  return fromCodePoint(ch);
+  return fromCodePoint(cp);
 }
 
 export function scanTemplateTail(state: ParserState, context: Context): any {

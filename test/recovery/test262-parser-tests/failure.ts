@@ -1431,7 +1431,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'The left-hand side of a `for...in` statement cannot be a destructuring pattern',
+          code: 112,
+          start: 16,
+          length: 2
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -2458,7 +2467,7 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'Missing initializer in destructuring declaration',
           code: 45,
@@ -3608,7 +3617,7 @@ describe('test262-parser-tests - failing tests', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'ForDeclaration',
             isConst: false,
@@ -3667,7 +3676,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'The left-hand side of a `for...in` statement cannot be a destructuring pattern',
+          code: 112,
+          start: 14,
+          length: 2
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -3771,7 +3789,7 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'Missing initializer in destructuring declaration',
           code: 45,
@@ -3994,7 +4012,7 @@ describe('test262-parser-tests - failing tests', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'ForDeclaration',
             isConst: true,
@@ -4053,7 +4071,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'The left-hand side of a `for...of` statement cannot be a destructuring pattern',
+          code: 113,
+          start: 17,
+          length: 2
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4311,7 +4338,7 @@ describe('test262-parser-tests - failing tests', () => {
       directives: [],
       leafs: [
         {
-          type: 'ForAwaitStatement',
+          type: 'ForOfStatement',
           initializer: {
             type: 'ForDeclaration',
             isConst: false,
@@ -4395,7 +4422,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'The left-hand side of a `for...of` statement cannot be a destructuring pattern',
+          code: 113,
+          start: 16,
+          length: 2
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4966,7 +5002,7 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'The left-hand side of an assignment expression must be a variable or a property access',
           code: 96,
@@ -5070,7 +5106,7 @@ describe('test262-parser-tests - failing tests', () => {
           length: 3
         },
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'Missing initializer in destructuring declaration',
           code: 45,
@@ -5487,7 +5523,7 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'The left-hand side of an assignment expression must be a variable or a property access',
           code: 96,

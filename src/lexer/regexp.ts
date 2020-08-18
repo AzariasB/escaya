@@ -19,10 +19,10 @@ export function scanRegExpFlags(state: ParserState, context: Context): any {
   }
 
   let mask = Flags.Empty;
-  let char = state.source.charCodeAt(state.index);
+  let cp = state.source.charCodeAt(state.index);
 
-  while (isIdentifierPart(char)) {
-    switch (char) {
+  while (isIdentifierPart(cp)) {
+    switch (cp) {
       case Char.LowerG:
         if (mask & Flags.Global) {
           addDiagnostic(
@@ -106,7 +106,7 @@ export function scanRegExpFlags(state: ParserState, context: Context): any {
     }
 
     state.index++;
-    char = state.source.charCodeAt(state.index);
+    cp = state.source.charCodeAt(state.index);
   }
 }
 
@@ -122,26 +122,26 @@ export function scanRegExp(state: ParserState, context: Context): Token {
   let preparseState = Preparse.Empty;
 
   while (true) {
-    const ch = state.source.charCodeAt(state.index);
+    const cp = state.source.charCodeAt(state.index);
     state.index++;
 
     if (preparseState & Preparse.Escape) {
       preparseState &= ~Preparse.Escape;
     } else {
-      if (ch <= 0x5e) {
-        if (ch === Char.Slash) {
+      if (cp <= 0x5e) {
+        if (cp === Char.Slash) {
           if (!preparseState) break;
-        } else if (ch === Char.Backslash) {
+        } else if (cp === Char.Backslash) {
           preparseState |= Preparse.Escape;
-        } else if (ch === Char.LeftBracket) {
+        } else if (cp === Char.LeftBracket) {
           preparseState |= Preparse.Class;
-        } else if (ch === Char.RightBracket) {
+        } else if (cp === Char.RightBracket) {
           preparseState &= Preparse.Escape;
-        } else if (AsciiCharTypes[ch] & AsciiCharFlags.IsStringLiteralLineTerminator) {
+        } else if (AsciiCharTypes[cp] & AsciiCharFlags.IsStringLiteralLineTerminator) {
           addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownRegExpFlag, DiagnosticKind.Error);
           break;
         }
-      } else if ((ch & ~1) === Char.LineSeparator) {
+      } else if ((cp & ~1) === Char.LineSeparator) {
         addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedRegExp, DiagnosticKind.Error);
         break;
       }

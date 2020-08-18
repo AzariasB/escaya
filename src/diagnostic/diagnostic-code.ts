@@ -114,6 +114,13 @@ export enum DiagnosticCode {
   RestInit,
   RestNotLast,
   RestNotLastParam,
+  LHSForIn,
+  LHSForOf,
+  RestricedLet,
+  LHSForInD,
+  LHSForOfD,
+  MultipleOfDecl,
+  MultipleInDecl,
 
   /* Annex B */
   AnnexBB32,

@@ -72,28 +72,28 @@ for (const key in kwdObj) {
 }
 export function scanIdentifier(state: ParserState, context: Context): Token {
   const start = state.index;
-  let ch = state.source.charCodeAt(state.index);
-  while (AsciiCharTypes[ch] & AsciiCharFlags.IsIdentifierPart) {
-    ch = state.source.charCodeAt(++state.index);
+  let cp = state.source.charCodeAt(state.index);
+  while (AsciiCharTypes[cp] & AsciiCharFlags.IsIdentifierPart) {
+    cp = state.source.charCodeAt(++state.index);
   }
 
   state.tokenValue = state.source.slice(start, state.index);
 
-  if (ch > Char.UpperZ) return scanIdentifierSlowPath(state, context);
+  if (cp > Char.UpperZ) return scanIdentifierSlowPath(state, context);
 
   return Token.Identifier;
 }
 
 export function scanKeywordOrIdentifier(state: ParserState, context: Context): Token {
   const start = state.index;
-  let ch = state.source.charCodeAt(state.index);
-  while (AsciiCharTypes[ch] & AsciiCharFlags.IsIdentifierPart) {
-    ch = state.source.charCodeAt(++state.index);
+  let cp = state.source.charCodeAt(state.index);
+  while (AsciiCharTypes[cp] & AsciiCharFlags.IsIdentifierPart) {
+    cp = state.source.charCodeAt(++state.index);
   }
 
   state.tokenValue = state.source.slice(start, state.index);
 
-  if (ch > Char.UpperZ) return scanIdentifierSlowPath(state, context);
+  if (cp > Char.UpperZ) return scanIdentifierSlowPath(state, context);
 
   // Reserved words are between 2 and 11 characters long and start with a lowercase letter
   const len = state.tokenValue.length;
@@ -107,13 +107,13 @@ export function scanKeywordOrIdentifier(state: ParserState, context: Context): T
 export function scanIdentifierSlowPath(state: ParserState, context: Context): Token {
   let start = state.index;
   const source = state.source;
-  let ch = source.charCodeAt(state.index);
+  let cp = source.charCodeAt(state.index);
   let code: number | null = null;
 
   do {
-    if (isIdentifierPart(ch)) {
+    if (isIdentifierPart(cp)) {
       state.index++;
-    } else if (ch === Char.Backslash) {
+    } else if (cp === Char.Backslash) {
       state.tokenValue += source.slice(start, state.index);
       code = scanIdentifierEscape(state, context);
       // We intentionally check for '-1' so we can break out of the loop
@@ -123,28 +123,29 @@ export function scanIdentifierSlowPath(state: ParserState, context: Context): To
       start = state.index;
     } else {
       // Check for lead surrogate (U+d800..U+dbff)
-      if ((ch & 0xfffffc00) !== 0xd800) break;
+      if ((cp & 0xfffffc00) !== 0xd800) break;
       state.index++;
       const trail = source.charCodeAt(state.index);
       // trail surrogate (U+dc00..U+dfff)
       if ((trail & 0xfffffc00) === 0xdc00) {
-        ch = ((ch & 0x3ff) << 10) + (trail & 0x3ff) + 0x10000;
+        // https://tc39.es/ecma262/#sec-utf16decodesurrogatepair
+        cp = ((cp & 0x3ff) << 10) + (trail & 0x3ff) + 0x10000;
         // Check if this is a valid surrogate pair
-        if (!isIdentifierPart(ch)) {
+        if (!isIdentifierPart(cp)) {
           addLexerDiagnostic(
             state,
             context,
             start,
             state.index,
             DiagnosticCode.InvalidAstralCharacter,
-            fromCodePoint(ch)
+            fromCodePoint(cp)
           );
         }
         state.index++;
       }
     }
 
-    ch = source.charCodeAt(state.index);
+    cp = source.charCodeAt(state.index);
   } while (state.index < state.length);
 
   state.tokenValue += source.slice(start, state.index);
@@ -176,11 +177,11 @@ export function scanIdentifierEscape(state: ParserState, context: Context): numb
 
   index += 2; // skips '\\', 'u'
 
-  let char = state.source.charCodeAt(index);
+  let cp = state.source.charCodeAt(index);
 
   // Accept both \uxxxx and \u{xxxxxx}. In the latter case, the number of
   // hex digits between { } is arbitrary. \ and u have already been scanned.
-  if (char === Char.LeftBrace) {
+  if (cp === Char.LeftBrace) {
     index++; // skips '{'
 
     let digit = toHex(state.source.charCodeAt(index));
@@ -194,13 +195,13 @@ export function scanIdentifierEscape(state: ParserState, context: Context): numb
         return -1;
       }
 
-      char = state.source.charCodeAt(++index);
+      cp = state.source.charCodeAt(++index);
 
-      digit = toHex(char);
+      digit = toHex(cp);
     }
 
     // At least 4 characters have to be read
-    if (0 < digit || char !== Char.RightBrace) {
+    if (0 < digit || cp !== Char.RightBrace) {
       // For cases like 'x\u{0 foo' where '}' is missing, the opening '{'
       // should be treated as an 'BlockStatement', so we return without
       // setting the new index value
@@ -218,14 +219,14 @@ export function scanIdentifierEscape(state: ParserState, context: Context): numb
   let code = 0;
 
   for (let i = 0; i < 4; i++) {
-    const digit = toHex(char);
+    const digit = toHex(cp);
 
     if (digit < 0) {
       addLexerDiagnostic(state, context, start, index, DiagnosticCode.InvalidHexEscapeSequence);
       return -1;
     }
     code = (code << 4) | digit;
-    char = state.source.charCodeAt(++index);
+    cp = state.source.charCodeAt(++index);
   }
 
   // Check if this is a valid unicode escape sequence
@@ -240,12 +241,12 @@ export function scanIdentifierEscape(state: ParserState, context: Context): numb
 }
 
 export function scanIdentifierEscapeIdStart(state: ParserState, context: Context): Token {
-  const cookedChar = scanIdentifierEscape(state, context);
-  if (cookedChar > 0) {
-    state.tokenValue = fromCodePoint(cookedChar);
+  const cookedCP = scanIdentifierEscape(state, context);
+  if (cookedCP > 0) {
+    state.tokenValue = fromCodePoint(cookedCP);
     return scanIdentifierSlowPath(state, context);
   }
   if (state.source.charCodeAt(state.index) === Char.Backslash) state.index++;
-  state.tokenValue = fromCodePoint(cookedChar);
+  state.tokenValue = fromCodePoint(cookedCP);
   return Token.Identifier;
 }

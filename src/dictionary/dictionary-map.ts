@@ -61,6 +61,7 @@ import { createVariableStatement } from '../ast/statements/variable-stmt';
 import { createVariableDeclaration } from '../ast/declarations/variable-declaration';
 import { createSwitchStatement } from '../ast/statements/switch-stmt';
 import { createNumericLiteral } from '../ast/expressions/numeric-literal';
+import { createBigIntLiteral } from '../ast/expressions/bigint-literal';
 import { createStringLiteral } from '../ast/expressions/string-literal';
 import { createCoverInitializedName } from '../ast/expressions/cover-initialized-name';
 import { createParenthesizedExpression } from '../ast/expressions/parenthesized-expr';
@@ -107,6 +108,7 @@ export const DictionaryMap = {
   ArrayAssignmentPattern: createArrayAssignmentPattern,
   AssignmentElement: createAssignmentElement,
   NumericLiteral: createNumericLiteral,
+  BigInt: createBigIntLiteral,
   AwaitExpression: createAwaitExpression,
   YieldExpression: createYieldExpression,
   LabelIdentifier: createLabelIdentifier,

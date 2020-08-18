@@ -5,27 +5,27 @@ import { Char } from './char';
 import { unicodeLookup } from './unicode';
 
 export function skipSingleLineComment(state: ParserState): void {
-  let char = state.source.charCodeAt(state.index);
-  while (state.index < state.length && ((unicodeLookup[(char >>> 5) + 69632] >>> char) & 31 & 1) === 0) {
-    char = state.source.charCodeAt(++state.index);
+  let cp = state.source.charCodeAt(state.index);
+  while (state.index < state.length && ((unicodeLookup[(cp >>> 5) + 69632] >>> cp) & 31 & 1) === 0) {
+    cp = state.source.charCodeAt(++state.index);
   }
 }
 
 export function skipMultiLineComment(state: ParserState, context: Context): void {
   let lastIsCR = 0;
   while (state.index < state.length) {
-    let ch = state.source.charCodeAt(state.index);
+    let cp = state.source.charCodeAt(state.index);
 
-    if (ch === Char.Asterisk) {
-      while (ch === Char.Asterisk) {
-        ch = state.source.charCodeAt(++state.index);
+    if (cp === Char.Asterisk) {
+      while (cp === Char.Asterisk) {
+        cp = state.source.charCodeAt(++state.index);
       }
-      if (ch === Char.Slash) {
+      if (cp === Char.Slash) {
         state.index++;
         return;
       }
-    } else if ((unicodeLookup[(ch >>> 5) + 69632] >>> ch) & 31 & 1) {
-      if (ch === Char.CarriageReturn) {
+    } else if ((unicodeLookup[(cp >>> 5) + 69632] >>> cp) & 31 & 1) {
+      if (cp === Char.CarriageReturn) {
         lastIsCR = 1;
         state.line++;
       } else {

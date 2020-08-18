@@ -3,7 +3,26 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Call', () => {
   // Invalid cases
-  for (const arg of ['foo(,)', 'foo(,,);', '[', '[,', '[] += a', 'yield({a=1})', 'foo({a=1})', 'async({a=1})']) {
+  for (const arg of [
+    'foo(,)',
+    'foo(,,);',
+    '[',
+    '[,',
+    '[] += a',
+    'yield({a=1})',
+    'foo({a=1})',
+    'async({a=1})',
+    'async(a)(b)async',
+    '(a)(( async () => {}) => {})',
+    'foo(a,b,,)',
+    'foo()["bar"',
+    'foo()`bar',
+    'foo(',
+    'foo(...)',
+    'async(async() () => {})(async() () => {})(y)(n)(c)', // crazy #1
+    'async(async() () => {})(async() () => {})(y)(n)(c)', // crazy #2
+    'async(async() () => {})(async() () => {})(async() () => {})(async() () => {})(async() () => {})' // crazy #3
+  ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);

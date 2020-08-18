@@ -70,6 +70,90 @@ describe('Recovery - For in', () => {
     });
   });
 
+  it('for({} = x in y) {}', () => {
+    t.deepEqual(recovery('for({} = x in y) {}', 'recovery.js'), {
+      children: [],
+      context: 0,
+      detached: false,
+      diagnostics: [
+        {
+          code: 109,
+          kind: 3,
+          length: 7,
+          message: 'The left-hand side of a `for...in` statement must be a variable or a property access.',
+          source: 2,
+          start: 6
+        },
+        {
+          code: 104,
+          kind: 3,
+          length: 11,
+          message: 'Invalid left-hand side in for-loop',
+          source: 2,
+          start: 4
+        }
+      ],
+      directives: [],
+      end: 19,
+      fileName: 'recovery.js',
+      incremental: false,
+      kind: 209,
+      leafs: [
+        {
+          end: 19,
+          expression: {
+            end: 15,
+            flags: 0,
+            kind: 13,
+            name: 'y',
+            start: 13,
+            type: 'IdentifierReference'
+          },
+          flags: 0,
+          initializer: {
+            end: 10,
+            flags: 0,
+            kind: 213,
+            left: {
+              end: 6,
+              flags: 0,
+              kind: 179,
+              properties: [],
+              start: 4,
+              type: 'ObjectAssignmentPattern'
+            },
+            right: {
+              end: 10,
+              flags: 0,
+              kind: 13,
+              name: 'x',
+              start: 8,
+              type: 'IdentifierReference'
+            },
+            start: 4,
+            type: 'AssignmentElement'
+          },
+          kind: 130,
+          start: 0,
+          statement: {
+            end: 19,
+            flags: 0,
+            kind: 123,
+            leafs: [],
+            start: 16,
+            type: 'BlockStatement'
+          },
+          type: 'ForInStatement'
+        }
+      ],
+      length: 19,
+      mutualFlags: 0,
+      parent: null,
+      start: 0,
+      text: 'for({} = x in y) {}'
+    });
+  });
+
   it('for (5 in []) {}', () => {
     t.deepEqual(recovery('for (5 in []) {}', 'recovery.js'), {
       kind: 209,
@@ -115,10 +199,10 @@ describe('Recovery - For in', () => {
         {
           code: 104,
           kind: 3,
-          length: 1,
+          length: 6,
           message: 'Invalid left-hand side in for-loop',
           source: 2,
-          start: 10
+          start: 5
         }
       ],
       detached: false,

@@ -28,13 +28,13 @@ export function createForOfAwaitStatement(
 ): ForOfStatement | ForAwaitStatement {
   return isAwait
     ? {
-        type: 'ForOfStatement',
+        type: 'ForAwaitStatement',
         initializer,
         expression,
         statement
       }
     : {
-        type: 'ForAwaitStatement',
+        type: 'ForOfStatement',
         initializer,
         expression,
         statement

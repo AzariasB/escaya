@@ -137,7 +137,7 @@ export const leadingZeroChar = [
   /* 127 - Delete             */ Char.Unknown
 ];
 
-export function scanNumber(state: ParserState, context: Context, ch: number, isFloat: boolean): Token {
+export function scanNumber(state: ParserState, context: Context, cp: number, isFloat: boolean): Token {
   const start = state.index;
 
   const enum NumberKind {
@@ -159,24 +159,24 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
 
   if (isFloat) {
     do {
-      ch = source.charCodeAt(++index);
-    } while (ch <= Char.Nine && ch >= Char.Zero);
+      cp = source.charCodeAt(++index);
+    } while (cp <= Char.Nine && cp >= Char.Zero);
 
     disallowBigInt = true;
   } else {
     // Zero digits - '0' - is structured as an optimized finite state machine
     // and does a quick scan for a hexadecimal, binary, octal or implicit octal
-    if (ch === Char.Zero) {
+    if (cp === Char.Zero) {
       index++; // skips '0'
 
-      ch = source.charCodeAt(index);
+      cp = source.charCodeAt(index);
 
-      if (AsciiCharTypes[ch] & AsciiCharFlags.OctHexBin) {
+      if (AsciiCharTypes[cp] & AsciiCharFlags.OctHexBin) {
         let digits = 0;
         let allowSeparator: 0 | 1 = 1;
 
         do {
-          switch (leadingZeroChar[ch]) {
+          switch (leadingZeroChar[cp]) {
             // `x`, `X`
             case Char.LowerX:
             case Char.UpperX:
@@ -192,7 +192,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.UpperB:
               if (type === NumberKind.Hex) {
                 allowSeparator = 0;
-                value = value * 0x0010 + toHex(ch);
+                value = value * 0x0010 + toHex(cp);
                 break;
               }
 
@@ -219,7 +219,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.One:
               if (type & NumberKind.Binary) {
                 allowSeparator = 0;
-                value = value * 2 + (ch - Char.Zero);
+                value = value * 2 + (cp - Char.Zero);
                 break;
               }
             case Char.Two:
@@ -230,7 +230,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.Seven:
               if (type & NumberKind.Octal) {
                 allowSeparator = 0;
-                value = value * 8 + (ch - Char.Zero);
+                value = value * 8 + (cp - Char.Zero);
                 break;
               }
 
@@ -249,7 +249,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
             case Char.UpperF:
               if (type & NumberKind.Hex) {
                 allowSeparator = 0;
-                value = value * 0x0010 + toHex(ch);
+                value = value * 0x0010 + toHex(cp);
                 break;
               }
               addLexerDiagnostic(
@@ -287,10 +287,10 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
 
           digits++;
           index++;
-          ch = source.charCodeAt(index);
-        } while (AsciiCharTypes[ch] & (AsciiCharFlags.IsSeparator | AsciiCharFlags.Hex | AsciiCharFlags.OctHexBin));
+          cp = source.charCodeAt(index);
+        } while (AsciiCharTypes[cp] & (AsciiCharFlags.IsSeparator | AsciiCharFlags.Hex | AsciiCharFlags.OctHexBin));
 
-        if (AsciiCharTypes[ch] & 0b000000011) {
+        if (AsciiCharTypes[cp] & 0b000000011) {
           addLexerDiagnostic(state, context, index, index, DiagnosticCode.IdafterNumber);
           index++; // skip invalid chars
         }
@@ -326,7 +326,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
       }
 
       // Implicit octal with fallback to decimal with leading zero
-      if (ch >= Char.Zero && ch <= Char.Eight) {
+      if (cp >= Char.Zero && cp <= Char.Eight) {
         // Octal integer literals are not permitted in strict mode code
         if (context & Context.Strict) {
           addLexerDiagnostic(state, context, start, index, DiagnosticCode.StrictOctal);
@@ -339,22 +339,22 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
         type = NumberKind.ImplicitOctal;
 
         do {
-          value = value * 8 + (ch - Char.Zero);
+          value = value * 8 + (cp - Char.Zero);
 
-          ch = source.charCodeAt(++index);
+          cp = source.charCodeAt(++index);
 
-          if (ch >= Char.Eight) {
+          if (cp >= Char.Eight) {
             type = NumberKind.DecimalWithLeadingZero;
             break;
           }
-        } while (ch >= Char.Zero && ch <= Char.Nine);
+        } while (cp >= Char.Zero && cp <= Char.Nine);
 
-        if (ch === Char.Underscore) {
+        if (cp === Char.Underscore) {
           addLexerDiagnostic(state, context, start + 1, index, DiagnosticCode.UnderscoreAfterZero);
         }
 
         // BigInt suffix is disallowed in legacy octal integer literal
-        if (ch === Char.LowerN) {
+        if (cp === Char.LowerN) {
           addLexerDiagnostic(state, context, index, index, DiagnosticCode.InvalidBigIntLiteral);
         }
 
@@ -368,17 +368,17 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
 
     let digit = 9;
 
-    while (ch <= Char.Nine && ch >= Char.Zero) {
-      value = value * 10 + (ch - Char.Zero);
-      ch = source.charCodeAt(++index);
+    while (cp <= Char.Nine && cp >= Char.Zero) {
+      value = value * 10 + (cp - Char.Zero);
+      cp = source.charCodeAt(++index);
       --digit;
     }
 
     if (
       digit >= 0 &&
-      (AsciiCharTypes[ch] & 0b000000011) === 0 &&
+      (AsciiCharTypes[cp] & 0b000000011) === 0 &&
       type !== NumberKind.DecimalWithLeadingZero &&
-      ch !== Char.Period
+      cp !== Char.Period
     ) {
       // Most numbers are pure decimal integers without fractional component
       // or exponential notation - handle that with optimized code
@@ -387,16 +387,16 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
       return Token.NumericLiteral;
     }
 
-    if (ch === Char.Period) {
+    if (cp === Char.Period) {
       disallowBigInt = true;
-      ch = source.charCodeAt(++index);
-      while (ch <= Char.Nine && ch >= Char.Zero) {
-        ch = source.charCodeAt(++index);
+      cp = source.charCodeAt(++index);
+      while (cp <= Char.Nine && cp >= Char.Zero) {
+        cp = source.charCodeAt(++index);
       }
     }
   }
 
-  if (ch === Char.LowerN) {
+  if (cp === Char.LowerN) {
     if (disallowBigInt) {
       // It's safe to continue to parse as normal in 'recovery mode'
       addLexerDiagnostic(state, context, index, index, DiagnosticCode.InvalidBigIntLiteral);
@@ -406,19 +406,19 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
     return Token.BigIntLiteral;
   }
 
-  if ((ch | 32) === Char.LowerE) {
+  if ((cp | 32) === Char.LowerE) {
     index++;
-    ch = source.charCodeAt(index);
+    cp = source.charCodeAt(index);
 
     // '-', '+'
-    if (ch === Char.Plus || ch === Char.Hyphen) {
+    if (cp === Char.Plus || cp === Char.Hyphen) {
       index++;
-      ch = source.charCodeAt(index);
+      cp = source.charCodeAt(index);
     }
     let digits = 0;
 
-    while (ch <= Char.Nine && ch >= Char.Zero) {
-      ch = source.charCodeAt(++index);
+    while (cp <= Char.Nine && cp >= Char.Zero) {
+      cp = source.charCodeAt(++index);
       digits++;
     }
     if (digits === 0) {
@@ -433,7 +433,7 @@ export function scanNumber(state: ParserState, context: Context, ch: number, isF
   // https://tc39.github.io/ecma262/#sec-literals-numeric-literals
   // The SourceCharacter immediately following a NumericLiteral must not be an IdentifierStart or DecimalDigit.
   // For example : 3in is an error and not the two input elements 3 and in
-  if ((AsciiCharTypes[ch] & 0b00000000000000000000000000000011) > 0) {
+  if ((AsciiCharTypes[cp] & 0b00000000000000000000000000000011) > 0) {
     addLexerDiagnostic(state, context, index, index, DiagnosticCode.IdafterNumber);
   }
 

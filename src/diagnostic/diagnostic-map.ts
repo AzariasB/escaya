@@ -117,5 +117,12 @@ export const diagnosticMap: {
   [DiagnosticCode.RestTrailing]: 'A rest parameter or binding pattern may not have a trailing comma',
   [DiagnosticCode.RestInit]: 'A rest element cannot have an initializer',
   [DiagnosticCode.RestNotLast]: 'A rest element must be last in destructuring pattern',
-  [DiagnosticCode.RestNotLastParam]: 'A rest element must be last in a parameter list'
+  [DiagnosticCode.RestNotLastParam]: 'A rest element must be last in a parameter list',
+  [DiagnosticCode.LHSForIn]: 'The left-hand side of a `for...in` statement must be a variable or a property access.',
+  [DiagnosticCode.LHSForOf]: 'The left-hand side of a `for...of` statement must be a variable or a property access.',
+  [DiagnosticCode.LHSForInD]: 'The left-hand side of a `for...in` statement cannot be a destructuring pattern',
+  [DiagnosticCode.LHSForOfD]: 'The left-hand side of a `for...of` statement cannot be a destructuring pattern',
+  [DiagnosticCode.MultipleInDecl]: 'Only a single for declaration is allowed in a `for...in` statement',
+  [DiagnosticCode.MultipleOfDecl]: 'Only a single for declaration is allowed in a `for...of` statement',
+  [DiagnosticCode.RestricedLet]: '`let \n [` is a restricted production at the start of a statement'
 };
