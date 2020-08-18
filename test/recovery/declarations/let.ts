@@ -590,23 +590,50 @@ describe('Recovery - Let', () => {
                     argument: {
                       type: 'BindingIdentifier',
                       name: '',
-                      start: 8,
-                      end: 9,
+                      start: 5,
+                      end: 8,
                       kind: 168,
                       flags: 0
                     },
                     start: 5,
-                    end: 9,
+                    end: 8,
                     kind: 167,
                     flags: 0
                   }
                 ],
                 start: 3,
-                end: 9,
+                end: 8,
                 kind: 169,
                 flags: 0
               },
-              initializer: {
+              initializer: null,
+              start: 3,
+              end: 8,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 8,
+          kind: 145,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'AssignmentExpression',
+              left: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 9,
+                end: 9,
+                kind: 13,
+                flags: 2
+              },
+              operator: '=',
+              right: {
                 type: 'IdentifierReference',
                 name: 'foo',
                 start: 11,
@@ -614,15 +641,19 @@ describe('Recovery - Let', () => {
                 kind: 13,
                 flags: 0
               },
-              start: 3,
+              start: 9,
               end: 15,
-              kind: 146,
+              kind: 152,
               flags: 0
-            }
-          ],
-          start: 0,
+            },
+            start: 8,
+            end: 15,
+            kind: 189,
+            flags: 0
+          },
+          start: 8,
           end: 15,
-          kind: 145,
+          kind: 122,
           flags: 0
         }
       ],
@@ -640,12 +671,20 @@ describe('Recovery - Let', () => {
           length: 1
         },
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'A rest element cannot have an initializer',
-          code: 106,
+          message: 'Expression expected',
+          code: 7,
           start: 10,
           length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 12,
+          length: 3
         }
       ],
       detached: false,
@@ -813,6 +852,299 @@ describe('Recovery - Let', () => {
       parent: null,
       start: 0,
       text: 'let { ++'
+    });
+  });
+
+  it('let {...', () => {
+    t.deepEqual(recovery('let {...', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'BindingRestProperty',
+                    argument: {
+                      type: 'BindingIdentifier',
+                      name: '',
+                      start: 5,
+                      end: 8,
+                      kind: 168,
+                      flags: 0
+                    },
+                    start: 5,
+                    end: 8,
+                    kind: 167,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 8,
+                kind: 169,
+                flags: 0
+              },
+              initializer: null,
+              start: 3,
+              end: 8,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 8,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: 'let {...',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 5,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 8,
+      end: 8
+    });
+  });
+
+  it('let {...(obj', () => {
+    t.deepEqual(recovery('let {...(obj', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'BindingRestProperty',
+                    argument: {
+                      type: 'BindingIdentifier',
+                      name: '',
+                      start: 5,
+                      end: 8,
+                      kind: 168,
+                      flags: 0
+                    },
+                    start: 5,
+                    end: 8,
+                    kind: 167,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 8,
+                kind: 169,
+                flags: 0
+              },
+              initializer: null,
+              start: 3,
+              end: 8,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 8,
+          kind: 145,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'obj',
+              start: 9,
+              end: 12,
+              kind: 13,
+              flags: 0
+            },
+            start: 8,
+            end: 12,
+            kind: 189,
+            flags: 0
+          },
+          start: 8,
+          end: 12,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'let {...(obj',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 9,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 12,
+      end: 12
+    });
+  });
+
+  it('let {...(a, b', () => {
+    t.deepEqual(recovery('let {...(a, b', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'BindingRestProperty',
+                    argument: {
+                      type: 'BindingIdentifier',
+                      name: '',
+                      start: 5,
+                      end: 8,
+                      kind: 168,
+                      flags: 0
+                    },
+                    start: 5,
+                    end: 8,
+                    kind: 167,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 8,
+                kind: 169,
+                flags: 0
+              },
+              initializer: null,
+              start: 3,
+              end: 8,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 8,
+          kind: 145,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'CommaOperator',
+              expressions: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 9,
+                  end: 10,
+                  kind: 13,
+                  flags: 0
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: 'b',
+                  start: 11,
+                  end: 13,
+                  kind: 13,
+                  flags: 0
+                }
+              ],
+              start: 8,
+              end: 13,
+              kind: 147,
+              flags: 0
+            },
+            start: 8,
+            end: 13,
+            kind: 189,
+            flags: 0
+          },
+          start: 8,
+          end: 13,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'let {...(a, b',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 12,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 13,
+      end: 13
     });
   });
 

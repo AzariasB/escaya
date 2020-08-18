@@ -69,7 +69,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
                 argument: {
                   type: 'BindingIdentifier',
                   name: '',
-                  start: 4,
+                  start: 1,
                   end: 4,
                   kind: 168,
                   flags: 0

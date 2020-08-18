@@ -2392,7 +2392,7 @@ describe('Recovery - Class', () => {
                     argument: {
                       type: 'BindingIdentifier',
                       name: '',
-                      start: 15,
+                      start: 12,
                       end: 15,
                       kind: 168,
                       flags: 0
@@ -2493,13 +2493,13 @@ describe('Recovery - Class', () => {
                     argument: {
                       type: 'BindingIdentifier',
                       name: '',
-                      start: 13,
-                      end: 14,
+                      start: 10,
+                      end: 13,
                       kind: 168,
                       flags: 0
                     },
                     start: 10,
-                    end: 14,
+                    end: 13,
                     kind: 175,
                     flags: 0
                   }
@@ -2516,61 +2516,40 @@ describe('Recovery - Class', () => {
                   type: 'FunctionBody',
                   directives: [],
                   leafs: [],
-                  start: 14,
-                  end: 14,
+                  start: 13,
+                  end: 13,
                   kind: 184,
                   flags: 0
                 },
                 start: 9,
-                end: 14,
+                end: 13,
                 kind: 182,
                 flags: 0
               },
               start: 6,
-              end: 14,
-              kind: 151,
-              flags: 0
-            },
-            {
-              type: 'ClassElement',
-              static: false,
-              method: {
-                type: 'MethodDefinition',
-                async: false,
-                generator: false,
-                propertySetParameterList: [],
-                uniqueFormalParameters: [],
-                name: {
-                  type: 'IdentifierName',
-                  name: 'a',
-                  start: 14,
-                  end: 15,
-                  kind: 13,
-                  flags: 0
-                },
-                contents: {
-                  type: 'FunctionBody',
-                  directives: [],
-                  leafs: [],
-                  start: 15,
-                  end: 15,
-                  kind: 184,
-                  flags: 0
-                },
-                start: 15,
-                end: 15,
-                kind: 182,
-                flags: 0
-              },
-              start: 14,
-              end: 15,
+              end: 13,
               kind: 151,
               flags: 0
             }
           ],
           start: 0,
-          end: 15,
+          end: 13,
           kind: 150,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'a',
+            start: 14,
+            end: 15,
+            kind: 13,
+            flags: 0
+          },
+          start: 14,
+          end: 15,
+          kind: 122,
           flags: 0
         },
         {
@@ -2608,16 +2587,8 @@ describe('Recovery - Class', () => {
         {
           kind: 2,
           source: 2,
-          message: '`)` expected',
-          code: 5,
-          start: 14,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`(` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 15,
           length: 1
         },

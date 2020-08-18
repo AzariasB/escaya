@@ -1,4 +1,3 @@
-import { BigIntLiteral } from './ast/expressions/bigint-literal';
 import { ImportCall } from './ast/expressions/import-call';
 import { TemplateLiteral } from './ast/expressions/template-literal';
 import { TemplateElement } from './ast/expressions/template-element';
@@ -30,7 +29,6 @@ import { IdentifierReference, createIdentifierReference } from './ast/expression
 import { OptionalExpression } from './ast/expressions/optional-expr';
 import { AssignmentRestElement } from './ast/expressions/assignment-rest-element';
 import { ObjectBindingPattern } from './ast/expressions/object-binding-pattern';
-import { PropertyName } from './ast/expressions/property-name';
 import { FunctionExpression } from './ast/expressions/function-expr';
 import { FunctionDeclaration } from './ast/declarations/function-declaration';
 import { ForDeclaration } from './ast/declarations/for-declaration';
@@ -2189,7 +2187,19 @@ export function parseObjectBindingPattern(
 export function parseBindingRestProperty(state: ParserState, context: Context, type: BindingType): BindingRestProperty {
   const start = state.startIndex;
   nextToken(state, context);
-  const argument = parseBindingIdentifier(state, context, type);
+  // let {...(a, b
+  // We need to validate first if it's an valid BindingIdentifier so we so we safely can reconstruct
+  // the AST for cases like 'let {...(a, b'. For this particular case we need to 'break out' soon
+  // as we found '(' without priming the scanner, and let the '(a, b' be parsed out as it's own
+  // production.
+  let argument!: BindingIdentifier;
+  if (state.token & Constants.IsIdentifierOrKeyword) {
+    argument = parseBindingIdentifier(state, context, type);
+  } else {
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
+    argument = finishNode(state, context, start, DictionaryMap.BindingIdentifier(''), SyntaxKind.BindingIdentifier);
+  }
+
   if (state.token === Token.Assign) addEarlyDiagnostic(state, context, DiagnosticCode.RestInit);
   return finishNode(state, context, start, DictionaryMap.BindingRestProperty(argument), SyntaxKind.BindingRestProperty);
 }
@@ -2340,10 +2350,16 @@ export function parseArrayBindingPattern(state: ParserState, context: Context, t
 //   `...` BindingPattern
 export function parseBindingRestElement(state: ParserState, context: Context, type: BindingType): BindingRestElement {
   const start = state.startIndex;
-  nextToken(state, context | Context.AllowRegExp);
-  const binding = parseBindingPatternOrIdentifier(state, context, type);
+  nextToken(state, context);
+  let argument!: BindingIdentifier | ArrayBindingPattern | ObjectBindingPattern;
+  if (state.token & Constants.IsPatternOrIdentifierNormal) {
+    argument = parseBindingPatternOrIdentifier(state, context, type);
+  } else {
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
+    argument = finishNode(state, context, start, DictionaryMap.BindingIdentifier(''), SyntaxKind.BindingIdentifier);
+  }
   if (state.token === Token.Assign) addEarlyDiagnostic(state, context, DiagnosticCode.RestInit);
-  return finishNode(state, context, start, DictionaryMap.BindingRestElement(binding), SyntaxKind.BindingRestElement);
+  return finishNode(state, context, start, DictionaryMap.BindingRestElement(argument), SyntaxKind.BindingRestElement);
 }
 
 // ArrayLiteral :

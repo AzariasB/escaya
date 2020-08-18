@@ -2,6 +2,686 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Function', () => {
+  it('function x(...(a, b, c', () => {
+    t.deepEqual(recovery('function x(...(a, b, c', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'x',
+            start: 8,
+            end: 10,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [
+            {
+              type: 'BindingRestElement',
+              argument: {
+                type: 'BindingIdentifier',
+                name: '',
+                start: 11,
+                end: 14,
+                kind: 168,
+                flags: 0
+              },
+              start: 11,
+              end: 14,
+              kind: 175,
+              flags: 0
+            }
+          ],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 14,
+            end: 14,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 14,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'CommaOperator',
+              expressions: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 15,
+                  end: 16,
+                  kind: 13,
+                  flags: 0
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: 'b',
+                  start: 17,
+                  end: 19,
+                  kind: 13,
+                  flags: 0
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: 'c',
+                  start: 20,
+                  end: 22,
+                  kind: 13,
+                  flags: 0
+                }
+              ],
+              start: 14,
+              end: 22,
+              kind: 147,
+              flags: 0
+            },
+            start: 14,
+            end: 22,
+            kind: 189,
+            flags: 0
+          },
+          start: 14,
+          end: 22,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'function x(...(a, b, c',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 14,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 21,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 22,
+      end: 22
+    });
+  });
+
+  it('function x(...(a, b, c', () => {
+    t.deepEqual(recovery('function x(...(a, b, c', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'x',
+            start: 8,
+            end: 10,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [
+            {
+              type: 'BindingRestElement',
+              argument: {
+                type: 'BindingIdentifier',
+                name: '',
+                start: 11,
+                end: 14,
+                kind: 168,
+                flags: 0
+              },
+              start: 11,
+              end: 14,
+              kind: 175,
+              flags: 0
+            }
+          ],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 14,
+            end: 14,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 14,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'CommaOperator',
+              expressions: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 15,
+                  end: 16,
+                  kind: 13,
+                  flags: 0
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: 'b',
+                  start: 17,
+                  end: 19,
+                  kind: 13,
+                  flags: 0
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: 'c',
+                  start: 20,
+                  end: 22,
+                  kind: 13,
+                  flags: 0
+                }
+              ],
+              start: 14,
+              end: 22,
+              kind: 147,
+              flags: 0
+            },
+            start: 14,
+            end: 22,
+            kind: 189,
+            flags: 0
+          },
+          start: 14,
+          end: 22,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'function x(...(a, b, c',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 14,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 21,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 22,
+      end: 22
+    });
+  });
+
+  it('function x(...(a, {', () => {
+    t.deepEqual(recovery('function x(...(a, {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'x',
+            start: 8,
+            end: 10,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [
+            {
+              type: 'BindingRestElement',
+              argument: {
+                type: 'BindingIdentifier',
+                name: '',
+                start: 11,
+                end: 14,
+                kind: 168,
+                flags: 0
+              },
+              start: 11,
+              end: 14,
+              kind: 175,
+              flags: 0
+            }
+          ],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 14,
+            end: 14,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 14,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'CommaOperator',
+              expressions: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 15,
+                  end: 16,
+                  kind: 13,
+                  flags: 0
+                },
+                {
+                  type: 'ObjectLiteral',
+                  properties: [],
+                  start: 17,
+                  end: 19,
+                  kind: 179,
+                  flags: 0
+                }
+              ],
+              start: 14,
+              end: 19,
+              kind: 147,
+              flags: 0
+            },
+            start: 14,
+            end: 19,
+            kind: 189,
+            flags: 0
+          },
+          start: 14,
+          end: 19,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'function x(...(a, {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 14,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 18,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 19,
+      end: 19
+    });
+  });
+
+  it('function x(...(a, {, [', () => {
+    t.deepEqual(recovery('function x(...(a, {, [', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'x',
+            start: 8,
+            end: 10,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [
+            {
+              type: 'BindingRestElement',
+              argument: {
+                type: 'BindingIdentifier',
+                name: '',
+                start: 11,
+                end: 14,
+                kind: 168,
+                flags: 0
+              },
+              start: 11,
+              end: 14,
+              kind: 175,
+              flags: 0
+            }
+          ],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 14,
+            end: 14,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 14,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'CommaOperator',
+              expressions: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 15,
+                  end: 16,
+                  kind: 13,
+                  flags: 0
+                },
+                {
+                  type: 'ObjectLiteral',
+                  properties: [],
+                  start: 17,
+                  end: 19,
+                  kind: 179,
+                  flags: 0
+                },
+                {
+                  type: 'ArrayLiteral',
+                  elements: [],
+                  start: 20,
+                  end: 22,
+                  kind: 178,
+                  flags: 0
+                }
+              ],
+              start: 14,
+              end: 22,
+              kind: 147,
+              flags: 0
+            },
+            start: 14,
+            end: 22,
+            kind: 189,
+            flags: 0
+          },
+          start: 14,
+          end: 22,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'function x(...(a, {, [',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 14,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 19,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`]` expected',
+          code: 5,
+          start: 21,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 22,
+      end: 22
+    });
+  });
+
+  it('function x(...(a, b, ...[(c,b', () => {
+    t.deepEqual(recovery('function x(...(a, b, ...[(c,b', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'x',
+            start: 8,
+            end: 10,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [
+            {
+              type: 'BindingRestElement',
+              argument: {
+                type: 'BindingIdentifier',
+                name: '',
+                start: 11,
+                end: 14,
+                kind: 168,
+                flags: 0
+              },
+              start: 11,
+              end: 14,
+              kind: 175,
+              flags: 0
+            }
+          ],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 14,
+            end: 14,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 14,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'CallExpression',
+            expression: {
+              type: 'ParenthesizedExpression',
+              expression: {
+                type: 'CommaOperator',
+                expressions: [
+                  {
+                    type: 'IdentifierReference',
+                    name: 'a',
+                    start: 15,
+                    end: 16,
+                    kind: 13,
+                    flags: 0
+                  },
+                  {
+                    type: 'IdentifierReference',
+                    name: 'b',
+                    start: 17,
+                    end: 19,
+                    kind: 13,
+                    flags: 0
+                  },
+                  {
+                    type: 'BindingRestElement',
+                    argument: {
+                      type: 'ArrayBindingPattern',
+                      elements: [],
+                      start: 24,
+                      end: 25,
+                      kind: 174,
+                      flags: 0
+                    },
+                    start: 20,
+                    end: 25,
+                    kind: 175,
+                    flags: 0
+                  }
+                ],
+                start: 14,
+                end: 25,
+                kind: 147,
+                flags: 0
+              },
+              start: 14,
+              end: 25,
+              kind: 189,
+              flags: 0
+            },
+            arguments: [
+              {
+                type: 'IdentifierReference',
+                name: 'c',
+                start: 26,
+                end: 27,
+                kind: 13,
+                flags: 0
+              },
+              {
+                type: 'IdentifierReference',
+                name: 'b',
+                start: 28,
+                end: 29,
+                kind: 13,
+                flags: 0
+              }
+            ],
+            start: 14,
+            end: 29,
+            kind: 156,
+            flags: 0
+          },
+          start: 14,
+          end: 29,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'function x(...(a, b, ...[(c,b',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 14,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`]` expected',
+          code: 5,
+          start: 25,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 28,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 29,
+      end: 29
+    });
+  });
+
   it('async function *foo(x) { async; await; yield;', () => {
     t.deepEqual(recovery('async function *foo(x) { async; await; yield;', 'recovery.js'), {
       kind: 209,
