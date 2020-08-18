@@ -1,11 +1,11 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Statement } from '.';
 import { Expression } from '../expressions/index';
 
 /**
  * An if statement with an optional else branch.
  */
-export interface IfStatement extends SyntaxNode {
+export interface IfStatement extends Node {
   readonly expression: Expression;
   readonly consequent: Statement;
   readonly alternate: Statement | null;

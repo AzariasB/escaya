@@ -1,7 +1,7 @@
 import { Expression } from './';
 import { ArrayLiteral } from './array-literal';
 import { ObjectLiteral } from './object-literal';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 export type AssignmentOperator =
   | '='
@@ -23,7 +23,7 @@ export type LogicalAssignmentOperator = '||=' | '&&=' | '??=';
 /**
  * Assignment expression.
  */
-export interface AssignmentExpression extends SyntaxNode {
+export interface AssignmentExpression extends Node {
   readonly left: ObjectLiteral | ArrayLiteral | Expression;
   readonly operator: AssignmentOperator | LogicalAssignmentOperator;
   readonly right: Expression;

@@ -1,11 +1,11 @@
 import { OptionalChain } from './optional-chain';
 import { Expression } from '.';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Optional expression.
  */
-export interface OptionalExpression extends SyntaxNode {
+export interface OptionalExpression extends Node {
   readonly member: Expression;
   readonly chain: OptionalChain;
 }

@@ -1,11 +1,11 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Expression, Binding } from '../expressions';
 
 /**
  * Lexical binding
  */
 
-export interface LexicalBinding extends SyntaxNode {
+export interface LexicalBinding extends Node {
   readonly binding: Binding;
   readonly initializer: Expression | null;
 }

@@ -1,11 +1,11 @@
 import { Expression } from '.';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { OptionalExpression } from './optional-expr';
 
 /**
  * Member expression.
  */
-export interface MemberExpression extends SyntaxNode {
+export interface MemberExpression extends Node {
   // The object whose property is being accessed.
   readonly member: Expression | OptionalExpression;
   // The name of the property to be accessed.

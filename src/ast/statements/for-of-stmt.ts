@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Statement } from '.';
 import { Expression, AssignmentPattern } from '../expressions/index';
 import { ForDeclaration } from '../declarations/for-declaration';
 
-export interface ForOfBase extends SyntaxNode {
+export interface ForOfBase extends Node {
   /* 'null' can only occur in recovery mode */
   readonly initializer: ForDeclaration | AssignmentPattern | Expression | null;
   readonly expression: Expression;

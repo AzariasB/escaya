@@ -1,5 +1,5 @@
 import { Context, ParserState, finishNode } from '../common';
-import { SyntaxKind, SyntaxNodeFlags } from '../ast/syntax-node';
+import { SyntaxKind, NodeFlags } from '../ast/node';
 import { IdentifierReference } from '../ast/expressions/identifierreference';
 import { addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
@@ -21,7 +21,7 @@ export function createIdentifier(
     DictionaryMap.IdentifierReference(''),
     SyntaxKind.Identifier
   );
-  ident.flags |= SyntaxNodeFlags.HasErrors;
+  ident.flags |= NodeFlags.HasErrors;
   return ident;
 }
 

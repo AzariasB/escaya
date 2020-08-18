@@ -1,4 +1,4 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Expression, PropertyKey } from '.';
 import { BindingElement } from './binding-element';
 import { AssignmentElement } from './assignment-element';
@@ -6,7 +6,7 @@ import { AssignmentElement } from './assignment-element';
 /**
  * Property name
  */
-export interface PropertyName extends SyntaxNode {
+export interface PropertyName extends Node {
   readonly key: PropertyKey;
   readonly value: Expression | BindingElement | AssignmentElement;
 }

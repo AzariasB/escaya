@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Semicolon
  */
-export type Semicolon = SyntaxNode;
+export type Semicolon = Node;
 
 export function createSemicolon(): Semicolon {
   return { type: 'Semicolon' };

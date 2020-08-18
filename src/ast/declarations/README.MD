@@ -1,7 +1,7 @@
 # Declaration
 
 ```js
-interface Declaration <: SyntaxNode { }
+interface Declaration <: Node { }
 ```
 
 ## HoistableDeclaration

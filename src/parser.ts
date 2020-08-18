@@ -1,3 +1,4 @@
+import { BigIntLiteral } from './ast/expressions/bigint-literal';
 import { ImportCall } from './ast/expressions/import-call';
 import { TemplateLiteral } from './ast/expressions/template-literal';
 import { TemplateElement } from './ast/expressions/template-element';
@@ -21,7 +22,7 @@ import { RegularExpressionLiteral } from './ast/expressions/regular-expression';
 import { YieldExpression } from './ast/expressions/yield-expr';
 import { NewTarget } from './ast/expressions/new-target';
 import { AssignmentElement } from './ast/expressions/assignment-element';
-import { Expression, Parameter, BindingPattern, LeftHandSideExpression } from './ast/expressions/index';
+import { Expression, MethodName, Parameter, BindingPattern, LeftHandSideExpression } from './ast/expressions/index';
 import { parseBlockElements, parseBindingElements, parseListElements } from './incremental/incremental';
 import { createIdentifier, createBindingIdentifier } from './incremental/common';
 import { MemberExpression } from './ast/expressions/member-expr';
@@ -89,7 +90,7 @@ import { addDiagnostic, addparserDiagnostic, addEarlyDiagnostic, DiagnosticSourc
 import { DiagnosticCode } from './diagnostic/diagnostic-code';
 import { Token, KeywordDescTable } from './ast/token';
 import { Constants } from './constants';
-import { SyntaxKind } from './ast/syntax-node';
+import { SyntaxKind } from './ast/node';
 import { nextToken } from './lexer/scan';
 import { scanTemplateTail } from './lexer/template';
 import { DictionaryMap } from './dictionary/dictionary-map';
@@ -2200,7 +2201,7 @@ export function parseBindingProperty(
   state: ParserState,
   context: Context,
   type: BindingType
-): PropertyName | BindingElement | BindingIdentifier {
+): BindingElement | BindingIdentifier {
   const start = state.startIndex;
 
   if (state.token & Constants.IsIdentifierOrKeyword) {
@@ -3036,7 +3037,7 @@ export function parseFunctionBody(state: ParserState, context: Context, isStatem
 export function parseMethodDefinition(
   state: ParserState,
   context: Context,
-  key: Expression | IdentifierName,
+  key: MethodName,
   kind: PropertyKind
 ): MethodDefinition {
   const modifierFlags =
@@ -3894,7 +3895,7 @@ export function parseClassElement(
 
   if (state.token & Constants.IsIdentifierOrKeyword) {
     const token = state.token;
-    let key: IdentifierName | Expression = parseIdentifierName(state, context);
+    let key: MethodName = parseIdentifierName(state, context);
 
     if (!isStatic && token === Token.StaticKeyword) {
       if (state.token === Token.LeftParen) {
@@ -3922,13 +3923,13 @@ export function parseClassElement(
       }
       if (state.token === Token.LeftBracket) {
         consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket);
-        key = parseExpression(state, (inheritedContext | Context.DisallowIn) ^ Context.DisallowIn);
+        const expr = parseExpression(state, (inheritedContext | Context.DisallowIn) ^ Context.DisallowIn);
         consume(state, context, Token.RightBracket);
         key = finishNode(
           state,
           context,
           start,
-          DictionaryMap.ComputedPropertyName(key),
+          DictionaryMap.ComputedPropertyName(expr),
           SyntaxKind.ComputedPropertyName
         );
       } else {

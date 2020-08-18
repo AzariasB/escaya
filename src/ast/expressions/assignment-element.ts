@@ -1,10 +1,10 @@
 import { Expression, AssignmentPattern } from '.';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Assignment element.
  */
-export interface AssignmentElement extends SyntaxNode {
+export interface AssignmentElement extends Node {
   readonly left: AssignmentPattern | Expression;
   // May be 'null' in recovery mode
   readonly right: Expression | null;

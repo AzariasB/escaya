@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * New target expression.
  */
-export type NewTarget = SyntaxNode;
+export type NewTarget = Node;
 
 export function createNewTarget(): NewTarget {
   return {

@@ -1,10 +1,10 @@
 import { Expression } from '.';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Yield expression.
  */
-export interface YieldExpression extends SyntaxNode {
+export interface YieldExpression extends Node {
   readonly delegate: boolean;
   readonly argument: Expression | null;
 }

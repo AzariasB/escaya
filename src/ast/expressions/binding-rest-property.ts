@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { BindingIdentifier } from './binding-identifier';
 /**
  * Binding rest property
  */
-export interface BindingRestProperty extends SyntaxNode {
+export interface BindingRestProperty extends Node {
   readonly argument: BindingIdentifier;
 }
 

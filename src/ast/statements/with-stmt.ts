@@ -1,11 +1,11 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Statement } from '.';
 import { Expression } from '../expressions/index';
 
 /**
  * With statements
  */
-export interface WithStatement extends SyntaxNode {
+export interface WithStatement extends Node {
   readonly expression: Expression;
   readonly statement: Statement;
 }

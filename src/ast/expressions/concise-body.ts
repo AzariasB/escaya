@@ -1,7 +1,7 @@
 import { Expression } from '.';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
-export interface ConciseBody extends SyntaxNode {
+export interface ConciseBody extends Node {
   readonly expression: Expression;
 }
 

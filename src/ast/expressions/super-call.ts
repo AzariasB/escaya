@@ -1,10 +1,10 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Expression } from '.';
 
 /**
  * An super call expression.
  */
-export interface SuperCall extends SyntaxNode {
+export interface SuperCall extends Node {
   readonly arguments: Expression[];
 }
 

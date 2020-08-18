@@ -1,4 +1,4 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Expression } from '.';
 import { SpreadElement } from './spread-element';
 import { Elison } from './elison';
@@ -6,7 +6,7 @@ import { Elison } from './elison';
 /**
  * An IdentifierReference expression.
  */
-export interface ArrayLiteral extends SyntaxNode {
+export interface ArrayLiteral extends Node {
   readonly elements: (Elison | SpreadElement | Expression)[];
 }
 

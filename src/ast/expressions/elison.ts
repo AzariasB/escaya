@@ -1,6 +1,6 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
-export type Elison = SyntaxNode;
+export type Elison = Node;
 
 export function createElison(): Elison {
   return { type: 'Elison' };

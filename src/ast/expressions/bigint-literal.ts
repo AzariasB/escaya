@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Bigint literal.
  */
-export interface BigIntLiteral extends SyntaxNode {
+export interface BigIntLiteral extends Node {
   readonly value: number | null;
 }
 

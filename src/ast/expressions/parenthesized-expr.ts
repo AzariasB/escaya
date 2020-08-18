@@ -1,7 +1,7 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Expression } from '.';
 
-export interface ParenthesizedExpression extends SyntaxNode {
+export interface ParenthesizedExpression extends Node {
   readonly expression: Expression[];
 }
 

@@ -1,8 +1,8 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { IdentifierName } from '../expressions/identifiername';
 import { ImportDeclaration } from './import-declaration';
 
-export interface ExportSpecifier extends SyntaxNode {
+export interface ExportSpecifier extends Node {
   readonly name: IdentifierName;
   readonly binding: IdentifierName | null;
   /* @internal */

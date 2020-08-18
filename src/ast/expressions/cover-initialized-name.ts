@@ -1,11 +1,11 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Expression } from '.';
 import { IdentifierName } from './identifiername';
 
 /**
  * CoverInitializedName.
  */
-export interface CoverInitializedName extends SyntaxNode {
+export interface CoverInitializedName extends Node {
   readonly left: Expression | IdentifierName | null;
   readonly right: Expression;
 }

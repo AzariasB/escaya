@@ -1,11 +1,11 @@
 import { Expression } from '.';
 import { MemberChain } from './member-chain-expr';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Call chain expression.
  */
-export interface CallChain extends SyntaxNode {
+export interface CallChain extends Node {
   readonly chain: MemberChain | CallChain | null;
   readonly arguments: Expression[] | null;
 }

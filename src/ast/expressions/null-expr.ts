@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Null expression.
  */
-export interface NullLiteral extends SyntaxNode {
+export interface NullLiteral extends Node {
   value: null;
 }
 

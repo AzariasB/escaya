@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Template literal.
  */
-export interface TemplateLiteral extends SyntaxNode {
+export interface TemplateLiteral extends Node {
   readonly raw: string;
   readonly value: string;
 }

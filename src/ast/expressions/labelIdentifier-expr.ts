@@ -1,6 +1,6 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
-export interface LabelIdentifier extends SyntaxNode {
+export interface LabelIdentifier extends Node {
   readonly name: string;
 }
 

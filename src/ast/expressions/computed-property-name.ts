@@ -1,7 +1,7 @@
 import { Expression } from '.';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
-export interface ComputedPropertyName extends SyntaxNode {
+export interface ComputedPropertyName extends Node {
   readonly expression: Expression;
 }
 

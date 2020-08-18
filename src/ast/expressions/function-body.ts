@@ -1,7 +1,7 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Statement } from '../statements';
 
-export interface FunctionBody extends SyntaxNode {
+export interface FunctionBody extends Node {
   readonly directives: string[];
   readonly leafs: Statement[];
 }

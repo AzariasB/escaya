@@ -1,10 +1,10 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Expression } from '../expressions/index';
 
 /**
  * An expression statement.
  */
-export interface ExpressionStatement extends SyntaxNode {
+export interface ExpressionStatement extends Node {
   readonly expression: Expression;
 }
 

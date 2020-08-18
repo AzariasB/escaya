@@ -1,7 +1,7 @@
 # 12 ECMAScript Language: Expressions
 
 ```js
-interface Expression <: SyntaxNode { }
+interface Expression <: Node { }
 ```
 
 ## 12.1 Identifiers
@@ -474,7 +474,7 @@ interface MethodDefinition <: Expression {
     generator: boolean;
     propertySetParameterList: [ BindingIdentifier | BindingElement ];
     uniqueFormalParameters: [ BindingIdentifier | BindingElement | BindingRestElement ];
-    name: Expression | IdentifierName;
+    name: IdentifierReference | StringLiteral | BigIntLiteral | NumericLiteral | IdentifierName;
     contents: FunctionBody;
 }
 ```
@@ -723,7 +723,7 @@ An object literal.
 ```js
 interface ObjectBindingPattern <: Expression {
     type: 'ObjectBindingPattern';
-    properties: [ PropertyName | BindingElement | BindingRestProperty | BindingIdentifier ];
+    properties: [ BindingRestProperty | BindingElement | BindingIdentifier ];
 }
 ```
 
@@ -732,6 +732,6 @@ interface ObjectBindingPattern <: Expression {
 ```js
 interface ObjectAssignmentPattern <: Expression {
     type: 'ObjectAssignmentPattern';
-    properties: [ PropertyName | AssignmentElement | AssignmentRestElement ];
+    properties: [ IdentifierReference | IdentifierName | AssignmentElement | AssignmentRestElement ];
 }
 ```

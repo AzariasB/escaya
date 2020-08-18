@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * String literal.
  */
-export interface StringLiteral extends SyntaxNode {
+export interface StringLiteral extends Node {
   readonly value: string;
 }
 

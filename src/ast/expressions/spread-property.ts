@@ -1,4 +1,4 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Expression } from '.';
 
 // [MODIFIED]
@@ -6,7 +6,7 @@ import { Expression } from '.';
 /**
  * Spread property
  */
-export interface SpreadProperty extends SyntaxNode {
+export interface SpreadProperty extends Node {
   readonly argument: Expression;
 }
 

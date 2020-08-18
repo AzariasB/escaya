@@ -3,7 +3,7 @@ import { PropertyName } from './property-name';
 import { CoverInitializedName } from './cover-initialized-name';
 import { MethodDefinition } from './method-definition';
 import { SpreadProperty } from './spread-property';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * ObjectLiteral.
@@ -16,7 +16,7 @@ export type Properties =
   | LeftHandSideExpression
   | SpreadProperty;
 
-export interface ObjectLiteral extends SyntaxNode {
+export interface ObjectLiteral extends Node {
   readonly properties: Properties[];
 }
 

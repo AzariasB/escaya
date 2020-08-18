@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Boolean literal expression.
  */
-export interface BooleanLiteral extends SyntaxNode {
+export interface BooleanLiteral extends Node {
   readonly value: boolean;
 }
 

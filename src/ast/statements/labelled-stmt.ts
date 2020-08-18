@@ -1,11 +1,11 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Statement } from '.';
 import { LabelIdentifier } from '../expressions/labelIdentifier-expr';
 
 /**
  * Labelled statement.
  */
-export interface LabelledStatement extends SyntaxNode {
+export interface LabelledStatement extends Node {
   readonly label: LabelIdentifier;
   readonly labelledItem: Statement;
 }

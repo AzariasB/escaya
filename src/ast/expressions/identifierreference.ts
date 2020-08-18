@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Identifier reference.
  */
-export interface IdentifierReference extends SyntaxNode {
+export interface IdentifierReference extends Node {
   readonly name: string;
 }
 

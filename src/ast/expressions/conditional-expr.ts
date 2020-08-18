@@ -1,10 +1,10 @@
 import { Expression } from './';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Conditional expression.
  */
-export interface ConditionalExpression extends SyntaxNode {
+export interface ConditionalExpression extends Node {
   // The `ShortCircuitExpression`.
   readonly shortCircuit: Expression;
   // The first `AssignmentExpression`.

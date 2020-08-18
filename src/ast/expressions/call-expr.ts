@@ -1,10 +1,10 @@
 import { Expression, LeftHandSideExpression } from '.';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Call expression.
  */
-export interface CallExpression extends SyntaxNode {
+export interface CallExpression extends Node {
   readonly expression: LeftHandSideExpression;
   readonly arguments: Expression[];
 }

@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Empty statement.
  */
-export type EmptyStatement = SyntaxNode;
+export type EmptyStatement = Node;
 
 export function createEmptyStatement(): EmptyStatement {
   return {

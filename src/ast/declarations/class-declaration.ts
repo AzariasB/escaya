@@ -1,11 +1,11 @@
 import { Expression } from '../expressions';
 import { BindingIdentifier } from '../expressions/binding-identifier';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { ClassElement } from '../expressions/class-element';
 /**
  * Class expression.
  */
-export interface ClassDeclaration extends SyntaxNode {
+export interface ClassDeclaration extends Node {
   // *only* 'null' in recovery mode
   readonly name: BindingIdentifier | null;
   readonly heritage: Expression | null;

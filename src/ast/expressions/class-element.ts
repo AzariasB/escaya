@@ -1,10 +1,10 @@
 import { MethodDefinition } from './method-definition';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Class element.
  */
-export interface ClassElement extends SyntaxNode {
+export interface ClassElement extends Node {
   // True if `IsStatic` of ClassElement is true.
   readonly static: boolean;
   readonly method: MethodDefinition;

@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Debugger statement
  */
-export type DebuggerStatement = SyntaxNode;
+export type DebuggerStatement = Node;
 
 export function createDebuggerStatement(): DebuggerStatement {
   return {

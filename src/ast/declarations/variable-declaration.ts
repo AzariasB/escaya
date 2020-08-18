@@ -1,11 +1,11 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Expression } from '../expressions/index';
 
 /**
  * Variable declaration
  */
 
-export interface VariableDeclaration extends SyntaxNode {
+export interface VariableDeclaration extends Node {
   readonly binding: any;
   readonly initializer: Expression | null;
 }

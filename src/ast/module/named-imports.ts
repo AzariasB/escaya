@@ -1,7 +1,7 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { ImportSpecifier } from './import-specifier';
 
-export interface NamedImports extends SyntaxNode {
+export interface NamedImports extends Node {
   readonly importsList: ImportSpecifier[];
 }
 

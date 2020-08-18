@@ -1,4 +1,4 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { IdentifierName } from '../expressions/identifiername';
 import { StringLiteral } from '../expressions/string-literal';
 import { ExportSpecifier } from './export-specifier';
@@ -16,7 +16,7 @@ export type ExportDeclarations =
   | FunctionDeclaration
   | ClassDeclaration;
 
-export interface ExportDeclaration extends SyntaxNode {
+export interface ExportDeclaration extends Node {
   readonly declaration: ExportDeclarations | null;
   readonly namedExports: ExportSpecifier[];
   readonly namedBinding: IdentifierName | null;

@@ -1,4 +1,4 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { AssignmentElement } from './assignment-element';
 import { AssignmentRestElement } from './assignment-rest-element';
 import { VariableDeclaration } from '../declarations/variable-declaration';
@@ -8,7 +8,7 @@ import { Elison } from './elison';
 /**
  * Array assignment pattern.
  */
-export interface ArrayAssignmentPattern extends SyntaxNode {
+export interface ArrayAssignmentPattern extends Node {
   readonly elements: (Elison | AssignmentRestElement | AssignmentElement | LeftHandSideExpression)[];
   /* @internal */
   readonly parent?: VariableDeclaration | Parameter | AssignmentElement;

@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Expression } from '.';
 /**
  * An await expression.
  */
-export interface AwaitExpression extends SyntaxNode {
+export interface AwaitExpression extends Node {
   readonly expression: Expression;
 }
 

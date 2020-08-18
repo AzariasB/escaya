@@ -1,22 +1,23 @@
 import { BindingRestProperty } from './binding-rest-property';
-import { PropertyName } from './property-name';
+import { IdentifierReference } from './identifierreference';
+import { IdentifierName } from './identifiername';
 import { BindingElement } from './binding-element';
 import { AssignmentElement } from './assignment-element';
 import { VariableDeclaration } from '../declarations/variable-declaration';
 import { Parameter } from '.';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Object assignment pattern.
  */
-export interface ObjectAssignmentPattern extends SyntaxNode {
-  readonly properties: (PropertyName | AssignmentElement | BindingRestProperty)[];
+export interface ObjectAssignmentPattern extends Node {
+  readonly properties: (IdentifierReference | IdentifierName | AssignmentElement | BindingRestProperty)[];
   /* @internal */
   readonly parent?: BindingElement | VariableDeclaration | Parameter;
 }
 
 export function createObjectAssignmentPattern(
-  properties: (PropertyName | AssignmentElement | BindingRestProperty)[]
+  properties: (IdentifierReference | IdentifierName | AssignmentElement | BindingRestProperty)[]
 ): ObjectAssignmentPattern {
   return {
     type: 'ObjectAssignmentPattern',

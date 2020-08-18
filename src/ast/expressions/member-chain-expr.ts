@@ -1,12 +1,12 @@
 import { Expression } from '.';
 import { IdentifierName } from './identifiername';
 import { CallChain } from './call-chain';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Member chain expression.
  */
-export interface MemberChain extends SyntaxNode {
+export interface MemberChain extends Node {
   readonly chain: MemberChain | CallChain | null;
   readonly property: Expression | IdentifierName | null;
   readonly computed: boolean;

@@ -1,10 +1,10 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { IdentifierReference } from '../expressions/identifierreference';
 
 /**
  * Break statement.
  */
-export interface BreakStatement extends SyntaxNode {
+export interface BreakStatement extends Node {
   readonly label: IdentifierReference | null;
 }
 

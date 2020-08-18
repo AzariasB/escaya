@@ -1,11 +1,11 @@
 import { Expression } from '.';
 import { IdentifierName } from './identifiername';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * An super property expression.
  */
-export interface SuperProperty extends SyntaxNode {
+export interface SuperProperty extends Node {
   readonly expression: Expression | null;
   readonly name: IdentifierName | null;
 }

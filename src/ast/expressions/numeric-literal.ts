@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Numeric literal.
  */
-export interface NumericLiteral extends SyntaxNode {
+export interface NumericLiteral extends Node {
   readonly value: number;
 }
 

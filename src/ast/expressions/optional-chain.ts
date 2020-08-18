@@ -1,12 +1,12 @@
 import { CallChain } from './call-chain';
 import { MemberChain } from './member-chain-expr';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * OptionalChain
  */
 
-export interface OptionalChain extends SyntaxNode {
+export interface OptionalChain extends Node {
   readonly chain: MemberChain | CallChain | null;
 }
 

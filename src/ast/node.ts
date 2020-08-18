@@ -1,15 +1,15 @@
 /**
  * Every single valid AST Node types.
  */
-export interface SyntaxNode {
+export interface Node {
   type?: string;
-  kind?: SyntaxKind | SyntaxNodeFlags;
-  flags?: SyntaxNodeFlags;
+  kind?: SyntaxKind | NodeFlags;
+  flags?: NodeFlags;
   start?: number;
   end?: number;
 }
 
-export const enum SyntaxNodeFlags {
+export const enum NodeFlags {
   /**
    * This node has no flags.
    */

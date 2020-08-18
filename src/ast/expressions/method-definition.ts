@@ -1,20 +1,26 @@
-import { Expression, Parameter } from '.';
+import { ObjectLiteral } from './object-literal';
+import { ObjectBindingPattern } from './object-binding-pattern';
+import { ObjectAssignmentPattern } from './object-assignment-pattern';
+import { ClassDeclaration } from './../declarations/class-declaration';
+import { ClassExpression } from './class-expr';
+import { MethodName, Parameter } from '.';
 import { BindingElement } from './binding-element';
 import { BindingIdentifier } from './binding-identifier';
-import { IdentifierName } from './identifiername';
 import { FunctionBody } from './function-body';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Method definition.
  */
-export interface MethodDefinition extends SyntaxNode {
+export interface MethodDefinition extends Node {
   readonly async: boolean;
   readonly generator: boolean;
   readonly propertySetParameterList: (BindingIdentifier | BindingElement)[];
   readonly uniqueFormalParameters: Parameter[];
-  readonly name: Expression | IdentifierName;
+  readonly name: MethodName;
   readonly contents: FunctionBody;
+  /* @internal*/
+  readonly parent?: ClassExpression | ClassDeclaration | ObjectAssignmentPattern | ObjectBindingPattern | ObjectLiteral;
 }
 
 export function createMethodDefinition(
@@ -22,7 +28,7 @@ export function createMethodDefinition(
   generator: boolean,
   propertySetParameterList: (BindingIdentifier | BindingElement)[],
   uniqueFormalParameters: Parameter[],
-  name: Expression | IdentifierName,
+  name: MethodName,
   contents: FunctionBody
 ): MethodDefinition {
   return {

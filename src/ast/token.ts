@@ -1,9 +1,9 @@
-import { SyntaxKind, SyntaxNode } from './syntax-node';
+import { SyntaxKind, Node } from './node';
 
 /**
  * A token. This can include single characters, operators and keywords.
  */
-export interface SyntaxToken<TokenKind extends TokenSyntaxKind> extends SyntaxNode {
+export interface SyntaxToken<TokenKind extends TokenSyntaxKind> extends Node {
   kind: TokenKind;
 }
 

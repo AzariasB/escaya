@@ -1,12 +1,12 @@
 import { BindingIdentifier } from './binding-identifier';
 import { FunctionBody } from './function-body';
 import { Parameter } from '.';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Function expression.
  */
-export interface FunctionExpression extends SyntaxNode {
+export interface FunctionExpression extends Node {
   readonly name: BindingIdentifier | null;
   // True for `GeneratorExpression` and `GeneratorDeclaration`, false otherwise.
   readonly generator: boolean;

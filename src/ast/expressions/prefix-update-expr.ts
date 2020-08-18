@@ -1,10 +1,10 @@
 import { LeftHandSideExpression } from '.';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 export type UpdateOp = '++' | '--';
 
 // see: https://tc39.github.io/ecma262/#prod-UpdateExpression
-export interface PrefixUpdateExpression extends SyntaxNode {
+export interface PrefixUpdateExpression extends Node {
   readonly operator: UpdateOp;
   readonly operand: LeftHandSideExpression;
 }

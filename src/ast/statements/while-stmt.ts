@@ -1,11 +1,11 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Statement } from '.';
 import { Expression } from '../expressions/index';
 
 /**
  * A list of statements.
  */
-export interface WhileStatement extends SyntaxNode {
+export interface WhileStatement extends Node {
   readonly expression: Expression;
   readonly statement: Statement;
 }

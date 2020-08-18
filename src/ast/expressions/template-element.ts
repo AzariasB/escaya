@@ -1,11 +1,11 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Expression } from '.';
 import { TemplateExpression } from './template-expression';
 
 /**
  * Template element.
  */
-export interface TemplateElement extends SyntaxNode {
+export interface TemplateElement extends Node {
   readonly raw: string;
   readonly value: string;
   readonly expression: Expression | null;

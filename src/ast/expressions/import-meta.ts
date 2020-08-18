@@ -1,9 +1,9 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * Import call.
  */
-export type ImportMeta = SyntaxNode;
+export type ImportMeta = Node;
 
 export function createImportMeta(): ImportMeta {
   return {

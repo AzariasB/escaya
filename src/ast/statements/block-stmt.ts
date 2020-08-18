@@ -1,10 +1,10 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Statement } from '.';
 
 /**
  * Block statement. A list of statements.
  */
-export interface BlockStatement extends SyntaxNode {
+export interface BlockStatement extends Node {
   readonly leafs: Statement[];
 }
 

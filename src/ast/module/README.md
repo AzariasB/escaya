@@ -5,7 +5,7 @@
 ### ImportDeclaration
 
 ```js
-interface ImportDeclaration <: SyntaxNode {
+interface ImportDeclaration <: Node {
     type: 'ImportDeclaration';
     importClause: ImportClause | null
     fromClause: StringLiteral | null;
@@ -16,7 +16,7 @@ An import declaration, e.g., `import foo from 'mod';`.
 ### ImportClause
 
 ```js
-interface ImportClause <: SyntaxNode {
+interface ImportClause <: Node {
     type: 'ImportClause';
     defaultBinding: BindingIdentifier | null;
     nameSpaceImport: BindingIdentifier | null;
@@ -27,7 +27,7 @@ interface ImportClause <: SyntaxNode {
 ### NamedImports
 
 ```js
-interface NamedImports <: SyntaxNode {
+interface NamedImports <: Node {
     type: 'NamedImports';
     importsList: [ImportSpecifier]
 }
@@ -36,7 +36,7 @@ interface NamedImports <: SyntaxNode {
 ### ImportSpecifier
 
 ```js
-interface ImportSpecifier <: SyntaxNode {
+interface ImportSpecifier <: Node {
     type: 'ImportSpecifier';
     name: IdentifierName | BindingIdentifier | null,
     binding: IdentifierName | BindingIdentifier | null
@@ -48,7 +48,7 @@ interface ImportSpecifier <: SyntaxNode {
 ### ExportDeclaration
 
 ```js
-interface ExportDeclaration <: SyntaxNode {
+interface ExportDeclaration <: Node {
     type: 'ExportDeclaration';
     declaration: AssignmentExpression | VariableStatement | LexicalDeclaration | FunctionDeclaration | ClassDeclaration | null;
     namedExports: [ExportSpecifier];
@@ -59,7 +59,7 @@ interface ExportDeclaration <: SyntaxNode {
   ### ExportSpecifier
 
 ```js
-interface ExportSpecifier <: SyntaxNode {
+interface ExportSpecifier <: Node {
     type: 'ExportSpecifier';
     name: IdentifierName;
     binding: IdentifierName | null;
@@ -69,7 +69,7 @@ interface ExportSpecifier <: SyntaxNode {
 ### ExportDefault [MODIFIED]
 
 ```js
-interface ExportDefault <: SyntaxNode {
+interface ExportDefault <: Node {
     type: 'ExportDefault';
     declaration: FunctionDeclaration | ClassDeclaration | Expression;
 }

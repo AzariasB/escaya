@@ -1,11 +1,11 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { BindingIdentifier } from './binding-identifier';
 import { BindingPattern } from './';
 
 /**
  * Binding rest element
  */
-export interface BindingRestElement extends SyntaxNode {
+export interface BindingRestElement extends Node {
   readonly argument: BindingPattern | BindingIdentifier;
 }
 

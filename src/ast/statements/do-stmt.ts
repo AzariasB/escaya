@@ -1,11 +1,11 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Statement } from '.';
 import { Expression } from '../expressions/index';
 
 /**
  * Do-while statement.
  */
-export interface DoWhileStatement extends SyntaxNode {
+export interface DoWhileStatement extends Node {
   readonly expression: Expression;
   readonly statement: Statement;
 }

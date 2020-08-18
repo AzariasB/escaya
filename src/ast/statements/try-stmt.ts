@@ -1,11 +1,11 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Binding } from '../expressions';
 import { BlockStatement } from './block-stmt';
 
 /**
  * Try statement.
  */
-export interface TryStatement extends SyntaxNode {
+export interface TryStatement extends Node {
   readonly block: BlockStatement;
   readonly catchClause: CatchClause | null;
   readonly finalizer: BlockStatement | null;
@@ -14,7 +14,7 @@ export interface TryStatement extends SyntaxNode {
 /**
  * CatchClause.
  */
-export interface CatchClause extends SyntaxNode {
+export interface CatchClause extends Node {
   readonly binding: Binding | null;
   readonly block: BlockStatement;
 }

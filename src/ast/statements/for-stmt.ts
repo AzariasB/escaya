@@ -1,4 +1,4 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { Statement } from '.';
 import { Expression } from '../expressions/index';
 import { ForDeclaration } from '../declarations/for-declaration';
@@ -6,7 +6,7 @@ import { ForDeclaration } from '../declarations/for-declaration';
 /**
  * For statement.
  */
-export interface ForStatement extends SyntaxNode {
+export interface ForStatement extends Node {
   // The expression or declaration before the first `;`, if present
   readonly initializer: ForDeclaration | Expression | null;
   // The expression before the second `;`, if present

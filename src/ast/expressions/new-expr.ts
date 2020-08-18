@@ -1,10 +1,10 @@
 import { Expression } from './';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 /**
  * New expression.
  */
-export interface NewExpression extends SyntaxNode {
+export interface NewExpression extends Node {
   readonly expression: Expression;
   readonly arguments: Expression[];
 }

@@ -1,5 +1,5 @@
 import { Expression } from './';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 // The set of syntax tokens which are valid binary expression operators
 export type BinaryOperator =
@@ -32,7 +32,7 @@ export type BinaryOperator =
 /**
  * Binary expression.
  */
-export interface BinaryExpression extends SyntaxNode {
+export interface BinaryExpression extends Node {
   readonly left: Expression;
   readonly operator: BinaryOperator;
   readonly right: Expression;

@@ -64,6 +64,8 @@ export type Binding = BindingPattern | BindingIdentifier;
 
 export type Parameter = BindingIdentifier | BindingElement | BindingRestElement;
 
+export type MethodName = IdentifierReference | StringLiteral | BigIntLiteral | NumericLiteral | IdentifierName;
+
 /**
  * The set of all syntax items which are expressions.
  */

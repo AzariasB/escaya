@@ -4,11 +4,11 @@ import { BindingRestElement } from './binding-rest-element';
 import { BindingIdentifier } from './binding-identifier';
 import { ArrayBindingPattern } from './array-binding-pattern';
 import { ObjectBindingPattern } from './object-binding-pattern';
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 
 export type ArrowFormals = BindingIdentifier | BindingRestElement | ArrayBindingPattern | ObjectBindingPattern;
 
-export interface ArrowFunction extends SyntaxNode {
+export interface ArrowFunction extends Node {
   readonly params: ArrowFormals[];
   readonly contents: ConciseBody | FunctionBody;
   // True for `AsyncArrowFunction`, false otherwise.

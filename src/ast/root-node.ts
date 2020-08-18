@@ -1,4 +1,4 @@
-import { SyntaxKind, SyntaxNode, SyntaxNodeFlags } from './syntax-node';
+import { SyntaxKind, Node, NodeFlags } from './node';
 import { Diagnostic } from '../diagnostic';
 import { Flags, Context } from '../common';
 import { ImportExport } from './module';
@@ -7,7 +7,7 @@ import { ImportExport } from './module';
  * A top level node which contains the list of statements in a program,
  * and some information about the file which the statements came from.
  */
-export interface RootNode extends SyntaxNode {
+export interface RootNode extends Node {
   readonly kind: SyntaxKind.RootNode;
   readonly directives: string[];
   readonly leafs: ImportExport[];
@@ -33,7 +33,7 @@ export function createRootNode(
   diagnostics: Diagnostic[]
 ): RootNode {
   return {
-    kind: SyntaxKind.RootNode | SyntaxNodeFlags.None,
+    kind: SyntaxKind.RootNode | NodeFlags.None,
     directives,
     leafs,
     text,

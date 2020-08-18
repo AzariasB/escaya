@@ -1,10 +1,10 @@
-import { SyntaxNode } from '../syntax-node';
+import { Node } from '../node';
 import { VariableDeclaration } from '../declarations/variable-declaration';
 
 /**
  * Variable statement and variable declaration
  */
-export interface VariableStatement extends SyntaxNode {
+export interface VariableStatement extends Node {
   readonly declarations: VariableDeclaration[];
 }
 

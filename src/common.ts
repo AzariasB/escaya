@@ -2,7 +2,7 @@ import { Token, KeywordDescTable } from './ast/token';
 import { nextToken } from './lexer/scan';
 import { addDiagnostic, addEarlyDiagnostic, DiagnosticSource, DiagnosticKind } from './diagnostic';
 import { DiagnosticCode } from './diagnostic/diagnostic-code';
-import { SyntaxKind, SyntaxNodeFlags } from './ast/syntax-node';
+import { SyntaxKind, NodeFlags } from './ast/node';
 import { DictionaryMap } from './dictionary/dictionary-map';
 
 /**
@@ -185,7 +185,7 @@ export function finishNode(state: ParserState, context: Context, start: number, 
     node.end = state.endIndex;
     if ((context & Context.ErrorRecovery) === Context.ErrorRecovery) {
       node.kind = kind;
-      node.flags = SyntaxNodeFlags.None;
+      node.flags = NodeFlags.None;
     }
   }
   return node;
