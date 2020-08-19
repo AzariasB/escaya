@@ -1,3 +1,5 @@
+import { Token } from './ast/token';
+
 export const enum Constants {
   IsStartOfStatement = 0b00100000000100010011000000000000,
   IsSourceElement = 0b00100000000100010011000000000000,
@@ -14,6 +16,7 @@ export const enum Constants {
   IsGroupParnethizedRecovery = 0b00000000100100011010000000000000,
   IsDelimitedListNormal = 0b00101001111101111110000000000000,
   IsDelimitedListRecovery = 0b00000000100100011010000000000000,
+  IsFormalParamsRecovery = 0b00000000100100011000000000000000,
   CanFollowAccessor = 0b00001001000100010000000000000000,
   ClassListNormal = 0b00101001011100010011000000000000,
   ClassListRecovery = 0b01001000000100010000000000000000,

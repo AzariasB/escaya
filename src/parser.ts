@@ -2990,13 +2990,7 @@ export function parseFormalParameters(state: ParserState, context: Context): Par
   const params = [];
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   if (consume(state, context | Context.AllowRegExp, Token.LeftParen)) {
-    // We will continue to consume everything that is thrown at us until if we are missing a
-    // closing paren - ')' in recovery / incremental mode. That way we will still stay on track
-    // when parsing out super edge cases like 'function(...[{[x]},,,,'
-    while (consumeOpt(state, context, Token.Comma)) {
-      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedParamDecl, DiagnosticKind.Error);
-    }
-    const check = context & Context.ErrorRecovery ? Constants.IsDelimitedListRecovery : Constants.IsDelimitedListNormal;
+    const check = context & Context.ErrorRecovery ? Constants.IsFormalParamsRecovery : Constants.IsDelimitedListNormal;
     while (state.token & check) {
       if (state.token === Token.Ellipsis) {
         params.push(parseBindingRestElement(state, context, BindingType.None));
@@ -3337,6 +3331,17 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
 
   const check =
     context & Context.ErrorRecovery ? Constants.IsGroupParnethizedRecovery : Constants.IsGroupParnethizedNormal;
+
+  // For async arrows in 'Recovery mode' we got tons of edge cases. Example this case 'async(async [ => c'.
+  // This particular case will be parsed as
+  //
+  //         'async(async [ MISSING_BINDING_IDENTIFIER ] ) => c'
+  //
+  // Note that the left-hand side of an arrow function can only be destructed through assignment, but we
+  // don't care about it in this case because we can't incrementally update from this invalid AST.
+  // We would need to do a full reparse, and if the end-user still insist to parse something
+  // like 'async(async [a]) => c' we will remind him / her about it, and we can do icremental update
+  // because the AST isn't invalid. This is just an regular diagnostic.
 
   let destructible: Destructible = Destructible.None;
 

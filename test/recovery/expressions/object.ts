@@ -644,32 +644,7 @@ describe('Recovery - Expressions - Object', () => {
                   async: false,
                   generator: false,
                   propertySetParameterList: [],
-                  uniqueFormalParameters: [
-                    {
-                      type: 'BindingIdentifier',
-                      name: '',
-                      start: 5,
-                      end: 6,
-                      kind: 168,
-                      flags: 0
-                    },
-                    {
-                      type: 'BindingElement',
-                      left: {
-                        type: 'ObjectBindingPattern',
-                        properties: [],
-                        start: 6,
-                        end: 9,
-                        kind: 169,
-                        flags: 0
-                      },
-                      right: null,
-                      start: 6,
-                      end: 9,
-                      kind: 172,
-                      flags: 0
-                    }
-                  ],
+                  uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
                     name: 'x',
@@ -682,28 +657,51 @@ describe('Recovery - Expressions - Object', () => {
                     type: 'FunctionBody',
                     directives: [],
                     leafs: [],
-                    start: 9,
-                    end: 9,
+                    start: 5,
+                    end: 5,
                     kind: 184,
                     flags: 0
                   },
                   start: 4,
-                  end: 9,
+                  end: 5,
                   kind: 182,
                   flags: 0
                 }
               ],
               start: 1,
-              end: 9,
+              end: 5,
               kind: 179,
               flags: 0
             },
             start: 0,
-            end: 9,
+            end: 5,
             kind: 189,
             flags: 0
           },
           start: 0,
+          end: 5,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'ObjectLiteral',
+              properties: [],
+              start: 6,
+              end: 9,
+              kind: 179,
+              flags: 0
+            },
+            start: 5,
+            end: 9,
+            kind: 160,
+            flags: 0
+          },
+          start: 5,
           end: 9,
           kind: 122,
           flags: 0
@@ -717,25 +715,9 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
+          message: '`)` expected',
+          code: 5,
           start: 5,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 7,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 8,
           length: 1
         }
       ],
@@ -759,81 +741,79 @@ describe('Recovery - Expressions - Object', () => {
           expression: {
             type: 'ParenthesizedExpression',
             expression: {
-              type: 'ObjectLiteral',
-              properties: [
-                {
-                  type: 'MethodDefinition',
-                  async: false,
-                  generator: false,
-                  propertySetParameterList: [],
-                  uniqueFormalParameters: [
-                    {
-                      type: 'BindingIdentifier',
-                      name: '',
+              type: 'PostfixUpdateExpression',
+              operator: '++',
+              operand: {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'MethodDefinition',
+                    async: false,
+                    generator: false,
+                    propertySetParameterList: [],
+                    uniqueFormalParameters: [],
+                    name: {
+                      type: 'IdentifierName',
+                      name: 'x',
+                      start: 2,
+                      end: 4,
+                      kind: 13,
+                      flags: 0
+                    },
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
                       start: 5,
-                      end: 7,
-                      kind: 168,
+                      end: 5,
+                      kind: 184,
                       flags: 0
                     },
-                    {
-                      type: 'BindingIdentifier',
-                      name: '',
-                      start: 7,
-                      end: 8,
-                      kind: 168,
-                      flags: 0
-                    },
-                    {
-                      type: 'BindingElement',
-                      left: {
-                        type: 'ObjectBindingPattern',
-                        properties: [],
-                        start: 8,
-                        end: 11,
-                        kind: 169,
-                        flags: 0
-                      },
-                      right: null,
-                      start: 8,
-                      end: 11,
-                      kind: 172,
-                      flags: 0
-                    }
-                  ],
-                  name: {
-                    type: 'IdentifierName',
-                    name: 'x',
-                    start: 2,
-                    end: 4,
-                    kind: 13,
+                    start: 4,
+                    end: 5,
+                    kind: 182,
                     flags: 0
-                  },
-                  contents: {
-                    type: 'FunctionBody',
-                    directives: [],
-                    leafs: [],
-                    start: 11,
-                    end: 11,
-                    kind: 184,
-                    flags: 0
-                  },
-                  start: 4,
-                  end: 11,
-                  kind: 182,
-                  flags: 0
-                }
-              ],
-              start: 1,
-              end: 11,
-              kind: 179,
+                  }
+                ],
+                start: 1,
+                end: 5,
+                kind: 179,
+                flags: 0
+              },
+              start: 5,
+              end: 7,
+              kind: 162,
               flags: 0
             },
             start: 0,
-            end: 11,
+            end: 7,
             kind: 189,
             flags: 0
           },
           start: 0,
+          end: 7,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'ObjectLiteral',
+              properties: [],
+              start: 8,
+              end: 11,
+              kind: 179,
+              flags: 0
+            },
+            start: 7,
+            end: 11,
+            kind: 160,
+            flags: 0
+          },
+          start: 7,
           end: 11,
           kind: 122,
           flags: 0
@@ -847,33 +827,17 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
+          message: '`)` expected',
+          code: 5,
           start: 5,
           length: 2
         },
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
+          message: '`)` expected',
           code: 5,
           start: 7,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 9,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 10,
           length: 1
         }
       ],
@@ -1074,16 +1038,7 @@ describe('Recovery - Expressions - Object', () => {
                   async: false,
                   generator: false,
                   propertySetParameterList: [],
-                  uniqueFormalParameters: [
-                    {
-                      type: 'BindingIdentifier',
-                      name: '',
-                      start: 5,
-                      end: 7,
-                      kind: 168,
-                      flags: 0
-                    }
-                  ],
+                  uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
                     name: 'x',
@@ -1096,29 +1051,52 @@ describe('Recovery - Expressions - Object', () => {
                     type: 'FunctionBody',
                     directives: [],
                     leafs: [],
-                    start: 7,
-                    end: 7,
+                    start: 5,
+                    end: 5,
                     kind: 184,
                     flags: 0
                   },
                   start: 4,
-                  end: 7,
+                  end: 5,
                   kind: 182,
                   flags: 0
                 }
               ],
               start: 1,
-              end: 8,
+              end: 5,
               kind: 179,
               flags: 0
             },
             start: 0,
-            end: 8,
+            end: 5,
             kind: 189,
             flags: 0
           },
           start: 0,
-          end: 8,
+          end: 5,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 7,
+              end: 7,
+              kind: 13,
+              flags: 2
+            },
+            start: 5,
+            end: 7,
+            kind: 160,
+            flags: 0
+          },
+          start: 5,
+          end: 7,
           kind: 122,
           flags: 0
         }
@@ -1131,16 +1109,16 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
+          message: '`)` expected',
+          code: 5,
           start: 6,
           length: 1
         },
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: 'Expression expected',
+          code: 7,
           start: 7,
           length: 1
         }
@@ -1172,55 +1150,7 @@ describe('Recovery - Expressions - Object', () => {
                   async: false,
                   generator: false,
                   propertySetParameterList: [],
-                  uniqueFormalParameters: [
-                    {
-                      type: 'BindingIdentifier',
-                      name: '',
-                      start: 5,
-                      end: 6,
-                      kind: 168,
-                      flags: 0
-                    },
-                    {
-                      type: 'BindingElement',
-                      left: {
-                        type: 'BindingIdentifier',
-                        name: 'a',
-                        start: 6,
-                        end: 8,
-                        kind: 168,
-                        flags: 0
-                      },
-                      right: {
-                        type: 'IdentifierReference',
-                        name: 'b',
-                        start: 10,
-                        end: 12,
-                        kind: 13,
-                        flags: 0
-                      },
-                      start: 6,
-                      end: 12,
-                      kind: 172,
-                      flags: 0
-                    },
-                    {
-                      type: 'BindingElement',
-                      left: {
-                        type: 'ObjectBindingPattern',
-                        properties: [],
-                        start: 12,
-                        end: 15,
-                        kind: 169,
-                        flags: 0
-                      },
-                      right: null,
-                      start: 12,
-                      end: 15,
-                      kind: 172,
-                      flags: 0
-                    }
-                  ],
+                  uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
                     name: 'x',
@@ -1233,30 +1163,77 @@ describe('Recovery - Expressions - Object', () => {
                     type: 'FunctionBody',
                     directives: [],
                     leafs: [],
-                    start: 15,
-                    end: 15,
+                    start: 5,
+                    end: 5,
                     kind: 184,
                     flags: 0
                   },
                   start: 4,
-                  end: 15,
+                  end: 5,
                   kind: 182,
                   flags: 0
                 }
               ],
               start: 1,
-              end: 15,
+              end: 5,
               kind: 179,
               flags: 0
             },
             start: 0,
-            end: 15,
+            end: 5,
             kind: 189,
             flags: 0
           },
           start: 0,
-          end: 15,
+          end: 5,
           kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'AssignmentExpression',
+            left: {
+              type: 'UnaryExpression',
+              operator: '!',
+              operand: {
+                type: 'IdentifierReference',
+                name: 'a',
+                start: 6,
+                end: 8,
+                kind: 13,
+                flags: 0
+              },
+              start: 5,
+              end: 8,
+              kind: 160,
+              flags: 0
+            },
+            operator: '=',
+            right: {
+              type: 'IdentifierReference',
+              name: 'b',
+              start: 10,
+              end: 12,
+              kind: 13,
+              flags: 0
+            },
+            start: 5,
+            end: 12,
+            kind: 152,
+            flags: 0
+          },
+          start: 5,
+          end: 12,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'BlockStatement',
+          leafs: [],
+          start: 12,
+          end: 15,
+          kind: 123,
           flags: 0
         }
       ],
@@ -1268,33 +1245,25 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
+          message: '`)` expected',
+          code: 5,
           start: 5,
           length: 1
         },
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 7,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 9,
           length: 1
         },
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`;` expected',
+          code: 92,
           start: 13,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 14,
           length: 1
         }
       ],
@@ -1341,14 +1310,6 @@ describe('Recovery - Expressions - Object', () => {
                       end: 8,
                       kind: 172,
                       flags: 0
-                    },
-                    {
-                      type: 'BindingIdentifier',
-                      name: '',
-                      start: 8,
-                      end: 9,
-                      kind: 168,
-                      flags: 0
                     }
                   ],
                   name: {
@@ -1363,28 +1324,51 @@ describe('Recovery - Expressions - Object', () => {
                     type: 'FunctionBody',
                     directives: [],
                     leafs: [],
-                    start: 9,
-                    end: 9,
+                    start: 8,
+                    end: 8,
                     kind: 184,
                     flags: 0
                   },
                   start: 4,
-                  end: 9,
+                  end: 8,
                   kind: 182,
                   flags: 0
                 }
               ],
               start: 1,
-              end: 9,
+              end: 8,
               kind: 179,
               flags: 0
             },
             start: 0,
-            end: 9,
+            end: 8,
             kind: 189,
             flags: 0
           },
           start: 0,
+          end: 8,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 9,
+              end: 9,
+              kind: 13,
+              flags: 2
+            },
+            start: 8,
+            end: 9,
+            kind: 160,
+            flags: 0
+          },
+          start: 8,
           end: 9,
           kind: 122,
           flags: 0

@@ -258,6 +258,1101 @@ describe('Recovery - Function', () => {
     });
   });
 
+  it('function *f(yield', () => {
+    t.deepEqual(recovery('function *f(yield', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'f',
+            start: 10,
+            end: 11,
+            kind: 168,
+            flags: 0
+          },
+          generator: true,
+          async: false,
+          params: [
+            {
+              type: 'BindingIdentifier',
+              name: 'yield',
+              start: 12,
+              end: 17,
+              kind: 168,
+              flags: 0
+            }
+          ],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 17,
+            end: 17,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 17,
+          kind: 186,
+          flags: 0
+        }
+      ],
+      text: 'function *f(yield',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Unexpected `yield` as binding identifier in this context',
+          code: 90,
+          start: 12,
+          length: 5
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 17,
+      end: 17
+    });
+  });
+
+  it('function x((', () => {
+    t.deepEqual(recovery('function x((', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'x',
+            start: 8,
+            end: 10,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 11,
+            end: 11,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 11,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 12,
+              end: 12,
+              kind: 13,
+              flags: 2
+            },
+            start: 11,
+            end: 12,
+            kind: 189,
+            flags: 0
+          },
+          start: 11,
+          end: 12,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'function x((',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 11,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 12,
+      end: 12
+    });
+  });
+
+  it('async ! function x(...(a, {', () => {
+    t.deepEqual(recovery('async ! function x(...(a, {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'async',
+            start: 0,
+            end: 5,
+            kind: 13,
+            flags: 0
+          },
+          start: 0,
+          end: 5,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'CallExpression',
+              expression: {
+                type: 'FunctionExpression',
+                name: {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 16,
+                  end: 18,
+                  kind: 168,
+                  flags: 0
+                },
+                generator: false,
+                async: false,
+                params: [
+                  {
+                    type: 'BindingRestElement',
+                    argument: {
+                      type: 'BindingIdentifier',
+                      name: '',
+                      start: 19,
+                      end: 22,
+                      kind: 168,
+                      flags: 0
+                    },
+                    start: 19,
+                    end: 22,
+                    kind: 175,
+                    flags: 0
+                  }
+                ],
+                contents: {
+                  type: 'FunctionBody',
+                  directives: [],
+                  leafs: [],
+                  start: 22,
+                  end: 22,
+                  kind: 184,
+                  flags: 0
+                },
+                start: 7,
+                end: 22,
+                kind: 185,
+                flags: 0
+              },
+              arguments: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 23,
+                  end: 24,
+                  kind: 13,
+                  flags: 0
+                },
+                {
+                  type: 'ObjectLiteral',
+                  properties: [],
+                  start: 25,
+                  end: 27,
+                  kind: 179,
+                  flags: 0
+                }
+              ],
+              start: 7,
+              end: 27,
+              kind: 156,
+              flags: 0
+            },
+            start: 5,
+            end: 27,
+            kind: 160,
+            flags: 0
+          },
+          start: 5,
+          end: 27,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'async ! function x(...(a, {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 22,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 26,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 27,
+      end: 27
+    });
+  });
+
+  it('async => function x(...(a, {', () => {
+    t.deepEqual(recovery('async => function x(...(a, {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrowFunction',
+            params: {
+              type: 'IdentifierReference',
+              name: 'async',
+              start: 0,
+              end: 5,
+              kind: 13,
+              flags: 0
+            },
+            contents: {
+              type: 'ConciseBody',
+              expression: {
+                type: 'CallExpression',
+                expression: {
+                  type: 'FunctionExpression',
+                  name: {
+                    type: 'BindingIdentifier',
+                    name: 'x',
+                    start: 17,
+                    end: 19,
+                    kind: 168,
+                    flags: 0
+                  },
+                  generator: false,
+                  async: false,
+                  params: [
+                    {
+                      type: 'BindingRestElement',
+                      argument: {
+                        type: 'BindingIdentifier',
+                        name: '',
+                        start: 20,
+                        end: 23,
+                        kind: 168,
+                        flags: 0
+                      },
+                      start: 20,
+                      end: 23,
+                      kind: 175,
+                      flags: 0
+                    }
+                  ],
+                  contents: {
+                    type: 'FunctionBody',
+                    directives: [],
+                    leafs: [],
+                    start: 23,
+                    end: 23,
+                    kind: 184,
+                    flags: 0
+                  },
+                  start: 8,
+                  end: 23,
+                  kind: 185,
+                  flags: 0
+                },
+                arguments: [
+                  {
+                    type: 'IdentifierReference',
+                    name: 'a',
+                    start: 24,
+                    end: 25,
+                    kind: 13,
+                    flags: 0
+                  },
+                  {
+                    type: 'ObjectLiteral',
+                    properties: [],
+                    start: 26,
+                    end: 28,
+                    kind: 179,
+                    flags: 0
+                  }
+                ],
+                start: 8,
+                end: 28,
+                kind: 156,
+                flags: 0
+              },
+              start: 8,
+              end: 28,
+              kind: 187,
+              flags: 0
+            },
+            async: false,
+            start: 0,
+            end: 28,
+            kind: 188,
+            flags: 0
+          },
+          start: 0,
+          end: 28,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'async => function x(...(a, {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 23,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 27,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 28,
+      end: 28
+    });
+  });
+
+  it('function !! x(...(a, {', () => {
+    t.deepEqual(recovery('function !! x(...(a, {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 8,
+            end: 8,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 8,
+            end: 8,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 8,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'UnaryExpression',
+              operator: '!',
+              operand: {
+                type: 'CallExpression',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: 'x',
+                  start: 11,
+                  end: 13,
+                  kind: 13,
+                  flags: 0
+                },
+                arguments: [
+                  {
+                    type: 'AssignmentRestElement',
+                    argument: {
+                      type: 'ParenthesizedExpression',
+                      expression: {
+                        type: 'CommaOperator',
+                        expressions: [
+                          {
+                            type: 'IdentifierReference',
+                            name: 'a',
+                            start: 18,
+                            end: 19,
+                            kind: 13,
+                            flags: 0
+                          },
+                          {
+                            type: 'ObjectLiteral',
+                            properties: [],
+                            start: 20,
+                            end: 22,
+                            kind: 179,
+                            flags: 0
+                          }
+                        ],
+                        start: 17,
+                        end: 22,
+                        kind: 147,
+                        flags: 0
+                      },
+                      start: 17,
+                      end: 22,
+                      kind: 189,
+                      flags: 0
+                    },
+                    start: 17,
+                    end: 22,
+                    kind: 200,
+                    flags: 0
+                  }
+                ],
+                start: 11,
+                end: 22,
+                kind: 156,
+                flags: 0
+              },
+              start: 10,
+              end: 22,
+              kind: 160,
+              flags: 0
+            },
+            start: 8,
+            end: 22,
+            kind: 160,
+            flags: 0
+          },
+          start: 8,
+          end: 22,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'function !! x(...(a, {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 21,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 22,
+      end: 22
+    });
+  });
+
+  it('function; async function; (function function async function)', () => {
+    t.deepEqual(recovery('function; async function; (function function async function)', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: null,
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 8,
+            end: 8,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 8,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'EmptyStatement',
+          start: 8,
+          end: 9,
+          kind: 148,
+          flags: 0
+        },
+        {
+          type: 'FunctionDeclaration',
+          name: null,
+          generator: false,
+          async: true,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 24,
+            end: 24,
+            kind: 184,
+            flags: 0
+          },
+          start: 9,
+          end: 24,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'EmptyStatement',
+          start: 24,
+          end: 25,
+          kind: 148,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'FunctionExpression',
+              name: {
+                type: 'BindingIdentifier',
+                name: '',
+                start: 35,
+                end: 35,
+                kind: 168,
+                flags: 0
+              },
+              generator: false,
+              async: false,
+              params: [],
+              contents: {
+                type: 'FunctionBody',
+                directives: [],
+                leafs: [],
+                start: 35,
+                end: 35,
+                kind: 184,
+                flags: 0
+              },
+              start: 27,
+              end: 35,
+              kind: 185,
+              flags: 0
+            },
+            start: 25,
+            end: 35,
+            kind: 189,
+            flags: 0
+          },
+          start: 25,
+          end: 35,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'async',
+            start: 44,
+            end: 50,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 50,
+            end: 50,
+            kind: 184,
+            flags: 0
+          },
+          start: 35,
+          end: 50,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'FunctionDeclaration',
+          name: null,
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 59,
+            end: 59,
+            kind: 184,
+            flags: 0
+          },
+          start: 50,
+          end: 59,
+          kind: 186,
+          flags: 0
+        }
+      ],
+      text: 'function; async function; (function function async function)',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Function declaration require a name in this context',
+          code: 10,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Function declaration require a name in this context',
+          code: 10,
+          start: 24,
+          length: 1
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 36,
+          length: 8
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 51,
+          length: 8
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Function declaration require a name in this context',
+          code: 10,
+          start: 59,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 60,
+      end: 60
+    });
+  });
+
+  it('function break () {}', () => {
+    t.deepEqual(recovery('function break () {}', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: null,
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 8,
+            end: 8,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 8,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'BreakStatement',
+          label: null,
+          start: 8,
+          end: 14,
+          kind: 124,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 17,
+            end: 17,
+            kind: 13,
+            flags: 2
+          },
+          start: 14,
+          end: 17,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'BlockStatement',
+          leafs: [],
+          start: 17,
+          end: 20,
+          kind: 123,
+          flags: 0
+        }
+      ],
+      text: 'function break () {}',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Function declaration require a name in this context',
+          code: 10,
+          start: 9,
+          length: 5
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'A `break` statement can only be used within an enclosing iteration or switch',
+          code: 41,
+          start: 15,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`=>` expected',
+          code: 46,
+          start: 18,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 20,
+      end: 20
+    });
+  });
+
+  it('function async async(...(a, {', () => {
+    t.deepEqual(recovery('function async async(...(a, {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'async',
+            start: 8,
+            end: 14,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 14,
+            end: 14,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 14,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'CallExpression',
+            expression: {
+              type: 'AssignmentRestElement',
+              argument: {
+                type: 'ParenthesizedExpression',
+                expression: {
+                  type: 'CommaOperator',
+                  expressions: [
+                    {
+                      type: 'IdentifierReference',
+                      name: 'a',
+                      start: 25,
+                      end: 26,
+                      kind: 13,
+                      flags: 0
+                    },
+                    {
+                      type: 'ObjectLiteral',
+                      properties: [],
+                      start: 27,
+                      end: 29,
+                      kind: 179,
+                      flags: 0
+                    }
+                  ],
+                  start: 24,
+                  end: 29,
+                  kind: 147,
+                  flags: 0
+                },
+                start: 24,
+                end: 29,
+                kind: 189,
+                flags: 0
+              },
+              start: 21,
+              end: 29,
+              kind: 200,
+              flags: 0
+            },
+            arguments: [
+              {
+                type: 'AssignmentRestElement',
+                argument: {
+                  type: 'ParenthesizedExpression',
+                  expression: {
+                    type: 'CommaOperator',
+                    expressions: [
+                      {
+                        type: 'IdentifierReference',
+                        name: 'a',
+                        start: 25,
+                        end: 26,
+                        kind: 13,
+                        flags: 0
+                      },
+                      {
+                        type: 'ObjectLiteral',
+                        properties: [],
+                        start: 27,
+                        end: 29,
+                        kind: 179,
+                        flags: 0
+                      }
+                    ],
+                    start: 24,
+                    end: 29,
+                    kind: 147,
+                    flags: 0
+                  },
+                  start: 24,
+                  end: 29,
+                  kind: 189,
+                  flags: 0
+                },
+                start: 21,
+                end: 29,
+                kind: 200,
+                flags: 0
+              }
+            ],
+            start: 14,
+            end: 29,
+            kind: 156,
+            flags: 0
+          },
+          start: 14,
+          end: 29,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'function async async(...(a, {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 15,
+          length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 28,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 29,
+      end: 29
+    });
+  });
+
+  it('function async(async', () => {
+    t.deepEqual(recovery('function async(async', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'async',
+            start: 8,
+            end: 14,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [
+            {
+              type: 'BindingIdentifier',
+              name: 'async',
+              start: 15,
+              end: 20,
+              kind: 168,
+              flags: 0
+            }
+          ],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 20,
+            end: 20,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 20,
+          kind: 186,
+          flags: 0
+        }
+      ],
+      text: 'function async(async',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 15,
+          length: 5
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 20,
+      end: 20
+    });
+  });
+
   it('function x(...(a, {', () => {
     t.deepEqual(recovery('function x(...(a, {', 'recovery.js'), {
       kind: 209,
@@ -1101,42 +2196,44 @@ describe('Recovery - Function', () => {
           },
           generator: false,
           async: false,
-          params: [
-            {
-              type: 'BindingIdentifier',
-              name: 'function',
-              start: 11,
-              end: 19,
-              kind: 168,
-              flags: 0
-            },
-            {
-              type: 'BindingElement',
-              left: {
-                type: 'ObjectBindingPattern',
-                properties: [],
-                start: 19,
-                end: 21,
-                kind: 169,
-                flags: 0
-              },
-              right: null,
-              start: 19,
-              end: 21,
-              kind: 172,
-              flags: 0
-            }
-          ],
+          params: [],
           contents: {
             type: 'FunctionBody',
             directives: [],
             leafs: [],
-            start: 21,
-            end: 21,
+            start: 11,
+            end: 11,
             kind: 184,
             flags: 0
           },
           start: 0,
+          end: 11,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 19,
+            end: 19,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 19,
+            end: 21,
+            kind: 184,
+            flags: 0
+          },
+          start: 11,
           end: 21,
           kind: 186,
           flags: 0
@@ -1150,8 +2247,16 @@ describe('Recovery - Function', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
+          message: '`)` expected',
           code: 5,
+          start: 11,
+          length: 8
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 20,
           length: 1
         }
@@ -1183,27 +2288,38 @@ describe('Recovery - Function', () => {
           },
           generator: false,
           async: false,
-          params: [
-            {
-              type: 'BindingIdentifier',
-              name: 'function',
-              start: 10,
-              end: 18,
-              kind: 168,
-              flags: 0
-            }
-          ],
+          params: [],
           contents: {
             type: 'FunctionBody',
             directives: [],
             leafs: [],
-            start: 19,
-            end: 19,
+            start: 10,
+            end: 10,
             kind: 184,
             flags: 0
           },
           start: 0,
-          end: 19,
+          end: 10,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'FunctionDeclaration',
+          name: null,
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 18,
+            end: 18,
+            kind: 184,
+            flags: 0
+          },
+          start: 10,
+          end: 18,
           kind: 186,
           flags: 0
         },
@@ -1242,8 +2358,16 @@ describe('Recovery - Function', () => {
           source: 2,
           message: '`)` expected',
           code: 5,
-          start: 20,
-          length: 5
+          start: 10,
+          length: 8
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Function declaration require a name in this context',
+          code: 10,
+          start: 18,
+          length: 1
         },
         {
           kind: 3,
@@ -2026,40 +3150,62 @@ describe('Recovery - Function', () => {
               end: 11,
               kind: 172,
               flags: 0
-            },
-            {
-              type: 'BindingIdentifier',
-              name: 'function',
-              start: 11,
-              end: 19,
-              kind: 168,
-              flags: 0
-            },
-            {
-              type: 'BindingIdentifier',
-              name: '',
-              start: 19,
-              end: 21,
-              kind: 168,
-              flags: 0
-            },
-            {
-              type: 'BindingIdentifier',
-              name: 'function',
-              start: 21,
-              end: 29,
-              kind: 168,
-              flags: 0
-            },
-            {
-              type: 'BindingIdentifier',
-              name: '',
-              start: 29,
-              end: 31,
-              kind: 168,
-              flags: 0
             }
           ],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 11,
+            end: 11,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 11,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 19,
+            end: 19,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [],
+            start: 21,
+            end: 21,
+            kind: 184,
+            flags: 0
+          },
+          start: 11,
+          end: 21,
+          kind: 186,
+          flags: 0
+        },
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: '',
+            start: 29,
+            end: 29,
+            kind: 168,
+            flags: 0
+          },
+          generator: false,
+          async: false,
+          params: [],
           contents: {
             type: 'FunctionBody',
             directives: [],
@@ -2069,7 +3215,7 @@ describe('Recovery - Function', () => {
             kind: 184,
             flags: 0
           },
-          start: 0,
+          start: 21,
           end: 31,
           kind: 186,
           flags: 0
@@ -2097,26 +3243,26 @@ describe('Recovery - Function', () => {
           length: 8
         },
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 20,
           length: 1
         },
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
+          message: '`)` expected',
           code: 5,
           start: 21,
           length: 8
         },
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: 'Expected an binding identifier',
+          code: 19,
           start: 30,
           length: 1
         }
