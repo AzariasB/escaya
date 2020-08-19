@@ -3337,11 +3337,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
   //
   //         'async(async [ MISSING_BINDING_IDENTIFIER ] ) => c'
   //
-  // Note that the left-hand side of an arrow function can only be destructed through assignment, but we
-  // don't care about it in this case because we can't incrementally update from this invalid AST.
-  // We would need to do a full reparse, and if the end-user still insist to parse something
-  // like 'async(async [a]) => c' we will remind him / her about it, and we can do icremental update
-  // because the AST isn't invalid. This is just an regular diagnostic.
+  // We do this because both '[' and '{' are start of an pattern and in 'AsyncArrowHead'.
 
   let destructible: Destructible = Destructible.None;
 
