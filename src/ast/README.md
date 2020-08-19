@@ -39,6 +39,7 @@ interface Node {
     type: string;
     start?: number;
     end?: number;
+    loc?: SourceLocation;
 }
 ```
 
@@ -48,10 +49,31 @@ prototype inheritance.
 The `type` field is a string representing the AST variant type, and the `start` and `end`
 are optional properties representing the start and end values of each `AST node`.
 
+The optional `loc` field contains the source location information of the node.
+
+```js
+interface SourceLocation {
+  start: LineAndColumnData;
+  end: LineAndColumnData;
+}
+```
+
+The `start` field is the position of the first character of the parsed source region, and the
+`end` field is the position of the first character after the parsed source region.
+
+```js
+interface LineAndColumnData {
+  line: number;
+  column: number;
+}
+```
+
+The `line` field is `1-indexed` and the `column` field is `0-indexed`
+
 
 ## RootNode
 
-This ASt node is for `error recovery mode` and represent both `Module` and `Script`.
+`RootNode` is for `error recovery mode` and represent both `Module` and `Script`.
 The current `mutualFlags` property keeps track of which context you are currently parsing in,
 and it's property contains a serie of bit masks that can be parsed by reference. This
 information isn't known from outside, or exposed through any API.

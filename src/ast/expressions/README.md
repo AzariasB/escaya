@@ -220,7 +220,7 @@ interface AssignmentRestElement <: Expression {
 ```js
 interface AwaitExpression <: Expression {
     type: 'AwaitExpression';
-    argument: Expression;
+    argument: UnaryExpression;
 }
 ```
 
