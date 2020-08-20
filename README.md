@@ -106,7 +106,7 @@ As an example you will get a `BlockStatement` if you try to parse something like
 
 ## Escaya AST
 
-The AST used by used by `Escaya` represents the structure of an ECMAScript program as a tree and conforms to the [ECMAScript® 2021 specification](https://tc39.es/ecma262/index.html). The AST have been designed for performance, and it nearly eliminates the chance of accidentally creating an AST that does not represent an ECMAScript program while also requiring fewer bytes than the AST produced by `ESTree` and `Babel`.
+The AST used by used by `Escaya` represents the structure of an ECMAScript program as a tree and is designed to stay true to the [ECMAScript® 2021 specification](https://tc39.es/ecma262/index.html). The AST has been designed for performance, and it nearly eliminates the chance of accidentally creating an AST that does not represent an ECMAScript program while also requiring fewer bytes than an `ESTree AST` like `Babel` and `Acorn` produce, and `Babel parser's` own AST.
 
 The `Escaya AST` doesn't try to follow the SpiderMonkey-compatible standard that `ESTree` strictly follows. For example it distinguish `Identifier` from `IdentifierPattern`. That makes it easier to calculate the free variables of a program.
 
