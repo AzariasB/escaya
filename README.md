@@ -96,7 +96,7 @@ One of the design goals for Escaya has been that the abstract syntax tree (AST) 
 
 For example, in `recovery mode` you are creating a `RootNode` instead of either a `Module` or `Script`. This `RootNode` has additional information such as diagnostics, context masks and mutual parser flags that you *carry over* from the recovery mode to the incremental parsing and let you continue to parse in the same context that you are currently in, unless you set a strict directive on the `RootNode`. If you do this, Escaya will parse in strict mode and you will not be able to recover any nodes from the old tree if you were first parsing in *sloppy mode*, because it's only possible to reuse a node if it was parsed with the same context that the parser used before.
 
-## Differences between EScaya recovery mode and Acorn loose
+## EScaya recovery mode vs. Acorn loose
 
 The main difference is that EScaya's recovery mode conforms to the [ECMAScript® 2021 specs](https://tc39.es/ecma262/index.html) , while `Acorn Loose` does not.
 It's not even an JavaScript parser. You can play with `Acorn Loose`  on `ASTExplorer` and you will notice the differences.
