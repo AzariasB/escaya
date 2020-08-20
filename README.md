@@ -21,6 +21,7 @@
 * Error recovery mode with incremental parsing support
 * Errors diagnostics and reporter
 * JSON friendly
+* Possible to use a custom AST such as ESTree and Babel AST
 * No backtracking
 * Low memory usage
 * Optimized for use on handheld devices such as a mobile phone or tablet
@@ -108,6 +109,38 @@ As an example you will get a `BlockStatement` if you try to parse something like
 The AST used by used by `Escaya` represents the structure of an ECMAScript program as a tree and conforms to the [ECMAScript® 2021 specification](https://tc39.es/ecma262/index.html). The AST have been designed for performance, and it nearly eliminates the chance of accidentally creating an AST that does not represent an ECMAScript program while also requiring fewer bytes than the AST produced by `ESTree` and `Babel`.
 
 The `Escaya AST` doesn't try to follow the SpiderMonkey-compatible standard that `ESTree` strictly follows. For example it distinguish `Identifier` from `IdentifierPattern`. That makes it easier to calculate the free variables of a program.
+
+### Custom AST
+
+Use of `parseCustomScript` and `parseCustomModule` let you use whatever AST format you want.
+
+Here is an example on how to use `Babel AST`
+
+```ts
+
+import { parseCustomScript } from './escaya';
+
+parseCustomScript('a = b', {
+        Script: function (source, directives, statements) {
+          return {
+            type: 'File',
+            errors: [],
+            program: {
+              type: 'Program',
+              sourceType: 'script',
+              body: statements
+            },
+            directives,
+            comments: [],
+            start: 0,
+            end: source.length
+          };
+        }
+    );
+  });
+
+```
+
 
 
 ## Demo
