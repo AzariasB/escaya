@@ -68,7 +68,7 @@ parseModule('({x: [y] = 0} = 1)');
 ## Error recovery
 
 When Escaya parser is given an input that does not represent a valid JavaScript program, it throws an exception. If parsing in
-recovery mode, the parser will continue parsing and produce a syntax tree.
+recovery mode, the parser will continue parsing and produce a syntax tree conforms to the standard [ECMAScript® 2021 specs](https://tc39.es/ecma262/index.html).
 
 However, Escaya will continue to do a full parse for every keystroke. To avoid this you can enable incremental parsing. This is best demonstrated with an example.
 
@@ -96,25 +96,19 @@ One of the design goals for Escaya has been that the abstract syntax tree (AST) 
 
 For example, in `recovery mode` you are creating a `RootNode` instead of either a `Module` or `Script`. This `RootNode` has additional information such as diagnostics, context masks and mutual parser flags that you *carry over* from the recovery mode to the incremental parsing and let you continue to parse in the same context that you are currently in, unless you set a strict directive on the `RootNode`. If you do this, Escaya will parse in strict mode and you will not be able to recover any nodes from the old tree if you were first parsing in *sloppy mode*, because it's only possible to reuse a node if it was parsed with the same context that the parser used before.
 
+## Differences between EScaya recovery mode and Acorn loose
+
+The main difference is that EScaya's recovery mode conforms to the [ECMAScript® 2021 specs](https://tc39.es/ecma262/index.html) , while `Acorn Loose` does not.
+It's not even an JavaScript parser. You can play with `Acorn Loose`  on `ASTExplorer` and you will notice the differences.
+
+As an example you will get a `BlockStatement` if you try to parse something like `try`.
+
 ## Escaya AST
 
 The AST used by used by `Escaya` represents the structure of an ECMAScript program as a tree and conforms to the [ECMAScript® 2021 specification](https://tc39.es/ecma262/index.html). The AST have been designed for performance, and it nearly eliminates the chance of accidentally creating an AST that does not represent an ECMAScript program while also requiring fewer bytes than the AST produced by `ESTree` and `Babel`.
 
 The `Escaya AST` doesn't try to follow the SpiderMonkey-compatible standard that `ESTree` strictly follows. For example it distinguish `Identifier` from `IdentifierPattern`. That makes it easier to calculate the free variables of a program.
 
-## Reporter
-
-Escaya has it's own reporter that uses the diagnostic messages to create an nice output so that you are always informed of invalid syntax so you can correct this.
-
-```ts
-
-import { recovery, update, report } from './escaya';
-
-const rootNode = recovery('{!', 'error.js');
-
-report(rootNode); // Reports the diagnostics
-
-```
 
 ## Demo
 
