@@ -53,7 +53,7 @@ export function addVarName(
   context: Context,
   scope: ScopeState,
   name: string,
-  bindingType: BindingType
+  type: BindingType
 ): void {
   if (scope) {
     let currentScope: any = scope;
@@ -66,57 +66,45 @@ export function addVarName(
         }
       }
 
-      currentScope['#' + name] = bindingType;
-
+      currentScope['#' + name] = type;
       currentScope = currentScope.parent;
     }
   }
 }
 
-export function addBlockName(
-  state: ParserState,
-  context: Context,
-  scope: any,
-  name: string,
-  bindingType: BindingType
-  // origin: Origin
-) {
-  if (scope) {
-    const value = scope['#' + name];
+export function addBlockName(state: ParserState, context: Context, scope: any, name: string, type: BindingType): void {
+  if (scope === void 0) return;
+  const value = scope['#' + name];
 
-    if (value && (value & BindingType.Empty) === 0) {
-      if (bindingType & BindingType.ArgumentList) {
-        scope.scopeError = { start: state.startIndex, key: name, code: DiagnosticCode.DuplicateIdentifier };
+  if (value) {
+    if ((value & BindingType.Empty) === 0) {
+      if (type & BindingType.ArgumentList) {
+        scope.scopeError = { start: state.startIndex, name, code: DiagnosticCode.DuplicateIdentifier };
       } else if (
-        (context & Context.OptionsDisableWebCompat) !== Context.OptionsDisableWebCompat &&
-        value & BindingType.FunctionLexical &&
-        context & Context.InBlock
+        context & Context.OptionsDisableWebCompat ||
+        (value & BindingType.FunctionLexical) === 0 ||
+        (context & Context.InBlock) === 0
       ) {
-      } else {
         addEarlyDiagnostic(state, context, DiagnosticCode.DupBind, name);
       }
     }
-
-    if (
-      scope.type & ScopeKind.FunctionBody &&
-      scope.parent['#' + name] &&
-      (scope.parent['#' + name] & BindingType.Empty) === 0
-    ) {
+  } else {
+    const parent = scope.parent;
+    if (scope.type & ScopeKind.FunctionBody && parent['#' + name] && (parent['#' + name] & BindingType.Empty) === 0) {
       addEarlyDiagnostic(state, context, DiagnosticCode.DupBind, name);
     }
 
     if (scope.type & ScopeKind.ArrowParams && value && (value & BindingType.Empty) === 0) {
-      if (bindingType & BindingType.ArgumentList) {
-        scope.scopeError = { start: state.startIndex, key: name, code: DiagnosticCode.DuplicateIdentifier };
+      if (type & BindingType.ArgumentList) {
+        scope.scopeError = { start: state.startIndex, name, code: DiagnosticCode.DuplicateIdentifier };
       }
     }
 
     if (scope.type & ScopeKind.CatchBlock) {
-      if (scope.parent['#' + name] & (BindingType.CatchIdentifier | BindingType.CatchPattern)) {
+      if (parent['#' + name] & (BindingType.CatchIdentifier | BindingType.CatchPattern)) {
         addEarlyDiagnostic(state, context, DiagnosticCode.ShadowClause, name);
       }
     }
-
-    scope['#' + name] = bindingType;
   }
+  scope['#' + name] = type;
 }

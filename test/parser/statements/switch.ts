@@ -23,12 +23,10 @@ describe('Statements - Switch', () => {
     'switch(x) { case y: (foo',
     'switch(x) { case y: (foo, ',
     'switch(1) { case: foo; }',
-    //'switch (x) {case a: function f(){}; break; case b: let f; break; }',
+    'switch (x) {case a: function f(){}; break; case b: let f; break; }',
     'switch (x) { case 0: var foo = 1 } let foo = 1;',
-    //'switch (0) { case 1: function f() {} default: const f = 0 }',
-
-    // 'switch (0) { case 1: async function* f() {} default: function* f() {} }',
-    // 'switch (0) { case 1: async function* f() {} default: let f; }',
+    'switch (0) { case 1: function f() {} default: const f = 0 }',
+    'switch (0) { case 1: async function* f() {} default: let f; }',
     'switch (0) { case 1: let f; default: class f {} }',
     'switch (0) { case 1: let f; default: const f = 0 }',
     'switch (0) { case 1: let f; default: function* f() {} }',
@@ -36,13 +34,9 @@ describe('Statements - Switch', () => {
     'switch (0) { case 1: var f; default: async function f() {} }',
     'switch (0) { case 1: var f; default: class f {} }',
     'switch (0) { case 1: var f; default: let f }',
-
-    //'switch (0) { case 1: function* f() {} default: function* f() {} }',
-    //'switch (0) { case 1: function f() {} default: async function f() {} }',
-    //'switch (0) { case 1: function f() {} default: async function* f() {} }',
     'switch (0) { case 1: const f = 0; default: class f {} }',
-    //'switch (0) { case 1: const f = 0; default: async function* f() {} }',
-    //'switch (0) { case 1: var f = 0; default: async function* f() {} }',
+    'switch (0) { case 1: const f = 0; default: async function* f() {} }',
+    'switch (0) { case 1: var f = 0; default: async function* f() {} }',
     'switch (0) { case 1: let f = 0; default: var f; }',
     'switch (0) { case 1: var f = 0; default: let f; }',
     'switch (0) { case 1: let f = 0; var {f} = x; default: let x; }',
@@ -50,12 +44,9 @@ describe('Statements - Switch', () => {
     'switch (0) { case 1: const f = 0; x; default: let {f} = x; } var {f} = f',
     'switch (0) { case 1: class f {} default: class f {} }',
     'switch (0) { case 1: class f {} default: async function* f() {} }',
-    // 'switch (0) { case 1: async function* f() {} default: var f }',
-    // 'switch (0) { case 1: async function* f() {} default: async function* f() {} }',
-    // 'switch (0) { case 1: async function f() {} default: let f }',
-    // 'switch (0) { case 1: async function f() {} default: const f = 0 }',
-    //'switch (x) {case a: function f(){}; break; case b: function f(){}; break; }',
-    //'switch (0) { default: let f; if (false) ; else function f() {  } }',
+    'switch (0) { case 1: async function* f() {} default: var f }',
+    'switch (0) { case 1: async function f() {} default: let f }',
+    'switch (0) { case 1: async function f() {} default: const f = 0 }',
     'switch (0) { case 1: async function* f() {} default: var f; }',
     'switch (0) { case 1: class f {} default: class f {}; }',
     'switch (0) { case 1: class f {} default: const f = 0; }',
@@ -67,7 +58,6 @@ describe('Statements - Switch', () => {
     'switch (0) { case 1: const f = 0; default: function* f() {} }',
     'switch (0) { case 1: const f = 0; default: let f; }',
     'switch (0) { case 1: const f = 0; default: var f; }',
-    //'switch (0) { case 1: function* f() {} default: async function f() {} }',
     'switch (0) { case 1: function* f() {} default: var f; }',
     'switch (0) { case 1: let f; default: class f {}; }',
     'switch (0) { case 1: let f; default: var f; }',
@@ -83,26 +73,18 @@ describe('Statements - Switch', () => {
     'switch(0) { case 0: var a; default: const a = 0; }',
     'switch(0) { default: const a = 0; case 0: var a; }',
     'switch(0) { default: var a; case 0: const a = 0; }',
-    // 'switch (0) { case 1: async function* f() {} default: let f }',
+    'switch (0) { case 1: async function* f() {} default: let f }',
     'switch (0) { case 1: class f {} default: async function f() {} }',
-    //'switch (0) { case 1: async function f() {} default: async function f() {} }',
-    //'switch (x) {case a: function *f(){}; break; case b: async function f(){} }',
     `if (x) {} else if (y) {} else var foo = 1; let foo = 1;`,
-    // 'switch (0) { case 1: function f() {} default: function* f() {} }',
     'switch (0) { case 1: const f = 0; default: var f }',
-    //'switch (0) { case 1: function f() {} default: function f() {} }',
-    //'switch (0) { case 1: function* f() {} default: class f {} }',
+    'switch (0) { case 1: function* f() {} default: class f {} }',
     'switch (0) { case 1: let f; default: async function* f() {} }',
     'switch (0) { case 1: var f; default: const f = 0 }',
     'switch (x) { default: function(){} function(){} }',
     'switch (x) { case c: function(){} function(){} }',
-    //'switch (x) { case c: async function f(){} async function f(){} }',
-    //'switch (x) { default: async function f(){} async function f(){} }',
-    //'switch (x) { default: async function *f(){} async function *f(){} }',
-    //'switch (x) { default: function f(){} function f(){} }',
-    // 'switch (0) { case 1: function f() {} default: let f; }',
+    'switch (0) { case 1: function f() {} default: let f; }',
     'switch (x) {case a: const f = x; break; case b: function f(){}; break; }',
-    // 'switch (x) {case a: async function f(){}; break; case b: let f; break; }',
+    'switch (x) {case a: async function f(){}; break; case b: let f; break; }',
     'switch (0) { case 1: function f() {} default: var f }',
     'switch (x) { case a: let foo; break; case b: let foo; break; }',
     'switch (x) { case a: let foo; break; default: let foo; break; }',
@@ -132,15 +114,55 @@ describe('Statements - Switch', () => {
     });
   }
 
+  // Invalid cases - WebCompat off
+  for (const arg of [
+    'switch (0) { default: let f; if (false) ; else function f() {  } }',
+    'switch (x) { case c: function f(){} function f(){} }',
+    'switch (x) { default: function f(){} function f(){} }',
+    'switch (0) { case 1: function f() {} default: function* f() {} }',
+    'switch (0) { case 1: function f() {} default: function f() {} }',
+    'switch (x) {case a: function *f(){}; break; case b: async function f(){} }',
+    'switch (0) { case 1: function* f() {} default: async function f() {} }',
+    'switch (x) {case a: function f(){}; break; case b: function f(){}; break; }',
+    'switch (0) { case 1: async function* f() {} default: async function* f() {} }',
+    'switch (0) { case 1: function f() {} default: async function* f() {} }',
+    'switch (0) { case 1: function* f() {} default: function* f() {} }',
+    'switch (0) { case 1: async function* f() {} default: function* f() {} }',
+    'switch (0) { case 1: async function f() {} default: async function f() {} }',
+    'switch (x) {case a: function f(){}; break; case b: function f(){}; break; }',
+    'switch (x) { case c: async function *f(){} async function *f(){} }',
+    'switch (0) { case 1: function f() {} default: async function f() {} }',
+    'switch (x) { case c: function f(){} function f(){} }',
+    'switch (0) { default: let f; if (false) ; else function f() {  } }'
+  ]) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseScript(`${arg}`, { disableWebCompat: true });
+      });
+    });
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseModule(`${arg}`, { disableWebCompat: true });
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js', { disableWebCompat: true });
+      });
+    });
+  }
+
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'switch (A) {case B: C; default: D;}',
     'switch (A) {case B: C; case D: E;}',
     'switch (A) {case B: C; break; case D: E; break;}',
+    'switch (0) { case 1: async function* f() {} default: function* f() {} }',
     'switch(a){case 1:default:}',
     'switch(a){default:case 2:}',
     'switch(x) /* comment */ { case y: foo }',
     'switch([x = y]) { case y: foo }',
+    //'switch (0) { default: let f; if (false) ; else function f() {  } }',
     'switch([/a/]) { case y: !x }',
     'switch(x) { case y: {x = b} }',
     'switch(x) { case y: [a / b] }',
@@ -158,6 +180,7 @@ describe('Statements - Switch', () => {
     'switch(x) { case y: x = {...x} }',
     'switch(x) { case y: foo / bar ? 1 : (x) }',
     'switch(x) { case y: foo / bar ? 1 : (x) => {}}',
+    'switch (0) { case 1: async function f() {} default: async function f() {} }',
     'switch(x) { case y: foo ? 1 : (x) => {}}',
     'switch({x:y}) { case y: [...a] }',
     'switch({x:y}) { case y: [...a] = b }',
@@ -211,6 +234,19 @@ describe('Statements - Switch', () => {
     'switch (x) { case y: this.x; }',
     'switch (x) { case y: this[z]; }',
     'switch (answer) { case 0: hi(); break; default: break }',
+    'switch (0) { case 1: function* f() {} default: function* f() {} }',
+    'switch (0) { case 1: function f() {} default: async function f() {} }',
+    'switch (0) { case 1: function f() {} default: async function* f() {} }',
+    'switch (0) { case 1: async function* f() {} default: async function* f() {} }',
+    'switch (x) {case a: function f(){}; break; case b: function f(){}; break; }',
+    'switch (0) { case 1: function* f() {} default: async function f() {} }',
+    'switch (x) {case a: function *f(){}; break; case b: async function f(){} }',
+    'switch (0) { case 1: function f() {} default: function f() {} }',
+    'switch (0) { case 1: function f() {} default: function* f() {} }',
+    'switch (x) { case c: async function f(){} async function f(){} }',
+    'switch (x) { default: async function f(){} async function f(){} }',
+    'switch (x) { default: async function *f(){} async function *f(){} }',
+    'switch (x) { default: function f(){} function f(){} }',
     'switch(a){case 1:}',
     'switch (a) { case b: let [x] = y }',
     'switch (answer) { case 0: let a; }',

@@ -159,7 +159,7 @@ describe('Statements - Try', () => {
     });
   }
 
-  // Invalid cases - no web compat
+  // Invalid cases - WebCompat off
   for (const arg of [
     'try { throw {}; } catch ({ f }) { if (true) function f() {  } }',
     'try { } finally { function f(){} function f(){} }',

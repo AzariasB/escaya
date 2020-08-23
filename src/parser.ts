@@ -392,7 +392,6 @@ export function parseCaseOrDefaultClause(
   // 'Context.InBlock' bit instead to mark that we enter a new block scope for cases
   // like 'switch(x) { case y: {}}'.
   context = (context | 0b00110000000100000000000000000000) ^ 0b00100000000000000000000000000000;
-
   if (consumeOpt(state, context | Context.AllowRegExp, Token.CaseKeyword)) {
     const expression = parseExpressions(state, context);
     consume(state, context | Context.AllowRegExp, Token.Colon);
@@ -568,7 +567,11 @@ export function parseScopedStatement(state: ParserState, context: Context, scope
   // if the web compability is off ( B.3.4 )
   return context & (Context.OptionsDisableWebCompat | Context.Strict) || state.token !== Token.FunctionKeyword
     ? parseStatement(state, context, scope, labels, null)
-    : parseFunctionDeclaration(state, context, createParentScope(scope, ScopeKind.Block));
+    : parseFunctionDeclaration(
+        state,
+        (context | Context.InBlock) ^ Context.InBlock,
+        createParentScope(scope, ScopeKind.Block)
+      );
 }
 
 // WhileStatement :
@@ -637,9 +640,8 @@ export function parseBlockStatement(
 
   if (consume(state, context | Context.AllowRegExp, Token.LeftBrace)) {
     // We avoid making a a new 'catch scope' while parsing out a "TryStatement" for
-    // cases like 'try {} catch(x) {}'. Instead we continue with the scope we are currently in.
+    // cases like 'try {} catch(x) {}'. Instead we continue with current scope.
     if (!isCatchScope) scope = createParentScope(scope, ScopeKind.Block);
-
     while (state.token & Constants.IsSourceElement) {
       statements.push(parseBlockElements(state, context, scope, labels, ownLabels, parseStatementListItem));
     }
@@ -1127,7 +1129,16 @@ export function parseExpressionOrLabelledStatement(
     token & (context & Context.ErrorRecovery ? Constants.IsLabelRecovery : Constants.IsLabelNormal) &&
     state.token === Token.Colon
   ) {
-    return parseLabelledStatement(state, context, scope, token, tokenValue, labels, ownLabels, startIndex);
+    return parseLabelledStatement(
+      state,
+      (context | Context.InBlock) ^ Context.InBlock,
+      scope,
+      token,
+      tokenValue,
+      labels,
+      ownLabels,
+      startIndex
+    );
   }
 
   // 'let' followed by '[' means a lexical declaration, which should not appear here.
@@ -1268,7 +1279,7 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
 export function parseBindingIdentifier(
   state: ParserState,
   context: Context,
-  _scope: any,
+  scope: any,
   type: BindingType
 ): BindingIdentifier {
   let value = state.tokenValue;
@@ -1292,7 +1303,7 @@ export function parseBindingIdentifier(
     addEarlyDiagnostic(state, context, DiagnosticCode.InvalidLetConstBinding);
   }
 
-  addVarOrBlock(state, context, _scope, state.tokenValue, type);
+  addVarOrBlock(state, context, scope, state.tokenValue, type);
   const start = state.startIndex;
   nextToken(state, context);
   state.assignable = true;
@@ -1400,7 +1411,7 @@ export function parseLexicalDeclaration(
   if (type & BindingType.Let && (state.token & Constants.LetAsIdentifier) === 0) {
     return parseLetAsIdentifierReference(state, context, start, labels, ownLabels);
   }
-  const declarations = parseBindingList(state, context, scope, type);
+  const declarations = parseBindingList(state, (context | Context.InBlock) ^ Context.InBlock, scope, type);
   expectSemicolon(state, context);
   return finishNode(
     state,
@@ -3279,7 +3290,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
   }
   if ((isSimpleParameterList || context & Context.Strict) && scope.scopeError) {
     const err = scope.scopeError;
-    addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.key);
+    addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.name);
   }
   return params;
 }
@@ -3291,7 +3302,7 @@ export function parseUniqueFormalParameters(state: ParserState, context: Context
   // 14.1.2 - 'It is a Syntax Error if BoundNames of FormalParameters contains any duplicate elements.'
   if (scope.scopeError) {
     const err = scope.scopeError;
-    addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.key);
+    addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.name);
   }
   return parameters;
 }
@@ -3375,7 +3386,7 @@ export function parseMethodDefinition(
     propertySetParameterList = [parseBindingElement(state, context, scope, BindingType.ArgumentList)];
     if (scope.scopeError) {
       const err: any = scope.scopeError;
-      addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.key);
+      addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.name);
     }
     consume(state, context, Token.RightParen);
   } else {
@@ -3656,16 +3667,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
   start: number
 ): ArrowFunction | Expression {
   nextToken(state, context | Context.AllowRegExp);
-  let scope = {
-    type: ScopeKind.ArrowParams,
-    parent: {
-      parent: void 0,
-      declared: [],
-      type: ScopeKind.Block
-    },
-    declared: [],
-    scopeError: void 0
-  };
+  let scope = createParentScope(createScope(), ScopeKind.ArrowParams);
   const params: Expression[] = [];
 
   if (consumeOpt(state, context, Token.RightParen)) {
@@ -3823,7 +3825,7 @@ export function parseConciseOrFunctionBody(
 ): FunctionBody | ConciseBody {
   if (scope.scopeError !== void 0) {
     const err = scope.scopeError;
-    addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.key);
+    addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.name);
   }
 
   if (state.token === Token.LeftBrace) {
@@ -3934,16 +3936,8 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
   context: Context
 ): Expression | ArrowFunction | ParenthesizedExpression {
   const start = state.startIndex;
-  let scope = {
-    type: ScopeKind.ArrowParams,
-    parent: {
-      parent: void 0,
-      declared: [],
-      type: ScopeKind.Block
-    },
-    declared: [],
-    scopeError: void 0
-  };
+  let scope = createParentScope(createScope(), ScopeKind.ArrowParams);
+
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
 
   if (consumeOpt(state, context, Token.RightParen)) {
@@ -4184,7 +4178,7 @@ export function parseClassDeclaration(state: ParserState, context: Context, scop
   ) {
     // A named class creates a new lexical scope with a const binding of the
     // class name for the "inner name".
-    name = parseBindingIdentifier(state, context, scope, BindingType.Const);
+    name = parseBindingIdentifier(state, (context | Context.InBlock) ^ Context.InBlock, scope, BindingType.Const);
   } else if ((context & Context.Default) !== Context.Default) {
     addEarlyDiagnostic(state, context, DiagnosticCode.MissingClassName);
   }

@@ -19,7 +19,7 @@ describe('Statements - Block', () => {
     '{ let f; { var f; } }',
     '{ var f = 1; function f() {} }',
     '{ function f() {} var f = 1; }',
-    //'{ function f() {} const f = 1; }',
+    '{ function f() {} const f = 1; }',
     '{ let f; function* f() {} }',
     '{ async function f() {} var f }',
     '{ { var f; } class f {}; }',
@@ -52,7 +52,7 @@ describe('Statements - Block', () => {
     '{ const f = 0; function f() {} }',
     '{ class async {}; { var async; } }',
     '{ let f; function* f() {} }',
-    //'{ async function f() {} let f }',
+    '{ async function f() {} let f }',
     '{ let f; var f }',
     '{ function a() {} } { let a; function a() {}; }',
     '{ let a; class a {} }',
@@ -94,7 +94,7 @@ describe('Statements - Block', () => {
     });
   }
 
-  // Valid cases. Testing random cases to verify we have no issues with bit masks
+  // Invalid cases - WebCompat off
   for (const arg of [
     '{ function f() {} ; function f() {} }',
     '{ function f(){} function f(){} }',
