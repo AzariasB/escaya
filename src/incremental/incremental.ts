@@ -3,23 +3,36 @@ import { Context, ParserState, BindingType } from '../common';
 /**
  * Parse block statement nodes. E.g. 'BlockStatement', 'FunctionBody'
  */
-export function parseBlockElements(state: ParserState, context: Context, cb: any): any {
+export function parseBlockElements(
+  state: ParserState,
+  context: Context,
+  scope: any,
+  labels: any,
+  nestedLabels: any,
+  cb: any
+): any {
   const node = currentNode(state);
   if (node) {
     return consumeNode(state, context, node);
   }
-  return cb(state, context);
+  return cb(state, context, scope, labels, nestedLabels);
 }
 
 /**
  * Parse block statement nodes. E.g. 'BlockStatement', 'FunctionBody'
  */
-export function parseBindingElements(state: ParserState, context: Context, type: BindingType, cb: any): any {
+export function parseBindingElements(
+  state: ParserState,
+  context: Context,
+  scope: any,
+  type: BindingType,
+  cb: any
+): any {
   const node = currentNode(state);
   if (node) {
     return consumeNode(state, context, node);
   }
-  return cb(state, context, type);
+  return cb(state, context, scope, type);
 }
 
 export function parseForElements(state: ParserState, context: Context, cb: any): any {

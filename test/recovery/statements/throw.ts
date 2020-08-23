@@ -2,6 +2,188 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Throw', () => {
+  it('throw !', () => {
+    t.deepEqual(recovery('throw !', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ThrowStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 7,
+              end: 7,
+              kind: 13,
+              flags: 2
+            },
+            start: 5,
+            end: 7,
+            kind: 160,
+            flags: 0
+          },
+          start: 0,
+          end: 7,
+          kind: 137,
+          flags: 0
+        }
+      ],
+      text: 'throw !',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 6,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
+  it('throw {)', () => {
+    t.deepEqual(recovery('throw {)', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ThrowStatement',
+          expression: {
+            type: 'ObjectLiteral',
+            properties: [],
+            start: 5,
+            end: 7,
+            kind: 179,
+            flags: 0
+          },
+          start: 0,
+          end: 7,
+          kind: 137,
+          flags: 0
+        }
+      ],
+      text: 'throw {)',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 7,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 8,
+      end: 8
+    });
+  });
+
+  it('throw } =>!', () => {
+    t.deepEqual(recovery('throw } =>!', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ThrowStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 5,
+            end: 5,
+            kind: 13,
+            flags: 2
+          },
+          start: 0,
+          end: 5,
+          kind: 137,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 11,
+              end: 11,
+              kind: 13,
+              flags: 2
+            },
+            start: 10,
+            end: 11,
+            kind: 160,
+            flags: 0
+          },
+          start: 10,
+          end: 11,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'throw } =>!',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 8,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 10,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 11,
+      end: 11
+    });
+  });
+
   it('throw ) => babel', () => {
     t.deepEqual(recovery('throw ) => babel', 'recovery.js'), {
       kind: 209,

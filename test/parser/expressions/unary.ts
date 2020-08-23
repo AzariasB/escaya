@@ -35,6 +35,8 @@ describe('Expressions - Binary', () => {
     'typeof x',
     'x = a instanceof b + c',
     'x = a instanceof b > c',
+    'delete String.prototype[Symbol.iterator];',
+    'this + (this ? 1 : 2);',
     'delete true',
     'delete foo.bar',
     'typeof async({a});',

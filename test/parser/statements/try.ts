@@ -2,6 +2,74 @@ import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Statements - Try', () => {
+  // Check that non-lexical declarations can override a simple catch parameter
+  for (let declaration of ['var e', 'var f, e', 'var {e} = 0', 'let {} = 0', 'let {e:f} = 0', '{ function e(){} }']) {
+    it(`try { throw 0; } catch(e) {${declaration} }`, () => {
+      t.doesNotThrow(() => {
+        parseScript(`try { throw 0; } catch(e) {${declaration} }`);
+      });
+    });
+  }
+
+  const lexical_e = [
+    'let e',
+    'let f, g, e',
+    'let [f] = [], [] = [], e = e, h',
+    'let {e} = 0',
+    'let {f, e} = 0',
+    'let {f, g} = 0, {e} = 0',
+    'let {f = 0, e = 1} = 0',
+    'let [e] = 0',
+    'let [f, e] = 0',
+    'let {f:e} = 0',
+    'let [[[], e]] = 0',
+    'const e = 0',
+    'const f = 0, g = 0, e = 0',
+    'const {e} = 0',
+    'const [e] = 0',
+    'const {f:e} = 0',
+    'const [[[], e]] = 0',
+    'function e(){}',
+    'function* e(){}'
+  ];
+
+  // Check that lexical declarations cannot override a simple catch parameter
+  for (let declaration of lexical_e) {
+    it(`try { throw 0;} catch(e) {${declaration}}`, () => {
+      t.throws(() => {
+        parseScript(`try { throw 0;} catch(e) {${declaration}}`);
+      });
+    });
+
+    // Check that lexical declarations cannot override a complex catch parameter
+    it(`try { throw 0;} catch({e}) { ${declaration} }`, () => {
+      t.throws(() => {
+        parseScript(`try { throw 0;} catch({e}) { ${declaration} }`);
+      });
+    });
+
+    // Check that non-lexical declarations can override a simple catch parameter
+    it(`try { throw 0;} catch(e) {${declaration}}`, () => {
+      t.throws(() => {
+        parseScript(`try { throw 0;} catch(e) {${declaration}}`);
+      });
+    });
+
+    // Check that the above error does not occur if a declaration scope is between
+    // the catch and the loop.
+    it(`try {throw 0;} catch(e) {(()=>{${declaration}})();}`, () => {
+      t.doesNotThrow(() => {
+        parseScript(`try {throw 0;} catch(e) {(()=>{${declaration}})();}`);
+      });
+    });
+
+    it(`try { throw 0; } catch(e) {(function(){${declaration}})(); }`, () => {
+      t.doesNotThrow(() => {
+        parseScript(`try { throw 0; } catch(e) { (function(){${declaration}})(); } `);
+      });
+    });
+  }
+
   // Invalid cases
   for (const arg of [
     'try/("',
@@ -21,6 +89,9 @@ describe('Statements - Try', () => {
     'catch',
     'try',
     'finally',
+    'try {} catch ([a,a]) { }',
+    'try { } catch ({x}) { let x; }',
+    'try {} catch ({x}) { var x; }',
     'switch(x) { case y: {...x} }',
     'try(x) { case y: foo /a/ }',
     'try(x) { case y:{ class { x() {} } }}',
@@ -34,12 +105,38 @@ describe('Statements - Try', () => {
     'try {} catch([a,,...rest,]) {}',
     'try {} catch([ ...([a]) ]) {}',
     'try {} catch([...x--]) {}',
+    'try {} catch(e) { const e = 0 }',
+    'try { throw 0; } catch(e) { const f = 0, g = 0, e = 0 }',
+    'try { throw 0; } catch(e) { let f, g, e }',
+    'try { } catch (x) { let x; }',
+    'try {} catch ([a, a]) {}',
+    'try {} catch(a) { let a; }',
+    'try {} catch (x) { let x; }',
+    'try {} catch ([x, x]) {}',
     'try {} catch([...x,]) {}',
     'try {} catch({ x : /foo/ }) {}',
     'try {} catch({...{x} }) {}',
     'try {} catch([...++x]) {}',
     'try {} catch([x()]) {}',
     'try {} catch([x--]) {}',
+    'try {} catch ([foo]) { var foo; }',
+    'try {} catch ({ foo }) { var foo; }',
+    'try {} catch ({ a: foo, b: { c: [foo] } }) {}',
+    'try {} catch (x) { { let x } ',
+    'try { } catch ([x, x]) {}',
+    'try {} catch (foo) { let foo = 1; }',
+    'try {} catch (foo) { let foo; }',
+    'try {} catch (foo) { function foo() {} }',
+    'try {} catch(e) { let e; }',
+    'try {} catch ({a: e, b: e}) {}',
+    'try {} catch ({e = 0, a: e}) {}',
+    'try {} catch ({e, e}) {}',
+    'function f() { try {} catch (e) { function e(){} } }',
+    'try {} catch (e) { let e = x; }',
+    'try {} catch (e) { const e = x; }',
+    'try {} catch (x) { let x }',
+    'let foo; try {} catch (foo) {} let foo;',
+    'try { var foo = 1; } catch (e) {} let foo = 1;',
     'try {} catch({ x : y * 2 }) {}',
     'try { throw []; } catch ([...x = []]) {}',
     'try {} catch({ ...function() {} }) {}',
@@ -52,7 +149,28 @@ describe('Statements - Try', () => {
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
-        parseScript(`${arg}`, { loc: true });
+        parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
+  }
+
+  // Invalid cases - no web compat
+  for (const arg of [
+    'try { throw {}; } catch ({ f }) { if (true) function f() {  } }',
+    'try { } finally { function f(){} function f(){} }',
+    'try {} catch (foo) { for (var foo of bar); }',
+    'try { } catch (x) { for (var x of []) {} }',
+    'try {} catch (e) { { var e = x; } }',
+    'try {} catch (e) { for (var e;;) {} }'
+  ]) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseScript(`${arg}`, { loc: true, disableWebCompat: true });
       });
     });
     it(`${arg}`, () => {
@@ -64,6 +182,45 @@ describe('Statements - Try', () => {
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
+    'try { throw {}; } catch ({ f }) { if (true) function f() {  } }',
+    'try { } finally { function f(){} function f(){} }',
+    'try {} catch (foo) { for (var foo of bar); }',
+    'try { } catch (x) { for (var x of []) {} }',
+    'try {} catch (e) { { var e = x; } }',
+    'try {} catch (e) { for (var e;;) {} }',
+    'try { f; } catch (exception) { err1 = exception; } switch (1) { case 1: function f() {  } } try { f; } catch (exception) { err2 = exception; }',
+    'try { throw {}; } catch ({ f }) {  if (false) ; else function f() {  }  }',
+    'try { throw {}; } catch ({ f }) { if (true) function f() {  } else function _f() {} }',
+    `try { throw {}; } catch ({ f }) { if (true) function f() {  } else function _f() {} }
+    try { throw {}; } catch ({ f }) { if (true) function f() {  } else function _f() {} }`,
+    'try {} catch (foo) {} var foo;',
+    'try {} catch (foo) {} let foo;',
+    'try {} catch (foo) { { let foo; } }',
+    'try {} catch (foo) { function x() { var foo; } }',
+    'try {} catch (foo) { function x(foo) {} }',
+    'try {} catch (foo) { var foo = 1; }',
+    'try {} catch (e) { for (var e of y) {} }',
+    'try {try { let e; } catch { let e; } finally { let e; }} catch (e) { }',
+    `try {} catch (e) { var e = x; }
+    try {} catch (e) { var e = x; }`,
+    'try {} catch(e) { var e; }',
+    'try { } catch (e) { function *f(){} function *f(){} }',
+    'try { } finally { function a(){} function a(){} }',
+    'try { throw 0; } catch(e) { { function e(){} } }',
+    'try {} catch (e) { for (let e = 1;;) {} }',
+    'try {} catch (e) { for (var e = 1;;) {} }',
+    'try { } catch (e) { function f(){} function f(){} }',
+    'try { throw "try"; } catch (x) { for (var x = y; x !== y; x++) {}}',
+    'try { } catch (a) { { const a = b; } }',
+    'var foo; try {} catch (_) { const foo = 1; }',
+    'try {} catch {}',
+    'try { } catch (e) { async function f(){} async function f(){} }',
+    `try { throw null; } catch (f) {if (false) ; else function f() { return 123; }}`,
+    'try {} catch (x) { try {} catch (x) {} }',
+    'try {} catch (x) { try {} catch (y) { let x } }',
+    'try {} catch (foo) { for (var foo = 1;;); }',
+    'try {} catch (foo) { for (var foo in bar); }',
+    'try {} catch (foo) { for (var [foo] in bar); }',
     'try {} catch([e=x]){}',
     'try {} catch({e=x}){}',
     `try {} catch (e) {}
@@ -114,6 +271,8 @@ describe('Statements - Try', () => {
     `try { throw {}; } catch ({ f }) { switch (1) { default: function f() {  }} }
      try { throw {}; } catch ({ f }) { switch (1) { default: function f() {  }} }`,
     `try { throw null; } catch (f) { if (false) ; else function f() { return 123; } }`,
+    'try {} catch (e) { for (const e = 1;;) {} }',
+    'try {} catch (e) { for (var e = 1;;) {} }',
     `try {} catch(e){}`,
     `try {} catch({e}){}`,
     `try {} catch([e]){}`,
@@ -146,7 +305,7 @@ describe('Statements - Try', () => {
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseScript(`${arg}`, { loc: true });
+        parseScript(`${arg}`);
       });
     });
     it(`${arg}`, () => {

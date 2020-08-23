@@ -3,6 +3,83 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Labelled', () => {
   it('missing label', () => {
+    t.deepEqual(recovery('label: for(;;) break label \n /foo/', 'recovery.js'), {
+      children: [],
+      context: 0,
+      detached: false,
+      diagnostics: [],
+      directives: [],
+      end: 34,
+      fileName: 'recovery.js',
+      incremental: false,
+      kind: 209,
+      leafs: [
+        {
+          end: 26,
+          flags: 0,
+          kind: 134,
+          label: {
+            end: 6,
+            flags: 0,
+            kind: 13,
+            name: 'label',
+            start: 0,
+            type: 'LabelIdentifier'
+          },
+          labelledItem: {
+            condition: null,
+            end: 26,
+            flags: 0,
+            incrementor: null,
+            initializer: null,
+            kind: 132,
+            start: 6,
+            statement: {
+              end: 26,
+              flags: 0,
+              kind: 124,
+              label: {
+                end: 26,
+                flags: 0,
+                kind: 13,
+                name: 'label',
+                start: 20,
+                type: 'IdentifierReference'
+              },
+              start: 14,
+              type: 'BreakStatement'
+            },
+            type: 'ForStatement'
+          },
+          start: 0,
+          type: 'LabelledStatement'
+        },
+        {
+          end: 34,
+          expression: {
+            end: 34,
+            flag: '',
+            flags: 0,
+            kind: 15,
+            pattern: 'foo',
+            start: 26,
+            type: 'RegularExpressionLiteral'
+          },
+          flags: 0,
+          kind: 122,
+          start: 26,
+          type: 'ExpressionStatement'
+        }
+      ],
+      length: 34,
+      mutualFlags: 0,
+      parent: null,
+      start: 0,
+      text: 'label: for(;;) break label \n /foo/'
+    });
+  });
+
+  it('missing label', () => {
     t.deepEqual(recovery('foo:', 'recovery.js'), {
       kind: 209,
       directives: [],

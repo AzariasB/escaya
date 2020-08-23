@@ -18,7 +18,7 @@ interface FunctionDeclaration <: Declaration {
 ```
 
 `GeneratorDeclaration` and `AsyncFunctionDeclaration` and `AsyncGeneratorDeclaration` have been
-merged into `FunctionDeclaration`. An `async` and `generator` has been used instead. Same as in `EStree`.
+merged into `FunctionDeclaration`. An `async` and `generator` property has been used instead.
 
 ## ClassDeclaration
 

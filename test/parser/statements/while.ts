@@ -55,6 +55,8 @@ describe('Statements - While', () => {
     'while ((/(?!$\\x92$)/gimy)){}',
     'while(/a/) { /b/ }',
     'while(/a/)  /b/ ',
+    'while (n-- != 0) {}',
+    'while (x < y - 1) {}',
     'while (/["-{-]/gmuy[true] >>>= (((2e308)))) {}',
     'while(x=y) { function a() {} }',
     'while (x < 10) { x++; y--; }',

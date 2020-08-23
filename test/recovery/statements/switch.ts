@@ -2,6 +2,387 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Switch', () => {
+  it('switch case !', () => {
+    t.deepEqual(recovery('switch case !', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'SwitchStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 6,
+            end: 6,
+            kind: 13,
+            flags: 2
+          },
+          clauses: [
+            {
+              type: 'CaseClause',
+              expression: {
+                type: 'UnaryExpression',
+                operator: '!',
+                operand: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 13,
+                  end: 13,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 11,
+                end: 13,
+                kind: 160,
+                flags: 0
+              },
+              leafs: [],
+              start: 6,
+              end: 13,
+              kind: 141,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 13,
+          kind: 136,
+          flags: 0
+        }
+      ],
+      text: 'switch case !',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 7,
+          length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 12,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 13,
+      end: 13
+    });
+  });
+
+  it('switch++', () => {
+    t.deepEqual(recovery('switch++', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'SwitchStatement',
+          expression: {
+            type: 'PrefixUpdateExpression',
+            operator: '++',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 8,
+              end: 8,
+              kind: 13,
+              flags: 2
+            },
+            start: 6,
+            end: 8,
+            kind: 161,
+            flags: 0
+          },
+          clauses: [],
+          start: 0,
+          end: 8,
+          kind: 136,
+          flags: 0
+        }
+      ],
+      text: 'switch++',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 6,
+          length: 2
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 8,
+      end: 8
+    });
+  });
+
+  it('switch!', () => {
+    t.deepEqual(recovery('switch!', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'SwitchStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 7,
+              end: 7,
+              kind: 13,
+              flags: 2
+            },
+            start: 6,
+            end: 7,
+            kind: 160,
+            flags: 0
+          },
+          clauses: [],
+          start: 0,
+          end: 7,
+          kind: 136,
+          flags: 0
+        }
+      ],
+      text: 'switch!',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 6,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
+  it('switch )', () => {
+    t.deepEqual(recovery('switch )', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'SwitchStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 6,
+            end: 6,
+            kind: 13,
+            flags: 2
+          },
+          clauses: [],
+          start: 0,
+          end: 8,
+          kind: 136,
+          flags: 0
+        }
+      ],
+      text: 'switch )',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 7,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 8,
+      end: 8
+    });
+  });
+
+  it('switch foo+bar / for as keyword', () => {
+    t.deepEqual(recovery('switch foo+bar / for as keyword', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'SwitchStatement',
+          expression: {
+            type: 'BinaryExpression',
+            left: {
+              type: 'IdentifierReference',
+              name: 'foo',
+              start: 6,
+              end: 10,
+              kind: 13,
+              flags: 0
+            },
+            operator: '+',
+            right: {
+              type: 'BinaryExpression',
+              left: {
+                type: 'IdentifierReference',
+                name: 'bar',
+                start: 11,
+                end: 14,
+                kind: 13,
+                flags: 0
+              },
+              operator: '/',
+              right: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 16,
+                end: 16,
+                kind: 13,
+                flags: 2
+              },
+              start: 14,
+              end: 16,
+              kind: 155,
+              flags: 0
+            },
+            start: 6,
+            end: 16,
+            kind: 155,
+            flags: 0
+          },
+          clauses: [],
+          start: 0,
+          end: 16,
+          kind: 136,
+          flags: 0
+        },
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'IdentifierReference',
+            name: 'as',
+            start: 20,
+            end: 23,
+            kind: 13,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 31,
+            end: 31,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: 'keyword',
+            start: 23,
+            end: 31,
+            kind: 13,
+            flags: 0
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 31,
+              end: 31,
+              kind: 13,
+              flags: 2
+            },
+            start: 31,
+            end: 31,
+            kind: 122,
+            flags: 0
+          },
+          start: 16,
+          end: 31,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'switch foo+bar / for as keyword',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 7,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 17,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 21,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 5,
+          start: 24,
+          length: 7
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 31,
+      end: 31
+    });
+  });
+
   it('as keyword', () => {
     t.deepEqual(recovery('switch', 'recovery.js'), {
       kind: 209,

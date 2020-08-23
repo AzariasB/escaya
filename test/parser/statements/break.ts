@@ -1,7 +1,97 @@
 import * as t from 'assert';
-import { parseScript, recovery } from '../../../src/escaya';
+import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
 describe('Statements - Break', () => {
+  // Invalid cases
+  for (const arg of [
+    'continue',
+    'continue foo',
+    'continue foo;',
+    'continue; continue;',
+    // '() => { switch (x){ case z:       break y   }}',
+    // '() => { switch (x){ case z:       if (x) break y   }}',
+    'for (x of 3) break/',
+    'for (x of 3) break/x',
+    `x: for(;;) break x
+     /y`,
+    'for (x of 3) break/x/',
+    'for (x of 3) break/x/g',
+    `for (x of 3) break
+     /`,
+    // 'x: foo; break x;',
+    // 'break x;',
+
+    'function f(){ { continue } }',
+    'switch (x){ case z: if (x) continue y }',
+    '() => { switch (x){ case z: continue y }}',
+    '() => { switch (x){ case z:  if (x) continue }}',
+    //'switch (x){ case z:    if (x) break y   }',
+    'switch (x){ case z: { continue } }'
+  ]) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseScript(`${arg}`, { loc: true });
+      });
+    });
+
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseModule(`${arg}`, { disableWebCompat: true });
+      });
+    });
+
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseModule(`${arg}`, { loc: true });
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
+  }
+
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
+  for (const arg of [
+    'switch (x){ case z:    if (x) break }',
+    'switch (x){ case z:    { break }  }',
+    `x: for(;;) break x
+     /y/`,
+    'foo: while (x) break foo',
+    'do break; while(foo);',
+    'for (x of y) break',
+    'while (x) break',
+    'foo: for (x of y) break foo;',
+    'foo: while (true) { if (x) break foo; }',
+    'foo: while (true) { break foo; }',
+    'foo: while (true) if (x); else break foo;',
+    'foo: while (true) if (x) break foo;',
+    'foo: while (true) while (x) break foo;',
+    'foo: while(true)break foo;',
+    'bar: foo: while (true) break foo;',
+    'foo: switch (x) { default: break foo; }',
+    'foo: switch (x) { case x: if (foo) {break foo;} }',
+    'switch (x) { case x: if (foo) break; }',
+    'foo: for (;;) break foo'
+  ]) {
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        parseScript(`${arg}`, { loc: true });
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        parseModule(`${arg}`, { loc: true });
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
+  }
+
   it('labels and while', () => {
     t.deepEqual(parseScript('foo: do break foo; while(foo);', { loc: true }), {
       type: 'Script',

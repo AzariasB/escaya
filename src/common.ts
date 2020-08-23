@@ -17,6 +17,7 @@ export const enum Context {
   OptionsModule = 1 << 4,
   DisallowFunction = 1 << 5,
   Return = 1 << 6,
+  InGlobal = 1 << 7,
   Strict = 1 << 10,
   Module = 1 << 11,
   AllowRegExp = 1 << 12,
@@ -33,7 +34,9 @@ export const enum Context {
   InConstructor = 1 << 24,
   ErrorRecovery = 1 << 25,
   NewTarget = 1 << 26,
-  ImportMeta = 1 << 27
+  ImportMeta = 1 << 27,
+  InBlock = 1 << 28,
+  TopLevel = 1 << 29
 }
 
 /**
@@ -75,7 +78,11 @@ export const enum BindingType {
   Var = 1 << 6,
   CatchIdentifier = 1 << 7,
   CatchPattern = 1 << 8,
-  Literal = 1 << 9
+  Literal = 1 << 9,
+  FunctionLexical = 1 << 10,
+  FunctionStatement = 1 << 11,
+  Class = 1 << 12,
+  Empty = 1 << 13
 }
 
 export const enum Destructible {
@@ -124,13 +131,13 @@ export interface ParserState {
   lastChar: number;
 }
 
-export function canParseSemicolon(state: ParserState): boolean {
+export function canConsumeSemicolon(state: ParserState): boolean {
   return (
     state.lineTerminatorBeforeNextToken || (state.token & Token.IsAutomaticSemicolon) === Token.IsAutomaticSemicolon
   );
 }
 
-export function consumeSemicolon(state: ParserState, context: Context): boolean {
+export function expectSemicolon(state: ParserState, context: Context): boolean {
   // Check for automatic semicolon insertion according to
   // the rules given in ECMA-262, section 7.9, page 21.
   if (state.token & Token.IsAutomaticSemicolon || state.lineTerminatorBeforeNextToken) {
@@ -333,4 +340,75 @@ export function validateIdentifierReference(state: ParserState, context: Context
     }
   }
   return state.tokenValue;
+}
+export function parseStatementWithLabelSet(t: Token, label: string, labels: any, nestedLabels: any): any {
+  if (nestedLabels) {
+    nestedLabels.push(label);
+  } else {
+    nestedLabels = [label];
+  }
+  if (isIterationStatement(t)) {
+    labels.iterationLabels = nestedLabels;
+  }
+  return nestedLabels;
+}
+
+export function isIterationStatement(t: Token): boolean {
+  // If encounter 'for', 'while', or 'do', it's an valid iteration statement start
+  //
+  // Examples:
+  //      for(...) {}
+  //      while(...) {}
+  //      do { } while(...)
+  return t === Token.ForKeyword || t === Token.WhileKeyword || t === Token.DoKeyword;
+}
+
+export function addLabel(state: ParserState, context: Context, label: string, labels: any, nestedLabels: any): any {
+  let set = labels;
+
+  while (set) {
+    if (set['#' + label])
+      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedSemicolon, DiagnosticKind.Error);
+    set = set.parentLabels;
+  }
+  labels = { parentLabels: labels, iterationLabels: null };
+  labels['#' + label] = true;
+
+  if (nestedLabels) {
+    nestedLabels.push(label);
+  } else {
+    nestedLabels = [label];
+  }
+
+  return labels;
+}
+
+export function checkBreakStatement(state: ParserState, context: Context, labels: any, value: string): 0 | 1 {
+  if (labels == null) {
+    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedSemicolon, DiagnosticKind.Error);
+    return 1;
+  }
+
+  if (labels['#' + value]) return 1;
+
+  while ((labels = labels.parentLabels)) if (labels['#' + value]) return 1;
+
+  return 0;
+}
+
+export function checkContinueStatement(labels: any, value: string): 0 | 1 {
+  let iterationLabel: any;
+
+  while (labels) {
+    if (labels.iterationLabels) {
+      iterationLabel = labels.iterationLabels;
+      for (let i = 0; i < iterationLabel.length; i++) {
+        if (iterationLabel[i] === value) {
+          return 1;
+        }
+      }
+    }
+    labels = labels.parentLabels;
+  }
+  return 0;
 }

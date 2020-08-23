@@ -549,16 +549,16 @@ describe('Recovery - Export', () => {
           {
             kind: 2,
             source: 2,
-            message: 'Variable declaration or lexical binding expected',
-            code: 16,
+            message: 'Variable declaration expected',
+            code: 116,
             start: 42,
             length: 5
           },
           {
             kind: 2,
             source: 2,
-            message: 'Variable declaration or lexical binding expected',
-            code: 16,
+            message: 'Variable declaration expected',
+            code: 116,
             start: 48,
             length: 8
           },

@@ -9,6 +9,7 @@ describe('Expressions - Async', () => {
     //'async () => {} \n  /x/',
     //'async (x, y) => {} \n  /x/',
     'async async => {} \n  / x',
+    'async (a, ...x = 10) => x;',
     '()=>{}[x]',
     '()=>{}{x}',
     '()=>{}.x',

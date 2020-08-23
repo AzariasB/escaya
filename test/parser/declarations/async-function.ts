@@ -23,6 +23,12 @@ describe('Declarations - Async Function', () => {
     'async function f(){ let f }',
     'x=async function f(){ let f }',
     'async function *f(){ var f }',
+    'async function x(a) { await 1; }',
+    'async function x(a, b = 2) { await 1; }',
+    'async function x(a, b, ...c) { await 1; }',
+    'async function f(){ let f = 1 }',
+    'async function f(){ var f = 1 }',
+    'function *f(){ const f = 1 }',
     'async function * f(){}',
     'async function * f(){}'
   ]) {

@@ -7,6 +7,7 @@ import { Statement } from './ast/statements';
 import { nextToken } from './lexer/scan';
 import { TextChangeRange } from './types';
 import { DictionaryMap, Dictionary } from './dictionary/dictionary-map';
+import { createScope, ScopeState } from './scope';
 
 /**
  * The parser options.
@@ -45,15 +46,18 @@ export function parseRoot(
   // Prime the scanner.
   nextToken(state, context | Context.AllowRegExp);
 
+  const scope: ScopeState = createScope();
+
   const directives: string[] = [];
-  const statements: Statement[] =
+
+  const leafs: Statement[] =
     context & Context.Module
-      ? parseStatementList(state, context, parseModuleItem)
-      : parseStatementList(state, context, parseStatementListItem);
+      ? parseStatementList(state, context, scope, parseModuleItem)
+      : parseStatementList(state, context, scope, parseStatementListItem);
 
   return context & Context.Module
-    ? DictionaryMap.Module(source, directives, statements)
-    : DictionaryMap.Script(source, directives, statements);
+    ? DictionaryMap.Module(source, directives, leafs)
+    : DictionaryMap.Script(source, directives, leafs);
 }
 
 /**
@@ -66,11 +70,13 @@ export function parseSourceFile(text: string, filename: string, context: Context
   // Prime the scanner.
   nextToken(state, context | Context.AllowRegExp);
 
+  const scope: ScopeState = createScope();
+
   const directives: string[] = [];
   const statements: Statement[] =
     context & Context.Module
-      ? parseStatementList(state, context, parseModuleItem)
-      : parseStatementList(state, context, parseStatementListItem);
+      ? parseStatementList(state, context, scope, parseModuleItem)
+      : parseStatementList(state, context, scope, parseStatementListItem);
 
   return createRootNode(directives, statements, text, filename, state.diagnostics);
 }

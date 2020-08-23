@@ -15,6 +15,7 @@ describe('Expressions - Function', () => {
     '(function ([...{ x }, y] = [1, 2, 3]) {})',
     '(function ([a, ...b = 20,,]) { })',
     '(function ([a, ...b,]) { })',
+    '(function f(x, ...x) {g(x); x = 42; g(x)})',
     '(function ([a, ...b,,]) { })',
     '(function break(){})',
     '(function function(){})',
@@ -134,7 +135,6 @@ describe('Expressions - Function', () => {
     'function f(...x) {g(x); xuments[0] = 42; g(x)}',
     'function f(x) {g(x); g(function() {xuments[0] = 42}); g(x)}',
     'function f(x) {g(x); x = 42; g(x)}',
-    'function f(x, ...x) {g(x); x = 42; g(x)}',
     'function f(x=1) {g(x); x = 42; g(x)}',
     'function f(x, {a=(g(x), x=42)}) {g(x)}',
     'function f(x) {g(x); g(function() {x = 42}); g(x)}',
@@ -146,6 +146,61 @@ describe('Expressions - Function', () => {
     '(function f(...rest){})',
     '(function f(a, b, ...rest){})',
     'typeof async function f(){}',
+    // // Don't shadow nested complex parameter
+    '(function y([[x]]) {{function x() {}}})([[1]]);',
+    // Don't shadow rest parameter
+    '(function y(...x) {{ function x() {}}})(1);',
+    // Don't shadow complex rest parameter
+    '(function y(...[x]) {{function x() {}}})(1);',
+    // Don't shadow complex parameter
+    '(function y(x = 0) { var x; {function x() {}}})(1);',
+    // Don't shadow nested complex parameter
+    '(function y([[x]]) { var x; { function x() {} }})([[1]]);',
+    // Don't shadow rest parameter
+    '(function y(...x) { var x; {function x() {}}})(1);',
+    // Don't shadow complex rest parameter
+    '(function y(...[x]) {var x;{ function x() {} }})(1);',
+    // Hoisting is not affected by other simple parameters
+    '(function y(y, z) {{function x() {}}})(1);',
+    // Hoisting is not affected by other complex parameters
+    '(function y([y] = [], z) {{function x() {}}})();',
+    // Hoisting is not affected by rest parameters
+    '(function y(y, ...z) {{function x() {} }})();',
+    // Hoisting is not affected by complex rest parameters
+    '(function y(y, ...[z]) {{function x() {}}})();',
+    // No hoisting within a function scope
+    `(function() {
+      { function* bar() {} }
+    })();`,
+    // Lexical shadowing allowed, no hoisting
+    `(function() {
+      function* x() { yield 1; }
+      { function* x() { yield 2 } }
+    })();`,
+    // No hoisting within a function scope
+    `(function() {
+      { async function bar() {} }
+    })();`,
+    // Lexical shadowing allowed, no hoisting
+    `(function() {
+      var y;
+      async function x() { y = 1; }
+      { async function x() { y = 2; } }
+      x();
+    })();`,
+    '(function(x, {y} = {}, {z}) {})',
+    '(function({x}, {y} = {}, {z}, ...a) {})',
+    '(function(x, {y} = {}, {z}, {v} = {}) {})',
+    '(function({x}, {y} = {}, {z}, {v} = {}, ...a) {})',
+    '(function() { var { x : {} } = { x : val }; })',
+    '(function() { "use strict"; let {} = val; })',
+    '(function({ x = y = 1 }) {}({}));',
+    '(function({ x: x = y = 1 }) {}({}));',
+    '(function([ x = y = 1 ]) {}([]));',
+    '(function() { ((s = 17, y = s) => s)() })();',
+    'function f1() { let y = 10; return x1 + y }',
+    'a.foo = (function () { return function () {}; })();',
+    'function f() { x = 27; }',
     'x = function f([x],){}',
     'x = function f({a},){}',
     'x = function f([x] = y,){}',
@@ -180,11 +235,23 @@ describe('Expressions - Function', () => {
     'function f({x:x = 1}, {y:b=(x=2)}) {}',
     'function f(x) {g(x)}',
     'function f({x:x = (x = 2)}) {}',
+    '(function (x) { function y() { return null; } x.y = z; })(x || (x = {}));',
+    '(function () { function C() {} C.prototype.foo = function () { }; return C; }());',
     '(function fn({a = 1, ...b} = {}) {   return {a, b}; })',
     `function iceFapper(idiot) {}`,
     '(function([{ u: v, w: x, y: z } = { u: 444, w: 555, y: 666 }] = [{ u: 777, w: 888, y: 999 }]) {})',
     '(function([cover = (function () {}), xCover = (0, function() {})]) {})',
     '{{{ function g() {} }}}',
+    `(function x() {
+      function* y() {
+        do {
+          yield 23;
+          yield 42;
+        } while(false)
+        return 999;
+      }
+      var gen = y();
+    })();`,
     '(function f({foo=a,bar} = x){})',
     '(function f({foo:a=b, bar:c=d} = x){})',
     '(function f({} = x){})',

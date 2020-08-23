@@ -4,10 +4,9 @@ import { parseScript, recovery } from '../../../src/escaya';
 describe('Declarations - Function', () => {
   // Invalid cases
   for (const arg of [
+    'function f({x,x}){}',
     'while (true) function f(){}',
     'function x(,,,,,,,,,,,,,a) {}',
-    'if (x) function f(){}',
-    'if (x) ; else function f(){}',
     'function *g() {   s = {"foo": yield a = x} = x   }',
     'function f(...(x)){}',
     'function f(...rest.foo){}',
@@ -15,8 +14,65 @@ describe('Declarations - Function', () => {
     'function f(a, ...rest, b){}',
     'function f(...rest = x){}',
     'function f(...rest, b){}',
+    'function f(x) { const x = y }',
+    'function foo() { return(); }',
+    'function foo(...b, a) { return a }',
+    'function foo(b, a, a,,) { return a }',
+    'function f(b, a, b, a, [fine]) {}',
+    'function f(b, a, b, ...a) {}',
+    'const f = 1; function f() {}',
+    'function x() {	let a = { s = 5 };}',
+    'function g(){ const f = 1; function f() {} }',
+    // 'function f(b, a, b, a) {"use strict"}',
+    // 'function f(b, a, a) {"use strict"}',
+    // 'function f(b, a, b, a) {"use strict"}',
+    // 'function f(b, a, b, a, [fine]) {"use strict"}',
+    // 'function f(b, a, b, ...a) {"use strict"}',
+    // 'function g(){ { function f() {} let f = 1; } }',
+    // 'function g(){ { function f() {} const f = 1; } }',
+    'function f() { for (var [x, y] = {} in {}); }',
+    'function f() { for ("unassignable" in {}); }',
+    'function f(b, a, b, a, [fine]) {"use strict"}',
+    'function f(){  for (var x;;); const x = 1  }',
+    'function f() { { { var x; } let x; } }',
+    'function f() { { { var x; } let x; } }',
+    'function f() { { var x; let x; } }',
+    'function f() { { var x; let x; } }',
+    '(function (e) { var e; const e = undefined; });',
+    'function foo([x], [x]) {}',
+    'function x(x = class x {}) { const x = y; }',
+    '(function() { "use strict"; { const f = 1; var f; } })',
+    'function x() {}const y = 4, x = 5;',
+    'function x() {}const y = 4, x = 5;',
+    'function x() {}const x = function() {};',
+    'function foo() {try {} catch([x]) { function x() {} } }',
+    'function foo() {try {} catch([x]) { let x = 10;} }',
+    'function foo() {try {} catch([x]) { var x = 10;} }',
+    //'function foo({x:{z:[z1]}}, z1) {}',
+    'function foo([x]) { let x = 10;}',
+    'function foo([x], [x]) {}',
+    '(function() { "use strict"; { const f = 1; var f; } })',
+    'function foo([x, x]) {}',
+    'function x(x = class x {}) { const x = y; }',
+    'async function af(x) { let x; }',
+    'function foo({x:x, x:x}) {}',
+    'function f([a, a]) {}',
+    'function f([{foo}] = x, {foo}){}',
+    'function f([{foo}] = x, [{foo}]){}',
+    'function f([b, a, a]) {}',
+    'function f(){ var x; const x = y; }',
+    'function f(){ let x; function x(){} }',
+    'function f(){ function x(){} let x; }',
+    'function f(){ const x = y; function x(){} }',
+    'function f(){ function x(){} const x = y; }',
+    'function a() { const x = 1; var x = 2; }',
+    'function* f(a) { let a; }',
+    'function* f([a]){ let a; }',
+    'function* f({a}){ let a; }',
+    'function f(){  for (var x;;); const x = 1  }',
     'function f(,,){}',
     'function *f(yield) {}',
+    'function d(a){let a;}',
     'function d(){new.',
     'function f([a = await b]) {}',
     'function f({a: b = await c}) {}',
@@ -51,7 +107,6 @@ describe('Declarations - Function', () => {
     'function f([...foo,,] = obj){}',
     'function f([...bar = foo]){}',
     'function f([...bar = foo] = obj){}',
-
     'function f([...foo,] = obj){}',
     'function f([x=x()=x]){}',
     'function *f(){   for (yield in y);   }',
@@ -60,6 +115,13 @@ describe('Declarations - Function', () => {
     'function *f(x = (finally) = f) {}',
     'function* f() {((yield[this] = y));}',
     'function f([.x]){}',
+    'function f([b, a], {b}) {}',
+    // 'function f([b, a], b) {}',
+    // 'function f([b, a], b=x) {}',
+    'function f([b, a, a]) {}',
+    'function f([b, a, b, a]) {}',
+    // 'function f(a, a, b) {"use strict"}',
+    // 'function f(b, a, a) {"use strict"}',
     'let f = async function *await() {}',
     'function f(,){}',
     'function f(...a = x,){}',
@@ -75,7 +137,37 @@ describe('Declarations - Function', () => {
     'function f([...foo,,] = obj){}',
     'function f([...bar = foo]){}',
     'function f([...bar = foo] = obj){}',
-    'function f([...foo,] = obj){}'
+    'function f([...foo,] = obj){}',
+    //   'function f(){ var f = 123; if (true) function f(){} }',
+    `function f(){
+      var f = 123;
+      if (true) async function f(){}
+    }`,
+    `function g(){
+      var f = 123;
+      oops: async function f(){}
+    }`
+    /* `function g(){
+      var f = 123;
+      oops: function f(){}
+    }`*/
+  ]) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
+  }
+
+  for (const arg of [
+    // 'function f(){ var f = 123; if (true) function f(){} }',
+    'if (x) function f(){}',
+    'if (x) ; else function f(){}'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -88,7 +180,6 @@ describe('Declarations - Function', () => {
       });
     });
   }
-
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'function f(...rest){}',
@@ -323,20 +414,74 @@ describe('Declarations - Function', () => {
     'function f([foo,] = x){}',
     'function f({b: []}) {}',
     'function f([{b}]) {}',
+    `function f7(value) {
+      switch (value) {
+      case 0: return "0";
+      case -0: return "-0";
+      case 1: case 2: case 3: case 4:  // Dummy fillers.
+      }
+      switch (value) {
+      case 0x3fffffff: return "MaxSmi";
+      case 0x3ffffffe:
+      case 0x3ffffffd:
+      case 0x3ffffffc:
+      case 0x3ffffffb:
+      case 0x3ffffffa:  // Dummy fillers
+      }
+      switch (value) {
+      case -0x40000000: return "MinSmi";
+      case -0x3fffffff:
+      case -0x3ffffffe:
+      case -0x3ffffffd:
+      case -0x3ffffffc:
+      case -0x3ffffffb:  // Dummy fillers
+      }
+      switch (value) {
+      case 10: return "A";
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+      case 15:  // Dummy fillers
+      }
+      return "default";
+    }`,
     'function f() {} function f() {}',
     'function f() {function f() {}}',
     'function f([a, {b: []}]) {}',
+    'function f(x) { arguments; return x() + x(); }',
+    'function Regular() { this[0] >>=  0; this[1] ^=  1; }',
+    'function foo() { return (0 > ("10"||10) - 1); }',
     'function f({...a}){}',
     'function f([x, ...[a, b]] = obj){}',
+    'function boom(o) { o.g = h }',
     'function f([foo, ...bar]){}',
     'function f([foo, ...bar] = obj){}',
     'function f([...[a, b]]){}',
     'function f([...[a, b]] = obj){}',
     'function f( [a=[...b], ...c]){}',
     'function f([...bar]){}',
+    `function f(a,b,c) {
+      a = a | 0;
+      b = b | 0;
+      c = c | 0;
+      var x = 0;
+      x = y[a & 1](z[b & 1](c) | 0) | 0;
+      return x | 0;
+    }`,
+    `function g(a) {
+      a = a | 0;
+      return (a + 23) | 0;
+    }`,
+    `function h(a) {
+      a = a | 0;
+      return (a + 42) | 0;
+    }`,
     'function f([...bar] = obj){}',
     'function f([foo] = x, b = y){}',
     'function f(x, [foo]){}',
+    'function foo() { return a.reduce(bar); }',
+    'function foo() { return -"0" }',
     'function f([foo=a,bar=b] = x){}',
     'function f([...bar] = obj){}',
     'function f([foo, ...bar] = obj){}',
@@ -412,9 +557,12 @@ describe('Declarations - Function', () => {
     'function f([foo,bar] = x){}',
     'function f([foo,,bar]){}',
     'function f(x) {{let x}}',
+    'function f() { for (new.target in {}); }',
+    'function f() { new.target++ }',
     'function f() {var f}',
     'function f(x) {{var x}}',
     'function f(x) {var x}',
+    'function f() {{let f}}',
     'function f() {} ; function f() {}',
     'function f() {   class x { foo(x=new (await)()){} }   }',
     "function f(arg) {g(arg); g(function() {eval('arg = 42')}); g(arg)}",
@@ -447,9 +595,23 @@ describe('Declarations - Function', () => {
     'function *f(){ return [...yield x]; }',
     'function *f(){ return [...yield]; }',
     'function f([...x]) {}',
+    'function g(){ var f = 1; function f() {} }',
     `function f(async = await){}`,
     `function f([async = await]){}`,
+    'function f(one) { class x { } { class x { } function g() { one; x; } g() } } f()',
+    'function g() { var x = 1; { let x = 2; function g() { x; } g(); } }',
     'function f([x = 23] = []) {}',
+    `function __f_4(one) {
+      var __v_10 = one + 1;
+      {
+        let __v_10 = one + 3;
+        function __f_6() {
+     one;
+     __v_10;
+        }
+        __f_6();
+      }
+    }`,
     `(function () {
       let q;
       let w;
@@ -502,6 +664,9 @@ describe('Declarations - Function', () => {
     'function f() {function foo() { var await = 1; return await; }}',
     'function f() {function foo(await) { return await; }}',
     'function f(x=(await)=y){}',
+    'function f(a, a, b) {}',
+    'function f(a, b, a) {}',
+    'function f(b, a, b, a) {}',
     'function f() {function* foo() { var await = 1; return await; }}',
     'function f() {function* foo(await) { return await; }}',
     'function f() {var f = () => { var await = 1; return await; }}',
@@ -516,10 +681,31 @@ describe('Declarations - Function', () => {
     'function f(){}\n/foo/g',
     'typeof function f(){}\n/foo/g',
     'function f([foo=a,bar]){}',
+    'function f4({a = x}) { const x = 2; return a; }',
+    'function f7({a = function() { return x }}) { var x; return a(); }',
+    'function f20({[y]: x}) { var y = "b"; return x; }',
+    'function f21({[eval("y")]: x}) { var y = "b"; return x; }',
+    'function f1({a = x}, x) { return a }',
+    'function f5({a = () => x}, x) { return a() }',
+    'function f11({a = b}, {b}) { return a }',
+    'function f30({x = a}, ...a) { return x[0] }',
+    'var f = 1; function f() {}',
+    'function f5(x, ...a) { arguments[0] = 0; return x }',
+    'function f8(x, ...a) { a = []; return arguments[1] }',
+    'function f7({a: x}) { x = 2; return arguments[0].a }',
+    'function f35({x = () => a}, ...a) { return x()[0] }',
+    'function f34({x = function() { return a }}, ...a) { return x()[0] }',
+    'function f3({x}) { var y = x; var x = 2; return y; }',
+    'function f7({x}) { var g = () => x; var x = 2; return g(); }',
+    'function f8({x}) { { var g = () => x; var x = 2; } return g(); }',
+    'function f13({x}, y, [z], v) { var x, y, z; return x*y*z*v }',
     'function ref(a,) {}',
     'function eval() { }',
     'function interface() { }',
+    'function f2({c, d}, {a, b}) { return c - d + a - b; }',
+    'function f3([{a, b}]) { return a - b; }',
     'function yield() { }',
+    'function f(x) { { const x = y } }',
     'function f(arg, x=1) {g(arg); arguments[0] = 42; g(arg)}',
     'function f(arg, ...x) {g(arg); arguments[0] = 42; g(arg)}',
     'function f(arg=1) {g(arg); arguments[0] = 42; g(arg)}',

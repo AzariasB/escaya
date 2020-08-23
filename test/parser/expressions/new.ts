@@ -29,6 +29,8 @@ describe('Expressions - Binary', () => {
     'new foo.bar().baz;',
     'new foo[bar];',
     'new foo[bar]();',
+    'new Set([NaN, NaN, NaN]).size',
+    'new Date(1.009804e12);',
     'new function(foo) {\n    this.foo = foo;\n}(1);',
     'new function(foo) {\n    this.foo = foo;\n}();',
     'new function test(foo) {\n    this.foo = foo;\n}(1);',

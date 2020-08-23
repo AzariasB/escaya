@@ -76,6 +76,13 @@ describe('Statements - For', () => {
     'for (let {x:y});',
     'for (let {x,,} = obj);',
     'for (let {,x} = obj);',
+    'for (let x of []) { var x;  }',
+    'for (let x;;) { var x; }',
+    'for (let a, b, x, d;;) { var foo; var bar; { var doo, x, ee; } }',
+    'for (let x;;) { { var x; } }',
+    'for (const x = y;;) { var x; }',
+    'for (let x of y) { var x; }',
+    'for (const x of y) { var x; }',
     'for (let {x,} = obj);',
     'for (let {x,, = obj);',
     'for (let {,x} = ;',
@@ -220,6 +227,8 @@ describe('Statements - For', () => {
     'for (const {,x} = obj);',
     'for (const {x,, y} = obj);',
     'for (const {x, y} = obj);',
+    'for (const a; ;) {}',
+    'for (var { a, b, c }; a && b && c; ) {}',
     'for (const {x} = a, y = obj);',
     'for (let x = y, {z};;);',
     'for (const {x} = a, obj);',
@@ -269,8 +278,12 @@ describe('Statements - For', () => {
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
+    'for (var x of obj) { const x = 1 }',
+    'for (var foo = arr, [bar] = arr2;;);',
     `for (var i = 0; i < 40000; i++) { src = { ...i, x: -9007199254740991 }; clone = { ...src }; }`,
     `for ([{__proto__: 1, __proto__: 2}];;);`,
+    'for (var {z} = { z : 3 }; z != 0; z--) { sum += z; }',
+    'for (const {x, z} = { x : 0, z : 3 }; z != 3 || x != 0;) {}',
     `for ([a];;);`,
     `for ({a};;);`,
     `for (let.foo;;);`,
@@ -430,6 +443,14 @@ describe('Statements - For', () => {
     `for (let [...foo] = obj;;);`,
     `for (a * b + c * d;b;c);`,
     `for (const {...x} in y){}`,
+    'for (var i = 0; i < 10; i++) { ({})[h]; }',
+    `for(var i = 0; i < 4; i++) {
+      switch (i) {
+        case 0: o.p1 = 0; break;
+        case 1: o.p2 = 0; break;
+      }
+      o[i] = i;
+    }`,
     `for (var a in stored = a, {a: 0, b: 1, c: 2});`,
     `for ([a.b] in c) d`,
     'for(()=>{a in b};;);',

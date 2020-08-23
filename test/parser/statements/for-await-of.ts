@@ -4,6 +4,8 @@ import { parseScript, recovery, parseModule } from '../../../src/escaya';
 describe('Statements - For await of', () => {
   // Invalid cases
   for (const arg of [
+    // Invalidly parenthesized declaration targets.
+    'async function f() { for await (({x}) of [{x:1}]) {} }',
     'async function f() { for await ([x] in y) {} }',
     'async function f() { for await ({x} in y) {} }',
     'async function f() { for await (var x in y) {} }',

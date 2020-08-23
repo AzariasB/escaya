@@ -81,7 +81,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `b`',
+          code: 124,
+          start: 8,
+          length: 4
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -552,7 +561,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `a`',
+          code: 124,
+          start: 15,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -782,7 +800,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `a`',
+          code: 124,
+          start: 15,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1441,7 +1468,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate lexical binding `b`',
+          code: 123,
+          start: 19,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1660,7 +1696,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `c`',
+          code: 124,
+          start: 21,
+          length: 4
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1824,7 +1869,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `b`',
+          code: 124,
+          start: 19,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1921,7 +1975,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate lexical binding `a`',
+          code: 123,
+          start: 25,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -2535,7 +2598,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 126,
+          kind: 3,
+          length: 1,
+          message: 'Unknown label `b`',
+          source: 2,
+          start: 36
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -2682,7 +2754,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `a`',
+          code: 124,
+          start: 15,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -3130,7 +3211,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `a`',
+          code: 124,
+          start: 15,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -3545,7 +3635,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 126,
+          kind: 3,
+          length: 1,
+          message: 'Unknown label `a`',
+          source: 2,
+          start: 10
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -3678,7 +3777,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 92,
+          kind: 2,
+          length: 1,
+          message: '`;` expected',
+          source: 2,
+          start: 20
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -3910,7 +4018,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `a`',
+          code: 124,
+          start: 39,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4393,7 +4510,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `a`',
+          code: 124,
+          start: 13,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4693,7 +4819,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `b`',
+          code: 124,
+          start: 21,
+          length: 5
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4790,7 +4925,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `b`',
+          code: 124,
+          start: 31,
+          length: 4
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4897,7 +5041,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `b`',
+          code: 124,
+          start: 12,
+          length: 4
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4978,7 +5131,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate lexical binding `a`',
+          code: 123,
+          start: 13,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -5068,7 +5230,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `a`',
+          code: 124,
+          start: 25,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -5266,7 +5437,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate lexical binding `b`',
+          code: 123,
+          start: 23,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -5440,7 +5620,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `b`',
+          code: 124,
+          start: 32,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -5707,7 +5896,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate lexical binding `a`',
+          code: 123,
+          start: 19,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -5839,7 +6037,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `c`',
+          code: 124,
+          start: 36,
+          length: 5
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -6244,7 +6451,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 124,
+          kind: 3,
+          length: 8,
+          message: 'Duplicate binding `a`',
+          source: 2,
+          start: 3
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -6370,7 +6586,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `b`',
+          code: 124,
+          start: 19,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,

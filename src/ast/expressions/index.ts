@@ -69,16 +69,32 @@ export type MethodName = IdentifierReference | StringLiteral | BigIntLiteral | N
 /**
  * The set of all syntax items which are expressions.
  */
-export type Expression = LeftHandSideExpression;
+export type Expression =
+  | LeftHandSideExpression
+  | CommaOperator
+  | IdentifierReference
+  | IdentifierName
+  | NewExpression
+  | NullLiteral
+  | ThisExpression
+  | BooleanLiteral
+  | AssignmentElement
+  | ArrayLiteral
+  | ObjectLiteral
+  | PropertyName
+  | MethodDefinition
+  | FunctionExpression
+  | Elison
+  | ArrowFunction
+  | ConciseBody
+  | AwaitExpression
+  | YieldExpression
+  | LabelIdentifier;
 
 /**
  * The set of all syntax items which are allowed on the left side of an expression.
  */
 export type LeftHandSideExpression =
-  | CommaOperator
-  | IdentifierReference
-  | IdentifierName
-  | LabelIdentifier
   | AssignmentExpression
   | ConditionalExpression
   | MemberExpression
@@ -90,33 +106,18 @@ export type LeftHandSideExpression =
   | UnaryExpression
   | PrefixUpdateExpression
   | PostfixUpdateExpression
-  | NewExpression
-  | NullLiteral
-  | ThisExpression
-  | BooleanLiteral
-  | AssignmentElement
-  | ArrayLiteral
-  | ObjectLiteral
-  | PropertyName
-  | MethodDefinition
-  | FunctionExpression
   | FunctionBody
-  | ArrowFunction
-  | ConciseBody
   | ParenthesizedExpression
   | BindingRestElement
   | ClassExpression
   | ClassElement
   | SuperCall
   | SuperProperty
-  | Elison
   | CoverInitializedName
-  | AwaitExpression
-  | YieldExpression
   | TemplateExpression
-  | TaggedTemplate
   | TemplateElement
   | TemplateLiteral
+  | TaggedTemplate
   | NewTarget
   | ImportCall
   | AssignmentRestElement

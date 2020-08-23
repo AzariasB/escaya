@@ -2,6 +2,313 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - While', () => {
+  it('while walking he ran for his life', () => {
+    t.deepEqual(recovery('while walking he ran for his life', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'WhileStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'walking',
+            start: 5,
+            end: 13,
+            kind: 13,
+            flags: 0
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'he',
+              start: 13,
+              end: 16,
+              kind: 13,
+              flags: 0
+            },
+            start: 13,
+            end: 16,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 16,
+          kind: 139,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'ran',
+            start: 16,
+            end: 20,
+            kind: 13,
+            flags: 0
+          },
+          start: 16,
+          end: 20,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'IdentifierReference',
+            name: 'his',
+            start: 24,
+            end: 28,
+            kind: 13,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 33,
+            end: 33,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: 'life',
+            start: 28,
+            end: 33,
+            kind: 13,
+            flags: 0
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 33,
+              end: 33,
+              kind: 13,
+              flags: 2
+            },
+            start: 33,
+            end: 33,
+            kind: 122,
+            flags: 0
+          },
+          start: 20,
+          end: 33,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'while walking he ran for his life',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 6,
+          length: 7
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 14,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 17,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 21,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 25,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 5,
+          start: 29,
+          length: 4
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 33,
+      end: 33
+    });
+  });
+
+  it('while {!for!', () => {
+    t.deepEqual(recovery('while {!for!', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'WhileStatement',
+          expression: {
+            type: 'ObjectLiteral',
+            properties: [],
+            start: 5,
+            end: 7,
+            kind: 179,
+            flags: 0
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'UnaryExpression',
+              operator: '!',
+              operand: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 8,
+                end: 8,
+                kind: 13,
+                flags: 2
+              },
+              start: 7,
+              end: 8,
+              kind: 160,
+              flags: 0
+            },
+            start: 7,
+            end: 8,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 8,
+          kind: 139,
+          flags: 0
+        },
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 12,
+              end: 12,
+              kind: 13,
+              flags: 2
+            },
+            start: 11,
+            end: 12,
+            kind: 160,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 12,
+            end: 12,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 12,
+            end: 12,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 12,
+              end: 12,
+              kind: 13,
+              flags: 2
+            },
+            start: 12,
+            end: 12,
+            kind: 122,
+            flags: 0
+          },
+          start: 8,
+          end: 12,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'while {!for!',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 7,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 8,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 11,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 12,
+      end: 12
+    });
+  });
+
   it('as keyword', () => {
     t.deepEqual(recovery('while', 'recovery.js'), {
       kind: 209,

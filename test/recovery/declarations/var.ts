@@ -2,7 +2,7 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Var', () => {
-  it('Unclosed block statement', () => {
+  it('var', () => {
     t.deepEqual(recovery('var', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -147,7 +147,7 @@ describe('Recovery - Var', () => {
     });
   });
 
-  it('Unclosed block statementsdfa', () => {
+  it('{var', () => {
     t.deepEqual(recovery('{var', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -194,7 +194,7 @@ describe('Recovery - Var', () => {
     });
   });
 
-  it('Unclosed block statemendfsft', () => {
+  it('{var x', () => {
     t.deepEqual(recovery('{var x', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -600,8 +600,8 @@ describe('Recovery - Var', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Variable declaration or lexical binding expected',
-          code: 16,
+          message: 'Variable declaration expected',
+          code: 116,
           start: 7,
           length: 1
         },

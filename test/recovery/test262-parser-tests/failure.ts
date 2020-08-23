@@ -60,7 +60,7 @@ describe('test262-parser-tests - failing tests', () => {
           code: 16,
           kind: 2,
           length: 1,
-          message: 'Variable declaration or lexical binding expected',
+          message: 'Lexical binding expected',
           source: 2,
           start: 16
         }
@@ -158,10 +158,10 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 16,
+          code: 116,
           kind: 2,
           length: 1,
-          message: 'Variable declaration or lexical binding expected',
+          message: 'Variable declaration expected',
           source: 2,
           start: 7
         }
@@ -1821,8 +1821,8 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Variable declaration or lexical binding expected',
-          code: 16,
+          message: 'Variable declaration expected',
+          code: 116,
           start: 8,
           length: 1
         },

@@ -2220,7 +2220,16 @@ describe('Recovery - Expressions', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Missing catch or finally after try',
+          code: 120,
+          start: 6,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -6952,8 +6961,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Variable declaration or lexical binding expected',
-          code: 16,
+          message: 'Variable declaration expected',
+          code: 116,
           start: 19,
           length: 1
         }

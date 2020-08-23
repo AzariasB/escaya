@@ -1,5 +1,5 @@
 import { Node } from '../node';
-import { MemberExpression } from './member-expr';
+import { LeftHandSideExpression } from '.';
 import { TemplateExpression } from './template-expression';
 import { TemplateLiteral } from './template-literal';
 
@@ -7,12 +7,12 @@ import { TemplateLiteral } from './template-literal';
  * Tagged template
  */
 export interface TaggedTemplate extends Node {
-  readonly member: MemberExpression;
+  readonly member: LeftHandSideExpression;
   readonly literal: TemplateLiteral | TemplateExpression;
 }
 
 export function createTaggedTemplate(
-  member: MemberExpression,
+  member: LeftHandSideExpression,
   literal: TemplateLiteral | TemplateExpression
 ): TaggedTemplate {
   return {

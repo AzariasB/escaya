@@ -19,7 +19,8 @@ export const diagnosticMap: {
   [DiagnosticCode.DuplicateRegExpFlag]: 'Duplicate regular expression flag',
   [DiagnosticCode.UnknownRegExpFlag]: 'Unknown regular expression flag',
   [DiagnosticCode.ExpectedParamDecl]: 'Parameter declaration expected',
-  [DiagnosticCode.ExpectedVarOrLexDecl]: 'Variable declaration or lexical binding expected',
+  [DiagnosticCode.ExpectedLexical]: 'Lexical binding expected',
+  [DiagnosticCode.ExpectedVarDecl]: 'Variable declaration expected',
   [DiagnosticCode.ExpectedForDecl]: 'For declaration expected',
   [DiagnosticCode.ExpectedArrow]: '`=>` expected',
   [DiagnosticCode.StrictModeReserved]: 'Unexpected reserved word in strict mode',
@@ -124,5 +125,15 @@ export const diagnosticMap: {
   [DiagnosticCode.LHSForOfD]: 'The left-hand side of a `for...of` statement cannot be a destructuring pattern',
   [DiagnosticCode.MultipleInDecl]: 'Only a single for declaration is allowed in a `for...in` statement',
   [DiagnosticCode.MultipleOfDecl]: 'Only a single for declaration is allowed in a `for...of` statement',
-  [DiagnosticCode.RestricedLet]: '`let \n [` is a restricted production at the start of a statement'
+  [DiagnosticCode.RestricedLet]: 'Lexical declaration cannot appear in a single-statement context',
+  [DiagnosticCode.RedeclareBlockScopVar]: 'Cannot redeclare block-scoped variable %0',
+  [DiagnosticCode.DuplicateIdentifier]: 'Duplicate identifier %0',
+  [DiagnosticCode.LexicalShadowsClauce]: 'Lexical binding %0 shadows a catch clause binding',
+  [DiagnosticCode.NoCatchOrFinally]: 'Missing catch or finally after try',
+  [DiagnosticCode.NotAGen]: 'A getter cannot be a generator',
+  [DiagnosticCode.BoundClause]: '`%0` already bound as a catch clause binding',
+  [DiagnosticCode.ShadowClause]: '`%0` shadows a catch clause binding',
+  [DiagnosticCode.DupLexBind]: 'Duplicate lexical binding `%0`',
+  [DiagnosticCode.DupBind]: 'Duplicate binding `%0`',
+  [DiagnosticCode.UnknownLabel]: 'Unknown label `%0`'
 };

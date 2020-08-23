@@ -560,7 +560,7 @@ interface TemplateElement <: Expression {
     expression: Expression | null;
 }
 ```
-In EScaya `raw` and `value` has been separated in an attempt to to be `JSON` friendly. It is not in
+In EScaya `raw` and `value` has been separated in an attempt to be `JSON` friendly. It is not in
 it's own object as in `ESTree`.
 
 ### TemplateExpression

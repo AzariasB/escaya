@@ -721,6 +721,22 @@ describe('Recovery - Expressions - Yield', () => {
           code: 5,
           start: 32,
           length: 1
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `x`',
+          code: 124,
+          start: 33,
+          length: 0
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`{` expected',
+          code: 5,
+          start: 32,
+          length: 1
         }
       ],
       detached: false,

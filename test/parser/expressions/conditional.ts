@@ -56,6 +56,7 @@ describe('Expressions - Binary', () => {
     'true ? y : z',
     'x && y ? 1 : 2',
     'a === b ? c : d % e;',
+    '0 ? v => (v) : v => 0;',
     'a=b?c:d',
     'a=b?c:d',
     'a?b=c:d',

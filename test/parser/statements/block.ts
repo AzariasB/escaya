@@ -11,6 +11,60 @@ describe('Statements - Block', () => {
     `{ function a(){`,
     `{ function* f() {} async `,
     `{ function let{ }`,
+    '{ (x = [await x]) }',
+    '{ var x; } let x;',
+    '{ { var f; } function* f() {}; }',
+    '{ const f = 0; function* f() {} }',
+    '{ { var f; } let f; }',
+    '{ let f; { var f; } }',
+    '{ var f = 1; function f() {} }',
+    '{ function f() {} var f = 1; }',
+    //'{ function f() {} const f = 1; }',
+    '{ let f; function* f() {} }',
+    '{ async function f() {} var f }',
+    '{ { var f; } class f {}; }',
+    '{ { var f; } let f; }',
+    '{ let f; { var f; } }',
+    '{ const f = x; async function f(){} }',
+    '{ const f = x; async function *f(){} }',
+    '{ let f; async function f(){} }',
+    '{ let f; async function *f(){} }',
+    '{ let f; function f(){} }',
+    '{ var f; async function f(){} }',
+    '{ var f; function *f(){} }',
+    '{ const a = 1; function a(){} }',
+    '{ { var f; } class f {}; }',
+    '{ class f {} async function f() {} }',
+    '{ const f = 0; { var f; } }',
+    '{ const f = 0; const f = 0 }',
+    '{ const f = 0; { var f; } }',
+    '{ const f = 0; const f = 0 }',
+    '{ class f {} function f() {} }',
+    '{ class f {} var f }',
+    '{ const f = 0; async function* f() {} }',
+    '{ const f = 0; async function* f() {} }',
+    '{ const f = 0; class f {} }',
+    '{ const f = 0; let f }',
+    '{ const f = 0; var f }',
+    '{ var f; function* f() {} }',
+    '{ class f {}; var f; }',
+    '{ function* f() {}; var f; }',
+    '{ const f = 0; function f() {} }',
+    '{ class async {}; { var async; } }',
+    '{ let f; function* f() {} }',
+    //'{ async function f() {} let f }',
+    '{ let f; var f }',
+    '{ function a() {} } { let a; function a() {}; }',
+    '{ let a; class a {} }',
+    '{ { var f; } function f() {} }',
+    '{ { var f; } async function* f() {}; }',
+    '{ { var f; } const f = 0; }',
+    '{ let f; class f {} }',
+    '{ let f; function f() {} }',
+    '{ let f; let f }',
+    '{ let bar; let foo = 1; var foo = 1; }',
+    '{ async function f() {} var f }',
+    '{ { var f; } async function f() {}; }',
     '}/("',
     '}\nx;',
     '}\n/x/g',
@@ -18,7 +72,15 @@ describe('Statements - Block', () => {
     '{ catch',
     '{(x) { case y: {...x} }',
     '{(x) { case y: foo /a/ }',
-    '{(x) { case y:{ class { x() {} } }}'
+    '{(x) { case y:{ class { x() {} } }}',
+    `{ function a() {} }
+    {
+       // Duplicate lexical declarations are only allowed if they are both sloppy
+       // block functions. In this case the sloppy block function
+       // conflicts with the lexical variable declaration, causing a syntax error.
+       let a;
+       function a() {};
+   }`
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -28,6 +90,25 @@ describe('Statements - Block', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         recovery(`${arg}`, 'recovery.js');
+      });
+    });
+  }
+
+  // Valid cases. Testing random cases to verify we have no issues with bit masks
+  for (const arg of [
+    '{ function f() {} ; function f() {} }',
+    '{ function f(){} function f(){} }',
+    '{ if (x) function f() {} ; function f() {} }',
+    '{ async function f() {} let f }'
+  ]) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseScript(`${arg}`, { disableWebCompat: true });
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js', { disableWebCompat: true });
       });
     });
   }
@@ -45,6 +126,8 @@ describe('Statements - Block', () => {
     `{ async function f(){} } async function f(){}`,
     `{ let foo = 1; { let foo = 2; } }
     { let foo = 1; { let foo = 2; } }`,
+    '{ function f() {} ; function f() {} }',
+    '{ function f(){} function f(){} }',
     `{ let f = 123; if (false) ; else function f() {  } }`,
     `{ let x; } var x`,
     `{ var f; var f; }`,
@@ -55,9 +138,17 @@ describe('Statements - Block', () => {
     `{ async *[await = 5]()
       {}
     }`,
+    ` {
+      f();
+      function f() {
+        x.push(2);
+      }
+      f();
+    }`,
     '{ let x = 42 }',
     '{ let x }',
     '{ let x = 14, y = 3, z = 1977 }',
+    '{ let x; } var x;',
     `{ (x = [yield]) }`,
     `{ (x = [yield]) => z }`,
     `{ function f(){} async function f(){} }`,
@@ -100,7 +191,33 @@ describe('Statements - Block', () => {
     'var x; { let x; }',
     '{ let x; } var x',
     '{ function let(){} }',
-    '{}\n/foo/g'
+    '{}\n/foo/g',
+    `{
+      function f1() {
+        var x;
+        with ({get await() { return [42] }}) {
+          x = await
+          [0];
+        };
+        return x;
+      }
+      async function f2() {
+        var x;
+        with ({get await() { return [42] }}) {
+          x = await
+          [0];
+        };
+        return x;
+      }
+      function f1() {
+        var x, y;
+        with ({get await() { return [42] }}) {
+          x = await
+          y = 1
+        };
+        return y;
+      }
+    }`
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {

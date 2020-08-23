@@ -1523,7 +1523,7 @@ describe('Recovery - Let', () => {
           code: 16,
           kind: 2,
           length: 1,
-          message: 'Variable declaration or lexical binding expected',
+          message: 'Lexical binding expected',
           source: 2,
           start: 7
         },
@@ -2137,7 +2137,7 @@ describe('Recovery - Let', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Variable declaration or lexical binding expected',
+          message: 'Lexical binding expected',
           code: 16,
           start: 8,
           length: 3
@@ -2145,7 +2145,7 @@ describe('Recovery - Let', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Variable declaration or lexical binding expected',
+          message: 'Lexical binding expected',
           code: 16,
           start: 12,
           length: 1

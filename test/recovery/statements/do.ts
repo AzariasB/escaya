@@ -1884,10 +1884,10 @@ describe('Statements - Do while', () => {
             length: 8
           },
           {
-            kind: 2,
+            kind: 3,
             source: 2,
-            message: '`;` expected',
-            code: 92,
+            message: 'Unknown label `bad`',
+            code: 126,
             start: 47,
             length: 5
           },

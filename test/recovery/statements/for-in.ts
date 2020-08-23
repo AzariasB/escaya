@@ -77,14 +77,6 @@ describe('Recovery - For in', () => {
       detached: false,
       diagnostics: [
         {
-          code: 109,
-          kind: 3,
-          length: 7,
-          message: 'The left-hand side of a `for...in` statement must be a variable or a property access.',
-          source: 2,
-          start: 6
-        },
-        {
           code: 104,
           kind: 3,
           length: 11,
