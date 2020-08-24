@@ -3,7 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Binary', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of ['`~3 ** 2;', 'typeof 3 ** 2;', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);

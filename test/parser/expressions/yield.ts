@@ -6,6 +6,7 @@ describe('Expressions - Yield', () => {
   for (const arg of [
     '({ *method(x = yield) {} })',
     //'(a=yield) {}',
+    // 'function *f(){ ~yield }',
     '(yield 3) {}',
     //'(yield = 1) {}',
     //'({yield} = x)',

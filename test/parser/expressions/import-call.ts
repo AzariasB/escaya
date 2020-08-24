@@ -3,7 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Import call', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of ['import(...a);', '[,', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);

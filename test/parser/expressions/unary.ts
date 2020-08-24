@@ -48,6 +48,7 @@ describe('Expressions - Binary', () => {
     'delete (foo.bar);',
     'delete foo.bar, z;',
     'delete /foo/.bar;',
+    'x + typeof y.x',
     '![]',
     'foo = (![])',
     'a = +a',

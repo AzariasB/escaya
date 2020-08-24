@@ -93,6 +93,7 @@ describe('Statements - Throw', () => {
     'throw a => b',
     'throw a >= b',
     'throw a >= (1)',
+    'throw x = a, f',
     'throw a >= /** comment */ /a/',
     'throw a ** b',
     'throw x ? y : z',

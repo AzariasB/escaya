@@ -458,6 +458,7 @@ describe('Expressions - Async arrow', () => {
     'a, async x => ok',
     '(async => {}) (async => {})',
     'f(async ()=>c)',
+    'async eval => x',
     'x * (async => ok)',
     'x * ((x, y) => ok)',
     'x * (async () => {})',

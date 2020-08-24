@@ -1180,101 +1180,6 @@ describe('Recovery - Expressions', () => {
     });
   });
 
-  it(`var x = /
-  /`, () => {
-    t.deepEqual(
-      recovery(
-        `var x = /
-    /`,
-        'recovery.js'
-      ),
-      {
-        kind: 209,
-        directives: [],
-        leafs: [
-          {
-            type: 'VariableStatement',
-            declarations: [
-              {
-                type: 'VariableDeclaration',
-                binding: {
-                  type: 'BindingIdentifier',
-                  name: 'x',
-                  start: 3,
-                  end: 5,
-                  kind: 168,
-                  flags: 0
-                },
-                initializer: {
-                  type: 'RegularExpressionLiteral',
-                  pattern: '',
-                  flag: '',
-                  start: 7,
-                  end: 10,
-                  kind: 15,
-                  flags: 0
-                },
-                start: 3,
-                end: 10,
-                kind: 144,
-                flags: 0
-              }
-            ],
-            start: 0,
-            end: 10,
-            kind: 143,
-            flags: 0
-          },
-          {
-            type: 'ExpressionStatement',
-            expression: {
-              type: 'RegularExpressionLiteral',
-              pattern: '',
-              flag: '',
-              start: 10,
-              end: 16,
-              kind: 15,
-              flags: 0
-            },
-            start: 10,
-            end: 16,
-            kind: 122,
-            flags: 0
-          }
-        ],
-        text: 'var x = /\n    /',
-        fileName: 'recovery.js',
-        context: 0,
-        mutualFlags: 0,
-        diagnostics: [
-          {
-            kind: 2,
-            source: 0,
-            message: 'Unknown regular expression flag',
-            code: 14,
-            start: 8,
-            length: 2
-          },
-          {
-            kind: 2,
-            source: 0,
-            message: 'Unterminated regular expression',
-            code: 12,
-            start: 14,
-            length: 2
-          }
-        ],
-        detached: false,
-        incremental: false,
-        parent: null,
-        children: [],
-        start: 0,
-        length: 15,
-        end: 15
-      }
-    );
-  });
-
   it('var x = "', () => {
     t.deepEqual(recovery('var x = "', 'recovery.js'), {
       kind: 209,
@@ -6977,107 +6882,16 @@ describe('Recovery - Expressions', () => {
     });
   });
 
-  /* it('function(//\n/', () => {
-    t.deepEqual(recovery('function(//\n/', 'recovery.js'), {
-      children: [],
-      context: 0,
-      diagnostics: [
-        {
-          code: 10,
-          kind: 3,
-          length: 1,
-          message: 'Function declaration require a name in this context',
-          source: 2,
-          start: 8
-        },
-        {
-          code: 12,
-          kind: 2,
-          length: 2,
-          message: 'Unterminated regular expression',
-          source: 0,
-          start: 12
-        }
-      ],
-      directives: [],
-      end: 13,
-      fileName: 'recovery.js',
-      incremental: false,
-      detached: false,
-      kind: 209,
-      leafs: [
-        {
-          async: false,
-          contents: {
-            directives: [],
-            end: 14,
-            flags: 0,
-            kind: 184,
-            leafs: [],
-            start: 14,
-            type: 'FunctionBody'
-          },
-          end: 14,
-          flags: 0,
-          generator: false,
-          kind: 186,
-          name: null,
-          params: [
-            {
-              end: 14,
-              flags: 0,
-              kind: 168,
-              name: '',
-              start: 14,
-              type: 'BindingIdentifier'
-            }
-          ],
-          start: 0,
-          type: 'FunctionDeclaration'
-        }
-      ],
-      length: 13,
-      mutualFlags: 0,
-      parent: null,
-      start: 0,
-      text: 'function(//\n/'
-    });
-  });*/
-  /*
-  it('//\n/', () => {
-    t.deepEqual(recovery('//\n/', 'recovery.js'), {});
-  });
-
-  it('//\n/', () => {
-    t.deepEqual(recovery('//\n/', 'recovery.js'), {});
-  });
-
-  it('//\n/', () => {
-    t.deepEqual(recovery('//\n/', 'recovery.js'), {});
-  });
-
-  it('//\n/', () => {
-    t.deepEqual(recovery('//\n/', 'recovery.js'), {});
-  });
-
-  it('//\n/', () => {
-    t.deepEqual(recovery('//\n/', 'recovery.js'), {});
-  });
-
-  it('//\n/', () => {
-    t.deepEqual(recovery('//\n/', 'recovery.js'), {});
-  });
-*/
   it('//\n/', () => {
     t.deepEqual(recovery('//\n/', 'recovery.js'), {
       children: [],
       context: 0,
       diagnostics: [
         {
-          code: 12,
+          code: 14,
           kind: 2,
-          length: 2,
-          message: 'Unterminated regular expression',
+          length: 1,
+          message: 'Unknown regular expression flag',
           source: 0,
           start: 3
         }

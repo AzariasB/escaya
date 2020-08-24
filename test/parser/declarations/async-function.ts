@@ -8,7 +8,9 @@ describe('Declarations - Async Function', () => {
     'async function f(x = await y){}',
     'async function *f(x = await y){}',
     'async function f(await){}',
-    'async function *f(await){}'
+    'async function *f(await){}',
+    'async function f(){   function g(x = typeof await x) {}  }',
+    'async function f(){   function h({x: typeof await x}) {}   }'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -220,11 +222,13 @@ describe('Declarations - Async Function', () => {
     `async function f4(a = () => x, x) { return a() }`,
     `async function f2({x}) { { var x = 2; } return x; }`,
     'async function *gen() { yield [...yield]; }',
-    `function g() {   async function f() {} var f;   }`,
+    `function g() { async function f() {} var f;   }`,
     `async function foo(a = async () => await b) {}`,
     `async function foo(a = {async bar() { await b }}) {}`,
     `async function foo(a = {async bar() { await b }}) {}`,
+    'async function f(){   (fail = class extends (await x) {}) => {}   }',
     `async function foo(a = class {async bar() { await b }}) {}`,
+    'async function f(){   (fail = new x(await x)) => {}   }',
     `async function foo(a, b) { await a }`,
     'async function f(){ var f = 1 }',
     `async function foo() {}`,

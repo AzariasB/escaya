@@ -1229,6 +1229,7 @@ describe('Expressions - Parentheized', () => {
     '((window["x"])) = 10;',
     '([...a] = 0)',
     '([let] = answer);',
+    '(let = "sentinal 543665")',
     '(a) = {}',
     '(a["b"]) = {}',
     'test = { a: 1 }',

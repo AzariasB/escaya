@@ -406,17 +406,22 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
     return Token.BigIntLiteral;
   }
 
+  // If we see an 'e' or 'E' we should only consume it if its of the form:
+  // e<number> or E<number>
+  // e+<number>   E+<number>
+  // e-<number>   E-<number>
   if ((cp | 32) === Char.LowerE) {
     index++;
     cp = source.charCodeAt(index);
 
-    // '-', '+'
+    // e+ or E+ or e- or E-
     if (cp === Char.Plus || cp === Char.Hyphen) {
       index++;
       cp = source.charCodeAt(index);
     }
     let digits = 0;
 
+    // e+<number> or E+<number> or e-<number> or E-<number>
     while (cp <= Char.Nine && cp >= Char.Zero) {
       cp = source.charCodeAt(++index);
       digits++;

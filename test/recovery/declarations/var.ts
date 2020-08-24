@@ -1806,7 +1806,7 @@ describe('Recovery - Var', () => {
     });
   });
 
-  it('Z', () => {
+  it('{var y = b ; /', () => {
     t.deepEqual(recovery('{var y = b ; /', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1877,10 +1877,10 @@ describe('Recovery - Var', () => {
         {
           kind: 2,
           source: 0,
-          message: 'Unterminated regular expression',
-          code: 12,
+          message: 'Unknown regular expression flag',
+          code: 14,
           start: 13,
-          length: 2
+          length: 1
         }
       ],
       detached: false,
@@ -2011,15 +2011,86 @@ describe('Recovery - Var', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'RegularExpressionLiteral',
-            pattern: ', b=, ...',
-            flag: '',
+            type: 'CommaOperator',
+            expressions: [
+              {
+                type: 'BinaryExpression',
+                left: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 12,
+                  end: 12,
+                  kind: 13,
+                  flags: 2
+                },
+                operator: '/',
+                right: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 13,
+                  end: 13,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 12,
+                end: 13,
+                kind: 155,
+                flags: 0
+              },
+              {
+                type: 'AssignmentExpression',
+                left: {
+                  type: 'IdentifierReference',
+                  name: 'b',
+                  start: 14,
+                  end: 16,
+                  kind: 13,
+                  flags: 0
+                },
+                operator: '=',
+                right: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 17,
+                  end: 17,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 14,
+                end: 17,
+                kind: 152,
+                flags: 0
+              },
+              {
+                type: 'IdentifierReference',
+                name: '',
+                start: 18,
+                end: 18,
+                kind: 13,
+                flags: 2
+              }
+            ],
             start: 12,
-            end: 23,
-            kind: 15,
+            end: 18,
+            kind: 147,
             flags: 0
           },
           start: 12,
+          end: 18,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'a',
+            start: 22,
+            end: 23,
+            kind: 13,
+            flags: 0
+          },
+          start: 22,
           end: 23,
           kind: 122,
           flags: 0
@@ -2032,11 +2103,35 @@ describe('Recovery - Var', () => {
       diagnostics: [
         {
           kind: 2,
-          source: 0,
-          message: 'Unterminated regular expression',
-          code: 12,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
           start: 12,
-          length: 11
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 13,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 17,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 19,
+          length: 3
         }
       ],
       detached: false,

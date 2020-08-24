@@ -17,6 +17,8 @@ describe('Expressions - Array', () => {
     'a[5 + 6',
     '[2=y]',
     //'[y/[]=x]',
+    '[{a = b}];',
+    '[{x = y}] in z',
     '[...new];',
     '[]=n/f>>=v',
     '[(y)=n/v<<=y]',

@@ -1,9 +1,9 @@
 import * as t from 'assert';
 import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
-describe('Expressions - Binary', () => {
+describe('Expressions - Member', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of ['foo[...x];', '[,', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);

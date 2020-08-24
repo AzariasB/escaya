@@ -21,6 +21,7 @@ describe('Declarations - Let', () => {
     'let [1 <= 0] = "foo"',
     'let x, y, z, let = 1;',
     'let l\\u0065t;',
+    'let x = ...y;',
     'let let;',
     'let x,;',
     'let x, x;',

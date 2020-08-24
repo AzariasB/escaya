@@ -5147,10 +5147,10 @@ describe('Recovery - If', () => {
               type: 'ExpressionStatement',
               expression: {
                 type: 'ArrayLiteral',
-                kind: 178,
                 elements: [],
                 start: 1,
                 end: 3,
+                kind: 178,
                 flags: 0
               },
               start: 1,
@@ -5213,10 +5213,10 @@ describe('Recovery - If', () => {
         {
           kind: 2,
           source: 0,
-          message: 'Unterminated regular expression',
-          code: 12,
+          message: 'Unknown regular expression flag',
+          code: 14,
           start: 5,
-          length: 2
+          length: 1
         }
       ],
       detached: false,

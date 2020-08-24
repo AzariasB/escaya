@@ -152,7 +152,7 @@ describe('Declarations - Class', () => {
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
-    '(class x {})',
+    '(class x {}())',
     '(class x extends y {})',
     '(class x { a() {}})',
     'class n extends ([] = x) {}',
@@ -171,6 +171,7 @@ describe('Declarations - Class', () => {
     '(class A {static 2(){}})',
     '(class x { get [y](){}})',
     '(class x{*[x](){}})',
+    `(class Foo {}?.name)`,
     '(class {})',
     '(class name {})',
     '(class extends F {})',
@@ -187,6 +188,8 @@ describe('Declarations - Class', () => {
     '(class {1n() {}});',
     '(class {42e+2() {}});',
     '(class {null() {}});',
+    '(class x {}.foo)',
+    '(class x {}.foo())',
     '(class {"string"() {}});',
     '(class {static() {}});',
     '(class {get() {}});',

@@ -3,7 +3,17 @@ import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
 describe('Expressions - Binary', () => {
   // Invalid cases
-  for (const arg of ['new f(..g);', 'new f(....g);', 'new f(... ... g);']) {
+  for (const arg of [
+    'new f(..g);',
+    'new f(....g);',
+    'new f(... ... g);',
+    'new (await foo);',
+    'new x(await foo);',
+    'new await foo;',
+    'new await x()'
+    //'new ++x',
+    // 'new ++x().y',
+  ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -95,6 +105,9 @@ describe('Expressions - Binary', () => {
     'f(new /z/.foo)',
     'new arguments',
     'new async',
+    'new (foo())',
+    '(new foo)()',
+    'new foo.bar()',
     'new async (x, y)',
     'new async (...x)',
     'new async function(){}',
@@ -108,6 +121,8 @@ describe('Expressions - Binary', () => {
     'class x extends y { constructor() { new super.foo }}',
     'class x extends y { constructor() { new super() }}',
     'new this',
+    'new await()',
+    'new await',
     '({ set a(b = new.target){} })',
     'new true();'
   ]) {

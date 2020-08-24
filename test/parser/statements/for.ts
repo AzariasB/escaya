@@ -12,6 +12,8 @@ describe('Statements - For', () => {
     'for({}|=y;;);',
     'for({}/=y;;)x',
     'for (;a);',
+    'for ({x=y} ;;) b;',
+    'for (...x in y){}',
     'for (const x;;);',
     'for await ([a];;);',
     'for await ([a].x;;);',

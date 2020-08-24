@@ -474,7 +474,7 @@ export function parseThrowStatement(state: ParserState, context: Context): Throw
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   if (state.lineTerminatorBeforeNextToken) addEarlyDiagnostic(state, context, DiagnosticCode.NewlineAfterThrow);
-  const expression = parseExpression(state, context);
+  const expression = parseExpressions(state, context);
   expectSemicolon(state, context);
   return finishNode(state, context, start, DictionaryMap.ThrowStatement(expression), SyntaxKind.ThrowStatement);
 }
@@ -1331,7 +1331,7 @@ export function parseVariableStatement(state: ParserState, context: Context, sco
   // parsed out as 'VariableStatement' and an unterminated regular expression
   // In 'normal mode' mode this will throw an error.
   consume(state, context | Context.AllowRegExp, Token.VarKeyword);
-  const declarations = parseVariableDeclarationList(state, context | Context.AllowRegExp, scope);
+  const declarations = parseVariableDeclarationList(state, context, scope);
   expectSemicolon(state, context);
   return finishNode(state, context, start, DictionaryMap.VariableStatement(declarations), SyntaxKind.VariableStatement);
 }
@@ -1357,7 +1357,7 @@ export function parseVariableDeclaration(
       addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
     }
   } else {
-    binding = parseBindingIdentifier(state, context, scope, type);
+    binding = parseBindingIdentifier(state, context | Context.AllowRegExp, scope, type);
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
       initializer = parseExpression(state, context);
     }

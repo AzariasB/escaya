@@ -1,4 +1,3 @@
-import * as Types from '../types';
 import { Char } from './char';
 import { Token } from '../ast/token';
 import { AsciiCharFlags, AsciiCharTypes } from './asciiChar';
@@ -7,7 +6,63 @@ import { Context, ParserState } from '../common';
 import { addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
 
-export function scanRegExpFlags(state: ParserState, context: Context): any {
+export function scanRegExp(state: ParserState, context: Context): Token {
+  // 1. Preparse the regexp, to see what slice to parse.
+
+  if (state.index >= state.length) {
+    addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownRegExpFlag, DiagnosticKind.Error);
+  }
+
+  const bodyStart = state.index;
+
+  const enum Preparse {
+    Empty = 0,
+    Escape = 0x1,
+    Class = 0x2
+  }
+
+  // We *know* this can't be a `*`, because comments are tested first. Thus, we don't need to
+  // check for it.
+  let preparseState = Preparse.Empty;
+
+  while (true) {
+    const ch = state.source.charCodeAt(state.index);
+    state.index++;
+
+    if (preparseState & Preparse.Escape) {
+      preparseState &= ~Preparse.Escape;
+    } else {
+      if (ch <= 0x5e) {
+        if (ch === Char.Slash) {
+          if (!preparseState) break;
+        } else if (ch === Char.Backslash) {
+          preparseState |= Preparse.Escape;
+        } else if (ch === Char.LeftBracket) {
+          preparseState |= Preparse.Class;
+        } else if (ch === Char.RightBracket) {
+          preparseState &= Preparse.Escape;
+        } else if (AsciiCharTypes[ch] & AsciiCharFlags.IsStringLiteralLineTerminator) {
+          addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownRegExpFlag, DiagnosticKind.Error);
+          break;
+        }
+      } else if ((ch & ~1) === Char.LineSeparator) {
+        addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedRegExp, DiagnosticKind.Error);
+        break;
+      }
+    }
+
+    // If we reach the end of a file, or hit a newline, then this is an unterminated
+    // regex.  Report error and return what we have so far.
+    if (state.index >= state.length) {
+      addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedRegExp, DiagnosticKind.Error);
+      break;
+    }
+  }
+
+  const bodyEnd = state.index - 1; // drop the slash from the slice
+
+  // 2. Parse the flags as normal, checking duplicates via a mask, and get them as a string.
+  // Note: we can't parse the body as the `u` flag *will* change how we parse it.
   const enum Flags {
     Empty = 0,
     Global = 0x01,
@@ -19,10 +74,10 @@ export function scanRegExpFlags(state: ParserState, context: Context): any {
   }
 
   let mask = Flags.Empty;
-  let cp = state.source.charCodeAt(state.index);
-
-  while (isIdentifierPart(cp)) {
-    switch (cp) {
+  const flagsStart = state.index;
+  let char = state.source.charCodeAt(state.index);
+  while (isIdentifierPart(char)) {
+    switch (char) {
       case Char.LowerG:
         if (mask & Flags.Global) {
           addDiagnostic(
@@ -100,65 +155,17 @@ export function scanRegExpFlags(state: ParserState, context: Context): any {
         }
         mask |= Flags.DotAll;
         break;
+      // falls through
 
       default:
         addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownRegExpFlag, DiagnosticKind.Error);
     }
 
     state.index++;
-    cp = state.source.charCodeAt(state.index);
-  }
-}
-
-export function scanRegExp(state: ParserState, context: Context): Token {
-  const bodyStart = state.index;
-
-  const enum Preparse {
-    Empty = 0,
-    Escape = 0x1,
-    Class = 0x2
+    char = state.source.charCodeAt(state.index);
   }
 
-  let preparseState = Preparse.Empty;
-
-  while (true) {
-    const cp = state.source.charCodeAt(state.index);
-    state.index++;
-
-    if (preparseState & Preparse.Escape) {
-      preparseState &= ~Preparse.Escape;
-    } else {
-      if (cp <= 0x5e) {
-        if (cp === Char.Slash) {
-          if (!preparseState) break;
-        } else if (cp === Char.Backslash) {
-          preparseState |= Preparse.Escape;
-        } else if (cp === Char.LeftBracket) {
-          preparseState |= Preparse.Class;
-        } else if (cp === Char.RightBracket) {
-          preparseState &= Preparse.Escape;
-        } else if (AsciiCharTypes[cp] & AsciiCharFlags.IsStringLiteralLineTerminator) {
-          addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownRegExpFlag, DiagnosticKind.Error);
-          break;
-        }
-      } else if ((cp & ~1) === Char.LineSeparator) {
-        addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedRegExp, DiagnosticKind.Error);
-        break;
-      }
-    }
-    if (state.index >= state.length) {
-      addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedRegExp, DiagnosticKind.Error);
-      break;
-    }
-  }
-
-  state.regExpPattern = state.source.slice(bodyStart, state.index - 1);
-
-  const flagsStart = state.index;
-
-  // Scan regexp flags
-  scanRegExpFlags(state, context);
-
+  state.regExpPattern = state.source.slice(bodyStart, bodyEnd);
   state.regExpFlags = state.source.slice(flagsStart, state.index);
 
   return Token.RegularExpression;

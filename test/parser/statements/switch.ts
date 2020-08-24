@@ -233,6 +233,7 @@ describe('Statements - Switch', () => {
     'switch (answer) { case 0: let a; }',
     'switch (x) { case y: this.x; }',
     'switch (x) { case y: this[z]; }',
+    'switch (x) { default: target = x; }',
     'switch (answer) { case 0: hi(); break; default: break }',
     'switch (0) { case 1: function* f() {} default: function* f() {} }',
     'switch (0) { case 1: function f() {} default: async function f() {} }',
