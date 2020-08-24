@@ -43,7 +43,8 @@ export const enum Context {
  * The mutable parser flags, in case any flags need passed by reference.
  */
 export const enum Flags {
-  Empty = 0
+  Empty = 0,
+  NodeHasErrors = 1 << 0
 }
 
 export const enum ArrowKind {

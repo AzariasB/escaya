@@ -196,6 +196,9 @@ export function parseStatementList(
 
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedStatement, DiagnosticKind.Error);
 
+    // Mark this node as 'dirty'
+    state.flags |= Flags.NodeHasErrors;
+
     // We allow regular expressions here for cases like ')=/++!{class'. For this particular case the first
     // two punctuators are consumed.
     // '/' in an statement position should be parsed as an unterminated regular expression.
