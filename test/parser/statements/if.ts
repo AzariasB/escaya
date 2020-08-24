@@ -16,6 +16,8 @@ describe('Statements - If', () => {
     'if catch else',
     'if (x) break',
     'if (!a) return false;',
+    'if (x) async function f(){}',
+    /// 'if (x) function *f(){}',
     'if ([ x ] ||= [ 2 ]) { foo(); }',
     'if ([ x ||= 2 ] = [ 2 ]) { foo(); }',
     'if ({ x } ||= { x: 2 }) { foo(); }',

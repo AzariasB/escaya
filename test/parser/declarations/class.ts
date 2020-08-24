@@ -131,6 +131,7 @@ describe('Declarations - Class', () => {
     'class C { async *method([, , ...x]) {} }',
     'class x {async await(){}}',
     'class x {async *await(){}}',
+    `class X { static async await(){} }`,
     'class x {*await(){}}',
     'class C { async *method({ [function icefapper() {}]: x }) {} }',
     'class C { async *method({ a, b = function c(){}, d = ++icefapper }) {} }',

@@ -51,6 +51,7 @@ describe('Expressions - Arrow', () => {
     '[',
     '...x => 10',
     '(b, a, a, d) => a',
+    'async x => {} * x',
     '(a, ...x = 10) => x;',
     '(...x = 10) => x;',
     '(w, ...x, ...y) => 10',

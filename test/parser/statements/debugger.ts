@@ -17,7 +17,7 @@ describe('Statements - Debugger', () => {
   }
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
-  for (const arg of [`debugger`, `{debugger;}`]) {
+  for (const arg of [`debugger`, `{debugger;}`, 'debugger \n /foo/', 'debugger \n /foo/y']) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`, { loc: true });

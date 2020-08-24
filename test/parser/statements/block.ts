@@ -121,6 +121,7 @@ describe('Statements - Block', () => {
     `{a}`,
     `{ { var f; } var f }`,
     `{ function f() {} async function* f() {} }`,
+    `{ function foo(a, a) {  } function foo(a, a) {  } }`,
     `{ function f() {} ; function f() {} }`,
     `{ if (x) function f() {} ; function f() {} }`,
     `{ async function f(){} } async function f(){}`,

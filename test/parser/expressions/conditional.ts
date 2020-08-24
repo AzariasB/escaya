@@ -1,9 +1,9 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('Expressions - Binary', () => {
+describe('Expressions - Conditional', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of ['a ? await x : c', 'a ? b : await c', 'a ? b : yield c']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -18,10 +18,8 @@ describe('Expressions - Binary', () => {
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
+    'foo?.3:0',
     'a ? b : c = d',
-    'a ? b = d : c',
-    'x = (0) ? 1 : 2',
-    '(y ? y : true)',
     '"1" ? y : ""',
     '("1" ? "" : "1")',
     'x() ? 1 : 2, 1',
@@ -38,27 +36,23 @@ describe('Expressions - Binary', () => {
     'a ? b = d : c',
     'x = (0) ? 1 : 2',
     'Symbol() ? 1 : 2, 1',
+    'a ? b = d : c',
     `(y ? y : true)`,
     'true ? y : false',
     'a ? !b : !c',
     'a ? !b : !c;',
-    `a === b ? c : d % e`,
-    `a=b?c:d`,
     `x?4:6`,
     `x && y ? 1 : 2`,
     'async === b ? c : d % e;',
     'true ? foo : bar',
     'a?b:c',
     'a=b?c:d',
+    'x?.4:6',
     'a?b:c=d',
     'x && y ? a : b',
-    'a === b ? c : d % e',
     'true ? y : z',
-    'x && y ? 1 : 2',
     'a === b ? c : d % e;',
     '0 ? v => (v) : v => 0;',
-    'a=b?c:d',
-    'a=b?c:d',
     'a?b=c:d',
     'a?b:c=d',
     'a?b:c'

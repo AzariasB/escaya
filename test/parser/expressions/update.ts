@@ -1,13 +1,12 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('Expressions - Binary', () => {
+describe('Expressions - Update', () => {
   // Invalid cases
   for (const arg of [
     '(}.x++)',
-
     '(this x++)',
-    //'this x++',
+    'this x++',
     'let x = ( => a++;',
     'let x = ( => a++;',
     'let x = ( => a++;',
@@ -15,7 +14,6 @@ describe('Expressions - Binary', () => {
     'let x = -/ => a++;',
     'let x = ( ++=> a++;',
     '++€',
-
     '€++',
     '++€--',
     '+]+[',

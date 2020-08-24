@@ -39,7 +39,7 @@ describe('Statements - Do', () => {
     });
   }
 
-  // Valid cases. Testing random cases to verify we have no issues with bit masks
+  // Valid cases. Testing random cases to verify we have no issues with bitwise masks
   for (const arg of [
     'do x(); while (true);',
     `do { var [[foo]=[42]] = [] } while (j)`,
@@ -51,6 +51,8 @@ describe('Statements - Do', () => {
     'do if (x) {} while(x) x',
     'do switch(x){} while(x) x',
     'do try {} catch {} while(x) x',
+    'do ; while (x) y',
+    'do ; while(x) \n /foo/',
     'do try {} catch {} while(x) x',
     '{ do { } while (false) false }',
     'do;while(x)y',

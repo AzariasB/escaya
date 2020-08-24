@@ -109,9 +109,7 @@ describe('Expressions - Object literal', () => {
     '({[foo]() {}} = y)',
     '+{f(){}==',
     '+{...x)',
-
     'async x*(){}',
-
     '({static * await(){}});',
     '({static async * catch(){}});',
     '({static async * async(){}});',
@@ -150,7 +148,6 @@ describe('Expressions - Object literal', () => {
     '({a=b}.x) => x',
     '({a:function} = 0)',
     '({ x: { get x() {} } } = { x: {} });',
-
     '({*(){}})',
     '({   async *[x"',
     '({   async *[x',
@@ -190,7 +187,7 @@ describe('Expressions - Object literal', () => {
     '({...{}} = {})',
     '({...x = 1} = {})',
     '{...x)',
-    //'!{f(b, a, b, ...a) {}}',
+    '!{f(b, a, b, ...a) {}}',
     'x={..."foo"=x} = x',
     'x={..."foo".foo=x} = x',
     '({...rest, b} = {})',
@@ -1025,6 +1022,9 @@ describe('Expressions - Object literal', () => {
     '({private: x});',
     '({while: x});',
     '({false: x});',
+    `({ async [yield]() {} });`,
+    `"use strict"; ({ async yield() {} });`,
+    'x={*f(){ var f }}',
     '({arguments: x});',
     '({interface: x});',
     '({in: x});',

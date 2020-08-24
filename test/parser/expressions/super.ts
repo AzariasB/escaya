@@ -8,6 +8,8 @@ describe('Expressions - Super', () => {
     'super(this)',
     'super',
     'super?.a',
+    'class x extends y { constructor(){ ({ constructor(x=super()){} }); } }',
+    'class x extends y { constructor(){ class z { constructor(x=super()){} }; } }',
     'var C = class { async *method() { super(); } }',
     'var gen = { async *method() { var x = { y: function () { super(); } } } }',
     'x={ dsda(){ return (a=super()) => a; }}',

@@ -179,7 +179,16 @@ export function parseStatementList(
   // StatementList ::
   //   (StatementListItem)* <end_token>
   const statementList = [];
-  while (state.token !== Token.EOF) {
+
+  while (state.token & Constants.IsSourceElement) {
+    statementList.push(parseBlockElements(state, context, scope, null, null, cb));
+  }
+
+  // In 'normal mode' we will return now, but if we have encountered invalid syntax in
+  // 'recovery mode' that isn't an start of statement, we need to to continue to parse
+  if (state.token === Token.EOF) return statementList;
+
+  do {
     if (state.token & Constants.IsSourceElement) {
       statementList.push(parseBlockElements(state, context, scope, null, null, cb));
       continue;
@@ -191,7 +200,7 @@ export function parseStatementList(
     // two punctuators are consumed.
     // '/' in an statement position should be parsed as an unterminated regular expression.
     nextToken(state, context | Context.AllowRegExp);
-  }
+  } while (state.token !== Token.EOF);
 
   return statementList;
 }
@@ -654,7 +663,7 @@ export function parseBlockStatement(
 // DebuggerStatement : `debugger` `;
 export function parseDebuggerStatement(state: ParserState, context: Context): DebuggerStatement {
   const start = state.startIndex;
-  nextToken(state, context);
+  nextToken(state, context | Context.AllowRegExp);
   expectSemicolon(state, context);
   return finishNode(state, context, start, DictionaryMap.DebuggerStatement(), SyntaxKind.DebuggerStatement);
 }

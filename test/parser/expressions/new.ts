@@ -108,7 +108,7 @@ describe('Expressions - Binary', () => {
     'class x extends y { constructor() { new super.foo }}',
     'class x extends y { constructor() { new super() }}',
     'new this',
-    //'({ set a(b = new.target){} })',
+    '({ set a(b = new.target){} })',
     'new true();'
   ]) {
     it(`${arg}`, () => {

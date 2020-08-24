@@ -34,6 +34,7 @@ describe('Expressions - Binary', () => {
     'foo[1] = 15.5;',
     'm.set({}, 3);',
     'o.x = true;',
+    'foo([a, b] = arr);',
     '0..toString();',
     '0.5.toString();',
     '1.0.toString();',

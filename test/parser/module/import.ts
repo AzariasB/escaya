@@ -4,6 +4,16 @@ import { parseModule, recovery } from '../../../src/escaya';
 describe('Module - Import', () => {
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
+    'import "foo";',
+    'import * as y from "foo";',
+    'import x from "foo";',
+    'import x, * as z from "foo";',
+    'import {} from "foo";',
+    'import {a} from "foo";',
+    'import {a as b} from "foo";',
+    'import {a,b} from "foo";',
+    'import {a as c,b} from "foo";',
+    'import {a,b,} from  "foo";',
     "import 'foo';",
     "import { a } from 'foo';",
     `import  * as set from "a"`,

@@ -29,7 +29,15 @@ describe('Statements - Labelled', () => {
   }
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
-  for (const arg of ['a: "b", c', 'yield: await', 'label: for(;;) break label \n /foo/']) {
+  for (const arg of [
+    'a: "b", c',
+    'yield: await',
+    'label: for(;;) break label \n /foo/',
+    'foo: for(;;) for (;;) continue foo',
+    'foo: for(;;) { for (;;) continue foo }',
+    'foo: bar: for(;;) { for (;;) continue foo }',
+    'foo: for(;;) { bar: for (;;) continue foo }'
+  ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`, { loc: true });

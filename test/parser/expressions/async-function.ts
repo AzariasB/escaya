@@ -6,7 +6,18 @@ describe('Expressions - Async function', () => {
   for (const arg of [
     'async function g() {   s = {"foo": await = x} = x   }',
     'async function g() {   s = {"foo": await a = x} = x   },',
-    'async function g() {   s = {"foo": await /brains/ = x} = x   }'
+    'async function g() {   s = {"foo": await /brains/ = x} = x   }',
+    `(async function () { var await; })`,
+    '(async function () { void await; });',
+    '(async function () { await: ; });',
+    '(async function foo (foo) { super() })',
+    '(async function foo (foo = super()) { var bar; });',
+    '(async function(...a,) {})',
+    '(async function() { } () => 1)',
+    '(async function() { } foo5 => 1)',
+    '(async function foo4() { } => 1)',
+    '(async function foo3() { } () => 1)',
+    '(async function foo1() { } foo2 => 1)'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -22,9 +33,34 @@ describe('Expressions - Async function', () => {
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
+    '(async function() { var a; for await ({ a = class b { } } of [{}]) { } })();',
+    `(async function() { for await (let { a = class b { } } of [{}]) { } })();`,
+    `(function f() { async function yield() {} })`,
+    `f(async function(x) { await x })`,
+    '(async function(x = 1) {})',
+    '(async function(x = 1, ...a) {})',
+    '(async function(x, y = 1, z, v = 2, ...a) {})',
+    '(async function(x, y = 1, z, v = 2) {})',
+    '(async function(x, y = 1, z) {})',
+    '(async function(x, y = 1, ...a) {})',
+    `(function* g() { (async function yield() {}); })`,
+    `(function f() { ({ async [yield]() {} }); })`,
     '(function f() { ({ async yield() {} }); })',
+    `x = async function(a) { await a }`,
     '({ async [yield]() {} });',
     'f(async function(x) { await x })',
+    `(async function foo(a, b = 39,) {})`,
+    `(async function(){})`,
+    `(async function foo(a, b = 39,) { })`,
+    `(async function*(a = b +=1, c = d += 1, e = f += 1, g = h += 1, i = j += 1, k = l +=1) {})`,
+    `(async function * () { for await (x of xs); })`,
+    `(async function * () { await a; yield b; })`,
+    `(async function foo(a,) {})`,
+    `(async function foo(_ = (function() {}())) { })`,
+    `(async function foo() { }.prototype)`,
+    `var gen = async function *() { yield { ...yield, y: 1, ...yield yield, }; };`,
+    `(function f() { async function yield() {} })`,
+    `(function f() { ({ async yield() {} }); })`,
     'f(b, async function(b) { await b }, c)',
     'async function foo(a = {async bar() { await b }}) {}',
     'async function foo(a = class {async bar() { await b }}) {}',

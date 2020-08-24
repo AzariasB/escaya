@@ -7,7 +7,6 @@ describe('Declarations - Class', () => {
     'class l\\u0065t {}',
     '[,',
     '[] += a',
-
     '(class {*async x(){}})',
     '(class {async *(){}})',
     '(class {async get x(){}})',
@@ -74,7 +73,6 @@ describe('Declarations - Class', () => {
     '(class x{set *"foo"(a){}})',
     '(class x{set *555(a){}})',
     '(class x{set *%x(a){}})',
-
     '(class x{static *%x(){}})',
     '(class v extends.foo {})',
     '(class x{static get *foo(){}})',
