@@ -196,7 +196,9 @@ export function parseStatementList(
 
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedStatement, DiagnosticKind.Error);
 
-    // Mark this node as 'dirty'
+    // We mark this node as 'dirty' in case we parse something like 'while(for)'. In this particular case
+    // we have to reconstruct a 'WhileStatement' and a 'ForStatement, but both are invalid so we force a
+    // full parse instead of incremental parsing.
     state.flags |= Flags.NodeHasErrors;
 
     // We allow regular expressions here for cases like ')=/++!{class'. For this particular case the first
