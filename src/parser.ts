@@ -86,7 +86,6 @@ import { VariableDeclaration } from './ast/declarations/variable-declaration';
 import { SwitchStatement } from './ast/statements/switch-stmt';
 import { addDiagnostic, addparserDiagnostic, addEarlyDiagnostic, DiagnosticSource, DiagnosticKind } from './diagnostic';
 import { DiagnosticCode } from './diagnostic/diagnostic-code';
-import { diagnosticMap } from './diagnostic/diagnostic-map';
 import { Token, KeywordDescTable } from './ast/token';
 import { Constants } from './constants';
 import { SyntaxKind } from './ast/node';

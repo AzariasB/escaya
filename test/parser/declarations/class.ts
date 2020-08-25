@@ -48,6 +48,8 @@ describe('Declarations - Class', () => {
     'class o {f(b, a, b, a) {}}',
     'class o {f(b, a, b, a, [fine]) {}}',
     'class x { static / foo(){} }',
+    'class A {foo(...a,) {}}',
+    'class A {static foo(...a,) {}}',
     // 'class x{[yield](a){}}',
     // 'class x extends yield {}',
     'class yield { }',

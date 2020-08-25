@@ -22,6 +22,8 @@ describe('Declarations - Class', () => {
     'class C { get name(implements) {} }',
     'class C { get name(let) {} }',
     '(class C {static prototype() {}})',
+    '(class {foo(...a,) {}})',
+    '(class {static foo(...a,) {}})',
     '(class C {static get prototype() {}})',
     '(class C {static set prototype(_) {}})',
     '(class C {static *"prototype"() {})',

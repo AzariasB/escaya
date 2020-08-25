@@ -149,7 +149,7 @@ export const firstCharKinds = [
 
 export function scanSingleToken(state: ParserState, context: Context): Token {
   let lastIsCR = false;
-
+  let newsLine = state.index === 0;
   while (state.index < state.length) {
     let cp = state.source.charCodeAt(state.index);
     state.positionBeforeToken = state.index;
@@ -345,11 +345,22 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
         // `-`, `--`, `-=`, `-->`
         case Token.Subtract:
           state.index++;
+
           cp = state.source.charCodeAt(state.index);
+
           if (cp === Char.Hyphen) {
             state.index++;
+            if (
+              (context & (Context.Module | Context.OptionsDisableWebCompat)) === 0 &&
+              (newsLine || state.lineTerminatorBeforeNextToken) &&
+              state.source.charCodeAt(state.index) === Char.GreaterThan
+            ) {
+              skipSingleLineComment(state);
+              continue;
+            }
             return Token.Decrement;
           }
+
           if (cp === Char.EqualSign) {
             state.index++;
             return Token.SubtractAssign;
@@ -379,6 +390,17 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
               return Token.ShiftLeftAssign;
             }
             return Token.ShiftLeft;
+          }
+          // Check for <!-- comments
+          if (cp === Char.Exclamation) {
+            if (
+              (context & (Context.Module | Context.OptionsDisableWebCompat)) === 0 &&
+              state.source.charCodeAt(state.index + 2) === Char.Hyphen /* '-' */ &&
+              state.source.charCodeAt(state.index + 1) === Char.Hyphen /* '-' */
+            ) {
+              skipSingleLineComment(state);
+              continue;
+            }
           }
           return Token.LessThan;
 

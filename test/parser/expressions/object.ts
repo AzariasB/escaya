@@ -861,6 +861,7 @@ describe('Expressions - Object literal', () => {
     '({async *x() {}});',
     '({async get() {}});',
     '({get x() {}});',
+    '({x:function(){"use strict";}})',
     '({set x(y) {}});',
     '({get() {}});',
     '({set() {}});',
