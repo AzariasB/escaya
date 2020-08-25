@@ -34,12 +34,7 @@ export interface Options {
 /**
  * Parse a module or script, optionally with various options.
  */
-export function parseRoot(
-  source: string,
-  context: Context,
-  options?: Options,
-  dictionary?: Dictionary
-): Script | Module {
+export function parseRoot(source: string, context: Context, options?: Options): Script | Module {
   if (options != null) {
     if (options.next) context |= Context.OptionsNext;
     if (options.loc) context |= Context.OptionsLoc;
@@ -49,9 +44,6 @@ export function parseRoot(
 
   // 'nodeCursor' is undefined in 'normal mode'
   const state = create(source, undefined);
-
-  // Overwrite exisiting dictionaries if in 'custom mode'
-  if (dictionary) Object.assign(DictionaryMap, dictionary);
 
   // Prime the scanner.
   nextToken(state, context | Context.AllowRegExp);
@@ -63,7 +55,7 @@ export function parseRoot(
   let leafs: Statement[] = [];
 
   while (state.token === Token.StringLiteral) {
-    const start = state.startIndex;
+    let start = state.startIndex;
     const expr = parseStringLiteral(state, context | Context.AllowRegExp, /* isDirective */ true);
     if (canConsumeSemicolon(state)) {
       if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
@@ -101,7 +93,7 @@ export function parseSourceFile(text: string, filename: string, context: Context
   let leafs: Statement[] = [];
 
   while (state.token === Token.StringLiteral) {
-    const start = state.startIndex;
+    let start = state.startIndex;
     const expr = parseStringLiteral(state, context | Context.AllowRegExp, /* isDirective */ true);
     if (canConsumeSemicolon(state)) {
       if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
@@ -120,13 +112,19 @@ export function parseSourceFile(text: string, filename: string, context: Context
   return createRootNode(directives, leafs, text, filename, state.diagnostics);
 }
 
-export function parseInNormalMode(
+export function parseInNormalMode(source: string, context: Context, options?: Options): Script | Module {
+  return parseRoot(source, context, options);
+}
+
+export function parseInCustomMode(
   source: string,
   context: Context,
   options?: Options,
   dictionary?: Dictionary
 ): Script | Module {
-  return parseRoot(source, context, options, dictionary);
+  // Overwrite exisiting dictionaries if in 'custom mode'
+  if (dictionary) Object.assign(DictionaryMap, dictionary);
+  return parseRoot(source, context, options);
 }
 
 export function parseInRecoveryMode(text: string, filename: string, context: Context, options?: Options): RootNode {

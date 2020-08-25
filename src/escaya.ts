@@ -1,11 +1,9 @@
-import { Context } from './common';
 import { RootNode } from './ast/root-node';
 import { Script } from './ast/script-node';
 import { Module } from './ast/module-node';
 import { TextChangeRange } from './types';
-import { parseInNormalMode, parseInRecoveryMode, parseInIncrementalMode, Options } from './core';
+import { parseInNormalMode, parseInCustomMode, parseInRecoveryMode, parseInIncrementalMode, Options } from './core';
 import { Dictionary } from './dictionary/dictionary-map';
-import { Constants } from './constants';
 
 /**
  * Parse a script, optionally with various options.
@@ -25,14 +23,14 @@ export function parseModule(source: string, options?: Options): Module {
  * Parse a script, optionally with various options and custom AST.
  */
 export function parseCustomScript(source: string, dictionary: Dictionary, options?: Options): Script {
-  return parseInNormalMode(source, 0b00100000000000000000000010000000, options, dictionary) as Script;
+  return parseInCustomMode(source, 0b00100000000000000000000010000000, options, dictionary) as Script;
 }
 
 /**
  * Parse a module, optionally with various options and custom AST.
  */
 export function parseCustomModule(source: string, dictionary: Dictionary, options?: Options): Module {
-  return parseInNormalMode(source, 0b00001000000000000000001110000000, options, dictionary) as Module;
+  return parseInCustomMode(source, 0b00001000000000000000001110000000, options, dictionary) as Module;
 }
 
 /**
