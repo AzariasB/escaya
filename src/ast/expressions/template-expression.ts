@@ -1,5 +1,6 @@
 import { Node } from '../node';
 import { TemplateElement } from './template-element';
+
 /**
  * Template expression.
  */

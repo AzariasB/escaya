@@ -11,8 +11,8 @@ Escaya's own `AST` represents the structure of an ECMAScript program as a tree a
 ```js
 interface Script {
     type: string;
-    directives: [ Directives ];
-    leafs: [ Statement | ModuleDeclaration ];
+    directives: [ Directive ];
+    leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault];
     start: number;
     end: number;
 }
@@ -23,8 +23,8 @@ interface Script {
 ```js
 interface Module {
     type: string;
-    directives: [ Directives ];
-    leafs: [ Statement | ModuleDeclaration ];
+    directives: [ Directive ];
+    leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault];
     start: number;
     end: number;
 }
@@ -93,14 +93,14 @@ information isn't known from outside, or exposed through any API.
 ```js
 interface RootNode {
     kind: SyntaxKind;
-    directives: [ Directives ];
-    leafs: [ Statement | ModuleDeclaration ];
+    directives: [ Directive ];
+    leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault];
     text: string;
     filename: string;
     mutualFlags: Flags,
     diagnostics [ Diagnostics ];
     parent: Script | Module | null;
-    children: [ Statement | ModuleDeclaration ];
+    children: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault];
     length: number;
     end: number;
 }

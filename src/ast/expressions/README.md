@@ -416,7 +416,7 @@ Used to represent an splice array in [ArrayLiteral](https://tc39.es/ecma262/#pro
 ```js
 interface FunctionBody <: Expression {
     type: 'FunctionBody';
-    directives: [ string ];
+    directives: [ Directive ];
     leafs: [ Statement ];
 }
 ```

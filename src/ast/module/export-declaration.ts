@@ -9,15 +9,16 @@ import { LexicalDeclaration } from '../declarations/lexical-declaration';
 import { FunctionDeclaration } from '../declarations/function-declaration';
 import { ClassDeclaration } from '../declarations/class-declaration';
 
-export type ExportDeclarations =
-  | AssignmentExpression
-  | VariableStatement
-  | LexicalDeclaration
-  | FunctionDeclaration
-  | ClassDeclaration;
+/** Export declaration */
 
 export interface ExportDeclaration extends Node {
-  readonly declaration: ExportDeclarations | null;
+  readonly declaration:
+    | AssignmentExpression
+    | VariableStatement
+    | LexicalDeclaration
+    | FunctionDeclaration
+    | ClassDeclaration
+    | null;
   readonly namedExports: ExportSpecifier[];
   readonly namedBinding: IdentifierName | null;
   readonly fromClause: StringLiteral | null;
@@ -26,7 +27,13 @@ export interface ExportDeclaration extends Node {
 }
 
 export function createExportDeclaration(
-  declaration: ExportDeclarations | null,
+  declaration:
+    | AssignmentExpression
+    | VariableStatement
+    | LexicalDeclaration
+    | FunctionDeclaration
+    | ClassDeclaration
+    | null,
   namedExports: ExportSpecifier[],
   namedBinding: IdentifierName | null,
   fromClause: StringLiteral | null
