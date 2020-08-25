@@ -13,6 +13,19 @@ describe('Statements - If', () => {
     `if(a,,,,,b;else c;`,
     'if (++a;',
     'if (a --a;',
+    'if(!(1))',
+    'if(!(true))',
+    'if(!("A"))',
+    'if();',
+    'if (1) let x = 10;',
+    `if({1})
+    {
+      ;
+    }else
+    {
+      ;
+    }`,
+    'if (a) class A {}',
     'if catch else',
     'if (x) break',
     'if (!a) return false;',

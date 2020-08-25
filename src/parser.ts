@@ -86,6 +86,7 @@ import { VariableDeclaration } from './ast/declarations/variable-declaration';
 import { SwitchStatement } from './ast/statements/switch-stmt';
 import { addDiagnostic, addparserDiagnostic, addEarlyDiagnostic, DiagnosticSource, DiagnosticKind } from './diagnostic';
 import { DiagnosticCode } from './diagnostic/diagnostic-code';
+import { diagnosticMap } from './diagnostic/diagnostic-map';
 import { Token, KeywordDescTable } from './ast/token';
 import { Constants } from './constants';
 import { SyntaxKind } from './ast/node';
@@ -357,7 +358,7 @@ export function parseSwitchStatement(
   consume(state, context, Token.RightParen);
   consume(state, context, Token.LeftBrace);
   const clauses = parseCaseBlock(state, context, scope, labels, ownLabels);
-  consume(state, context, Token.RightBrace);
+  consume(state, context | Context.AllowRegExp, Token.RightBrace);
   return finishNode(
     state,
     context,
@@ -680,7 +681,7 @@ export function parseBreakStatement(state: ParserState, context: Context, labels
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   let label = null;
-  if (state.token & Constants.IsValidLabel) {
+  if (!state.lineTerminatorBeforeNextToken && state.token & Constants.IsValidLabel) {
     // We set the 'Context.AllowRegExp' bit here so we safely can parse out edge cases where
     // there is a newline and the next token is a regex. For example `label: for(;;) break label \n /foo/`.
     // ASI will automatically kick in.
@@ -705,7 +706,7 @@ export function parseContinueStatement(state: ParserState, context: Context, lab
   nextToken(state, context | Context.AllowRegExp);
   let label = null;
   // We set the 'Context.AllowRegExp' bit here for the same reason given for 'parseBreakStatement'.
-  if (state.token & Constants.IsValidLabel) {
+  if (!state.lineTerminatorBeforeNextToken && state.token & Constants.IsValidLabel) {
     const tokenValue = state.tokenValue;
     label = parseIdentifierReference(state, context | Context.AllowRegExp);
     if (checkContinueStatement(labels, tokenValue) === 0) {
@@ -759,24 +760,30 @@ export function parseForStatement(
 
   consume(state, context, Token.ForKeyword);
 
-  let isAwait = (context & Context.Await) === Context.Await && consumeOpt(state, context, Token.AwaitKeyword);
+  const isAwait = (context & Context.Await) === Context.Await && consumeOpt(state, context, Token.AwaitKeyword);
 
   scope = createParentScope(scope, ScopeKind.ForStatement);
 
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
 
-  let initializer: ForDeclaration | Expression | null = null;
-  let innerStart = state.startIndex;
+  let initializer: ForDeclaration | Expression | null | any = null;
+  const innerStart = state.startIndex;
 
   if (state.token !== Token.Semicolon) {
     // 'var', 'let', 'const'
     if (state.token & Token.IsVarLexical) {
       if (state.token === Token.LetKeyword) {
-        initializer = parseIdentifierReference(state, context);
-
+        nextToken(state, context);
         if (state.token & Constants.IsPatternOrIdentifierNormal) {
           if (state.token === Token.InKeyword) {
             if (context & Context.Strict) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
+            initializer = finishNode(
+              state,
+              context,
+              innerStart,
+              DictionaryMap.IdentifierReference('let'),
+              SyntaxKind.Identifier
+            );
           } else {
             initializer = parseForDeclaration(
               state,
@@ -791,6 +798,14 @@ export function parseForStatement(
           }
         } else {
           if (context & Context.Strict) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
+
+          initializer = finishNode(
+            state,
+            context,
+            innerStart,
+            DictionaryMap.IdentifierReference('let'),
+            SyntaxKind.Identifier
+          );
 
           state.assignable = true;
 
@@ -1053,8 +1068,8 @@ export function parseForLexicalBinding(
 ): LexicalBinding {
   const start = state.startIndex;
   let initializer = null;
-  let isPattern = state.token & Token.IsPatternStart;
-  let binding = parseBindingPatternOrIdentifier(state, context, scope, type);
+  const isPattern = state.token & Token.IsPatternStart;
+  const binding = parseBindingPatternOrIdentifier(state, context, scope, type);
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
     initializer = parseExpression(state, context);
     if (state.token & Token.IsInOrOf) {
@@ -2626,6 +2641,7 @@ export function parseBindingRestElement(
     argument = finishNode(state, context, start, DictionaryMap.BindingIdentifier(''), SyntaxKind.BindingIdentifier);
   }
   if (state.token === Token.Assign) addEarlyDiagnostic(state, context, DiagnosticCode.RestInit);
+  state.destructible = Destructible.None;
   return finishNode(state, context, start, DictionaryMap.BindingRestElement(argument), SyntaxKind.BindingRestElement);
 }
 
@@ -2857,7 +2873,7 @@ export function parseSpreadOrPropertyArgument(
   const innerStart = state.startIndex;
 
   if (state.token & Constants.IsIdentifierOrKeyword) {
-    let tokenValue = state.tokenValue;
+    const tokenValue = state.tokenValue;
     let argument = parsePrimaryExpression(state, context);
 
     // '... )' , '... ]' and '... }'
@@ -3389,7 +3405,7 @@ export function parseMethodDefinition(
   let propertySetParameterList: (BindingIdentifier | BindingElement)[] = [];
   let uniqueFormalParameters: Parameter[] = [];
 
-  let scope = createParentScope(createScope(), ScopeKind.FunctionParams);
+  const scope = createParentScope(createScope(), ScopeKind.FunctionParams);
 
   // getter
   if (kind & PropertyKind.Getter) {
@@ -3581,7 +3597,7 @@ export function parseFunctionDeclaration(
     state.token &
     (context & Context.ErrorRecovery ? Constants.IsIdentifierOrKeywordRecovery : Constants.IsIdentifierOrKeywordNormal)
   ) {
-    let { tokenValue } = state;
+    const { tokenValue } = state;
     name = validateFunctionName(state, context | ((context & 0b0000000000000000000_1100_00000000) << 11));
 
     if (context & Context.TopLevel && (context & Context.Module) !== Context.Module) {
@@ -3681,7 +3697,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
   start: number
 ): ArrowFunction | Expression {
   nextToken(state, context | Context.AllowRegExp);
-  let scope = createParentScope(createScope(), ScopeKind.ArrowParams);
+  const scope = createParentScope(createScope(), ScopeKind.ArrowParams);
   const params: Expression[] = [];
 
   if (consumeOpt(state, context, Token.RightParen)) {
@@ -3950,7 +3966,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
   context: Context
 ): Expression | ArrowFunction | ParenthesizedExpression {
   const start = state.startIndex;
-  let scope = createParentScope(createScope(), ScopeKind.ArrowParams);
+  const scope = createParentScope(createScope(), ScopeKind.ArrowParams);
 
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
 

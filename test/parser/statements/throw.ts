@@ -94,6 +94,8 @@ describe('Statements - Throw', () => {
     'throw a >= b',
     'throw a >= (1)',
     'throw x = a, f',
+    'throw ((((((d = null)))) ? (((--r))) : ((/|[--]*||[^\\u2B7a+-?]+|(?!)/giy))));',
+    'throw /(?=[^\\x4f-\\xF5(-)])/imy',
     'throw a >= /** comment */ /a/',
     'throw a ** b',
     'throw x ? y : z',

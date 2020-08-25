@@ -2,9 +2,66 @@ import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Statements - Labelled', () => {
+  for (const arg of [
+    'break',
+    'case',
+    'catch',
+    'class',
+    'const',
+    'continue',
+    // 'debugger',
+    'default',
+    'delete',
+    'do',
+    'else',
+    'export',
+    'extends',
+    'finally',
+    'for',
+    'function',
+    'if',
+    'import',
+    'in',
+    'instanceof',
+    'new',
+    'return',
+    'super',
+    'switch',
+    // 'this',
+    'throw',
+    'try',
+    'typeof',
+    'var',
+    'void',
+    'while',
+    'with',
+    // 'null',
+    //  'true',
+    //  'false',
+    'enum'
+  ]) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseScript(`${arg}`);
+      });
+    });
+  }
+
   // Invalid cases
   for (const arg of [
     'switch/(":',
+    'label: class C {};',
+    'label: let x;',
+    'a: async function* a(){}',
+    // 'label: function* g() {}',
+    'do { test262: { continue test262; } } while (false)',
+    '() => {super: while(true) { break super; }}"',
+    // 'false: ;',
+    // '(async function*() { yield: 1; });',
+    'yield: { function *f(){ break await; } }',
+    'bar: foo: ding: foo: x',
+    'foo: bar: foo: x',
+    'foo:for;',
     // 'await\nx:;',
     'foo\n/x/g:',
     '123:\n',

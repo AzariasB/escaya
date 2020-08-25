@@ -5004,7 +5004,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 3,
           source: 2,
-          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          message: 'Invalid destruct',
           code: 96,
           start: 15,
           length: 1
@@ -5525,7 +5525,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 3,
           source: 2,
-          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          message: 'Invalid destruct',
           code: 96,
           start: 12,
           length: 1

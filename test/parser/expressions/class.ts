@@ -157,6 +157,8 @@ describe('Declarations - Class', () => {
     '(class x { a() {}})',
     'class n extends ([] = x) {}',
     'class n extends ({} = x) {}',
+    '(class extends a { constructor() {}  *i() {}  })',
+    //'(class extends a { constructor() {}  *[i]() {}  })',
     'f = ([cls = class {}, xCls = class X {}, xCls2 = class { static name() {} }]) => {}',
     '(class o {f(){ function x(){}}})',
     '(class A {async * 34(){}})',

@@ -106,9 +106,9 @@ export const enum Token {
   BigIntLiteral = 3 | IsExpressionStart | IsProperty,
   StringLiteral = 4 | IsExpressionStart | IsProperty,
   RegularExpression = 5 | IsExpressionStart,
-  FalseKeyword = 6 | IsExpressionStart | IsProperty,
-  TrueKeyword = 7 | IsExpressionStart | IsProperty,
-  NullKeyword = 8 | IsExpressionStart | IsProperty,
+  FalseKeyword = 6 | IsKeyword | IsExpressionStart | IsProperty,
+  TrueKeyword = 7 | IsKeyword | IsExpressionStart | IsProperty,
+  NullKeyword = 8 | IsKeyword | IsExpressionStart | IsProperty,
 
   // 11.8.6 - Template Literal Lexical Components
   TemplateTail = 9 | IsExpressionStart | IsMember | IsPropertyOrCall,

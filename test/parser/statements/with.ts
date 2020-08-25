@@ -29,6 +29,9 @@ describe('Statements - With', () => {
     'with ({}) let {a: x} = {a: 42};',
     // Lexical declaration cannot appear in a single-statement context
     'with ({}) let a = [];',
+    `with ({}) let [a] = [42];`,
+    'with ({}) async function f() {}',
+    'with(1) function a(){}',
     'with((x,y)=z) {}',
     'with(x) { case y: {...x} }',
     'with(x) { case y: foo /a/ }',
@@ -65,8 +68,10 @@ describe('Statements - With', () => {
     'with({}) {}',
     'with([x=y]) {}',
     'with([x=y/(x)]) {}',
+    'with(1) b: function a(){}',
     'with({...b/c}) {}',
     'with(x=y) {}',
+    'with ({}) { }',
     'with(x=y) { function a() {} }'
   ]) {
     it(`${arg}`, () => {

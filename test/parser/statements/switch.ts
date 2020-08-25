@@ -228,6 +228,7 @@ describe('Statements - Switch', () => {
     switch (0) { case 1: var f; default: var f; }`,
     'switch (x) { case x: function * f() {} }',
     'switch (x) { case x: function * f() {} }',
+    'switch(x){}/foo/;',
     'switch(a){case 1:}',
     'switch (a) { case b: let [x] = y }',
     'switch (answer) { case 0: let a; }',

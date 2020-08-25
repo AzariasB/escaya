@@ -3,7 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Statements - Try', () => {
   // Check that non-lexical declarations can override a simple catch parameter
-  for (let declaration of ['var e', 'var f, e', 'var {e} = 0', 'let {} = 0', 'let {e:f} = 0', '{ function e(){} }']) {
+  for (const declaration of ['var e', 'var f, e', 'var {e} = 0', 'let {} = 0', 'let {e:f} = 0', '{ function e(){} }']) {
     it(`try { throw 0; } catch(e) {${declaration} }`, () => {
       t.doesNotThrow(() => {
         parseScript(`try { throw 0; } catch(e) {${declaration} }`);
@@ -34,7 +34,7 @@ describe('Statements - Try', () => {
   ];
 
   // Check that lexical declarations cannot override a simple catch parameter
-  for (let declaration of lexical_e) {
+  for (const declaration of lexical_e) {
     it(`try { throw 0;} catch(e) {${declaration}}`, () => {
       t.throws(() => {
         parseScript(`try { throw 0;} catch(e) {${declaration}}`);

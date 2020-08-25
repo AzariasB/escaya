@@ -4,7 +4,13 @@ import { parseScript, recovery } from '../../../src/escaya';
 describe('Statements - Do', () => {
   // Invalid cases
   for (const arg of [
+    'do foo while (bar);',
+    'do async \n f(){}; while (y)',
+    'do async \n () => x; while(y)',
+    'do let x = 1; while (false)',
     'do/("while',
+    'do let {} = y',
+    'do debugger while(x) x',
     'do\nx;while',
     'do\n/x/g while',
     'do\nwhile',
@@ -55,11 +61,25 @@ describe('Statements - Do', () => {
     'do ; while(x) \n /foo/',
     'do try {} catch {} while(x) x',
     '{ do { } while (false) false }',
+    'do if(8)function s(){}while(y)',
+    'do foo; while (bar);',
     'do;while(x)y',
     'do;while(j)try{}finally{}',
     'do ; while(x) \n /foo/',
     `do\n for((function(){});;)x \n while(x);`,
-    `do; while(x)\n /x/g`
+    `do; while(x)\n /x/g`,
+    'do async \n () \n while (y)',
+    'do while (x) continue \n while (x);',
+    `do if(x=>{});else n
+    while(y)`,
+    `do
+    if(x=>{});
+  while(y)`,
+    `do
+  for((function(){});;)x
+while(x);`,
+    `do x
+    while ({ [y]: {} ? null : false  })`
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {

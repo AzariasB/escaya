@@ -8,25 +8,80 @@ describe('Statements - Break', () => {
     'continue foo',
     'continue foo;',
     'continue; continue;',
-    // '() => { switch (x){ case z:       break y   }}',
-    // '() => { switch (x){ case z:       if (x) break y   }}',
+    '() => { switch (x){ case z:       break y   }}',
+    '() => { switch (x){ case z:       if (x) break y   }}',
     'for (x of 3) break/',
     'for (x of 3) break/x',
     `x: for(;;) break x
      /y`,
+    'for (;;)    if (x) break y   }',
+    'function f(){ do        if (x) break y   ; while(true);}',
+    'loop1: function a() {}  while (true) { continue loop1; }',
+    'loop1: while (true) { loop2: function a() { break loop2; } }',
+    'loop1: while (true) { loop2: function a() { break loop1; } }',
+    'loop; while (true) { break loop1; }',
+    'break\nbreak;',
+    //'{ break }',
+    'if (x) break',
+    '{  break foo; var y=2; }',
     'for (x of 3) break/x/',
     'for (x of 3) break/x/g',
     `for (x of 3) break
      /`,
-    // 'x: foo; break x;',
-    // 'break x;',
-
+    'x: foo; break x;',
+    'break x;',
     'function f(){ { continue } }',
     'switch (x){ case z: if (x) continue y }',
     '() => { switch (x){ case z: continue y }}',
     '() => { switch (x){ case z:  if (x) continue }}',
-    //'switch (x){ case z:    if (x) break y   }',
-    'switch (x){ case z: { continue } }'
+    'switch (x){ case z:    if (x) break y   }',
+    'switch (x){ case z: { continue } }',
+
+    `(function(){
+      OuterLabel : var x=0, y=0;
+      LABEL_DO_LOOP : do {
+          LABEL_IN : x++;
+          if(x===10)
+              return;
+          break LABEL_IN;
+          LABEL_IN_2 : y++;
+          function IN_DO_FUNC(){}
+      } while(0);
+      LABEL_ANOTHER_LOOP : do {
+          ;
+      } while(0);
+      function OUT_FUNC(){}
+    })();`,
+    `(function(){
+      OuterLabel : var x=0, y=0;
+      LABEL_DO_LOOP : do {
+          LABEL_IN : x++;
+          if(x===10)
+              return;
+          break LABEL_IN;
+          LABEL_IN_2 : y++;
+          function IN_DO_FUNC(){}
+      } while(0);
+      LABEL_ANOTHER_LOOP : do {
+          ;
+      } while(0);
+      function OUT_FUNC(){}
+    })();`,
+    `(function(){
+      OuterLabel : var x=0, y=0;
+      LABEL_DO_LOOP : do {
+          LABEL_IN : x++;
+          if(x===10)
+              return;
+          break IN_DO_FUNC;
+          LABEL_IN_2 : y++;
+          function IN_DO_FUNC(){}
+      } while(0);
+      LABEL_ANOTHER_LOOP : do {
+          ;
+      } while(0);
+      function OUT_FUNC(){}
+    })();`
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -62,6 +117,16 @@ describe('Statements - Break', () => {
     'do break; while(foo);',
     'for (x of y) break',
     'while (x) break',
+    `a: if (true) b: { break a; break b; } else b: { break a; break b; }`,
+    'foo: while (true) if (x) break foo;',
+    'function f(){ while (true)       if (x) break   }',
+    'L: let\nx',
+    'ding: foo: bar: while (true) break foo;',
+    'switch (x) { default: break; }',
+    'switch (x) { case x: if (foo) break; }',
+    'foo: switch (x) { case x: break foo; }',
+    'foo: switch (x) { case x: if (foo) {break foo;} }',
+    'switch (a) { case 123: { if (a) {} break } }',
     'foo: for (x of y) break foo;',
     'foo: while (true) { if (x) break foo; }',
     'foo: while (true) { break foo; }',
@@ -78,11 +143,6 @@ describe('Statements - Break', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`, { loc: true });
-      });
-    });
-    it(`${arg}`, () => {
-      t.doesNotThrow(() => {
-        parseModule(`${arg}`, { loc: true });
       });
     });
     it(`${arg}`, () => {
