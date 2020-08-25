@@ -5,24 +5,18 @@ describe('Recovery - Expressions', () => {
   it('"\\9";', () => {
     t.deepEqual(recovery('"\\9";', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: '',
-            start: 0,
-            end: 4,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: '',
+          raw: '\\9',
           start: 0,
-          end: 5,
-          kind: 122,
+          end: 4,
+          kind: 229,
           flags: 0
         }
       ],
+      leafs: [],
       text: '"\\9";',
       fileName: 'recovery.js',
       context: 0,
@@ -158,24 +152,18 @@ describe('Recovery - Expressions', () => {
   it('"\\u00";', () => {
     t.deepEqual(recovery('"\\u00";', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: '',
-            start: 0,
-            end: 6,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: '',
+          raw: '\\u00',
           start: 0,
-          end: 7,
-          kind: 122,
+          end: 6,
+          kind: 229,
           flags: 0
         }
       ],
+      leafs: [],
       text: '"\\u00";',
       fileName: 'recovery.js',
       context: 0,
@@ -2515,24 +2503,18 @@ describe('Recovery - Expressions', () => {
           ],
           contents: {
             type: 'FunctionBody',
-            directives: [],
-            leafs: [
+            directives: [
               {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'StringLiteral',
-                  value: 'use strict',
-                  start: 18,
-                  end: 31,
-                  kind: 12,
-                  flags: 0
-                },
+                type: 'Directive',
+                value: 'use strict',
+                raw: '"use strict',
                 start: 18,
-                end: 32,
-                kind: 122,
+                end: 31,
+                kind: 229,
                 flags: 0
               }
             ],
+            leafs: [],
             start: 16,
             end: 34,
             kind: 184,
@@ -2592,24 +2574,18 @@ describe('Recovery - Expressions', () => {
               ],
               contents: {
                 type: 'FunctionBody',
-                directives: [],
-                leafs: [
+                directives: [
                   {
-                    type: 'ExpressionStatement',
-                    expression: {
-                      type: 'StringLiteral',
-                      value: 'use strict',
-                      start: 19,
-                      end: 32,
-                      kind: 12,
-                      flags: 0
-                    },
+                    type: 'Directive',
+                    value: 'use strict',
+                    raw: '"use strict',
                     start: 19,
-                    end: 33,
-                    kind: 122,
+                    end: 32,
+                    kind: 229,
                     flags: 0
                   }
                 ],
+                leafs: [],
                 start: 17,
                 end: 35,
                 kind: 184,
@@ -7230,24 +7206,18 @@ describe('Recovery - Expressions', () => {
   it('"string', () => {
     t.deepEqual(recovery('"string', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: '',
-            start: 0,
-            end: 7,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: '',
+          raw: 'strin',
           start: 0,
           end: 7,
-          kind: 122,
+          kind: 229,
           flags: 0
         }
       ],
+      leafs: [],
       text: '"string',
       fileName: 'recovery.js',
       context: 0,
@@ -7275,24 +7245,18 @@ describe('Recovery - Expressions', () => {
   it('"str /', () => {
     t.deepEqual(recovery('"str /', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: '',
-            start: 0,
-            end: 6,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: '',
+          raw: 'str ',
           start: 0,
           end: 6,
-          kind: 122,
+          kind: 229,
           flags: 0
         }
       ],
+      leafs: [],
       text: '"str /',
       fileName: 'recovery.js',
       context: 0,

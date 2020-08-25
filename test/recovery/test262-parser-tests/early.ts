@@ -138,24 +138,18 @@ describe('test262-parser-tests - early tests', () => {
                   },
                   contents: {
                     type: 'FunctionBody',
-                    directives: [],
-                    leafs: [
+                    directives: [
                       {
-                        type: 'ExpressionStatement',
-                        expression: {
-                          type: 'StringLiteral',
-                          value: 'use strict',
-                          start: 12,
-                          end: 25,
-                          kind: 12,
-                          flags: 0
-                        },
+                        type: 'Directive',
+                        value: 'use strict',
+                        raw: '"use strict',
                         start: 12,
-                        end: 26,
-                        kind: 122,
+                        end: 25,
+                        kind: 229,
                         flags: 0
                       }
                     ],
+                    leafs: [],
                     start: 10,
                     end: 28,
                     kind: 184,
@@ -662,23 +656,18 @@ describe('test262-parser-tests - early tests', () => {
   it('"use strict"; function static() { }', () => {
     t.deepEqual(recovery('"use strict"; function static() { }', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: 'use strict',
-            start: 0,
-            end: 12,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
           start: 0,
-          end: 13,
-          kind: 122,
+          end: 12,
+          kind: 229,
           flags: 0
-        },
+        }
+      ],
+      leafs: [
         {
           type: 'FunctionDeclaration',
           name: {
@@ -711,7 +700,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Unexpected reserved word in strict mode',
+          code: 18,
+          start: 23,
+          length: 6
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -1007,23 +1005,18 @@ describe('test262-parser-tests - early tests', () => {
           params: [],
           contents: {
             type: 'FunctionBody',
-            directives: [],
-            leafs: [
+            directives: [
               {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'StringLiteral',
-                  value: 'use strict',
-                  start: 14,
-                  end: 27,
-                  kind: 12,
-                  flags: 0
-                },
+                type: 'Directive',
+                value: 'use strict',
+                raw: '"use strict',
                 start: 14,
-                end: 28,
-                kind: 122,
+                end: 27,
+                kind: 229,
                 flags: 0
-              },
+              }
+            ],
+            leafs: [
               {
                 type: 'VariableStatement',
                 declarations: [
@@ -1079,23 +1072,18 @@ describe('test262-parser-tests - early tests', () => {
   it('"use strict"; yield:;', () => {
     t.deepEqual(recovery('"use strict"; yield:;', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: 'use strict',
-            start: 0,
-            end: 12,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
           start: 0,
-          end: 13,
-          kind: 122,
+          end: 12,
+          kind: 229,
           flags: 0
-        },
+        }
+      ],
+      leafs: [
         {
           type: 'LabelledStatement',
           label: {
@@ -1137,23 +1125,18 @@ describe('test262-parser-tests - early tests', () => {
   it('"use strict"; var yield;', () => {
     t.deepEqual(recovery('"use strict"; var yield;', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: 'use strict',
-            start: 0,
-            end: 12,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
           start: 0,
-          end: 13,
-          kind: 122,
+          end: 12,
+          kind: 229,
           flags: 0
-        },
+        }
+      ],
+      leafs: [
         {
           type: 'VariableStatement',
           declarations: [
@@ -1161,7 +1144,7 @@ describe('test262-parser-tests - early tests', () => {
               type: 'VariableDeclaration',
               binding: {
                 type: 'BindingIdentifier',
-                name: 'yield',
+                name: '',
                 start: 17,
                 end: 23,
                 kind: 168,
@@ -1184,7 +1167,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Unexpected `yield` as binding identifier in this context',
+          code: 90,
+          start: 18,
+          length: 5
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -2015,23 +2007,18 @@ describe('test262-parser-tests - early tests', () => {
           params: [],
           contents: {
             type: 'FunctionBody',
-            directives: [],
-            leafs: [
+            directives: [
               {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'StringLiteral',
-                  value: 'use strict',
-                  start: 14,
-                  end: 27,
-                  kind: 12,
-                  flags: 0
-                },
+                type: 'Directive',
+                value: 'use strict',
+                raw: '"use strict',
                 start: 14,
-                end: 28,
-                kind: 122,
+                end: 27,
+                kind: 229,
                 flags: 0
-              },
+              }
+            ],
+            leafs: [
               {
                 type: 'FunctionDeclaration',
                 name: {
@@ -2098,23 +2085,18 @@ describe('test262-parser-tests - early tests', () => {
   it('"use strict"; delete (a);', () => {
     t.deepEqual(recovery('"use strict"; delete (a);', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: 'use strict',
-            start: 0,
-            end: 12,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
           start: 0,
-          end: 13,
-          kind: 122,
+          end: 12,
+          kind: 229,
           flags: 0
-        },
+        }
+      ],
+      leafs: [
         {
           type: 'ExpressionStatement',
           expression: {
@@ -3059,23 +3041,18 @@ describe('test262-parser-tests - early tests', () => {
           params: [],
           contents: {
             type: 'FunctionBody',
-            directives: [],
-            leafs: [
+            directives: [
               {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'StringLiteral',
-                  value: 'use strict',
-                  start: 14,
-                  end: 27,
-                  kind: 12,
-                  flags: 0
-                },
+                type: 'Directive',
+                value: 'use strict',
+                raw: '"use strict',
                 start: 14,
-                end: 28,
-                kind: 122,
+                end: 27,
+                kind: 229,
                 flags: 0
-              },
+              }
+            ],
+            leafs: [
               {
                 type: 'ExpressionStatement',
                 expression: {
@@ -4842,23 +4819,18 @@ describe('test262-parser-tests - early tests', () => {
   it('"use strict"; function a(b, { b }){}', () => {
     t.deepEqual(recovery('"use strict"; function a(b, { b }){}', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: 'use strict',
-            start: 0,
-            end: 12,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
           start: 0,
-          end: 13,
-          kind: 122,
+          end: 12,
+          kind: 229,
           flags: 0
-        },
+        }
+      ],
+      leafs: [
         {
           type: 'FunctionDeclaration',
           name: {
@@ -5279,24 +5251,18 @@ describe('test262-parser-tests - early tests', () => {
           ],
           contents: {
             type: 'FunctionBody',
-            directives: [],
-            leafs: [
+            directives: [
               {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'StringLiteral',
-                  value: 'use strict',
-                  start: 21,
-                  end: 34,
-                  kind: 12,
-                  flags: 0
-                },
+                type: 'Directive',
+                value: 'use strict',
+                raw: '"use strict',
                 start: 21,
-                end: 35,
-                kind: 122,
+                end: 34,
+                kind: 229,
                 flags: 0
               }
             ],
+            leafs: [],
             start: 19,
             end: 37,
             kind: 184,
@@ -5538,23 +5504,18 @@ describe('test262-parser-tests - early tests', () => {
   it('"use strict"; function a(b, ...[b]){}', () => {
     t.deepEqual(recovery('"use strict"; function a(b, ...[b]){}', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: 'use strict',
-            start: 0,
-            end: 12,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
           start: 0,
-          end: 13,
-          kind: 122,
+          end: 12,
+          kind: 229,
           flags: 0
-        },
+        }
+      ],
+      leafs: [
         {
           type: 'FunctionDeclaration',
           name: {
@@ -5643,23 +5604,18 @@ describe('test262-parser-tests - early tests', () => {
   it('"use strict"; function a(...yield) {}', () => {
     t.deepEqual(recovery('"use strict"; function a(...yield) {}', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: 'use strict',
-            start: 0,
-            end: 12,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
           start: 0,
-          end: 13,
-          kind: 122,
+          end: 12,
+          kind: 229,
           flags: 0
-        },
+        }
+      ],
+      leafs: [
         {
           type: 'FunctionDeclaration',
           name: {
@@ -5677,7 +5633,7 @@ describe('test262-parser-tests - early tests', () => {
               type: 'BindingRestElement',
               argument: {
                 type: 'BindingIdentifier',
-                name: 'yield',
+                name: '',
                 start: 28,
                 end: 33,
                 kind: 168,
@@ -5708,7 +5664,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Unexpected `yield` as binding identifier in this context',
+          code: 90,
+          start: 28,
+          length: 5
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -5936,23 +5901,18 @@ describe('test262-parser-tests - early tests', () => {
           params: [],
           contents: {
             type: 'FunctionBody',
-            directives: [],
-            leafs: [
+            directives: [
               {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'StringLiteral',
-                  value: 'use strict',
-                  start: 14,
-                  end: 27,
-                  kind: 12,
-                  flags: 0
-                },
+                type: 'Directive',
+                value: 'use strict',
+                raw: '"use strict',
                 start: 14,
-                end: 28,
-                kind: 122,
+                end: 27,
+                kind: 229,
                 flags: 0
-              },
+              }
+            ],
+            leafs: [
               {
                 type: 'ExpressionStatement',
                 expression: {
@@ -6213,23 +6173,18 @@ describe('test262-parser-tests - early tests', () => {
           params: [],
           contents: {
             type: 'FunctionBody',
-            directives: [],
-            leafs: [
+            directives: [
               {
-                type: 'ExpressionStatement',
-                expression: {
-                  type: 'StringLiteral',
-                  value: 'use strict',
-                  start: 14,
-                  end: 27,
-                  kind: 12,
-                  flags: 0
-                },
+                type: 'Directive',
+                value: 'use strict',
+                raw: '"use strict',
                 start: 14,
-                end: 28,
-                kind: 122,
+                end: 27,
+                kind: 229,
                 flags: 0
-              },
+              }
+            ],
+            leafs: [
               {
                 type: 'ExpressionStatement',
                 expression: {

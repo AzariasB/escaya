@@ -30,7 +30,7 @@ interface Module {
 }
 ```
 
-'leafs' are used for every new block scope.
+`leafs` are used for every new block scope.
 
 ## Node
 
@@ -70,6 +70,18 @@ interface LineAndColumnData {
 
 The `line` field is `1-indexed` and the `column` field is `0-indexed`
 
+## Directive prologues
+
+
+```js
+interface Directive <: Node {
+  value: string;
+  raw: string;
+}
+```
+
+A directive from the directive prologue of a script or function. The `raw` property is the raw
+string source of the directive without quotes.
 
 ## RootNode
 

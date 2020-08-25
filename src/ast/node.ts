@@ -1,3 +1,4 @@
+import { Directive } from './directive-node';
 /**
  * Every single valid AST Node types.
  */
@@ -287,5 +288,6 @@ export enum SyntaxKind {
 
   OptionalChain,
   PropertyName,
-  ImportMeta
+  ImportMeta,
+  Directive
 }

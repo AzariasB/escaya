@@ -95,6 +95,7 @@ import { createPropertyName } from '../ast/expressions/property-name';
 import { createObjectAssignmentPattern } from '../ast/expressions/object-assignment-pattern';
 import { createImportCall } from '../ast/expressions/import-call';
 import { createImportMeta } from '../ast/expressions/import-meta';
+import { createDirective } from '../ast/directive-node';
 
 export type Dictionary = { [key: string]: any };
 
@@ -189,6 +190,7 @@ export const DictionaryMap = {
   ObjectAssignmentPattern: createObjectAssignmentPattern,
   ImportCall: createImportCall,
   ImportMeta: createImportMeta,
+  Directive: createDirective,
 
   // Module
 

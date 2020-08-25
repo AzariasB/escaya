@@ -89,6 +89,7 @@ import { DiagnosticCode } from './diagnostic/diagnostic-code';
 import { Token, KeywordDescTable } from './ast/token';
 import { Constants } from './constants';
 import { SyntaxKind } from './ast/node';
+import { Directive } from './ast/directive-node';
 import { nextToken } from './lexer/scan';
 import { scanTemplateTail } from './lexer/template';
 import { DictionaryMap } from './dictionary/dictionary-map';
@@ -116,6 +117,7 @@ import {
   parseStatementWithLabelSet,
   checkBreakStatement,
   checkContinueStatement,
+  nextLiteralExactlyStrict,
   addLabel
 } from './common';
 
@@ -174,11 +176,11 @@ export function parseStatementList(
   state: ParserState,
   context: Context,
   scope: ScopeState,
+  statementList: any[],
   cb: StatementCallback
 ): Statement[] {
   // StatementList ::
   //   (StatementListItem)* <end_token>
-  const statementList = [];
 
   while (state.token & Constants.IsSourceElement) {
     statementList.push(parseBlockElements(state, context, scope, null, null, cb));
@@ -2199,7 +2201,7 @@ export function parsePrimaryExpression(state: ParserState, context: Context): Le
     case Token.BigIntLiteral:
       return parseBigIntLiteral(state, context);
     case Token.StringLiteral:
-      return parseStringLiteral(state, context);
+      return parseStringLiteral(state, context, /* isDirective */ false);
     case Token.NullKeyword:
       return parseNullLiteral(state, context);
     case Token.ThisKeyword:
@@ -2329,11 +2331,16 @@ export function parseTemplateLiteral(state: ParserState, context: Context): Temp
 }
 
 // StringLiteral
-export function parseStringLiteral(state: ParserState, context: Context): StringLiteral {
+export function parseStringLiteral(state: ParserState, context: Context, isDirective: boolean): StringLiteral {
   const start = state.startIndex;
   const value = state.tokenValue;
   nextToken(state, context);
   state.assignable = false;
+  if (isDirective && canConsumeSemicolon(state)) {
+    // The `raw` property is the raw string source of the directive without quotes.
+    const raw = state.source.slice(start + 1, state.endIndex - 1);
+    return finishNode(state, context, start, DictionaryMap.Directive(value, raw), SyntaxKind.Directive);
+  }
   return finishNode(state, context, start, DictionaryMap.StringLiteral(value), SyntaxKind.StringLiteral);
 }
 
@@ -3272,7 +3279,7 @@ export function parsePropertyName(state: ParserState, context: Context): any {
     );
   }
   if (state.token === Token.StringLiteral) {
-    return parseStringLiteral(state, context);
+    return parseStringLiteral(state, context, /* isDirective */ false);
   }
   if (state.token === Token.NumericLiteral) {
     return parseNumericLiteral(state, context);
@@ -3347,7 +3354,7 @@ export function parseFunctionBody(
   const start = state.startIndex;
   const scopeError = scope.scopeError;
   const savedContext = context;
-  const directives: string[] = [];
+  const directives: Directive[] = [];
   const statements: Statement[] = [];
   context = context = (context | Context.TopLevel | Context.InBlock) ^ Context.InBlock;
 
@@ -3355,12 +3362,25 @@ export function parseFunctionBody(
 
   if (context & Context.Strict) {
     if (scopeError && (savedContext & Context.Strict) === 0 && (context & Context.InGlobal) === 0) {
-      // reportScopeError(scopeError);
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
     }
   }
 
   if (consume(state, context | Context.AllowRegExp, Token.LeftBrace)) {
+    while (state.token === Token.StringLiteral) {
+      const start = state.startIndex;
+      const expr = parseStringLiteral(state, context | Context.AllowRegExp, /* isDirective */ true);
+      if (canConsumeSemicolon(state)) {
+        if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
+        expectSemicolon(state, context);
+        directives.push(expr as Directive);
+      } else {
+        statements.push(
+          parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start)
+        );
+      }
+    }
+
     while (state.token & Constants.IsSourceElement) {
       statements.push(
         parseBlockElements(
@@ -4528,7 +4548,7 @@ export function parseImportDeclaration(
   let fromClause = null;
 
   if (state.token === Token.StringLiteral) {
-    moduleSpecifier = parseStringLiteral(state, context);
+    moduleSpecifier = parseStringLiteral(state, context, /* isDirective */ false);
   } else {
     importClause = parseImportClause(state, context);
     if (state.token === Token.FromKeyword) {
@@ -4666,7 +4686,7 @@ export function parseImportMeta(state: ParserState, context: Context, start: num
 //   `from` ModuleSpecifier
 export function parseFromClause(state: ParserState, context: Context): StringLiteral {
   consume(state, context, Token.FromKeyword);
-  return parseStringLiteral(state, context);
+  return parseStringLiteral(state, context, /* isDirective */ false);
 }
 
 // ExportDeclaration :

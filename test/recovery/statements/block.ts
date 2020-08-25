@@ -2385,24 +2385,18 @@ describe('Recovery - Block', () => {
                       },
                       contents: {
                         type: 'FunctionBody',
-                        directives: [],
-                        leafs: [
+                        directives: [
                           {
-                            type: 'ExpressionStatement',
-                            expression: {
-                              type: 'StringLiteral',
-                              value: 'use strict',
-                              start: 11,
-                              end: 23,
-                              kind: 12,
-                              flags: 0
-                            },
+                            type: 'Directive',
+                            value: 'use strict',
+                            raw: 'use strict',
                             start: 11,
-                            end: 24,
-                            kind: 122,
+                            end: 23,
+                            kind: 229,
                             flags: 0
                           }
                         ],
+                        leafs: [],
                         start: 10,
                         end: 25,
                         kind: 184,

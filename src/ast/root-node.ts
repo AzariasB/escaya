@@ -2,6 +2,7 @@ import { SyntaxKind, Node, NodeFlags } from './node';
 import { Diagnostic } from '../diagnostic';
 import { Flags, Context } from '../common';
 import { ImportExport } from './module';
+import { Directive } from './directive-node';
 
 /**
  * A top level node which contains the list of statements in a program,
@@ -9,7 +10,7 @@ import { ImportExport } from './module';
  */
 export interface RootNode extends Node {
   readonly kind: SyntaxKind.RootNode;
-  readonly directives: string[];
+  readonly directives: Directive[];
   readonly leafs: ImportExport[];
   readonly text: string;
   readonly fileName: string;
@@ -26,7 +27,7 @@ export interface RootNode extends Node {
 }
 
 export function createRootNode(
-  directives: string[],
+  directives: Directive[],
   leafs: ImportExport[],
   text: string,
   fileName: string,

@@ -1936,24 +1936,18 @@ describe('test262-parser-tests - failing tests', () => {
   it('"\\u{FFFF"', () => {
     t.deepEqual(recovery('"\\u{FFFF"', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: '',
-            start: 0,
-            end: 9,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: '',
+          raw: '\\u{FFFF',
           start: 0,
           end: 9,
-          kind: 122,
+          kind: 229,
           flags: 0
         }
       ],
+      leafs: [],
       text: '"\\u{FFFF"',
       fileName: 'recovery.js',
       context: 0,
@@ -2376,23 +2370,18 @@ describe('test262-parser-tests - failing tests', () => {
   it('"use strict"; for (let [a = let];;) {}', () => {
     t.deepEqual(recovery('"use strict"; for (let [a = let];;) {}', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: 'use strict',
-            start: 0,
-            end: 12,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
           start: 0,
-          end: 13,
-          kind: 122,
+          end: 12,
+          kind: 229,
           flags: 0
-        },
+        }
+      ],
+      leafs: [
         {
           type: 'ForStatement',
           initializer: {
@@ -2416,7 +2405,7 @@ describe('test262-parser-tests - failing tests', () => {
                       },
                       right: {
                         type: 'IdentifierReference',
-                        name: 'let',
+                        name: '',
                         start: 27,
                         end: 31,
                         kind: 13,
@@ -2466,6 +2455,14 @@ describe('test262-parser-tests - failing tests', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'The identifier `let` must not be in expression position in strict mode',
+          code: 85,
+          start: 28,
+          length: 3
+        },
         {
           kind: 3,
           source: 2,
@@ -4445,23 +4442,18 @@ describe('test262-parser-tests - failing tests', () => {
   it('"use strict"; ({ v: eval }) = obj', () => {
     t.deepEqual(recovery('"use strict"; ({ v: eval }) = obj', 'recovery.js'), {
       kind: 209,
-      directives: [],
-      leafs: [
+      directives: [
         {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: 'use strict',
-            start: 0,
-            end: 12,
-            kind: 12,
-            flags: 0
-          },
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
           start: 0,
-          end: 13,
-          kind: 122,
+          end: 12,
+          kind: 229,
           flags: 0
-        },
+        }
+      ],
+      leafs: [
         {
           type: 'ExpressionStatement',
           expression: {
@@ -4531,12 +4523,12 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 97,
           kind: 2,
-          length: 1,
-          message: 'The left-hand side of an assignment expression must be a variable or a property access',
           source: 2,
-          start: 28
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 28,
+          length: 1
         }
       ],
       detached: false,

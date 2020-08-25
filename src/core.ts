@@ -1,5 +1,5 @@
-import { Context } from './common';
-import { create, parseStatementList, parseStatementListItem, parseModuleItem } from './parser';
+import { Directive } from './ast/directive-node';
+import { Context, canConsumeSemicolon, expectSemicolon, nextLiteralExactlyStrict } from './common';
 import { createRootNode, RootNode } from './ast/root-node';
 import { Script } from './ast/script-node';
 import { Module } from './ast/module-node';
@@ -8,6 +8,16 @@ import { nextToken } from './lexer/scan';
 import { TextChangeRange } from './types';
 import { DictionaryMap, Dictionary } from './dictionary/dictionary-map';
 import { createScope, ScopeState } from './scope';
+import { Token } from './ast/token';
+import {
+  create,
+  parseStatementList,
+  parseStatementListItem,
+  parseModuleItem,
+  parseStringLiteral,
+  parseExpressionOrHigher,
+  parseExpressionStatement
+} from './parser';
 
 /**
  * The parser options.
@@ -16,7 +26,7 @@ export interface Options {
   next?: boolean;
   loc?: boolean;
   disableWebCompat?: boolean;
-  impliedStrict?: true;
+  impliedStrict?: boolean;
   // *only* for recovery / incremental mode
   module?: boolean;
 }
@@ -48,12 +58,26 @@ export function parseRoot(
 
   const scope: ScopeState = createScope();
 
-  const directives: string[] = [];
+  const directives: Directive[] = [];
 
-  const leafs: Statement[] =
+  let leafs: Statement[] = [];
+
+  while (state.token === Token.StringLiteral) {
+    const start = state.startIndex;
+    const expr = parseStringLiteral(state, context | Context.AllowRegExp, /* isDirective */ true);
+    if (canConsumeSemicolon(state)) {
+      if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
+      expectSemicolon(state, context);
+      directives.push(expr as Directive);
+    } else {
+      leafs.push(parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start));
+    }
+  }
+
+  leafs =
     context & Context.Module
-      ? parseStatementList(state, context, scope, parseModuleItem)
-      : parseStatementList(state, context, scope, parseStatementListItem);
+      ? parseStatementList(state, context, scope, leafs, parseModuleItem)
+      : parseStatementList(state, context, scope, leafs, parseStatementListItem);
 
   return context & Context.Module
     ? DictionaryMap.Module(source, directives, leafs)
@@ -72,13 +96,28 @@ export function parseSourceFile(text: string, filename: string, context: Context
 
   const scope: ScopeState = createScope();
 
-  const directives: string[] = [];
-  const statements: Statement[] =
-    context & Context.Module
-      ? parseStatementList(state, context, scope, parseModuleItem)
-      : parseStatementList(state, context, scope, parseStatementListItem);
+  const directives: Directive[] = [];
 
-  return createRootNode(directives, statements, text, filename, state.diagnostics);
+  let leafs: Statement[] = [];
+
+  while (state.token === Token.StringLiteral) {
+    const start = state.startIndex;
+    const expr = parseStringLiteral(state, context | Context.AllowRegExp, /* isDirective */ true);
+    if (canConsumeSemicolon(state)) {
+      if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
+      expectSemicolon(state, context);
+      directives.push(expr as Directive);
+    } else {
+      leafs.push(parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start));
+    }
+  }
+
+  leafs =
+    context & Context.Module
+      ? parseStatementList(state, context, scope, leafs, parseModuleItem)
+      : parseStatementList(state, context, scope, leafs, parseStatementListItem);
+
+  return createRootNode(directives, leafs, text, filename, state.diagnostics);
 }
 
 export function parseInNormalMode(

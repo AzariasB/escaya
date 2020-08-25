@@ -149,7 +149,7 @@ export const firstCharKinds = [
 
 export function scanSingleToken(state: ParserState, context: Context): Token {
   let lastIsCR = false;
-  let newsLine = state.index === 0;
+  const newsLine = state.index === 0;
   while (state.index < state.length) {
     let cp = state.source.charCodeAt(state.index);
     state.positionBeforeToken = state.index;

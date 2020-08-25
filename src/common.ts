@@ -413,3 +413,11 @@ export function checkContinueStatement(labels: any, value: string): 0 | 1 {
   }
   return 0;
 }
+
+export function nextLiteralExactlyStrict(state: any, start: number): boolean {
+  return (
+    (state.lineTerminatorBeforeNextToken && state.startIndex - start === 13) ||
+    (state.lineTerminatorBeforeNextToken && state.startIndex - start === 14) ||
+    state.startIndex - start === 12
+  );
+}
