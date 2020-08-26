@@ -65,34 +65,11 @@ describe('Recovery - Expressions - Call', () => {
           expression: {
             type: 'CallExpression',
             expression: {
-              type: 'ArrowFunction',
-              params: {
-                type: 'IdentifierReference',
-                name: 'async',
-                start: 6,
-                end: 11,
-                kind: 13,
-                flags: 0
-              },
-              contents: {
-                type: 'ConciseBody',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: 'c',
-                  start: 14,
-                  end: 16,
-                  kind: 13,
-                  flags: 0
-                },
-                start: 14,
-                end: 16,
-                kind: 187,
-                flags: 0
-              },
-              async: false,
-              start: 6,
-              end: 16,
-              kind: 188,
+              type: 'IdentifierReference',
+              name: 'async',
+              start: 0,
+              end: 5,
+              kind: 13,
               flags: 0
             },
             arguments: [
@@ -173,36 +150,11 @@ describe('Recovery - Expressions - Call', () => {
           expression: {
             type: 'CallExpression',
             expression: {
-              type: 'ArrowFunction',
-              params: [
-                {
-                  type: 'BindingIdentifier',
-                  name: 'x',
-                  start: 11,
-                  end: 13,
-                  kind: 168,
-                  flags: 0
-                }
-              ],
-              contents: {
-                type: 'ConciseBody',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: 'c',
-                  start: 16,
-                  end: 18,
-                  kind: 13,
-                  flags: 0
-                },
-                start: 16,
-                end: 18,
-                kind: 187,
-                flags: 0
-              },
-              async: true,
-              start: 6,
-              end: 18,
-              kind: 188,
+              type: 'IdentifierReference',
+              name: 'async',
+              start: 0,
+              end: 5,
+              kind: 13,
               flags: 0
             },
             arguments: [
@@ -283,53 +235,62 @@ describe('Recovery - Expressions - Call', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'ArrowFunction',
-            params: {
-              type: 'MemberExpression',
-              member: {
-                type: 'IdentifierReference',
-                name: 'async',
+            type: 'CallExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'async',
+              start: 0,
+              end: 5,
+              kind: 13,
+              flags: 0
+            },
+            arguments: [
+              {
+                type: 'MemberExpression',
+                member: {
+                  type: 'IdentifierReference',
+                  name: 'async',
+                  start: 6,
+                  end: 11,
+                  kind: 13,
+                  flags: 0
+                },
+                expression: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 13,
+                  end: 13,
+                  kind: 13,
+                  flags: 2
+                },
+                computed: true,
                 start: 6,
-                end: 11,
-                kind: 13,
-                flags: 0
-              },
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 13,
                 end: 13,
-                kind: 13,
-                flags: 2
-              },
-              computed: true,
-              start: 6,
-              end: 13,
-              kind: 154,
-              flags: 0
-            },
-            contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'IdentifierReference',
-                name: 'c',
-                start: 16,
-                end: 18,
-                kind: 13,
+                kind: 154,
                 flags: 0
-              },
-              start: 16,
-              end: 18,
-              kind: 187,
-              flags: 0
-            },
-            async: true,
+              }
+            ],
             start: 0,
-            end: 18,
-            kind: 188,
+            end: 13,
+            kind: 156,
             flags: 0
           },
           start: 0,
+          end: 13,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'c',
+            start: 16,
+            end: 18,
+            kind: 13,
+            flags: 0
+          },
+          start: 16,
           end: 18,
           kind: 122,
           flags: 0
@@ -369,34 +330,11 @@ describe('Recovery - Expressions - Call', () => {
           expression: {
             type: 'CallExpression',
             expression: {
-              type: 'ArrowFunction',
-              params: {
-                type: 'IdentifierReference',
-                name: 'async',
-                start: 6,
-                end: 11,
-                kind: 13,
-                flags: 0
-              },
-              contents: {
-                type: 'ConciseBody',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: 'c',
-                  start: 15,
-                  end: 17,
-                  kind: 13,
-                  flags: 0
-                },
-                start: 15,
-                end: 17,
-                kind: 187,
-                flags: 0
-              },
-              async: false,
-              start: 6,
-              end: 17,
-              kind: 188,
+              type: 'IdentifierReference',
+              name: 'async',
+              start: 0,
+              end: 5,
+              kind: 13,
               flags: 0
             },
             arguments: [
@@ -545,34 +483,11 @@ describe('Recovery - Expressions - Call', () => {
           expression: {
             type: 'CallExpression',
             expression: {
-              type: 'AssignmentRestElement',
-              argument: {
-                type: 'MemberExpression',
-                member: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 11,
-                  end: 11,
-                  kind: 13,
-                  flags: 2
-                },
-                expression: {
-                  type: 'IdentifierName',
-                  name: 'x',
-                  start: 12,
-                  end: 13,
-                  kind: 13,
-                  flags: 0
-                },
-                computed: false,
-                start: 11,
-                end: 13,
-                kind: 154,
-                flags: 0
-              },
-              start: 7,
-              end: 13,
-              kind: 200,
+              type: 'IdentifierReference',
+              name: 'async',
+              start: 0,
+              end: 5,
+              kind: 13,
               flags: 0
             },
             arguments: [
@@ -661,18 +576,11 @@ describe('Recovery - Expressions - Call', () => {
           expression: {
             type: 'CallExpression',
             expression: {
-              type: 'AssignmentRestElement',
-              argument: {
-                type: 'IdentifierReference',
-                name: 'x',
-                start: 11,
-                end: 12,
-                kind: 13,
-                flags: 0
-              },
-              start: 7,
-              end: 12,
-              kind: 200,
+              type: 'IdentifierReference',
+              name: 'async',
+              start: 0,
+              end: 5,
+              kind: 13,
               flags: 0
             },
             arguments: [
@@ -737,43 +645,11 @@ describe('Recovery - Expressions - Call', () => {
           expression: {
             type: 'CallExpression',
             expression: {
-              type: 'AssignmentRestElement',
-              argument: {
-                type: 'ArrowFunction',
-                params: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'x',
-                    start: 11,
-                    end: 12,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
-                contents: {
-                  type: 'ConciseBody',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: '',
-                    start: 15,
-                    end: 15,
-                    kind: 13,
-                    flags: 2
-                  },
-                  start: 15,
-                  end: 15,
-                  kind: 187,
-                  flags: 0
-                },
-                async: false,
-                start: 11,
-                end: 15,
-                kind: 188,
-                flags: 0
-              },
-              start: 7,
-              end: 15,
-              kind: 200,
+              type: 'IdentifierReference',
+              name: 'async',
+              start: 0,
+              end: 5,
+              kind: 13,
               flags: 0
             },
             arguments: [

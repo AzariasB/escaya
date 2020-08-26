@@ -1261,42 +1261,11 @@ describe('Recovery - Function', () => {
           expression: {
             type: 'CallExpression',
             expression: {
-              type: 'AssignmentRestElement',
-              argument: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'CommaOperator',
-                  expressions: [
-                    {
-                      type: 'IdentifierReference',
-                      name: 'a',
-                      start: 25,
-                      end: 26,
-                      kind: 13,
-                      flags: 0
-                    },
-                    {
-                      type: 'ObjectLiteral',
-                      properties: [],
-                      start: 27,
-                      end: 29,
-                      kind: 179,
-                      flags: 0
-                    }
-                  ],
-                  start: 24,
-                  end: 29,
-                  kind: 147,
-                  flags: 0
-                },
-                start: 24,
-                end: 29,
-                kind: 189,
-                flags: 0
-              },
-              start: 21,
-              end: 29,
-              kind: 200,
+              type: 'IdentifierReference',
+              name: 'async',
+              start: 14,
+              end: 20,
+              kind: 13,
               flags: 0
             },
             arguments: [

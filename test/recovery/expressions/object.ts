@@ -2298,35 +2298,31 @@ describe('Recovery - Expressions - Object', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'ArrowFunction',
-            params: [
-              {
-                type: 'ObjectBindingPattern',
-                properties: [],
-                start: 1,
-                end: 2,
-                kind: 179,
-                flags: 0
-              }
-            ],
-            contents: {
-              type: 'FunctionBody',
-              directives: [],
-              leafs: [],
-              start: 5,
-              end: 8,
-              kind: 184,
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ObjectLiteral',
+              properties: [],
+              start: 1,
+              end: 2,
+              kind: 179,
               flags: 0
             },
-            async: false,
             start: 0,
-            end: 8,
-            kind: 188,
+            end: 2,
+            kind: 189,
             flags: 0
           },
           start: 0,
-          end: 8,
+          end: 2,
           kind: 122,
+          flags: 0
+        },
+        {
+          type: 'BlockStatement',
+          leafs: [],
+          start: 5,
+          end: 8,
+          kind: 123,
           flags: 0
         }
       ],
@@ -2362,49 +2358,31 @@ describe('Recovery - Expressions - Object', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'ArrowFunction',
-            params: [
-              {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'x',
-                    start: 2,
-                    end: 3,
-                    kind: 13,
-                    flags: 0
-                  }
-                ],
-                start: 1,
-                end: 3,
-                kind: 179,
-                flags: 0
-              }
-            ],
-            contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 5,
-                end: 5,
-                kind: 13,
-                flags: 2
-              },
-              start: 5,
-              end: 5,
-              kind: 187,
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ObjectLiteral',
+              properties: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'x',
+                  start: 2,
+                  end: 3,
+                  kind: 13,
+                  flags: 0
+                }
+              ],
+              start: 1,
+              end: 3,
+              kind: 179,
               flags: 0
             },
-            async: false,
             start: 0,
-            end: 5,
-            kind: 188,
+            end: 3,
+            kind: 189,
             flags: 0
           },
           start: 0,
-          end: 5,
+          end: 3,
           kind: 122,
           flags: 0
         }

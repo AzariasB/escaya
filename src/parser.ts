@@ -3672,23 +3672,16 @@ export function parseArrowAfterIdentifier(
 export function parseCoverCallExpressionAndAsyncArrowHead(
   state: ParserState,
   context: Context,
-  expression: any,
+  expr: any,
   start: number
 ): ArrowFunction | Expression {
   nextToken(state, context | Context.AllowRegExp);
   const scope = createParentScope(createScope(), ScopeKind.ArrowParams);
-  const params: Expression[] = [];
 
   if (consumeOpt(state, context, Token.RightParen)) {
     if (state.token === Token.Arrow) return parseArrowFunction(state, context, scope, [], ArrowKind.ASYNC, start);
 
-    return finishNode(
-      state,
-      context,
-      start,
-      DictionaryMap.CallExpression(expression, params),
-      SyntaxKind.CallExpression
-    );
+    return finishNode(state, context, start, DictionaryMap.CallExpression(expr, []), SyntaxKind.CallExpression);
   }
 
   const check =
@@ -3702,6 +3695,8 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
   // We do this because both '[' and '{' are start of an pattern in 'AsyncArrowHead'.
 
   let destructible: Destructible = Destructible.None;
+  let expression!: Expression;
+  const params: Expression[] = [];
 
   while (state.token & check) {
     const innerStart = state.startIndex;
@@ -3759,13 +3754,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
 
       state.assignable = false;
 
-      return finishNode(
-        state,
-        context,
-        start,
-        DictionaryMap.CallExpression(expression, params),
-        SyntaxKind.CallExpression
-      );
+      return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params), SyntaxKind.CallExpression);
     }
     params.push(expression);
 
@@ -3775,11 +3764,16 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
 
   consume(state, context, Token.RightParen);
 
+  if (context & Context.ErrorRecovery && destructible & Destructible.NotDestructible) {
+    state.assignable = false;
+    return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params), SyntaxKind.CallExpression);
+  }
+
   if (state.token === Token.Arrow) {
     if (destructible & (Destructible.Assignable | Destructible.NotDestructible)) {
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.LHSADestruct, DiagnosticKind.Error);
     }
-    return parseArrowFunction(state, context, scope, expression, ArrowKind.ASYNC, start);
+    return parseArrowFunction(state, context, scope, params as any, ArrowKind.ASYNC, start);
   }
 
   if (destructible & Destructible.MustDestruct) {
@@ -3787,8 +3781,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
   }
 
   state.assignable = false;
-
-  return finishNode(state, context, start, DictionaryMap.CallExpression(expression, params), SyntaxKind.CallExpression);
+  return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params), SyntaxKind.CallExpression);
 }
 
 // ArrowFunction :
@@ -3946,7 +3939,6 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 ): Expression | ArrowFunction | ParenthesizedExpression {
   const start = state.startIndex;
   const scope = createParentScope(createScope(), ScopeKind.ArrowParams);
-
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
 
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
@@ -3977,7 +3969,6 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
       if (!state.assignable) destructible |= Destructible.NotDestructible;
     } else {
       if (state.token !== Token.Assign) destructible |= Destructible.NotDestructible;
-
       expression = parseMemberExpression(state, context, expression, true, innerStart);
 
       if (state.token !== Token.RightParen && state.token !== Token.Comma) {
@@ -3998,7 +3989,6 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
       if (destructible & Destructible.MustDestruct) {
         addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
       }
-
       expression = parseMemberExpression(state, context, expression, true, innerStart);
 
       destructible |= Destructible.NotDestructible;
@@ -4129,6 +4119,18 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
   }
 
   consume(state, context, Token.RightParen);
+  // ({x=>   ({ => {}   (x, {}[a] => async   (x[, {}[a] => async
+  if (context & Context.ErrorRecovery && destructible & Destructible.NotDestructible) {
+    state.destructible = destructible;
+
+    return finishNode(
+      state,
+      context,
+      start,
+      DictionaryMap.ParenthesizedExpression(expression),
+      SyntaxKind.ParenthesizedExpression
+    );
+  }
 
   // ArrowParameters :
   //   CoverParenthesizedExpressionAndArrowParameterList
