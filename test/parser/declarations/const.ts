@@ -260,6 +260,7 @@ describe('Declarations - Const', () => {
     'const a = (v) => { console.log("hello " + v) }\n("world");',
     'const t = () => ({ v: (v) => v in z })',
     'const xg = (xxes -= ((((true)) ** (/[^[-|-]/gim)))((((v = ((("")))))), ...(h), (((false)[(2e308)]))))',
+    'const a = async ({bar = "bar"}) => {}',
     'const [foo] = x;',
     'const [foo] = x, b = y;',
     'const [foo,,] = x;'

@@ -445,6 +445,7 @@ describe('Statements - For of', () => {
     'for (let [var1, var2 = function() { var1 = 0; var2 = 0; }] of [[1]]) {}',
     'for (let [var1, var2 = function() { var2; }] of [[1]]) {}',
     'for (let [var1, var2 = function() { var1; }] of [[1]]) {}',
+    'for (var x of /foo/g);',
     'for (var x of [1, 2, 3]) {}',
     `for (var a of /b/) {}`,
     `for (var {a} of /b/) {}`,

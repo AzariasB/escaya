@@ -63,6 +63,8 @@ describe('Expressions - Arrow', () => {
     '([...x=x]) => x',
     '({a:b[0]})=>0',
     '([class{}]) => x;',
+    '() => {} || true ',
+    '() => {} ? 1 : 2;',
     //'x = (a)-c=>{};',
     // '([b, a], {b}) => {}',
     // '([b, a], b) => {}',
@@ -722,6 +724,7 @@ describe('Expressions - Arrow', () => {
     'var f = (function() { return z => arguments[0]; }(5));',
     'yield => { "use strict"; 0 }',
     "interface => { 'use strict'; 0 }",
+    '(x = yield) => {}',
     '({y}) => x;',
     '([x = 10]) => x',
     '([x = 10]) => x = ([x = 10]) => x',
@@ -1096,7 +1099,11 @@ describe('Expressions - Arrow', () => {
     'x = {arrow: (x) => ok}',
     'x = {arrow: (x => {})}',
     'x = {arrow: (x, y) => ok}',
+    'yield => {};',
+    '(yield) => {}',
     '([{x = y}]) => z',
+    '(() => {}) || true;',
+    '(() => {}) ? a : b;',
     '({a,b=b,a:c,[a]:[d]})=>0;'
   ]) {
     it(`${arg}`, () => {

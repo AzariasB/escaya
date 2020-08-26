@@ -296,6 +296,7 @@ describe('Declarations - Class', () => {
     'class v extends.9 {}',
     'class v extends[x] {}',
     'class x {static async await() { }}',
+    'class A { *yield() {} }',
     'class x {constructor() {}; static constructor() {}}',
     'class x {get get() {}}',
     'class x {prototype() {}}',

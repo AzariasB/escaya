@@ -4,9 +4,20 @@ import { parseScript, recovery } from '../../../src/escaya';
 describe('Expressions - Yield', () => {
   // Invalid cases
   for (const arg of [
-    '({ *method(x = yield) {} })',
+    'function* fn() { (yield fn) => {}; } ',
+    'function* fn() {  (a, b, yield) => {}; } ',
+    'function* fn() {  yield => {}; }',
+    'function* fn(x = yield* yield) {} ',
     //'(a=yield) {}',
     // 'function *f(){ ~yield }',
+    '+function* yield() {}',
+    //'function* fn() { (x = yield fn) => {}; }',
+    //'function* fn() { (a, b = 3, x = yield) => {};}',
+    // 'function* fn() {  (x = yield) => {}; }',
+    // 'function yield() { "use strict"; }',
+    '"use strict"; function yield() {}',
+    'function* fn(x = yield) {} ',
+    //'"use strict"; function fn(x = yield) {}',
     '(yield 3) {}',
     //'(yield = 1) {}',
     //'({yield} = x)',
@@ -17,6 +28,7 @@ describe('Expressions - Yield', () => {
     //'var g = function*() { yield 3 + yield 4; };',
     //'let gfe = function* yield() { }',
     //'function *gf({yield}){}',
+    'function* fn() { function yield() {} }',
     '"use strict"; (function *g() { ( x = class { [(yield, 1)]() { }  ) => {} });',
     'function *gen(val = yield * g) {}',
     'function *gen(val = yield) {}',
@@ -39,6 +51,8 @@ describe('Expressions - Yield', () => {
     'function *f(x=yield){ }',
     'function *f(){  x = {*foo(a=yield x){}}  }',
     'function *f(){  return function(x=yield y) {};  }',
+    'function* fn(yield) {}',
+    //'function fn(yield) { "use strict"; } ',
     'function *g() { function f(x = x + foo(a, yield y)) {}; }',
     'function* gf() { const yield = 10; }',
     //'function *f(){  class x{*foo(a=yield x){}}  }',
@@ -360,6 +374,7 @@ describe('Expressions - Yield', () => {
     `function* f(){ yield x; }`,
     `function *g() { function f(x = yield) {}; }`,
     `function x() { yield *y }`,
+    'function fn(yield) {}',
     '(yield) => {}',
     'yield => {}',
     `function* g() { class C_ {  get [yield]() {}
@@ -368,6 +383,7 @@ describe('Expressions - Yield', () => {
         C = C_
       }`,
     '(function* () { yield yield 10 })',
+    'function fn() { function yield() {} }',
     'async (yield)',
     '({x} = yield) => {}',
     'async (x = yield)',
@@ -378,6 +394,8 @@ describe('Expressions - Yield', () => {
     'function * yield() { }',
     'function *a(){yield class{}}',
     'function *a(){yield-1}',
+    'function* fn() {() => yield; () => { yield }; }',
+    'function* fn() { () => (x = yield) => {}; }',
     '(x = yield) => {}',
     'x = { *test () { yield *v } };',
     '(function () { yield* 10 })',
@@ -385,6 +403,7 @@ describe('Expressions - Yield', () => {
     'function fn(x = yield* yield) {}',
     '(yield) => {}',
     'yield => {}',
+    'function* fn() { function fn2(x = yield) {} } ',
     `function* g() { class C_ {  get [yield]() {}
         set [yield](param) { yieldSet = param }
       }
@@ -399,6 +418,13 @@ describe('Expressions - Yield', () => {
     'function* f(){ yield x; }',
     'function f(){ yield; }',
     'function * yield() { }',
+    'function yield() {} ',
+    'function* fn() { (function yield() {}); } ',
+    '+function yield() {} ',
+    'function* yield() {} ',
+    'function fn(x = yield* yield) {} ',
+    'function fn(x = yield) {}',
+    'function* fn() { () => (yield) => {}; }',
     'function *g() { function f(x = x + yield) {}; }',
     '({a:(b) = 0} = 1)'
   ]) {
