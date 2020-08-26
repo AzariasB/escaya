@@ -32,17 +32,6 @@
 
 Escaya generates it's own `AST` that is close to the [ECMAScript® 2021 specs](https://tc39.es/ecma262/index.html), and can be used to perform [syntactic analysis](https://en.wikipedia.org/wiki/Parsing) (parsing) of a JavaScript program, and with `ES2015` and later a JavaScript program can be either [a script or a module](https://tc39.github.io/ecma262/index.html#sec-ecmascript-language-scripts-and-modules).
 
-This is the available options:
-
-| Option        | Description |
-| ------------------- | ------------------------------------------------------------ |
-| `next`              | Enable stage 3 support (ESNext) |
-| `disableWebCompat`  | Disable web compatibility |
-| `loc`               | Enable line/column location information start and end offsets to each node |
-| `globalReturn`      | Allow return in the global scope |
-| `impliedStrict`     | Enable strict mode initial enforcement |
-| `module`            | Enable parsing in module goal in error recovery mode |
-
 Example usage:
 
 ```ts
@@ -54,6 +43,17 @@ parseScript('({x: [y] = 0} = 1)', { impliedStrict: true });
 parseModule('({x: [y] = 0} = 1)');
 
 ```
+
+This is the available options:
+
+| Option        | Description |
+| ------------------- | ------------------------------------------------------------ |
+| `next`              | Enable stage 3 support (ESNext) |
+| `disableWebCompat`  | Disable web compatibility |
+| `loc`               | Enable line/column location information start and end offsets to each node |
+| `globalReturn`      | Allow return in the global scope |
+| `impliedStrict`     | Enable strict mode initial enforcement |
+| `module`            | Enable parsing in module goal in error recovery mode |
 
 
 ## Escaya AST
