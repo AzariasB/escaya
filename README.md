@@ -19,13 +19,13 @@
 * Optionally track syntactic node locations
 * Emits an ECMAScript® 2021 compatible abstract syntax tree
 * Error recovery mode with incremental parsing support
-* Errors diagnostics and reporter
-* JSON friendly
+* Errors diagnostics
+* Supports JSON
 * Possible to use a custom AST such as ESTree and Babel AST
 * No backtracking
 * Low memory usage
 * Optimized for use on handheld devices such as a mobile phone or tablet
-* Very well tested (~54 000 unit tests with full code coverage)
+* Very well tested (~67 000 unit tests with full code coverage)
 * Lightweight - ~94 KB minified
 
 ## API
@@ -34,24 +34,14 @@ Escaya generates it's own `AST` that is close to the [ECMAScript® 2021 specs](h
 
 This is the available options:
 
-```js
-{
-  // Enable stage 3 support (ESNext)
-  next?: boolean;
-  // Disable web compatibility
-  disableWebCompat?: boolean;
-  // Enable line/column location information start and end offsets to each node
-  loc?: boolean;
-  // Allow return in the global scope
-  globalReturn?: boolean;
-  // Enable implied strict mode
-  impliedStrict?: boolean;
-  // Adds a source attribute in every node’s loc object when the locations option is `true`
-  source?: string;
-  // Enable parsing in module goal in error recovery mode
-  module?: boolean;
-}
-```
+| Option        | Description |
+| ------------------- | ------------------------------------------------------------ |
+| `next`              | Enable stage 3 support (ESNext) |
+| `disableWebCompat`  | Disable web compatibility |
+| `loc`               | Enable line/column location information start and end offsets to each node |
+| `globalReturn`      | Allow return in the global scope |
+| `impliedStrict`     | Enable strict mode initial enforcement |
+| `module`            | Enable parsing in module goal in error recovery mode |
 
 Example usage:
 
@@ -65,6 +55,43 @@ parseModule('({x: [y] = 0} = 1)');
 
 ```
 
+
+## Escaya AST
+
+The AST used by `Escaya` represents the structure of an ECMAScript program as a tree and is designed to stay true to the [ECMAScript® 2021 specification](https://tc39.es/ecma262/index.html). The AST has been designed for performance, and it nearly eliminates the chance of accidentally creating an AST that does not represent an ECMAScript program while also requiring fewer bytes than an `ESTree AST` like `Babel` and `Acorn` produce, and `Babel parser's` own AST.
+
+The `Escaya AST` doesn't try to follow the SpiderMonkey-compatible standard that `ESTree` strictly follows. For example it distinguish `Identifier` from `IdentifierPattern`. That makes it easier to calculate the free variables of a program.
+
+### Custom AST
+
+Use of `parseCustomScript` and `parseCustomModule` let you use whatever AST format you want.
+
+Here is an example on how to use `Babel AST`
+
+```ts
+
+import { parseCustomScript } from './escaya';
+
+parseCustomScript('a = b', {
+        Script: function (source, directives, statements) {
+          return {
+            type: 'File',
+            errors: [],
+            program: {
+              type: 'Program',
+              sourceType: 'script',
+              body: statements
+            },
+            directives,
+            comments: [],
+            start: 0,
+            end: source.length
+          };
+        }
+    );
+  });
+
+```
 
 ## Error recovery
 
@@ -104,42 +131,6 @@ It's not even an JavaScript parser. You can play with `Acorn Loose`  on `ASTExpl
 
 As an example you will get a `BlockStatement` if you try to parse something like `try`.
 
-## Escaya AST
-
-The AST used by `Escaya` represents the structure of an ECMAScript program as a tree and is designed to stay true to the [ECMAScript® 2021 specification](https://tc39.es/ecma262/index.html). The AST has been designed for performance, and it nearly eliminates the chance of accidentally creating an AST that does not represent an ECMAScript program while also requiring fewer bytes than an `ESTree AST` like `Babel` and `Acorn` produce, and `Babel parser's` own AST.
-
-The `Escaya AST` doesn't try to follow the SpiderMonkey-compatible standard that `ESTree` strictly follows. For example it distinguish `Identifier` from `IdentifierPattern`. That makes it easier to calculate the free variables of a program.
-
-### Custom AST
-
-Use of `parseCustomScript` and `parseCustomModule` let you use whatever AST format you want.
-
-Here is an example on how to use `Babel AST`
-
-```ts
-
-import { parseCustomScript } from './escaya';
-
-parseCustomScript('a = b', {
-        Script: function (source, directives, statements) {
-          return {
-            type: 'File',
-            errors: [],
-            program: {
-              type: 'Program',
-              sourceType: 'script',
-              body: statements
-            },
-            directives,
-            comments: [],
-            start: 0,
-            end: source.length
-          };
-        }
-    );
-  });
-
-```
 
 ## Performance
 
