@@ -75,6 +75,101 @@ describe('Recovery - Expressions - Function', () => {
     });
   });
 
+  it('(function foo(/ {', () => {
+    t.deepEqual(recovery('(function foo(/ {', 'recovery.js'), {
+      children: [],
+      context: 0,
+      detached: false,
+      diagnostics: [
+        {
+          code: 5,
+          kind: 2,
+          length: 1,
+          message: '`)` expected',
+          source: 2,
+          start: 14
+        },
+        {
+          code: 5,
+          kind: 2,
+          length: 1,
+          message: '`}` expected',
+          source: 2,
+          start: 16
+        }
+      ],
+      directives: [],
+      end: 17,
+      fileName: 'recovery.js',
+      incremental: false,
+      kind: 209,
+      leafs: [
+        {
+          end: 17,
+          expression: {
+            end: 17,
+            expression: {
+              end: 17,
+              flags: 0,
+              kind: 155,
+              left: {
+                async: false,
+                contents: {
+                  directives: [],
+                  end: 14,
+                  flags: 0,
+                  kind: 184,
+                  leafs: [],
+                  start: 14,
+                  type: 'FunctionBody'
+                },
+                end: 14,
+                flags: 0,
+                generator: false,
+                kind: 185,
+                name: {
+                  end: 13,
+                  flags: 0,
+                  kind: 168,
+                  name: 'foo',
+                  start: 9,
+                  type: 'BindingIdentifier'
+                },
+                params: [],
+                start: 1,
+                type: 'FunctionExpression'
+              },
+              operator: '/',
+              right: {
+                end: 17,
+                flags: 0,
+                kind: 179,
+                properties: [],
+                start: 15,
+                type: 'ObjectLiteral'
+              },
+              start: 1,
+              type: 'BinaryExpression'
+            },
+            flags: 0,
+            kind: 189,
+            start: 0,
+            type: 'ParenthesizedExpression'
+          },
+          flags: 0,
+          kind: 122,
+          start: 0,
+          type: 'ExpressionStatement'
+        }
+      ],
+      length: 17,
+      mutualFlags: 0,
+      parent: null,
+      start: 0,
+      text: '(function foo(/ {'
+    });
+  });
+
   it('(function foo() { if (true) {', () => {
     t.deepEqual(recovery('(function foo() { if (true) {', 'recovery.js'), {
       kind: 209,

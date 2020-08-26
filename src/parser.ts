@@ -1587,8 +1587,7 @@ export function parseAssignmentExpression(
   start: number
 ): AssignmentExpression | Expression {
   if ((state.token & Token.IsAssignOp) === Token.IsAssignOp) {
-    if (!state.assignable)
-      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.InvalidLHS, DiagnosticKind.Error);
+    if (!state.assignable) addEarlyDiagnostic(state, context, DiagnosticCode.InvalidLHS);
     const operator = KeywordDescTable[state.token & Token.Type];
     nextToken(state, context | Context.AllowRegExp);
     const right = parseExpression(state, context);
@@ -1629,7 +1628,7 @@ export function parseConditionalExpression(
   );
 }
 
-//   AdditiveExpression : AdditiveExpression + MultiplicativeExpression
+// AdditiveExpression : AdditiveExpression + MultiplicativeExpression
 //
 // RelationalExpression :
 //   RelationalExpression `<` ShiftExpression
@@ -1705,10 +1704,7 @@ export function parseBinaryExpression(
 //  (PrimaryExpression | MemberExpression) ...
 export function parseLeftHandSideExpression(state: ParserState, context: Context): Expression {
   const start = state.startIndex;
-  let expr: LeftHandSideExpression = parsePrimaryExpression(state, context);
-
-  expr = parseMemberExpression(state, context, expr, true, start);
-  return expr;
+  return parseMemberExpression(state, context, parsePrimaryExpression(state, context), true, start);
 }
 
 /**
@@ -1843,7 +1839,7 @@ export function parsePropertyOrPrivatePropertyName(
     return finishNode(state, context, start, DictionaryMap.IdentifierName(tokenValue), SyntaxKind.Identifier);
   }
   // For cases like `(foo.)` where we will hit the ')' instead of discovering a property.
-  // To avoid consuming the ')' - which will cause the parse of the paretheses to fail - we
+  // To avoid consuming the ')' - which will cause the parse of the parentheses to fail - we
   // return an dummy identifier without priming the scanner.
   return createIdentifier(state, context);
 }
@@ -1869,7 +1865,7 @@ export function parseOptionalChain(state: ParserState, context: Context): CallCh
     chain = parseMemberChain(state, context, chain, parseExpression(state, context), true, start);
     consumeOpt(state, context, Token.RightBracket);
   } else if (state.token === Token.TemplateCont || state.token === Token.TemplateTail) {
-    addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ChainNoTemplate, DiagnosticKind.Error);
+    addEarlyDiagnostic(state, context, DiagnosticCode.ChainNoTemplate);
   } else {
     chain = parseMemberChain(state, context, chain, parseIdentifierReference(state, context), false, start);
   }
@@ -1894,7 +1890,7 @@ export function parseOptionalChain(state: ParserState, context: Context): CallCh
       chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain), SyntaxKind.OptionalChain);
       state.assignable = false;
     } else if (state.token === Token.TemplateCont || state.token === Token.TemplateTail) {
-      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ChainNoTemplate, DiagnosticKind.Error);
+      addEarlyDiagnostic(state, context, DiagnosticCode.ChainNoTemplate);
       return chain;
     } else {
       if ((state.token & (Token.IsKeyword | Token.IsFutureReserved | Token.IsIdentifier)) === 0) return chain;
@@ -2177,10 +2173,7 @@ export function parsePrimaryExpression(state: ParserState, context: Context): Le
     case Token.FalseKeyword:
       return parseBooleanLiteral(state, context);
     case Token.LeftParen:
-      return parseCoverParenthesizedExpressionAndArrowParameterList(
-        state,
-        (context | Context.DisallowIn) ^ Context.DisallowIn
-      );
+      return parseCoverParenthesizedExpressionAndArrowParameterList(state, context);
     case Token.FunctionKeyword:
       return parseFunctionExpression(state, context);
     case Token.ClassKeyword:
@@ -3267,7 +3260,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
   const params = [];
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   let isSimpleParameterList = false;
-  if (consume(state, context | Context.AllowRegExp, Token.LeftParen)) {
+  if (consume(state, context, Token.LeftParen)) {
     const check = context & Context.ErrorRecovery ? Constants.IsFormalParamsRecovery : Constants.IsDelimitedListNormal;
     while (state.token & check) {
       if (state.token === Token.Ellipsis) {
@@ -3284,7 +3277,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
       isSimpleParameterList = (state.token & Token.IsPatternStart) === Token.IsPatternStart;
       params.push(parseBindingElements(state, context, scope, BindingType.ArgumentList, parseBindingElement));
 
-      if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
+      if (consumeOpt(state, context, Token.Comma)) continue;
       if (state.token === Token.RightParen) break;
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
     }
@@ -3953,6 +3946,8 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 ): Expression | ArrowFunction | ParenthesizedExpression {
   const start = state.startIndex;
   const scope = createParentScope(createScope(), ScopeKind.ArrowParams);
+
+  context = (context | Context.DisallowIn) ^ Context.DisallowIn;
 
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
 

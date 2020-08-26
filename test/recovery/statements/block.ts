@@ -2319,7 +2319,7 @@ describe('Recovery - Block', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'The left-hand side of an assignment expression must be a variable or a property access',
           code: 97,
@@ -2775,7 +2775,7 @@ describe('Recovery - Block', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'The left-hand side of an assignment expression must be a variable or a property access',
           code: 97,

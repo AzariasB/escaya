@@ -31,6 +31,114 @@ describe('Recovery - Var', () => {
     });
   });
 
+  it('var /a/', () => {
+    t.deepEqual(recovery('var /a/', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'VariableStatement',
+          declarations: [],
+          start: 0,
+          end: 3,
+          kind: 143,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'RegularExpressionLiteral',
+            pattern: 'a',
+            flag: '',
+            start: 3,
+            end: 7,
+            kind: 15,
+            flags: 0
+          },
+          start: 3,
+          end: 7,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'var /a/',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 4,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
+  it('var / a', () => {
+    t.deepEqual(recovery('var / a', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'VariableStatement',
+          declarations: [],
+          start: 0,
+          end: 3,
+          kind: 143,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'RegularExpressionLiteral',
+            pattern: ' ',
+            flag: '',
+            start: 3,
+            end: 7,
+            kind: 15,
+            flags: 0
+          },
+          start: 3,
+          end: 7,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'var / a',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Unterminated regular expression',
+          code: 12,
+          start: 4,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
   it('var !', () => {
     t.deepEqual(recovery('var !', 'recovery.js'), {
       kind: 209,

@@ -70,6 +70,160 @@ describe('Recovery - For in', () => {
     });
   });
 
+  it('for (/a in', () => {
+    t.deepEqual(recovery('for (/a in', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'RegularExpressionLiteral',
+            pattern: 'a i',
+            flag: '',
+            start: 5,
+            end: 10,
+            kind: 15,
+            flags: 0
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 10,
+            end: 10,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 10,
+            end: 10,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 10,
+              end: 10,
+              kind: 13,
+              flags: 2
+            },
+            start: 10,
+            end: 10,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 10,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for (/a in',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Unterminated regular expression',
+          code: 12,
+          start: 5,
+          length: 5
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 10,
+      end: 10
+    });
+  });
+
+  it('for (/a/ in', () => {
+    t.deepEqual(recovery('for (/a/ in', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForInStatement',
+          initializer: {
+            type: 'RegularExpressionLiteral',
+            pattern: 'a',
+            flag: '',
+            start: 5,
+            end: 8,
+            kind: 15,
+            flags: 0
+          },
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 11,
+            end: 11,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 11,
+              end: 11,
+              kind: 13,
+              flags: 2
+            },
+            start: 11,
+            end: 11,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 11,
+          kind: 130,
+          flags: 0
+        }
+      ],
+      text: 'for (/a/ in',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid left-hand side in for-loop',
+          code: 104,
+          start: 5,
+          length: 6
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 9,
+          length: 2
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 11,
+      end: 11
+    });
+  });
+
   it('for({} = x in y) {}', () => {
     t.deepEqual(recovery('for({} = x in y) {}', 'recovery.js'), {
       children: [],

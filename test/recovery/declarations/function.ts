@@ -2,6 +2,102 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Function', () => {
+  it('function foo(/ {', () => {
+    t.deepEqual(recovery('function foo(/ {', 'recovery.js'), {
+      children: [],
+      context: 0,
+      detached: false,
+      diagnostics: [
+        {
+          code: 5,
+          kind: 2,
+          length: 1,
+          message: '`)` expected',
+          source: 2,
+          start: 13
+        },
+        {
+          code: 5,
+          kind: 2,
+          length: 1,
+          message: '`}` expected',
+          source: 2,
+          start: 15
+        }
+      ],
+      directives: [],
+      end: 16,
+      fileName: 'recovery.js',
+      incremental: false,
+      kind: 209,
+      leafs: [
+        {
+          async: false,
+          contents: {
+            directives: [],
+            end: 13,
+            flags: 0,
+            kind: 184,
+            leafs: [],
+            start: 13,
+            type: 'FunctionBody'
+          },
+          end: 13,
+          flags: 0,
+          generator: false,
+          kind: 186,
+          name: {
+            end: 12,
+            flags: 0,
+            kind: 168,
+            name: 'foo',
+            start: 8,
+            type: 'BindingIdentifier'
+          },
+          params: [],
+          start: 0,
+          type: 'FunctionDeclaration'
+        },
+        {
+          end: 16,
+          expression: {
+            end: 16,
+            flags: 0,
+            kind: 155,
+            left: {
+              end: 13,
+              flags: 2,
+              kind: 13,
+              name: '',
+              start: 13,
+              type: 'IdentifierReference'
+            },
+            operator: '/',
+            right: {
+              end: 16,
+              flags: 0,
+              kind: 179,
+              properties: [],
+              start: 14,
+              type: 'ObjectLiteral'
+            },
+            start: 13,
+            type: 'BinaryExpression'
+          },
+          flags: 0,
+          kind: 122,
+          start: 13,
+          type: 'ExpressionStatement'
+        }
+      ],
+      length: 16,
+      mutualFlags: 0,
+      parent: null,
+      start: 0,
+      text: 'function foo(/ {'
+    });
+  });
+
   it('function x(...(a, b, c', () => {
     t.deepEqual(recovery('function x(...(a, b, c', 'recovery.js'), {
       kind: 209,
