@@ -167,6 +167,7 @@ describe('Statements - Try', () => {
     'try { } finally { function f(){} function f(){} }',
     'try {} catch (foo) { for (var foo of bar); }',
     'try { } catch (x) { for (var x of []) {} }',
+    'var x; try {} catch (x) { var x = 5; }',
     'try {} catch (e) { { var e = x; } }',
     'try {} catch (e) { for (var e;;) {} }'
   ]) {
@@ -225,6 +226,7 @@ describe('Statements - Try', () => {
     'try {} catch (foo) { for (var foo = 1;;); }',
     'try {} catch (foo) { for (var foo in bar); }',
     'try {} catch (foo) { for (var [foo] in bar); }',
+    'try { } catch (yield) { }',
     'try {} catch([e=x]){}',
     'try {} catch({e=x}){}',
     `try {} catch (e) {}

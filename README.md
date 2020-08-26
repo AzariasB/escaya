@@ -25,8 +25,8 @@
 * No backtracking
 * Low memory usage
 * Optimized for use on handheld devices such as a mobile phone or tablet
-* Very well tested (~34 000 unit tests with full code coverage)
-* Lightweight - ~84 KB minified
+* Very well tested (~54 000 unit tests with full code coverage)
+* Lightweight - ~94 KB minified
 
 ## API
 
@@ -140,14 +140,6 @@ parseCustomScript('a = b', {
   });
 
 ```
-
-
-
-## Demo
-
-A live demo can be found [here](https://escaya.github.io/escaya) and includes all parts of the parser even code that haven't been open sourced yet.
-
-Incremental parsing have been enabled, and you can see the recovered AST nodes if you open the console in your browser while in `recovery mode`.
 
 ## Performance
 

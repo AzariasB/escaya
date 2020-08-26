@@ -9,10 +9,10 @@ Escaya's own `AST` represents the structure of an ECMAScript program as a tree a
 
 
 ```js
-interface Script {
+interface Script <: Node {
     type: string;
     directives: [ Directive ];
-    leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault];
+    leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault ];
     start: number;
     end: number;
 }
@@ -21,10 +21,10 @@ interface Script {
 ## Module
 
 ```js
-interface Module {
+interface Module <: Node {
     type: string;
     directives: [ Directive ];
-    leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault];
+    leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault ];
     start: number;
     end: number;
 }
@@ -91,16 +91,16 @@ and it's property contains a serie of bit masks that can be parsed by reference.
 information isn't known from outside, or exposed through any API.
 
 ```js
-interface RootNode {
+interface RootNode <: Node {
     kind: SyntaxKind;
     directives: [ Directive ];
-    leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault];
+    leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault ];
     text: string;
     filename: string;
     mutualFlags: Flags,
     diagnostics [ Diagnostics ];
     parent: Script | Module | null;
-    children: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault];
+    children: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault ];
     length: number;
     end: number;
 }

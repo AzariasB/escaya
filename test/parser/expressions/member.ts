@@ -31,6 +31,7 @@ describe('Expressions - Member', () => {
     'foo["foo"]["bar"];',
     'foo[test()][bar()];',
     'foo[5000000] = 256;',
+    'yield[100]',
     'foo[1] = 15.5;',
     'm.set({}, 3);',
     'o.x = true;',

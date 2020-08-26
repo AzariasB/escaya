@@ -62,6 +62,8 @@ export const diagnosticMap: {
   [DiagnosticCode.InvalidUnicodeEscapeSequence]: 'Invalid Unicode escape sequence',
   [DiagnosticCode.InvalidHexEscapeSequence]: 'Invalid hexadecimal escape sequence',
   [DiagnosticCode.UnterminatedTemplate]: 'Unterminated template literal',
+  [DiagnosticCode.UnterminatedDirective]: 'Incomplete Directive Prologue',
+  [DiagnosticCode.UnicodeOverflow]: 'Unicode codepoint must not be greater than 0x10FFFF',
   [DiagnosticCode.UnsupportedUnicodeIdent]: 'Unsupported unicode escape in identifier escapes start',
   [DiagnosticCode.TemplateBadEscape]: 'Bad escape sequence in untagged template literal',
   [DiagnosticCode.UnterminatedString]: 'Unterminated string literal',

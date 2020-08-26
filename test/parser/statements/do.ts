@@ -68,6 +68,10 @@ describe('Statements - Do', () => {
     'do ; while(x) \n /foo/',
     `do\n for((function(){});;)x \n while(x);`,
     `do; while(x)\n /x/g`,
+    'do { let foo; [[foo]=[42]] = [] } while (j)',
+    'do { [[foo]=[42]] = [] } while (j)',
+    'do { [foo] = [j] } while (j)',
+    'do { var [foo] = [j] } while (j)',
     'do async \n () \n while (y)',
     'do while (x) continue \n while (x);',
     `do if(x=>{});else n

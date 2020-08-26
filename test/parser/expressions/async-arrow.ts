@@ -338,6 +338,7 @@ describe('Expressions - Async arrow', () => {
     '(async x => { return x }).toString()',
     '() => ({ async f() { return "test4"; } }).f()',
     '() => ({ async f() { return "test4"; } }).f()',
+    'async => a',
     'async a => a',
     'async a => a',
     'async a => a',

@@ -319,7 +319,7 @@ export function parseStatement(
     case Token.WithKeyword:
       return parseWithStatement(state, context, scope, labels, ownLabels);
     case Token.AsyncKeyword:
-      return parseAsyncAsIdentifierReference(state, context, scope, labels, ownLabels);
+      return parseAsyncAsIdentifierReference(state, context, scope);
     case Token.FunctionKeyword:
       // FunctionDeclaration are only allowed as a StatementListItem, not in
       // an arbitrary Statement position.
@@ -776,27 +776,16 @@ export function parseForStatement(
       if (state.token === Token.LetKeyword) {
         nextToken(state, context);
         if (state.token & Constants.IsPatternOrIdentifierNormal) {
-          if (state.token === Token.InKeyword) {
-            if (context & Context.Strict) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
-            initializer = finishNode(
-              state,
-              context,
-              innerStart,
-              DictionaryMap.IdentifierReference('let'),
-              SyntaxKind.Identifier
-            );
-          } else {
-            initializer = parseForDeclaration(
-              state,
-              context | Context.DisallowIn,
-              /* isConst */ false,
-              scope,
-              BindingType.Let,
-              parseForLexicalBinding,
-              innerStart
-            );
-            state.assignable = true;
-          }
+          initializer = parseForDeclaration(
+            state,
+            context | Context.DisallowIn,
+            /* isConst */ false,
+            scope,
+            BindingType.Let,
+            parseForLexicalBinding,
+            innerStart
+          );
+          state.assignable = true;
         } else {
           if (context & Context.Strict) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
 
@@ -1480,37 +1469,15 @@ export function parseLetAsIdentifierReference(
   return parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start);
 }
 
-export function parseAsyncAsIdentifierReference(
-  state: ParserState,
-  context: Context,
-  scope: any,
-  labels: any[],
-  ownLabels: any[] | null
-): Statement {
+export function parseAsyncAsIdentifierReference(state: ParserState, context: Context, scope: any): Statement {
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   if (state.token === Token.FunctionKeyword) {
     addEarlyDiagnostic(state, context, DiagnosticCode.AsyncFunctionInSingleStatementContext);
     return parseFunctionDeclaration(state, context | Context.Await, scope);
   }
-  let expr: Expression;
-  if (state.token === Token.Arrow) {
-    expr = parseArrowFunction(
-      state,
-      context,
-      {},
-      [finishNode(state, context, start, DictionaryMap.BindingIdentifier('async'), SyntaxKind.BindingIdentifier)],
-      ArrowKind.NORMAL,
-      start
-    );
-    return parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start);
-  }
+  const expr = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'), SyntaxKind.Identifier);
   state.assignable = true;
-  expr = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'), SyntaxKind.Identifier);
-  if (state.token === Token.Colon) {
-    return parseLabelledStatement(state, context, void 0, Token.LetKeyword, 'async', labels, ownLabels, start);
-  }
-
   return parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start);
 }
 

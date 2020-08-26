@@ -89,8 +89,12 @@ describe('Statements - Labelled', () => {
   for (const arg of [
     'a: "b", c',
     'yield: await',
+    'L: let\nx',
+    'L: let\n{x}',
+    'let: 34',
     'label: for(;;) break label \n /foo/',
     'foo: for(;;) for (;;) continue foo',
+    'yield: 34',
     'foo: for(;;) { for (;;) continue foo }',
     'foo: bar: for(;;) { for (;;) continue foo }',
     'foo: for(;;) { bar: for (;;) continue foo }'

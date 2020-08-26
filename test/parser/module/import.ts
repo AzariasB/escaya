@@ -2,6 +2,35 @@ import * as t from 'assert';
 import { parseModule, recovery } from '../../../src/escaya';
 
 describe('Module - Import', () => {
+  // Invalid cases
+  for (const arg of [
+    // "import from;",
+    "import from 'm.js';",
+    //"import { };",
+    // "import { a } from;",
+    "import { a as await } from 'm.js';",
+    //"import { a as enum } from 'm.js';",
+    "import {x}, {y} from 'm.js';",
+    "import * as x, {y} from 'm.js';",
+    "import { a } 'm.js';",
+    "import , from 'm.js';",
+    "import a , from 'm.js';",
+    'import {;',
+    'import };',
+    'import { , };'
+  ]) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseModule(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js', { module: true });
+      });
+    });
+  }
+
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'import "foo";',
@@ -83,6 +112,20 @@ describe('Module - Import', () => {
     "import a, {as} from 'foo'",
     "import a, {function as c} from 'baz'",
     "import a, {b as c} from 'foo'",
+    "import 'somemodule.js';",
+    "import { } from 'm.js';",
+    "import { a } from 'm.js';",
+    "import { a, b as d, c, } from 'm.js';",
+    "import * as thing from 'm.js';",
+    "import thing from 'm.js';",
+    "import thing, * as rest from 'm.js';",
+    "import thing, { a, b, c } from 'm.js';",
+    "import { arguments as a } from 'm.js';",
+    "import { for as f } from 'm.js';",
+    "import { yield as y } from 'm.js';",
+    "import { static as s } from 'm.js';",
+    "import { let as l } from 'm.js';",
+    "import thing from 'a.js'; export {thing};",
     "import a, * as b from 'a'",
     "import a, {} from 'foo'",
     "import a from 'foo'",

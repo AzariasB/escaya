@@ -1,9 +1,30 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('Expressions - Binary', () => {
+describe('Expressions - Unary', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of [
+    '"use strict"; delete foo;',
+    '"use strict"; delete foo + 1;',
+    '"use strict"; delete eval;',
+    '"use strict"; delete interface;',
+    'delete ((await x))',
+    'delete await x',
+    'function d(){new.',
+    'delete (((x)) => x)',
+    'delete (x) => b)',
+    '"use strict"; delete ((((true)))=x)',
+    'delete (a[await x])',
+    //'! async () => x',
+    '! async({a = 1}, {b = 2}, {c = 3} = {});',
+    '! async({a = 1}, {b = 2} = {}, {c = 3} = {});',
+    '! async({a = 1});',
+    '(((x)))\n++;',
+    'if (a\n++\nb);',
+    'async function f(){   async function fh({x: ! await x}) {}   }',
+    'async function f(){   function fh([! await x]) { }   }',
+    'async function f(){   function fh({x: ! await x}) { "use strict"; }   }'
+  ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -33,6 +54,14 @@ describe('Expressions - Binary', () => {
     'typeof async',
     'typeof await',
     'typeof x',
+    '"use strict"; delete 1 + 2;',
+    '"use strict"; delete foo();',
+    '"use strict"; delete foo.bar;',
+    '"use strict"; delete foo[bar];',
+    '"use strict"; delete foo--;',
+    '"use strict"; delete --foo;',
+    '"use strict"; delete new foo();',
+    '"use strict"; delete new foo(bar);',
     'x = a instanceof b + c',
     'x = a instanceof b > c',
     'delete String.prototype[Symbol.iterator];',

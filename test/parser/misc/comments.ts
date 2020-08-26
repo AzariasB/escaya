@@ -1,7 +1,42 @@
 import * as t from 'assert';
-import { parseScript, recovery } from '../../../src/escaya';
+import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
-describe('Misc - Pass', () => {
+describe('Misc - Comments', () => {
+  for (const arg of [
+    'x --> is eol-comment\nvar y = 37;\n',
+    '"\\n" --> is eol-comment\nvar y = 37;\n',
+    'x/* precomment */ --> is eol-comment\nvar y = 37;\n',
+    'var x = 42; --> is eol-comment\nvar y = 37;\n'
+  ]) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseScript(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
+  }
+
+  for (const arg of [
+    '\n --> is eol-comment\nvar y = 37;\n',
+    '\n-->is eol-comment\nvar y = 37;\n',
+    '\n-->\nvar y = 37;\n'
+  ]) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseModule(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js', { module: true });
+      });
+    });
+  }
+
   for (const arg of [
     '/* var*/',
     '\n/*\n^\n*/',
@@ -27,6 +62,26 @@ describe('Misc - Pass', () => {
     '42 /*The*/ /*Answer*/',
     '// one\n',
     '//',
+    '\n --> is eol-comment\nvar y = 37;\n',
+    '\n-->is eol-comment\nvar y = 37;\n',
+    '\n-->\nvar y = 37;\n',
+    '/* precomment */ --> is eol-comment\nvar y = 37;\n',
+    '/* precomment */-->eol-comment\nvar y = 37;\n',
+    '\n/* precomment */ --> is eol-comment\nvar y = 37;\n',
+    '\n/*precomment*/-->eol-comment\nvar y = 37;\n',
+    // After first real token.
+    'var x = 42;\n--> is eol-comment\nvar y = 37;\n',
+    'var x = 42;\n/* precomment */ --> is eol-comment\nvar y = 37;\n',
+    'x/* precomment\n */ --> is eol-comment\nvar y = 37;\n',
+    'var x = 42; /* precomment\n */ --> is eol-comment\nvar y = 37;\n',
+    'var x = 42;/*\n*/-->is eol-comment\nvar y = 37;\n',
+    // With multiple comments preceding HTMLEndComment
+    '/* MLC \n */ /* SLDC */ --> is eol-comment\nvar y = 37;\n',
+    '/* MLC \n */ /* SLDC1 */ /* SLDC2 */ --> is eol-comment\nvar y = 37;\n',
+    '/* MLC1 \n */ /* MLC2 \n */ --> is eol-comment\nvar y = 37;\n',
+    '/* SLDC */ /* MLC \n */ --> is eol-comment\nvar y = 37;\n',
+    '/* MLC1 \n */ /* SLDC1 */ /* MLC2 \n */ /* SLDC2 */ --> is eol-comment\n',
+    'var y = 37;\n',
     'if (x) { doThat() /* Some comment */ }',
     'switch (answer) { case 42: /* perfect */ bingo() }',
     'switch (answer) { case 42: bingo() /* perfect */ }',

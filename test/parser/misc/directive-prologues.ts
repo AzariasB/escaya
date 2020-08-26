@@ -55,6 +55,11 @@ describe('Misc - Directives', () => {
   }
 
   for (const arg of [
+    '"use strict"; var foo = { }; foo.arguments = {};',
+    '"use strict"; var foo = arguments;',
+    '"use strict"; var foo = { eval: 1 };',
+    '"use strict"; var foo = { }; foo.eval = {};',
+    '"use strict"; var foo = { arguments: 1 };',
     '(w, o, e, m) => { "use strict" }',
     '(w, o, e, m) => { "use strict"; "use strict" }',
     `"a"

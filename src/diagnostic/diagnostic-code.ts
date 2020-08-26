@@ -132,6 +132,7 @@ export enum DiagnosticCode {
   DupBind,
   ShadowClause,
   UnknownLabel,
+  UnterminatedDirective,
 
   /* Annex B */
   AnnexBB32,

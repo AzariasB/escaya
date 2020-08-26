@@ -29,11 +29,16 @@ describe('Expressions - Binary', () => {
     'x = a + b / c',
     'x = a / b + c',
     'x( a instanceof b + c )',
+    'a ?? b ?? c ? d : e',
+    'a ?? b ? c : d',
+    'a ?? b',
+    'a ?? b ?? c',
     'x( a ** b + c )',
     '( a + b ** c )',
     '(a * b) / c',
     '!(void a)',
     '++a + b',
+    'let * 2',
     '(-1).a'
   ]) {
     it(`${arg}`, () => {

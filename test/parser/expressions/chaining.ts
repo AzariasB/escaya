@@ -7,8 +7,10 @@ describe('Expressions - Optional chaining', () => {
     'value?.`foo`',
     'value?.bar`tag`',
     '[] += a',
-
+    'a?.()``',
+    'a?.["b"]``',
     'a.b.?.c.d',
+    'a?.b``',
     'a:?.b',
     '[x?.?.y = 1]',
     'a ? .5;',

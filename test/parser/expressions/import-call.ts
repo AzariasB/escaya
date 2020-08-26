@@ -3,7 +3,37 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Import call', () => {
   // Invalid cases
-  for (const arg of ['import(...a);', '[,', '[] += a']) {
+  for (const arg of [
+    'import(...a);',
+    'import(',
+    'import)',
+    'import()',
+    "import('x",
+    "import('x']",
+    "import['x')",
+    'import = x',
+    'import[',
+    'import[]',
+    'import]',
+    'import[x]',
+    'import{',
+    'import{x',
+    'import{x}',
+    'import(x, y)',
+    'import(...y)',
+    'import(x,)',
+    'import(,)',
+    'import(,y)',
+    'import(;)',
+    '[import]',
+    '{import}',
+    '(import(y=x)) => {}',
+    'import+',
+    'import = 1',
+    'import.wat',
+    '(import(y=x)) => {}'
+    //  "new import(x)",
+  ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -36,6 +66,10 @@ describe('Expressions - Import call', () => {
     'import(-void 0);',
     'import(!void 0);',
     'import(~void 0);',
+    '(import(foo)) => {}',
+    '(import(import(x))) => {}',
+    'import(x).then()',
+    '(import(foo)) => {}',
     'import(delete void typeof +-~! 0);',
     'let f = () => import("");',
     '(async () => await import(import(import("foo"))));',
