@@ -479,7 +479,8 @@ interface MethodDefinition <: Expression {
 }
 ```
 
-A getter method should neither be a `uniqueFormalParameters` or `propertySetParameterList`.
+A getter method should neither be a `uniqueFormalParameters` or `propertySetParameterList`, and
+a setter method should always be `propertySetParameterList`.
 
 
 ### NewExpression
@@ -488,7 +489,7 @@ A getter method should neither be a `uniqueFormalParameters` or `propertySetPara
 interface NewExpression <: Expression {
     type: 'NewExpression';
     expression: Expression;
-    arguments: [ AssignmentRestElement | Expression  ];
+    arguments: [ AssignmentRestElement | Expression ];
 }
 ```
 
@@ -514,10 +515,12 @@ interface SpreadElement <: Expression {
 ```js
 interface SpreadProperty <: Expression {
     type: 'SpreadProperty';
-    argument: Expression;
+    argument: AssignmentExpression;
 }
 ```
-This node does not exist in the specs. It's created to simplify a few things
+
+See `12.2.6 Object Initializer`. The `SpreadProperty` AST node is not mentioned in the specs, but has been
+added to represent the `...AssignmentExpression` production.
 
 
 ### SuperProperty
@@ -529,6 +532,9 @@ interface SuperProperty <: Expression {
     expression: Expression | null;
 }
 ```
+
+`name` is `null` if `expression` isn't `null` and vice versa. `expression` isn't null if this is an
+computed property.
 
 ### SuperCall
 
@@ -560,8 +566,7 @@ interface TemplateElement <: Expression {
     expression: Expression | null;
 }
 ```
-In EScaya `raw` and `value` has been separated in an attempt to be `JSON` friendly. It is not in
-it's own object as in `ESTree`.
+ The `raw` property is the raw string source of the template element.
 
 ### TemplateExpression
 
@@ -625,9 +630,7 @@ interface OptionalExpression <: Expression {
 }
 ```
 
-See [12.3 Left-Hand-Side Expressions - OptionalExpression](https://tc39.es/ecma262/#prod-OptionalExpression).
-
-For simplicity
+See `12.3 Left-Hand-Side Expressions - OptionalExpression`.
 
 ### OptionalChain
 
@@ -662,9 +665,8 @@ interface CallChain <: Expression {
 ### PropertyKey
 
 ```js
-
 enum PropertyKey {
-    IdentifierName | NumericLiteral | BigIntLiteral | StringLiteral | ComputedPropertyName
+    IdentifierName, NumericLiteral, BigIntLiteral, StringLiteral, ComputedPropertyName
 }
 ```
 
@@ -697,6 +699,9 @@ interface PrefixUpdateExpression <: Expression {
 }
 ```
 
+`UpdateExpression` has been separated into `PrefixUpdateExpression` and `PostfixUpdateExpression` to reduce AST
+file size.
+
 ### PostfixUpdateExpression
 
 ```js
@@ -715,8 +720,6 @@ interface ObjectLiteral <: Expression {
     properties: [ PropertyDefinition | MethodDefinition | SpreadProperty | CoverInitializedName | Expression ];
 }
 ```
-
-An object literal.
 
 ### ObjectBindingPattern
 
