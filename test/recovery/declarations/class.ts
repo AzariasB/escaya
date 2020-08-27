@@ -2,6 +2,819 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Class', () => {
+  it('class foo { "static *async ', () => {
+    t.deepEqual(recovery('class foo { "static *async ', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'foo',
+            start: 5,
+            end: 9,
+            kind: 168,
+            flags: 0
+          },
+          heritage: null,
+          elements: [],
+          start: 0,
+          end: 11,
+          kind: 150,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'StringLiteral',
+            value: '',
+            start: 11,
+            end: 27,
+            kind: 12,
+            flags: 0
+          },
+          start: 11,
+          end: 27,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'class foo { "static *async ',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Unterminated string literal',
+          code: 55,
+          start: 12,
+          length: 15
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 27,
+      end: 27
+    });
+  });
+
+  it('class foo(/ {', () => {
+    t.deepEqual(recovery('class foo(/ {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'foo',
+            start: 5,
+            end: 9,
+            kind: 168,
+            flags: 0
+          },
+          heritage: null,
+          elements: [],
+          start: 0,
+          end: 9,
+          kind: 150,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'RegularExpressionLiteral',
+              pattern: ' ',
+              flag: '',
+              start: 10,
+              end: 13,
+              kind: 15,
+              flags: 0
+            },
+            start: 9,
+            end: 13,
+            kind: 189,
+            flags: 0
+          },
+          start: 9,
+          end: 13,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'class foo(/ {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`{` expected',
+          code: 5,
+          start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 0,
+          message: 'Unterminated regular expression',
+          code: 12,
+          start: 10,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 13,
+      end: 13
+    });
+  });
+
+  it('class { adf&/()})', () => {
+    t.deepEqual(recovery('class { adf&/()})', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: null,
+          heritage: null,
+          elements: [
+            {
+              type: 'ClassElement',
+              static: false,
+              method: {
+                type: 'MethodDefinition',
+                async: false,
+                generator: false,
+                propertySetParameterList: [],
+                uniqueFormalParameters: [],
+                name: {
+                  type: 'IdentifierName',
+                  name: 'adf',
+                  start: 7,
+                  end: 11,
+                  kind: 13,
+                  flags: 0
+                },
+                contents: {
+                  type: 'FunctionBody',
+                  directives: [],
+                  leafs: [],
+                  start: 11,
+                  end: 11,
+                  kind: 184,
+                  flags: 0
+                },
+                start: 11,
+                end: 11,
+                kind: 182,
+                flags: 0
+              },
+              start: 7,
+              end: 11,
+              kind: 151,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 11,
+          kind: 150,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'BinaryExpression',
+            left: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 11,
+              end: 11,
+              kind: 13,
+              flags: 2
+            },
+            operator: '&',
+            right: {
+              type: 'RegularExpressionLiteral',
+              pattern: '()}',
+              flag: '',
+              start: 12,
+              end: 17,
+              kind: 15,
+              flags: 0
+            },
+            start: 11,
+            end: 17,
+            kind: 155,
+            flags: 0
+          },
+          start: 11,
+          end: 17,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'class { adf&/()})',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Class declaration require a name in this context',
+          code: 11,
+          start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 11,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 0,
+          message: 'Unterminated regular expression',
+          code: 12,
+          start: 12,
+          length: 5
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 17,
+      end: 17
+    });
+  });
+
+  it('class x{[yield](a){}}', () => {
+    t.deepEqual(recovery('class x{[yield](a){}}', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'x',
+            start: 5,
+            end: 7,
+            kind: 168,
+            flags: 0
+          },
+          heritage: null,
+          elements: [],
+          start: 0,
+          end: 8,
+          kind: 150,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'CallExpression',
+            expression: {
+              type: 'ArrayLiteral',
+              elements: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'yield',
+                  start: 9,
+                  end: 14,
+                  kind: 13,
+                  flags: 0
+                }
+              ],
+              start: 8,
+              end: 15,
+              kind: 178,
+              flags: 0
+            },
+            arguments: [
+              {
+                type: 'IdentifierReference',
+                name: 'a',
+                start: 16,
+                end: 17,
+                kind: 13,
+                flags: 0
+              }
+            ],
+            start: 8,
+            end: 18,
+            kind: 156,
+            flags: 0
+          },
+          start: 8,
+          end: 18,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'BlockStatement',
+          leafs: [],
+          start: 18,
+          end: 20,
+          kind: 123,
+          flags: 0
+        }
+      ],
+      text: 'class x{[yield](a){}}',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 8,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 18,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 20,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 21,
+      end: 21
+    });
+  });
+
+  it('class x{   *', () => {
+    t.deepEqual(recovery('class x{   *', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'x',
+            start: 5,
+            end: 7,
+            kind: 168,
+            flags: 0
+          },
+          heritage: null,
+          elements: [],
+          start: 0,
+          end: 8,
+          kind: 150,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'BinaryExpression',
+            left: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 8,
+              end: 8,
+              kind: 13,
+              flags: 2
+            },
+            operator: '*',
+            right: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 12,
+              end: 12,
+              kind: 13,
+              flags: 2
+            },
+            start: 8,
+            end: 12,
+            kind: 155,
+            flags: 0
+          },
+          start: 8,
+          end: 12,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'class x{   *',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 11,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 12,
+      end: 12
+    });
+  });
+
+  it('class x { async *prot\\u006fty', () => {
+    t.deepEqual(recovery('class x { async *prot\\u006fty', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'x',
+            start: 5,
+            end: 7,
+            kind: 168,
+            flags: 0
+          },
+          heritage: null,
+          elements: [
+            {
+              type: 'ClassElement',
+              static: false,
+              method: {
+                type: 'MethodDefinition',
+                async: true,
+                generator: true,
+                propertySetParameterList: [],
+                uniqueFormalParameters: [],
+                name: {
+                  type: 'IdentifierName',
+                  name: 'prototy',
+                  start: 17,
+                  end: 29,
+                  kind: 13,
+                  flags: 0
+                },
+                contents: {
+                  type: 'FunctionBody',
+                  directives: [],
+                  leafs: [],
+                  start: 29,
+                  end: 29,
+                  kind: 184,
+                  flags: 0
+                },
+                start: 29,
+                end: 29,
+                kind: 182,
+                flags: 0
+              },
+              start: 9,
+              end: 29,
+              kind: 151,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 29,
+          kind: 150,
+          flags: 0
+        }
+      ],
+      text: 'class x { async *prot\\u006fty',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 17,
+          length: 12
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 29,
+      end: 29
+    });
+  });
+
+  it('class A { async class(x)', () => {
+    t.deepEqual(recovery('class A { async class(x)', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'A',
+            start: 5,
+            end: 7,
+            kind: 168,
+            flags: 0
+          },
+          heritage: null,
+          elements: [
+            {
+              type: 'ClassElement',
+              static: false,
+              method: {
+                type: 'MethodDefinition',
+                async: true,
+                generator: false,
+                propertySetParameterList: [],
+                uniqueFormalParameters: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'x',
+                    start: 22,
+                    end: 23,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
+                name: {
+                  type: 'IdentifierName',
+                  name: 'class',
+                  start: 15,
+                  end: 21,
+                  kind: 13,
+                  flags: 0
+                },
+                contents: {
+                  type: 'FunctionBody',
+                  directives: [],
+                  leafs: [],
+                  start: 24,
+                  end: 24,
+                  kind: 184,
+                  flags: 0
+                },
+                start: 21,
+                end: 24,
+                kind: 182,
+                flags: 0
+              },
+              start: 9,
+              end: 24,
+              kind: 151,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 24,
+          kind: 150,
+          flags: 0
+        }
+      ],
+      text: 'class A { async class(x)',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`{` expected',
+          code: 5,
+          start: 23,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 24,
+      end: 24
+    });
+  });
+
+  it('class foo extends foo(/ {', () => {
+    t.deepEqual(recovery('class foo extends foo(/ {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'foo',
+            start: 5,
+            end: 9,
+            kind: 168,
+            flags: 0
+          },
+          heritage: {
+            type: 'CallExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'foo',
+              start: 17,
+              end: 21,
+              kind: 13,
+              flags: 0
+            },
+            arguments: [
+              {
+                type: 'RegularExpressionLiteral',
+                pattern: ' ',
+                flag: '',
+                start: 22,
+                end: 25,
+                kind: 15,
+                flags: 0
+              }
+            ],
+            start: 17,
+            end: 25,
+            kind: 156,
+            flags: 0
+          },
+          elements: [],
+          start: 0,
+          end: 25,
+          kind: 150,
+          flags: 0
+        }
+      ],
+      text: 'class foo extends foo(/ {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Unterminated regular expression',
+          code: 12,
+          start: 22,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 25,
+      end: 25
+    });
+  });
+
+  it('class foo extends/ {', () => {
+    t.deepEqual(recovery('class foo extends/ {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'foo',
+            start: 5,
+            end: 9,
+            kind: 168,
+            flags: 0
+          },
+          heritage: {
+            type: 'RegularExpressionLiteral',
+            pattern: ' ',
+            flag: '',
+            start: 17,
+            end: 20,
+            kind: 15,
+            flags: 0
+          },
+          elements: [],
+          start: 0,
+          end: 20,
+          kind: 150,
+          flags: 0
+        }
+      ],
+      text: 'class foo extends/ {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Unterminated regular expression',
+          code: 12,
+          start: 17,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 20,
+      end: 20
+    });
+  });
+
+  it('class foo extends {', () => {
+    t.deepEqual(recovery('class foo extends {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'foo',
+            start: 5,
+            end: 9,
+            kind: 168,
+            flags: 0
+          },
+          heritage: {
+            type: 'ObjectLiteral',
+            properties: [],
+            start: 17,
+            end: 19,
+            kind: 179,
+            flags: 0
+          },
+          elements: [],
+          start: 0,
+          end: 19,
+          kind: 150,
+          flags: 0
+        }
+      ],
+      text: 'class foo extends {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 18,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 19,
+      end: 19
+    });
+  });
+
   it('class true {}', () => {
     t.deepEqual(recovery('class true {}', 'recovery.js'), {
       kind: 209,

@@ -1625,37 +1625,44 @@ describe('Module - Import', () => {
                   end: 15,
                   kind: 222,
                   flags: 0
-                },
-                {
-                  type: 'ImportSpecifier',
-                  name: null,
-                  binding: {
-                    type: 'IdentifierName',
-                    name: '',
-                    start: 17,
-                    end: 17,
-                    kind: 13,
-                    flags: 0
-                  },
-                  start: 15,
-                  end: 17,
-                  kind: 222,
-                  flags: 0
                 }
               ],
               start: 6,
-              end: 17,
+              end: 15,
               kind: 222,
               flags: 0
             },
             start: 6,
-            end: 17,
+            end: 15,
             kind: 218,
             flags: 0
           },
           start: 0,
-          end: 17,
+          end: 15,
           kind: 217,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 17,
+              end: 17,
+              kind: 13,
+              flags: 2
+            },
+            start: 15,
+            end: 17,
+            kind: 160,
+            flags: 0
+          },
+          start: 15,
+          end: 17,
+          kind: 122,
           flags: 0
         }
       ],
@@ -1680,6 +1687,464 @@ describe('Module - Import', () => {
       start: 0,
       length: 17,
       end: 17
+    });
+  });
+
+  it('import { let as l } from "foo";', () => {
+    t.deepEqual(recovery('import { let as l } from "foo";', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ImportDeclaration',
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'foo',
+            start: 24,
+            end: 30,
+            kind: 12,
+            flags: 0
+          },
+          moduleSpecifier: null,
+          importClause: {
+            type: 'ImportClause',
+            defaultBinding: null,
+            nameSpaceImport: null,
+            namedImports: {
+              type: 'NamedImports',
+              importsList: [
+                {
+                  type: 'ImportSpecifier',
+                  name: {
+                    type: 'IdentifierName',
+                    name: 'let',
+                    start: 8,
+                    end: 12,
+                    kind: 13,
+                    flags: 0
+                  },
+                  binding: {
+                    type: 'BindingIdentifier',
+                    name: 'l',
+                    start: 15,
+                    end: 17,
+                    kind: 168,
+                    flags: 0
+                  },
+                  start: 8,
+                  end: 17,
+                  kind: 222,
+                  flags: 0
+                }
+              ],
+              start: 6,
+              end: 19,
+              kind: 222,
+              flags: 0
+            },
+            start: 6,
+            end: 19,
+            kind: 218,
+            flags: 0
+          },
+          start: 0,
+          end: 31,
+          kind: 217,
+          flags: 0
+        }
+      ],
+      text: 'import { let as l } from "foo";',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 31,
+      end: 31
+    });
+  });
+
+  it('import a, {as} from "foo"', () => {
+    t.deepEqual(recovery('import a, {as} from "foo"', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ImportDeclaration',
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'foo',
+            start: 19,
+            end: 25,
+            kind: 12,
+            flags: 0
+          },
+          moduleSpecifier: null,
+          importClause: {
+            type: 'ImportClause',
+            defaultBinding: {
+              type: 'BindingIdentifier',
+              name: 'a',
+              start: 6,
+              end: 8,
+              kind: 168,
+              flags: 0
+            },
+            nameSpaceImport: null,
+            namedImports: {
+              type: 'NamedImports',
+              importsList: [
+                {
+                  type: 'ImportSpecifier',
+                  name: null,
+                  binding: {
+                    type: 'IdentifierName',
+                    name: 'as',
+                    start: 11,
+                    end: 13,
+                    kind: 13,
+                    flags: 0
+                  },
+                  start: 11,
+                  end: 13,
+                  kind: 222,
+                  flags: 0
+                }
+              ],
+              start: 9,
+              end: 14,
+              kind: 222,
+              flags: 0
+            },
+            start: 6,
+            end: 14,
+            kind: 218,
+            flags: 0
+          },
+          start: 0,
+          end: 25,
+          kind: 217,
+          flags: 0
+        }
+      ],
+      text: 'import a, {as} from "foo"',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 25,
+      end: 25
+    });
+  });
+
+  it('import a, {b as c} from "foo"', () => {
+    t.deepEqual(recovery('import a, {b as c} from "foo"', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ImportDeclaration',
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'foo',
+            start: 23,
+            end: 29,
+            kind: 12,
+            flags: 0
+          },
+          moduleSpecifier: null,
+          importClause: {
+            type: 'ImportClause',
+            defaultBinding: {
+              type: 'BindingIdentifier',
+              name: 'a',
+              start: 6,
+              end: 8,
+              kind: 168,
+              flags: 0
+            },
+            nameSpaceImport: null,
+            namedImports: {
+              type: 'NamedImports',
+              importsList: [
+                {
+                  type: 'ImportSpecifier',
+                  name: {
+                    type: 'IdentifierName',
+                    name: 'b',
+                    start: 11,
+                    end: 12,
+                    kind: 13,
+                    flags: 0
+                  },
+                  binding: {
+                    type: 'BindingIdentifier',
+                    name: 'c',
+                    start: 15,
+                    end: 17,
+                    kind: 168,
+                    flags: 0
+                  },
+                  start: 11,
+                  end: 17,
+                  kind: 222,
+                  flags: 0
+                }
+              ],
+              start: 9,
+              end: 18,
+              kind: 222,
+              flags: 0
+            },
+            start: 6,
+            end: 18,
+            kind: 218,
+            flags: 0
+          },
+          start: 0,
+          end: 29,
+          kind: 217,
+          flags: 0
+        }
+      ],
+      text: 'import a, {b as c} from "foo"',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 29,
+      end: 29
+    });
+  });
+
+  it('import { static as s } from "foo"', () => {
+    t.deepEqual(recovery('import { static as s } from "foo"', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ImportDeclaration',
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'foo',
+            start: 27,
+            end: 33,
+            kind: 12,
+            flags: 0
+          },
+          moduleSpecifier: null,
+          importClause: {
+            type: 'ImportClause',
+            defaultBinding: null,
+            nameSpaceImport: null,
+            namedImports: {
+              type: 'NamedImports',
+              importsList: [
+                {
+                  type: 'ImportSpecifier',
+                  name: {
+                    type: 'IdentifierName',
+                    name: 'static',
+                    start: 8,
+                    end: 15,
+                    kind: 13,
+                    flags: 0
+                  },
+                  binding: {
+                    type: 'BindingIdentifier',
+                    name: 's',
+                    start: 18,
+                    end: 20,
+                    kind: 168,
+                    flags: 0
+                  },
+                  start: 8,
+                  end: 20,
+                  kind: 222,
+                  flags: 0
+                }
+              ],
+              start: 6,
+              end: 22,
+              kind: 222,
+              flags: 0
+            },
+            start: 6,
+            end: 22,
+            kind: 218,
+            flags: 0
+          },
+          start: 0,
+          end: 33,
+          kind: 217,
+          flags: 0
+        }
+      ],
+      text: 'import { static as s } from "foo"',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 33,
+      end: 33
+    });
+  });
+
+  it('import {m as mm} from "foo"', () => {
+    t.deepEqual(recovery('import {m as mm} from "foo"', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ImportDeclaration',
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'foo',
+            start: 21,
+            end: 27,
+            kind: 12,
+            flags: 0
+          },
+          moduleSpecifier: null,
+          importClause: {
+            type: 'ImportClause',
+            defaultBinding: null,
+            nameSpaceImport: null,
+            namedImports: {
+              type: 'NamedImports',
+              importsList: [
+                {
+                  type: 'ImportSpecifier',
+                  name: {
+                    type: 'IdentifierName',
+                    name: 'm',
+                    start: 8,
+                    end: 9,
+                    kind: 13,
+                    flags: 0
+                  },
+                  binding: {
+                    type: 'BindingIdentifier',
+                    name: 'mm',
+                    start: 12,
+                    end: 15,
+                    kind: 168,
+                    flags: 0
+                  },
+                  start: 8,
+                  end: 15,
+                  kind: 222,
+                  flags: 0
+                }
+              ],
+              start: 6,
+              end: 16,
+              kind: 222,
+              flags: 0
+            },
+            start: 6,
+            end: 16,
+            kind: 218,
+            flags: 0
+          },
+          start: 0,
+          end: 27,
+          kind: 217,
+          flags: 0
+        }
+      ],
+      text: 'import {m as mm} from "foo"',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 27,
+      end: 27
+    });
+  });
+
+  it('import x, * as a from "foo"', () => {
+    t.deepEqual(recovery('import x, * as a from "foo"', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ImportDeclaration',
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'foo',
+            start: 21,
+            end: 27,
+            kind: 12,
+            flags: 0
+          },
+          moduleSpecifier: null,
+          importClause: {
+            type: 'ImportClause',
+            defaultBinding: {
+              type: 'BindingIdentifier',
+              name: 'x',
+              start: 6,
+              end: 8,
+              kind: 168,
+              flags: 0
+            },
+            nameSpaceImport: {
+              type: 'BindingIdentifier',
+              name: 'a',
+              start: 14,
+              end: 16,
+              kind: 168,
+              flags: 0
+            },
+            namedImports: null,
+            start: 6,
+            end: 16,
+            kind: 218,
+            flags: 0
+          },
+          start: 0,
+          end: 27,
+          kind: 217,
+          flags: 0
+        }
+      ],
+      text: 'import x, * as a from "foo"',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 27,
+      end: 27
     });
   });
 

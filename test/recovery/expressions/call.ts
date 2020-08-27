@@ -140,6 +140,69 @@ describe('Recovery - Expressions - Call', () => {
     });
   });
 
+  it('foo(/ {', () => {
+    t.deepEqual(recovery('foo(/ {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'CallExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'foo',
+              start: 0,
+              end: 3,
+              kind: 13,
+              flags: 0
+            },
+            arguments: [
+              {
+                type: 'RegularExpressionLiteral',
+                pattern: ' ',
+                flag: '',
+                start: 4,
+                end: 7,
+                kind: 15,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 7,
+            kind: 156,
+            flags: 0
+          },
+          start: 0,
+          end: 7,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'foo(/ {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Unterminated regular expression',
+          code: 12,
+          start: 4,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
   it('async(async x => c', () => {
     t.deepEqual(recovery('async(async x => c', 'recovery.js'), {
       kind: 209,

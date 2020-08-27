@@ -54,6 +54,59 @@ describe('Recovery - Expressions - Parenthesized', () => {
     });
   });
 
+  it('(/ {', () => {
+    t.deepEqual(recovery('(/ {', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'RegularExpressionLiteral',
+              pattern: ' ',
+              flag: '',
+              start: 1,
+              end: 4,
+              kind: 15,
+              flags: 0
+            },
+            start: 0,
+            end: 4,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 4,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '(/ {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 0,
+          message: 'Unterminated regular expression',
+          code: 12,
+          start: 1,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 4,
+      end: 4
+    });
+  });
+
   it('(...', () => {
     t.deepEqual(recovery('(...', 'recovery.js'), {
       kind: 209,

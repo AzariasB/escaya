@@ -2,6 +2,2066 @@ import * as t from 'assert';
 import { recovery } from '../../src/escaya';
 
 describe('Recovery - Expressions', () => {
+  it('= ((b)) = (!', () => {
+    t.deepEqual(recovery('= ((b)) = (!', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'AssignmentExpression',
+            left: {
+              type: 'ParenthesizedExpression',
+              expression: {
+                type: 'ParenthesizedExpression',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: 'b',
+                  start: 4,
+                  end: 5,
+                  kind: 13,
+                  flags: 0
+                },
+                start: 3,
+                end: 6,
+                kind: 189,
+                flags: 0
+              },
+              start: 1,
+              end: 7,
+              kind: 189,
+              flags: 0
+            },
+            operator: '=',
+            right: {
+              type: 'ParenthesizedExpression',
+              expression: {
+                type: 'UnaryExpression',
+                operator: '!',
+                operand: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 12,
+                  end: 12,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 11,
+                end: 12,
+                kind: 160,
+                flags: 0
+              },
+              start: 9,
+              end: 12,
+              kind: 189,
+              flags: 0
+            },
+            start: 1,
+            end: 12,
+            kind: 152,
+            flags: 0
+          },
+          start: 1,
+          end: 12,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '= ((b)) = (!',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 0,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 11,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 12,
+      end: 12
+    });
+  });
+
+  it('[(a = 0', () => {
+    t.deepEqual(recovery('[(a = 0', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrayLiteral',
+            elements: [
+              {
+                type: 'ParenthesizedExpression',
+                expression: {
+                  type: 'AssignmentExpression',
+                  left: {
+                    type: 'IdentifierReference',
+                    name: 'a',
+                    start: 2,
+                    end: 3,
+                    kind: 13,
+                    flags: 0
+                  },
+                  operator: '=',
+                  right: {
+                    type: 'NumericLiteral',
+                    value: 0,
+                    start: 5,
+                    end: 7,
+                    kind: 10,
+                    flags: 0
+                  },
+                  start: 2,
+                  end: 7,
+                  kind: 152,
+                  flags: 0
+                },
+                start: 1,
+                end: 7,
+                kind: 189,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 7,
+            kind: 178,
+            flags: 0
+          },
+          start: 0,
+          end: 7,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '[(a = 0',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 6,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
+  it('x in [2', () => {
+    t.deepEqual(recovery('x in [2', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'BinaryExpression',
+            left: {
+              type: 'IdentifierReference',
+              name: 'x',
+              start: 0,
+              end: 1,
+              kind: 13,
+              flags: 0
+            },
+            operator: 'in',
+            right: {
+              type: 'ArrayLiteral',
+              elements: [
+                {
+                  type: 'NumericLiteral',
+                  value: 2,
+                  start: 6,
+                  end: 7,
+                  kind: 10,
+                  flags: 0
+                }
+              ],
+              start: 4,
+              end: 7,
+              kind: 178,
+              flags: 0
+            },
+            start: 0,
+            end: 7,
+            kind: 155,
+            flags: 0
+          },
+          start: 0,
+          end: 7,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'x in [2',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 6,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
+  it('({a:(a,y) = 0(!', () => {
+    t.deepEqual(recovery('({a:(a,y) = 0(!', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ObjectLiteral',
+              properties: [
+                {
+                  type: 'PropertyName',
+                  key: {
+                    type: 'IdentifierName',
+                    name: 'a',
+                    start: 2,
+                    end: 4,
+                    kind: 13,
+                    flags: 0
+                  },
+                  value: {
+                    type: 'AssignmentExpression',
+                    left: {
+                      type: 'ParenthesizedExpression',
+                      expression: {
+                        type: 'CommaOperator',
+                        expressions: [
+                          {
+                            type: 'IdentifierReference',
+                            name: 'a',
+                            start: 5,
+                            end: 6,
+                            kind: 13,
+                            flags: 0
+                          },
+                          {
+                            type: 'IdentifierReference',
+                            name: 'y',
+                            start: 7,
+                            end: 8,
+                            kind: 13,
+                            flags: 0
+                          }
+                        ],
+                        start: 4,
+                        end: 8,
+                        kind: 147,
+                        flags: 0
+                      },
+                      start: 4,
+                      end: 9,
+                      kind: 189,
+                      flags: 0
+                    },
+                    operator: '=',
+                    right: {
+                      type: 'CallExpression',
+                      expression: {
+                        type: 'NumericLiteral',
+                        value: 0,
+                        start: 11,
+                        end: 13,
+                        kind: 10,
+                        flags: 0
+                      },
+                      arguments: [
+                        {
+                          type: 'UnaryExpression',
+                          operator: '!',
+                          operand: {
+                            type: 'IdentifierReference',
+                            name: '',
+                            start: 15,
+                            end: 15,
+                            kind: 13,
+                            flags: 2
+                          },
+                          start: 14,
+                          end: 15,
+                          kind: 160,
+                          flags: 0
+                        }
+                      ],
+                      start: 11,
+                      end: 15,
+                      kind: 156,
+                      flags: 0
+                    },
+                    start: 2,
+                    end: 15,
+                    kind: 152,
+                    flags: 0
+                  },
+                  start: 2,
+                  end: 15,
+                  kind: 227,
+                  flags: 0
+                }
+              ],
+              start: 1,
+              end: 15,
+              kind: 179,
+              flags: 0
+            },
+            start: 0,
+            end: 15,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 15,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '({a:(a,y) = 0(!',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 10,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 14,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 15,
+      end: 15
+    });
+  });
+
+  it('({a:(a,y) = 0for!', () => {
+    t.deepEqual(recovery('({a:(a,y) = 0for!', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ObjectLiteral',
+              properties: [
+                {
+                  type: 'PropertyName',
+                  key: {
+                    type: 'IdentifierName',
+                    name: 'a',
+                    start: 2,
+                    end: 4,
+                    kind: 13,
+                    flags: 0
+                  },
+                  value: {
+                    type: 'AssignmentExpression',
+                    left: {
+                      type: 'ParenthesizedExpression',
+                      expression: {
+                        type: 'CommaOperator',
+                        expressions: [
+                          {
+                            type: 'IdentifierReference',
+                            name: 'a',
+                            start: 5,
+                            end: 6,
+                            kind: 13,
+                            flags: 0
+                          },
+                          {
+                            type: 'IdentifierReference',
+                            name: 'y',
+                            start: 7,
+                            end: 8,
+                            kind: 13,
+                            flags: 0
+                          }
+                        ],
+                        start: 4,
+                        end: 8,
+                        kind: 147,
+                        flags: 0
+                      },
+                      start: 4,
+                      end: 9,
+                      kind: 189,
+                      flags: 0
+                    },
+                    operator: '=',
+                    right: {
+                      type: 'NumericLiteral',
+                      value: 0,
+                      start: 11,
+                      end: 13,
+                      kind: 10,
+                      flags: 0
+                    },
+                    start: 2,
+                    end: 13,
+                    kind: 152,
+                    flags: 0
+                  },
+                  start: 2,
+                  end: 13,
+                  kind: 227,
+                  flags: 0
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: 'for',
+                  start: 13,
+                  end: 16,
+                  kind: 13,
+                  flags: 0
+                }
+              ],
+              start: 1,
+              end: 16,
+              kind: 179,
+              flags: 0
+            },
+            start: 0,
+            end: 16,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 16,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 17,
+              end: 17,
+              kind: 13,
+              flags: 2
+            },
+            start: 16,
+            end: 17,
+            kind: 160,
+            flags: 0
+          },
+          start: 16,
+          end: 17,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '({a:(a,y) = 0for!',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 10,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 0,
+          message: 'An identifier or keyword cannot immediately follow a numeric literal',
+          code: 58,
+          start: 13,
+          length: 0
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 16,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 17,
+      end: 17
+    });
+  });
+
+  it('({a:(a,y) = 0for!switch', () => {
+    t.deepEqual(recovery('({a:(a,y) = 0for!switch', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ObjectLiteral',
+              properties: [
+                {
+                  type: 'PropertyName',
+                  key: {
+                    type: 'IdentifierName',
+                    name: 'a',
+                    start: 2,
+                    end: 4,
+                    kind: 13,
+                    flags: 0
+                  },
+                  value: {
+                    type: 'AssignmentExpression',
+                    left: {
+                      type: 'ParenthesizedExpression',
+                      expression: {
+                        type: 'CommaOperator',
+                        expressions: [
+                          {
+                            type: 'IdentifierReference',
+                            name: 'a',
+                            start: 5,
+                            end: 6,
+                            kind: 13,
+                            flags: 0
+                          },
+                          {
+                            type: 'IdentifierReference',
+                            name: 'y',
+                            start: 7,
+                            end: 8,
+                            kind: 13,
+                            flags: 0
+                          }
+                        ],
+                        start: 4,
+                        end: 8,
+                        kind: 147,
+                        flags: 0
+                      },
+                      start: 4,
+                      end: 9,
+                      kind: 189,
+                      flags: 0
+                    },
+                    operator: '=',
+                    right: {
+                      type: 'NumericLiteral',
+                      value: 0,
+                      start: 11,
+                      end: 13,
+                      kind: 10,
+                      flags: 0
+                    },
+                    start: 2,
+                    end: 13,
+                    kind: 152,
+                    flags: 0
+                  },
+                  start: 2,
+                  end: 13,
+                  kind: 227,
+                  flags: 0
+                },
+                {
+                  type: 'IdentifierReference',
+                  name: 'for',
+                  start: 13,
+                  end: 16,
+                  kind: 13,
+                  flags: 0
+                }
+              ],
+              start: 1,
+              end: 16,
+              kind: 179,
+              flags: 0
+            },
+            start: 0,
+            end: 16,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 16,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 17,
+              end: 17,
+              kind: 13,
+              flags: 2
+            },
+            start: 16,
+            end: 17,
+            kind: 160,
+            flags: 0
+          },
+          start: 16,
+          end: 17,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'SwitchStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 23,
+            end: 23,
+            kind: 13,
+            flags: 2
+          },
+          clauses: [],
+          start: 17,
+          end: 23,
+          kind: 136,
+          flags: 0
+        }
+      ],
+      text: '({a:(a,y) = 0for!switch',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 10,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 0,
+          message: 'An identifier or keyword cannot immediately follow a numeric literal',
+          code: 58,
+          start: 13,
+          length: 0
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 16,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 17,
+          length: 6
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 23,
+      end: 23
+    });
+  });
+
+  it('({a:(a,y) = 0} = 1', () => {
+    t.deepEqual(recovery('({a:(a,y) = 0} = 1', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'AssignmentElement',
+              left: {
+                type: 'ObjectAssignmentPattern',
+                properties: [
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'IdentifierName',
+                      name: 'a',
+                      start: 2,
+                      end: 4,
+                      kind: 13,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'AssignmentElement',
+                      left: {
+                        type: 'ParenthesizedExpression',
+                        expression: {
+                          type: 'CommaOperator',
+                          expressions: [
+                            {
+                              type: 'IdentifierReference',
+                              name: 'a',
+                              start: 5,
+                              end: 6,
+                              kind: 13,
+                              flags: 0
+                            },
+                            {
+                              type: 'IdentifierReference',
+                              name: 'y',
+                              start: 7,
+                              end: 8,
+                              kind: 13,
+                              flags: 0
+                            }
+                          ],
+                          start: 4,
+                          end: 8,
+                          kind: 147,
+                          flags: 0
+                        },
+                        start: 4,
+                        end: 9,
+                        kind: 189,
+                        flags: 0
+                      },
+                      right: {
+                        type: 'NumericLiteral',
+                        value: 0,
+                        start: 11,
+                        end: 13,
+                        kind: 10,
+                        flags: 0
+                      },
+                      start: 2,
+                      end: 13,
+                      kind: 152,
+                      flags: 0
+                    },
+                    start: 2,
+                    end: 13,
+                    kind: 227,
+                    flags: 0
+                  }
+                ],
+                start: 1,
+                end: 14,
+                kind: 179,
+                flags: 0
+              },
+              right: {
+                type: 'NumericLiteral',
+                value: 1,
+                start: 16,
+                end: 18,
+                kind: 10,
+                flags: 0
+              },
+              start: 1,
+              end: 18,
+              kind: 213,
+              flags: 0
+            },
+            start: 0,
+            end: 18,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 18,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '({a:(a,y) = 0} = 1',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 10,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 17,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 18,
+      end: 18
+    });
+  });
+
+  it('...obj} = foo', () => {
+    t.deepEqual(recovery('...obj} = foo', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'obj',
+            start: 3,
+            end: 6,
+            kind: 13,
+            flags: 0
+          },
+          start: 3,
+          end: 6,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'foo',
+            start: 9,
+            end: 13,
+            kind: 13,
+            flags: 0
+          },
+          start: 9,
+          end: 13,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '...obj} = foo',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 0,
+          length: 3
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 8,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 13,
+      end: 13
+    });
+  });
+
+  it('y)) = z', () => {
+    t.deepEqual(recovery('y)) = z', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'y',
+            start: 0,
+            end: 1,
+            kind: 13,
+            flags: 0
+          },
+          start: 0,
+          end: 1,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'z',
+            start: 5,
+            end: 7,
+            kind: 13,
+            flags: 0
+          },
+          start: 5,
+          end: 7,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'y)) = z',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 1,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 2,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 4,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
+  it('x = {[super[foo]]: x', () => {
+    t.deepEqual(recovery('x = {[super[foo]]: x', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'AssignmentExpression',
+            left: {
+              type: 'IdentifierReference',
+              name: 'x',
+              start: 0,
+              end: 1,
+              kind: 13,
+              flags: 0
+            },
+            operator: '=',
+            right: {
+              type: 'ObjectLiteral',
+              properties: [
+                {
+                  type: 'PropertyName',
+                  key: {
+                    type: 'ComputedPropertyName',
+                    expression: {
+                      type: 'SuperProperty',
+                      expression: {
+                        type: 'IdentifierReference',
+                        name: 'foo',
+                        start: 12,
+                        end: 15,
+                        kind: 13,
+                        flags: 0
+                      },
+                      name: null,
+                      start: 6,
+                      end: 16,
+                      kind: 192,
+                      flags: 0
+                    },
+                    start: 5,
+                    end: 17,
+                    kind: 171,
+                    flags: 0
+                  },
+                  value: {
+                    type: 'IdentifierReference',
+                    name: 'x',
+                    start: 18,
+                    end: 20,
+                    kind: 13,
+                    flags: 0
+                  },
+                  start: 5,
+                  end: 20,
+                  kind: 227,
+                  flags: 0
+                }
+              ],
+              start: 3,
+              end: 20,
+              kind: 179,
+              flags: 0
+            },
+            start: 0,
+            end: 20,
+            kind: 152,
+            flags: 0
+          },
+          start: 0,
+          end: 20,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'x = {[super[foo]]: x',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Member access on super must be in a method',
+          code: 31,
+          start: 11,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 19,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 20,
+      end: 20
+    });
+  });
+
+  it('class x extends y { foo(){ return (', () => {
+    t.deepEqual(recovery('class x extends y { foo(){ return (', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'x',
+            start: 5,
+            end: 7,
+            kind: 168,
+            flags: 0
+          },
+          heritage: {
+            type: 'IdentifierReference',
+            name: 'y',
+            start: 15,
+            end: 17,
+            kind: 13,
+            flags: 0
+          },
+          elements: [
+            {
+              type: 'ClassElement',
+              static: false,
+              method: {
+                type: 'MethodDefinition',
+                async: false,
+                generator: false,
+                propertySetParameterList: [],
+                uniqueFormalParameters: [],
+                name: {
+                  type: 'IdentifierName',
+                  name: 'foo',
+                  start: 19,
+                  end: 23,
+                  kind: 13,
+                  flags: 0
+                },
+                contents: {
+                  type: 'FunctionBody',
+                  directives: [],
+                  leafs: [
+                    {
+                      type: 'ReturnStatement',
+                      expression: {
+                        type: 'ParenthesizedExpression',
+                        expression: {
+                          type: 'IdentifierReference',
+                          name: '',
+                          start: 35,
+                          end: 35,
+                          kind: 13,
+                          flags: 2
+                        },
+                        start: 33,
+                        end: 35,
+                        kind: 189,
+                        flags: 0
+                      },
+                      start: 26,
+                      end: 35,
+                      kind: 135,
+                      flags: 0
+                    }
+                  ],
+                  start: 25,
+                  end: 35,
+                  kind: 184,
+                  flags: 0
+                },
+                start: 23,
+                end: 35,
+                kind: 182,
+                flags: 0
+              },
+              start: 19,
+              end: 35,
+              kind: 151,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 35,
+          kind: 150,
+          flags: 0
+        }
+      ],
+      text: 'class x extends y { foo(){ return (',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 34,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 35,
+      end: 35
+    });
+  });
+
+  it('({ f: function*() {() => new super', () => {
+    t.deepEqual(recovery('({ f: function*() {() => new super', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ObjectLiteral',
+              properties: [
+                {
+                  type: 'PropertyName',
+                  key: {
+                    type: 'IdentifierName',
+                    name: 'f',
+                    start: 2,
+                    end: 5,
+                    kind: 13,
+                    flags: 0
+                  },
+                  value: {
+                    type: 'FunctionExpression',
+                    name: null,
+                    generator: true,
+                    async: false,
+                    params: [],
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [
+                        {
+                          type: 'ExpressionStatement',
+                          expression: {
+                            type: 'ArrowFunction',
+                            params: [],
+                            contents: {
+                              type: 'ConciseBody',
+                              expression: {
+                                type: 'NewExpression',
+                                expression: {
+                                  type: 'SuperProperty',
+                                  expression: null,
+                                  name: null,
+                                  start: 28,
+                                  end: 34,
+                                  kind: 192,
+                                  flags: 0
+                                },
+                                arguments: [],
+                                start: 24,
+                                end: 34,
+                                kind: 163,
+                                flags: 0
+                              },
+                              start: 24,
+                              end: 34,
+                              kind: 187,
+                              flags: 0
+                            },
+                            async: false,
+                            start: 19,
+                            end: 34,
+                            kind: 188,
+                            flags: 0
+                          },
+                          start: 19,
+                          end: 34,
+                          kind: 122,
+                          flags: 0
+                        }
+                      ],
+                      start: 17,
+                      end: 34,
+                      kind: 184,
+                      flags: 0
+                    },
+                    start: 5,
+                    end: 34,
+                    kind: 185,
+                    flags: 0
+                  },
+                  start: 2,
+                  end: 34,
+                  kind: 227,
+                  flags: 0
+                }
+              ],
+              start: 1,
+              end: 34,
+              kind: 179,
+              flags: 0
+            },
+            start: 0,
+            end: 34,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 34,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '({ f: function*() {() => new super',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Member access on super must be in a method',
+          code: 31,
+          start: 29,
+          length: 5
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 34,
+      end: 34
+    });
+  });
+
+  it('super[27](', () => {
+    t.deepEqual(recovery('super[27](', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'CallExpression',
+            expression: {
+              type: 'SuperProperty',
+              expression: {
+                type: 'NumericLiteral',
+                value: 27,
+                start: 6,
+                end: 8,
+                kind: 10,
+                flags: 0
+              },
+              name: null,
+              start: 0,
+              end: 9,
+              kind: 192,
+              flags: 0
+            },
+            arguments: [],
+            start: 0,
+            end: 10,
+            kind: 156,
+            flags: 0
+          },
+          start: 0,
+          end: 10,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'super[27](',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Member access on super must be in a method',
+          code: 31,
+          start: 5,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 9,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 10,
+      end: 10
+    });
+  });
+
+  it('({...import.meta', () => {
+    t.deepEqual(recovery('({...import.meta', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ObjectLiteral',
+              properties: [
+                {
+                  type: 'SpreadProperty',
+                  argument: {
+                    type: 'ImportCall',
+                    import: {
+                      type: 'MemberExpression',
+                      member: {
+                        type: 'IdentifierReference',
+                        name: '',
+                        start: 11,
+                        end: 11,
+                        kind: 13,
+                        flags: 2
+                      },
+                      expression: {
+                        type: 'IdentifierName',
+                        name: 'meta',
+                        start: 12,
+                        end: 16,
+                        kind: 13,
+                        flags: 0
+                      },
+                      computed: false,
+                      start: 11,
+                      end: 16,
+                      kind: 154,
+                      flags: 0
+                    },
+                    start: 5,
+                    end: 16,
+                    kind: 199,
+                    flags: 0
+                  },
+                  start: 2,
+                  end: 16,
+                  kind: 215,
+                  flags: 0
+                }
+              ],
+              start: 1,
+              end: 16,
+              kind: 179,
+              flags: 0
+            },
+            start: 0,
+            end: 16,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 16,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '({...import.meta',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`(` expected',
+          code: 5,
+          start: 11,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 12,
+          length: 4
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 16,
+      end: 16
+    });
+  });
+
+  it('a ? b', () => {
+    t.deepEqual(recovery('a ? b', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ConditionalExpression',
+            shortCircuit: {
+              type: 'IdentifierReference',
+              name: 'a',
+              start: 0,
+              end: 1,
+              kind: 13,
+              flags: 0
+            },
+            consequent: {
+              type: 'IdentifierReference',
+              name: 'b',
+              start: 3,
+              end: 5,
+              kind: 13,
+              flags: 0
+            },
+            alternate: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 5,
+              end: 5,
+              kind: 13,
+              flags: 2
+            },
+            start: 0,
+            end: 5,
+            kind: 153,
+            flags: 0
+          },
+          start: 0,
+          end: 5,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'a ? b',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`:` expected',
+          code: 5,
+          start: 4,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 5,
+      end: 5
+    });
+  });
+
+  it('foo?.3:', () => {
+    t.deepEqual(recovery('foo?.3:', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ConditionalExpression',
+            shortCircuit: {
+              type: 'IdentifierReference',
+              name: 'foo',
+              start: 0,
+              end: 3,
+              kind: 13,
+              flags: 0
+            },
+            consequent: {
+              type: 'NumericLiteral',
+              value: 3,
+              start: 5,
+              end: 6,
+              kind: 10,
+              flags: 0
+            },
+            alternate: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 7,
+              end: 7,
+              kind: 13,
+              flags: 2
+            },
+            start: 0,
+            end: 7,
+            kind: 153,
+            flags: 0
+          },
+          start: 0,
+          end: 7,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'foo?.3:',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 6,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
+  it('(y ? y : true', () => {
+    t.deepEqual(recovery('(y ? y : true', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ConditionalExpression',
+              shortCircuit: {
+                type: 'IdentifierReference',
+                name: 'y',
+                start: 1,
+                end: 2,
+                kind: 13,
+                flags: 0
+              },
+              consequent: {
+                type: 'IdentifierReference',
+                name: 'y',
+                start: 4,
+                end: 6,
+                kind: 13,
+                flags: 0
+              },
+              alternate: {
+                type: 'BooleanLiteral',
+                value: true,
+                start: 8,
+                end: 13,
+                kind: 166,
+                flags: 0
+              },
+              start: 1,
+              end: 13,
+              kind: 153,
+              flags: 0
+            },
+            start: 0,
+            end: 13,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 13,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '(y ? y : true',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 9,
+          length: 4
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 13,
+      end: 13
+    });
+  });
+
+  it('[1 >>>= a', () => {
+    t.deepEqual(recovery('[1 >>>= a', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrayLiteral',
+            elements: [
+              {
+                type: 'AssignmentExpression',
+                left: {
+                  type: 'NumericLiteral',
+                  value: 1,
+                  start: 1,
+                  end: 2,
+                  kind: 10,
+                  flags: 0
+                },
+                operator: '>>>=',
+                right: {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 7,
+                  end: 9,
+                  kind: 13,
+                  flags: 0
+                },
+                start: 1,
+                end: 9,
+                kind: 152,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 9,
+            kind: 178,
+            flags: 0
+          },
+          start: 0,
+          end: 9,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '[1 >>>= a',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'The left-hand side of an assignment expression must be a variable or a property access',
+          code: 97,
+          start: 3,
+          length: 4
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 8,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 9,
+      end: 9
+    });
+  });
+
+  it('([(a = b)] = [', () => {
+    t.deepEqual(recovery('([(a = b)] = [', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'AssignmentElement',
+              left: {
+                type: 'ArrayAssignmentPattern',
+                elements: [
+                  {
+                    type: 'ParenthesizedExpression',
+                    expression: {
+                      type: 'AssignmentExpression',
+                      left: {
+                        type: 'IdentifierReference',
+                        name: 'a',
+                        start: 3,
+                        end: 4,
+                        kind: 13,
+                        flags: 0
+                      },
+                      operator: '=',
+                      right: {
+                        type: 'IdentifierReference',
+                        name: 'b',
+                        start: 6,
+                        end: 8,
+                        kind: 13,
+                        flags: 0
+                      },
+                      start: 3,
+                      end: 8,
+                      kind: 152,
+                      flags: 0
+                    },
+                    start: 2,
+                    end: 9,
+                    kind: 189,
+                    flags: 0
+                  }
+                ],
+                start: 1,
+                end: 10,
+                kind: 178,
+                flags: 0
+              },
+              right: {
+                type: 'ArrayLiteral',
+                elements: [],
+                start: 12,
+                end: 14,
+                kind: 178,
+                flags: 0
+              },
+              start: 1,
+              end: 14,
+              kind: 213,
+              flags: 0
+            },
+            start: 0,
+            end: 14,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 14,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '([(a = b)] = [',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid destruct',
+          code: 96,
+          start: 11,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`]` expected',
+          code: 5,
+          start: 13,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 14,
+      end: 14
+    });
+  });
+
+  it('a(0).b(14, 3, 77', () => {
+    t.deepEqual(recovery('a(0).b(14, 3, 77', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'CallExpression',
+            expression: {
+              type: 'MemberExpression',
+              member: {
+                type: 'CallExpression',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 0,
+                  end: 1,
+                  kind: 13,
+                  flags: 0
+                },
+                arguments: [
+                  {
+                    type: 'NumericLiteral',
+                    value: 0,
+                    start: 2,
+                    end: 3,
+                    kind: 10,
+                    flags: 0
+                  }
+                ],
+                start: 0,
+                end: 4,
+                kind: 156,
+                flags: 0
+              },
+              expression: {
+                type: 'IdentifierName',
+                name: 'b',
+                start: 5,
+                end: 6,
+                kind: 13,
+                flags: 0
+              },
+              computed: false,
+              start: 0,
+              end: 6,
+              kind: 154,
+              flags: 0
+            },
+            arguments: [
+              {
+                type: 'NumericLiteral',
+                value: 14,
+                start: 7,
+                end: 9,
+                kind: 10,
+                flags: 0
+              },
+              {
+                type: 'NumericLiteral',
+                value: 3,
+                start: 10,
+                end: 12,
+                kind: 10,
+                flags: 0
+              },
+              {
+                type: 'NumericLiteral',
+                value: 77,
+                start: 13,
+                end: 16,
+                kind: 10,
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 16,
+            kind: 156,
+            flags: 0
+          },
+          start: 0,
+          end: 16,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'a(0).b(14, 3, 77',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 14,
+          length: 2
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 16,
+      end: 16
+    });
+  });
+
   it('"\\9";', () => {
     t.deepEqual(recovery('"\\9";', 'recovery.js'), {
       kind: 209,

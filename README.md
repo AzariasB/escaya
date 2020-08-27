@@ -96,7 +96,7 @@ parseCustomScript('a = b', {
 ## Error recovery
 
 When Escaya parser is given an input that does not represent a valid JavaScript program, it throws an exception. If parsing in
-recovery mode, the parser will continue parsing and produce a syntax tree conforms to the standard [ECMAScript® 2021 specs](https://tc39.es/ecma262/index.html).
+recovery mode, the parser will continue parsing and produce a syntax tree that conforms to the standard [ECMAScript® 2021 specs](https://tc39.es/ecma262/index.html).
 
 However, Escaya will continue to do a full parse for every keystroke. To avoid this you can enable incremental parsing. This is best demonstrated with an example.
 
@@ -124,7 +124,7 @@ One of the design goals for Escaya has been that the abstract syntax tree (AST) 
 
 For example, in `recovery mode` you are creating a `RootNode` instead of either a `Module` or `Script`. This `RootNode` has additional information such as diagnostics, context masks and mutual parser flags that you *carry over* from the recovery mode to the incremental parsing and let you continue to parse in the same context that you are currently in, unless you set a strict directive on the `RootNode`. If you do this, Escaya will parse in strict mode and you will not be able to recover any nodes from the old tree if you were first parsing in *sloppy mode*, because it's only possible to reuse a node if it was parsed with the same context that the parser used before.
 
-## EScaya recovery mode vs. Acorn loose
+### EScaya recovery mode vs. Acorn loose
 
 The main difference is that EScaya's recovery mode conforms to the [ECMAScript® 2021 specs](https://tc39.es/ecma262/index.html) , while `Acorn Loose` does not.
 It's not even an JavaScript parser. You can play with `Acorn Loose`  on `ASTExplorer` and you will notice the differences.

@@ -2,6 +2,758 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Export', () => {
+  it('export function *await(', () => {
+    t.deepEqual(recovery('export function *await(', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExportDeclaration',
+          declaration: {
+            type: 'FunctionDeclaration',
+            name: {
+              type: 'BindingIdentifier',
+              name: 'await',
+              start: 17,
+              end: 22,
+              kind: 168,
+              flags: 0
+            },
+            generator: true,
+            async: false,
+            params: [],
+            contents: {
+              type: 'FunctionBody',
+              directives: [],
+              leafs: [],
+              start: 23,
+              end: 23,
+              kind: 184,
+              flags: 0
+            },
+            start: 6,
+            end: 23,
+            kind: 186,
+            flags: 0
+          },
+          namedExports: [],
+          namedBinding: null,
+          fromClause: null,
+          start: 0,
+          end: 23,
+          kind: 223,
+          flags: 0
+        }
+      ],
+      text: 'export function *await(',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: '`await` can not be used as a function name in this context',
+          code: 89,
+          start: 17,
+          length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 22,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 23,
+      end: 23
+    });
+  });
+
+  it('export { default as', () => {
+    t.deepEqual(recovery('export { default as', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExportDeclaration',
+          declaration: null,
+          namedExports: [
+            {
+              type: 'ExportSpecifier',
+              name: {
+                type: 'IdentifierName',
+                name: 'default',
+                start: 8,
+                end: 16,
+                kind: 13,
+                flags: 0
+              },
+              binding: {
+                type: 'IdentifierName',
+                name: '',
+                start: 19,
+                end: 19,
+                kind: 13,
+                flags: 0
+              },
+              start: 8,
+              end: 19,
+              kind: 225,
+              flags: 0
+            }
+          ],
+          namedBinding: null,
+          fromClause: null,
+          start: 0,
+          end: 19,
+          kind: 223,
+          flags: 0
+        }
+      ],
+      text: 'export { default as',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Expected an identifier',
+          code: 20,
+          start: 17,
+          length: 2
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 19,
+      end: 19
+    });
+  });
+
+  it('export { default as !!', () => {
+    t.deepEqual(recovery('export { default as !!', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExportDeclaration',
+          declaration: null,
+          namedExports: [
+            {
+              type: 'ExportSpecifier',
+              name: {
+                type: 'IdentifierName',
+                name: 'default',
+                start: 8,
+                end: 16,
+                kind: 13,
+                flags: 0
+              },
+              binding: {
+                type: 'IdentifierName',
+                name: '',
+                start: 21,
+                end: 21,
+                kind: 13,
+                flags: 0
+              },
+              start: 8,
+              end: 21,
+              kind: 225,
+              flags: 0
+            }
+          ],
+          namedBinding: null,
+          fromClause: null,
+          start: 0,
+          end: 21,
+          kind: 223,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 22,
+              end: 22,
+              kind: 13,
+              flags: 2
+            },
+            start: 21,
+            end: 22,
+            kind: 160,
+            flags: 0
+          },
+          start: 21,
+          end: 22,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'export { default as !!',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Expected an identifier',
+          code: 20,
+          start: 20,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 21,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 22,
+      end: 22
+    });
+  });
+
+  it('export var y = 0;', () => {
+    t.deepEqual(recovery('export var y = 0;', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExportDeclaration',
+          declaration: {
+            type: 'VariableStatement',
+            declarations: [
+              {
+                type: 'VariableDeclaration',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'y',
+                  start: 10,
+                  end: 12,
+                  kind: 168,
+                  flags: 0
+                },
+                initializer: {
+                  type: 'NumericLiteral',
+                  value: 0,
+                  start: 14,
+                  end: 16,
+                  kind: 10,
+                  flags: 0
+                },
+                start: 10,
+                end: 16,
+                kind: 144,
+                flags: 0
+              }
+            ],
+            start: 6,
+            end: 17,
+            kind: 143,
+            flags: 0
+          },
+          namedExports: [],
+          namedBinding: null,
+          fromClause: null,
+          start: 0,
+          end: 17,
+          kind: 223,
+          flags: 0
+        }
+      ],
+      text: 'export var y = 0;',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 17,
+      end: 17
+    });
+  });
+
+  it('export { arguments } from "m.js";', () => {
+    t.deepEqual(recovery('export { arguments } from "m.js";', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExportDeclaration',
+          declaration: null,
+          namedExports: [
+            {
+              type: 'ExportSpecifier',
+              name: {
+                type: 'IdentifierName',
+                name: 'arguments',
+                start: 8,
+                end: 18,
+                kind: 13,
+                flags: 0
+              },
+              binding: null,
+              start: 8,
+              end: 18,
+              kind: 225,
+              flags: 0
+            }
+          ],
+          namedBinding: null,
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'm.js',
+            start: 25,
+            end: 32,
+            kind: 12,
+            flags: 0
+          },
+          start: 0,
+          end: 32,
+          kind: 223,
+          flags: 0
+        },
+        {
+          type: 'EmptyStatement',
+          start: 32,
+          end: 33,
+          kind: 148,
+          flags: 0
+        }
+      ],
+      text: 'export { arguments } from "m.js";',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 33,
+      end: 33
+    });
+  });
+
+  it('export { a as b } from "m.js";', () => {
+    t.deepEqual(recovery('export { a as b } from "m.js";', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExportDeclaration',
+          declaration: null,
+          namedExports: [
+            {
+              type: 'ExportSpecifier',
+              name: {
+                type: 'IdentifierName',
+                name: 'a',
+                start: 8,
+                end: 10,
+                kind: 13,
+                flags: 0
+              },
+              binding: {
+                type: 'IdentifierName',
+                name: 'b',
+                start: 13,
+                end: 15,
+                kind: 13,
+                flags: 0
+              },
+              start: 8,
+              end: 15,
+              kind: 225,
+              flags: 0
+            }
+          ],
+          namedBinding: null,
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'm.js',
+            start: 22,
+            end: 29,
+            kind: 12,
+            flags: 0
+          },
+          start: 0,
+          end: 29,
+          kind: 223,
+          flags: 0
+        },
+        {
+          type: 'EmptyStatement',
+          start: 29,
+          end: 30,
+          kind: 148,
+          flags: 0
+        }
+      ],
+      text: 'export { a as b } from "m.js";',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 30,
+      end: 30
+    });
+  });
+
+  it('var a; export { a as b, a as c };', () => {
+    t.deepEqual(recovery('var a; export { a as b, a as c };', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'VariableStatement',
+          declarations: [
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'a',
+                start: 3,
+                end: 5,
+                kind: 168,
+                flags: 0
+              },
+              initializer: null,
+              start: 3,
+              end: 5,
+              kind: 144,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 6,
+          kind: 143,
+          flags: 0
+        },
+        {
+          type: 'ExportDeclaration',
+          declaration: null,
+          namedExports: [
+            {
+              type: 'ExportSpecifier',
+              name: {
+                type: 'IdentifierName',
+                name: 'a',
+                start: 15,
+                end: 17,
+                kind: 13,
+                flags: 0
+              },
+              binding: {
+                type: 'IdentifierName',
+                name: 'b',
+                start: 20,
+                end: 22,
+                kind: 13,
+                flags: 0
+              },
+              start: 15,
+              end: 22,
+              kind: 225,
+              flags: 0
+            },
+            {
+              type: 'ExportSpecifier',
+              name: {
+                type: 'IdentifierName',
+                name: 'a',
+                start: 23,
+                end: 25,
+                kind: 13,
+                flags: 0
+              },
+              binding: {
+                type: 'IdentifierName',
+                name: 'c',
+                start: 28,
+                end: 30,
+                kind: 13,
+                flags: 0
+              },
+              start: 23,
+              end: 30,
+              kind: 225,
+              flags: 0
+            }
+          ],
+          namedBinding: null,
+          fromClause: null,
+          start: 6,
+          end: 32,
+          kind: 223,
+          flags: 0
+        },
+        {
+          type: 'EmptyStatement',
+          start: 32,
+          end: 33,
+          kind: 148,
+          flags: 0
+        }
+      ],
+      text: 'var a; export { a as b, a as c };',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 33,
+      end: 33
+    });
+  });
+
+  it('class c { }; export default c', () => {
+    t.deepEqual(recovery('class c { }; export default c', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ClassDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'c',
+            start: 5,
+            end: 7,
+            kind: 168,
+            flags: 0
+          },
+          heritage: null,
+          elements: [],
+          start: 0,
+          end: 11,
+          kind: 150,
+          flags: 0
+        },
+        {
+          type: 'EmptyStatement',
+          start: 11,
+          end: 12,
+          kind: 148,
+          flags: 0
+        },
+        {
+          type: 'ExportDefault',
+          declaration: {
+            type: 'IdentifierReference',
+            name: 'c',
+            start: 27,
+            end: 29,
+            kind: 13,
+            flags: 0
+          },
+          start: 12,
+          end: 29,
+          kind: 224,
+          flags: 0
+        }
+      ],
+      text: 'class c { }; export default c',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 29,
+      end: 29
+    });
+  });
+
+  it('export let x = y, [...z] = y;', () => {
+    t.deepEqual(recovery('export let x = y, [...z] = y;', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExportDeclaration',
+          declaration: {
+            type: 'LexicalDeclaration',
+            isConst: false,
+            declarations: [
+              {
+                type: 'LexicalBinding',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 10,
+                  end: 12,
+                  kind: 168,
+                  flags: 0
+                },
+                initializer: {
+                  type: 'IdentifierReference',
+                  name: 'y',
+                  start: 14,
+                  end: 16,
+                  kind: 13,
+                  flags: 0
+                },
+                start: 10,
+                end: 16,
+                kind: 146,
+                flags: 0
+              },
+              {
+                type: 'LexicalBinding',
+                binding: {
+                  type: 'ArrayBindingPattern',
+                  elements: [
+                    {
+                      type: 'BindingRestElement',
+                      argument: {
+                        type: 'BindingIdentifier',
+                        name: 'z',
+                        start: 22,
+                        end: 23,
+                        kind: 168,
+                        flags: 0
+                      },
+                      start: 19,
+                      end: 23,
+                      kind: 175,
+                      flags: 0
+                    }
+                  ],
+                  start: 17,
+                  end: 24,
+                  kind: 174,
+                  flags: 0
+                },
+                initializer: {
+                  type: 'IdentifierReference',
+                  name: 'y',
+                  start: 26,
+                  end: 28,
+                  kind: 13,
+                  flags: 0
+                },
+                start: 17,
+                end: 28,
+                kind: 146,
+                flags: 0
+              }
+            ],
+            start: 6,
+            end: 29,
+            kind: 145,
+            flags: 0
+          },
+          namedExports: [],
+          namedBinding: null,
+          fromClause: null,
+          start: 0,
+          end: 29,
+          kind: 223,
+          flags: 0
+        }
+      ],
+      text: 'export let x = y, [...z] = y;',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 29,
+      end: 29
+    });
+  });
+
+  it('export default () => {}', () => {
+    t.deepEqual(recovery('export default () => {}', 'recovery.js', { module: true }), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExportDefault',
+          declaration: {
+            type: 'ArrowFunction',
+            params: [],
+            contents: {
+              type: 'FunctionBody',
+              directives: [],
+              leafs: [],
+              start: 20,
+              end: 23,
+              kind: 184,
+              flags: 0
+            },
+            async: false,
+            start: 14,
+            end: 23,
+            kind: 188,
+            flags: 0
+          },
+          start: 0,
+          end: 23,
+          kind: 224,
+          flags: 0
+        }
+      ],
+      text: 'export default () => {}',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 23,
+      end: 23
+    });
+  });
+
   it('export import from "foo"', () => {
     t.deepEqual(recovery('export import from "foo"', 'recovery.js', { module: true }), {
       kind: 209,
@@ -99,29 +851,35 @@ describe('Recovery - Export', () => {
         {
           type: 'ExportDeclaration',
           declaration: null,
-          namedExports: [
-            {
-              type: 'ExportSpecifier',
-              name: {
-                type: 'IdentifierName',
-                name: '',
-                start: 9,
-                end: 9,
-                kind: 13,
-                flags: 0
-              },
-              binding: null,
-              start: 8,
-              end: 9,
-              kind: 225,
-              flags: 0
-            }
-          ],
+          namedExports: [],
           namedBinding: null,
           fromClause: null,
           start: 0,
-          end: 9,
+          end: 8,
           kind: 223,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 9,
+              end: 9,
+              kind: 13,
+              flags: 2
+            },
+            start: 8,
+            end: 9,
+            kind: 160,
+            flags: 0
+          },
+          start: 8,
+          end: 9,
+          kind: 122,
           flags: 0
         }
       ],
@@ -131,10 +889,10 @@ describe('Recovery - Export', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
+          kind: 2,
           source: 2,
-          message: 'Expected an identifier',
-          code: 20,
+          message: '`}` expected',
+          code: 5,
           start: 8,
           length: 1
         }
@@ -266,63 +1024,6 @@ describe('Recovery - Export', () => {
         }
       ],
       text: 'export *'
-    });
-  });
-  it('export {!', () => {
-    t.deepEqual(recovery('export {!', 'recovery.js', { module: true }), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExportDeclaration',
-          declaration: null,
-          namedExports: [
-            {
-              type: 'ExportSpecifier',
-              name: {
-                type: 'IdentifierName',
-                name: '',
-                start: 9,
-                end: 9,
-                kind: 13,
-                flags: 0
-              },
-              binding: null,
-              start: 8,
-              end: 9,
-              kind: 225,
-              flags: 0
-            }
-          ],
-          namedBinding: null,
-          fromClause: null,
-          start: 0,
-          end: 9,
-          kind: 223,
-          flags: 0
-        }
-      ],
-      text: 'export {!',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 3,
-          source: 2,
-          message: 'Expected an identifier',
-          code: 20,
-          start: 8,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 9,
-      end: 9
     });
   });
 
@@ -736,29 +1437,36 @@ describe('Recovery - Export', () => {
               end: 15,
               kind: 225,
               flags: 0
-            },
-            {
-              type: 'ExportSpecifier',
-              name: {
-                type: 'IdentifierName',
-                name: '',
-                start: 17,
-                end: 17,
-                kind: 13,
-                flags: 0
-              },
-              binding: null,
-              start: 15,
-              end: 17,
-              kind: 225,
-              flags: 0
             }
           ],
           namedBinding: null,
           fromClause: null,
           start: 0,
-          end: 17,
+          end: 15,
           kind: 223,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 17,
+              end: 17,
+              kind: 13,
+              flags: 2
+            },
+            start: 15,
+            end: 17,
+            kind: 160,
+            flags: 0
+          },
+          start: 15,
+          end: 17,
+          kind: 122,
           flags: 0
         }
       ],

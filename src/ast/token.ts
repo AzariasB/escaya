@@ -74,7 +74,7 @@ export const enum Token {
   PrecStart = 8,
   Precedence = 15 << PrecStart, // 8-11
   IsLogical = 1 << 4,
-  Coalesc = 1 << 5,
+
   IsStatementStart = 1 << 12,
   IsExpressionStart = 1 << 13,
   IsAutomaticSemicolon = 1 << 14,
@@ -128,7 +128,7 @@ export const enum Token {
   RightBracket = 21, // ]
   Colon = 22, // :
   QuestionMark = 23, // ?
-  Nullish = 24 | IsBinaryOp | (1 << PrecStart) | Coalesc, // ??
+  Nullish = 24 | IsBinaryOp | (1 << PrecStart), // ??
   QuestionMarkPeriod = 25 | IsPropertyOrCall, // ?.
   SingleQuote = 26, // '
   DoubleQuote = 27, // "
