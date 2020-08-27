@@ -182,7 +182,7 @@ export function parseStatementList(
   // StatementList ::
   //   (StatementListItem)* <end_token>
 
-  while (state.token & Constants.IsSourceElement) {
+  while (state.token & Constants.SourceElements) {
     statementList.push(parseBlockElements(state, context, scope, null, null, cb));
   }
 
@@ -191,7 +191,7 @@ export function parseStatementList(
   if (state.token === Token.EOF) return statementList;
 
   do {
-    if (state.token & Constants.IsSourceElement) {
+    if (state.token & Constants.SourceElements) {
       statementList.push(parseBlockElements(state, context, scope, null, null, cb));
       continue;
     }
@@ -414,7 +414,7 @@ export function parseCaseOrDefaultClause(
     // We allow almost everything inside the 'while' loop in 'normal mode' to trigger a nice
     // error message. We do not allow 'Token.DefaultKeyword', 'Token.CaseKeyword', 'Token.RightBrace'.
     // In 'recovery mode' we only allow 'Token.IsStatementStart' and 'Token.IsExpressionStart'.
-    const check = context & Context.ErrorRecovery ? Constants.IsClauseRecovery : Constants.IsClauseNormal;
+    const check = context & Context.ErrorRecovery ? Constants.SwitchClausesR : Constants.SwitchClausesN;
 
     while (state.token & check) statements.push(parseStatementListItem(state, context, scope, labels, ownLabels));
 
@@ -424,7 +424,7 @@ export function parseCaseOrDefaultClause(
   consume(state, context, Token.DefaultKeyword);
   consume(state, context | Context.AllowRegExp, Token.Colon);
 
-  const check = context & Context.ErrorRecovery ? Constants.IsClauseRecovery : Constants.IsClauseNormal;
+  const check = context & Context.ErrorRecovery ? Constants.SwitchClausesR : Constants.SwitchClausesN;
 
   while (state.token & check) statements.push(parseStatementListItem(state, context, scope, labels, ownLabels));
 
@@ -658,7 +658,7 @@ export function parseBlockStatement(
     // We avoid making a a new 'catch scope' while parsing out a "TryStatement" for
     // cases like 'try {} catch(x) {}'. Instead we continue with current scope.
     if (!isCatchScope) scope = createParentScope(scope, ScopeKind.Block);
-    while (state.token & Constants.IsSourceElement) {
+    while (state.token & Constants.SourceElements) {
       statements.push(parseBlockElements(state, context, scope, labels, ownLabels, parseStatementListItem));
     }
     consume(state, context | Context.AllowRegExp, Token.RightBrace);
@@ -682,7 +682,7 @@ export function parseBreakStatement(state: ParserState, context: Context, labels
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   let label = null;
-  if (!state.lineTerminatorBeforeNextToken && state.token & Constants.IsValidLabel) {
+  if (!state.lineTerminatorBeforeNextToken && state.token & Constants.IdentifierOrFutureReserved) {
     // We set the 'Context.AllowRegExp' bit here so we safely can parse out edge cases where
     // there is a newline and the next token is a regex. For example `label: for(;;) break label \n /foo/`.
     // ASI will automatically kick in.
@@ -707,7 +707,7 @@ export function parseContinueStatement(state: ParserState, context: Context, lab
   nextToken(state, context | Context.AllowRegExp);
   let label = null;
   // We set the 'Context.AllowRegExp' bit here for the same reason given for 'parseBreakStatement'.
-  if (!state.lineTerminatorBeforeNextToken && state.token & Constants.IsValidLabel) {
+  if (!state.lineTerminatorBeforeNextToken && state.token & Constants.IdentifierOrFutureReserved) {
     const tokenValue = state.tokenValue;
     label = parseIdentifierReference(state, context | Context.AllowRegExp);
     if (checkContinueStatement(labels, tokenValue) === 0) {
@@ -775,7 +775,7 @@ export function parseForStatement(
     if (state.token & Token.IsVarLexical) {
       if (state.token === Token.LetKeyword) {
         nextToken(state, context);
-        if (state.token & Constants.IsPatternOrIdentifierNormal) {
+        if (state.token & Constants.PatternOrIdentifier) {
           initializer = parseForDeclaration(
             state,
             context | Context.DisallowIn,
@@ -1030,8 +1030,7 @@ export function parseForBindingList(
 ): (LexicalBinding | VariableDeclaration)[] {
   const declarationList = [];
   let count = 0;
-  const check =
-    context & Context.ErrorRecovery ? Constants.IsPatternOrIdentifierRecovery : Constants.IsPatternOrIdentifierNormal;
+  const check = context & Context.ErrorRecovery ? Constants.PatternOrIdentifier : Constants.PatternOrIdentifier;
   while (state.token & check) {
     declarationList.push(parseBindingElements(state, context, scope, type, cb));
     count++;
@@ -1145,7 +1144,7 @@ export function parseExpressionOrLabelledStatement(
   const { startIndex, token, tokenValue } = state;
   let expr = parsePrimaryExpression(state, context);
   if (
-    token & (context & Context.ErrorRecovery ? Constants.IsLabelRecovery : Constants.IsLabelNormal) &&
+    token & (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword) &&
     state.token === Token.Colon
   ) {
     return parseLabelledStatement(
@@ -1279,7 +1278,7 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
   // for cases like 'try {} catch({{}{{}{}{{}{}{}{}{}{{x)!{}', 'import { import !'
   // and 'function ({function (function (' - we use the 'endIndex' as the start
   // value of this dummy node *after* we parsed out our identifier.
-  if (context & Context.ErrorRecovery && (state.token & Constants.IsIdentifierOrKeyword) === 0) {
+  if (context & Context.ErrorRecovery && (state.token & Constants.IdentifierOrKeyword) === 0) {
     addEarlyDiagnostic(state, context, DiagnosticCode.ExpectedAnIdentifier);
     nextToken(state, context);
     return finishNode(state, context, state.endIndex, DictionaryMap.IdentifierName(''), SyntaxKind.Identifier);
@@ -1306,7 +1305,7 @@ export function parseBindingIdentifier(
     addEarlyDiagnostic(state, context, DiagnosticCode.UnexpectedYieldAsBIdent);
   } else if ((context & (Context.Await | Context.Module)) > 0 && state.token === Token.AwaitKeyword) {
     addEarlyDiagnostic(state, context, DiagnosticCode.UnexpectedAwaitAsBIdent);
-  } else if ((state.token & Constants.IsIdentifierOrKeyword) === 0) {
+  } else if ((state.token & Constants.IdentifierOrKeyword) === 0) {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
     value = '';
   }
@@ -1383,7 +1382,7 @@ export function parseVariableDeclaration(
 export function parseVariableDeclarationList(state: ParserState, context: Context, scope: any): VariableDeclaration[] {
   const declarationList = [];
 
-  const check = context & Context.ErrorRecovery ? Constants.IsVarOrLexicalRecovery : Constants.IsVarOrLexicalNormal;
+  const check = context & Context.ErrorRecovery ? Constants.PatternOrIdentifier : Constants.VarOrLexical;
 
   while (state.token & check) {
     declarationList.push(parseBindingElements(state, context, scope, BindingType.Var, parseVariableDeclaration));
@@ -1427,8 +1426,8 @@ export function parseLexicalDeclaration(
 ): LexicalDeclaration | Statement {
   const start = state.startIndex;
   nextToken(state, context);
-  if (type & BindingType.Let && (state.token & Constants.LetAsIdentifier) === 0) {
-    return parseLetAsIdentifierReference(state, context, start, labels, ownLabels);
+  if (type & BindingType.Let && (state.token & Constants.NextTokenIsNotALetDeclaration) === 0) {
+    return parseNextTokenIsNotALetDeclarationReference(state, context, start, labels, ownLabels);
   }
   const declarations = parseBindingList(state, (context | Context.InBlock) ^ Context.InBlock, scope, type);
   expectSemicolon(state, context);
@@ -1441,7 +1440,7 @@ export function parseLexicalDeclaration(
   );
 }
 
-export function parseLetAsIdentifierReference(
+export function parseNextTokenIsNotALetDeclarationReference(
   state: ParserState,
   context: Context,
   start: number,
@@ -1533,7 +1532,7 @@ export function parseBindingList(
 ): (LexicalBinding | VariableDeclaration)[] {
   const declarationList = [];
 
-  const check = context & Context.ErrorRecovery ? Constants.IsVarOrLexicalRecovery : Constants.IsVarOrLexicalNormal;
+  const check = context & Context.ErrorRecovery ? Constants.PatternOrIdentifier : Constants.VarOrLexical;
 
   while (state.token & check) {
     declarationList.push(parseBindingElements(state, context, scope, type, parseLexicalBinding));
@@ -1833,7 +1832,7 @@ export function parsePropertyOrPrivatePropertyName(
   state: ParserState,
   context: Context
 ): IdentifierName | IdentifierReference {
-  if (state.token & Constants.IsIdentifierOrKeyword) {
+  if (state.token & Constants.IdentifierOrKeyword) {
     const { startIndex: start, tokenValue } = state;
     nextToken(state, context);
     return finishNode(state, context, start, DictionaryMap.IdentifierName(tokenValue), SyntaxKind.Identifier);
@@ -1934,7 +1933,7 @@ export function parseCallChain(
 export function parseArguments(state: ParserState, context: Context): (Expression | AssignmentRestElement)[] {
   const args = [];
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
-  const check = context & Context.ErrorRecovery ? Constants.IsArgumentListRecovery : Constants.IsDelimitedListNormal;
+  const check = context & Context.ErrorRecovery ? Constants.ArgumentList : Constants.DelimitedList;
   while (state.token & check) {
     args.push(parseListElements(state, context, parseArgumentList));
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
@@ -2385,7 +2384,7 @@ export function parseObjectBindingPattern(
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   consume(state, context, Token.LeftBrace);
   const properties = [];
-  const check = context & Context.ErrorRecovery ? Constants.ObjectPattern : Constants.ObjectList;
+  const check = context & Context.ErrorRecovery ? Constants.ObjectPatternR : Constants.ObjectPatternN;
   while (state.token & check) {
     if (state.token === Token.Ellipsis) {
       properties.push(parseBindingRestProperty(state, context, type));
@@ -2423,7 +2422,7 @@ export function parseBindingRestProperty(state: ParserState, context: Context, t
   // as we found '(' without priming the scanner, and let the '(a, b' be parsed out as it's own
   // production.
   let argument!: BindingIdentifier;
-  if (state.token & Constants.IsIdentifierOrKeyword) {
+  if (state.token & Constants.IdentifierOrKeyword) {
     argument = parseBindingIdentifier(state, context, {}, type);
   } else {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
@@ -2445,7 +2444,7 @@ export function parseBindingProperty(
 ): BindingElement | BindingIdentifier {
   const start = state.startIndex;
 
-  if (state.token & Constants.IsIdentifierOrKeyword) {
+  if (state.token & Constants.IdentifierOrKeyword) {
     const tokenValue = state.tokenValue;
     nextToken(state, context);
     if (consumeOpt(state, context, Token.Colon)) {
@@ -2562,7 +2561,7 @@ export function parseArrayBindingPattern(
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   nextToken(state, context | Context.AllowRegExp);
   const list = [];
-  const check = context & Context.ErrorRecovery ? Constants.ArrayPattern : Constants.ArrayListNormal;
+  const check = context & Context.ErrorRecovery ? Constants.ArrayPattern : Constants.ArrayListN;
   while (state.token & check) {
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
       list.push(finishNode(state, context, start, DictionaryMap.Elison(), SyntaxKind.Elison));
@@ -2600,7 +2599,7 @@ export function parseBindingRestElement(
   const start = state.startIndex;
   nextToken(state, context);
   let argument!: BindingIdentifier | ArrayBindingPattern | ObjectBindingPattern;
-  if (state.token & Constants.IsPatternOrIdentifierNormal) {
+  if (state.token & Constants.PatternOrIdentifier) {
     argument = parseBindingPatternOrIdentifier(state, context, scope, type);
   } else {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
@@ -2629,7 +2628,7 @@ export function parseArrayLiteral(
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   const elements = [];
   let destructible = Destructible.None;
-  const check = context & Context.ErrorRecovery ? Constants.ArrayListRecovery : Constants.ArrayListNormal;
+  const check = context & Context.ErrorRecovery ? Constants.ArrayListR : Constants.ArrayListN;
   while (state.token & check) {
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
       elements.push(finishNode(state, context, state.startIndex, DictionaryMap.Elison(), SyntaxKind.Elison));
@@ -2671,7 +2670,7 @@ export function parseElementList(
   if (state.token === Token.Ellipsis) return parseSpreadElement(state, context, scope, type, start);
 
   // Simple cases: "[a]", "[a,]", "[a = b]", "[a.[b] ...]",  "[a.b ... ]" and "[a.(b) ...]"'
-  if (state.token & Constants.IsIdentifierOrKeyword) {
+  if (state.token & Constants.IdentifierOrKeyword) {
     let left = parsePrimaryExpression(state, context);
 
     // Array with only one identifier followed by an assignment, '[a = ', are destructible unless this is a keyword.
@@ -2838,7 +2837,7 @@ export function parseSpreadOrPropertyArgument(
   nextToken(state, context | Context.AllowRegExp); // skips: '...'
   const innerStart = state.startIndex;
 
-  if (state.token & Constants.IsIdentifierOrKeyword) {
+  if (state.token & Constants.IdentifierOrKeyword) {
     const tokenValue = state.tokenValue;
     let argument = parsePrimaryExpression(state, context);
 
@@ -2943,7 +2942,7 @@ export function parseObjectLiteral(
   consume(state, context | Context.AllowRegExp, Token.LeftBrace);
   const properties = [];
   let destructible = Destructible.None;
-  while (state.token & Constants.ObjectListRecovery) {
+  while (state.token & Constants.ObjectLiteralElements) {
     properties.push(parsePropertyDefinition(state, context, scope, type));
     destructible |= state.destructible;
     if (state.token === Token.RightBrace) break;
@@ -3028,7 +3027,7 @@ export function parsePropertyDefinition(
     : PropertyKind.None;
   const token = state.token;
 
-  if (token & Constants.IsIdentifierOrKeyword) {
+  if (token & Constants.IdentifierOrKeyword) {
     const tokenValue = state.tokenValue;
 
     nextToken(state, context);
@@ -3261,7 +3260,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
   context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   let isSimpleParameterList = false;
   if (consume(state, context, Token.LeftParen)) {
-    const check = context & Context.ErrorRecovery ? Constants.IsFormalParamsRecovery : Constants.IsDelimitedListNormal;
+    const check = context & Context.ErrorRecovery ? Constants.FormalParams : Constants.DelimitedList;
     while (state.token & check) {
       if (state.token === Token.Ellipsis) {
         params.push(parseBindingRestElement(state, context, scope, BindingType.None));
@@ -3341,7 +3340,7 @@ export function parseFunctionBody(
       }
     }
 
-    while (state.token & Constants.IsSourceElement) {
+    while (state.token & Constants.SourceElements) {
       statements.push(
         parseBlockElements(
           state,
@@ -3459,7 +3458,7 @@ export function parseFunctionExpression(
 
   if (
     state.token &
-    (context & Context.ErrorRecovery ? Constants.IsIdentifierOrKeywordRecovery : Constants.IsIdentifierOrKeywordNormal)
+    (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword)
   ) {
     name = validateFunctionName(
       state,
@@ -3574,7 +3573,7 @@ export function parseFunctionDeclaration(
   let name: BindingIdentifier | null = null;
   if (
     state.token &
-    (context & Context.ErrorRecovery ? Constants.IsIdentifierOrKeywordRecovery : Constants.IsIdentifierOrKeywordNormal)
+    (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword)
   ) {
     const { tokenValue } = state;
     name = validateFunctionName(state, context | ((context & 0b0000000000000000000_1100_00000000) << 11));
@@ -3684,8 +3683,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
     return finishNode(state, context, start, DictionaryMap.CallExpression(expr, []), SyntaxKind.CallExpression);
   }
 
-  const check =
-    context & Context.ErrorRecovery ? Constants.IsGroupParnethizedRecovery : Constants.IsGroupParnethizedNormal;
+  const check = context & Context.ErrorRecovery ? Constants.ParenthesizedR : Constants.ParenthesizedN;
 
   // For async arrows in 'Recovery mode' we got tons of edge cases. Example this case 'async(async [ => c'.
   // This particular case will be parsed as
@@ -3701,7 +3699,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
   while (state.token & check) {
     const innerStart = state.startIndex;
 
-    if (state.token & Constants.IsIdentifierOrKeyword) {
+    if (state.token & Constants.IdentifierOrKeyword) {
       expression = parsePrimaryExpression(state, context);
 
       // (x, false) => y
@@ -3961,7 +3959,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
   let expression: any;
   let destructible = Destructible.None;
 
-  if (state.token & Constants.IsIdentifierOrKeyword) {
+  if (state.token & Constants.IdentifierOrKeyword) {
     addBlockName(state, context, scope, state.tokenValue, BindingType.ArgumentList);
     expression = parsePrimaryExpression(state, context);
 
@@ -4037,12 +4035,11 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
     if (state.token === Token.RightParen) destructible |= Destructible.DisallowTrailing;
 
-    const check =
-      context & Context.ErrorRecovery ? Constants.IsGroupParnethizedRecovery : Constants.IsGroupParnethizedNormal;
+    const check = context & Context.ErrorRecovery ? Constants.ParenthesizedR : Constants.ParenthesizedN;
 
     while (state.token & check) {
       innerStart = state.startIndex;
-      if (state.token & Constants.IsIdentifierOrKeyword) {
+      if (state.token & Constants.IdentifierOrKeyword) {
         addBlockName(state, context, scope, state.tokenValue, BindingType.ArgumentList);
         expression = parsePrimaryExpression(state, context);
 
@@ -4184,9 +4181,7 @@ export function parseClassDeclaration(state: ParserState, context: Context, scop
 
   if (
     state.token &
-      (context & Context.ErrorRecovery
-        ? Constants.IsIdentifierOrKeywordRecovery
-        : Constants.IsIdentifierOrKeywordNormal) &&
+      (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword) &&
     state.token !== Token.ExtendsKeyword
   ) {
     // A named class creates a new lexical scope with a const binding of the
@@ -4235,9 +4230,7 @@ export function parseClassExpression(state: ParserState, context: Context): Clas
 
   if (
     state.token &
-      (context & Context.ErrorRecovery
-        ? Constants.IsIdentifierOrKeywordRecovery
-        : Constants.IsIdentifierOrKeywordNormal) &&
+      (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword) &&
     state.token !== Token.ExtendsKeyword
   ) {
     name = parseBindingIdentifier(state, context, void 0, BindingType.None);
@@ -4267,7 +4260,7 @@ export function parseClassExpression(state: ParserState, context: Context): Clas
 export function parseClassElementList(state: ParserState, context: Context, inheritedContext: Context): ClassElement[] {
   const elements = [];
   if (consume(state, context | Context.AllowRegExp, Token.LeftBrace)) {
-    const check = context & Context.ErrorRecovery ? Constants.ClassListRecovery : Constants.ClassListNormal;
+    const check = context & Context.ErrorRecovery ? Constants.ClassListR : Constants.ClassListN;
     while (state.token & check) {
       elements.push(parseClassElement(state, context, inheritedContext, false, PropertyKind.None));
       consumeOpt(state, context, Token.Comma);
@@ -4296,7 +4289,7 @@ export function parseClassElement(
     return finishNode(state, context, start, DictionaryMap.Semicolon(), SyntaxKind.Semicolon);
   }
 
-  if (state.token & Constants.IsIdentifierOrKeyword) {
+  if (state.token & Constants.IdentifierOrKeyword) {
     const token = state.token;
     let key: MethodName = parseIdentifierName(state, context);
 
@@ -4591,7 +4584,7 @@ export function parseNamedImports(state: ParserState, context: Context): NamedIm
   const start = state.startIndex;
   consume(state, context, Token.LeftBrace);
   const importsList = [];
-  const check = context & Context.ErrorRecovery ? Constants.ImportExportListRecovery : Constants.ImportExportListNormal;
+  const check = context & Context.ErrorRecovery ? Constants.ModuleElementsR : Constants.ModuleElementsN;
   while (state.token & check) {
     importsList.push(parseImportSpecifier(state, context));
     if (state.token === Token.RightBrace) break;
@@ -4732,7 +4725,7 @@ export function parseExportDeclaration(
 export function parseNamedExports(state: ParserState, context: Context): ExportSpecifier[] {
   consume(state, context, Token.LeftBrace);
   const exportsList = [];
-  const check = context & Context.ErrorRecovery ? Constants.ImportExportListRecovery : Constants.ImportExportListNormal;
+  const check = context & Context.ErrorRecovery ? Constants.ModuleElementsR : Constants.ModuleElementsN;
   while (state.token & check) {
     exportsList.push(parseExportSpecifier(state, context));
     if (state.token === Token.RightBrace) break;
