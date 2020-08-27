@@ -1,11 +1,9 @@
 node_modules/
 dist/
-src/token.ts
-src/common.ts
-src/chars.ts
-src/scanner/charClassifier.ts
-src/scanner/unicode.ts
-src/scanner/lookup.ts
-src/parser/nodeFlags.ts
-src/parser/constants.ts
+src/lexer/char.ts
+src/lexer/asciiChars.ts
+src/lexer/unicode.ts
+src/lexer/lookup.ts
+src/ast/statements/index.ts
+src/constants.ts
 package-lock.json
