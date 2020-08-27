@@ -2,6 +2,69 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Expressions - Arrows', () => {
+  it('(interface, eval) => {}', () => {
+    t.deepEqual(recovery('(interface, eval) => {}', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ArrowFunction',
+            params: [
+              {
+                type: 'BindingIdentifier',
+                name: 'interface',
+                start: 1,
+                end: 10,
+                kind: 13,
+                flags: 0
+              },
+              {
+                type: 'BindingIdentifier',
+                name: 'eval',
+                start: 11,
+                end: 16,
+                kind: 13,
+                flags: 0
+              }
+            ],
+            contents: {
+              type: 'FunctionBody',
+              directives: [],
+              leafs: [],
+              start: 20,
+              end: 23,
+              kind: 184,
+              flags: 0
+            },
+            async: false,
+            start: 0,
+            end: 23,
+            kind: 188,
+            flags: 0
+          },
+          start: 0,
+          end: 23,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '(interface, eval) => {}',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 23,
+      end: 23
+    });
+  });
+
   it('() =>', () => {
     t.deepEqual(recovery('() =>', 'recovery.js'), {
       kind: 209,

@@ -2,6 +2,692 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Expressions - Object', () => {
+  it('a = { a: x, y } = { a: 3 };', () => {
+    t.deepEqual(recovery('a = { a: x, y } = { a: 3 };', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'AssignmentExpression',
+            left: {
+              type: 'IdentifierReference',
+              name: 'a',
+              start: 0,
+              end: 1,
+              kind: 13,
+              flags: 0
+            },
+            operator: '=',
+            right: {
+              type: 'AssignmentElement',
+              left: {
+                type: 'ObjectAssignmentPattern',
+                properties: [
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'IdentifierName',
+                      name: 'a',
+                      start: 5,
+                      end: 8,
+                      kind: 13,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'IdentifierReference',
+                      name: 'x',
+                      start: 8,
+                      end: 10,
+                      kind: 13,
+                      flags: 0
+                    },
+                    start: 5,
+                    end: 10,
+                    kind: 227,
+                    flags: 0
+                  },
+                  {
+                    type: 'IdentifierReference',
+                    name: 'y',
+                    start: 11,
+                    end: 13,
+                    kind: 13,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 15,
+                kind: 179,
+                flags: 0
+              },
+              right: {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'IdentifierName',
+                      name: 'a',
+                      start: 19,
+                      end: 22,
+                      kind: 13,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'NumericLiteral',
+                      value: 3,
+                      start: 22,
+                      end: 24,
+                      kind: 10,
+                      flags: 0
+                    },
+                    start: 19,
+                    end: 24,
+                    kind: 227,
+                    flags: 0
+                  }
+                ],
+                start: 17,
+                end: 26,
+                kind: 179,
+                flags: 0
+              },
+              start: 3,
+              end: 26,
+              kind: 213,
+              flags: 0
+            },
+            start: 0,
+            end: 26,
+            kind: 152,
+            flags: 0
+          },
+          start: 0,
+          end: 27,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'a = { a: x, y } = { a: 3 };',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 27,
+      end: 27
+    });
+  });
+
+  it('y = { w, x } = { x: 4 };', () => {
+    t.deepEqual(recovery('y = { w, x } = { x: 4 };', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'AssignmentExpression',
+            left: {
+              type: 'IdentifierReference',
+              name: 'y',
+              start: 0,
+              end: 1,
+              kind: 13,
+              flags: 0
+            },
+            operator: '=',
+            right: {
+              type: 'AssignmentElement',
+              left: {
+                type: 'ObjectAssignmentPattern',
+                properties: [
+                  {
+                    type: 'IdentifierReference',
+                    name: 'w',
+                    start: 5,
+                    end: 7,
+                    kind: 13,
+                    flags: 0
+                  },
+                  {
+                    type: 'IdentifierReference',
+                    name: 'x',
+                    start: 8,
+                    end: 10,
+                    kind: 13,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 12,
+                kind: 179,
+                flags: 0
+              },
+              right: {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'IdentifierName',
+                      name: 'x',
+                      start: 16,
+                      end: 19,
+                      kind: 13,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'NumericLiteral',
+                      value: 4,
+                      start: 19,
+                      end: 21,
+                      kind: 10,
+                      flags: 0
+                    },
+                    start: 16,
+                    end: 21,
+                    kind: 227,
+                    flags: 0
+                  }
+                ],
+                start: 14,
+                end: 23,
+                kind: 179,
+                flags: 0
+              },
+              start: 3,
+              end: 23,
+              kind: 213,
+              flags: 0
+            },
+            start: 0,
+            end: 23,
+            kind: 152,
+            flags: 0
+          },
+          start: 0,
+          end: 24,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'y = { w, x } = { x: 4 };',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 24,
+      end: 24
+    });
+  });
+
+  it('({a: [b]} = 1 / (d = ((a)) = a))', () => {
+    t.deepEqual(recovery('({a: [b]} = 1 / (d = ((a)) = a))', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'AssignmentElement',
+              left: {
+                type: 'ObjectAssignmentPattern',
+                properties: [
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'IdentifierName',
+                      name: 'a',
+                      start: 2,
+                      end: 4,
+                      kind: 13,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'ArrayAssignmentPattern',
+                      elements: [
+                        {
+                          type: 'IdentifierReference',
+                          name: 'b',
+                          start: 6,
+                          end: 7,
+                          kind: 13,
+                          flags: 0
+                        }
+                      ],
+                      start: 4,
+                      end: 8,
+                      kind: 178,
+                      flags: 0
+                    },
+                    start: 2,
+                    end: 8,
+                    kind: 227,
+                    flags: 0
+                  }
+                ],
+                start: 1,
+                end: 9,
+                kind: 179,
+                flags: 0
+              },
+              right: {
+                type: 'BinaryExpression',
+                left: {
+                  type: 'NumericLiteral',
+                  value: 1,
+                  start: 11,
+                  end: 13,
+                  kind: 10,
+                  flags: 0
+                },
+                operator: '/',
+                right: {
+                  type: 'ParenthesizedExpression',
+                  expression: {
+                    type: 'AssignmentExpression',
+                    left: {
+                      type: 'IdentifierReference',
+                      name: 'd',
+                      start: 17,
+                      end: 18,
+                      kind: 13,
+                      flags: 0
+                    },
+                    operator: '=',
+                    right: {
+                      type: 'AssignmentExpression',
+                      left: {
+                        type: 'ParenthesizedExpression',
+                        expression: {
+                          type: 'ParenthesizedExpression',
+                          expression: {
+                            type: 'IdentifierReference',
+                            name: 'a',
+                            start: 23,
+                            end: 24,
+                            kind: 13,
+                            flags: 0
+                          },
+                          start: 22,
+                          end: 25,
+                          kind: 189,
+                          flags: 0
+                        },
+                        start: 20,
+                        end: 26,
+                        kind: 189,
+                        flags: 0
+                      },
+                      operator: '=',
+                      right: {
+                        type: 'IdentifierReference',
+                        name: 'a',
+                        start: 28,
+                        end: 30,
+                        kind: 13,
+                        flags: 0
+                      },
+                      start: 20,
+                      end: 30,
+                      kind: 152,
+                      flags: 0
+                    },
+                    start: 17,
+                    end: 30,
+                    kind: 152,
+                    flags: 0
+                  },
+                  start: 15,
+                  end: 31,
+                  kind: 189,
+                  flags: 0
+                },
+                start: 11,
+                end: 31,
+                kind: 155,
+                flags: 0
+              },
+              start: 1,
+              end: 31,
+              kind: 213,
+              flags: 0
+            },
+            start: 0,
+            end: 32,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 32,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '({a: [b]} = 1 / (d = ((a)) = a))',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 32,
+      end: 32
+    });
+  });
+
+  it('x = ({foo(){}, async bar(){}});', () => {
+    t.deepEqual(recovery('x = ({foo(){}, async bar(){}});', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'AssignmentExpression',
+            left: {
+              type: 'IdentifierReference',
+              name: 'x',
+              start: 0,
+              end: 1,
+              kind: 13,
+              flags: 0
+            },
+            operator: '=',
+            right: {
+              type: 'ParenthesizedExpression',
+              expression: {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'MethodDefinition',
+                    async: false,
+                    generator: false,
+                    propertySetParameterList: [],
+                    uniqueFormalParameters: [],
+                    name: {
+                      type: 'IdentifierName',
+                      name: 'foo',
+                      start: 6,
+                      end: 9,
+                      kind: 13,
+                      flags: 0
+                    },
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
+                      start: 11,
+                      end: 13,
+                      kind: 184,
+                      flags: 0
+                    },
+                    start: 9,
+                    end: 13,
+                    kind: 182,
+                    flags: 0
+                  },
+                  {
+                    type: 'MethodDefinition',
+                    async: true,
+                    generator: false,
+                    propertySetParameterList: [],
+                    uniqueFormalParameters: [],
+                    name: {
+                      type: 'IdentifierName',
+                      name: 'bar',
+                      start: 20,
+                      end: 24,
+                      kind: 13,
+                      flags: 0
+                    },
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
+                      start: 26,
+                      end: 28,
+                      kind: 184,
+                      flags: 0
+                    },
+                    start: 24,
+                    end: 28,
+                    kind: 182,
+                    flags: 0
+                  }
+                ],
+                start: 5,
+                end: 29,
+                kind: 179,
+                flags: 0
+              },
+              start: 3,
+              end: 30,
+              kind: 189,
+              flags: 0
+            },
+            start: 0,
+            end: 30,
+            kind: 152,
+            flags: 0
+          },
+          start: 0,
+          end: 31,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'x = ({foo(){}, async bar(){}});',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 31,
+      end: 31
+    });
+  });
+
+  it('x = ({*foo(){}});', () => {
+    t.deepEqual(recovery('x = ({*foo(){}});', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'AssignmentExpression',
+            left: {
+              type: 'IdentifierReference',
+              name: 'x',
+              start: 0,
+              end: 1,
+              kind: 13,
+              flags: 0
+            },
+            operator: '=',
+            right: {
+              type: 'ParenthesizedExpression',
+              expression: {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'MethodDefinition',
+                    async: false,
+                    generator: true,
+                    propertySetParameterList: [],
+                    uniqueFormalParameters: [],
+                    name: {
+                      type: 'IdentifierName',
+                      name: 'foo',
+                      start: 6,
+                      end: 10,
+                      kind: 13,
+                      flags: 0
+                    },
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
+                      start: 12,
+                      end: 14,
+                      kind: 184,
+                      flags: 0
+                    },
+                    start: 10,
+                    end: 14,
+                    kind: 182,
+                    flags: 0
+                  }
+                ],
+                start: 5,
+                end: 15,
+                kind: 179,
+                flags: 0
+              },
+              start: 3,
+              end: 16,
+              kind: 189,
+              flags: 0
+            },
+            start: 0,
+            end: 16,
+            kind: 152,
+            flags: 0
+          },
+          start: 0,
+          end: 17,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'x = ({*foo(){}});',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 17,
+      end: 17
+    });
+  });
+
+  it('a = {"a": b} = b', () => {
+    t.deepEqual(recovery('a = {"a": b} = b', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'AssignmentExpression',
+            left: {
+              type: 'IdentifierReference',
+              name: 'a',
+              start: 0,
+              end: 1,
+              kind: 13,
+              flags: 0
+            },
+            operator: '=',
+            right: {
+              type: 'AssignmentElement',
+              left: {
+                type: 'ObjectAssignmentPattern',
+                properties: [
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'StringLiteral',
+                      value: 'a',
+                      start: 5,
+                      end: 8,
+                      kind: 12,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'IdentifierReference',
+                      name: 'b',
+                      start: 9,
+                      end: 11,
+                      kind: 13,
+                      flags: 0
+                    },
+                    start: 5,
+                    end: 11,
+                    kind: 227,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 12,
+                kind: 179,
+                flags: 0
+              },
+              right: {
+                type: 'IdentifierReference',
+                name: 'b',
+                start: 14,
+                end: 16,
+                kind: 13,
+                flags: 0
+              },
+              start: 3,
+              end: 16,
+              kind: 213,
+              flags: 0
+            },
+            start: 0,
+            end: 16,
+            kind: 152,
+            flags: 0
+          },
+          start: 0,
+          end: 16,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: 'a = {"a": b} = b',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 16,
+      end: 16
+    });
+  });
+
   it('({...', () => {
     t.deepEqual(recovery('({...', 'recovery.js'), {
       kind: 209,

@@ -2,6 +2,580 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - For', () => {
+  it('for (var i = 0; i < 40000; i++) { src = { ...i, x: -9007199254740991 }; clone = { ...src }; }', () => {
+    t.deepEqual(
+      recovery(
+        'for (var i = 0; i < 40000; i++) { src = { ...i, x: -9007199254740991 }; clone = { ...src }; }',
+        'recovery.js'
+      ),
+      {
+        kind: 209,
+        directives: [],
+        leafs: [
+          {
+            type: 'ForStatement',
+            initializer: {
+              type: 'ForDeclaration',
+              isConst: false,
+              declarations: [
+                {
+                  type: 'VariableDeclaration',
+                  binding: {
+                    type: 'BindingIdentifier',
+                    name: 'i',
+                    start: 8,
+                    end: 10,
+                    kind: 168,
+                    flags: 0
+                  },
+                  initializer: {
+                    type: 'NumericLiteral',
+                    value: 0,
+                    start: 12,
+                    end: 14,
+                    kind: 10,
+                    flags: 0
+                  },
+                  start: 8,
+                  end: 14,
+                  kind: 144,
+                  flags: 0
+                }
+              ],
+              start: 5,
+              end: 14,
+              kind: 201,
+              flags: 0
+            },
+            condition: {
+              type: 'PostfixUpdateExpression',
+              operator: '++',
+              operand: {
+                type: 'IdentifierReference',
+                name: 'i',
+                start: 26,
+                end: 28,
+                kind: 13,
+                flags: 0
+              },
+              start: 28,
+              end: 30,
+              kind: 162,
+              flags: 0
+            },
+            incrementor: {
+              type: 'BinaryExpression',
+              left: {
+                type: 'IdentifierReference',
+                name: 'i',
+                start: 15,
+                end: 17,
+                kind: 13,
+                flags: 0
+              },
+              operator: '<',
+              right: {
+                type: 'NumericLiteral',
+                value: 40000,
+                start: 19,
+                end: 25,
+                kind: 10,
+                flags: 0
+              },
+              start: 15,
+              end: 25,
+              kind: 155,
+              flags: 0
+            },
+            statement: {
+              type: 'BlockStatement',
+              leafs: [
+                {
+                  type: 'ExpressionStatement',
+                  expression: {
+                    type: 'AssignmentExpression',
+                    left: {
+                      type: 'IdentifierReference',
+                      name: 'src',
+                      start: 33,
+                      end: 37,
+                      kind: 13,
+                      flags: 0
+                    },
+                    operator: '=',
+                    right: {
+                      type: 'ObjectLiteral',
+                      properties: [
+                        {
+                          type: 'SpreadProperty',
+                          argument: {
+                            type: 'IdentifierReference',
+                            name: 'i',
+                            start: 45,
+                            end: 46,
+                            kind: 13,
+                            flags: 0
+                          },
+                          start: 41,
+                          end: 46,
+                          kind: 215,
+                          flags: 0
+                        },
+                        {
+                          type: 'PropertyName',
+                          key: {
+                            type: 'IdentifierName',
+                            name: 'x',
+                            start: 47,
+                            end: 50,
+                            kind: 13,
+                            flags: 0
+                          },
+                          value: {
+                            type: 'UnaryExpression',
+                            operator: '-',
+                            operand: {
+                              type: 'NumericLiteral',
+                              value: 9007199254740991,
+                              start: 52,
+                              end: 68,
+                              kind: 10,
+                              flags: 0
+                            },
+                            start: 50,
+                            end: 68,
+                            kind: 160,
+                            flags: 0
+                          },
+                          start: 47,
+                          end: 68,
+                          kind: 227,
+                          flags: 0
+                        }
+                      ],
+                      start: 39,
+                      end: 70,
+                      kind: 179,
+                      flags: 0
+                    },
+                    start: 33,
+                    end: 70,
+                    kind: 152,
+                    flags: 0
+                  },
+                  start: 33,
+                  end: 71,
+                  kind: 122,
+                  flags: 0
+                },
+                {
+                  type: 'ExpressionStatement',
+                  expression: {
+                    type: 'AssignmentExpression',
+                    left: {
+                      type: 'IdentifierReference',
+                      name: 'clone',
+                      start: 71,
+                      end: 77,
+                      kind: 13,
+                      flags: 0
+                    },
+                    operator: '=',
+                    right: {
+                      type: 'ObjectLiteral',
+                      properties: [
+                        {
+                          type: 'SpreadProperty',
+                          argument: {
+                            type: 'IdentifierReference',
+                            name: 'src',
+                            start: 85,
+                            end: 88,
+                            kind: 13,
+                            flags: 0
+                          },
+                          start: 81,
+                          end: 88,
+                          kind: 215,
+                          flags: 0
+                        }
+                      ],
+                      start: 79,
+                      end: 90,
+                      kind: 179,
+                      flags: 0
+                    },
+                    start: 71,
+                    end: 90,
+                    kind: 152,
+                    flags: 0
+                  },
+                  start: 71,
+                  end: 91,
+                  kind: 122,
+                  flags: 0
+                }
+              ],
+              start: 31,
+              end: 93,
+              kind: 123,
+              flags: 0
+            },
+            start: 0,
+            end: 93,
+            kind: 132,
+            flags: 0
+          }
+        ],
+        text: 'for (var i = 0; i < 40000; i++) { src = { ...i, x: -9007199254740991 }; clone = { ...src }; }',
+        fileName: 'recovery.js',
+        context: 0,
+        mutualFlags: 0,
+        diagnostics: [],
+        detached: false,
+        incremental: false,
+        parent: null,
+        children: [],
+        start: 0,
+        length: 93,
+        end: 93
+      }
+    );
+  });
+
+  it('for ([{__proto__: 1, __proto__: 2}];;);', () => {
+    t.deepEqual(recovery('for ([{__proto__: 1, __proto__: 2}];;);', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'ArrayLiteral',
+            elements: [
+              {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'IdentifierName',
+                      name: '__proto__',
+                      start: 7,
+                      end: 17,
+                      kind: 13,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'NumericLiteral',
+                      value: 1,
+                      start: 17,
+                      end: 19,
+                      kind: 10,
+                      flags: 0
+                    },
+                    start: 7,
+                    end: 19,
+                    kind: 227,
+                    flags: 0
+                  },
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'IdentifierName',
+                      name: '__proto__',
+                      start: 20,
+                      end: 31,
+                      kind: 13,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'NumericLiteral',
+                      value: 2,
+                      start: 31,
+                      end: 33,
+                      kind: 10,
+                      flags: 0
+                    },
+                    start: 20,
+                    end: 33,
+                    kind: 227,
+                    flags: 0
+                  }
+                ],
+                start: 6,
+                end: 34,
+                kind: 179,
+                flags: 0
+              }
+            ],
+            start: 5,
+            end: 35,
+            kind: 178,
+            flags: 0
+          },
+          condition: null,
+          incrementor: null,
+          statement: {
+            type: 'EmptyStatement',
+            start: 38,
+            end: 39,
+            kind: 148,
+            flags: 0
+          },
+          start: 0,
+          end: 39,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for ([{__proto__: 1, __proto__: 2}];;);',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 39,
+      end: 39
+    });
+  });
+
+  it('for ([a];;);', () => {
+    t.deepEqual(recovery('for ([a];;);', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'ArrayLiteral',
+            elements: [
+              {
+                type: 'IdentifierReference',
+                name: 'a',
+                start: 6,
+                end: 7,
+                kind: 13,
+                flags: 0
+              }
+            ],
+            start: 5,
+            end: 8,
+            kind: 178,
+            flags: 0
+          },
+          condition: null,
+          incrementor: null,
+          statement: {
+            type: 'EmptyStatement',
+            start: 11,
+            end: 12,
+            kind: 148,
+            flags: 0
+          },
+          start: 0,
+          end: 12,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for ([a];;);',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 12,
+      end: 12
+    });
+  });
+
+  it('for (((x)=>{}).x of y);', () => {
+    t.deepEqual(recovery('for (((x)=>{}).x of y);', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForOfStatement',
+          initializer: {
+            type: 'MemberExpression',
+            member: {
+              type: 'ParenthesizedExpression',
+              expression: {
+                type: 'ArrowFunction',
+                params: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'x',
+                    start: 7,
+                    end: 8,
+                    kind: 13,
+                    flags: 0
+                  }
+                ],
+                contents: {
+                  type: 'FunctionBody',
+                  directives: [],
+                  leafs: [],
+                  start: 11,
+                  end: 13,
+                  kind: 184,
+                  flags: 0
+                },
+                async: false,
+                start: 6,
+                end: 13,
+                kind: 188,
+                flags: 0
+              },
+              start: 5,
+              end: 14,
+              kind: 189,
+              flags: 0
+            },
+            expression: {
+              type: 'IdentifierName',
+              name: 'x',
+              start: 15,
+              end: 16,
+              kind: 13,
+              flags: 0
+            },
+            computed: false,
+            start: 5,
+            end: 16,
+            kind: 154,
+            flags: 0
+          },
+          expression: {
+            type: 'IdentifierReference',
+            name: 'y',
+            start: 19,
+            end: 21,
+            kind: 13,
+            flags: 0
+          },
+          statement: {
+            type: 'EmptyStatement',
+            start: 22,
+            end: 23,
+            kind: 148,
+            flags: 0
+          },
+          start: 0,
+          end: 23,
+          kind: 131,
+          flags: 0
+        }
+      ],
+      text: 'for (((x)=>{}).x of y);',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 23,
+      end: 23
+    });
+  });
+
+  it('for ({}[y] ^= x;;) x;', () => {
+    t.deepEqual(recovery('for ({}[y] ^= x;;) x;', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'AssignmentExpression',
+            left: {
+              type: 'MemberExpression',
+              member: {
+                type: 'ObjectLiteral',
+                properties: [],
+                start: 5,
+                end: 7,
+                kind: 179,
+                flags: 0
+              },
+              expression: {
+                type: 'IdentifierReference',
+                name: 'y',
+                start: 8,
+                end: 9,
+                kind: 13,
+                flags: 0
+              },
+              computed: true,
+              start: 7,
+              end: 10,
+              kind: 154,
+              flags: 0
+            },
+            operator: '^=',
+            right: {
+              type: 'IdentifierReference',
+              name: 'x',
+              start: 13,
+              end: 15,
+              kind: 13,
+              flags: 0
+            },
+            start: 10,
+            end: 15,
+            kind: 152,
+            flags: 0
+          },
+          condition: null,
+          incrementor: null,
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'x',
+              start: 18,
+              end: 20,
+              kind: 13,
+              flags: 0
+            },
+            start: 18,
+            end: 21,
+            kind: 122,
+            flags: 0
+          },
+          start: 0,
+          end: 21,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'for ({}[y] ^= x;;) x;',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 21,
+      end: 21
+    });
+  });
+
   it('for', () => {
     t.deepEqual(recovery('for', 'recovery.js'), {
       kind: 209,

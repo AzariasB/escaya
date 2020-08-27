@@ -2,6 +2,114 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Try', () => {
+  it('try { throw [,]; } catch ([x = 23]) {}', () => {
+    t.deepEqual(recovery('try { throw [,]; } catch ([x = 23]) {}', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'TryStatement',
+          block: {
+            type: 'BlockStatement',
+            leafs: [
+              {
+                type: 'ThrowStatement',
+                expression: {
+                  type: 'ArrayLiteral',
+                  elements: [
+                    {
+                      type: 'Elison',
+                      start: 14,
+                      end: 14,
+                      kind: 176,
+                      flags: 0
+                    }
+                  ],
+                  start: 11,
+                  end: 15,
+                  kind: 178,
+                  flags: 0
+                },
+                start: 5,
+                end: 16,
+                kind: 137,
+                flags: 0
+              }
+            ],
+            start: 3,
+            end: 18,
+            kind: 123,
+            flags: 0
+          },
+          catchClause: {
+            type: 'CatchClause',
+            binding: {
+              type: 'ArrayBindingPattern',
+              elements: [
+                {
+                  type: 'BindingElement',
+                  left: {
+                    type: 'BindingIdentifier',
+                    name: 'x',
+                    start: 27,
+                    end: 28,
+                    kind: 168,
+                    flags: 0
+                  },
+                  right: {
+                    type: 'NumericLiteral',
+                    value: 23,
+                    start: 30,
+                    end: 33,
+                    kind: 10,
+                    flags: 0
+                  },
+                  start: 27,
+                  end: 33,
+                  kind: 172,
+                  flags: 0
+                }
+              ],
+              start: 26,
+              end: 34,
+              kind: 174,
+              flags: 0
+            },
+            block: {
+              type: 'BlockStatement',
+              leafs: [],
+              start: 35,
+              end: 38,
+              kind: 123,
+              flags: 0
+            },
+            start: 18,
+            end: 38,
+            kind: 140,
+            flags: 0
+          },
+          finalizer: null,
+          start: 0,
+          end: 38,
+          kind: 138,
+          flags: 0
+        }
+      ],
+      text: 'try { throw [,]; } catch ([x = 23]) {}',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 38,
+      end: 38
+    });
+  });
+
   it('try [', () => {
     t.deepEqual(recovery('try [', 'recovery.js'), {
       kind: 209,

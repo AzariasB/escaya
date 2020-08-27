@@ -1934,10 +1934,7 @@ export function parseCallChain(
 export function parseArguments(state: ParserState, context: Context): (Expression | AssignmentRestElement)[] {
   const args = [];
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
-  const check =
-    context & Context.ErrorRecovery
-      ? Token.IsPropertyOrCall | Constants.IsArgumentListRecovery
-      : Constants.IsDelimitedListNormal;
+  const check = context & Context.ErrorRecovery ? Constants.IsArgumentListRecovery : Constants.IsDelimitedListNormal;
   while (state.token & check) {
     args.push(parseListElements(state, context, parseArgumentList));
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
@@ -4593,8 +4590,7 @@ export function parseNameSpaceImport(state: ParserState, context: Context): Bind
 export function parseNamedImports(state: ParserState, context: Context): NamedImports {
   const start = state.startIndex;
   consume(state, context, Token.LeftBrace);
-  const importsList = []; // run, and the ',' consumed as invalid punctuator, and the '!' will be // parsed out as an 'UnaryExpression' with a dummy. // // Errors thrown for this is 'Statement expected'. I think this is correct because // ',' isn't a valid start of a statement. // // The alternative is to 'consume' the ',' inside the import list, but // the result is a lot of dummy nodes as done for this case 'import {a,,,,b,,,,,c!'. // // For this specific case we insert a dummy as a placeholder in the // import list, but break out soon as we see '!', and parse it out as an // "UnaryExpression" instead.
-  // For cases like 'import {,,,,,,,,,,,,,,,,, !' the while loop will not
+  const importsList = [];
   const check = context & Context.ErrorRecovery ? Constants.ImportExportListRecovery : Constants.ImportExportListNormal;
   while (state.token & check) {
     importsList.push(parseImportSpecifier(state, context));
