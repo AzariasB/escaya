@@ -88,22 +88,22 @@ describe('Declarations - Function', () => {
     'function f({a = await b}) {}',
     'function f(a = await b) {}',
     //'function f(x = package = 10) { "use strict"; }',
-    //'function f(){ "use strict"; with (x) y; }',
+    'function f(){ "use strict"; with (x) y; }',
     'let f = function *f(yield) {}',
     'function test({...x = 1}) {}',
     'function f() { class x extends await y { }   }',
     'function f() { class x extends foo(await y) { }   }',
     'function f() { class x { foo(await y){} }   }',
-    // 'function *f(){ class x { foo(x=new (yield)()){} }  }',
-    // 'function *f(){ class x extends yield y { }  }',
-    // 'function f(){ class x { foo(x=new (yield)()){} }  }',
+    //'function *f(){ class x { foo(x=new (yield)()){} }  }',
+    //'function *f(){ class x extends yield y { }  }',
+    //'function f(){ class x { foo(x=new (yield)()){} }  }',
     'function f(){ class x extends foo(yield y) { }  }',
-    //'function f(){ class x extends foo(yield) { }  }',
+    'function f(){ class x extends foo(yield) { }  }',
     'function f(){ class yield { }  }',
-    // 'function f(){ class x extends yield { }  }',
+    'function f(){ class x extends yield { }  }',
     'function f(){ class x extends yield y { }  }',
-    // 'function f(){ class x extends foo(yield) { }  }',
-    // 'function f(){ class x { [yield](){} }  }',
+    'function f(){ class x extends foo(yield) { }  }',
+    'function f(){ class x { [yield](){} }  }',
     'function f({...[a, b]}){}',
     'function f({...a.b}){}',
     'function f({...{a: b}}){}',
@@ -155,7 +155,6 @@ describe('Declarations - Function', () => {
     'function f([...bar = foo]){}',
     'function f([...bar = foo] = obj){}',
     'function f([...foo,] = obj){}',
-    //   'function f(){ var f = 123; if (true) function f(){} }',
     `function f(){
       var f = 123;
       if (true) async function f(){}
@@ -164,10 +163,6 @@ describe('Declarations - Function', () => {
       var f = 123;
       oops: async function f(){}
     }`
-    /* `function g(){
-      var f = 123;
-      oops: function f(){}
-    }`*/
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -182,7 +177,7 @@ describe('Declarations - Function', () => {
   }
 
   for (const arg of [
-    // 'function f(){ var f = 123; if (true) function f(){} }',
+    'function f(){ var f = 123; if (true) function f(){} }',
     'if (x) function f(){}',
     'if (x) ; else function f(){}'
   ]) {

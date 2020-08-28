@@ -60,11 +60,6 @@ describe('Expressions - Member', () => {
     });
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        parseModule(`${arg}`);
-      });
-    });
-    it(`${arg}`, () => {
-      t.doesNotThrow(() => {
         recovery(`${arg}`, 'recovery.js');
       });
     });

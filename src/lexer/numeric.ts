@@ -1,5 +1,5 @@
 import { Token } from './../ast/token';
-import { Context, ParserState } from '../common';
+import { Context, ParserState, Flags } from '../common';
 import { toHex } from './common';
 import { addLexerDiagnostic } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
@@ -331,7 +331,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
         if (context & Context.Strict) {
           addLexerDiagnostic(state, context, start, index, DiagnosticCode.StrictOctal);
         }
-
+        state.flags |= Flags.Octal;
         // BigInt suffix is invalid in non-octal decimal integer literal,
         // so we need to set 'disallowBigInt' to 'true' here
         disallowBigInt = true;

@@ -2456,12 +2456,12 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
           message: 'The identifier `let` must not be in expression position in strict mode',
           code: 85,
-          start: 28,
-          length: 3
+          start: 27,
+          length: 4
         },
         {
           kind: 3,
@@ -2670,7 +2670,7 @@ describe('test262-parser-tests - failing tests', () => {
       diagnostics: [
         {
           code: 103,
-          kind: 2,
+          kind: 3,
           length: 2,
           message: 'The left-hand side of an arrow function can only be destructed through assignment',
           source: 2,
@@ -6293,7 +6293,7 @@ describe('test262-parser-tests - failing tests', () => {
       diagnostics: [
         {
           code: 103,
-          kind: 2,
+          kind: 3,
           length: 2,
           message: 'The left-hand side of an arrow function can only be destructed through assignment',
           source: 2,

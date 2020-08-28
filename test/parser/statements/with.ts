@@ -30,6 +30,8 @@ describe('Statements - With', () => {
     // Lexical declaration cannot appear in a single-statement context
     'with ({}) let a = [];',
     `with ({}) let [a] = [42];`,
+    // In non-strict mode code, functions can only be declared at top level, inside a block, or as the body of an if statement
+    'with(1) b: function a(){}',
     'with ({}) async function f() {}',
     'with(1) function a(){}',
     'with((x,y)=z) {}',
@@ -68,7 +70,6 @@ describe('Statements - With', () => {
     'with({}) {}',
     'with([x=y]) {}',
     'with([x=y/(x)]) {}',
-    'with(1) b: function a(){}',
     'with({...b/c}) {}',
     'with(x=y) {}',
     'with ({}) { }',

@@ -37,7 +37,7 @@ describe('Declarations - Let', () => {
     'let {a: x, ...{x}} = obj',
     'let {[a]: x, b: x} = obj',
     'let {a: x, b: x} = obj',
-    // 'let y = typeof async x => await x',
+    //    'let y = typeof async x => await x',
     'let x; { var x }',
     'let x, {x} = obj',
     'let {...{}} = {};',
@@ -52,7 +52,6 @@ describe('Declarations - Let', () => {
     'let x = a; let x = b;',
     'let x = a; const x = b;',
     'let x = a; function x(){};',
-
     'let [o.x=1]=[]',
     'let {}',
     'let ];',

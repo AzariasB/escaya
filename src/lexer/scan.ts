@@ -281,7 +281,6 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
               state.index++;
               return Token.NullishAssign;
             }
-
             return Token.Nullish;
           }
 

@@ -5,7 +5,7 @@ import { diagnosticMap } from './diagnostic-map';
 /**
  * Types of diagnostics which can be generated.
  */
-export enum DiagnosticKind {
+export const enum DiagnosticKind {
   Message,
   Warning,
   Error,

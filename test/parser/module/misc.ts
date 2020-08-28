@@ -2,6 +2,28 @@ import * as t from 'assert';
 import { parseModule, recovery } from '../../../src/escaya';
 
 describe('Module - Misc', () => {
+  // Invalid cases
+  for (const arg of [
+    'throw yield = await',
+    'throw await',
+    `{ async *[await = 5]()
+    {}
+  }`,
+    `{ (x = [yield]) }`,
+    `{ (x = [yield]) => z }`
+  ]) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseModule(`${arg}`);
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js', { module: true });
+      });
+    });
+  }
+
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     'function x() {  "a" ? ((this)) : ((true));  }',
@@ -22,11 +44,7 @@ describe('Module - Misc', () => {
     `{ var f; var f; }`,
     `{ function a(){} function a(){} }`,
     `{ function* f() {} async function f() {} }`,
-    `{ async *[await = 5]()
-      {}
-    }`,
-    `{ (x = [yield]) }`,
-    `{ (x = [yield]) => z }`,
+
     `{ function f(){} async function f(){} }`,
     `{}[];;`,
     `{}() => 42;;`,
@@ -76,9 +94,7 @@ describe('Module - Misc', () => {
     'throw class x {}',
     'throw !foo',
     'throw 123',
-    'throw yield = await',
     'throw async',
-    'throw await',
     'throw ((x))',
     'throw (a,b,c = d, 123, [a], {x})',
     'throw {x}',

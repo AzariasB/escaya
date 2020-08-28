@@ -137,5 +137,8 @@ export const diagnosticMap: {
   [DiagnosticCode.ShadowClause]: '`%0` shadows a catch clause binding',
   [DiagnosticCode.DupLexBind]: 'Duplicate lexical binding `%0`',
   [DiagnosticCode.DupBind]: 'Duplicate binding `%0`',
-  [DiagnosticCode.UnknownLabel]: 'Unknown label `%0`'
+  [DiagnosticCode.UnknownLabel]: 'Unknown label `%0`',
+  [DiagnosticCode.MultipleDefaultsInSwitch]: 'A `default` clause cannot appear more than once in a `switch` statement',
+  [DiagnosticCode.OptionalChainingNoNew]: 'Invalid optional chain from new expression',
+  [DiagnosticCode.AsyncLineT]: 'Invalid line break after async arrow'
 };

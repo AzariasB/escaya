@@ -1,6 +1,6 @@
 import { Token, KeywordDescTable } from './ast/token';
 import { nextToken } from './lexer/scan';
-import { addDiagnostic, addEarlyDiagnostic, DiagnosticSource, DiagnosticKind } from './diagnostic';
+import { addDiagnostic, addparserDiagnostic, addEarlyDiagnostic, DiagnosticSource, DiagnosticKind } from './diagnostic';
 import { DiagnosticCode } from './diagnostic/diagnostic-code';
 import { SyntaxKind, NodeFlags } from './ast/node';
 import { DictionaryMap } from './dictionary/dictionary-map';
@@ -44,7 +44,9 @@ export const enum Context {
  */
 export const enum Flags {
   Empty = 0,
-  NodeHasErrors = 1 << 0
+  NodeHasErrors = 1 << 0,
+  SeenDefault = 1 << 1,
+  Octal = 1 << 2
 }
 
 export const enum ArrowKind {
@@ -315,28 +317,34 @@ export function validateFunctionName(state: ParserState, context: Context): any 
   );
 }
 
-export function validateIdentifierReference(state: ParserState, context: Context): string {
+export function validateIdentifier(state: ParserState, context: Context, token: Token, start: number): void {
+  if (context & (Context.Strict | Context.Yield) && token === Token.YieldKeyword) {
+    addparserDiagnostic(state, context, start, DiagnosticCode.UnexpectedYieldAsIdent);
+  }
+  if (context & (Context.Module | Context.Await) && token === Token.AwaitKeyword) {
+    addparserDiagnostic(state, context, start, DiagnosticCode.UnexpectedAwaitAsIdent);
+  }
+  if (context & Context.Strict && state.token & Token.IsFutureReserved) {
+    addparserDiagnostic(state, context, start, DiagnosticCode.StrictModeReserved);
+  }
+}
+
+export function validateIdentifierReference(state: ParserState, context: Context, start: number): string {
   if (state.token === Token.YieldKeyword) {
-    if (context & Context.Yield) {
-      addEarlyDiagnostic(state, context, DiagnosticCode.UnexpectedYieldAsIdent);
-      return '';
+    if (context & (Context.Strict | Context.Yield)) {
+      addparserDiagnostic(state, context, start, DiagnosticCode.UnexpectedYieldAsIdent);
+      // return '';
     }
-  } else if (context & Context.Await && state.token === Token.AwaitKeyword) {
-    addEarlyDiagnostic(state, context, DiagnosticCode.UnexpectedAwaitAsIdent);
+  } else if (context & (Context.Module | Context.Await) && state.token === Token.AwaitKeyword) {
+    addparserDiagnostic(state, context, start, DiagnosticCode.UnexpectedAwaitAsIdent);
     return '';
   } else if (context & Context.Strict) {
     if (state.token === Token.LetKeyword) {
-      addDiagnostic(
-        state,
-        context,
-        DiagnosticSource.Parser,
-        DiagnosticCode.StrictInvalidLetInExprPos,
-        DiagnosticKind.Error
-      );
+      addparserDiagnostic(state, context, start, DiagnosticCode.StrictInvalidLetInExprPos);
       return '';
     }
     if (context & Context.Strict && state.token & Token.IsFutureReserved) {
-      addEarlyDiagnostic(state, context, DiagnosticCode.StrictModeReserved);
+      addparserDiagnostic(state, context, start, DiagnosticCode.StrictModeReserved);
       return '';
     }
   }

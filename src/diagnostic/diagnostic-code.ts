@@ -1,7 +1,7 @@
 /**
  * Unique codes for each diagnostic message which can be generated.
  */
-export enum DiagnosticCode {
+export const enum DiagnosticCode {
   Unexpected,
   UnexpectedKeyword,
   UnexpectedIdentifier,
@@ -133,6 +133,9 @@ export enum DiagnosticCode {
   ShadowClause,
   UnknownLabel,
   UnterminatedDirective,
+  MultipleDefaultsInSwitch,
+  OptionalChainingNoNew,
+  AsyncLineT,
 
   /* Annex B */
   AnnexBB32,

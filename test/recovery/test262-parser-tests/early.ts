@@ -1111,7 +1111,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 21,
+          kind: 3,
+          length: 6,
+          message: 'Unexpected `yield` as identifier in this context',
+          source: 2,
+          start: 13
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4162,7 +4171,17 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 77,
+          kind: 3,
+          length: 8,
+          message:
+            'In non-strict mode code, functions can only be declared at top level, inside a block, or as the body of an if statement',
+          source: 2,
+          start: 19
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4256,7 +4275,17 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 77,
+          kind: 3,
+          length: 8,
+          message:
+            'In non-strict mode code, functions can only be declared at top level, inside a block, or as the body of an if statement',
+          source: 2,
+          start: 12
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,

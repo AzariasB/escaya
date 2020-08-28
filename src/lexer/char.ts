@@ -2,6 +2,7 @@
  * A list of character constants with much more human-readable names.
  */
 export const enum Char {
+
   LastUnicodeChar = 0x10ffff,
 
   Null = 0x00,

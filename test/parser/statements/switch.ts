@@ -13,6 +13,7 @@ describe('Statements - Switch', () => {
     'switch(x) { case y: {...x} }',
     'switch(x) { case y: foo /a/ }',
     'switch(x) { case y:{ class { x() {} } }}',
+    'switch (0) { case 1: let f; default: x; default:y }',
     'switch(x/',
     'switch (x) {',
     'switch(x) { case',

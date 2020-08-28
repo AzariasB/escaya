@@ -1,5 +1,5 @@
 import * as t from 'assert';
-import { parseScript, parseModule, recovery } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Function', () => {
   // Invalid cases
@@ -16,6 +16,8 @@ describe('Expressions - Function', () => {
     '(function ([a, ...b = 20,,]) { })',
     '(function ([a, ...b,]) { })',
     '(function f(x, ...x) {g(x); x = 42; g(x)})',
+    '(function f() {"use strict"; ((yield, a) => {}); });',
+    '(function f() {"use strict"; (([yield]) => {}); });',
     '(function ([a, ...b,,]) { })',
     '(function break(){})',
     '(function  a(b,,) {});',
@@ -312,11 +314,6 @@ describe('Expressions - Function', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
-      });
-    });
-    it(`${arg}`, () => {
-      t.doesNotThrow(() => {
-        parseModule(`${arg}`);
       });
     });
     it(`${arg}`, () => {

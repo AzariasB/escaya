@@ -1,7 +1,7 @@
 import * as t from 'assert';
 import { parseScript, recovery } from '../../../src/escaya';
 
-describe('Expressions - Binary', () => {
+describe('Expressions - Exponentiation', () => {
   // Invalid cases
   for (const arg of ['[', '[,', '[] += a']) {
     it(`${arg}`, () => {

@@ -1,7 +1,7 @@
 import * as t from 'assert';
-import { parseScript, parseModule, recovery } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
-describe('Expressions - Binary', () => {
+describe('Expressions - New', () => {
   // Invalid cases
   for (const arg of [
     'new f(..g);',
@@ -147,11 +147,6 @@ describe('Expressions - Binary', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         parseScript(`${arg}`);
-      });
-    });
-    it(`${arg}`, () => {
-      t.doesNotThrow(() => {
-        parseModule(`${arg}`);
       });
     });
     it(`${arg}`, () => {

@@ -955,6 +955,14 @@ describe('Recovery - Expressions - Member', () => {
           length: 1
         },
         {
+          code: 7,
+          kind: 3,
+          length: 2,
+          message: 'Expression expected',
+          source: 2,
+          start: 12
+        },
+        {
           kind: 2,
           source: 2,
           message: '`}` expected',

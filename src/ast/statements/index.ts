@@ -17,21 +17,21 @@ import { IfStatement } from './if-stmt';
 import { EmptyStatement } from './empty-stmt';
 import { VariableDeclaration } from '../declarations/variable-declaration';
 import { VariableStatement } from './variable-stmt';
-import { LexicalDeclaration } from '../declarations/lexical-declaration';
-import { LexicalBinding } from './lexical-binding';
-import { CaseClause, DefaultClause } from './case-clause';
-import { SwitchStatement } from './switch-stmt';
-import { FunctionDeclaration } from '../declarations/function-declaration';
-import { ClassDeclaration } from '../declarations/class-declaration';
-import { ForDeclaration } from '../declarations/for-declaration';
+import { LexicalDeclaration  } from '../declarations/lexical-declaration';
+import { LexicalBinding  } from './lexical-binding';
+import { CaseClause, DefaultClause  } from './case-clause';
+import { SwitchStatement  } from './switch-stmt';
+import { FunctionDeclaration  } from '../declarations/function-declaration';
+import { ClassDeclaration  } from '../declarations/class-declaration';
+import { ForDeclaration  } from '../declarations/for-declaration';
 
 export type CaseBlock = DefaultClause | CaseClause;
 
 /**
  * The set of all syntax items which are statements.
  */
-export type Statement =
-  | ExpressionStatement
+export type Statement
+  = ExpressionStatement
   | BlockStatement
   | DebuggerStatement
   | WhileStatement
@@ -58,4 +58,5 @@ export type Statement =
   | LexicalBinding
   | FunctionDeclaration
   | ForDeclaration
-  | ClassDeclaration;
+  | ClassDeclaration
+  ;

@@ -1943,6 +1943,14 @@ describe('Recovery - Expressions - Arrows', () => {
       mutualFlags: 0,
       diagnostics: [
         {
+          code: 21,
+          kind: 3,
+          length: 6,
+          message: 'Unexpected `yield` as identifier in this context',
+          source: 2,
+          start: 13
+        },
+        {
           kind: 2,
           source: 2,
           message: '`;` expected',
