@@ -140,5 +140,7 @@ export const diagnosticMap: {
   [DiagnosticCode.UnknownLabel]: 'Unknown label `%0`',
   [DiagnosticCode.MultipleDefaultsInSwitch]: 'A `default` clause cannot appear more than once in a `switch` statement',
   [DiagnosticCode.OptionalChainingNoNew]: 'Invalid optional chain from new expression',
-  [DiagnosticCode.AsyncLineT]: 'Invalid line break after async arrow'
+  [DiagnosticCode.AsyncLineT]: 'Invalid line break after async arrow',
+  [DiagnosticCode.LabelAsKeyword]: 'Invalid use of keyword as an labeled identifier',
+  [DiagnosticCode.FuncGenLabel]: 'A labelled function declaration can not be a generator'
 };

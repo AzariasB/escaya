@@ -9,7 +9,7 @@ describe('Statements - Labelled', () => {
     'class',
     'const',
     'continue',
-    // 'debugger',
+    'debugger',
     'default',
     'delete',
     'do',
@@ -27,7 +27,7 @@ describe('Statements - Labelled', () => {
     'return',
     'super',
     'switch',
-    // 'this',
+    'this',
     'throw',
     'try',
     'typeof',
@@ -35,14 +35,19 @@ describe('Statements - Labelled', () => {
     'void',
     'while',
     'with',
-    // 'null',
-    //  'true',
-    //  'false',
+    'null',
+    'true',
+    'false',
     'enum'
   ]) {
-    it(`${arg}`, () => {
+    it(`${arg}:`, () => {
       t.throws(() => {
-        parseScript(`${arg}`);
+        parseScript(`${arg}:`);
+      });
+    });
+    it(`${arg}:x`, () => {
+      t.throws(() => {
+        parseScript(`${arg}:x`);
       });
     });
   }
@@ -53,16 +58,19 @@ describe('Statements - Labelled', () => {
     'label: class C {};',
     'label: let x;',
     'a: async function* a(){}',
-    // 'label: function* g() {}',
+    'label: function* g() {}',
     'do { test262: { continue test262; } } while (false)',
     '() => {super: while(true) { break super; }}"',
-    // 'false: ;',
-    // '(async function*() { yield: 1; });',
+    'false: ;',
+    '(async function*() { yield: 1; });',
     'yield: { function *f(){ break await; } }',
     'bar: foo: ding: foo: x',
     'foo: bar: foo: x',
     'foo:for;',
-    // 'await\nx:;',
+    //'await: 1;',
+    //'await\nx:;',
+    'L: let\n [a] = 0;',
+    '"use strict"; label: function g() {}',
     'foo\n/x/g:',
     '123:\n',
     'bar:',
@@ -71,11 +79,29 @@ describe('Statements - Labelled', () => {
     'catch: (x) { case y: {...x} }:',
     'finally: (x) { case y: foo /a/ }:',
     'for: (x) { case y:{ class { x() {} } }}',
-    'twitter: ({x=y}) { case y: [...a] }'
+    'twitter: ({x=y}) { case y: [...a] }',
+    'function *f(){ yield: x; }',
+    'await: { async function f(){ break await; } }',
+    'await: { function *f(){ break await; } }',
+    'yield: { function *f(){ break await; } }'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`, { loc: true });
+      });
+    });
+    it(`${arg}`, () => {
+      t.doesNotThrow(() => {
+        recovery(`${arg}`, 'recovery.js');
+      });
+    });
+  }
+
+  // Invalid cases - WebCompat off
+  for (const arg of ['label: function* g() {}', 'label: function* g() {}']) {
+    it(`${arg}`, () => {
+      t.throws(() => {
+        parseScript(`${arg}`, { disableWebCompat: true });
       });
     });
     it(`${arg}`, () => {
@@ -92,6 +118,12 @@ describe('Statements - Labelled', () => {
     'L: let\nx',
     'L: let\n{x}',
     'let: 34',
+    'let: x',
+    'foo: x;',
+    'yield: x',
+    'await: x',
+    'foo: /bar/',
+    'foo: \n /bar/g',
     'label: for(;;) break label \n /foo/',
     'foo: for(;;) for (;;) continue foo',
     'yield: 34',

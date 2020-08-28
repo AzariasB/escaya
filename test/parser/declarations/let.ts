@@ -534,6 +534,7 @@ describe('Declarations - Let', () => {
     'let {let: foo} = x;',
     'let {a, let: foo} = x;',
     'let();',
+    'let Y = F => (x=>F(y=>(x(x))(y)))(x=>F(y=>(x(x))(y)))',
     'let [x, ...[foo, bar]] = obj;',
     'let str = "a".repeat(1e7);',
     'let arr = new Array(2000);',

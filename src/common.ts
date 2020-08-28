@@ -202,6 +202,7 @@ export function finishNode(state: ParserState, context: Context, start: number, 
 }
 
 export function reinterpretToPattern(node: any): void {
+  if (!node) return;
   switch (node.type) {
     case 'IdentifierName':
     case 'IdentifierReference':
@@ -324,8 +325,11 @@ export function validateIdentifier(state: ParserState, context: Context, token: 
   if (context & (Context.Module | Context.Await) && token === Token.AwaitKeyword) {
     addparserDiagnostic(state, context, start, DiagnosticCode.UnexpectedAwaitAsIdent);
   }
-  if (context & Context.Strict && state.token & Token.IsFutureReserved) {
+  if (context & Context.Strict && token & Token.IsFutureReserved) {
     addparserDiagnostic(state, context, start, DiagnosticCode.StrictModeReserved);
+  }
+  if (token & Token.IsKeyword) {
+    addparserDiagnostic(state, context, start, DiagnosticCode.LabelAsKeyword);
   }
 }
 

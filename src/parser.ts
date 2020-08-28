@@ -231,7 +231,7 @@ export function parseStatementListItem(
   switch (state.token) {
     case Token.FunctionKeyword:
     case Token.AsyncKeyword:
-      return parseFunctionDeclaration(state, context, scope);
+      return parseFunctionDeclaration(state, context, scope, false);
     case Token.ClassKeyword:
       return parseClassDeclaration(state, context, scope);
     case Token.VarKeyword:
@@ -334,7 +334,7 @@ export function parseStatement(
           ? DiagnosticCode.WebCompatFunction
           : DiagnosticCode.SloppyFunction
       );
-      return parseFunctionDeclaration(state, context, scope);
+      return parseFunctionDeclaration(state, context, scope, false);
     // In 'recovery mode' we allow this and return an function declaration.
     case Token.ClassKeyword:
       // See the comment above. Same rules apply.
@@ -590,7 +590,8 @@ export function parseScopedStatement(state: ParserState, context: Context, scope
     : parseFunctionDeclaration(
         state,
         (context | Context.InBlock) ^ Context.InBlock,
-        createParentScope(scope, ScopeKind.Block)
+        createParentScope(scope, ScopeKind.Block),
+        false
       );
 }
 
@@ -1148,13 +1149,16 @@ export function parseExpressionOrLabelledStatement(
 ): LabelledStatement | ExpressionStatement {
   const { startIndex, token, tokenValue } = state;
   let expr = parsePrimaryExpression(state, context, true);
+  // Some keywords that are invalid as an 'LabelledIdentifier' will be parsed out in it's
+  // own production. For example this case 'class:' will throw for missing a name. This is done
+  // to be in line with how we parse '(class:)'.
   if (
     token & (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword) &&
     state.token === Token.Colon
   ) {
     return parseLabelledStatement(
       state,
-      (context | Context.InBlock) ^ Context.InBlock,
+      context,
       scope,
       token,
       tokenValue,
@@ -1206,10 +1210,10 @@ export function parseLabelledStatement(
   const labelledItem =
     !allowFunction ||
     // Disallow if in strict mode, or if the web compability is off ( B.3.2 )
-    context & 0b00000000000000000000010000010000 ||
+    context & (Context.OptionsDisableWebCompat | Context.Strict) ||
     state.token !== Token.FunctionKeyword
       ? parseStatement(state, context, scope, labels, ownLabels, allowFunction)
-      : parseFunctionDeclaration(state, context, scope);
+      : parseFunctionDeclaration(state, context, scope, /* isLabelled */ true);
 
   return finishNode(
     state,
@@ -1459,6 +1463,7 @@ export function parseLetAsIdentifierReference(
   ownLabels: any[] | null
 ): Statement {
   let expr: Expression;
+  if (context & Context.Strict) addEarlyDiagnostic(state, context, DiagnosticCode.StrictInvalidLetInExprPos);
   if (state.token === Token.Arrow) {
     expr = parseArrowFunction(
       state,
@@ -1484,7 +1489,7 @@ export function parseAsyncAsIdentifierReference(state: ParserState, context: Con
   nextToken(state, context | Context.AllowRegExp);
   if (state.token === Token.FunctionKeyword) {
     addEarlyDiagnostic(state, context, DiagnosticCode.AsyncFunctionInSingleStatementContext);
-    return parseFunctionDeclaration(state, context | Context.Await, scope);
+    return parseFunctionDeclaration(state, context | Context.Await, scope, false);
   }
   const expr = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'), SyntaxKind.Identifier);
   state.assignable = true;
@@ -3376,18 +3381,9 @@ export function parseFunctionBody(
         );
       }
     }
-
+    context = context = (context | Context.TopLevel | Context.InBlock) ^ Context.InBlock;
     while (state.token & Constants.SourceElements) {
-      statements.push(
-        parseBlockElements(
-          state,
-          (context = (context | Context.TopLevel | Context.InBlock) ^ Context.InBlock),
-          scope,
-          null,
-          null,
-          parseStatementListItem
-        )
-      );
+      statements.push(parseBlockElements(state, context, scope, null, null, parseStatementListItem));
     }
     consume(state, isStatement ? context | Context.AllowRegExp : context, Token.RightBrace);
   }
@@ -3592,7 +3588,8 @@ export function parseAsyncArrowExpression(
 export function parseFunctionDeclaration(
   state: ParserState,
   context: Context,
-  scope: any
+  scope: any,
+  isLabelled: boolean
 ): FunctionDeclaration | ExpressionStatement | ArrowFunction {
   const start = state.startIndex;
 
@@ -3608,6 +3605,10 @@ export function parseFunctionDeclaration(
   consume(state, context | Context.AllowRegExp, Token.FunctionKeyword);
 
   const isGenerator = optionalBit(state, context, Token.Multiply);
+
+  // A labelled function declaration can not be a generator
+  if (isLabelled && isGenerator) addEarlyDiagnostic(state, context, DiagnosticCode.FuncGenLabel);
+
   const generatorAndAsyncFlags = (isAsync * 2 + isGenerator) << 21;
 
   // Create a new function scope
@@ -4774,10 +4775,10 @@ export function parseExportDeclaration(
       declaration = parseClassDeclaration(state, context, scope);
       break;
     case Token.FunctionKeyword:
-      declaration = parseFunctionDeclaration(state, context, scope);
+      declaration = parseFunctionDeclaration(state, context, scope, false);
       break;
     case Token.AsyncKeyword:
-      declaration = parseFunctionDeclaration(state, context, scope);
+      declaration = parseFunctionDeclaration(state, context, scope, false);
       break;
     case Token.VarKeyword:
       declaration = parseVariableStatement(state, context, scope);
@@ -4849,10 +4850,10 @@ export function parseExportDefault(state: ParserState, context: Context, start: 
   let declaration;
   switch (state.token) {
     case Token.FunctionKeyword:
-      declaration = parseFunctionDeclaration(state, context | Context.Default, scope);
+      declaration = parseFunctionDeclaration(state, context | Context.Default, scope, false);
       break;
     case Token.AsyncKeyword:
-      declaration = parseFunctionDeclaration(state, context | Context.Default, scope);
+      declaration = parseFunctionDeclaration(state, context | Context.Default, scope, false);
       break;
     case Token.ClassKeyword:
       declaration = parseClassDeclaration(state, context | Context.Default, scope);

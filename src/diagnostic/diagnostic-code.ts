@@ -136,6 +136,8 @@ export const enum DiagnosticCode {
   MultipleDefaultsInSwitch,
   OptionalChainingNoNew,
   AsyncLineT,
+  LabelAsKeyword,
+  FuncGenLabel,
 
   /* Annex B */
   AnnexBB32,
