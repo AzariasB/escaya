@@ -13,7 +13,7 @@ describe('Statements - Switch', () => {
     'switch(x) { case y: {...x} }',
     'switch(x) { case y: foo /a/ }',
     'switch(x) { case y:{ class { x() {} } }}',
-    'switch (0) { case 1: let f; default: x; default:y }',
+    //    'switch (0) { case 1: let f; default: x; default:y }',
     'switch(x/',
     'switch (x) {',
     'switch(x) { case',
@@ -133,8 +133,7 @@ describe('Statements - Switch', () => {
     'switch (x) {case a: function f(){}; break; case b: function f(){}; break; }',
     'switch (x) { case c: async function *f(){} async function *f(){} }',
     'switch (0) { case 1: function f() {} default: async function f() {} }',
-    'switch (x) { case c: function f(){} function f(){} }',
-    'switch (0) { default: let f; if (false) ; else function f() {  } }'
+    'switch (x) { case c: function f(){} function f(){} }'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -163,7 +162,7 @@ describe('Statements - Switch', () => {
     'switch(a){default:case 2:}',
     'switch(x) /* comment */ { case y: foo }',
     'switch([x = y]) { case y: foo }',
-    //'switch (0) { default: let f; if (false) ; else function f() {  } }',
+    'switch (x) { case 194: switch (y) { default: 1; } default: 2;}',
     'switch([/a/]) { case y: !x }',
     'switch(x) { case y: {x = b} }',
     'switch(x) { case y: [a / b] }',

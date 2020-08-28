@@ -383,7 +383,6 @@ export function parseCaseBlock(
 ): CaseBlock[] {
   const clauses = [];
   scope = createParentScope(scope, ScopeKind.SwitchStatement);
-  state.flags = (state.flags | Flags.SeenDefault) ^ Flags.SeenDefault;
   while (state.token & Token.IsCaseOrDefault) {
     clauses.push(parseBlockElements(state, context, scope, labels, ownLabels, parseCaseOrDefaultClause));
   }
@@ -423,9 +422,6 @@ export function parseCaseOrDefaultClause(
 
     return finishNode(state, context, start, DictionaryMap.CaseClause(expression, statements), SyntaxKind.CaseClause);
   }
-
-  // A `default` clause cannot appear more than once in a `switch` statement
-  if (state.flags & Flags.SeenDefault) addEarlyDiagnostic(state, context, DiagnosticCode.MultipleDefaultsInSwitch);
 
   consume(state, context, Token.DefaultKeyword);
   consume(state, context | Context.AllowRegExp, Token.Colon);
