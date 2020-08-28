@@ -1084,12 +1084,19 @@ describe('Recovery - Expressions - Async Arrows', () => {
           expression: {
             type: 'ParenthesizedExpression',
             expression: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 3,
+              type: 'ParenthesizedExpression',
+              expression: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 3,
+                end: 3,
+                kind: 13,
+                flags: 2
+              },
+              start: 1,
               end: 3,
-              kind: 13,
-              flags: 2
+              kind: 189,
+              flags: 0
             },
             start: 0,
             end: 3,

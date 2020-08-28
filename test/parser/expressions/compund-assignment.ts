@@ -3,7 +3,21 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Compound assignment', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of [
+    '1 &= 1;',
+    '1 |= 1;',
+    '[] += a',
+    '({a} += {a});',
+    '({a}) *=	-1',
+    '({a} *= -1)',
+    '[a >>>= a] += 1;',
+    '([(a = b)] = []',
+    '[a >>>= a] += 1;',
+    '({a: (b = 0)} = {})',
+    '1 >>>= 1;',
+    '1 &= 1;',
+    '0.toString'
+  ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);

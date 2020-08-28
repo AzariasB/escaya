@@ -5442,12 +5442,19 @@ describe('Recovery - Expressions', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'IdentifierReference',
-            name: '',
-            start: 2,
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 2,
+              end: 2,
+              kind: 13,
+              flags: 2
+            },
+            start: 0,
             end: 2,
-            kind: 13,
-            flags: 2
+            kind: 189,
+            flags: 0
           },
           start: 0,
           end: 2,
@@ -9565,12 +9572,19 @@ describe('Recovery - Expressions', () => {
             right: {
               type: 'BinaryExpression',
               left: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 5,
+                type: 'ParenthesizedExpression',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 5,
+                  end: 5,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 3,
                 end: 5,
-                kind: 13,
-                flags: 2
+                kind: 189,
+                flags: 0
               },
               operator: '==',
               right: {

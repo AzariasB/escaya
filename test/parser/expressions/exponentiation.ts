@@ -3,7 +3,23 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Exponentiation', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of [
+    'delete O.p ** 10',
+    'delete x ** 10,',
+    '!O.p ** 10',
+    '+O.p ** 10',
+    '-x ** 10',
+    '!1 ** 2',
+    'typeof x ** 10',
+    '++~x ** 10',
+    '{ x } **= { x: 2 }',
+    '{ x: x **= 2 ] = { x: 2 }',
+    '(delete 3 ** 2)',
+    '!1 ** 2;',
+    '({ x: x **= 2 ] = { x: 2 })',
+    '[ x **= 2 ] = [ 2 ]',
+    '[ x ] **= [ 2 ]'
+  ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);

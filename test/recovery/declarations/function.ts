@@ -1163,12 +1163,19 @@ describe('Recovery - Function', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'IdentifierReference',
-            name: '',
-            start: 17,
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 17,
+              end: 17,
+              kind: 13,
+              flags: 2
+            },
+            start: 14,
             end: 17,
-            kind: 13,
-            flags: 2
+            kind: 189,
+            flags: 0
           },
           start: 14,
           end: 17,

@@ -960,12 +960,19 @@ describe('Recovery - If', () => {
             expression: {
               type: 'ParenthesizedExpression',
               expression: {
-                type: 'IdentifierReference',
-                kind: 13,
-                name: '',
-                start: 7,
+                type: 'ParenthesizedExpression',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 7,
+                  end: 7,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 5,
                 end: 7,
-                flags: 2
+                kind: 189,
+                flags: 0
               },
               start: 4,
               end: 7,
@@ -981,10 +988,10 @@ describe('Recovery - If', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
               name: '',
               start: 7,
               end: 7,
+              kind: 13,
               flags: 2
             },
             start: 7,
