@@ -2,11 +2,13 @@
 
 Escaya's own `AST` represents the structure of an ECMAScript program as a tree and conforms to the [ECMAScript® 2021 specs](https://tc39.es/ecma262/index.html). The AST have been designed for performance, and it nearly eliminates the chance of accidentally creating an AST that does not represent an ECMAScript program while also requiring fewer bytes than the AST produced by ESTree and Babel.
 
-## Script and Module
+The AST is also designed to support a simplified definition of *concrete syntax*.
 
- A javaScript program can be either [a script or a module](https://tc39.github.io/ecma262/index.html#sec-ecmascript-language-scripts-and-modules) as
- defined in the `ES2015` specs and later.
+A `ParenthesisExpression` has been added to represent the `( )` and everything in between. See [Primary Expression - Supplemental Syntax](https://tc39.es/ecma262/#sec-primary-expression)
 
+A `Elison` node has been added to represent a splice array in [12.2.5 Array Initializer](https://tc39.es/ecma262/#sec-array-initializer) and [13.3.3 Destructuring Binding Patterns - ArrayBindingPattern](https://tc39.es/ecma262/#prod-ArrayBindingPattern).
+
+A `Semicolon` node has been used  in [ClassElement](https://tc39.es/ecma262/#prod-ClassElement) to represent the `;` token.
 
 ```js
 interface Script <: Node {
