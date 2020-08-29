@@ -62,13 +62,11 @@ The AST used by `Escaya` represents the structure of an ECMAScript program as a 
 
 The `Escaya AST` doesn't try to follow the SpiderMonkey-compatible standard that `ESTree` strictly follows. For example it distinguish `Identifier` from `IdentifierPattern`. That makes it easier to calculate the free variables of a program.
 
-## Concrete syntax (CST)
+### Concrete syntax (CST)
 
 Escaya supports a simplified definition of "concrete syntax" that follows the [ECMAScript® 2021 specification](https://tc39.es/ecma262/index.html).
 
-A `ParenthesisExpression` has been added to represent the `( )` and everything in between. 
-
-See [Primary Expression - Supplemental Syntax](https://tc39.es/ecma262/#sec-primary-expression)
+A `ParenthesisExpression` has been added to represent the `( )` and everything in between. See [Primary Expression - Supplemental Syntax](https://tc39.es/ecma262/#sec-primary-expression)
 
 A `Elison` node has been added to represent a splice array in [12.2.5 Array Initializer](https://tc39.es/ecma262/#sec-array-initializer) and [13.3.3 Destructuring Binding Patterns - ArrayBindingPattern](https://tc39.es/ecma262/#prod-ArrayBindingPattern).
 
