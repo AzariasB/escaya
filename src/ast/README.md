@@ -10,10 +10,13 @@ A `Elison` node has been added to represent a splice array in [12.2.5 Array Init
 
 A `Semicolon` node has been used  in [ClassElement](https://tc39.es/ecma262/#prod-ClassElement) to represent the `;` token.
 
+
 ## Script and Module
 
-A javaScript program can be either [a script or a module](https://tc39.github.io/ecma262/index.html#sec-ecmascript-language-scripts-and-modules) as
-defined in the `ES2015` specs and later.
+ A javaScript program can be either [a script or a module](https://tc39.github.io/ecma262/index.html#sec-ecmascript-language-scripts-and-modules) as
+ defined in the `ES2015` specs and later.
+
+### Script
 
 ```js
 interface Script <: Node {
@@ -25,7 +28,7 @@ interface Script <: Node {
 }
 ```
 
-## Module
+### Module
 
 ```js
 interface Module <: Node {
