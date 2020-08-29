@@ -11,6 +11,8 @@ import { createScope, ScopeState } from './scope';
 import { Token } from './ast/token';
 import {
   create,
+  parseStatemenOrModuleItemtList,
+  parseModuleItemList,
   parseStatementList,
   parseStatementListItem,
   parseModuleItem,
@@ -55,7 +57,7 @@ export function parseRoot(source: string, context: Context, options?: Options): 
   let leafs: Statement[] = [];
 
   while (state.token === Token.StringLiteral) {
-    let start = state.startIndex;
+    const start = state.startIndex;
     const expr = parseStringLiteral(state, context | Context.AllowRegExp, /* isDirective */ true);
     if (canConsumeSemicolon(state)) {
       if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
@@ -68,8 +70,8 @@ export function parseRoot(source: string, context: Context, options?: Options): 
 
   leafs =
     context & Context.Module
-      ? parseStatementList(state, context, scope, leafs, parseModuleItem)
-      : parseStatementList(state, context, scope, leafs, parseStatementListItem);
+      ? parseModuleItemList(state, context, scope, leafs)
+      : parseStatementList(state, context, scope, leafs);
 
   return context & Context.Module
     ? DictionaryMap.Module(source, directives, leafs)
@@ -93,7 +95,7 @@ export function parseSourceFile(text: string, filename: string, context: Context
   let leafs: Statement[] = [];
 
   while (state.token === Token.StringLiteral) {
-    let start = state.startIndex;
+    const start = state.startIndex;
     const expr = parseStringLiteral(state, context | Context.AllowRegExp, /* isDirective */ true);
     if (canConsumeSemicolon(state)) {
       if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
@@ -106,8 +108,8 @@ export function parseSourceFile(text: string, filename: string, context: Context
 
   leafs =
     context & Context.Module
-      ? parseStatementList(state, context, scope, leafs, parseModuleItem)
-      : parseStatementList(state, context, scope, leafs, parseStatementListItem);
+      ? parseStatemenOrModuleItemtList(state, context, scope, leafs, parseModuleItem)
+      : parseStatemenOrModuleItemtList(state, context, scope, leafs, parseStatementListItem);
 
   return createRootNode(directives, leafs, text, filename, state.diagnostics);
 }
@@ -122,7 +124,7 @@ export function parseInCustomMode(
   options?: Options,
   dictionary?: Dictionary
 ): Script | Module {
-  // Overwrite exisiting dictionaries if in 'custom mode'
+  // Overwrite exisiting dictionaries
   if (dictionary) Object.assign(DictionaryMap, dictionary);
   return parseRoot(source, context, options);
 }

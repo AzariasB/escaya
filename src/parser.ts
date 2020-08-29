@@ -170,6 +170,21 @@ export function create(source: string, nodeCursor?: any): ParserState {
   };
 }
 
+// ModuleItemList :
+//   ModuleItem
+//   ModuleItemListModuleItem
+export function parseModuleItemList(
+  state: ParserState,
+  context: Context,
+  scope: ScopeState,
+  statementList: Statement[]
+): Statement[] {
+  while (state.token !== Token.EOF) {
+    statementList.push(parseModuleItem(state, context, scope));
+  }
+  return statementList;
+}
+
 // StatementList :
 //   StatementListItem
 //   StatementList StatementListItem
@@ -177,21 +192,36 @@ export function parseStatementList(
   state: ParserState,
   context: Context,
   scope: ScopeState,
-  statementList: any[],
+  statementList: Statement[]
+): Statement[] {
+  // StatementList ::
+  //   (StatementListItem)* <end_token>
+
+  while (state.token !== Token.EOF) {
+    statementList.push(parseStatementListItem(state, context, scope, null, null));
+  }
+
+  return statementList;
+}
+
+// StatementList :
+//   StatementListItem
+//   StatementList StatementListItem
+//
+// ModuleItemList :
+//   ModuleItem
+//   ModuleItemListModuleItem
+export function parseStatemenOrModuleItemtList(
+  state: ParserState,
+  context: Context,
+  scope: ScopeState,
+  statementList: Statement[],
   cb: StatementCallback
 ): Statement[] {
   // StatementList ::
   //   (StatementListItem)* <end_token>
 
-  while (state.token & Constants.SourceElements) {
-    statementList.push(parseBlockElements(state, context, scope, null, null, cb));
-  }
-
-  // In 'normal mode' we will return now, but if we have encountered invalid syntax in
-  // 'recovery mode' that isn't an start of statement, we need to to continue to parse
-  if (state.token === Token.EOF) return statementList;
-
-  do {
+  while (state.token !== Token.EOF) {
     if (state.token & Constants.SourceElements) {
       statementList.push(parseBlockElements(state, context, scope, null, null, cb));
       continue;
@@ -199,16 +229,11 @@ export function parseStatementList(
 
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedStatement, DiagnosticKind.Error);
 
-    // We mark this node as 'dirty' in case we parse something like 'while(for)'. In this particular case
-    // we have to reconstruct a 'WhileStatement' and a 'ForStatement, but both are invalid so we force a
-    // full parse instead of incremental parsing.
-    state.flags |= Flags.NodeHasErrors;
-
     // We allow regular expressions here for cases like ')=/++!{class'. For this particular case the first
     // two punctuators are consumed.
     // '/' in an statement position should be parsed as an unterminated regular expression.
     nextToken(state, context | Context.AllowRegExp);
-  } while (state.token !== Token.EOF);
+  }
 
   return statementList;
 }
@@ -882,7 +907,7 @@ export function parseForStatement(
 
       consume(state, context | Context.AllowRegExp, Token.Semicolon);
 
-      if (state.token !== Token.Semicolon) condition = parseExpression(state, context);
+      if (state.token !== Token.Semicolon) condition = parseExpressions(state, context);
 
       consume(state, context | Context.AllowRegExp, Token.Semicolon);
 
@@ -977,7 +1002,7 @@ export function parseForStatement(
 
   consume(state, context | Context.AllowRegExp, Token.Semicolon);
 
-  if (state.token !== Token.Semicolon) condition = parseExpression(state, context);
+  if (state.token !== Token.Semicolon) condition = parseExpressions(state, context);
 
   consume(state, context | Context.AllowRegExp, Token.Semicolon);
 
@@ -3381,7 +3406,9 @@ export function parseFunctionBody(
         );
       }
     }
+
     context = context = (context | Context.TopLevel | Context.InBlock) ^ Context.InBlock;
+
     while (state.token & Constants.SourceElements) {
       statements.push(parseBlockElements(state, context, scope, null, null, parseStatementListItem));
     }
