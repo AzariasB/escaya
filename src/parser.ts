@@ -2354,7 +2354,10 @@ export function parseYieldExpression(state: ParserState, context: Context): Yiel
   if (token === Token.Multiply) {
     // A `\n` after `yield` is illegal for `yield *`. In 'recovery' mode this is allowed
     // and will be parsed as a 'BinaryExpression'.
-    if (state.lineTerminatorBeforeNextToken) addEarlyDiagnostic(state, context, DiagnosticCode.ExpectedExpression);
+    if (state.lineTerminatorBeforeNextToken) {
+      addEarlyDiagnostic(state, context, DiagnosticCode.ExpectedExpression);
+      state.flags |= Flags.NodeHasErrors;
+    }
     nextToken(state, context | Context.AllowRegExp);
     expression = parseExpression(state, context);
     delegate = true;
