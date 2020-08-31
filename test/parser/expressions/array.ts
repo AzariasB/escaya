@@ -314,6 +314,48 @@ describe('Expressions - Array', () => {
     });
   }
 
+  const invalidSyntax = [
+    '[...r, ]',
+    '[a, ...r, ]',
+    '[a = 0, ...r, ]',
+    '[[], ...r, ]',
+    '[[...r,]]',
+    '[[...r,], ]',
+    '[[...r,], a]'
+  ];
+
+  const validSyntax = ['[, ]', '[a, ]', '[[], ]'];
+
+  const destructuringForms = [
+    (a: any) => `${a} = [];`,
+    (a: any) => `var ${a} = [];`,
+    (a: any) => `let ${a} = [];`,
+    (a: any) => `const ${a} = [];`,
+    (a: any) => `(${a}) => {};`,
+    (a: any) => `(${a} = []) => {};`,
+    (a: any) => `function f(${a}) {}`
+  ];
+
+  for (const invalid of invalidSyntax) {
+    for (const fn of destructuringForms) {
+      it(fn(invalid), () => {
+        t.throws(() => {
+          parseScript(fn(invalid));
+        });
+      });
+    }
+  }
+
+  for (const invalid of validSyntax) {
+    for (const fn of destructuringForms) {
+      it(fn(invalid), () => {
+        t.doesNotThrow(() => {
+          parseScript(fn(invalid));
+        });
+      });
+    }
+  }
+
   // Valid cases. Testing random cases to verify we have no issues with bit masks
   for (const arg of [
     '[foo, [x,y = 20,z], bar = B] = arr;',
@@ -367,6 +409,7 @@ describe('Expressions - Array', () => {
     '[...[z] = [1]]',
     '[a,,b] = array;',
     '[{a = 0}] = [{}];',
+    '[...[{a = 0}]] = [{}];',
     'function f([...[{a = 0}]]) {}',
     'function f1({a} = {a:1}, b, [c] = [2]) {}',
     'h = ([...[{a = 0}]]) => {};',

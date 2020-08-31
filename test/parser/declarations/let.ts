@@ -363,6 +363,7 @@ describe('Declarations - Let', () => {
     'let a; [a,] = [];',
     'let a; [,,a] = [];',
     'let [a] = [,,];',
+    `let x = function *await(){}`,
     'let a; [...a] = [];',
     'let a; [a = 1] = [];',
     'let [[a]] = [[]];',

@@ -106,6 +106,7 @@ describe('Statements - For in', () => {
     'for (let [foo] = arr, [bar] in arr);',
     'for (()=>x in y);',
     'for (()=>(x) in y);',
+    'for (var [,{y}] = 1 in []) {}',
     // 'for (a=>b in c);',
     'for ("foo".x += z in y);',
     'for ("foo".x = z in y);',
@@ -143,6 +144,8 @@ describe('Statements - For in', () => {
     'for (x in [new.target] = {});',
     'for (x in [super = 1] = {});',
     'for (x in [function* f() {}] = {});',
+    'for (var [x] = [] in null);',
+    'for (var [ v , c ] = 0 in undefined) { }',
     'for (x in [(50)] = {});',
     'for (x in [(async function() {})] = {});',
     'for (x in [(foo())] = {});',
@@ -193,6 +196,26 @@ describe('Statements - For in', () => {
     'for(var [a] = 0 in {});',
     'for(var [a = 0] = 0 in {});',
     'for(var [...a] = 0 in {});',
+    `(function () {
+      for
+      (var [x] = function(){}
+       in
+       (function m(a) {
+         if (a < 1) {
+           x;
+           return;
+         }
+         return m(a - 1) + m(a - 2);
+       })(7)(eval(""))
+      )
+      {
+        [];
+      }
+    })`,
+    `for (var [x] = x>>x in [[]<[]])
+   {
+     [];
+    }`,
     'for (let() of y);',
     'for({}/=y in a)x',
     'for(let {p: x} = 0 in {});',
@@ -373,6 +396,51 @@ describe('Statements - For in', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         recovery(`${arg}`, 'recovery.js');
+      });
+    });
+  }
+  const validSyntax = ['var x'];
+
+  const destructuring = [
+    '[]',
+    '[,]',
+    '[a]',
+    '[a = 0]',
+    '[...a]',
+    '[...[]]',
+    '[...[a]]',
+    '{}',
+    '{p: x}',
+    '{p: x = 0}',
+    '{x}',
+    '{x = 0}'
+  ];
+
+  const invalidSyntax = [
+    ...destructuring.map((binding) => `var ${binding}`),
+    'let x',
+    ...destructuring.map((binding) => `let ${binding}`),
+    'const x',
+    ...destructuring.map((binding) => `const ${binding}`),
+    'x',
+    ...destructuring.map((binding) => `${binding}`),
+    'o.p',
+    'o[0]',
+    'f()'
+  ];
+
+  for (const valid of validSyntax) {
+    it(`"use strict"; for (${valid} = 0 in {});`, () => {
+      t.throws(() => {
+        parseScript(`"use strict"; for (${valid} = 0 in {});`, { loc: true });
+      });
+    });
+  }
+
+  for (const invalid of invalidSyntax) {
+    it(`for (${invalid} = 0 in {});`, () => {
+      t.throws(() => {
+        parseScript(`for (${invalid} = 0 in {});`, { loc: true });
       });
     });
   }
@@ -673,6 +741,7 @@ describe('Statements - For in', () => {
     `for ([] + x;;);`,
     `for (let x;;);`,
     `for (let=10;;);`,
+    'for ({forIn = defaultValue} in {"": null});',
     `for (const {a, [x]: y} in obj);`,
     `for (const {[x]: y} = z;;);`,
     `for (const {x : y, z, a : b = c} = obj;;);`,

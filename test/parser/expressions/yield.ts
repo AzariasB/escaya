@@ -7,7 +7,17 @@ describe('Expressions - Yield', () => {
     'function* fn() { (yield fn) => {}; } ',
     'function* fn() {  (a, b, yield) => {}; } ',
     'function* fn() {  yield => {}; }',
+    'function* g() { yield\n* foo }',
+    // A YieldExpression is not a LogicalORExpression
+    //  'function* g() { yield ? yield : yield }',
     'function* fn(x = yield* yield) {} ',
+    // Yield is still a future-reserved-word in strict mode
+    'function f() { "use strict"; var yield = 13; }',
+    // The name of the NFE is let-bound in the function/generator expression, so this is invalid.
+    'function f() { (function* yield() {}); }',
+    'function* g() { (function* yield() {}); }',
+    // 'function* yield() { "use strict"; (yield 3) + (yield 4); }',
+    'function f() { "use strict"; yield: 1 }',
     //'(a=yield) {}',
     // 'function *f(){ ~yield }',
     '+function* yield() {}',
@@ -15,6 +25,7 @@ describe('Expressions - Yield', () => {
     //'function* fn() { (a, b = 3, x = yield) => {};}',
     // 'function* fn() {  (x = yield) => {}; }',
     // 'function yield() { "use strict"; }',
+    // "use strict"; function f() { let {yield = 0} = {}; }
     '"use strict"; function yield() {}',
     'function* fn(x = yield) {} ',
     //'"use strict"; function fn(x = yield) {}',
@@ -134,6 +145,15 @@ describe('Expressions - Yield', () => {
     'class A { *yield() {} }',
     'function *a(){yield class{}}',
     'function *a(){yield-1}',
+    // Yield is only a keyword in the body of the generator, not in nested
+    // functions
+    'function* g() { function f(yield) { yield (yield + yield (0)); } }',
+    // The name of the NFE isn't let-bound in F/G, so this is valid.
+    'function f() { (function yield() {}); }',
+    'function* g() { (function yield() {}); }',
+    // The name of the declaration is let-bound in F, so this is valid.
+    'function f() { function yield() {} }',
+    'function f() { function* yield() {} }',
     '(x = yield) => {}',
     'x = { *test () { yield *v } };',
     '(function () { yield* 10 })',
@@ -320,6 +340,51 @@ describe('Expressions - Yield', () => {
     `(function *g(){ async (x = {[yield y]: 1}) })`,
     `(function *g(){ async (x = [yield y]) })`,
     `async (x = yield) => {}`,
+    'function* g() { (yield 3) + (yield 4); }',
+    'function* g() { yield; }',
+    'function* g() { yield }',
+    `function* g() {
+     yield
+     }`,
+    'function* g() { (yield) }',
+    'function* g() { [yield] }',
+    'function* g() { {yield} }',
+    'function* g() { (yield), (yield) }',
+    'function* g() { yield; yield }',
+    'function* g() { (yield) ? yield : yield }',
+    `function* g() {
+    (yield)
+    ? yield
+    : yield
+    }`,
+    `function* g() {
+      yield *
+      foo
+    }`,
+    // Generator expression.
+    '(function* () { yield 3; });',
+    // Named generator expression.
+    '(function* g() { yield 3; });',
+    // Generators do not have to contain yield expressions.
+    'function* g() { }',
+    // YieldExpressions can occur in the RHS of a YieldExpression.
+    'function* g() { yield yield 1; }',
+    'function* g() { yield 3 + (yield 4); }',
+    // Generator definitions with a name of "yield" are not specifically ruled out
+    // by the spec, as the `yield' name is outside the generator itself.  However,
+    // in strict-mode, "yield" is an invalid identifier.
+    'function* yield() { (yield 3) + (yield 4); }',
+    // In classic mode, yield is a normal identifier, outside of generators.
+    'function yield(yield) { yield: yield (yield + yield (0)); }',
+    // Yield is always valid as a key in an object literal.
+    '({ yield: 1 });',
+    'function* g() { yield ({ yield: 1 }) }',
+    'function* g() { yield ({ get yield() { return 1; }}) }',
+    // Yield is a valid property name.
+    'function* g(obj) { yield obj.yield; }',
+    // Checks that yield is a valid label in classic mode, but not valid in a strict
+    // mode or in generators.
+    'function f() { yield: 1 }',
     `async (yield)`,
     `async (x = yield)`,
     `async (x = (yield)) => {}`,

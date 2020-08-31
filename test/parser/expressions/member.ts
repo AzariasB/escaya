@@ -45,6 +45,8 @@ describe('Expressions - Member', () => {
     '(2[x,x],x)>x',
     '(a[b]||(c[d]=e))',
     'a&&(b=c)&&(d=e)',
+    'X.count.bind({hits: 77})()',
+    'X.count instanceof Function',
     'a.$._.B0',
     'a.if',
     'a().b',

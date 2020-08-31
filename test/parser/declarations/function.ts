@@ -33,8 +33,8 @@ describe('Declarations - Function', () => {
     // 'function f(b, a, b, a) {"use strict"}',
     // 'function f(b, a, b, a, [fine]) {"use strict"}',
     // 'function f(b, a, b, ...a) {"use strict"}',
-    // 'function g(){ { function f() {} let f = 1; } }',
-    // 'function g(){ { function f() {} const f = 1; } }',
+    'function g(){ { function f() {} let f = 1; } }',
+    'function g(){ { function f() {} const f = 1; } }',
     'function f() { for (var [x, y] = {} in {}); }',
     'function f() { for ("unassignable" in {}); }',
     'function f(b, a, b, a, [fine]) {"use strict"}',
@@ -54,7 +54,7 @@ describe('Declarations - Function', () => {
     'function foo() {try {} catch([x]) { function x() {} } }',
     'function foo() {try {} catch([x]) { let x = 10;} }',
     'function foo() {try {} catch([x]) { var x = 10;} }',
-    //'function foo({x:{z:[z1]}}, z1) {}',
+    // 'function foo({x:{z:[z1]}}, z1) {}',
     'function foo([x]) { let x = 10;}',
     'function foo([x], [x]) {}',
     '(function() { "use strict"; { const f = 1; var f; } })',
@@ -132,6 +132,16 @@ describe('Declarations - Function', () => {
     'function f([b, a, b, a]) {}',
     //     'function f(a, a, b) {"use strict"}',
     // 'function f(b, a, a) {"use strict"}',
+    'function f() { {get [x](): 1} }',
+    'function f() { get [x](): 1 }',
+    'function f() { set [x](a): 1 }',
+    '"use strict"; function f() { () => { var yield = 0; }; }',
+    '"use strict"; function f() { () => { var [yield] = []; }; }',
+    '"use strict"; function f() { () => { var [yield = 0] = []; }; }',
+    '"use strict"; function f() { () => { var [...yield] = []; }; }',
+    '"use strict"; function f() { () => { var {a: yield} = {}; }; }',
+    //'"use strict"; function f() { () => { var {yield} = {}; }; }',
+    //'"use strict"; function f() { () => { var {yield = 0} = {}; }; }',
     "function fn() { 'use strict'; return ...[1,2,3];} fn();",
     'function fn() { var ...x = [1,2,3]; } fn();',
     "function fn() { 'use strict'; var ...x = [1,2,3];} fn();",
@@ -173,6 +183,241 @@ describe('Declarations - Function', () => {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
         recovery(`${arg}`, 'recovery.js');
+      });
+    });
+  }
+
+  const bindingPatterns = [
+    '[]',
+    '[a]',
+    '[a, b]',
+    '[a, ...b]',
+    '[...a]',
+    '[...[]]',
+
+    '{}',
+    '{p: a}',
+    '{p: a = 0}',
+    '{p: {}}',
+    '{p: a, q: b}',
+    '{a}',
+    '{a, b}',
+    '{a = 0}'
+  ];
+
+  const functions = [
+    (p: any) => `function f(${p}) {}`,
+    (p: any) => `function* g(${p}) {}`,
+    (p: any) => `({m(${p}) {}});`,
+    (p: any) => `(class {m(${p}) {}});`,
+    (p: any) => `(${p}) => {};`
+  ];
+
+  for (const pattern of bindingPatterns) {
+    for (const fn of functions) {
+      it(fn(`...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          parseScript(fn(`...${pattern}`));
+        });
+      });
+
+      it(fn(`...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`...${pattern}`), 'recovery.js');
+        });
+      });
+
+      // Leading normal parameters
+
+      it(fn(`x, ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          parseScript(fn(`x, ...${pattern}`));
+        });
+      });
+
+      it(fn(`x, ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`x, ...${pattern}`), 'recovery.js');
+        });
+      });
+
+      // Leading parameters with defaults
+
+      it(fn(`x = 0, ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          parseScript(fn(`x = 0, ...${pattern}`));
+        });
+      });
+
+      it(fn(`x = 0, ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`x = 0, ...${pattern}`), 'recovery.js');
+        });
+      });
+
+      it(fn(`x = 0, y = 0, ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          parseScript(fn(`x = 0, y = 0, ...${pattern}`));
+        });
+      });
+
+      it(fn(`x = 0, y = 0, ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`x = 0, y = 0, ...${pattern}`), 'recovery.js');
+        });
+      });
+
+      // Leading array destructuring parameters
+
+      it(fn(`[],...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          parseScript(fn(`...${pattern}`));
+        });
+      });
+
+      it(fn(`[],...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`...${pattern}`), 'recovery.js');
+        });
+      });
+
+      it(fn(`[x], ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          parseScript(fn(`[x], ...${pattern}`));
+        });
+      });
+
+      it(fn(`[x], ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`[x], ...${pattern}`), 'recovery.js');
+        });
+      });
+
+      it(fn(`[x = 0], ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          parseScript(fn(`[x = 0], ...${pattern}`));
+        });
+      });
+
+      it(fn(`[x = 0], ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`[x = 0], ...${pattern}`), 'recovery.js');
+        });
+      });
+
+      it(fn(`[...x], ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          parseScript(fn(`[...x], ...${pattern}`));
+        });
+      });
+
+      it(fn(`[...x], ...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`[...x], ...${pattern}`), 'recovery.js');
+        });
+      });
+
+      // Leading object destructuring parameters.
+      it(fn(`{p: x},...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          parseScript(fn(`{p: x},...${pattern}`));
+        });
+      });
+
+      it(fn(`{p: x},...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`{p: x},...${pattern}`), 'recovery.js');
+        });
+      });
+
+      it(fn(`{x = 0},...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          parseScript(fn(`{x = 0},...${pattern}`));
+        });
+      });
+
+      it(fn(`{x = 0},...${pattern}`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`{x = 0},...${pattern}`), 'recovery.js');
+        });
+      });
+
+      // Trailing parameters after rest parameter.
+
+      it(fn(`...${pattern}`), () => {
+        t.throws(() => {
+          parseScript(fn(`...${pattern}, x`));
+        });
+      });
+      it(fn(`...${pattern}, x`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`...${pattern}, x`), 'recovery.js');
+        });
+      });
+
+      it(fn(`...${pattern}, x`), () => {
+        t.throws(() => {
+          parseScript(fn(`...${pattern}, x`));
+        });
+      });
+      it(fn(`...${pattern}, ...x`), () => {
+        t.doesNotThrow(() => {
+          recovery(fn(`...${pattern}, ...x`), 'recovery.js');
+        });
+      });
+    }
+  }
+
+  for (const fn of functions) {
+    // Missing name, incomplete patterns.
+    it(fn(`...`), () => {
+      t.throws(() => {
+        parseScript(fn(`...`));
+      });
+    });
+    it(fn(`...`), () => {
+      t.doesNotThrow(() => {
+        recovery(fn(`...`), 'recovery.js');
+      });
+    });
+
+    it(fn(`...[`), () => {
+      t.throws(() => {
+        parseScript(fn(`...[`));
+      });
+    });
+    it(fn(`...[`), () => {
+      t.doesNotThrow(() => {
+        recovery(fn(`...[`), 'recovery.js');
+      });
+    });
+
+    it(fn(`...{`), () => {
+      t.throws(() => {
+        parseScript(fn(`...{`));
+      });
+    });
+    it(fn(`...`), () => {
+      t.doesNotThrow(() => {
+        recovery(fn(`...`), 'recovery.js');
+      });
+    });
+
+    // Invalid binding name.
+
+    it(fn(`...[0]`), () => {
+      t.throws(() => {
+        parseScript(fn(`...[0]`));
+      });
+    });
+    it(fn(`...[p.q]`), () => {
+      t.throws(() => {
+        parseScript(fn(`...[p.q]`));
+      });
+    });
+    it(fn(`...[p.q]`), () => {
+      t.doesNotThrow(() => {
+        recovery(fn(`...[p.q]`), 'recovery.js');
       });
     });
   }
@@ -350,6 +595,8 @@ describe('Declarations - Function', () => {
     'function x([a, {b: []}]) {}',
     'function x([,,]) {}',
     'function x([,]) {}',
+    'function f2(m, x = 0 ? 1 : a => {}) { return x; }',
+    'function f1(x = 0 ? 1 : a => {}) { return x; }',
     'function x(x, {a: r, b: s, c: t}, y) {}',
     'function x({a: {p: q}, b: {r}, c: {s = 0}, d: {}}) {}',
     'function x({x: {y: {z: {} = 42}}}) {}',
@@ -378,10 +625,44 @@ describe('Declarations - Function', () => {
     'function f([x]){}',
     `function await(yield) {}`,
     'function f({a = await}) {}',
+    `function *await(){}`,
+    `function await(){}`,
     'function f({await}) {}',
     'function f(a = await) {}',
     `function *f(await){}`,
     'function *f(x = delete ((arguments) = f)) {}',
+    `function f() {
+      var x = 3;
+      if (x > 0) {
+        let {a:x} = {a:7};
+        if (x != 7)
+          throw "fail";
+      }
+      if (x != 3)
+        throw "fail";
+    }`,
+    `function h() {
+      for ([a,b] in {z:9}) {
+        if (a !== "z" || typeof b !== "undefined")
+          throw "fail";
+      }
+    }`,
+    `function g() {
+      for (var [a,b] in {x:7}) {
+        if (a !== "x" || typeof b !== "undefined")
+          throw "fail";
+      }
+
+      {
+        for (let [a,b] in {y:8}) {
+          if (a !== "y" || typeof b !== "undefined")
+            throw "fail";
+        }
+      }
+
+      if (a !== "x" || typeof b !== "undefined")
+        throw "fail";
+    }`,
     `function f(){ "use strict"
     /* suffix = */ [foo]; eval = 1; }`,
     'function fn4([[x, y, ...z]]) {}',
@@ -390,6 +671,8 @@ describe('Declarations - Function', () => {
     'function *f(){   x = `1 ${ yield } 2`   }',
     'function *f(){   x = `1 ${ yield } 2 ${ 3 } 4`   }',
     'function f(...await) {}',
+    'function f() { return { f() {}, *g() {}, r: /a/ }; }',
+    'function* g() { return { f() {}, *g() {}, r: /b/ }; }',
     `function fooInline(a, b, c, ...rest) { arguments; this; return [a, b, c, ...rest]; }`,
     `function singleRest(...[d]) { return d; }`,
     `function objRest(...{'0': a, '1': b, length}) { return [a, b, length]; }`,

@@ -85,7 +85,10 @@ describe('Statements - For await of', () => {
     'async function f() { for await ([a = 1 = 1, ...b] = 1 of []); }',
     'async function f() { for await (([a = 1 = 1, ...b] = 1) of []); }',
     'async function f() { for await ({a} = 1 of []); }',
-    'async function f() { for await (({a} = 1) of []); }'
+    'async function f() { for await (({a} = 1) of []); }',
+    'for await (let x of []) {}',
+    'async function f() { for await await (let x of []) {} }',
+    'for await (;;) ;'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -102,6 +105,24 @@ describe('Statements - For await of', () => {
         recovery(`${arg}`, 'recovery.js');
       });
     });
+  }
+
+  for (var decl of ['', 'var', 'let', 'const']) {
+    for (var head of ['a', 'a = 0', 'a, b', '[a]', '[a] = 0', '{a}', '{a} = 0']) {
+      // Ends with C-style for loop syntax.
+      it(`for await (${decl} ${head} ;;) ;`, () => {
+        t.throws(() => {
+          parseModule(`for await (${decl} ${head} ;;) ;`);
+        });
+      });
+
+      // Ends with for-in loop syntax.
+      it(`for await (${decl} ${head} in null) ;`, () => {
+        t.throws(() => {
+          parseModule(`for await (${decl} ${head} in null) ;`);
+        });
+      });
+    }
   }
 
   // Valid cases. Testing random cases to verify we have no issues with bit masks

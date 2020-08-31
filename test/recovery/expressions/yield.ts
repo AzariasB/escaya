@@ -873,6 +873,233 @@ describe('Recovery - Expressions - Yield', () => {
     });
   });
 
+  it('function* g() { yield }', () => {
+    t.deepEqual(recovery('function* g() { yield }', 'recovery.js'), {
+      children: [],
+      context: 0,
+      detached: false,
+      diagnostics: [],
+      directives: [],
+      end: 23,
+      fileName: 'recovery.js',
+      incremental: false,
+      kind: 209,
+      leafs: [
+        {
+          async: false,
+          contents: {
+            directives: [],
+            end: 23,
+            flags: 0,
+            kind: 184,
+            leafs: [
+              {
+                end: 21,
+                expression: {
+                  argument: null,
+                  delegate: false,
+                  end: 21,
+                  flags: 0,
+                  kind: 193,
+                  start: 15,
+                  type: 'YieldExpression'
+                },
+                flags: 0,
+                kind: 122,
+                start: 15,
+                type: 'ExpressionStatement'
+              }
+            ],
+            start: 13,
+            type: 'FunctionBody'
+          },
+          end: 23,
+          flags: 0,
+          generator: true,
+          kind: 186,
+          name: {
+            end: 11,
+            flags: 0,
+            kind: 168,
+            name: 'g',
+            start: 9,
+            type: 'BindingIdentifier'
+          },
+          params: [],
+          start: 0,
+          type: 'FunctionDeclaration'
+        }
+      ],
+      length: 23,
+      mutualFlags: 0,
+      parent: null,
+      start: 0,
+      text: 'function* g() { yield }'
+    });
+  });
+
+  it('function* g() { yield\n* foo }', () => {
+    t.deepEqual(recovery('function* g() { yield\n* foo }', 'recovery.js'), {
+      children: [],
+      context: 0,
+      detached: false,
+      diagnostics: [
+        {
+          code: 7,
+          kind: 3,
+          length: 1,
+          message: 'Expression expected',
+          source: 2,
+          start: 22
+        }
+      ],
+      directives: [],
+      end: 29,
+      fileName: 'recovery.js',
+      incremental: false,
+      kind: 209,
+      leafs: [
+        {
+          async: false,
+          contents: {
+            directives: [],
+            end: 29,
+            flags: 0,
+            kind: 184,
+            leafs: [
+              {
+                end: 27,
+                expression: {
+                  argument: {
+                    end: 27,
+                    flags: 0,
+                    kind: 13,
+                    name: 'foo',
+                    start: 23,
+                    type: 'IdentifierReference'
+                  },
+                  delegate: true,
+                  end: 27,
+                  flags: 0,
+                  kind: 193,
+                  start: 15,
+                  type: 'YieldExpression'
+                },
+                flags: 0,
+                kind: 122,
+                start: 15,
+                type: 'ExpressionStatement'
+              }
+            ],
+            start: 13,
+            type: 'FunctionBody'
+          },
+          end: 29,
+          flags: 0,
+          generator: true,
+          kind: 186,
+          name: {
+            end: 11,
+            flags: 0,
+            kind: 168,
+            name: 'g',
+            start: 9,
+            type: 'BindingIdentifier'
+          },
+          params: [],
+          start: 0,
+          type: 'FunctionDeclaration'
+        }
+      ],
+      length: 29,
+      mutualFlags: 0,
+      parent: null,
+      start: 0,
+      text: 'function* g() { yield\n* foo }'
+    });
+  });
+
+  it('function* g() { yield* }', () => {
+    t.deepEqual(recovery('function* g() { yield* }', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'FunctionDeclaration',
+          name: {
+            type: 'BindingIdentifier',
+            name: 'g',
+            start: 9,
+            end: 11,
+            kind: 168,
+            flags: 0
+          },
+          generator: true,
+          async: false,
+          params: [],
+          contents: {
+            type: 'FunctionBody',
+            directives: [],
+            leafs: [
+              {
+                type: 'ExpressionStatement',
+                expression: {
+                  type: 'YieldExpression',
+                  delegate: true,
+                  argument: {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 22,
+                    end: 22,
+                    kind: 13,
+                    flags: 2
+                  },
+                  start: 15,
+                  end: 22,
+                  kind: 193,
+                  flags: 0
+                },
+                start: 15,
+                end: 22,
+                kind: 122,
+                flags: 0
+              }
+            ],
+            start: 13,
+            end: 24,
+            kind: 184,
+            flags: 0
+          },
+          start: 0,
+          end: 24,
+          kind: 186,
+          flags: 0
+        }
+      ],
+      text: 'function* g() { yield* }',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 23,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 24,
+      end: 24
+    });
+  });
+
   it('yield', () => {
     t.deepEqual(recovery('yield', 'recovery.js'), {
       kind: 209,

@@ -106,7 +106,8 @@ import {
   addVarName,
   addBlockName,
   addVarOrBlock,
-  declareUnboundVariable
+  declareUnboundVariable,
+  addBindingToExports
 } from './scope';
 import {
   Context,
@@ -614,8 +615,8 @@ export function parseCaseBlock(
   const clauses = [];
   scope = createParentScope(scope, ScopeKind.SwitchStatement);
   // Pass the 'Context.InBlock' bit to mark that we enter a new block scope and unset the
-  // 'Context.TopLevel' bit. We are no longer at the 'TopLevel', and keeping the 'Context.InBlock' bit
-  // will have bad result on the scope tracking.
+  // 'Context.TopLevel' bit. We are no longer at the 'TopLevel'. Keeping the 'Context.InBlock' bit
+  // will have a bad result on the scope tracking.
   context = (context | 0b00110000000100000000000000000000) ^ 0b00100000000000000000000000000000;
   // In 'normal mode' the 'check' constant allows every token except for 'Token.DefaultKeyword',
   // 'Token.CaseKeyword', and the 'Token.RightBrace'. This is in line with 'normal' parsing behaviour.
@@ -2346,14 +2347,21 @@ export function parseYieldExpression(state: ParserState, context: Context): Yiel
   if (context & Context.Parameters) addEarlyDiagnostic(state, context, DiagnosticCode.YieldInParameter);
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
-  let delegate = false;
   let expression = null;
-  if (!state.lineTerminatorBeforeNextToken) {
-    delegate = consumeOpt(state, context | Context.AllowRegExp, Token.Multiply);
-    if (state.token & Token.IsExpressionStart || delegate) {
-      expression = parseExpression(state, context);
-    }
+  let delegate = false;
+  const token = state.token;
+
+  if (token === Token.Multiply) {
+    // A `\n` after `yield` is illegal for `yield *`. In 'recovery' mode this is allowed
+    // and will be parsed as a 'BinaryExpression'.
+    if (state.lineTerminatorBeforeNextToken) addEarlyDiagnostic(state, context, DiagnosticCode.ExpectedExpression);
+    nextToken(state, context | Context.AllowRegExp);
+    expression = parseExpression(state, context);
+    delegate = true;
+  } else if (token & Token.IsExpressionStart) {
+    expression = parseExpression(state, context);
   }
+
   state.assignable = false;
   return finishNode(
     state,

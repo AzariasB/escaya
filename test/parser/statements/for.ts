@@ -21,6 +21,8 @@ describe('Statements - For', () => {
     'for (const x;;);',
     'for await ([a];;);',
     'for await ([a].x;;);',
+    'for ({x = 0};;);',
+    'for (x => 0 in 1;;) break;',
     'for (var x \n /foo/;;);',
     'for ({a=b};;);',
     'for(;;) foo: continue foo',

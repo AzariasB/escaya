@@ -21,8 +21,19 @@ describe('Declarations - Class', () => {
     'class foo { static async set x(y){} }',
     'class foo { static async x : 0 }',
     'class A extends (() => { with (a) {} }) {}',
+    'class x { static get static() {  } }.static',
     'class l\\u0065t {};',
     'class C {} new C?.();',
+    'class A {async foo() { var await }}',
+    'class A {async foo(await) { }}',
+    'class A { async get foo() {} }',
+    'class A { async static staticAsyncMethod() {} }',
+    'class A { static async prototype() {} }',
+    'async function method() { var x = await; }',
+    'class A { async constructor() {} }',
+    'class A { async set foo() {} }',
+    // 'class A {async foo() { return {await} }}',
+    'class x {f(foo = await bar){}}',
     // 'class E0 { 0123() {} }',
     'class x { x = new y<a>() }',
     'class impl\\u0065ments {}',
@@ -254,6 +265,10 @@ describe('Declarations - Class', () => {
     'class C { static async foo() { }}',
     `class X { static await(){} }`,
     `class x {*f(await){}}`,
+    `class x {*f(await){}}`,
+    `class x {f(await){}}`,
+    `function *f(){  foo(await)  }`,
+    `function *f(){  (await) => x  }`,
     'class A { async* f() { await a; yield b; } }',
     'class A { static async* f() { await a; yield b; } }',
     'class x extends feh(await) { }',
@@ -315,6 +330,17 @@ describe('Declarations - Class', () => {
     'class A {constructor(x=new.target){}}',
     'class A {a(x=new.target){}}',
     'class A {static a(x=new.target){}}',
+    `class derived extends base {
+      constructor() { super(); }
+      get a() { return super.getValue(); }
+      set a(v) { super.setValue(v); }
+      get b() { return eval('super.getValue()'); }
+      set b(v) { eval('super.setValue(v);'); }
+      test() {
+          this.a = 15;
+          this.b = 30;
+      }
+    }`,
     `class C {
       a() { }
       static b() { }

@@ -688,6 +688,213 @@ describe('Recovery - Expressions - Object', () => {
     });
   });
 
+  it('({set [if (0) 0;](a){}})', () => {
+    t.deepEqual(recovery('({set [if (0) 0;](a){}})', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'CallExpression',
+              expression: {
+                type: 'ObjectLiteral',
+                properties: [
+                  {
+                    type: 'MethodDefinition',
+                    async: false,
+                    generator: false,
+                    propertySetParameterList: [
+                      {
+                        type: 'BindingIdentifier',
+                        name: '',
+                        start: 7,
+                        end: 9,
+                        kind: 168,
+                        flags: 0
+                      }
+                    ],
+                    uniqueFormalParameters: [],
+                    name: {
+                      type: 'ComputedPropertyName',
+                      expression: {
+                        type: 'IdentifierReference',
+                        name: '',
+                        start: 7,
+                        end: 7,
+                        kind: 13,
+                        flags: 2
+                      },
+                      start: 5,
+                      end: 7,
+                      kind: 171,
+                      flags: 0
+                    },
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
+                      start: 9,
+                      end: 9,
+                      kind: 184,
+                      flags: 0
+                    },
+                    start: 7,
+                    end: 9,
+                    kind: 182,
+                    flags: 0
+                  }
+                ],
+                start: 1,
+                end: 9,
+                kind: 179,
+                flags: 0
+              },
+              arguments: [
+                {
+                  type: 'NumericLiteral',
+                  value: 0,
+                  start: 11,
+                  end: 12,
+                  kind: 10,
+                  flags: 0
+                }
+              ],
+              start: 1,
+              end: 13,
+              kind: 156,
+              flags: 0
+            },
+            start: 0,
+            end: 13,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 13,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'NumericLiteral',
+            value: 0,
+            start: 13,
+            end: 15,
+            kind: 10,
+            flags: 0
+          },
+          start: 13,
+          end: 16,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'a',
+              start: 18,
+              end: 19,
+              kind: 13,
+              flags: 0
+            },
+            start: 17,
+            end: 20,
+            kind: 189,
+            flags: 0
+          },
+          start: 17,
+          end: 20,
+          kind: 122,
+          flags: 0
+        },
+        {
+          type: 'BlockStatement',
+          leafs: [],
+          start: 20,
+          end: 22,
+          kind: 123,
+          flags: 0
+        }
+      ],
+      text: '({set [if (0) 0;](a){}})',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 7,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 10,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 14,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 16,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 20,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 22,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Statement expected',
+          code: 8,
+          start: 23,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 24,
+      end: 24
+    });
+  });
+
   it('({...', () => {
     t.deepEqual(recovery('({...', 'recovery.js'), {
       kind: 209,

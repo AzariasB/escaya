@@ -534,6 +534,18 @@ describe('Expressions - Async arrow', () => {
     /*`a => {}
     () => {}`, */
     'async=>x, y',
+    'async ({a = 1}) => {};',
+    'async ({a = 1}, {b = 2}) => {};',
+    'async ({a = 1}, {b = 2}, {c = 3}) => {};',
+    'async ({a = 1} = {}, {b = 2}, {c = 3}) => {};',
+    'async ({a = 1} = {}, {b = 2} = {}, {c = 3}) => {};',
+    'async ({a = 1} = {}, {b = 2} = {}, {c = 3} = {}) => {};',
+    // CoverInitName nested in array destructuring.
+    'async ([{a = 0}]) => {};',
+    // CoverInitName nested in rest pattern.
+    'async ([...[{a = 0}]]) => {};',
+    // CoverInitName nested in object destructuring.
+    'async ({p: {a = 0}}) => {};',
     `async g => (x = [await y])`,
     `async (a = yield) => x`,
     `async (...yield) => x`,
@@ -559,6 +571,9 @@ describe('Expressions - Async arrow', () => {
     'async => async',
     `async ({await: a}) => 1`,
     'async (arguments) => {}',
+    `x(async () => { await y.x('foo'); });`,
+    `async r => result = [...{ x = await x }] = y;`,
+    `result = [...{ x = await }] = y;`,
     'async arguments => {}',
     'async (arguments) => {"use strict";}',
     'async arguments => {"use strict";}',
@@ -604,6 +619,13 @@ describe('Expressions - Async arrow', () => {
     `async (x = (let) = f) => {}`,
     `() => ("\\u{20ac}")`,
     `async x => { return () => x; }`,
+    `await => async.await[async = bar / (async + 1)]`,
+    `await => async.await[async / (async => foo)]`,
+    `await => async.await[async / (async => foo.bar)]`,
+    `await => async.await[async / (async = async(async, await, bar))]`,
+    `await => async`,
+    `await => async.await[foo]`,
+    `async function test() { await foo(); }`,
     `() => (async(foo, { a = "0" }) => foo + a)("2", { a: undefined })`,
     `({ident: {x: y}})`,
     `async (x)=>{x}`,
