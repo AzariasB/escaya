@@ -16,6 +16,7 @@ describe('Declarations - Async Function', () => {
     'async function a(k = super.prop) { }',
     'async function a() { super.prop(); }',
     'async function a() { super(); }',
+    'async function *x(yield, { yield }) {}',
     'async function f(){   function g(x = typeof await x) {}  }',
     'async function f(){   function h({x: typeof await x}) {}   }',
     'async function g(){async function f(foo = [h, {m: t(await bar)}]){}    }',

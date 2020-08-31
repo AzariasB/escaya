@@ -3211,15 +3211,24 @@ describe('Recovery - Function', () => {
               type: 'BindingElement',
               left: {
                 type: 'ObjectBindingPattern',
-                properties: [],
+                properties: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'function',
+                    start: 11,
+                    end: 19,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
                 start: 10,
-                end: 11,
+                end: 19,
                 kind: 169,
                 flags: 0
               },
               right: null,
               start: 10,
-              end: 11,
+              end: 19,
               kind: 172,
               flags: 0
             }
@@ -3228,68 +3237,48 @@ describe('Recovery - Function', () => {
             type: 'FunctionBody',
             directives: [],
             leafs: [],
-            start: 11,
-            end: 11,
+            start: 19,
+            end: 19,
             kind: 184,
             flags: 0
           },
           start: 0,
-          end: 11,
+          end: 19,
           kind: 186,
           flags: 0
         },
         {
-          type: 'FunctionDeclaration',
-          name: {
-            type: 'BindingIdentifier',
-            name: '',
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'FunctionExpression',
+              name: null,
+              generator: false,
+              async: false,
+              params: [],
+              contents: {
+                type: 'FunctionBody',
+                directives: [],
+                leafs: [],
+                start: 31,
+                end: 31,
+                kind: 184,
+                flags: 0
+              },
+              start: 21,
+              end: 31,
+              kind: 185,
+              flags: 0
+            },
             start: 19,
-            end: 19,
-            kind: 168,
-            flags: 0
-          },
-          generator: false,
-          async: false,
-          params: [],
-          contents: {
-            type: 'FunctionBody',
-            directives: [],
-            leafs: [],
-            start: 21,
-            end: 21,
-            kind: 184,
-            flags: 0
-          },
-          start: 11,
-          end: 21,
-          kind: 186,
-          flags: 0
-        },
-        {
-          type: 'FunctionDeclaration',
-          name: {
-            type: 'BindingIdentifier',
-            name: '',
-            start: 29,
-            end: 29,
-            kind: 168,
-            flags: 0
-          },
-          generator: false,
-          async: false,
-          params: [],
-          contents: {
-            type: 'FunctionBody',
-            directives: [],
-            leafs: [],
-            start: 31,
             end: 31,
-            kind: 184,
+            kind: 189,
             flags: 0
           },
-          start: 21,
+          start: 19,
           end: 31,
-          kind: 186,
+          kind: 122,
           flags: 0
         }
       ],
@@ -3307,18 +3296,18 @@ describe('Recovery - Function', () => {
           length: 1
         },
         {
-          kind: 2,
-          source: 2,
-          message: '`}` expected',
-          code: 5,
-          start: 11,
-          length: 8
-        },
-        {
           kind: 3,
           source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
+          message: 'Invalid use of keyword as an labeled identifier',
+          code: 131,
+          start: 11,
+          length: 10
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
           start: 20,
           length: 1
         },
@@ -3327,14 +3316,6 @@ describe('Recovery - Function', () => {
           source: 2,
           message: '`)` expected',
           code: 5,
-          start: 21,
-          length: 8
-        },
-        {
-          kind: 3,
-          source: 2,
-          message: 'Expected an binding identifier',
-          code: 19,
           start: 30,
           length: 1
         }

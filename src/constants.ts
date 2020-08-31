@@ -25,7 +25,7 @@ export const enum Constants {
   ArrayListN                     = 0b00001010100100011010000000000000,
   ArrayListR                     = 0b00000010100100011010000000000000,
   ArrayPattern                   = 0b00000010100100011000000000000000,
-  ObjectPatternR                 = 0b00000001100100010000000000000000,
+  ObjectPatternR                 = 0b00001001100100010000000000000000,
   ObjectPatternN                 = 0b00001001100100011010000000000000,
   ObjectLiteralElements          = 0b00001001100100010000000000000000,
   ModuleElementsN                = 0b00001000000100010010000000000000,

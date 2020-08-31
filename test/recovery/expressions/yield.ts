@@ -1813,6 +1813,14 @@ describe('Recovery - Expressions - Yield', () => {
           length: 1
         },
         {
+          code: 21,
+          kind: 3,
+          length: 8,
+          message: 'Unexpected `yield` as identifier in this context',
+          source: 2,
+          start: 25
+        },
+        {
           kind: 2,
           source: 2,
           message: '`,` expected',
@@ -1823,10 +1831,10 @@ describe('Recovery - Expressions - Yield', () => {
         {
           kind: 3,
           source: 2,
-          message: 'Duplicate binding `x`',
+          message: 'Duplicate binding `yield`',
           code: 124,
-          start: 33,
-          length: 0
+          start: 31,
+          length: 2
         },
         {
           kind: 2,

@@ -2,6 +2,1066 @@ import * as t from 'assert';
 import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Let', () => {
+  it('"use strict"; let { package } = x;', () => {
+    t.deepEqual(recovery('"use strict"; let { package } = x;', 'recovery.js'), {
+      kind: 209,
+      directives: [
+        {
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
+          start: 0,
+          end: 12,
+          kind: 229,
+          flags: 0
+        }
+      ],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'package',
+                    start: 19,
+                    end: 27,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
+                start: 17,
+                end: 29,
+                kind: 169,
+                flags: 0
+              },
+              initializer: {
+                type: 'IdentifierReference',
+                name: 'x',
+                start: 31,
+                end: 33,
+                kind: 13,
+                flags: 0
+              },
+              start: 17,
+              end: 33,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 13,
+          end: 34,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: '"use strict"; let { package } = x;',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Unexpected reserved word in strict mode',
+          code: 18,
+          start: 19,
+          length: 10
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 34,
+      end: 34
+    });
+  });
+
+  it('let { for } = x;', () => {
+    t.deepEqual(recovery('let { for } = x;', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'for',
+                    start: 5,
+                    end: 9,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 11,
+                kind: 169,
+                flags: 0
+              },
+              initializer: {
+                type: 'IdentifierReference',
+                name: 'x',
+                start: 13,
+                end: 15,
+                kind: 13,
+                flags: 0
+              },
+              start: 3,
+              end: 15,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 16,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: 'let { for } = x;',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid use of keyword as an labeled identifier',
+          code: 131,
+          start: 5,
+          length: 6
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 16,
+      end: 16
+    });
+  });
+
+  it('let {{for', () => {
+    t.deepEqual(recovery('let {{for', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [],
+                start: 3,
+                end: 5,
+                kind: 169,
+                flags: 0
+              },
+              initializer: null,
+              start: 3,
+              end: 5,
+              kind: 146,
+              flags: 0
+            },
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'for',
+                    start: 6,
+                    end: 9,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
+                start: 5,
+                end: 9,
+                kind: 169,
+                flags: 0
+              },
+              initializer: null,
+              start: 5,
+              end: 9,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 9,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: 'let {{for',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 5,
+          length: 1
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid use of keyword as an labeled identifier',
+          code: 131,
+          start: 6,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 9,
+      end: 9
+    });
+  });
+
+  it('let {of', () => {
+    t.deepEqual(recovery('let {of', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'of',
+                    start: 5,
+                    end: 7,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 7,
+                kind: 169,
+                flags: 0
+              },
+              initializer: null,
+              start: 3,
+              end: 7,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 7,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: 'let {of',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 5,
+          length: 2
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
+  it('let {of =', () => {
+    t.deepEqual(recovery('let {of =', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'BindingElement',
+                    left: {
+                      type: 'BindingIdentifier',
+                      name: 'of',
+                      start: 5,
+                      end: 7,
+                      kind: 168,
+                      flags: 0
+                    },
+                    right: {
+                      type: 'IdentifierReference',
+                      name: '',
+                      start: 9,
+                      end: 9,
+                      kind: 13,
+                      flags: 2
+                    },
+                    start: 5,
+                    end: 9,
+                    kind: 172,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 9,
+                kind: 169,
+                flags: 0
+              },
+              initializer: null,
+              start: 3,
+              end: 9,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 9,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: 'let {of =',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 8,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 9,
+      end: 9
+    });
+  });
+
+  it('"use strict"; let {[ of =', () => {
+    t.deepEqual(recovery('"use strict"; let {[ of =', 'recovery.js'), {
+      kind: 209,
+      directives: [
+        {
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
+          start: 0,
+          end: 12,
+          kind: 229,
+          flags: 0
+        }
+      ],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'ComputedPropertyName',
+                      expression: {
+                        type: 'AssignmentExpression',
+                        left: {
+                          type: 'IdentifierReference',
+                          name: 'of',
+                          start: 20,
+                          end: 23,
+                          kind: 13,
+                          flags: 0
+                        },
+                        operator: '=',
+                        right: {
+                          type: 'IdentifierReference',
+                          name: '',
+                          start: 25,
+                          end: 25,
+                          kind: 13,
+                          flags: 2
+                        },
+                        start: 20,
+                        end: 25,
+                        kind: 152,
+                        flags: 0
+                      },
+                      start: 19,
+                      end: 25,
+                      kind: 171,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'BindingIdentifier',
+                      name: '',
+                      start: 25,
+                      end: 25,
+                      kind: 168,
+                      flags: 0
+                    },
+                    start: 19,
+                    end: 25,
+                    kind: 227,
+                    flags: 0
+                  }
+                ],
+                start: 17,
+                end: 25,
+                kind: 169,
+                flags: 0
+              },
+              initializer: null,
+              start: 17,
+              end: 25,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 13,
+          end: 25,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: '"use strict"; let {[ of =',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 24,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 25,
+      end: 25
+    });
+  });
+
+  it('let {x = y} = [z]', () => {
+    t.deepEqual(recovery('let {x = y} = [z]', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'BindingElement',
+                    left: {
+                      type: 'BindingIdentifier',
+                      name: 'x',
+                      start: 5,
+                      end: 6,
+                      kind: 168,
+                      flags: 0
+                    },
+                    right: {
+                      type: 'IdentifierReference',
+                      name: 'y',
+                      start: 8,
+                      end: 10,
+                      kind: 13,
+                      flags: 0
+                    },
+                    start: 5,
+                    end: 10,
+                    kind: 172,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 11,
+                kind: 169,
+                flags: 0
+              },
+              initializer: {
+                type: 'ArrayLiteral',
+                elements: [
+                  {
+                    type: 'IdentifierReference',
+                    name: 'z',
+                    start: 15,
+                    end: 16,
+                    kind: 13,
+                    flags: 0
+                  }
+                ],
+                start: 13,
+                end: 17,
+                kind: 178,
+                flags: 0
+              },
+              start: 3,
+              end: 17,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 17,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: 'let {x = y} = [z]',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 17,
+      end: 17
+    });
+  });
+
+  it('let {package} = x', () => {
+    t.deepEqual(recovery('let {package} = x', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'package',
+                    start: 5,
+                    end: 12,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 13,
+                kind: 169,
+                flags: 0
+              },
+              initializer: {
+                type: 'IdentifierReference',
+                name: 'x',
+                start: 15,
+                end: 17,
+                kind: 13,
+                flags: 0
+              },
+              start: 3,
+              end: 17,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 17,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: 'let {package} = x',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 17,
+      end: 17
+    });
+  });
+
+  it('let {of:', () => {
+    t.deepEqual(recovery('let {of:', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'PropertyName',
+                    key: {
+                      type: 'IdentifierName',
+                      name: 'of',
+                      start: 5,
+                      end: 8,
+                      kind: 13,
+                      flags: 0
+                    },
+                    value: {
+                      type: 'BindingIdentifier',
+                      name: '',
+                      start: 8,
+                      end: 8,
+                      kind: 168,
+                      flags: 0
+                    },
+                    start: 5,
+                    end: 8,
+                    kind: 227,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 8,
+                kind: 169,
+                flags: 0
+              },
+              initializer: null,
+              start: 3,
+              end: 8,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 8,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: 'let {of:',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 7,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 8,
+      end: 8
+    });
+  });
+
+  it('"use strict"; let [package] = x;', () => {
+    t.deepEqual(recovery('"use strict"; let [package] = x;', 'recovery.js'), {
+      kind: 209,
+      directives: [
+        {
+          type: 'Directive',
+          value: 'use strict',
+          raw: 'use strict',
+          start: 0,
+          end: 12,
+          kind: 229,
+          flags: 0
+        }
+      ],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ArrayBindingPattern',
+                elements: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: '',
+                    start: 19,
+                    end: 26,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
+                start: 17,
+                end: 27,
+                kind: 174,
+                flags: 0
+              },
+              initializer: {
+                type: 'IdentifierReference',
+                name: 'x',
+                start: 29,
+                end: 31,
+                kind: 13,
+                flags: 0
+              },
+              start: 17,
+              end: 31,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 13,
+          end: 32,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: '"use strict"; let [package] = x;',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Unexpected reserved word in strict mode',
+          code: 18,
+          start: 19,
+          length: 7
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 32,
+      end: 32
+    });
+  });
+
+  it('let [package] = x;', () => {
+    t.deepEqual(recovery('let [package] = x;', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ArrayBindingPattern',
+                elements: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'package',
+                    start: 5,
+                    end: 12,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 13,
+                kind: 174,
+                flags: 0
+              },
+              initializer: {
+                type: 'IdentifierReference',
+                name: 'x',
+                start: 15,
+                end: 17,
+                kind: 13,
+                flags: 0
+              },
+              start: 3,
+              end: 17,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 18,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: 'let [package] = x;',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 18,
+      end: 18
+    });
+  });
+
+  it('let [a of', () => {
+    t.deepEqual(recovery('let [a of', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ArrayBindingPattern',
+                elements: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'a',
+                    start: 5,
+                    end: 6,
+                    kind: 168,
+                    flags: 0
+                  },
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'of',
+                    start: 6,
+                    end: 9,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 9,
+                kind: 174,
+                flags: 0
+              },
+              initializer: null,
+              start: 3,
+              end: 9,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 9,
+          kind: 145,
+          flags: 0
+        }
+      ],
+      text: 'let [a of',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 7,
+          length: 2
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 9,
+      end: 9
+    });
+  });
+
+  it('let [a for', () => {
+    t.deepEqual(recovery('let [a for', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'LexicalDeclaration',
+          isConst: false,
+          declarations: [
+            {
+              type: 'LexicalBinding',
+              binding: {
+                type: 'ArrayBindingPattern',
+                elements: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'a',
+                    start: 5,
+                    end: 6,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
+                start: 3,
+                end: 6,
+                kind: 174,
+                flags: 0
+              },
+              initializer: null,
+              start: 3,
+              end: 6,
+              kind: 146,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 6,
+          kind: 145,
+          flags: 0
+        },
+        {
+          type: 'ForStatement',
+          initializer: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 10,
+            end: 10,
+            kind: 13,
+            flags: 2
+          },
+          condition: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 10,
+            end: 10,
+            kind: 13,
+            flags: 2
+          },
+          incrementor: {
+            type: 'IdentifierReference',
+            name: '',
+            start: 10,
+            end: 10,
+            kind: 13,
+            flags: 2
+          },
+          statement: {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: '',
+              start: 10,
+              end: 10,
+              kind: 13,
+              flags: 2
+            },
+            start: 10,
+            end: 10,
+            kind: 122,
+            flags: 0
+          },
+          start: 6,
+          end: 10,
+          kind: 132,
+          flags: 0
+        }
+      ],
+      text: 'let [a for',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 7,
+          length: 3
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 10,
+      end: 10
+    });
+  });
+
   it('let of', () => {
     t.deepEqual(recovery('let of', 'recovery.js'), {
       kind: 209,

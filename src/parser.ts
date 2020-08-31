@@ -1138,7 +1138,7 @@ export function parseForStatement(
       );
     }
 
-    let destructible = Destructible.None;
+    let destructible!: Destructible;
 
     if (state.token & Token.IsPatternStart) {
       initializer =
@@ -1687,13 +1687,21 @@ export function parseVariableDeclarationList(
 export function parseLexicalDeclaration(
   state: ParserState,
   context: Context,
-  scope: any,
+  scope: ScopeState,
   type: BindingType,
   labels: any[],
   ownLabels: any[] | null
 ): LexicalDeclaration | Statement {
   const start = state.startIndex;
   nextToken(state, context);
+  // Need to verify that the next token is not a start of a let declaration because
+  // '13.3.1.3 Static Semantics: IsConstantDeclaration' turns "let" into an early error and makes
+  // this a super edge case. This happens because the static semantics only apply to the full parse tree
+  // with ASI applied. That means this can't be parsed as two expressions. ASI resolves during parsing.
+  // Otherwise a let declaration must have a name.
+  //
+  //   let     // not an ASI opportunity
+  //   let;
   if (type & BindingType.Let && (state.token & Constants.NextTokenIsNotALetDeclaration) === 0) {
     return parseLetAsIdentifierReference(state, context, start, labels, ownLabels);
   }
@@ -2255,6 +2263,7 @@ export function parseUnaryExpression(state: ParserState, context: Context): Unar
   const operator = KeywordDescTable[t & Token.Type] as UnaryOperator;
   nextToken(state, context | Context.AllowRegExp);
   const operand = parseLeftHandSideExpression(state, context, false);
+  // Report an error for unary expressions on the LHS of **
   if (state.token === Token.Exponentiate) {
     addEarlyDiagnostic(state, context, DiagnosticCode.InvalidExponentation);
   }
@@ -2687,7 +2696,6 @@ export function parseObjectBindingPattern(
   type: BindingType
 ): ObjectBindingPattern {
   const start = state.startIndex;
-  context = (context | Context.DisallowIn) ^ Context.DisallowIn;
   consume(state, context, Token.LeftBrace);
   const properties = [];
   const check = context & Context.ErrorRecovery ? Constants.ObjectPatternR : Constants.ObjectPatternN;
@@ -2695,11 +2703,14 @@ export function parseObjectBindingPattern(
     if (state.token === Token.Ellipsis) {
       properties.push(parseBindingRestProperty(state, context, type));
       if (state.token !== Token.Comma) break;
-      nextToken(state, context);
       addEarlyDiagnostic(
         state,
         context,
-        state.token === Token.RightBrace ? DiagnosticCode.RestTrailing : DiagnosticCode.RestNotLast
+        state.token === Token.RightBrace
+          ? // A rest parameter or binding pattern may not have a trailing comma
+            DiagnosticCode.RestTrailing
+          : // A rest element must be last in destructuring pattern
+            DiagnosticCode.RestNotLast
       );
     }
     properties.push(parseBindingProperty(state, context, scope, type));
@@ -2729,7 +2740,14 @@ export function parseBindingRestProperty(state: ParserState, context: Context, t
   // production.
   let argument!: BindingIdentifier;
   if (state.token & Constants.IdentifierOrKeyword) {
-    argument = parseBindingIdentifier(state, context, {}, type);
+    argument = parseBindingIdentifier(state, context, void 0, type);
+    return finishNode(
+      state,
+      context,
+      start,
+      DictionaryMap.BindingRestProperty(argument),
+      SyntaxKind.BindingRestProperty
+    );
   } else {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
     argument = finishNode(state, context, start, DictionaryMap.BindingIdentifier(''), SyntaxKind.BindingIdentifier);
@@ -2745,53 +2763,36 @@ export function parseBindingRestProperty(state: ParserState, context: Context, t
 export function parseBindingProperty(
   state: ParserState,
   context: Context,
-  scope: any,
+  scope: ScopeState,
   type: BindingType
 ): BindingElement | BindingIdentifier {
   const start = state.startIndex;
-
+  let left!: BindingIdentifier | IdentifierName;
   if (state.token & Constants.IdentifierOrKeyword) {
+    // We save the 'tokenValue' because we do not know yet if this is an 'SingleNameBinding' or
+    // a 'IdentifierName'. We only know this after we have seen a ':'. If we have seen it, we have to
+    // parse out an 'IdentifierName' and not an 'BindingIdentifier'.
     const tokenValue = state.tokenValue;
+    const token = state.token;
     nextToken(state, context);
     if (consumeOpt(state, context, Token.Colon)) {
-      const key = finishNode(state, context, start, DictionaryMap.IdentifierName(tokenValue), SyntaxKind.Identifier);
-      return finishNode(
-        state,
-        context,
-        start,
-        DictionaryMap.PropertyName(key, parseBindingElement(state, context, scope, type)),
-        SyntaxKind.PropertyName
-      );
+      left = finishNode(state, context, start, DictionaryMap.IdentifierName(tokenValue), SyntaxKind.Identifier);
+      const right = parseBindingElement(state, context, scope, type);
+      return finishNode(state, context, start, DictionaryMap.PropertyName(left, right), SyntaxKind.PropertyName);
     }
-    addVarOrBlock(state, context, scope, state.tokenValue, type);
-    const binding = finishNode(
-      state,
-      context,
-      start,
-      DictionaryMap.BindingIdentifier(tokenValue),
-      SyntaxKind.BindingIdentifier
-    );
-    if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
-      return finishNode(
-        state,
-        context,
-        start,
-        DictionaryMap.BindingElement(binding, parseExpression(state, context)),
-        SyntaxKind.BindingElement
-      );
-    }
-    return binding;
+    validateIdentifier(state, context, token, start);
+    addVarOrBlock(state, context, scope, tokenValue, type);
+    left = finishNode(state, context, start, DictionaryMap.BindingIdentifier(tokenValue), SyntaxKind.BindingIdentifier);
+    // In EScaya AST there are no 'SingleNameBinding' AST node. Instead we return the BindingIdentifier *as is* if
+    // no initializer to be found.
+    if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) return left;
+    const init = parseExpression(state, context);
+    return finishNode(state, context, start, DictionaryMap.BindingElement(left, init), SyntaxKind.BindingElement);
   }
-  const name = parsePropertyName(state, context);
-
+  left = parsePropertyName(state, context);
   consumeOpt(state, context, Token.Colon);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.PropertyName(name, parseBindingElement(state, context, scope, type)),
-    SyntaxKind.PropertyName
-  );
+  const right = parseBindingElement(state, context, scope, type);
+  return finishNode(state, context, start, DictionaryMap.PropertyName(left, right), SyntaxKind.PropertyName);
 }
 
 // BindingElement :
@@ -3180,8 +3181,8 @@ export function parseSpreadOrPropertyArgument(
     } else {
       destructible |= Destructible.Assignable;
     }
+
     state.destructible = destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
-    state.destructible = destructible;
 
     return argument;
   }
@@ -3631,7 +3632,8 @@ export function parseFunctionBody(
   const savedContext = context;
   const directives: Directive[] = [];
   const statements: Statement[] = [];
-  context = context = (context | Context.TopLevel | Context.InBlock) ^ Context.InBlock;
+
+  context = (context | Context.TopLevel | Context.InBlock) ^ Context.InBlock;
 
   scope = createParentScope(scope, ScopeKind.FunctionBody);
 
@@ -3655,9 +3657,7 @@ export function parseFunctionBody(
         );
       }
     }
-
-    context = context = (context | Context.TopLevel | Context.InBlock) ^ Context.InBlock;
-
+    context = (context | Context.TopLevel | Context.InBlock) ^ Context.InBlock;
     while (state.token & Constants.SourceElements) {
       statements.push(parseBlockElements(state, context, scope, null, null, parseStatementListItem));
     }
@@ -4018,7 +4018,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
 
   if (consumeOpt(state, context, Token.RightParen)) {
     if (state.token === Token.Arrow) {
-      if (hasLineTerminator) if (hasLineTerminator) addEarlyDiagnostic(state, context, DiagnosticCode.AsyncLineT);
+      if (hasLineTerminator) addEarlyDiagnostic(state, context, DiagnosticCode.AsyncLineT);
       return parseArrowFunction(state, context, scope, [], ArrowKind.ASYNC, start);
     }
 
