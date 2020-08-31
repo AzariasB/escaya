@@ -615,8 +615,8 @@ export function parseCaseBlock(
   const clauses = [];
   scope = createParentScope(scope, ScopeKind.SwitchStatement);
   // Pass the 'Context.InBlock' bit to mark that we enter a new block scope and unset the
-  // 'Context.TopLevel' bit. We are no longer at the 'TopLevel'. Keeping the 'Context.InBlock' bit
-  // will have a bad result on the scope tracking.
+  // 'Context.TopLevel' bit - we are no longer at the 'TopLevel'.
+  // Keeping the 'Context.TopLevel' bit will have a bad result on the scope tracking.
   context = (context | 0b00110000000100000000000000000000) ^ 0b00100000000000000000000000000000;
   // In 'normal mode' the 'check' constant allows every token except for 'Token.DefaultKeyword',
   // 'Token.CaseKeyword', and the 'Token.RightBrace'. This is in line with 'normal' parsing behaviour.

@@ -107,8 +107,8 @@ describe('Statements - For await of', () => {
     });
   }
 
-  for (var decl of ['', 'var', 'let', 'const']) {
-    for (var head of ['a', 'a = 0', 'a, b', '[a]', '[a] = 0', '{a}', '{a} = 0']) {
+  for (const decl of ['', 'var', 'let', 'const']) {
+    for (const head of ['a', 'a = 0', 'a, b', '[a]', '[a] = 0', '{a}', '{a} = 0']) {
       // Ends with C-style for loop syntax.
       it(`for await (${decl} ${head} ;;) ;`, () => {
         t.throws(() => {
