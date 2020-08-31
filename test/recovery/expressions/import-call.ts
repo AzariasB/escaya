@@ -11,16 +11,7 @@ describe('Recovery - Expressions - Import call', () => {
           type: 'ImportDeclaration',
           fromClause: null,
           moduleSpecifier: null,
-          importClause: {
-            type: 'ImportClause',
-            defaultBinding: null,
-            nameSpaceImport: null,
-            namedImports: null,
-            start: 6,
-            end: 6,
-            kind: 218,
-            flags: 0
-          },
+          importClause: null,
           start: 0,
           end: 6,
           kind: 217,

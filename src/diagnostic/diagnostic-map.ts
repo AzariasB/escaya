@@ -42,10 +42,10 @@ export const diagnosticMap: {
   [DiagnosticCode.ColonExpected]: '`:` expected',
   [DiagnosticCode.YieldAsIdent]: '`yield` may not be used as an identifier in this context',
   [DiagnosticCode.AwaitAsIdent]: '`await` may not be used as an identifier in this context',
-  [DiagnosticCode.InvalidSuperCall]:
+  [DiagnosticCode.NoSuperCall]:
     'Calls to super must be in the "constructor" method of a class expression or class declaration that has a super class',
-  [DiagnosticCode.InvalidSuperProperty]: 'Member access on super must be in a method',
-  [DiagnosticCode.ChainingNoSuper]: 'Invalid optional chain from super property',
+  [DiagnosticCode.NoSuperProperty]: 'Member access on super must be in a method',
+  [DiagnosticCode.ChainingNoSuper]: 'Optional chain disallowed in super property',
   [DiagnosticCode.InvalidExponentation]:
     'Unary expressions as the left operand of an exponentation expression must be disambiguated with parentheses',
   [DiagnosticCode.StrictDelete]: 'Calling delete on expression not allowed in strict mode',
@@ -142,5 +142,9 @@ export const diagnosticMap: {
   [DiagnosticCode.OptionalChainingNoNew]: 'Invalid optional chain from new expression',
   [DiagnosticCode.AsyncLineT]: 'Invalid line break after async arrow',
   [DiagnosticCode.LabelAsKeyword]: 'Invalid use of keyword as an labeled identifier',
-  [DiagnosticCode.FuncGenLabel]: 'A labelled function declaration can not be a generator'
+  [DiagnosticCode.FuncGenLabel]: 'A labelled function declaration can not be a generator',
+  [DiagnosticCode.ExpectedString]: 'String literal expected',
+  [DiagnosticCode.RedeclareVar]: 'Cannot redeclare exported variable `%0`',
+  [DiagnosticCode.NoExpBinding]: 'Exported binding `%0` needs to refer to a top-level declared variable',
+  [DiagnosticCode.NoSuper]: '`super` must be followed by an argument list or member access'
 };

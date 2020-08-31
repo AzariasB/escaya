@@ -15,25 +15,13 @@ const expectations = {
   explicit: ['110fa1efdd0868b8.js'],
   fail: [
     'fc7ed197a376fa5f.js',
-    'f44552157bc0db6e.module.js',
-    'f2db53245b89c72f.js',
-    'efcb54b62e8f0e06.js',
-    'c7ad2478fd72bffe.js',
     'c510fa0f191310ed.js',
-    'a38011d2c010999e.js',
-    '944ea2478d838026.js',
     '3dbb6e166b14a6c0.js',
-    '665ab370012f20cf.js',
-    '6cd36f7e68bdfb7a.js',
-    'e808e347646c2670.js',
     'fb130c395c6aafe7.js',
     '78e861dca5c2377d.js',
-    'fb130c395c6aafe7.js',
     '15a6123f6b825c38.js',
     '147fa078a7436e0e.js',
     '1acada3c651821cf.js',
-    '1aefe47e20eb91fa.module.js',
-    '320eade064b2c635.js',
     '328fddc7bdffb499.js',
     '3bc2b27a7430f818.js',
     'e4a43066905a597b.js',
@@ -44,7 +32,25 @@ const expectations = {
     '647e21f8f157c338.js',
     '7b876ca5139f1ca8.js',
     'e3fbcf63d7e43ead.js',
-    'fd2a45941e114896.js'
+    'fd2a45941e114896.js',
+    '0ff3826356c94f67.js',
+    '211656c4eaff2d9c.js',
+    '4cce9feb5a563377.js',
+    '7b70beed5a327548.js',
+    '7fc173197c3cc75d.js',
+    '82b8003b91d8b346.js',
+    '8373e2a6865dc08c.js',
+    '84633c379e4010bf.js',
+    '8753a1cb7850d657.js',
+    '8e93bcbd389c6bf6.js',
+    '95c10472e36270b6.js',
+    'bcde05eea9466dfd.js',
+    'cbc28b1205acaac8.js',
+    'cee6d8878d1e6589.js',
+    'e5fabf7fc4ae5dea.js',
+    'f01b16bb3e6cd7a3.js',
+    'f0aeffcc826c3d6b.js',
+    'f4467d719dcee086.js'
   ],
   early: [
     'ec31fa5e521c5df4.js',
@@ -74,7 +80,7 @@ describe('Test262 Parser tests', () => {
       });
     }
   });
-  /*  describe('Fail', () => {
+  describe('Fail', () => {
     for (const f of readdirSync(`${Test262Dir}/fail`)) {
       if (expectations.fail.indexOf(f) !== -1) continue;
       it(`Should fail on - [${f}]`, () => {
@@ -84,7 +90,7 @@ describe('Test262 Parser tests', () => {
       });
     }
   });
-
+  /*
   describe('Early errors', () => {
     for (const f of readdirSync(`${Test262Dir}/early`)) {
       if (expectations.early.indexOf(f) !== -1) continue;

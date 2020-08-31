@@ -350,7 +350,7 @@ describe('test262-parser-tests - failing tests', () => {
             defaultBinding: null,
             nameSpaceImport: {
               type: 'BindingIdentifier',
-              name: 'enum',
+              name: '',
               start: 11,
               end: 16,
               kind: 168,
@@ -372,7 +372,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 12,
+          length: 4
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -6599,27 +6608,33 @@ describe('test262-parser-tests - failing tests', () => {
                     {
                       type: 'ExpressionStatement',
                       expression: {
-                        type: 'CallExpression',
+                        type: 'ParenthesizedExpression',
                         expression: {
-                          type: 'ParenthesizedExpression',
+                          type: 'CallExpression',
                           expression: {
                             type: 'SuperProperty',
-                            expression: null,
-                            name: null,
+                            super: {
+                              type: 'IdentifierName',
+                              name: '',
+                              start: 43,
+                              end: 43,
+                              kind: 13,
+                              flags: 0
+                            },
                             start: 37,
-                            end: 42,
+                            end: 43,
                             kind: 192,
                             flags: 0
                           },
-                          start: 35,
-                          end: 43,
-                          kind: 189,
+                          arguments: [],
+                          start: 37,
+                          end: 45,
+                          kind: 156,
                           flags: 0
                         },
-                        arguments: [],
                         start: 35,
                         end: 45,
-                        kind: 156,
+                        kind: 189,
                         flags: 0
                       },
                       start: 35,
@@ -6656,11 +6671,19 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
+          kind: 3,
+          source: 2,
+          message: '`super` must be followed by an argument list or member access',
+          code: 136,
+          start: 42,
+          length: 1
+        },
+        {
           kind: 2,
           source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 42,
+          message: '`)` expected',
+          code: 5,
+          start: 45,
           length: 1
         }
       ],

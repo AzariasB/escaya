@@ -4821,10 +4821,9 @@ describe('Recovery - Try', () => {
           },
           catchClause: {
             type: 'CatchClause',
-            kind: 140,
             binding: {
               type: 'BindingIdentifier',
-              name: 'break',
+              name: '',
               start: 13,
               end: 18,
               kind: 168,
@@ -4838,9 +4837,10 @@ describe('Recovery - Try', () => {
               kind: 123,
               flags: 0
             },
-            flags: 0,
             start: 6,
-            end: 18
+            end: 18,
+            kind: 140,
+            flags: 0
           },
           finalizer: null,
           start: 0,
@@ -4854,6 +4854,14 @@ describe('Recovery - Try', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expected an binding identifier',
+          code: 19,
+          start: 13,
+          length: 5
+        },
         {
           kind: 2,
           source: 2,

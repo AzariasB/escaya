@@ -20,6 +20,9 @@ describe('Declarations - Var', () => {
     'var foo = {}; foo.-;',
     'var foo = {}; foo.--;',
     'var t4 = ++await 1;',
+    'var f = (x,{var: x = 42}) => {};',
+    'var f = (x,[{x:x = 1, y:y = 2}, [a = 3, b = 4, c = 5]]) => {};',
+    'var f = (x,{var: x = 42}) => {};',
     'var {  ...y, ...y } = {}',
     'var { foo: true / false } = {}',
     'var { *static() {} } = {}',
@@ -488,6 +491,7 @@ describe('Declarations - Var', () => {
     'var {[a]: [b]} = c',
     'var {a,b=0,c:d,e:f=0,[g]:[h]}=0',
     `var a = b.c("string")?.d.e || 0;`,
+    'var f = (x,{ x : x, y : y = 42 }) => {};',
     'var m = "foo"; var {[m]:[z]} = {foo:[1]}',
     `var xFn = function x() {};`,
     'var obj = { test262id: 1 };',
@@ -803,8 +807,6 @@ describe('Declarations - Var', () => {
     'var f = (a) => {};',
     'var f = ([a,b,c]) => {};',
     'var f = ({arguments: x, ...z}) => {};',
-    'var f = (x,{var: x = 42}) => {};',
-
     'var x, y, z; (x ={ x : y }= z = {});',
     'var x, y, z; for (x in{ x : foo().y }= z = {});',
     'var x, y, z; m(["a"]) ?{ x : foo()[y] }= {} : rhs',
@@ -970,8 +972,6 @@ describe('Declarations - Var', () => {
     'var f = (x,{arguments: x}) => {};',
     // 'var f = (x,eval: x}) => {};',
     'var f = (x,{42e-2 : x = 42}) => {};',
-    'var f = (x,[{x:x = 1, y:y = 2}, [a = 3, b = 4, c = 5]]) => {};',
-    'var f = (x,{ x : x, y : y = 42 }) => {};',
     'var f = (x,{ get = 1, set = 2 }) => {};',
     'var f = (x,[a]) => {};',
     'var f = (x,[a,b,c]) => {};',
@@ -981,7 +981,6 @@ describe('Declarations - Var', () => {
     'var f = (x,[...rest]) => {};',
     'var f = (x,{}) => {};',
     'var f = (x,{var: x}) => {};',
-    'var f = (x,{var: x = 42}) => {};',
     'var await = { await }',
     `var q
     /d/`,
@@ -1060,4 +1059,65 @@ describe('Declarations - Var', () => {
       });
     });
   }
+
+  it('if(1)/  foo/', () => {
+    t.deepEqual(parseScript("var str = 'test \
+    d'+'test \
+    test'+'f';", { loc: true }), {
+      directives: [],
+      end: 43,
+      leafs: [
+        {
+          declarations: [
+            {
+              binding: {
+                end: 7,
+                name: 'str',
+                start: 4,
+                type: 'BindingIdentifier'
+              },
+              end: 42,
+              initializer: {
+                end: 42,
+                left: {
+                  end: 38,
+                  left: {
+                    end: 22,
+                    start: 10,
+                    type: 'StringLiteral',
+                    value: 'test     d'
+                  },
+                  operator: '+',
+                  right: {
+                    end: 38,
+                    start: 23,
+                    type: 'StringLiteral',
+                    value: 'test     test'
+                  },
+                  start: 10,
+                  type: 'BinaryExpression'
+                },
+                operator: '+',
+                right: {
+                  end: 42,
+                  start: 39,
+                  type: 'StringLiteral',
+                  value: 'f'
+                },
+                start: 10,
+                type: 'BinaryExpression'
+              },
+              start: 4,
+              type: 'VariableDeclaration'
+            }
+          ],
+          end: 43,
+          start: 0,
+          type: 'VariableStatement'
+        }
+      ],
+      start: 0,
+      type: 'Script'
+    });
+  });
 });

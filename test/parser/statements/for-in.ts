@@ -4,6 +4,8 @@ import { parseScript, recovery } from '../../../src/escaya';
 describe('Statements - For in', () => {
   // Invalid cases
   for (const arg of [
+    // Annex B.3.6 `for (x = yield in y) ;`
+    'for (x = yield in y) ;',
     'for (x+b in y);',
     'for (b++ in y);',
     'for ([x + y] in obj);',
@@ -638,6 +640,7 @@ describe('Statements - For in', () => {
     'for (a in b=c);',
     'for (var a = (++effects, -1) in x);',
     'for ({a: b.c} in d) e',
+    'for (a in b,c) d;',
     'for (x in { z : { __proto__: x, __proto__: y } = z } = {});',
     'for (x in { x : [ y[z] = 10 ] = {} } = {});',
     'for (x in { x : [ y.z = 10 ] = {} } = {});',
@@ -741,7 +744,6 @@ describe('Statements - For in', () => {
     'for ({x, "foo": x} in obj);',
     'for ({x, 15: x} in obj);',
     'for (var in {}) {}',
-
     'for ({x, a: {x}} in obj);',
     'for ({x, a: {b: x}} in obj);',
     'for ({a: x, b: x} in obj);',

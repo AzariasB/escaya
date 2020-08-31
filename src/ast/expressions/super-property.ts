@@ -6,15 +6,13 @@ import { Node } from '../node';
  * An super property expression.
  */
 export interface SuperProperty extends Node {
-  readonly expression: Expression | null;
-  readonly name: IdentifierName | null;
+  readonly super: Expression | IdentifierName;
 }
 
 // see: https://tc39.github.io/ecma262/#prod-SuperProperty
-export function createSuperProperty(expression: Expression | null, name: IdentifierName | null): SuperProperty {
+export function createSuperProperty(_super: Expression | IdentifierName): SuperProperty {
   return {
     type: 'SuperProperty',
-    expression,
-    name
+    super: _super
   };
 }

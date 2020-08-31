@@ -1,3 +1,4 @@
+import { Constants } from '../constants';
 import { Context, ParserState, BindingType } from '../common';
 
 /**
@@ -16,6 +17,22 @@ export function parseBlockElements(
     return consumeNode(state, context, node);
   }
   return cb(state, context, scope, labels, nestedLabels);
+}
+
+export function parseSwitchElements(
+  state: ParserState,
+  context: Context,
+  scope: any,
+  check: Constants,
+  labels: any,
+  nestedLabels: any,
+  cb: any
+): any {
+  const node = currentNode(state);
+  if (node) {
+    return consumeNode(state, context, node);
+  }
+  return cb(state, context, scope, check, labels, nestedLabels);
 }
 
 /**

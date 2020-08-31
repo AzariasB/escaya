@@ -306,6 +306,8 @@ describe('Statements - Try', () => {
     `try {} catch (foo) {} let foo;`,
     `try {} catch (e) { let b = x; }`,
     'try {} catch (x) { var x }',
+    'try { } finally { let y = x }',
+    'try { } catch (e) { function * f() {} }',
     'try {} catch (x) { { let x } }',
     'try {} catch (x) { { var x } }',
     `try { } catch (e) { var x; for (var y of []) {} }`,

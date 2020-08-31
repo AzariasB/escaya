@@ -85,7 +85,8 @@ export const enum BindingType {
   FunctionLexical = 1 << 10,
   FunctionStatement = 1 << 11,
   Class = 1 << 12,
-  Empty = 1 << 13
+  Empty = 1 << 13,
+  Export = 1 << 14
 }
 
 export const enum Destructible {
@@ -124,6 +125,8 @@ export interface ParserState {
   destructible: Destructible;
   assignable: boolean;
   diagnostics: any[];
+  exportedNames: any;
+  exportedBindings: any;
   nodeCursor: any;
   tokenRegExp: void | {
     pattern: string;
@@ -329,6 +332,9 @@ export function validateIdentifier(state: ParserState, context: Context, token: 
     addparserDiagnostic(state, context, start, DiagnosticCode.StrictModeReserved);
   }
   if (token & Token.IsKeyword) {
+    addparserDiagnostic(state, context, start, DiagnosticCode.LabelAsKeyword);
+  }
+  if ((token & (Token.IsIdentifier | Token.IsFutureReserved)) === 0) {
     addparserDiagnostic(state, context, start, DiagnosticCode.LabelAsKeyword);
   }
 }

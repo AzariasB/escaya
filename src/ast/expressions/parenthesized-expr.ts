@@ -1,11 +1,12 @@
 import { Node } from '../node';
 import { Expression } from '.';
+import { CommaOperator } from './commaOperator';
 
 export interface ParenthesizedExpression extends Node {
-  readonly expression: Expression[];
+  readonly expression: Expression | CommaOperator;
 }
 
-export function createParenthesizedExpression(expression: Expression[]): ParenthesizedExpression {
+export function createParenthesizedExpression(expression: Expression | CommaOperator): ParenthesizedExpression {
   return {
     type: 'ParenthesizedExpression',
     expression

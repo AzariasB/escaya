@@ -3,6 +3,7 @@ import { IdentifierName } from '../expressions/identifiername';
 import { StringLiteral } from '../expressions/string-literal';
 import { ExportSpecifier } from './export-specifier';
 import { RootNode } from '../root-node';
+import { Statement } from '../statements';
 import { AssignmentExpression } from '../expressions/assignment-expr';
 import { VariableStatement } from '../statements/variable-stmt';
 import { LexicalDeclaration } from '../declarations/lexical-declaration';
@@ -18,10 +19,13 @@ export interface ExportDeclaration extends Node {
     | LexicalDeclaration
     | FunctionDeclaration
     | ClassDeclaration
+    | Statement
     | null;
   readonly namedExports: ExportSpecifier[];
   readonly namedBinding: IdentifierName | null;
   readonly fromClause: StringLiteral | null;
+  readonly exportedNames: string[];
+  readonly boundNames: string[];
   /* @internal */
   readonly parent?: RootNode;
 }
@@ -33,16 +37,21 @@ export function createExportDeclaration(
     | LexicalDeclaration
     | FunctionDeclaration
     | ClassDeclaration
+    | Statement
     | null,
   namedExports: ExportSpecifier[],
   namedBinding: IdentifierName | null,
-  fromClause: StringLiteral | null
+  fromClause: StringLiteral | null,
+  exportedNames: string[],
+  boundNames: string[]
 ): ExportDeclaration {
   return {
     type: 'ExportDeclaration',
     declaration,
     namedExports,
     namedBinding,
-    fromClause
+    fromClause,
+    exportedNames,
+    boundNames
   };
 }

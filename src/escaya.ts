@@ -46,3 +46,5 @@ export function recovery(text: string, fileName: string, options?: Options): Roo
 export function update(text: string, fileName: string, root: RootNode, textChangeRange: TextChangeRange): RootNode {
   return parseInIncrementalMode(text, fileName, root, textChangeRange);
 }
+
+export const version = '0.22';

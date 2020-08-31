@@ -33,8 +33,8 @@ export const enum DiagnosticCode {
   CompundObjLit, // replace!
   ExpectedImportDecl,
   ExpectedExportDecl,
-  InvalidSuperProperty,
-  InvalidSuperCall,
+  NoSuperProperty,
+  NoSuperCall,
   ChainingNoSuper,
   InvalidExponentation,
   StrictDelete,
@@ -138,6 +138,10 @@ export const enum DiagnosticCode {
   AsyncLineT,
   LabelAsKeyword,
   FuncGenLabel,
+  ExpectedString,
+  RedeclareVar,
+  NoExpBinding,
+  NoSuper,
 
   /* Annex B */
   AnnexBB32,

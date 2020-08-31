@@ -3,7 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Conditional', () => {
   // Invalid cases
-  for (const arg of ['a ? await x : c', 'a ? b : await c', 'a ? b : yield c']) {
+  for (const arg of ['a ? await x : c', 'a ? b : await c', 'a ? b : yield c', 'a ? b, c : d']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -42,6 +42,7 @@ describe('Expressions - Conditional', () => {
     'a ? !b : !c',
     'a ? !b : !c;',
     `x?4:6`,
+    'a, b ? c : d',
     `x && y ? 1 : 2`,
     'async === b ? c : d % e;',
     'true ? foo : bar',

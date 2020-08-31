@@ -51,11 +51,18 @@ interface ImportSpecifier <: Node {
 interface ExportDeclaration <: Node {
     type: 'ExportDeclaration';
     declaration: AssignmentExpression | VariableStatement | LexicalDeclaration | FunctionDeclaration | ClassDeclaration | null;
-    namedExports: [ExportSpecifier];
+    namedExports: [ ExportSpecifier ];
     namedBinding: IdentifierName | null;
     fromClause: StringLiteral | null;
+    exportedNames: [ string ];
+    boundNames: [ string ];
 }
 ```
+
+`exportedNames` shall be returned as `ExportedNames` of `NamedExports`.
+
+`boundNames` property shall be returned as `BoundNames` of `VariableStatement` and `Declaration`.
+
   ### ExportSpecifier
 
 ```js

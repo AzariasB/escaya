@@ -40,6 +40,8 @@ describe('Statements - With', () => {
     'with(x) { case y:{ class { x() {} } }}',
     'with({x=y}) { case y: [...a] }',
     'with(x) /* comment */ { case y: foo }',
+    'with(x) function * f() {}',
+    'with(x) async function f() {}',
     'with(x) { case y: {x} }',
     'with(x) { case y: x = {...x} }',
     'with(x) { case y: foo / bar ? 1 : (x) }',

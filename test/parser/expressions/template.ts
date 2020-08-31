@@ -275,6 +275,8 @@ describe('Expressions - Template', () => {
     'sampleTag`left${0}\\u{g}${1}right`',
     'sampleTag`left${0}\\u000g${1}right`',
     'tag`template-head${a}`',
+    '`x${z} ${a,b}y`',
+    '`x${a,b}y`',
     'tag `no-subst-template`',
     'tag\t`foo\n\nbar\r\nbaz`',
     'tag`foo${a /* comment */}`',

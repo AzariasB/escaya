@@ -528,13 +528,9 @@ added to represent the `...AssignmentExpression` production.
 ```js
 interface SuperProperty <: Expression {
     type: 'SuperProperty';
-    name: IdentifierName | null;
-    expression: Expression | null;
+    super: Expression | IdentifierName | null;
 }
 ```
-
-`name` is `null` if `expression` isn't `null` and vice versa. `expression` isn't null if this is an
-computed property.
 
 ### SuperCall
 
@@ -616,7 +612,7 @@ interface YieldExpression <: Expression {
 ```js
 interface ParenthesizedExpression <: Expression {
     type: 'ParenthesizedExpression';
-    expression: [ Expression ];
+    expression: Expression | CommaOperator;
 }
 ```
 

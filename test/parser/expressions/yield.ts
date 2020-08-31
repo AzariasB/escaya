@@ -374,6 +374,7 @@ describe('Expressions - Yield', () => {
     `function* f(){ yield x; }`,
     `function *g() { function f(x = yield) {}; }`,
     `function x() { yield *y }`,
+    'function *f(){ yield a,b; }',
     'function fn(yield) {}',
     '(yield) => {}',
     'yield => {}',

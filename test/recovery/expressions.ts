@@ -1063,7 +1063,7 @@ describe('Recovery - Expressions', () => {
                     type: 'ComputedPropertyName',
                     expression: {
                       type: 'SuperProperty',
-                      expression: {
+                      super: {
                         type: 'IdentifierReference',
                         name: 'foo',
                         start: 12,
@@ -1071,7 +1071,6 @@ describe('Recovery - Expressions', () => {
                         kind: 13,
                         flags: 0
                       },
-                      name: null,
                       start: 6,
                       end: 16,
                       kind: 192,
@@ -1301,8 +1300,14 @@ describe('Recovery - Expressions', () => {
                                 type: 'NewExpression',
                                 expression: {
                                   type: 'SuperProperty',
-                                  expression: null,
-                                  name: null,
+                                  super: {
+                                    type: 'IdentifierName',
+                                    name: '',
+                                    start: 34,
+                                    end: 34,
+                                    kind: 13,
+                                    flags: 0
+                                  },
                                   start: 28,
                                   end: 34,
                                   kind: 192,
@@ -1398,7 +1403,7 @@ describe('Recovery - Expressions', () => {
             type: 'CallExpression',
             expression: {
               type: 'SuperProperty',
-              expression: {
+              super: {
                 type: 'NumericLiteral',
                 value: 27,
                 start: 6,
@@ -1406,7 +1411,6 @@ describe('Recovery - Expressions', () => {
                 kind: 10,
                 flags: 0
               },
-              name: null,
               start: 0,
               end: 9,
               kind: 192,

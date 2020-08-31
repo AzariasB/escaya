@@ -108,3 +108,27 @@ export function addBlockName(state: ParserState, context: Context, scope: any, n
   }
   scope['#' + name] = type;
 }
+
+export function declareUnboundVariable(state: ParserState, context: Context, name: string): void {
+  if (state.exportedNames !== void 0 && name !== '') {
+    if (state.exportedNames['#' + name]) {
+      addEarlyDiagnostic(state, context, DiagnosticCode.RedeclareVar, name);
+      //report(parser, Errors.DuplicateExportBinding, name);
+    }
+    state.exportedNames['#' + name] = 1;
+  }
+}
+
+/**
+ * Appends a name to the `ExportedBindings` of the `ExportsList`,
+ *
+ * @see [Link](https://tc39.es/ecma262/$sec-exports-static-semantics-exportedbindings)
+ *
+ * @param parser Parser object
+ * @param name Exported binding name
+ */
+export function addBindingToExports(state: ParserState, name: string): void {
+  if (state.exportedBindings !== void 0 && name !== '') {
+    state.exportedBindings['#' + name] = 1;
+  }
+}

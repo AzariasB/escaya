@@ -888,8 +888,7 @@ describe('test262-parser-tests - early tests', () => {
                                 type: 'CallExpression',
                                 expression: {
                                   type: 'SuperProperty',
-                                  expression: null,
-                                  name: {
+                                  super: {
                                     type: 'IdentifierName',
                                     name: 'd',
                                     start: 48,
@@ -1262,8 +1261,7 @@ describe('test262-parser-tests - early tests', () => {
                                   type: 'CallExpression',
                                   expression: {
                                     type: 'SuperProperty',
-                                    expression: null,
-                                    name: {
+                                    super: {
                                       type: 'IdentifierName',
                                       name: 'd',
                                       start: 47,
@@ -2852,7 +2850,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 124,
+          kind: 3,
+          length: 1,
+          message: 'Duplicate binding `a`',
+          source: 2,
+          start: 17
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -5800,7 +5807,16 @@ describe('test262-parser-tests - early tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Duplicate binding `a`',
+          code: 124,
+          start: 17,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,

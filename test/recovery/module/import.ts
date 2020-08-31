@@ -11,16 +11,7 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration',
           fromClause: null,
           moduleSpecifier: null,
-          importClause: {
-            type: 'ImportClause',
-            defaultBinding: null,
-            nameSpaceImport: null,
-            namedImports: null,
-            start: 6,
-            end: 6,
-            kind: 218,
-            flags: 0
-          },
+          importClause: null,
           start: 0,
           end: 6,
           kind: 217,
@@ -32,6 +23,8 @@ describe('Module - Import', () => {
           namedExports: [],
           namedBinding: null,
           fromClause: null,
+          exportedNames: [],
+          boundNames: [],
           start: 6,
           end: 13,
           kind: 223,
@@ -76,8 +69,8 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: 'Unexpected token - `export`',
+          code: 6,
           start: 7,
           length: 6
         },
@@ -116,16 +109,7 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration',
           fromClause: null,
           moduleSpecifier: null,
-          importClause: {
-            type: 'ImportClause',
-            defaultBinding: null,
-            nameSpaceImport: null,
-            namedImports: null,
-            start: 6,
-            end: 6,
-            kind: 218,
-            flags: 0
-          },
+          importClause: null,
           start: 0,
           end: 6,
           kind: 217,
@@ -133,7 +117,14 @@ describe('Module - Import', () => {
         },
         {
           type: 'ImportDeclaration',
-          fromClause: null,
+          fromClause: {
+            type: 'StringLiteral',
+            value: 's',
+            start: 18,
+            end: 22,
+            kind: 12,
+            flags: 0
+          },
           moduleSpecifier: null,
           importClause: {
             type: 'ImportClause',
@@ -153,23 +144,8 @@ describe('Module - Import', () => {
             flags: 0
           },
           start: 6,
-          end: 18,
-          kind: 217,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'StringLiteral',
-            value: 's',
-            start: 18,
-            end: 22,
-            kind: 12,
-            flags: 0
-          },
-          start: 18,
           end: 22,
-          kind: 122,
+          kind: 217,
           flags: 0
         }
       ],
@@ -181,16 +157,16 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: 'Unexpected token - `import`',
+          code: 6,
           start: 7,
           length: 6
         },
         {
           kind: 2,
           source: 2,
-          message: '`;` expected',
-          code: 92,
+          message: '`from` expected',
+          code: 5,
           start: 19,
           length: 3
         }
@@ -213,16 +189,7 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration',
           fromClause: null,
           moduleSpecifier: null,
-          importClause: {
-            type: 'ImportClause',
-            defaultBinding: null,
-            nameSpaceImport: null,
-            namedImports: null,
-            start: 6,
-            end: 6,
-            kind: 218,
-            flags: 0
-          },
+          importClause: null,
           start: 0,
           end: 6,
           kind: 217,
@@ -269,8 +236,8 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: 'Unexpected token - `class`',
+          code: 6,
           start: 7,
           length: 5
         },
@@ -301,16 +268,7 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration',
           fromClause: null,
           moduleSpecifier: null,
-          importClause: {
-            type: 'ImportClause',
-            defaultBinding: null,
-            nameSpaceImport: null,
-            namedImports: null,
-            start: 6,
-            end: 6,
-            kind: 218,
-            flags: 0
-          },
+          importClause: null,
           start: 0,
           end: 6,
           kind: 217,
@@ -367,8 +325,8 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: 'Unexpected token - `function`',
+          code: 6,
           start: 7,
           length: 8
         },
@@ -399,16 +357,7 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration',
           fromClause: null,
           moduleSpecifier: null,
-          importClause: {
-            type: 'ImportClause',
-            defaultBinding: null,
-            nameSpaceImport: null,
-            namedImports: null,
-            start: 6,
-            end: 6,
-            kind: 218,
-            flags: 0
-          },
+          importClause: null,
           start: 0,
           end: 6,
           kind: 217,
@@ -476,8 +425,8 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: 'Unexpected token - `!`',
+          code: 6,
           start: 7,
           length: 1
         },
@@ -515,7 +464,14 @@ describe('Module - Import', () => {
       leafs: [
         {
           type: 'ImportDeclaration',
-          fromClause: null,
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'a',
+            start: 10,
+            end: 11,
+            kind: 12,
+            flags: 0
+          },
           moduleSpecifier: null,
           importClause: {
             type: 'ImportClause',
@@ -552,7 +508,7 @@ describe('Module - Import', () => {
             flags: 0
           },
           start: 0,
-          end: 10,
+          end: 11,
           kind: 217,
           flags: 0
         },
@@ -660,8 +616,8 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 11,
           length: 1
         },
@@ -724,78 +680,6 @@ describe('Module - Import', () => {
     });
   });
 
-  it('import ! e45rw', () => {
-    t.deepEqual(recovery('import !', 'recovery.js', { module: true }), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'ImportDeclaration',
-          fromClause: null,
-          moduleSpecifier: null,
-          importClause: {
-            type: 'ImportClause',
-            defaultBinding: null,
-            nameSpaceImport: null,
-            namedImports: null,
-            start: 6,
-            end: 6,
-            kind: 218,
-            flags: 0
-          },
-          start: 0,
-          end: 6,
-          kind: 217,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'UnaryExpression',
-            operator: '!',
-            operand: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 8,
-              end: 8,
-              kind: 13,
-              flags: 2
-            },
-            start: 6,
-            end: 8,
-            kind: 160,
-            flags: 0
-          },
-          start: 6,
-          end: 8,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: 'import !',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 7,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 8,
-      end: 8
-    });
-  });
-
   it('import {,,,,,,,,,,,,,,,,, !', () => {
     t.deepEqual(recovery('import {,,,,,,,,,,,,,,,,, !', 'recovery.js', { module: true }), {
       kind: 209,
@@ -803,7 +687,14 @@ describe('Module - Import', () => {
       leafs: [
         {
           type: 'ImportDeclaration',
-          fromClause: null,
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'import',
+            start: 8,
+            end: 9,
+            kind: 12,
+            flags: 0
+          },
           moduleSpecifier: null,
           importClause: {
             type: 'ImportClause',
@@ -823,7 +714,7 @@ describe('Module - Import', () => {
             flags: 0
           },
           start: 0,
-          end: 8,
+          end: 9,
           kind: 217,
           flags: 0
         },
@@ -867,8 +758,8 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`;` expected',
+          code: 92,
           start: 9,
           length: 1
         },
@@ -1024,7 +915,14 @@ describe('Module - Import', () => {
         leafs: [
           {
             type: 'ImportDeclaration',
-            fromClause: null,
+            fromClause: {
+              type: 'StringLiteral',
+              value: 'parser',
+              start: 12,
+              end: 19,
+              kind: 12,
+              flags: 0
+            },
             moduleSpecifier: null,
             importClause: {
               type: 'ImportClause',
@@ -1044,23 +942,8 @@ describe('Module - Import', () => {
               flags: 0
             },
             start: 0,
-            end: 12,
-            kind: 217,
-            flags: 0
-          },
-          {
-            type: 'ExpressionStatement',
-            expression: {
-              type: 'IdentifierReference',
-              name: 'parser',
-              start: 12,
-              end: 19,
-              kind: 13,
-              flags: 0
-            },
-            start: 12,
             end: 19,
-            kind: 122,
+            kind: 217,
             flags: 0
           },
           {
@@ -1159,6 +1042,8 @@ describe('Module - Import', () => {
             namedExports: [],
             namedBinding: null,
             fromClause: null,
+            exportedNames: [],
+            boundNames: [],
             start: 57,
             end: 64,
             kind: 223,
@@ -1321,8 +1206,8 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
-            message: '`;` expected',
-            code: 92,
+            message: '`from` expected',
+            code: 5,
             start: 13,
             length: 6
           },
@@ -1489,7 +1374,14 @@ describe('Module - Import', () => {
       leafs: [
         {
           type: 'ImportDeclaration',
-          fromClause: null,
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'import',
+            start: 8,
+            end: 8,
+            kind: 12,
+            flags: 0
+          },
           moduleSpecifier: null,
           importClause: {
             type: 'ImportClause',
@@ -1538,62 +1430,6 @@ describe('Module - Import', () => {
     });
   });
 
-  it('import +', () => {
-    t.deepEqual(recovery('import *', 'recovery.js', { module: true }), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'ImportDeclaration',
-          fromClause: null,
-          moduleSpecifier: null,
-          importClause: {
-            type: 'ImportClause',
-            defaultBinding: null,
-            nameSpaceImport: {
-              type: 'BindingIdentifier',
-              name: '',
-              start: 8,
-              end: 8,
-              kind: 168,
-              flags: 0
-            },
-            namedImports: null,
-            start: 6,
-            end: 8,
-            kind: 218,
-            flags: 0
-          },
-          start: 0,
-          end: 8,
-          kind: 217,
-          flags: 0
-        }
-      ],
-      text: 'import *',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`as` expected',
-          code: 5,
-          start: 7,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 8,
-      end: 8
-    });
-  });
-
   it('import { import !', () => {
     t.deepEqual(recovery('import { import !', 'recovery.js', { module: true }), {
       kind: 209,
@@ -1601,7 +1437,14 @@ describe('Module - Import', () => {
       leafs: [
         {
           type: 'ImportDeclaration',
-          fromClause: null,
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'import',
+            start: 15,
+            end: 17,
+            kind: 12,
+            flags: 0
+          },
           moduleSpecifier: null,
           importClause: {
             type: 'ImportClause',
@@ -1638,31 +1481,8 @@ describe('Module - Import', () => {
             flags: 0
           },
           start: 0,
-          end: 15,
-          kind: 217,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'UnaryExpression',
-            operator: '!',
-            operand: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 17,
-              end: 17,
-              kind: 13,
-              flags: 2
-            },
-            start: 15,
-            end: 17,
-            kind: 160,
-            flags: 0
-          },
-          start: 15,
           end: 17,
-          kind: 122,
+          kind: 217,
           flags: 0
         }
       ],
@@ -1671,6 +1491,14 @@ describe('Module - Import', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid use of keyword as an labeled identifier',
+          code: 131,
+          start: 15,
+          length: 2
+        },
         {
           kind: 2,
           source: 2,
@@ -2159,6 +1987,8 @@ describe('Module - Import', () => {
           namedExports: [],
           namedBinding: null,
           fromClause: null,
+          exportedNames: [],
+          boundNames: [],
           start: 0,
           end: 6,
           kind: 223,
@@ -2166,7 +1996,14 @@ describe('Module - Import', () => {
         },
         {
           type: 'ImportDeclaration',
-          fromClause: null,
+          fromClause: {
+            type: 'StringLiteral',
+            value: 'module',
+            start: 19,
+            end: 26,
+            kind: 12,
+            flags: 0
+          },
           moduleSpecifier: null,
           importClause: {
             type: 'ImportClause',
@@ -2186,23 +2023,8 @@ describe('Module - Import', () => {
             flags: 0
           },
           start: 6,
-          end: 19,
-          kind: 217,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'module',
-            start: 19,
-            end: 26,
-            kind: 13,
-            flags: 0
-          },
-          start: 19,
           end: 26,
-          kind: 122,
+          kind: 217,
           flags: 0
         },
         {
@@ -2262,16 +2084,7 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration',
           fromClause: null,
           moduleSpecifier: null,
-          importClause: {
-            type: 'ImportClause',
-            defaultBinding: null,
-            nameSpaceImport: null,
-            namedImports: null,
-            start: 50,
-            end: 50,
-            kind: 218,
-            flags: 0
-          },
+          importClause: null,
           start: 43,
           end: 50,
           kind: 217,
@@ -2294,8 +2107,8 @@ describe('Module - Import', () => {
         {
           kind: 2,
           source: 2,
-          message: '`;` expected',
-          code: 92,
+          message: '`from` expected',
+          code: 5,
           start: 20,
           length: 6
         },
@@ -2385,6 +2198,8 @@ describe('Module - Import', () => {
             namedExports: [],
             namedBinding: null,
             fromClause: null,
+            exportedNames: [],
+            boundNames: [],
             start: 11,
             end: 18,
             kind: 223,
@@ -2394,16 +2209,7 @@ describe('Module - Import', () => {
             type: 'ImportDeclaration',
             fromClause: null,
             moduleSpecifier: null,
-            importClause: {
-              type: 'ImportClause',
-              defaultBinding: null,
-              nameSpaceImport: null,
-              namedImports: null,
-              start: 25,
-              end: 25,
-              kind: 218,
-              flags: 0
-            },
+            importClause: null,
             start: 18,
             end: 25,
             kind: 217,
@@ -2589,8 +2395,8 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
-            message: 'Statement expected',
-            code: 8,
+            message: 'Unexpected token - `?`',
+            code: 6,
             start: 26,
             length: 1
           },
@@ -2683,16 +2489,7 @@ describe('Module - Import', () => {
             type: 'ImportDeclaration',
             fromClause: null,
             moduleSpecifier: null,
-            importClause: {
-              type: 'ImportClause',
-              defaultBinding: null,
-              nameSpaceImport: null,
-              namedImports: null,
-              start: 6,
-              end: 6,
-              kind: 218,
-              flags: 0
-            },
+            importClause: null,
             start: 0,
             end: 6,
             kind: 217,
@@ -2704,6 +2501,8 @@ describe('Module - Import', () => {
             namedExports: [],
             namedBinding: null,
             fromClause: null,
+            exportedNames: [],
+            boundNames: [],
             start: 6,
             end: 13,
             kind: 223,
@@ -2753,6 +2552,8 @@ describe('Module - Import', () => {
             namedExports: [],
             namedBinding: null,
             fromClause: null,
+            exportedNames: [],
+            boundNames: [],
             start: 21,
             end: 28,
             kind: 223,
@@ -2762,16 +2563,7 @@ describe('Module - Import', () => {
             type: 'ImportDeclaration',
             fromClause: null,
             moduleSpecifier: null,
-            importClause: {
-              type: 'ImportClause',
-              defaultBinding: null,
-              nameSpaceImport: null,
-              namedImports: null,
-              start: 35,
-              end: 35,
-              kind: 218,
-              flags: 0
-            },
+            importClause: null,
             start: 28,
             end: 35,
             kind: 217,
@@ -2933,8 +2725,8 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
-            message: 'Statement expected',
-            code: 8,
+            message: 'Unexpected token - `export`',
+            code: 6,
             start: 7,
             length: 6
           },
@@ -2965,8 +2757,8 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
-            message: 'Statement expected',
-            code: 8,
+            message: 'Unexpected token - `?`',
+            code: 6,
             start: 35,
             length: 1
           },
@@ -3147,6 +2939,8 @@ describe('Module - Import', () => {
             namedExports: [],
             namedBinding: null,
             fromClause: null,
+            exportedNames: [],
+            boundNames: [],
             start: 12,
             end: 19,
             kind: 223,
@@ -3156,16 +2950,7 @@ describe('Module - Import', () => {
             type: 'ImportDeclaration',
             fromClause: null,
             moduleSpecifier: null,
-            importClause: {
-              type: 'ImportClause',
-              defaultBinding: null,
-              nameSpaceImport: null,
-              namedImports: null,
-              start: 27,
-              end: 27,
-              kind: 218,
-              flags: 0
-            },
+            importClause: null,
             start: 20,
             end: 27,
             kind: 217,
@@ -3356,8 +3141,8 @@ describe('Module - Import', () => {
           {
             kind: 2,
             source: 2,
-            message: 'Statement expected',
-            code: 8,
+            message: 'Unexpected token - `for`',
+            code: 6,
             start: 28,
             length: 3
           },
