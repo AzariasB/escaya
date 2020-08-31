@@ -2702,7 +2702,7 @@ export function parseObjectBindingPattern(
   while (state.token & check) {
     if (state.token === Token.Ellipsis) {
       properties.push(parseBindingRestProperty(state, context, type));
-      if (state.token !== Token.Comma) break;
+      if (!consumeOpt(state, context, Token.Comma)) break;
       addEarlyDiagnostic(
         state,
         context,

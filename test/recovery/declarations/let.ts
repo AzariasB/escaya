@@ -1062,6 +1062,94 @@ describe('Recovery - Let', () => {
     });
   });
 
+  it('let {...a, b}', () => {
+    t.deepEqual(recovery('let {...a, b}', 'recovery.js'), {
+      children: [],
+      context: 0,
+      detached: false,
+      diagnostics: [
+        {
+          code: 107,
+          kind: 3,
+          length: 1,
+          message: 'A rest element must be last in destructuring pattern',
+          source: 2,
+          start: 11
+        },
+        {
+          code: 45,
+          kind: 3,
+          length: 1,
+          message: 'Missing initializer in destructuring declaration',
+          source: 2,
+          start: 12
+        }
+      ],
+      directives: [],
+      end: 13,
+      fileName: 'recovery.js',
+      incremental: false,
+      kind: 209,
+      leafs: [
+        {
+          declarations: [
+            {
+              binding: {
+                end: 13,
+                flags: 0,
+                kind: 169,
+                properties: [
+                  {
+                    argument: {
+                      end: 9,
+                      flags: 0,
+                      kind: 168,
+                      name: 'a',
+                      start: 8,
+                      type: 'BindingIdentifier'
+                    },
+                    end: 9,
+                    flags: 0,
+                    kind: 167,
+                    start: 5,
+                    type: 'BindingRestProperty'
+                  },
+                  {
+                    end: 12,
+                    flags: 0,
+                    kind: 168,
+                    name: 'b',
+                    start: 10,
+                    type: 'BindingIdentifier'
+                  }
+                ],
+                start: 3,
+                type: 'ObjectBindingPattern'
+              },
+              end: 13,
+              flags: 0,
+              initializer: null,
+              kind: 146,
+              start: 3,
+              type: 'LexicalBinding'
+            }
+          ],
+          end: 13,
+          flags: 0,
+          isConst: false,
+          kind: 145,
+          start: 0,
+          type: 'LexicalDeclaration'
+        }
+      ],
+      length: 13,
+      mutualFlags: 0,
+      parent: null,
+      start: 0,
+      text: 'let {...a, b}'
+    });
+  });
+
   it('let of', () => {
     t.deepEqual(recovery('let of', 'recovery.js'), {
       kind: 209,
