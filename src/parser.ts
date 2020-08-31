@@ -2356,6 +2356,7 @@ export function parseYieldExpression(state: ParserState, context: Context): Yiel
     // and will be parsed as a 'BinaryExpression'.
     if (state.lineTerminatorBeforeNextToken) {
       addEarlyDiagnostic(state, context, DiagnosticCode.ExpectedExpression);
+      // Mark this node as 'dirty' to force a full parse during incremental parsing
       state.flags |= Flags.NodeHasErrors;
     }
     nextToken(state, context | Context.AllowRegExp);
