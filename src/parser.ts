@@ -135,7 +135,6 @@ import {
   nextLiteralExactlyStrict,
   addLabel
 } from './common';
-import { keyword } from 'chalk';
 
 /**
  * Interface for statements
