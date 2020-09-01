@@ -46,7 +46,9 @@ export const enum Flags {
   Empty = 0,
   NodeHasErrors = 1 << 0,
   SeenDefault = 1 << 1,
-  Octal = 1 << 2
+  Octal = 1 << 2,
+  SeenProto = 1 << 3,
+  HasProto = 1 << 4
 }
 
 export const enum ArrowKind {
@@ -95,7 +97,8 @@ export const enum Destructible {
   Assignable = 1 << 1,
   NotDestructible = 1 << 2,
   MustDestruct = 1 << 3,
-  DisallowTrailing = 1 << 4
+  DisallowTrailing = 1 << 4,
+  HasProto = 1 << 5
 }
 
 /**

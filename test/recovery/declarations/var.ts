@@ -1283,7 +1283,7 @@ describe('Recovery - Var', () => {
                 type: 'ObjectLiteral',
                 properties: [
                   {
-                    type: 'IdentifierName',
+                    type: 'IdentifierReference',
                     name: 'a',
                     start: 9,
                     end: 11,
@@ -1316,8 +1316,8 @@ describe('Recovery - Var', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
-          code: 36,
+          message: '`,` expected',
+          code: 5,
           start: 10,
           length: 1
         }
@@ -1511,7 +1511,7 @@ describe('Recovery - Var', () => {
                   type: 'ObjectLiteral',
                   properties: [
                     {
-                      type: 'IdentifierName',
+                      type: 'IdentifierReference',
                       name: 'a',
                       start: 9,
                       end: 19,
@@ -1544,8 +1544,8 @@ describe('Recovery - Var', () => {
           {
             kind: 2,
             source: 2,
-            message: '`:` expected',
-            code: 36,
+            message: '`,` expected',
+            code: 5,
             start: 26,
             length: 1
           }
@@ -1781,7 +1781,7 @@ describe('Recovery - Var', () => {
                 type: 'ObjectLiteral',
                 properties: [
                   {
-                    type: 'IdentifierName',
+                    type: 'IdentifierReference',
                     name: 'a',
                     start: 9,
                     end: 11,
@@ -1844,8 +1844,8 @@ describe('Recovery - Var', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
-          code: 36,
+          message: '`,` expected',
+          code: 5,
           start: 11,
           length: 1
         },

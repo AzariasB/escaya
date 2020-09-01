@@ -140,7 +140,7 @@ describe('Recovery - Let', () => {
         {
           kind: 3,
           source: 2,
-          message: 'Invalid use of keyword as an labeled identifier',
+          message: 'Invalid use of keyword as an identifier',
           code: 131,
           start: 5,
           length: 6
@@ -229,7 +229,7 @@ describe('Recovery - Let', () => {
         {
           kind: 3,
           source: 2,
-          message: 'Invalid use of keyword as an labeled identifier',
+          message: 'Invalid use of keyword as an identifier',
           code: 131,
           start: 6,
           length: 3

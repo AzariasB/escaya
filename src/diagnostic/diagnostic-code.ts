@@ -142,6 +142,7 @@ export const enum DiagnosticCode {
   RedeclareVar,
   NoExpBinding,
   NoSuper,
+  DuplicateProto,
 
   /* Annex B */
   AnnexBB32,

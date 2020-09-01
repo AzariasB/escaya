@@ -1145,7 +1145,7 @@ describe('Recovery - Switch', () => {
                 flags: 0
               },
               {
-                type: 'IdentifierName',
+                type: 'IdentifierReference',
                 name: 'case',
                 start: 26,
                 end: 31,
@@ -1181,7 +1181,7 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 14,
           length: 7
@@ -1189,7 +1189,7 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 22,
           length: 4
@@ -1197,7 +1197,23 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
+          code: 5,
+          start: 27,
+          length: 4
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid use of keyword as an identifier',
+          code: 131,
+          start: 26,
+          length: 5
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
           code: 5,
           start: 27,
           length: 4
@@ -1318,7 +1334,7 @@ describe('Recovery - Switch', () => {
                 flags: 0
               },
               {
-                type: 'IdentifierName',
+                type: 'IdentifierReference',
                 name: 'switch',
                 start: 25,
                 end: 32,
@@ -1370,7 +1386,23 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
+          code: 5,
+          start: 26,
+          length: 6
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid use of keyword as an identifier',
+          code: 131,
+          start: 25,
+          length: 7
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
           code: 5,
           start: 26,
           length: 6
@@ -1578,7 +1610,7 @@ describe('Recovery - Switch', () => {
                           flags: 0
                         },
                         {
-                          type: 'IdentifierName',
+                          type: 'IdentifierReference',
                           name: 'clause',
                           start: 76,
                           end: 83,
@@ -1726,7 +1758,7 @@ describe('Recovery - Switch', () => {
           {
             kind: 2,
             source: 2,
-            message: '`:` expected',
+            message: '`,` expected',
             code: 5,
             start: 77,
             length: 6
@@ -1741,52 +1773,6 @@ describe('Recovery - Switch', () => {
         end: 83
       }
     );
-  });
-
-  it('default {', () => {
-    t.deepEqual(recovery('default {', 'recovery.js'), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'BlockStatement',
-          leafs: [],
-          start: 7,
-          end: 9,
-          kind: 123,
-          flags: 0
-        }
-      ],
-      text: 'default {',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: 'Statement expected',
-          code: 8,
-          start: 0,
-          length: 7
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`}` expected',
-          code: 5,
-          start: 8,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 9,
-      end: 9
-    });
   });
 
   it('case {', () => {
@@ -2726,7 +2712,7 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 14,
           length: 1
@@ -2947,7 +2933,7 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 14,
           length: 3

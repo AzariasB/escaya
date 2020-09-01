@@ -31,10 +31,15 @@ export const enum Constants {
   ModuleElementsN                = 0b00001000000100010010000000000000,
   ModuleElementsR                = 0b00111000000100010000000000000000,
   PrimaryExpr                    = 0b00000000000001100101000000000000,
+  IsAssignCommaOrLeftBrace       = 0b00000010000000100100000000000000,
 
   /* Scope */
   ClauseBlock                    = 0b00110000000100000000000000000000,
   StrictOrNoWebCompat            = 0b00000000000000000000010000000100,
+
+  /* PropertyKind */
+
+  HasModifier            = 0b00000000000000000000000000010111,
 
   /* AsciiChar */
   DecimalOrSeparator             = 0b00000000000000000000000000110000

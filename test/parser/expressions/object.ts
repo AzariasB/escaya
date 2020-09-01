@@ -4,6 +4,9 @@ import { parseScript, parseModule, recovery } from '../../../src/escaya';
 describe('Expressions - Object literal', () => {
   // Invalid cases
   for (const arg of [
+    '({a=})',
+    '({a:})',
+    '({a;})',
     '({} /= x)',
     '({} |= x)',
     '({x=y})',
@@ -13,6 +16,12 @@ describe('Expressions - Object literal', () => {
     '({a = 1}, {b = 2}, {c = 3});',
     '({a = 1}, {b = 2}, {c = 3} = {});',
     '({a = 1}, {b = 2} = {}, {c = 3} = {});',
+    'x = [{__proto__: 1, __proto__: 2}]',
+    //'x = {"__proto__": 1, __proto__: 2}',
+    '({ __proto__: null, other: null, "__proto__": null }) => foo;',
+    '[{ __proto__: null, other: null, "__proto__": null }];',
+    //'x = { __proto__: null, other: null, "__proto__": null };',
+    //'x = {__proto__: 1, "__proto__": 2}',
     '({ set x(a, b, c) { } })',
     '({ set x() { } })',
     'x({set 123: x});',
@@ -448,8 +457,8 @@ describe('Expressions - Object literal', () => {
     '({get *"x"(){}})',
     '({get *[x](){}})',
     '({get *10(){}})',
-    '({get *[expr](){}})'
-    // '({eval} = x);',
+    '({get *[expr](){}})',
+    '({eval} = x);'
   ]) {
     it(`${arg}`, () => {
       t.throws(() => {
@@ -615,6 +624,7 @@ describe('Expressions - Object literal', () => {
     '({ a = 42, [b]: c.d } = e);',
     '({790: null})',
     'x({foo(){}, *bar(){}});',
+    '({a,})',
     'x({*set(){}});',
     '({   async *[ha+ha](){}   })',
     'x({async * foo(){}, bar(){}});',
@@ -637,7 +647,6 @@ describe('Expressions - Object literal', () => {
     '({a:b}=obj);',
     '({a, b}=obj);',
     '({a, c:d}=obj);',
-    '({eval} = x);',
     `x = { ...y }`,
     `x = { ...z = y}`,
     `x = { ...y, b: 1}`,
@@ -1085,13 +1094,13 @@ describe('Expressions - Object literal', () => {
     'o = {key: eval = a}',
     'o = {key: bar = a}',
     '({foo: true ** false});',
-    '({eval} = x)',
     '({await})',
     '({...a+b})',
     '({...a=b})',
     '({ a, b: x })',
     'x({a:b, c});',
     'x({a:b, c} = y);',
+    '([{ __proto__: x, __proto__: y }] = [{}]);',
     '([{x:x, y:y, ...z}, [a,b,c]] = {})',
     '[{x:x = 1, y:y = 2}, [a = 3, b = 4, c = 5]] = {};',
     '([{x:x = 1, y:y = 2}, [a = 3, b = 4, c = 5]] = {});',
@@ -1145,6 +1154,8 @@ describe('Expressions - Object literal', () => {
     '({__proto__: a, __proto__: b} = x)',
     '({...a}) => x',
     'x({get});',
+    '({get})',
+    '({set})',
     'x({a:b, c} = x);',
     'x({static});',
     'x({a, c:d});',

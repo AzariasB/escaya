@@ -333,7 +333,16 @@ describe('Recovery - For', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          code: 137,
+          kind: 3,
+          length: 31,
+          message: 'Redefinition of `__proto__` property',
+          source: 2,
+          start: 5
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,

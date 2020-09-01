@@ -1286,7 +1286,7 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 3,
           source: 2,
-          message: 'Invalid use of keyword as an labeled identifier',
+          message: 'Invalid use of keyword as an identifier',
           code: 131,
           start: 2,
           length: 4
@@ -2267,7 +2267,7 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 4,
           length: 3
@@ -2442,7 +2442,7 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 4,
           length: 3
@@ -3685,7 +3685,7 @@ describe('Recovery - Expressions - Object', () => {
                   flags: 0
                 },
                 {
-                  type: 'IdentifierName',
+                  type: 'IdentifierReference',
                   name: 'd',
                   start: 8,
                   end: 10,
@@ -3717,7 +3717,7 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 5,
           length: 1
@@ -3725,7 +3725,7 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 7,
           length: 1
@@ -3733,7 +3733,7 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 9,
           length: 1
@@ -3746,6 +3746,110 @@ describe('Recovery - Expressions - Object', () => {
       start: 0,
       length: 10,
       end: 10
+    });
+  });
+
+  it('({get})', () => {
+    t.deepEqual(recovery('({get})', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ObjectLiteral',
+              properties: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'get',
+                  start: 2,
+                  end: 5,
+                  kind: 13,
+                  flags: 0
+                }
+              ],
+              start: 1,
+              end: 6,
+              kind: 179,
+              flags: 0
+            },
+            start: 0,
+            end: 7,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 7,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '({get})',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
+    });
+  });
+
+  it('({set})', () => {
+    t.deepEqual(recovery('({set})', 'recovery.js'), {
+      kind: 209,
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'ParenthesizedExpression',
+            expression: {
+              type: 'ObjectLiteral',
+              properties: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'set',
+                  start: 2,
+                  end: 5,
+                  kind: 13,
+                  flags: 0
+                }
+              ],
+              start: 1,
+              end: 6,
+              kind: 179,
+              flags: 0
+            },
+            start: 0,
+            end: 7,
+            kind: 189,
+            flags: 0
+          },
+          start: 0,
+          end: 7,
+          kind: 122,
+          flags: 0
+        }
+      ],
+      text: '({set})',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 7,
+      end: 7
     });
   });
 
@@ -3833,7 +3937,7 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 5,
           length: 1
@@ -3841,7 +3945,7 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 7,
           length: 1
@@ -3849,7 +3953,7 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 9,
           length: 1

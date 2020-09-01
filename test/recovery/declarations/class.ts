@@ -1900,7 +1900,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement324', () => {
+  it('class {', () => {
     t.deepEqual(recovery('class {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1940,7 +1940,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement432577', () => {
+  it('{class', () => {
     t.deepEqual(recovery('{class', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1989,7 +1989,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement5482390', () => {
+  it('if(class) {', () => {
     t.deepEqual(recovery('if(class) {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2053,7 +2053,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement33', () => {
+  it('class(class{', () => {
     t.deepEqual(recovery('class(class{', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2125,7 +2125,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement3214', () => {
+  it('class a {class', () => {
     t.deepEqual(recovery('class a {class', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2209,7 +2209,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement4523', () => {
+  it('class a { a() {}', () => {
     t.deepEqual(recovery('class a { a() {}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2293,7 +2293,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement425', () => {
+  it('class [}', () => {
     t.deepEqual(recovery('class [}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2356,7 +2356,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement879', () => {
+  it('class { async get () {}}', () => {
     t.deepEqual(recovery('class { async get () {}}', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2433,7 +2433,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement435', () => {
+  it('class{ static x', () => {
     t.deepEqual(recovery('class{ static x', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2547,7 +2547,7 @@ describe('Recovery - Class', () => {
                 flags: 0
               },
               {
-                type: 'IdentifierName',
+                type: 'IdentifierReference',
                 name: 'x',
                 start: 25,
                 end: 27,
@@ -2605,7 +2605,7 @@ describe('Recovery - Class', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
+          message: '`,` expected',
           code: 5,
           start: 26,
           length: 1
@@ -2621,7 +2621,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement908', () => {
+  it('class { constructor x', () => {
     t.deepEqual(recovery('class { constructor x', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2706,7 +2706,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement567', () => {
+  it('class extends {', () => {
     t.deepEqual(recovery('class extends {', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -2970,7 +2970,7 @@ describe('Recovery - Class', () => {
             type: 'ObjectLiteral',
             properties: [
               {
-                type: 'IdentifierName',
+                type: 'IdentifierReference',
                 name: 'class',
                 start: 15,
                 end: 21,
@@ -3004,10 +3004,18 @@ describe('Recovery - Class', () => {
           length: 7
         },
         {
+          kind: 3,
+          source: 2,
+          message: 'Invalid use of keyword as an identifier',
+          code: 131,
+          start: 15,
+          length: 6
+        },
+        {
           kind: 2,
           source: 2,
-          message: '`:` expected',
-          code: 36,
+          message: '`,` expected',
+          code: 5,
           start: 16,
           length: 5
         }
@@ -3022,7 +3030,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement78', () => {
+  it('class extends class', () => {
     t.deepEqual(recovery('class extends class', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -3079,7 +3087,7 @@ describe('Recovery - Class', () => {
     });
   });
 
-  it('Unclosed block statement3', () => {
+  it('class { a() {{', () => {
     t.deepEqual(recovery('class { a() {{', 'recovery.js'), {
       kind: 209,
       directives: [],

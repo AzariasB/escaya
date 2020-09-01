@@ -3954,7 +3954,7 @@ describe('Recovery - Expressions', () => {
               type: 'ObjectLiteral',
               properties: [
                 {
-                  type: 'IdentifierName',
+                  type: 'IdentifierReference',
                   name: 'get',
                   start: 2,
                   end: 5,
@@ -3986,8 +3986,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: '`:` expected',
-          code: 36,
+          message: '`,` expected',
+          code: 5,
           start: 2,
           length: 3
         }
@@ -9937,7 +9937,7 @@ describe('Recovery - Expressions', () => {
                 type: 'ObjectLiteral',
                 properties: [
                   {
-                    type: 'IdentifierName',
+                    type: 'IdentifierReference',
                     name: 'while',
                     start: 8,
                     end: 13,
@@ -9972,10 +9972,10 @@ describe('Recovery - Expressions', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`:` expected',
-          code: 36,
+          message: 'Invalid use of keyword as an identifier',
+          code: 131,
           start: 8,
           length: 5
         }
@@ -10007,7 +10007,7 @@ describe('Recovery - Expressions', () => {
                 type: 'ObjectLiteral',
                 properties: [
                   {
-                    type: 'IdentifierName',
+                    type: 'IdentifierReference',
                     name: 'while',
                     start: 4,
                     end: 9,
@@ -10042,10 +10042,10 @@ describe('Recovery - Expressions', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`:` expected',
-          code: 36,
+          message: 'Invalid use of keyword as an identifier',
+          code: 131,
           start: 4,
           length: 5
         }

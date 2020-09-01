@@ -141,10 +141,11 @@ export const diagnosticMap: {
   [DiagnosticCode.MultipleDefaultsInSwitch]: 'A `default` clause cannot appear more than once in a `switch` statement',
   [DiagnosticCode.OptionalChainingNoNew]: 'Invalid optional chain from new expression',
   [DiagnosticCode.AsyncLineT]: 'Invalid line break after async arrow',
-  [DiagnosticCode.LabelAsKeyword]: 'Invalid use of keyword as an labeled identifier',
+  [DiagnosticCode.LabelAsKeyword]: 'Invalid use of keyword as an identifier',
   [DiagnosticCode.FuncGenLabel]: 'A labelled function declaration can not be a generator',
   [DiagnosticCode.ExpectedString]: 'String literal expected',
   [DiagnosticCode.RedeclareVar]: 'Cannot redeclare exported variable `%0`',
   [DiagnosticCode.NoExpBinding]: 'Exported binding `%0` needs to refer to a top-level declared variable',
-  [DiagnosticCode.NoSuper]: '`super` must be followed by an argument list or member access'
+  [DiagnosticCode.NoSuper]: '`super` must be followed by an argument list or member access',
+  [DiagnosticCode.DuplicateProto]: 'Redefinition of `__proto__` property'
 };

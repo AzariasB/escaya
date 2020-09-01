@@ -1264,7 +1264,7 @@ describe('Recovery - While', () => {
             type: 'ObjectLiteral',
             properties: [
               {
-                type: 'IdentifierName',
+                type: 'IdentifierReference',
                 name: 'break',
                 start: 7,
                 end: 13,
@@ -1312,10 +1312,18 @@ describe('Recovery - While', () => {
           length: 1
         },
         {
+          kind: 3,
+          source: 2,
+          message: 'Invalid use of keyword as an identifier',
+          code: 131,
+          start: 7,
+          length: 6
+        },
+        {
           kind: 2,
           source: 2,
-          message: '`:` expected',
-          code: 36,
+          message: '`,` expected',
+          code: 5,
           start: 8,
           length: 5
         }

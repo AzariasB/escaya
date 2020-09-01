@@ -1494,7 +1494,7 @@ describe('Module - Import', () => {
         {
           kind: 3,
           source: 2,
-          message: 'Invalid use of keyword as an labeled identifier',
+          message: 'Invalid use of keyword as an identifier',
           code: 131,
           start: 15,
           length: 2

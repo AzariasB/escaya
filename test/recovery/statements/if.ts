@@ -1512,7 +1512,7 @@ describe('Recovery - If', () => {
             type: 'ObjectLiteral',
             properties: [
               {
-                type: 'IdentifierName',
+                type: 'IdentifierReference',
                 name: 'else',
                 start: 3,
                 end: 7,
@@ -1561,10 +1561,10 @@ describe('Recovery - If', () => {
           length: 1
         },
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`:` expected',
-          code: 36,
+          message: 'Invalid use of keyword as an identifier',
+          code: 131,
           start: 3,
           length: 4
         }
@@ -2859,7 +2859,7 @@ describe('Recovery - If', () => {
             type: 'ObjectLiteral',
             properties: [
               {
-                type: 'IdentifierName',
+                type: 'IdentifierReference',
                 name: 'if',
                 start: 3,
                 end: 5,
@@ -2908,10 +2908,10 @@ describe('Recovery - If', () => {
           length: 1
         },
         {
-          kind: 2,
+          kind: 3,
           source: 2,
-          message: '`:` expected',
-          code: 36,
+          message: 'Invalid use of keyword as an identifier',
+          code: 131,
           start: 3,
           length: 2
         }
@@ -4029,7 +4029,7 @@ describe('Recovery - If', () => {
           code: 131,
           kind: 3,
           length: 7,
-          message: 'Invalid use of keyword as an labeled identifier',
+          message: 'Invalid use of keyword as an identifier',
           source: 2,
           start: 6
         },

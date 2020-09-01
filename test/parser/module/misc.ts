@@ -5,6 +5,7 @@ describe('Module - Misc', () => {
   // Invalid cases
   for (const arg of [
     'throw yield = await',
+    `for ({__proto__: 1, __proto__: 2};;);`,
     'throw await',
     `{ async *[await = 5]()
     {}
@@ -71,7 +72,6 @@ describe('Module - Misc', () => {
     'for (x of { x : [ foo().y ] } = {});',
     'for (x of { x : [ foo()[y] ] } = {});',
     'for (x of { x : [ y.z ] } = {});',
-    `for ({__proto__: 1, __proto__: 2};;);`,
     `for (((x)=>{}) ;;);`,
     `for(function(){while(x in y)t};;)x`,
     `for(function(){do;while(x in t)};;)x`,
