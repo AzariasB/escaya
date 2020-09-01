@@ -2218,7 +2218,7 @@ describe('Recovery - Async Function', () => {
                             type: 'IdentifierName',
                             name: 'x',
                             start: 34,
-                            end: 37,
+                            end: 36,
                             kind: 13,
                             flags: 0
                           },
@@ -2241,7 +2241,7 @@ describe('Recovery - Async Function', () => {
                             type: 'IdentifierName',
                             name: 'y',
                             start: 41,
-                            end: 44,
+                            end: 43,
                             kind: 13,
                             flags: 0
                           },
@@ -2264,7 +2264,7 @@ describe('Recovery - Async Function', () => {
                             type: 'IdentifierName',
                             name: 'z',
                             start: 48,
-                            end: 51,
+                            end: 50,
                             kind: 13,
                             flags: 0
                           },

@@ -127,7 +127,7 @@ describe('Recovery - For', () => {
                             type: 'IdentifierName',
                             name: 'x',
                             start: 47,
-                            end: 50,
+                            end: 49,
                             kind: 13,
                             flags: 0
                           },
@@ -262,7 +262,7 @@ describe('Recovery - For', () => {
                       type: 'IdentifierName',
                       name: '__proto__',
                       start: 7,
-                      end: 17,
+                      end: 16,
                       kind: 13,
                       flags: 0
                     },
@@ -285,7 +285,7 @@ describe('Recovery - For', () => {
                       type: 'IdentifierName',
                       name: '__proto__',
                       start: 20,
-                      end: 31,
+                      end: 30,
                       kind: 13,
                       flags: 0
                     },

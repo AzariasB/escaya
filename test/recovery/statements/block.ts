@@ -2850,10 +2850,25 @@ describe('Recovery - Block', () => {
   });
 
   it('U{ x = { foo: default }', () => {
-    t.deepEqual(recovery('{ x = { foo: default }', 'recovery.js'), {
+    t.deepEqual(recovery('U{ x = { foo: default }', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'IdentifierReference',
+            name: 'U',
+            start: 0,
+            end: 1,
+            kind: 13,
+            flags: 0
+          },
+          start: 0,
+          end: 1,
+          kind: 122,
+          flags: 0
+        },
         {
           type: 'BlockStatement',
           leafs: [
@@ -2864,8 +2879,8 @@ describe('Recovery - Block', () => {
                 left: {
                   type: 'IdentifierReference',
                   name: 'x',
-                  start: 1,
-                  end: 3,
+                  start: 2,
+                  end: 4,
                   kind: 13,
                   flags: 0
                 },
@@ -2878,48 +2893,56 @@ describe('Recovery - Block', () => {
                       key: {
                         type: 'IdentifierName',
                         name: 'foo',
-                        start: 7,
+                        start: 8,
                         end: 12,
                         kind: 13,
                         flags: 0
                       },
                       value: {
                         type: 'IdentifierReference',
-                        name: 'default',
-                        start: 12,
-                        end: 20,
+                        name: '',
+                        start: 13,
+                        end: 13,
                         kind: 13,
-                        flags: 0
+                        flags: 2
                       },
-                      start: 7,
-                      end: 20,
+                      start: 8,
+                      end: 13,
                       kind: 227,
+                      flags: 0
+                    },
+                    {
+                      type: 'IdentifierReference',
+                      name: 'default',
+                      start: 13,
+                      end: 21,
+                      kind: 13,
                       flags: 0
                     }
                   ],
-                  start: 5,
-                  end: 22,
+                  start: 6,
+                  end: 23,
                   kind: 179,
                   flags: 0
                 },
-                start: 1,
-                end: 22,
+                start: 2,
+                end: 23,
                 kind: 152,
                 flags: 0
               },
-              start: 1,
-              end: 22,
+              start: 2,
+              end: 23,
               kind: 122,
               flags: 0
             }
           ],
-          start: 0,
-          end: 22,
+          start: 1,
+          end: 23,
           kind: 123,
           flags: 0
         }
       ],
-      text: '{ x = { foo: default }',
+      text: 'U{ x = { foo: default }',
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
@@ -2927,9 +2950,33 @@ describe('Recovery - Block', () => {
         {
           kind: 2,
           source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 1,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 14,
+          length: 7
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid use of keyword as an labeled identifier',
+          code: 131,
+          start: 13,
+          length: 10
+        },
+        {
+          kind: 2,
+          source: 2,
           message: '`}` expected',
           code: 5,
-          start: 21,
+          start: 22,
           length: 1
         }
       ],
@@ -2938,8 +2985,8 @@ describe('Recovery - Block', () => {
       parent: null,
       children: [],
       start: 0,
-      length: 22,
-      end: 22
+      length: 23,
+      end: 23
     });
   });
 

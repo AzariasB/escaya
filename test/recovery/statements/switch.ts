@@ -1040,7 +1040,7 @@ describe('Recovery - Switch', () => {
                   type: 'IdentifierName',
                   name: 'default',
                   start: 8,
-                  end: 18,
+                  end: 16,
                   kind: 13,
                   flags: 0
                 },
@@ -1111,7 +1111,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch { case default case case ', () => {
-    t.deepEqual(recovery('switch { case default case case ', 'recovery.js'), {
+    t.deepEqual(recovery('switch { case default case case', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
@@ -1145,7 +1145,7 @@ describe('Recovery - Switch', () => {
                 flags: 0
               },
               {
-                type: 'IdentifierReference',
+                type: 'IdentifierName',
                 name: 'case',
                 start: 26,
                 end: 31,
@@ -1165,7 +1165,7 @@ describe('Recovery - Switch', () => {
           flags: 0
         }
       ],
-      text: 'switch { case default case case ',
+      text: 'switch { case default case case',
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
@@ -1201,14 +1201,6 @@ describe('Recovery - Switch', () => {
           code: 5,
           start: 27,
           length: 4
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 31,
-          length: 1
         }
       ],
       detached: false,
@@ -1216,8 +1208,8 @@ describe('Recovery - Switch', () => {
       parent: null,
       children: [],
       start: 0,
-      length: 32,
-      end: 32
+      length: 31,
+      end: 31
     });
   });
 
@@ -1284,7 +1276,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch ! switch { default switch ', () => {
-    t.deepEqual(recovery('switch ! switch { default switch ', 'recovery.js'), {
+    t.deepEqual(recovery('switch ! switch { default switch', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
@@ -1326,7 +1318,7 @@ describe('Recovery - Switch', () => {
                 flags: 0
               },
               {
-                type: 'IdentifierReference',
+                type: 'IdentifierName',
                 name: 'switch',
                 start: 25,
                 end: 32,
@@ -1346,7 +1338,7 @@ describe('Recovery - Switch', () => {
           flags: 0
         }
       ],
-      text: 'switch ! switch { default switch ',
+      text: 'switch ! switch { default switch',
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
@@ -1382,14 +1374,6 @@ describe('Recovery - Switch', () => {
           code: 5,
           start: 26,
           length: 6
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 32,
-          length: 1
         }
       ],
       detached: false,
@@ -1397,8 +1381,8 @@ describe('Recovery - Switch', () => {
       parent: null,
       children: [],
       start: 0,
-      length: 33,
-      end: 33
+      length: 32,
+      end: 32
     });
   });
 
@@ -1594,7 +1578,7 @@ describe('Recovery - Switch', () => {
                           flags: 0
                         },
                         {
-                          type: 'IdentifierReference',
+                          type: 'IdentifierName',
                           name: 'clause',
                           start: 76,
                           end: 83,
@@ -2148,7 +2132,7 @@ describe('Recovery - Switch', () => {
                     type: 'IdentifierName',
                     name: 'default',
                     start: 26,
-                    end: 36,
+                    end: 34,
                     kind: 13,
                     flags: 0
                   },
@@ -2673,7 +2657,7 @@ describe('Recovery - Switch', () => {
                   type: 'IdentifierName',
                   name: 'x',
                   start: 13,
-                  end: 16,
+                  end: 15,
                   kind: 13,
                   flags: 0
                 },
@@ -2894,48 +2878,56 @@ describe('Recovery - Switch', () => {
                   type: 'IdentifierName',
                   name: 'foo',
                   start: 13,
-                  end: 18,
+                  end: 17,
                   kind: 13,
                   flags: 0
                 },
                 value: {
                   type: 'IdentifierReference',
+                  name: '',
+                  start: 18,
+                  end: 18,
+                  kind: 13,
+                  flags: 2
+                },
+                start: 13,
+                end: 18,
+                kind: 227,
+                flags: 0
+              },
+              {
+                type: 'PropertyName',
+                key: {
+                  type: 'IdentifierName',
                   name: 'default',
                   start: 18,
                   end: 26,
                   kind: 13,
                   flags: 0
                 },
-                start: 13,
-                end: 26,
+                value: {
+                  type: 'IdentifierReference',
+                  name: 'bar',
+                  start: 27,
+                  end: 31,
+                  kind: 13,
+                  flags: 0
+                },
+                start: 18,
+                end: 31,
                 kind: 227,
                 flags: 0
               }
             ],
             start: 6,
-            end: 26,
+            end: 33,
             kind: 179,
             flags: 0
           },
           clauses: [],
           start: 0,
-          end: 26,
+          end: 33,
           kind: 136,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'bar',
-            start: 27,
-            end: 31,
-            kind: 13,
-            flags: 0
-          },
-          start: 27,
-          end: 31,
-          kind: 122,
           flags: 0
         }
       ],
@@ -2963,16 +2955,16 @@ describe('Recovery - Switch', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 26,
-          length: 1
+          message: 'Expression expected',
+          code: 7,
+          start: 19,
+          length: 7
         },
         {
           kind: 2,
           source: 2,
-          message: 'Statement expected',
-          code: 8,
+          message: '`)` expected',
+          code: 5,
           start: 32,
           length: 1
         }

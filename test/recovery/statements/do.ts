@@ -439,7 +439,7 @@ describe('Statements - Do while', () => {
                           type: 'IdentifierName',
                           name: 'y',
                           start: 10,
-                          end: 13,
+                          end: 12,
                           kind: 13,
                           flags: 0
                         },

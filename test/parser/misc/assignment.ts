@@ -20,10 +20,10 @@ describe('Misc - Assignment', () => {
                     {
                       type: 'AssignmentElement',
                       left: {
-                        type: 'IdentifierName',
+                        type: 'IdentifierReference',
                         name: 'a',
                         start: 2,
-                        end: 4
+                        end: 3
                       },
                       right: {
                         type: 'NumericLiteral',
@@ -44,10 +44,10 @@ describe('Misc - Assignment', () => {
                     {
                       type: 'AssignmentElement',
                       left: {
-                        type: 'IdentifierName',
+                        type: 'IdentifierReference',
                         name: 'a',
                         start: 8,
-                        end: 10
+                        end: 9
                       },
                       right: {
                         type: 'NumericLiteral',
@@ -754,10 +754,10 @@ describe('Misc - Assignment', () => {
                     {
                       type: 'AssignmentElement',
                       left: {
-                        type: 'IdentifierName',
+                        type: 'IdentifierReference',
                         name: 'a',
                         start: 2,
-                        end: 4
+                        end: 3
                       },
                       right: {
                         type: 'NumericLiteral',
@@ -778,10 +778,10 @@ describe('Misc - Assignment', () => {
                     {
                       type: 'AssignmentElement',
                       left: {
-                        type: 'IdentifierName',
+                        type: 'IdentifierReference',
                         name: 'a',
                         start: 8,
-                        end: 10
+                        end: 9
                       },
                       right: {
                         type: 'NumericLiteral',
@@ -855,10 +855,10 @@ describe('Misc - Assignment', () => {
                       {
                         type: 'AssignmentElement',
                         left: {
-                          type: 'IdentifierName',
+                          type: 'IdentifierReference',
                           name: 'b',
                           start: 12,
-                          end: 15
+                          end: 13
                         },
                         right: {
                           type: 'NumericLiteral',
@@ -916,10 +916,10 @@ describe('Misc - Assignment', () => {
                     {
                       type: 'AssignmentElement',
                       left: {
-                        type: 'IdentifierName',
+                        type: 'IdentifierReference',
                         name: 'a',
                         start: 2,
-                        end: 4
+                        end: 3
                       },
                       right: {
                         type: 'NumericLiteral',
@@ -1175,10 +1175,10 @@ describe('Misc - Assignment', () => {
                   {
                     type: 'AssignmentElement',
                     left: {
-                      type: 'IdentifierName',
+                      type: 'IdentifierReference',
                       name: 'x',
                       start: 2,
-                      end: 5
+                      end: 3
                     },
                     right: {
                       type: 'NumericLiteral',
@@ -1363,7 +1363,7 @@ describe('Misc - Assignment', () => {
                       type: 'IdentifierName',
                       name: 'x',
                       start: 2,
-                      end: 4
+                      end: 3
                     },
                     value: {
                       type: 'AssignmentElement',
@@ -1442,7 +1442,7 @@ describe('Misc - Assignment', () => {
                       type: 'IdentifierName',
                       name: 'x',
                       start: 2,
-                      end: 4
+                      end: 3
                     },
                     value: {
                       type: 'AssignmentElement',
@@ -1516,7 +1516,7 @@ describe('Misc - Assignment', () => {
                       type: 'IdentifierName',
                       name: 'a',
                       start: 2,
-                      end: 4
+                      end: 3
                     },
                     value: {
                       type: 'IdentifierReference',
@@ -1572,7 +1572,7 @@ describe('Misc - Assignment', () => {
                       type: 'IdentifierName',
                       name: 'a',
                       start: 2,
-                      end: 4
+                      end: 3
                     },
                     value: {
                       type: 'IdentifierReference',
@@ -1625,10 +1625,10 @@ describe('Misc - Assignment', () => {
                   {
                     type: 'AssignmentElement',
                     left: {
-                      type: 'IdentifierName',
+                      type: 'IdentifierReference',
                       name: 'yield',
                       start: 2,
-                      end: 9
+                      end: 7
                     },
                     right: {
                       type: 'NumericLiteral',
@@ -1698,10 +1698,10 @@ describe('Misc - Assignment', () => {
                                 {
                                   type: 'AssignmentElement',
                                   left: {
-                                    type: 'IdentifierName',
+                                    type: 'IdentifierReference',
                                     name: 'x',
                                     start: 21,
-                                    end: 24
+                                    end: 22
                                   },
                                   right: {
                                     type: 'YieldExpression',

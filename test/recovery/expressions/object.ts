@@ -31,7 +31,7 @@ describe('Recovery - Expressions - Object', () => {
                       type: 'IdentifierName',
                       name: 'a',
                       start: 5,
-                      end: 8,
+                      end: 7,
                       kind: 13,
                       flags: 0
                     },
@@ -71,7 +71,7 @@ describe('Recovery - Expressions - Object', () => {
                       type: 'IdentifierName',
                       name: 'a',
                       start: 19,
-                      end: 22,
+                      end: 21,
                       kind: 13,
                       flags: 0
                     },
@@ -179,7 +179,7 @@ describe('Recovery - Expressions - Object', () => {
                       type: 'IdentifierName',
                       name: 'x',
                       start: 16,
-                      end: 19,
+                      end: 18,
                       kind: 13,
                       flags: 0
                     },
@@ -253,7 +253,7 @@ describe('Recovery - Expressions - Object', () => {
                       type: 'IdentifierName',
                       name: 'a',
                       start: 2,
-                      end: 4,
+                      end: 3,
                       kind: 13,
                       flags: 0
                     },
@@ -506,94 +506,6 @@ describe('Recovery - Expressions - Object', () => {
       start: 0,
       length: 31,
       end: 31
-    });
-  });
-
-  it('x = ({*foo(){}});', () => {
-    t.deepEqual(recovery('x = ({*foo(){}});', 'recovery.js'), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'AssignmentExpression',
-            left: {
-              type: 'IdentifierReference',
-              name: 'x',
-              start: 0,
-              end: 1,
-              kind: 13,
-              flags: 0
-            },
-            operator: '=',
-            right: {
-              type: 'ParenthesizedExpression',
-              expression: {
-                type: 'ObjectLiteral',
-                properties: [
-                  {
-                    type: 'MethodDefinition',
-                    async: false,
-                    generator: true,
-                    propertySetParameterList: [],
-                    uniqueFormalParameters: [],
-                    name: {
-                      type: 'IdentifierName',
-                      name: 'foo',
-                      start: 6,
-                      end: 10,
-                      kind: 13,
-                      flags: 0
-                    },
-                    contents: {
-                      type: 'FunctionBody',
-                      directives: [],
-                      leafs: [],
-                      start: 12,
-                      end: 14,
-                      kind: 184,
-                      flags: 0
-                    },
-                    start: 10,
-                    end: 14,
-                    kind: 182,
-                    flags: 0
-                  }
-                ],
-                start: 5,
-                end: 15,
-                kind: 179,
-                flags: 0
-              },
-              start: 3,
-              end: 16,
-              kind: 189,
-              flags: 0
-            },
-            start: 0,
-            end: 16,
-            kind: 152,
-            flags: 0
-          },
-          start: 0,
-          end: 17,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: 'x = ({*foo(){}});',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 17,
-      end: 17
     });
   });
 
@@ -1046,10 +958,10 @@ describe('Recovery - Expressions - Object', () => {
                 {
                   type: 'CoverInitializedName',
                   left: {
-                    type: 'IdentifierName',
+                    type: 'IdentifierReference',
                     name: 'x',
                     start: 2,
-                    end: 4,
+                    end: 3,
                     kind: 13,
                     flags: 0
                   },
@@ -1124,10 +1036,10 @@ describe('Recovery - Expressions - Object', () => {
                   {
                     type: 'AssignmentElement',
                     left: {
-                      type: 'IdentifierName',
+                      type: 'IdentifierReference',
                       name: 'x',
                       start: 2,
-                      end: 4,
+                      end: 3,
                       kind: 13,
                       flags: 0
                     },
@@ -1223,10 +1135,10 @@ describe('Recovery - Expressions - Object', () => {
                   {
                     type: 'CoverInitializedName',
                     left: {
-                      type: 'IdentifierName',
+                      type: 'IdentifierReference',
                       name: 'x',
                       start: 2,
-                      end: 4,
+                      end: 3,
                       kind: 13,
                       flags: 0
                     },
@@ -1329,10 +1241,10 @@ describe('Recovery - Expressions - Object', () => {
                 {
                   type: 'CoverInitializedName',
                   left: {
-                    type: 'IdentifierName',
+                    type: 'IdentifierReference',
                     name: 'x',
                     start: 6,
-                    end: 9,
+                    end: 8,
                     kind: 13,
                     flags: 0
                   },
@@ -1371,6 +1283,14 @@ describe('Recovery - Expressions - Object', () => {
       context: 0,
       mutualFlags: 0,
       diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid use of keyword as an labeled identifier',
+          code: 131,
+          start: 2,
+          length: 4
+        },
         {
           kind: 2,
           source: 2,
@@ -1583,7 +1503,7 @@ describe('Recovery - Expressions - Object', () => {
                 type: 'ObjectLiteral',
                 properties: [
                   {
-                    type: 'IdentifierReference',
+                    type: 'IdentifierName',
                     name: 'x',
                     start: 2,
                     end: 4,
@@ -1629,8 +1549,8 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 4,
           length: 1
         }
@@ -2585,7 +2505,7 @@ describe('Recovery - Expressions - Object', () => {
                 type: 'ObjectLiteral',
                 properties: [
                   {
-                    type: 'IdentifierReference',
+                    type: 'IdentifierName',
                     name: 'get',
                     start: 2,
                     end: 5,
@@ -2631,8 +2551,8 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 6,
           length: 2
         },
@@ -2668,7 +2588,7 @@ describe('Recovery - Expressions - Object', () => {
               type: 'ObjectLiteral',
               properties: [
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'get',
                   start: 2,
                   end: 5,
@@ -2739,8 +2659,8 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 6,
           length: 1
         },
@@ -2776,7 +2696,7 @@ describe('Recovery - Expressions - Object', () => {
               type: 'ObjectLiteral',
               properties: [
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'get',
                   start: 2,
                   end: 5,
@@ -2831,8 +2751,8 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 5,
           length: 1
         },
@@ -2873,7 +2793,7 @@ describe('Recovery - Expressions - Object', () => {
                     type: 'IdentifierName',
                     name: 'a',
                     start: 2,
-                    end: 4,
+                    end: 3,
                     kind: 13,
                     flags: 0
                   },
@@ -2949,7 +2869,7 @@ describe('Recovery - Expressions - Object', () => {
                     type: 'IdentifierName',
                     name: 'x',
                     start: 2,
-                    end: 4,
+                    end: 3,
                     kind: 13,
                     flags: 0
                   },
@@ -3033,7 +2953,7 @@ describe('Recovery - Expressions - Object', () => {
                     type: 'IdentifierName',
                     name: 'x',
                     start: 2,
-                    end: 4,
+                    end: 3,
                     kind: 13,
                     flags: 0
                   },
@@ -3256,7 +3176,7 @@ describe('Recovery - Expressions - Object', () => {
               type: 'ObjectLiteral',
               properties: [
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'x',
                   start: 2,
                   end: 3,
@@ -3288,8 +3208,8 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 3,
           length: 2
         }
@@ -3765,7 +3685,7 @@ describe('Recovery - Expressions - Object', () => {
                   flags: 0
                 },
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'd',
                   start: 8,
                   end: 10,
@@ -4696,7 +4616,7 @@ describe('Recovery - Expressions - Object', () => {
                   flags: 0
                 },
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'b',
                   start: 11,
                   end: 12,
@@ -4744,8 +4664,8 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 12,
           length: 1
         },

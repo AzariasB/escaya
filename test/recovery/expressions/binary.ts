@@ -392,10 +392,10 @@ describe('Recovery - Expressions - Binary', () => {
                     {
                       type: 'CoverInitializedName',
                       left: {
-                        type: 'IdentifierName',
+                        type: 'IdentifierReference',
                         name: 'x',
                         start: 13,
-                        end: 15,
+                        end: 14,
                         kind: 13,
                         flags: 0
                       },

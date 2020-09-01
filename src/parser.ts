@@ -135,6 +135,7 @@ import {
   nextLiteralExactlyStrict,
   addLabel
 } from './common';
+import { keyword } from 'chalk';
 
 /**
  * Interface for statements
@@ -2692,7 +2693,7 @@ export function parseTemplateElement(state: ParserState, context: Context): Temp
 export function parseObjectBindingPattern(
   state: ParserState,
   context: Context,
-  scope: any,
+  scope: ScopeState,
   type: BindingType
 ): ObjectBindingPattern {
   const start = state.startIndex;
@@ -3322,6 +3323,7 @@ export function parseAssignmentElement(
 //   `async` [no LineTerminator here] PropertyName `(` UniqueFormalParameters `)` `{` AsyncFunctionBody `}`
 // AsyncGeneratorMethod :
 //   `async` [no LineTerminator here] `*` Propertyname `(` UniqueFormalParameters `)` `{` AsyncGeneratorBody `}`
+
 export function parsePropertyDefinition(
   state: ParserState,
   context: Context,
@@ -3329,23 +3331,41 @@ export function parsePropertyDefinition(
   type: BindingType
 ): SpreadProperty | MethodDefinition {
   const start = state.startIndex;
-  if (state.token === Token.Ellipsis) {
-    return parseSpreadProperty(state, context, scope, type, start);
-  }
+
+  let kind = PropertyKind.None;
+
   let key;
-  let kind = optionalBit(state, context | Context.AllowRegExp, Token.Multiply)
-    ? PropertyKind.Generator
-    : PropertyKind.None;
   const token = state.token;
+  if (optionalBit(state, context | Context.AllowRegExp, Token.Multiply)) kind |= PropertyKind.Generator;
 
   if (token & Constants.IdentifierOrKeyword) {
     const tokenValue = state.tokenValue;
-    //console.log(tokenValue)
+
     nextToken(state, context);
 
     if (state.token === Token.LeftParen) {
       key = finishNode(state, context, start, createIdentifierName(tokenValue), SyntaxKind.Identifier);
       return parseMethodDefinition(state, context, key, kind);
+    }
+
+    if (state.token === Token.Assign || state.token === Token.Comma || state.token === Token.RightBrace) {
+      validateIdentifier(state, context, token, start);
+      key = finishNode(state, context, start, createIdentifierReference(tokenValue), SyntaxKind.Identifier);
+      if (state.token === Token.Assign) {
+        nextToken(state, context | Context.AllowRegExp);
+        const init = parseExpression(state, context);
+        state.destructible = Destructible.MustDestruct;
+        return finishNode(
+          state,
+          context,
+          start,
+          DictionaryMap.CoverInitializedName(key, init),
+          SyntaxKind.CoverInitializedName
+        );
+      }
+      state.destructible = Destructible.None;
+      addVarOrBlock(state, context, scope, tokenValue, type);
+      return key;
     }
 
     if (token & (Token.IsIdentifier | Token.IsKeyword) && state.token & Constants.CanFollowAccessor) {
@@ -3374,103 +3394,21 @@ export function parsePropertyDefinition(
       return finishNode(state, context, start, createIdentifierReference(tokenValue), SyntaxKind.Identifier);
     }
 
-    if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
-      key = finishNode(state, context, start, createIdentifierName(tokenValue), SyntaxKind.Identifier);
-
-      const initializer = parseExpression(state, context);
-      state.destructible = Destructible.MustDestruct;
-
-      return finishNode(
-        state,
-        context,
-        start,
-        DictionaryMap.CoverInitializedName(key, initializer),
-        SyntaxKind.CoverInitializedName
-      );
-    }
-
-    let destructible = Destructible.None;
-
-    if (consumeOpt(state, context | Context.AllowRegExp, Token.Colon)) {
-      key = finishNode(state, context, start, createIdentifierName(tokenValue), SyntaxKind.Identifier);
-      let value;
-      const colonStart = state.startIndex;
-      const colonValue = state.tokenValue;
-      if (state.token & Constants.IdentifierOrKeyword) {
-        if (context & Context.ErrorRecovery && (state.token & Token.IsExpressionStart) === 0) {
-          value = parseIdentifierReference(state, context);
-          return finishNode(state, context, start, DictionaryMap.PropertyName(key, value), SyntaxKind.PropertyName);
-        }
-
-        value = parsePrimaryExpression(state, context, true);
-
-        const token = state.token;
-
-        value = parseMemberExpression(state, context, value, true, colonStart);
-
-        if (state.token === Token.RightBrace || state.token === Token.Comma) {
-          if (token === Token.Assign || token === Token.Comma || token === Token.RightBrace) {
-            if (!state.assignable) destructible |= Destructible.NotDestructible;
-          } else {
-            destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
-          }
-        } else {
-          addVarOrBlock(state, context, scope, colonValue, type);
-          if ((state.token & Token.IsAssignOp) === 0) destructible |= Destructible.NotDestructible;
-          value = parseAssignmentExpression(state, context, value, colonStart);
-        }
-      } else if (state.token & Token.IsPatternStart) {
-        value =
-          state.token === Token.LeftBrace
-            ? parseObjectLiteral(state, context, scope, DestuctionKind.NORMAL, type)
-            : parseArrayLiteral(state, context, scope, DestuctionKind.NORMAL, type);
-
-        destructible = state.destructible;
-
-        if (state.token !== Token.RightBrace && state.token !== Token.Comma) {
-          // Catches cases like `({a:{x = y}.z} = x);` and `[{a = b}].x`  because a shorthand with initalizer
-          // must be a pattern or the nested object must be a pattern
-          if (state.destructible & Destructible.MustDestruct) {
-            addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
-          }
-          // Note: The value must have a tail and it isn't (immediately) an assignment.
-          value = parseMemberExpression(state, context, value, true, start);
-
-          destructible = state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
-
-          value = parseAssignmentExpression(state, context, value, start);
-        }
-      } else {
-        value = parseLeftHandSideExpression(state, context, true);
-
-        const isAssignToken = state.token === Token.Assign;
-
-        value = parseAssignmentExpression(state, context, value, start);
-
-        destructible |= state.assignable || isAssignToken ? Destructible.Assignable : Destructible.NotDestructible;
-      }
-
-      state.destructible = destructible;
-      return finishNode(state, context, start, DictionaryMap.PropertyName(key, value), SyntaxKind.PropertyName);
-    }
-
-    if (state.token === Token.RightBrace) {
-      addVarOrBlock(state, context, scope, tokenValue, type);
-    }
-
-    state.destructible = destructible;
-
-    return finishNode(state, context, start, createIdentifierReference(tokenValue), SyntaxKind.Identifier);
+    key = finishNode(state, context, start, createIdentifierName(tokenValue), SyntaxKind.Identifier);
+  } else if (token === Token.Ellipsis) {
+    return parseSpreadProperty(state, context, scope, type, start);
+  } else {
+    key = parsePropertyName(state, context);
   }
 
-  key = parsePropertyName(state, context);
-
-  let destructible = Destructible.None;
-
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Colon)) {
+    let destructible = Destructible.None;
     let value;
+
     const colonStart = state.startIndex;
-    if (state.token & (Token.IsIdentifier | Token.IsKeyword | Token.IsFutureReserved)) {
+    const colonValue = state.tokenValue;
+
+    if (state.token & Constants.IdentifierOrKeyword) {
       value = parsePrimaryExpression(state, context, true);
 
       const token = state.token;
@@ -3484,6 +3422,12 @@ export function parsePropertyDefinition(
           destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
         }
       } else if (state.token === Token.Assign) {
+        if (state.assignable) {
+          addVarOrBlock(state, context, scope, colonValue, type);
+          destructible |= Destructible.None;
+        } else {
+          destructible |= Destructible.NotDestructible;
+        }
         destructible |= state.assignable ? Destructible.None : Destructible.NotDestructible;
         value = parseAssignmentExpression(state, context, value, colonStart);
       } else {

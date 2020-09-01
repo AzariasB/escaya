@@ -1264,7 +1264,7 @@ describe('Recovery - While', () => {
             type: 'ObjectLiteral',
             properties: [
               {
-                type: 'IdentifierReference',
+                type: 'IdentifierName',
                 name: 'break',
                 start: 7,
                 end: 13,
@@ -1314,8 +1314,8 @@ describe('Recovery - While', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 8,
           length: 5
         }

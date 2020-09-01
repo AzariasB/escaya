@@ -41,7 +41,7 @@ describe('test262-parser-tests - early tests', () => {
                   name: {
                     type: 'IdentifierName',
                     name: 'a',
-                    start: 2,
+                    start: 4,
                     end: 5,
                     kind: 13,
                     flags: 0
@@ -2339,10 +2339,10 @@ describe('test262-parser-tests - early tests', () => {
                         {
                           type: 'BindingElement',
                           left: {
-                            type: 'IdentifierName',
+                            type: 'IdentifierReference',
                             name: 'b',
                             start: 17,
-                            end: 20,
+                            end: 18,
                             kind: 13,
                             flags: 0
                           },
@@ -2966,7 +2966,7 @@ describe('test262-parser-tests - early tests', () => {
                         name: {
                           type: 'IdentifierName',
                           name: 'b',
-                          start: 17,
+                          start: 19,
                           end: 20,
                           kind: 13,
                           flags: 0
@@ -3019,12 +3019,12 @@ describe('test262-parser-tests - early tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 24,
           kind: 3,
-          length: 5,
-          message: '`Yield` expression cannot be used in function parameters',
           source: 2,
-          start: 31
+          message: '`Yield` expression cannot be used in function parameters',
+          code: 24,
+          start: 31,
+          length: 5
         }
       ],
       detached: false,
@@ -3520,7 +3520,7 @@ describe('test262-parser-tests - early tests', () => {
                   type: 'IdentifierName',
                   name: 'a',
                   start: 5,
-                  end: 7,
+                  end: 6,
                   kind: 13,
                   flags: 0
                 },
@@ -4658,7 +4658,7 @@ describe('test262-parser-tests - early tests', () => {
                     type: 'IdentifierName',
                     name: '__proto__',
                     start: 38,
-                    end: 49,
+                    end: 48,
                     kind: 13,
                     flags: 0
                   },
@@ -5809,12 +5809,12 @@ describe('test262-parser-tests - early tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          kind: 3,
-          source: 2,
-          message: 'Duplicate binding `a`',
           code: 124,
-          start: 17,
-          length: 1
+          kind: 3,
+          length: 1,
+          message: 'Duplicate binding `a`',
+          source: 2,
+          start: 17
         }
       ],
       detached: false,
@@ -6754,7 +6754,7 @@ describe('test262-parser-tests - early tests', () => {
                         name: {
                           type: 'IdentifierName',
                           name: 'b',
-                          start: 17,
+                          start: 19,
                           end: 20,
                           kind: 13,
                           flags: 0
@@ -6807,12 +6807,12 @@ describe('test262-parser-tests - early tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 24,
           kind: 3,
-          length: 5,
-          message: '`Yield` expression cannot be used in function parameters',
           source: 2,
-          start: 25
+          message: '`Yield` expression cannot be used in function parameters',
+          code: 24,
+          start: 25,
+          length: 5
         }
       ],
       detached: false,
@@ -6843,7 +6843,7 @@ describe('test262-parser-tests - early tests', () => {
                     type: 'IdentifierName',
                     name: '__proto__',
                     start: 2,
-                    end: 13,
+                    end: 12,
                     kind: 13,
                     flags: 0
                   },
@@ -6866,7 +6866,7 @@ describe('test262-parser-tests - early tests', () => {
                     type: 'IdentifierName',
                     name: '__proto__',
                     start: 19,
-                    end: 30,
+                    end: 29,
                     kind: 13,
                     flags: 0
                   },

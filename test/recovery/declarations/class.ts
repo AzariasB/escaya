@@ -2547,7 +2547,7 @@ describe('Recovery - Class', () => {
                 flags: 0
               },
               {
-                type: 'IdentifierReference',
+                type: 'IdentifierName',
                 name: 'x',
                 start: 25,
                 end: 27,
@@ -2970,7 +2970,7 @@ describe('Recovery - Class', () => {
             type: 'ObjectLiteral',
             properties: [
               {
-                type: 'IdentifierReference',
+                type: 'IdentifierName',
                 name: 'class',
                 start: 15,
                 end: 21,
@@ -3006,8 +3006,8 @@ describe('Recovery - Class', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 16,
           length: 5
         }

@@ -265,7 +265,7 @@ describe('Recovery - Expressions', () => {
                     type: 'IdentifierName',
                     name: 'a',
                     start: 2,
-                    end: 4,
+                    end: 3,
                     kind: 13,
                     flags: 0
                   },
@@ -414,7 +414,7 @@ describe('Recovery - Expressions', () => {
                     type: 'IdentifierName',
                     name: 'a',
                     start: 2,
-                    end: 4,
+                    end: 3,
                     kind: 13,
                     flags: 0
                   },
@@ -472,7 +472,7 @@ describe('Recovery - Expressions', () => {
                   flags: 0
                 },
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'for',
                   start: 13,
                   end: 16,
@@ -543,8 +543,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 16,
           length: 1
         }
@@ -577,7 +577,7 @@ describe('Recovery - Expressions', () => {
                     type: 'IdentifierName',
                     name: 'a',
                     start: 2,
-                    end: 4,
+                    end: 3,
                     kind: 13,
                     flags: 0
                   },
@@ -635,7 +635,7 @@ describe('Recovery - Expressions', () => {
                   flags: 0
                 },
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'for',
                   start: 13,
                   end: 16,
@@ -722,8 +722,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 16,
           length: 1
         },
@@ -766,7 +766,7 @@ describe('Recovery - Expressions', () => {
                       type: 'IdentifierName',
                       name: 'a',
                       start: 2,
-                      end: 4,
+                      end: 3,
                       kind: 13,
                       flags: 0
                     },
@@ -1275,7 +1275,7 @@ describe('Recovery - Expressions', () => {
                     type: 'IdentifierName',
                     name: 'f',
                     start: 2,
-                    end: 5,
+                    end: 4,
                     kind: 13,
                     flags: 0
                   },
@@ -3089,7 +3089,7 @@ describe('Recovery - Expressions', () => {
                     type: 'IdentifierName',
                     name: 't',
                     start: 5,
-                    end: 8,
+                    end: 7,
                     kind: 13,
                     flags: 0
                   },
@@ -3174,7 +3174,7 @@ describe('Recovery - Expressions', () => {
                     type: 'IdentifierName',
                     name: 't',
                     start: 5,
-                    end: 8,
+                    end: 7,
                     kind: 13,
                     flags: 0
                   },
@@ -3719,7 +3719,7 @@ describe('Recovery - Expressions', () => {
                     type: 'IdentifierName',
                     name: 'set',
                     start: 2,
-                    end: 7,
+                    end: 6,
                     kind: 13,
                     flags: 0
                   },
@@ -3745,7 +3745,7 @@ describe('Recovery - Expressions', () => {
                   flags: 0
                 },
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'if',
                   start: 10,
                   end: 12,
@@ -3793,8 +3793,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 12,
           length: 1
         },
@@ -3851,7 +3851,7 @@ describe('Recovery - Expressions', () => {
                     type: 'IdentifierName',
                     name: 'set',
                     start: 2,
-                    end: 7,
+                    end: 6,
                     kind: 13,
                     flags: 0
                   },
@@ -3954,7 +3954,7 @@ describe('Recovery - Expressions', () => {
               type: 'ObjectLiteral',
               properties: [
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'get',
                   start: 2,
                   end: 5,
@@ -3986,8 +3986,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 2,
           length: 3
         }
@@ -9937,7 +9937,7 @@ describe('Recovery - Expressions', () => {
                 type: 'ObjectLiteral',
                 properties: [
                   {
-                    type: 'IdentifierReference',
+                    type: 'IdentifierName',
                     name: 'while',
                     start: 8,
                     end: 13,
@@ -9974,8 +9974,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 8,
           length: 5
         }
@@ -10007,7 +10007,7 @@ describe('Recovery - Expressions', () => {
                 type: 'ObjectLiteral',
                 properties: [
                   {
-                    type: 'IdentifierReference',
+                    type: 'IdentifierName',
                     name: 'while',
                     start: 4,
                     end: 9,
@@ -10044,8 +10044,8 @@ describe('Recovery - Expressions', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 4,
           length: 5
         }

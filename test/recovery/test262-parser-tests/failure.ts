@@ -189,7 +189,7 @@ describe('test262-parser-tests - failing tests', () => {
               type: 'ObjectLiteral',
               properties: [
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'get',
                   start: 2,
                   end: 5,
@@ -260,8 +260,8 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 5,
           length: 1
         },
@@ -590,7 +590,6 @@ describe('test262-parser-tests - failing tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrayLiteral',
-            kind: 178,
             elements: [
               {
                 type: 'ObjectLiteral',
@@ -598,10 +597,10 @@ describe('test262-parser-tests - failing tests', () => {
                   {
                     type: 'CoverInitializedName',
                     left: {
-                      type: 'IdentifierName',
+                      type: 'IdentifierReference',
                       name: 'a',
                       start: 2,
-                      end: 4,
+                      end: 3,
                       kind: 13,
                       flags: 0
                     },
@@ -642,6 +641,7 @@ describe('test262-parser-tests - failing tests', () => {
             ],
             start: 0,
             end: 12,
+            kind: 178,
             flags: 0
           },
           start: 0,
@@ -656,12 +656,12 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 100,
           kind: 2,
-          length: 1,
-          message: '`=` can only be used in an object literal property inside a destructuring ',
           source: 2,
-          start: 11
+          message: '`=` can only be used in an object literal property inside a destructuring ',
+          code: 100,
+          start: 11,
+          length: 1
         }
       ],
       detached: false,
@@ -981,7 +981,6 @@ describe('test262-parser-tests - failing tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrayLiteral',
-            kind: 178,
             elements: [
               {
                 type: 'UnaryExpression',
@@ -992,10 +991,10 @@ describe('test262-parser-tests - failing tests', () => {
                     {
                       type: 'CoverInitializedName',
                       left: {
-                        type: 'IdentifierName',
+                        type: 'IdentifierReference',
                         name: 'a',
                         start: 3,
-                        end: 6,
+                        end: 4,
                         kind: 13,
                         flags: 0
                       },
@@ -1026,6 +1025,7 @@ describe('test262-parser-tests - failing tests', () => {
             ],
             start: 0,
             end: 10,
+            kind: 178,
             flags: 0
           },
           start: 0,
@@ -1040,12 +1040,12 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 100,
           kind: 2,
-          length: 1,
-          message: '`=` can only be used in an object literal property inside a destructuring ',
           source: 2,
-          start: 9
+          message: '`=` can only be used in an object literal property inside a destructuring ',
+          code: 100,
+          start: 9,
+          length: 1
         }
       ],
       detached: false,
@@ -2605,7 +2605,7 @@ describe('test262-parser-tests - failing tests', () => {
                       type: 'IdentifierName',
                       name: 'a',
                       start: 2,
-                      end: 4,
+                      end: 3,
                       kind: 13,
                       flags: 0
                     },
@@ -2678,12 +2678,12 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 103,
           kind: 3,
-          length: 2,
-          message: 'The left-hand side of an arrow function can only be destructed through assignment',
           source: 2,
-          start: 10
+          message: 'The left-hand side of an arrow function can only be destructed through assignment',
+          code: 103,
+          start: 10,
+          length: 2
         }
       ],
       detached: false,
@@ -3436,7 +3436,7 @@ describe('test262-parser-tests - failing tests', () => {
                     type: 'IdentifierName',
                     name: 'set',
                     start: 2,
-                    end: 7,
+                    end: 6,
                     kind: 13,
                     flags: 0
                   },
@@ -3462,7 +3462,7 @@ describe('test262-parser-tests - failing tests', () => {
                   flags: 0
                 },
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'if',
                   start: 10,
                   end: 12,
@@ -3510,8 +3510,8 @@ describe('test262-parser-tests - failing tests', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 12,
           length: 1
         },
@@ -4478,7 +4478,7 @@ describe('test262-parser-tests - failing tests', () => {
                       type: 'IdentifierName',
                       name: 'v',
                       start: 16,
-                      end: 19,
+                      end: 18,
                       kind: 13,
                       flags: 0
                     },
@@ -4600,9 +4600,9 @@ describe('test262-parser-tests - failing tests', () => {
               type: 'ObjectLiteral',
               properties: [
                 {
-                  type: 'IdentifierReference',
+                  type: 'IdentifierName',
                   name: 'a',
-                  start: 2,
+                  start: 4,
                   end: 5,
                   kind: 13,
                   flags: 0
@@ -4628,7 +4628,16 @@ describe('test262-parser-tests - failing tests', () => {
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
-      diagnostics: [],
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`:` expected',
+          code: 36,
+          start: 6,
+          length: 1
+        }
+      ],
       detached: false,
       incremental: false,
       parent: null,
@@ -4941,10 +4950,10 @@ describe('test262-parser-tests - failing tests', () => {
                       {
                         type: 'AssignmentElement',
                         left: {
-                          type: 'IdentifierName',
+                          type: 'IdentifierReference',
                           name: 'a',
                           start: 10,
-                          end: 12,
+                          end: 11,
                           kind: 13,
                           flags: 0
                         },
@@ -5467,10 +5476,10 @@ describe('test262-parser-tests - failing tests', () => {
                     {
                       type: 'AssignmentElement',
                       left: {
-                        type: 'IdentifierName',
+                        type: 'IdentifierReference',
                         name: 'a',
                         start: 7,
-                        end: 9,
+                        end: 8,
                         kind: 13,
                         flags: 0
                       },
@@ -5779,10 +5788,10 @@ describe('test262-parser-tests - failing tests', () => {
                 {
                   type: 'CoverInitializedName',
                   left: {
-                    type: 'IdentifierName',
+                    type: 'IdentifierReference',
                     name: 'x',
                     start: 7,
-                    end: 10,
+                    end: 8,
                     kind: 13,
                     flags: 0
                   },
@@ -5822,12 +5831,12 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 100,
           kind: 2,
-          length: 1,
-          message: '`=` can only be used in an object literal property inside a destructuring ',
           source: 2,
-          start: 12
+          message: '`=` can only be used in an object literal property inside a destructuring ',
+          code: 100,
+          start: 12,
+          length: 1
         }
       ],
       detached: false,
@@ -6035,83 +6044,63 @@ describe('test262-parser-tests - failing tests', () => {
             params: [
               {
                 type: 'ArrayBindingPattern',
-                kind: 178,
                 elements: [
                   {
                     type: 'ArrayBindingPattern',
-                    kind: 178,
                     elements: [
                       {
                         type: 'ArrayBindingPattern',
-                        kind: 178,
                         elements: [
                           {
                             type: 'ArrayBindingPattern',
-                            kind: 178,
                             elements: [
                               {
                                 type: 'ArrayBindingPattern',
-                                kind: 178,
                                 elements: [
                                   {
                                     type: 'ArrayBindingPattern',
-                                    kind: 178,
                                     elements: [
                                       {
                                         type: 'ArrayBindingPattern',
-                                        kind: 178,
                                         elements: [
                                           {
                                             type: 'ArrayBindingPattern',
-                                            kind: 178,
                                             elements: [
                                               {
                                                 type: 'ArrayBindingPattern',
-                                                kind: 178,
                                                 elements: [
                                                   {
                                                     type: 'ArrayBindingPattern',
-                                                    kind: 178,
                                                     elements: [
                                                       {
                                                         type: 'ArrayBindingPattern',
-                                                        kind: 178,
                                                         elements: [
                                                           {
                                                             type: 'ArrayBindingPattern',
-                                                            kind: 178,
                                                             elements: [
                                                               {
                                                                 type: 'ArrayBindingPattern',
-                                                                kind: 178,
                                                                 elements: [
                                                                   {
                                                                     type: 'ArrayBindingPattern',
-                                                                    kind: 178,
                                                                     elements: [
                                                                       {
                                                                         type: 'ArrayBindingPattern',
-                                                                        kind: 178,
                                                                         elements: [
                                                                           {
                                                                             type: 'ArrayBindingPattern',
-                                                                            kind: 178,
                                                                             elements: [
                                                                               {
                                                                                 type: 'ArrayBindingPattern',
-                                                                                kind: 178,
                                                                                 elements: [
                                                                                   {
                                                                                     type: 'ArrayBindingPattern',
-                                                                                    kind: 178,
                                                                                     elements: [
                                                                                       {
                                                                                         type: 'ArrayBindingPattern',
-                                                                                        kind: 178,
                                                                                         elements: [
                                                                                           {
                                                                                             type: 'ArrayBindingPattern',
-                                                                                            kind: 178,
                                                                                             elements: [
                                                                                               {
                                                                                                 type:
@@ -6125,7 +6114,7 @@ describe('test262-parser-tests - failing tests', () => {
                                                                                                         'IdentifierName',
                                                                                                       name: 'a',
                                                                                                       start: 22,
-                                                                                                      end: 24,
+                                                                                                      end: 23,
                                                                                                       kind: 13,
                                                                                                       flags: 0
                                                                                                     },
@@ -6170,101 +6159,121 @@ describe('test262-parser-tests - failing tests', () => {
                                                                                             ],
                                                                                             start: 20,
                                                                                             end: 30,
+                                                                                            kind: 178,
                                                                                             flags: 0
                                                                                           }
                                                                                         ],
                                                                                         start: 19,
                                                                                         end: 31,
+                                                                                        kind: 178,
                                                                                         flags: 0
                                                                                       }
                                                                                     ],
                                                                                     start: 18,
                                                                                     end: 32,
+                                                                                    kind: 178,
                                                                                     flags: 0
                                                                                   }
                                                                                 ],
                                                                                 start: 17,
                                                                                 end: 33,
+                                                                                kind: 178,
                                                                                 flags: 0
                                                                               }
                                                                             ],
                                                                             start: 16,
                                                                             end: 34,
+                                                                            kind: 178,
                                                                             flags: 0
                                                                           }
                                                                         ],
                                                                         start: 15,
                                                                         end: 35,
+                                                                        kind: 178,
                                                                         flags: 0
                                                                       }
                                                                     ],
                                                                     start: 14,
                                                                     end: 36,
+                                                                    kind: 178,
                                                                     flags: 0
                                                                   }
                                                                 ],
                                                                 start: 13,
                                                                 end: 37,
+                                                                kind: 178,
                                                                 flags: 0
                                                               }
                                                             ],
                                                             start: 12,
                                                             end: 38,
+                                                            kind: 178,
                                                             flags: 0
                                                           }
                                                         ],
                                                         start: 11,
                                                         end: 39,
+                                                        kind: 178,
                                                         flags: 0
                                                       }
                                                     ],
                                                     start: 10,
                                                     end: 40,
+                                                    kind: 178,
                                                     flags: 0
                                                   }
                                                 ],
                                                 start: 9,
                                                 end: 41,
+                                                kind: 178,
                                                 flags: 0
                                               }
                                             ],
                                             start: 8,
                                             end: 42,
+                                            kind: 178,
                                             flags: 0
                                           }
                                         ],
                                         start: 7,
                                         end: 43,
+                                        kind: 178,
                                         flags: 0
                                       }
                                     ],
                                     start: 6,
                                     end: 44,
+                                    kind: 178,
                                     flags: 0
                                   }
                                 ],
                                 start: 5,
                                 end: 45,
+                                kind: 178,
                                 flags: 0
                               }
                             ],
                             start: 4,
                             end: 46,
+                            kind: 178,
                             flags: 0
                           }
                         ],
                         start: 3,
                         end: 47,
+                        kind: 178,
                         flags: 0
                       }
                     ],
                     start: 2,
                     end: 48,
+                    kind: 178,
                     flags: 0
                   }
                 ],
                 start: 1,
                 end: 49,
+                kind: 178,
                 flags: 0
               }
             ],
@@ -6301,12 +6310,12 @@ describe('test262-parser-tests - failing tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 103,
           kind: 3,
-          length: 2,
-          message: 'The left-hand side of an arrow function can only be destructed through assignment',
           source: 2,
-          start: 50
+          message: 'The left-hand side of an arrow function can only be destructed through assignment',
+          code: 103,
+          start: 50,
+          length: 2
         }
       ],
       detached: false,

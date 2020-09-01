@@ -1512,7 +1512,7 @@ describe('Recovery - If', () => {
             type: 'ObjectLiteral',
             properties: [
               {
-                type: 'IdentifierReference',
+                type: 'IdentifierName',
                 name: 'else',
                 start: 3,
                 end: 7,
@@ -1563,8 +1563,8 @@ describe('Recovery - If', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 3,
           length: 4
         }
@@ -2859,7 +2859,7 @@ describe('Recovery - If', () => {
             type: 'ObjectLiteral',
             properties: [
               {
-                type: 'IdentifierReference',
+                type: 'IdentifierName',
                 name: 'if',
                 start: 3,
                 end: 5,
@@ -2910,8 +2910,8 @@ describe('Recovery - If', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 3,
           length: 2
         }
@@ -3041,10 +3041,10 @@ describe('Recovery - If', () => {
               {
                 type: 'CoverInitializedName',
                 left: {
-                  type: 'IdentifierName',
+                  type: 'IdentifierReference',
                   name: 'acorn',
                   start: 3,
-                  end: 10,
+                  end: 8,
                   kind: 13,
                   flags: 0
                 },
@@ -3062,7 +3062,7 @@ describe('Recovery - If', () => {
                 flags: 0
               },
               {
-                type: 'IdentifierReference',
+                type: 'IdentifierName',
                 name: 'this',
                 start: 17,
                 end: 22,
@@ -3158,8 +3158,8 @@ describe('Recovery - If', () => {
         {
           kind: 2,
           source: 2,
-          message: '`,` expected',
-          code: 5,
+          message: '`:` expected',
+          code: 36,
           start: 23,
           length: 1
         },
@@ -4024,6 +4024,14 @@ describe('Recovery - If', () => {
           code: 5,
           start: 5,
           length: 1
+        },
+        {
+          code: 131,
+          kind: 3,
+          length: 7,
+          message: 'Invalid use of keyword as an labeled identifier',
+          source: 2,
+          start: 6
         },
         {
           kind: 2,

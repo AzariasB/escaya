@@ -814,6 +814,14 @@ describe('Recovery - Const', () => {
       mutualFlags: 0,
       diagnostics: [
         {
+          kind: 3,
+          source: 2,
+          message: 'Invalid use of keyword as an labeled identifier',
+          code: 131,
+          start: 2,
+          length: 7
+        },
+        {
           kind: 2,
           source: 2,
           message: '`}` expected',
