@@ -302,6 +302,8 @@ describe('Declarations - Var', () => {
     'var { 0: a, 1: b } = { 0: 10, 1: "hello" };',
     'var { "<": a, ">": b } = { "<": 10, ">": "hello" };',
     'var { 0: a, 1: b } = [10, "hello"];',
+    'var a = { __proto__: { abc: 123 } };',
+    'var b = { ["__proto__"]: { abc: 123 }};',
     'var [a, [b, { x, y: c }] = ["abc", { x: 10, y: false }]] = [1, ["hello", { x: 5, y: true }]];',
     'var x; (true ? { x = true } = {} : { x = false } = {})',
     'var q, x; (q, { x = 10 } = {});',

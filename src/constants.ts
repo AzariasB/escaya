@@ -32,6 +32,7 @@ export const enum Constants {
   ModuleElementsR                = 0b00111000000100010000000000000000,
   PrimaryExpr                    = 0b00000000000001100101000000000000,
   IsAssignCommaOrLeftBrace       = 0b00000010000000100100000000000000,
+  IsRightBraceOrComma            = 0b00000010000000000100000000000000,
 
   /* Scope */
   ClauseBlock                    = 0b00110000000100000000000000000000,
@@ -39,7 +40,7 @@ export const enum Constants {
 
   /* PropertyKind */
 
-  HasModifier            = 0b00000000000000000000000000010111,
+  HasModifier                    = 0b00000000000000000000000000010111,
 
   /* AsciiChar */
   DecimalOrSeparator             = 0b00000000000000000000000000110000

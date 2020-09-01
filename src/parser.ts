@@ -2495,10 +2495,11 @@ export function parsePrimaryExpression(
       }
       return expr;
     case Token.LeftBrace: {
+      const expr = parseObjectLiteral(state, context, void 0, DestuctionKind.NORMAL, BindingType.Literal);
       if (state.flags & Flags.SeenProto) {
         addparserDiagnostic(state, context, 1, DiagnosticCode.DuplicateProto);
       }
-      const expr = parseObjectLiteral(state, context, void 0, DestuctionKind.NORMAL, BindingType.Literal);
+
       if ((state.destructible & Destructible.MustDestruct) === Destructible.MustDestruct) {
         addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ObjCoverInit, DiagnosticKind.Error);
       }
@@ -3267,7 +3268,7 @@ export function parseObjectLiteral(
   while (state.token & Constants.ObjectLiteralElements) {
     properties.push(parsePropertyDefinition(state, context, scope, type));
     destructible |= state.destructible;
-    if (destructible & Destructible.HasProto) prototypeCount++;
+    if (state.destructible & Destructible.HasProto) prototypeCount++;
     if (state.token === Token.RightBrace) break;
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) continue;
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
@@ -3347,12 +3348,13 @@ export function parsePropertyDefinition(
   scope: any,
   type: BindingType
 ): SpreadProperty | MethodDefinition {
-  const start = state.startIndex;
+  const { startIndex, token } = state;
+
+  if (token === Token.Ellipsis) return parseSpreadProperty(state, context, scope, type, startIndex);
 
   let kind = PropertyKind.None;
   let key;
-
-  const token = state.token;
+  let destructible = Destructible.None;
 
   // We save the 'tokenValue' because we do not know yet if this is an 'IdentifierReference' or
   // a 'IdentifierName'. We only know this after we have seen a '=', ',', or '}'.
@@ -3362,16 +3364,14 @@ export function parsePropertyDefinition(
   if (token & Constants.IdentifierOrKeyword) {
     nextToken(state, context);
 
-    let destructible = Destructible.None;
-
     if (state.token & Constants.IsAssignCommaOrLeftBrace) {
       if (tokenValue === 'eval' || tokenValue === 'arguments') {
         destructible |= Destructible.NotDestructible;
       } else {
-        validateIdentifier(state, context, token, start);
+        validateIdentifier(state, context, token, startIndex);
       }
 
-      key = finishNode(state, context, start, createIdentifierReference(tokenValue), SyntaxKind.Identifier);
+      key = finishNode(state, context, startIndex, createIdentifierReference(tokenValue), SyntaxKind.Identifier);
 
       addVarOrBlock(state, context, scope, tokenValue, type);
 
@@ -3380,14 +3380,14 @@ export function parsePropertyDefinition(
       // the preceding code. For example, maybe the preceding token is an operator: 'x + {y=z}'.
       //
       // In 'recovery mode' we have have to allow this. This is necessary because normally this will trigger
-      // an error without the initializer, but in 'recovery mode' we need to parse out the initializer.
+      // an error without the initializer, but in 'recovery mode' we need to parse it out.
       if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
         const init = parseExpression(state, context);
         state.destructible = Destructible.MustDestruct;
         return finishNode(
           state,
           context,
-          start,
+          startIndex,
           DictionaryMap.CoverInitializedName(key, init),
           SyntaxKind.CoverInitializedName
         );
@@ -3415,30 +3415,28 @@ export function parsePropertyDefinition(
       }
 
       // E.g., '({x})' and '({x, y})'
-      return finishNode(state, context, start, createIdentifierReference(tokenValue), SyntaxKind.Identifier);
+      return finishNode(state, context, startIndex, createIdentifierReference(tokenValue), SyntaxKind.Identifier);
     }
 
-    key = finishNode(state, context, start, createIdentifierName(tokenValue), SyntaxKind.Identifier);
-
-    if (state.token === Token.LeftParen) return parseMethodDefinition(state, context, key, kind);
-  } else if (token === Token.Ellipsis) {
-    return parseSpreadProperty(state, context, scope, type, start);
+    key = finishNode(state, context, startIndex, createIdentifierName(tokenValue), SyntaxKind.Identifier);
   } else {
     if (optionalBit(state, context | Context.AllowRegExp, Token.Multiply)) kind |= PropertyKind.Generator;
+
     key = parsePropertyName(state, context);
   }
 
+  if (state.token === Token.LeftParen) return parseMethodDefinition(state, context, key, kind);
+
   if (consumeOpt(state, context | Context.AllowRegExp, Token.Colon)) {
-    let destructible = Destructible.None;
-    let value;
+    let value!: Expression;
 
     const colonStart = state.startIndex;
 
-    if ((context & Context.OptionsDisableWebCompat) === 0 && tokenValue === '__proto__') {
-      destructible |= Destructible.HasProto;
-    }
-
     if (state.token & Constants.IdentifierOrKeyword) {
+      if ((context & Context.OptionsDisableWebCompat) === 0 && tokenValue === '__proto__') {
+        destructible |= Destructible.HasProto;
+      }
+
       const colonValue = state.tokenValue;
 
       value = parsePrimaryExpression(state, context, true);
@@ -3447,12 +3445,15 @@ export function parsePropertyDefinition(
 
       value = parseMemberExpression(state, context, value, true, colonStart);
 
-      if (state.token === Token.RightBrace || state.token === Token.Comma) {
-        if (token === Token.Assign || token === Token.Comma || token === Token.RightBrace) {
+      // '({x : y,', '({x : y.z', '({x : y.(z)'
+      if (state.token & Constants.IsRightBraceOrComma) {
+        // '({x : y =', '({x : y,' or '({x : y}'
+        if (token & Constants.IsAssignCommaOrLeftBrace) {
           if (!state.assignable) destructible |= Destructible.NotDestructible;
         } else {
           destructible |= state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
         }
+        // '({x : y ='
       } else if (state.token === Token.Assign) {
         if (state.assignable) {
           addVarOrBlock(state, context, scope, colonValue, type);
@@ -3460,12 +3461,13 @@ export function parsePropertyDefinition(
         } else {
           destructible |= Destructible.NotDestructible;
         }
-        destructible |= state.assignable ? Destructible.None : Destructible.NotDestructible;
         value = parseAssignmentExpression(state, context, value, colonStart);
+        // '({x : y.z= ', '({x : y.z=', '({x : y(z)', '({x : y[z)'
       } else {
         destructible |= Destructible.NotDestructible;
         value = parseAssignmentExpression(state, context, value, colonStart);
       }
+      // '({x : {', '({x : ['
     } else if (state.token & Token.IsPatternStart) {
       value =
         state.token === Token.LeftBrace
@@ -3474,34 +3476,39 @@ export function parsePropertyDefinition(
 
       destructible = state.destructible;
 
-      if (state.token !== Token.RightBrace && state.token !== Token.Comma) {
+      // '({x : {y}(x)', '({x : [y](z)', '({x : [y](z)', '({x : [y](z)', '({x : {y} = z', '({x : [y] = z'
+      if ((state.token & Constants.IsRightBraceOrComma) === 0) {
         // Catches cases like `({a:{x = y}.z} = x);` and `[{a = b}].x`  because a shorthand with initalizer
         // must be a pattern or the nested object must be a pattern
         if (state.destructible & Destructible.MustDestruct) {
           addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
         }
         // Note: The value must have a tail and it isn't (immediately) an assignment.
-        value = parseMemberExpression(state, context, value, true, start);
+        value = parseMemberExpression(state, context, value, true, startIndex);
 
         destructible = state.assignable ? Destructible.Assignable : Destructible.NotDestructible;
 
-        value = parseAssignmentExpression(state, context, value, start);
+        value = parseAssignmentExpression(state, context, value, startIndex);
       }
+      // '({'string' : x', '({1 : x = z', '({1, : x = z', '({[x = y] : z = 1'
     } else {
       value = parseLeftHandSideExpression(state, context, true);
 
       const isAssignToken = state.token === Token.Assign;
 
-      value = parseAssignmentExpression(state, context, value, start);
+      value = parseAssignmentExpression(state, context, value, startIndex);
 
       destructible |= state.assignable || isAssignToken ? Destructible.Assignable : Destructible.NotDestructible;
+
+      // Check for '__proto__' property and eventually set the 'Destructible.HasProto' bit
+      if ((context & Context.OptionsDisableWebCompat) === 0 && tokenValue === '__proto__') {
+        destructible |= Destructible.HasProto;
+      }
     }
 
     state.destructible = destructible;
-    return finishNode(state, context, start, DictionaryMap.PropertyName(key, value), SyntaxKind.PropertyName);
+    return finishNode(state, context, startIndex, DictionaryMap.PropertyName(key, value), SyntaxKind.PropertyName);
   }
-
-  if (state.token === Token.LeftParen) return parseMethodDefinition(state, context, key, kind);
 
   addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ColonExpected, DiagnosticKind.Error);
 
