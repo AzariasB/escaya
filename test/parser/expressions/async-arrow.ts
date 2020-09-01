@@ -194,7 +194,7 @@ describe('Expressions - Async arrow', () => {
     'async (-a, b) => {}',
     'async (a, -b) => {}',
     'async ([a = yield b]) => x',
-    //'({async foo() { return {await} }})',
+    '({async foo() { return {await} }})',
     'async(,)',
     'async (,) => b;',
     'async ([x.y]=z) => z',
@@ -243,7 +243,6 @@ describe('Expressions - Async arrow', () => {
     'async=>{}.x',
     'async=>{}(foo)',
     'async=>{}[x]',
-
     'async ({x} = await bar) => {}',
     // 'async ({x} = await bar);',
     'try {} catch(e = async \n () => x) {}',

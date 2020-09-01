@@ -20,10 +20,9 @@ describe('Expressions - Import meta', () => {
   for (const arg of [
     'if (1) { import.meta }',
     'var f = function() {import.meta.couldBeMutable = true}',
-
     'do { import.meta } while (0)',
     't = [...import.meta]',
-    // 'import.meta.url',
+    'import.meta.url',
     '({m() { do { import.meta } while (0)}})',
     'class C {set x(_) { import.meta.url }}',
     'class C {set x(_) { import.meta[0] }}',
@@ -34,7 +33,7 @@ describe('Expressions - Import meta', () => {
     '({set x(_) { t = [...import.meta]}})',
     'class C {set x(_) { f = {...import.meta} }}',
     'class C {set x(_) { delete import.meta }}',
-    //"'use strict'; import.meta",
+    "'use strict'; import.meta",
     "'use strict'; () => { import.meta }",
     "'use strict'; () => import.meta",
     "'use strict'; if (1) { import.meta }",
@@ -79,14 +78,10 @@ describe('Expressions - Import meta', () => {
     '({m() { while (0) { import.meta }}})',
     'function f() { import.meta}',
     '() => { import.meta }',
-    't = [...import.meta]'
-    /*
-
-
-       'import.meta[0]',
+    't = [...import.meta]',
+    'import.meta[0]',
     'import.meta()',
     'delete import.meta',
-
     'export var meta = import.meta;',
     'export function getMeta() { return import.meta;}',
     'import.meta.url',
@@ -97,13 +92,9 @@ describe('Expressions - Import meta', () => {
     't = [...import.meta]',
     'export var meta = import.meta;',
     'export function getMeta() { return import.meta;}',
-
     '(a?.import("string")?.import.meta??(a))',
     'import.meta?.(a?.import("string")?.import.meta??(a))',
     'var a = import.meta;',
-
-
-
     "'use strict'; import.meta.url",
     "'use strict'; import.meta[0]",
     "'use strict'; import.meta.couldBeMutable = true",
@@ -115,22 +106,17 @@ describe('Expressions - Import meta', () => {
     '(import.meta?.a)',
     '(a?.import.meta)',
     "'use strict'; delete import.meta",
-
     'class C {m() { while (0) { import.meta } }}',
-
-    '({set x(_) {import.meta}})',
-    "'use strict'; ({m: function() { while (0) { import.meta }}})",
-    'function f() { do { import.meta } while (0)}',
-
-    'delete import.meta',
-    'import.meta',
-
     'import.meta.url',
     'import.meta[0]()',
     'import.meta[0](x = 123) ',
     'import.meta([0](x = 123))',
     '(import.meta([0](x = 123)))',
-
+    '({set x(_) {import.meta}})',
+    "'use strict'; ({m: function() { while (0) { import.meta }}})",
+    'function f() { do { import.meta } while (0)}',
+    'delete import.meta',
+    'import.meta',
     'import.meta;',
     'import.meta.couldBeMutable = true',
     '(import.meta.couldBeMutable = true)',
@@ -139,9 +125,7 @@ describe('Expressions - Import meta', () => {
     'new import.meta',
     'import.meta.resolve("something")',
     'const size = import.meta.scriptElement.dataset.size || 300;',
-    'x = import.meta',
-
-    */
+    'x = import.meta'
   ]) {
     it(`${arg}`, () => {
       t.doesNotThrow(() => {

@@ -24,7 +24,6 @@ describe('Expressions - Optional chaining', () => {
     '?. ?[] ?() ?:',
     'a ? .5;',
     'class a extends b { c() { [super?.d] = e } }',
-
     'for ({ x: { set y(val) {} }?.y} in [{x: 42}]) ;',
     'for ([x?.y = 42] of [[23]]) ;',
     'for ([x?.y] of [[23]]) ;',

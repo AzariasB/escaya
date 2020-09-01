@@ -42,7 +42,7 @@ describe('Statements - Throw', () => {
     'throw {x:y',
     'throw {[x]:y',
     'throw [x /a/',
-    //'throw [x ...y]',
+    'throw [x ...y]',
     'throw [x, y',
     'throw () => class x ',
     'throw x => class  {',
