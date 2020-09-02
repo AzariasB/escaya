@@ -9,16 +9,12 @@ import { Statement } from './statements';
 export interface Script extends Node {
   readonly directives: Directive[];
   readonly leafs: Statement[];
-  readonly start: number;
-  readonly end: number;
 }
 
-export function createScriptNode(source: string, directives: Directive[], leafs: Statement[]): Script {
+export function createScriptNode(directives: Directive[], leafs: Statement[]): Script {
   return {
     type: 'Script',
     directives,
-    leafs,
-    start: 0,
-    end: source.length
+    leafs
   };
 }

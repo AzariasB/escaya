@@ -31,6 +31,7 @@ export interface Options {
   impliedStrict?: boolean;
   // *only* for recovery / incremental mode
   module?: boolean;
+  ts?: boolean;
 }
 
 /**
@@ -41,6 +42,7 @@ export function parseRoot(source: string, context: Context, options?: Options): 
     if (options.next) context |= Context.OptionsNext;
     if (options.loc) context |= Context.OptionsLoc;
     if (options.impliedStrict) context |= Context.Strict;
+    if (options.ts) context |= Context.OptionsTS;
     if (options.disableWebCompat) context |= Context.OptionsDisableWebCompat;
   }
 
@@ -73,9 +75,13 @@ export function parseRoot(source: string, context: Context, options?: Options): 
       ? parseModuleItemList(state, context, scope, leafs)
       : parseStatementList(state, context, scope, leafs);
 
-  return context & Context.Module
-    ? DictionaryMap.Module(source, directives, leafs)
-    : DictionaryMap.Script(source, directives, leafs);
+  const node =
+    context & Context.Module ? DictionaryMap.Module(directives, leafs) : DictionaryMap.Script(directives, leafs);
+
+  if (context & Context.OptionsLoc) {
+    (node.start = 0), (node.end = source.length);
+  }
+  return node;
 }
 
 /**
@@ -135,6 +141,7 @@ export function parseInRecoveryMode(text: string, filename: string, context: Con
     if (options.impliedStrict) context |= Context.Strict;
     if (options.module) context |= Context.Strict | Context.Module;
     if (options.disableWebCompat) context |= Context.OptionsDisableWebCompat;
+    if (options.ts) context |= Context.OptionsTS;
   }
   return parseSourceFile(text, filename, context | Context.ErrorRecovery);
 }

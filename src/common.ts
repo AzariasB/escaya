@@ -18,6 +18,7 @@ export const enum Context {
   DisallowFunction = 1 << 5,
   Return = 1 << 6,
   InGlobal = 1 << 7,
+  OptionsTS = 1 << 8,
   Strict = 1 << 10,
   Module = 1 << 11,
   AllowRegExp = 1 << 12,
