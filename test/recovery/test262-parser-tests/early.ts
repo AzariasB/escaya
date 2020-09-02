@@ -708,6 +708,14 @@ describe('test262-parser-tests - early tests', () => {
           code: 18,
           start: 23,
           length: 6
+        },
+        {
+          code: 139,
+          kind: 3,
+          length: 1,
+          message: 'Function name may not contain any reserved words or be eval or arguments in strict mode',
+          source: 2,
+          start: 34
         }
       ],
       detached: false,

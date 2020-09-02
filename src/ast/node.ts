@@ -1,4 +1,3 @@
-import { Directive } from './directive-node';
 /**
  * Every single valid AST Node types.
  */

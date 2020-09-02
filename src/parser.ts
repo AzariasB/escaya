@@ -83,7 +83,6 @@ import { LexicalDeclaration } from './ast/declarations/lexical-declaration';
 import { VariableStatement } from './ast/statements/variable-stmt';
 import { VariableDeclaration } from './ast/declarations/variable-declaration';
 import { SwitchStatement } from './ast/statements/switch-stmt';
-import { addDiagnostic, addparserDiagnostic, addEarlyDiagnostic, DiagnosticSource, DiagnosticKind } from './diagnostic';
 import { DiagnosticCode } from './diagnostic/diagnostic-code';
 import { Token, KeywordDescTable } from './ast/token';
 import { Constants } from './constants';
@@ -93,6 +92,14 @@ import { nextToken } from './lexer/scan';
 import { scanTemplateTail } from './lexer/template';
 import { DictionaryMap } from './dictionary/dictionary-map';
 import { ScopeKind } from './scope/common';
+import {
+  addDiagnostic,
+  addparserDiagnostic,
+  addScopeDiagnostic,
+  addEarlyDiagnostic,
+  DiagnosticSource,
+  DiagnosticKind
+} from './diagnostic';
 import {
   parseBlockElements,
   parseBindingElements,
@@ -106,8 +113,7 @@ import {
   addVarName,
   addBlockName,
   addVarOrBlock,
-  declareUnboundVariable,
-  addBindingToExports
+  declareUnboundVariable
 } from './scope';
 import {
   Context,
@@ -117,6 +123,7 @@ import {
   Destructible,
   consume,
   consumeOpt,
+  consumeBit,
   expectSemicolon,
   optionalBit,
   PropertyKind,
@@ -3328,20 +3335,7 @@ export function parseAssignmentElement(
 //   PropertyName `:` AssignmentExpression
 //   MethodDefinition
 //   `...` AssignmentExpression
-// MethodDefinition :
-//   PropertyName `(` UniqueFormalParameters `)` `{` FunctionBody `}`
-//   GeneratorMethod
-//   AsyncMethod
-//   AsyncGeneratorMethod
-//   `get` PropertyName `(` `)` `{` FunctionBody `}`
-//   `set` PropertyName `(` PropertySetParameterList `)` `{` FunctionBody `}`
-// GeneratorMethod :
-//   `*` PropertyName `(` UniqueFormalParameters `)` `{` GeneratorBody `}`
-// AsyncMethod :
-//   `async` [no LineTerminator here] PropertyName `(` UniqueFormalParameters `)` `{` AsyncFunctionBody `}`
-// AsyncGeneratorMethod :
-//   `async` [no LineTerminator here] `*` Propertyname `(` UniqueFormalParameters `)` `{` AsyncGeneratorBody `}`
-
+//
 export function parsePropertyDefinition(
   state: ParserState,
   context: Context,
@@ -3583,9 +3577,8 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
 
     consume(state, context, Token.RightParen);
   }
-  if ((isSimpleParameterList || context & Context.Strict) && scope.scopeError) {
-    const err = scope.scopeError;
-    addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.name);
+  if (isSimpleParameterList || context & Context.Strict) {
+    addScopeDiagnostic(state, context, scope, DiagnosticCode.DupBind);
   }
   return params;
 }
@@ -3595,10 +3588,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
 export function parseUniqueFormalParameters(state: ParserState, context: Context, scope: any): Parameter[] {
   const parameters = parseFormalParameters(state, context | Context.Parameters, scope);
   // 14.1.2 - 'It is a Syntax Error if BoundNames of FormalParameters contains any duplicate elements.'
-  if (scope.scopeError) {
-    const err = scope.scopeError;
-    addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.name);
-  }
+  addScopeDiagnostic(state, context, scope, DiagnosticCode.DupBind);
   return parameters;
 }
 
@@ -3608,25 +3598,16 @@ export function parseFunctionBody(
   state: ParserState,
   context: Context,
   scope: any,
+  firstRestricted: Token | undefined,
   isStatement: boolean
 ): FunctionBody {
   const start = state.startIndex;
-  const scopeError = scope.scopeError;
-  const savedContext = context;
   const directives: Directive[] = [];
   const statements: Statement[] = [];
 
-  context = (context | Context.TopLevel | Context.InBlock) ^ Context.InBlock;
-
-  scope = createParentScope(scope, ScopeKind.FunctionBody);
-
-  if (context & Context.Strict) {
-    if (scopeError && (savedContext & Context.Strict) === 0 && (context & Context.InGlobal) === 0) {
-      addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.iBDestruct, DiagnosticKind.Error);
-    }
-  }
-
   if (consume(state, context | Context.AllowRegExp, Token.LeftBrace)) {
+    const isNotPreviousStrict = (context & Context.Strict) === 0;
+
     while (state.token === Token.StringLiteral) {
       const start = state.startIndex;
       const expr = parseStringLiteral(state, context | Context.AllowRegExp, /* isDirective */ true);
@@ -3641,7 +3622,21 @@ export function parseFunctionBody(
       }
     }
 
-    context = (context | Context.TopLevel | Context.InBlock) ^ Context.InBlock;
+    if (context & Context.Strict) {
+      if (isNotPreviousStrict) addScopeDiagnostic(state, context, scope, DiagnosticCode.DupBind);
+      if (firstRestricted) {
+        if (firstRestricted & Token.IsFutureReserved)
+          addEarlyDiagnostic(state, context, DiagnosticCode.StrictFunctionName);
+      }
+      if (state.flags & Flags.Octal) addEarlyDiagnostic(state, context, DiagnosticCode.StrictOctal);
+    }
+
+    scope = createParentScope(scope, ScopeKind.FunctionBody);
+
+    state.flags = state.flags = (state.flags | Flags.Octal) ^ Flags.Octal;
+
+    // Unset the 'Context.InGlobal' bit and set the 'Context.Return' and 'Context.InBlock' bits
+    context = (context | 0b00010000000000000000000001000000) ^ Context.InGlobal;
 
     while (state.token & Constants.SourceElements) {
       statements.push(parseBlockElements(state, context, scope, null, null, parseStatementListItem));
@@ -3652,12 +3647,24 @@ export function parseFunctionBody(
 }
 
 // MethodDefinition :
-//   PropertyName (UniqueFormalParameters) { FunctionBody }
+//   PropertyName `(` UniqueFormalParameters `)` `{` FunctionBody `}`
 //   GeneratorMethod
 //   AsyncMethod
 //   AsyncGeneratorMethod
-//   getPropertyName () { FunctionBody }
-//   setPropertyName ( PropertySetParameterList ) { FunctionBody }
+//   `get` PropertyName `(` `)` `{` FunctionBody `}`
+//   `set` PropertyName `(` PropertySetParameterList `)` `{` FunctionBody `}`
+//
+// PropertySetParameterList :
+//   FormalParameter
+//
+// GeneratorMethod :
+//   `*` PropertyName `(` UniqueFormalParameters `)` `{` GeneratorBody `}`
+//
+// AsyncMethod :
+//   `async` [no LineTerminator here] PropertyName `(` UniqueFormalParameters `)` `{` AsyncFunctionBody `}`
+//
+// AsyncGeneratorMethod :
+//   `async` [no LineTerminator here] `*` Propertyname `(` UniqueFormalParameters `)` `{` AsyncGeneratorBody `}`
 export function parseMethodDefinition(
   state: ParserState,
   context: Context,
@@ -3665,7 +3672,7 @@ export function parseMethodDefinition(
   kind: PropertyKind
 ): MethodDefinition {
   const modifierFlags =
-    (kind & PropertyKind.Constructor) === 0 ? 0b00000001111110100010000001000000 : 0b00000000111100100010000001000000;
+    kind & PropertyKind.Constructor ? 0b00000000111100100010000001000000 : 0b00000001111110100010000001000000;
 
   context =
     ((context | 0b00000100000001000000000000000000 | modifierFlags) ^ modifierFlags) |
@@ -3679,17 +3686,13 @@ export function parseMethodDefinition(
 
   const scope = createParentScope(createScope(), ScopeKind.FunctionParams);
 
-  // getter
   if (kind & PropertyKind.Getter) {
     consume(state, context, Token.LeftParen);
-    consume(state, context, Token.RightParen);
+    consumeBit(state, context, Token.RightParen, DiagnosticCode.GetNoParam);
   } else if (kind & PropertyKind.Setter) {
     consume(state, context, Token.LeftParen);
     propertySetParameterList = [parseBindingElement(state, context, scope, BindingType.ArgumentList)];
-    if (scope.scopeError) {
-      const err: any = scope.scopeError;
-      addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.name);
-    }
+    addScopeDiagnostic(state, context, scope, DiagnosticCode.DupBind);
     consume(state, context, Token.RightParen);
   } else {
     uniqueFormalParameters = parseUniqueFormalParameters(state, context, scope);
@@ -3697,22 +3700,20 @@ export function parseMethodDefinition(
 
   state.destructible = Destructible.NotDestructible;
 
+  // Set the 'NewTarget' and 'Return' bit and unset the 'InGlobal' bit
+  context = (context | 0b00000100000000000000000011000000) ^ Context.InGlobal;
+
   return finishNode(
     state,
     context,
     start,
     DictionaryMap.MethodDefinition(
-      (kind & PropertyKind.Async) !== 0,
-      (kind & PropertyKind.Generator) !== 0,
+      (kind & PropertyKind.Async) === PropertyKind.Async,
+      (kind & PropertyKind.Generator) === PropertyKind.Generator,
       propertySetParameterList,
       uniqueFormalParameters,
       key,
-      parseFunctionBody(
-        state,
-        (context | Context.InGlobal | Context.NewTarget | Context.Return) ^ Context.InGlobal,
-        scope,
-        false
-      )
+      parseFunctionBody(state, context, scope, void 0, /* isStatement */ false)
     ),
     SyntaxKind.MethodDefinition
   );
@@ -3750,11 +3751,12 @@ export function parseFunctionExpression(
 
   let scope = createScope();
   let name: BindingIdentifier | null = null;
-
+  let firstRestricted!: Token;
   if (
     state.token &
     (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword)
   ) {
+    firstRestricted = state.token;
     name = validateFunctionName(
       state,
       ((context | 0b00000101111111101010000000000000) ^ 0b00000001111111101010000000000000) | generatorAndAsyncFlags
@@ -3770,12 +3772,7 @@ export function parseFunctionExpression(
 
   const params = parseFormalParameters(state, context | Context.Parameters, scope);
 
-  const contents = parseFunctionBody(
-    state,
-    (context | Context.InGlobal | Context.Return) ^ Context.InGlobal,
-    scope,
-    false
-  );
+  const contents = parseFunctionBody(state, context, scope, firstRestricted, false);
 
   state.assignable = false;
 
@@ -3877,13 +3874,15 @@ export function parseFunctionDeclaration(
   let innerScope = createScope();
 
   let name: BindingIdentifier | null = null;
+  let firstRestricted!: Token;
+
   if (
     state.token &
     (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword)
   ) {
     const { tokenValue } = state;
+    firstRestricted = state.token;
     name = validateFunctionName(state, context | ((context & 0b0000000000000000000_1100_00000000) << 11));
-
     if (context & Context.TopLevel && (context & Context.Module) !== Context.Module) {
       addVarName(state, context, scope, tokenValue, BindingType.Var);
     } else {
@@ -3898,6 +3897,7 @@ export function parseFunctionDeclaration(
     // dummy identifier without priming the scanner. It makes a clear distinction when it comes to cases
     // like 'function while() {}', 'function true() {}' and 'function function (function)'.
     if (state.token & Token.IsExpressionStart && (context & Context.Default) !== Context.Default) {
+      firstRestricted = state.token;
       name = createBindingIdentifier(state, context, DiagnosticCode.ExpectedBindingIdent, /* shouldConsume */ false);
     } else if ((context & Context.Default) !== Context.Default) {
       addEarlyDiagnostic(state, context, DiagnosticCode.MissingFuncName);
@@ -3911,12 +3911,7 @@ export function parseFunctionDeclaration(
 
   const params = parseFormalParameters(state, context | Context.Parameters, innerScope);
 
-  const contents = parseFunctionBody(
-    state,
-    (context | Context.InGlobal | Context.Return) ^ Context.InGlobal,
-    innerScope,
-    true
-  );
+  const contents = parseFunctionBody(state, context, innerScope, firstRestricted, true);
 
   return finishNode(
     state,
@@ -4148,18 +4143,10 @@ export function parseConciseOrFunctionBody(
   context: Context,
   scope: any
 ): FunctionBody | ConciseBody {
-  if (scope.scopeError !== void 0) {
-    const err = scope.scopeError;
-    addparserDiagnostic(state, context, err.start, DiagnosticCode.DupBind, err.name);
-  }
+  addScopeDiagnostic(state, context, scope, DiagnosticCode.DupBind);
 
   if (state.token === Token.LeftBrace) {
-    const body = parseFunctionBody(
-      state,
-      (context | Context.InGlobal | Context.NewTarget | Context.Return) ^ Context.InGlobal,
-      scope,
-      true
-    );
+    const body = parseFunctionBody(state, context | Context.NewTarget, scope, void 0, true);
 
     if (state.lineTerminatorBeforeNextToken) {
       switch (state.token) {

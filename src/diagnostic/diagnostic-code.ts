@@ -143,6 +143,8 @@ export const enum DiagnosticCode {
   NoExpBinding,
   NoSuper,
   DuplicateProto,
+  GetNoParam,
+  StrictFunctionName,
 
   /* Annex B */
   AnnexBB32,

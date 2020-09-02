@@ -4462,8 +4462,8 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`)` expected',
-          code: 5,
+          message: 'A `get` cannot have parameters',
+          code: 138,
           start: 10,
           length: 1
         },
@@ -4760,8 +4760,8 @@ describe('Recovery - Expressions - Object', () => {
         {
           kind: 2,
           source: 2,
-          message: '`)` expected',
-          code: 5,
+          message: 'A `get` cannot have parameters',
+          code: 138,
           start: 11,
           length: 1
         },

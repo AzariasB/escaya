@@ -172,6 +172,16 @@ export function consume<T extends Token>(state: ParserState, context: Context, t
   );
   return false;
 }
+
+export function consumeBit<T extends Token>(state: ParserState, context: Context, t: T, code: DiagnosticCode): boolean {
+  if (state.token === t) {
+    nextToken(state, context);
+    return true;
+  }
+  addDiagnostic(state, context, DiagnosticSource.Parser, code, DiagnosticKind.Error);
+  return false;
+}
+
 export function consumeOpt<T extends Token>(state: ParserState, context: Context, t: T): boolean {
   if (state.token === t) {
     nextToken(state, context);

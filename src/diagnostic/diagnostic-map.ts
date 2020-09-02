@@ -147,5 +147,8 @@ export const diagnosticMap: {
   [DiagnosticCode.RedeclareVar]: 'Cannot redeclare exported variable `%0`',
   [DiagnosticCode.NoExpBinding]: 'Exported binding `%0` needs to refer to a top-level declared variable',
   [DiagnosticCode.NoSuper]: '`super` must be followed by an argument list or member access',
-  [DiagnosticCode.DuplicateProto]: 'Redefinition of `__proto__` property'
+  [DiagnosticCode.DuplicateProto]: 'Redefinition of `__proto__` property',
+  [DiagnosticCode.GetNoParam]: 'A `get` cannot have parameters',
+  [DiagnosticCode.StrictFunctionName]:
+    'Function name may not contain any reserved words or be eval or arguments in strict mode'
 };

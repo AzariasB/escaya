@@ -34,6 +34,22 @@ export interface Diagnostic {
   length: number;
 }
 
+export function addScopeDiagnostic(state: ParserState, context: Context, scope: any, code: DiagnosticCode): void {
+  if (scope.scopeError) {
+    const err: any = scope.scopeError;
+    createDiagnostic(
+      state,
+      context,
+      DiagnosticSource.Parser,
+      code,
+      DiagnosticKind.Early,
+      err.start,
+      state.index,
+      err.name
+    );
+  }
+}
+
 export function addparserDiagnostic(
   state: ParserState,
   context: Context,
