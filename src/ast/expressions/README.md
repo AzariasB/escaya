@@ -731,6 +731,6 @@ interface ObjectBindingPattern <: Expression {
 ```js
 interface ObjectAssignmentPattern <: Expression {
     type: 'ObjectAssignmentPattern';
-    properties: [ IdentifierReference | IdentifierName | AssignmentElement | AssignmentRestElement ];
+    properties: [ IdentifierReference | IdentifierName | AssignmentElement | AssignmentRestProperty ];
 }
 ```
