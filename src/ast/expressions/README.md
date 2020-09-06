@@ -326,7 +326,7 @@ interface ClassExpression <: Expression {
     type: 'ClassExpression';
     name: BindingIdentifier | null;
     heritage: Expression | null;
-    elements: [ ClassElement ];
+    elements: [ Semicolon | ClassElement ];
 }
 ```
 
@@ -472,16 +472,13 @@ interface MethodDefinition <: Expression {
     type: 'MethodDefinition';
     async: boolean;
     generator: boolean;
-    propertySetParameterList: [ BindingIdentifier | BindingElement ];
+    getter: boolean;
+    propertySetParameterList: BindingIdentifier | BindingElement | null;
     uniqueFormalParameters: [ BindingIdentifier | BindingElement | BindingRestElement ];
     name: IdentifierReference | StringLiteral | BigIntLiteral | NumericLiteral | IdentifierName;
     contents: FunctionBody;
 }
 ```
-
-A getter method should neither be a `uniqueFormalParameters` or `propertySetParameterList`, and
-a setter method should always be `propertySetParameterList`.
-
 
 ### NewExpression
 
