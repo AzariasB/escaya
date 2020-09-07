@@ -27,7 +27,7 @@ interface ClassDeclaration <: Declaration {
     type: 'ClassDeclaration';
     name: BindingIdentifier;
     heritage: Expression | null;
-    elements: [ ClassElement ];
+    elements: [ Semicolon | ClassElement ];
 }
 ```
 
@@ -41,17 +41,5 @@ interface LexicalDeclaration <: Declaration {
 }
 ```
 `isConst` property is an replacement for `isConstOrLet` mentioned in the specs and require less byte than a text string.
+
 It should be set to `true` for lexical `const` declarations
-
-
-## ForDeclaration
-
-```js
-interface ForDeclaration <: Declaration {
-    type: 'ForDeclaration';
-    declarations: [ VariableDeclaration | LexicalDeclaration ];
-}
-
-```
-
-See `13.7 Iteration Statements`.

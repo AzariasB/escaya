@@ -143,20 +143,10 @@ interface ForStatement <: Statements {
 ```js
 interface ForOfStatement <: Statements {
     type: 'ForOfStatement';
-    initializer: ForDeclaration | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
+    initializer: exicalDeclaration | ForBinding | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
     expression: Expression;
     statement: Statement;
-}
-```
-
-### ForAwaitOfStatement
-
-```js
-interface ForAwaitOfStatement <: Statements {
-    type: 'ForAwaitOfStatement';
-    initializer: ForDeclaration | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
-    expression: Expression;
-    statement: Statement;
+    await: boolean;
 }
 ```
 
@@ -165,9 +155,18 @@ interface ForAwaitOfStatement <: Statements {
 ```js
 interface ForInStatement <: Statements {
     type: 'ForInStatement';
-    initializer: ForDeclaration | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
+    initializer: exicalDeclaration | ForBinding | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
     expression: Expression;
     statement: Statement;
+}
+```
+
+### ForBinding
+
+```js
+interface ForBinding <: Statements {
+    type: 'ForBinding';
+    declarations: [ VariableDeclaration ];
 }
 ```
 
