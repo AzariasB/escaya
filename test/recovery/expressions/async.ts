@@ -388,6 +388,7 @@ describe('Recovery - Expressions - Async', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: 'it',
@@ -550,6 +551,7 @@ describe('Recovery - Expressions - Async', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: '',
@@ -649,6 +651,7 @@ describe('Recovery - Expressions - Async', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: '',
@@ -742,6 +745,7 @@ describe('Recovery - Expressions - Async', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: '',
@@ -867,6 +871,7 @@ describe('Recovery - Expressions - Async', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: '',

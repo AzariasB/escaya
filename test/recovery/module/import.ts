@@ -1144,6 +1144,7 @@ describe('Module - Import', () => {
           },
           {
             type: 'ForStatement',
+            variableDeclarationList: false,
             initializer: {
               type: 'IdentifierReference',
               name: 'something',
@@ -2324,6 +2325,7 @@ describe('Module - Import', () => {
           },
           {
             type: 'ForStatement',
+            variableDeclarationList: false,
             initializer: {
               type: 'IdentifierReference',
               name: 'a',
@@ -2663,6 +2665,7 @@ describe('Module - Import', () => {
           },
           {
             type: 'ForStatement',
+            variableDeclarationList: false,
             initializer: {
               type: 'NumericLiteral',
               value: 11,

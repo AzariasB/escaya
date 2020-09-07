@@ -666,6 +666,7 @@ describe('Recovery - Switch', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: 'as',

@@ -54,6 +54,7 @@ describe('Recovery - While', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: 'his',
@@ -208,6 +209,7 @@ describe('Recovery - While', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'UnaryExpression',
             operator: '!',
@@ -1375,6 +1377,7 @@ describe('Recovery - While', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: 'the',
@@ -1493,6 +1496,7 @@ describe('Recovery - While', () => {
           },
           statement: {
             type: 'ForStatement',
+            variableDeclarationList: false,
             initializer: {
               type: 'IdentifierReference',
               name: 'the',
@@ -3180,6 +3184,7 @@ describe('Recovery - While', () => {
           },
           statement: {
             type: 'ForStatement',
+            variableDeclarationList: false,
             initializer: {
               type: 'ObjectLiteral',
               properties: [],

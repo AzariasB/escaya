@@ -132,11 +132,16 @@ interface DoWhileStatement <: Statements {
 interface ForStatement <: Statements {
     type: 'ForStatement';
     initializer: LexicalDeclaration | [ VariableDeclaration ] | Expression | null;
+    variableDeclarationList: boolean;
     condition: Expression | null;
     incrementor: Expression | null;
     statement: Statement;
 }
 ```
+The `variableDeclarationList` is `true` if the `initializer contains
+a list of `VariableDeclaration`. Otherwise it is `false`.
+
+See [13.7 Iteration Statements](https://tc39.es/ecma262/#sec-iteration-statements)
 
 ### ForOfStatement
 
@@ -226,7 +231,6 @@ interface EmptyStatement <: Statements {
     type: 'EmptyStatement';
 }
 ```
-
 
 ### LexicalBinding
 

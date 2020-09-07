@@ -1187,6 +1187,7 @@ describe('test262-parser-tests - failing tests', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'LexicalDeclaration',
             isConst: false,
@@ -2397,6 +2398,7 @@ describe('test262-parser-tests - failing tests', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'LexicalDeclaration',
             isConst: false,
@@ -3146,6 +3148,7 @@ describe('test262-parser-tests - failing tests', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'LexicalDeclaration',
             isConst: false,
@@ -3297,6 +3300,7 @@ describe('test262-parser-tests - failing tests', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'ParenthesizedExpression',
             expression: {
@@ -3713,6 +3717,7 @@ describe('test262-parser-tests - failing tests', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'MemberExpression',
             member: {
@@ -4109,6 +4114,7 @@ describe('test262-parser-tests - failing tests', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: null,
           condition: null,
           incrementor: null,
@@ -5043,6 +5049,7 @@ describe('test262-parser-tests - failing tests', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'LexicalDeclaration',
             isConst: false,
@@ -5277,6 +5284,7 @@ describe('test262-parser-tests - failing tests', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'LexicalDeclaration',
             isConst: true,

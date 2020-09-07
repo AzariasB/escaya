@@ -13,6 +13,7 @@ export interface ForStatement extends Node {
   readonly condition: Expression | null;
   // The expression after the second `;`, if present
   readonly incrementor: Expression | null;
+  readonly variableDeclarationList: boolean;
   readonly statement: Statement;
 }
 
@@ -20,6 +21,7 @@ export function createForStatement(
   initializer: Expression | null,
   condition: Expression | null,
   incrementor: Expression | null,
+  variableDeclarationList: boolean,
   statement: Statement
 ): ForStatement {
   return {
@@ -27,6 +29,7 @@ export function createForStatement(
     initializer,
     condition,
     incrementor,
+    variableDeclarationList,
     statement
   };
 }

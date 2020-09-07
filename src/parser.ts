@@ -559,9 +559,14 @@ export function parseImportSpecifier(state: ParserState, context: Context, scope
   const tokenValue = state.tokenValue;
   const token = state.token;
   const name = parseIdentifierName(state, context);
+  let exportName: StringLiteral | null = null;
   let importedBinding: BindingIdentifier | IdentifierName | null = null;
   let identifierName: BindingIdentifier | IdentifierName | null = null;
-  if (consumeOpt(state, context, Token.AsKeyword)) {
+  if (context & Context.OptionsNext && state.token & Token.StringLiteral) {
+    exportName = parseModuleExportName(state, context);
+    consume(state, context, Token.AsKeyword);
+    importedBinding = parseBindingIdentifier(state, context, scope, BindingType.Let);
+  } else if (consumeOpt(state, context, Token.AsKeyword)) {
     identifierName = name;
     importedBinding = parseBindingIdentifier(state, context, scope, BindingType.Let);
   } else {
@@ -1017,6 +1022,7 @@ export function parseForStatement(
   if (state.token !== Token.Semicolon) {
     // 'var', 'let', 'const'
     if (state.token & Token.IsVarLexical) {
+      let isVariableDeclarationList = false;
       if (state.token === Token.LetKeyword) {
         nextToken(state, context);
         if (state.token & Constants.PatternOrIdentifier) {
@@ -1075,6 +1081,7 @@ export function parseForStatement(
           parseForVariableDeclaration,
           innerStart
         );
+        isVariableDeclarationList = true;
         state.assignable = true;
       }
 
@@ -1142,6 +1149,7 @@ export function parseForStatement(
           initializer,
           incrementor,
           condition,
+          isVariableDeclarationList,
           parseStatement(state, context | Context.InIteration, scope, labels, null, false)
         ),
         SyntaxKind.ForStatement
@@ -1238,6 +1246,7 @@ export function parseForStatement(
       initializer,
       incrementor,
       condition,
+      /* variableDeclarationList */ false,
       parseStatement(state, context | Context.InIteration, scope, labels, null, false)
     ),
     SyntaxKind.ForStatement
@@ -4875,6 +4884,11 @@ export function parseImportMeta(state: ParserState, context: Context, start: num
   return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ExpressionStatement);
 }
 
+// ModuleExportName : StringLiteral
+export function parseModuleExportName(state: ParserState, context: Context) {
+  return parseStringLiteral(state, context, /* isDirective */ false);
+}
+
 // FromClause :
 //   `from` ModuleSpecifier
 export function parseFromClause(state: ParserState, context: Context): StringLiteral {
@@ -4895,6 +4909,7 @@ export function parseFromClause(state: ParserState, context: Context): StringLit
 // ExportFromClause :
 //   `*`
 //   `*` as IdentifierName
+//   `*` as ModuleExportName
 //   NamedExports
 export function parseExportDeclaration(
   state: ParserState,
@@ -4921,6 +4936,7 @@ export function parseExportDeclaration(
   let fromClause: StringLiteral | null = null;
   let namedBinding: IdentifierName | null = null;
   let namedExports: ExportSpecifier[] = [];
+  let exportName: StringLiteral | null = null;
 
   const exportedNames: string[] = [];
   const boundNames: string[] = [];
@@ -4965,8 +4981,12 @@ export function parseExportDeclaration(
     case Token.Multiply: {
       nextToken(state, context);
       if (consumeOpt(state, context, Token.AsKeyword)) {
-        declareUnboundVariable(state, context, state.tokenValue);
-        namedBinding = parseIdentifierName(state, context);
+        if (context & Context.OptionsNext && state.token & Token.StringLiteral) {
+          exportName = parseModuleExportName(state, context);
+        } else {
+          declareUnboundVariable(state, context, state.tokenValue);
+          namedBinding = parseIdentifierName(state, context);
+        }
       }
       fromClause = parseFromClause(state, context);
       expectSemicolon(state, context);
@@ -5026,11 +5046,16 @@ export function parseExportSpecifier(
   const start = state.startIndex;
   const tokenValue = state.tokenValue;
   let value = tokenValue;
+  let exportName: StringLiteral | null = null;
   const name = parseIdentifierName(state, context);
   let exportedName = null;
   if (consumeOpt(state, context, Token.AsKeyword)) {
-    value = state.tokenValue;
-    exportedName = parseIdentifierName(state, context);
+    if (context & Context.OptionsNext && state.token & Token.StringLiteral) {
+      exportName = parseModuleExportName(state, context);
+    } else {
+      value = state.tokenValue;
+      exportedName = parseIdentifierName(state, context);
+    }
   }
 
   exportedNames.push(value as string);

@@ -49,6 +49,7 @@ describe('Recovery - Labelled', () => {
               start: 14,
               type: 'BreakStatement'
             },
+            variableDeclarationList: false,
             type: 'ForStatement'
           },
           start: 0,

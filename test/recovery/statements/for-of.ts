@@ -127,6 +127,7 @@ describe('Recovery - For of', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             kind: 13,
@@ -235,6 +236,7 @@ describe('Recovery - For of', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: true,
           initializer: [
             {
               type: 'VariableDeclaration',

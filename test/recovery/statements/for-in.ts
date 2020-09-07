@@ -77,6 +77,7 @@ describe('Recovery - For in', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'RegularExpressionLiteral',
             pattern: 'a i',

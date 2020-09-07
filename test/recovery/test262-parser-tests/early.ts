@@ -1919,6 +1919,7 @@ describe('test262-parser-tests - early tests', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'LexicalDeclaration',
             isConst: true,
@@ -3257,6 +3258,7 @@ describe('test262-parser-tests - early tests', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'LexicalDeclaration',
             isConst: true,
@@ -5868,6 +5870,7 @@ describe('test262-parser-tests - early tests', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'LexicalDeclaration',
             isConst: false,

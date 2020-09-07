@@ -2596,6 +2596,7 @@ describe('Recovery - Block', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'AssignmentExpression',
             left: {
@@ -2698,6 +2699,7 @@ describe('Recovery - Block', () => {
           leafs: [
             {
               type: 'ForStatement',
+              variableDeclarationList: false,
               initializer: {
                 type: 'AssignmentExpression',
                 left: {

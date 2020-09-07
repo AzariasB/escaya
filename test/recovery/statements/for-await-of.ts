@@ -71,6 +71,7 @@ describe('Recovery - For await of', () => {
             start: 9,
             type: 'ExpressionStatement'
           },
+          variableDeclarationList: false,
           type: 'ForStatement'
         }
       ],

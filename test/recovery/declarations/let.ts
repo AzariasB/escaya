@@ -993,6 +993,7 @@ describe('Recovery - Let', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: '',

@@ -14,6 +14,7 @@ describe('Recovery - For', () => {
         leafs: [
           {
             type: 'ForStatement',
+            variableDeclarationList: true,
             initializer: [
               {
                 type: 'VariableDeclaration',
@@ -242,6 +243,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'ArrayLiteral',
             elements: [
@@ -352,6 +354,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'ArrayLiteral',
             elements: [
@@ -500,6 +503,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'AssignmentExpression',
             left: {
@@ -585,6 +589,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             kind: 13,
@@ -661,6 +666,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: '',
@@ -729,6 +735,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'UnaryExpression',
             operator: '!',
@@ -812,6 +819,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'LexicalDeclaration',
             isConst: false,
@@ -905,6 +913,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'MemberExpression',
             member: {
@@ -996,6 +1005,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'AssignmentExpression',
             left: {
@@ -1103,6 +1113,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'MemberExpression',
             member: {
@@ -1202,6 +1213,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: '',
@@ -1228,6 +1240,7 @@ describe('Recovery - For', () => {
           },
           statement: {
             type: 'ForStatement',
+            variableDeclarationList: false,
             initializer: {
               type: 'IdentifierReference',
               name: '',
@@ -1363,6 +1376,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
             name: '',
@@ -1700,6 +1714,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'AssignmentExpression',
             left: {
@@ -1828,6 +1843,7 @@ describe('Recovery - For', () => {
           },
           statement: {
             type: 'ForStatement',
+            variableDeclarationList: false,
             initializer: {
               type: 'IdentifierReference',
               name: '',
@@ -1995,6 +2011,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'MemberExpression',
             member: {
@@ -2102,6 +2119,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'MemberExpression',
             member: {
@@ -2193,6 +2211,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'MemberExpression',
             member: {
@@ -2308,6 +2327,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'CommaOperator',
             expressions: [
@@ -2576,6 +2596,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'CommaOperator',
             expressions: [
@@ -2807,6 +2828,7 @@ describe('Recovery - For', () => {
       leafs: [
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'UnaryExpression',
             operator: '!',

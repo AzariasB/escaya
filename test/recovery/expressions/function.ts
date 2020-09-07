@@ -737,6 +737,7 @@ describe('Recovery - Expressions - Function', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: true,
           initializer: [
             {
               type: 'VariableDeclaration',

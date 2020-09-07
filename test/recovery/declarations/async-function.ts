@@ -1891,6 +1891,7 @@ describe('Recovery - Async Function', () => {
             leafs: [
               {
                 type: 'ForStatement',
+                variableDeclarationList: false,
                 initializer: {
                   type: 'MemberExpression',
                   member: {

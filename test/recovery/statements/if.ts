@@ -1944,6 +1944,7 @@ describe('Recovery - If', () => {
           },
           {
             type: 'ForStatement',
+            variableDeclarationList: false,
             initializer: {
               type: 'IdentifierReference',
               name: 'my',
@@ -3215,6 +3216,7 @@ describe('Recovery - If', () => {
           },
           consequent: {
             type: 'ForStatement',
+            variableDeclarationList: false,
             initializer: {
               type: 'IdentifierReference',
               name: 'my',

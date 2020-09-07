@@ -2563,6 +2563,7 @@ describe('Recovery - Export', () => {
           },
           {
             type: 'ForStatement',
+            variableDeclarationList: false,
             initializer: {
               type: 'IdentifierReference',
               name: 'a',

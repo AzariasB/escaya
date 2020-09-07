@@ -1366,6 +1366,7 @@ describe('Recovery - Expressions - Object', () => {
         },
         {
           type: 'ForStatement',
+          variableDeclarationList: false,
           initializer: {
             type: 'CommaOperator',
             expressions: [
