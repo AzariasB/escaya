@@ -15,7 +15,9 @@ import { Node } from '../node';
 export interface MethodDefinition extends Node {
   readonly async: boolean;
   readonly generator: boolean;
-  readonly propertySetParameterList: (BindingIdentifier | BindingElement)[];
+  readonly getter: boolean;
+  readonly setter: boolean;
+  readonly propertySetParameterList: BindingIdentifier | BindingElement | null;
   readonly uniqueFormalParameters: Parameter[];
   readonly name: MethodName;
   readonly contents: FunctionBody;
@@ -26,7 +28,9 @@ export interface MethodDefinition extends Node {
 export function createMethodDefinition(
   async: boolean,
   generator: boolean,
-  propertySetParameterList: (BindingIdentifier | BindingElement)[],
+  getter: boolean,
+  setter: boolean,
+  propertySetParameterList: BindingIdentifier | BindingElement | null,
   uniqueFormalParameters: Parameter[],
   name: MethodName,
   contents: FunctionBody
@@ -35,6 +39,8 @@ export function createMethodDefinition(
     type: 'MethodDefinition',
     async,
     generator,
+    getter,
+    setter,
     propertySetParameterList,
     uniqueFormalParameters,
     name,

@@ -14,15 +14,12 @@ const expectations = {
   pass: ['a62c6323a3696fa8.js', '110fa1efdd0868b8.js'],
   explicit: ['110fa1efdd0868b8.js'],
   fail: [
-    'fc7ed197a376fa5f.js',
-    'c510fa0f191310ed.js',
     '3dbb6e166b14a6c0.js',
     'fb130c395c6aafe7.js',
-    '78e861dca5c2377d.js',
     '15a6123f6b825c38.js',
     '147fa078a7436e0e.js',
     '1acada3c651821cf.js',
-    '328fddc7bdffb499.js',
+
     '3bc2b27a7430f818.js',
     'e4a43066905a597b.js',
     'bf49ec8d96884562.js',
@@ -41,7 +38,6 @@ const expectations = {
     '82b8003b91d8b346.js',
     '8373e2a6865dc08c.js',
     '84633c379e4010bf.js',
-    '8753a1cb7850d657.js',
     '8e93bcbd389c6bf6.js',
     '95c10472e36270b6.js',
     'bcde05eea9466dfd.js',
@@ -49,8 +45,7 @@ const expectations = {
     'cee6d8878d1e6589.js',
     'e5fabf7fc4ae5dea.js',
     'f01b16bb3e6cd7a3.js',
-    'f0aeffcc826c3d6b.js',
-    'f4467d719dcee086.js'
+    'f0aeffcc826c3d6b.js'
   ],
   early: [
     'ec31fa5e521c5df4.js',

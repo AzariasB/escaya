@@ -37,7 +37,7 @@ export const enum Constants {
   /* Scope */
   ClauseBlock                    = 0b00110000000100000000000000000000,
   StrictOrNoWebCompat            = 0b00000000000000000000010000000100,
-
+dasfadsdasf = 64 | 268435456,
   /* PropertyKind */
 
   HasModifier                    = 0b00000000000000000000000000010111,

@@ -4,6 +4,9 @@ import { parseScript, recovery } from '../../../src/escaya';
 describe('Declarations - Let', () => {
   // Invalid cases
   for (const arg of [
+    // It is a Syntax Error if the LexicallyDeclaredNames of ModuleItemList contains any duplicate entries.
+    'let a; function a(){}',
+    'let a; const a = 0;',
     // Property access as declaration target.
     'let [o.x=1]=[]',
     'let {...(obj)} = foo',
@@ -30,6 +33,12 @@ describe('Declarations - Let', () => {
     'let l\\u0065t;',
     'let x = ...y;',
     'let let;',
+    'let a, let;',
+    'let a, let = 0;',
+    'let a, [a] = 0;',
+    'let {a: b, c: b} = 0;',
+    'let [a, a] = 0;',
+    'for(let a, a;;);',
     'let x,;',
     'let x, x;',
     'let {[a]: x, [b]: x} = obj',

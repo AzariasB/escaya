@@ -11,14 +11,14 @@ import { createOptionalExpression } from '../ast/expressions/optional-expr';
 import { createOptionalChain } from '../ast/expressions/optional-chain';
 import { createFunctionExpression } from '../ast/expressions/function-expr';
 import { createFunctionDeclaration } from '../ast/declarations/function-declaration';
-import { createForDeclaration } from '../ast/declarations/for-declaration';
+import { createForBinding } from '../ast/statements/forBinding';
 import { createBindingElement } from '../ast/expressions/binding-element';
 import { createArrayBindingPattern } from '../ast/expressions/array-binding-pattern';
 import { createClassElement } from '../ast/expressions/class-element';
 import { createClassExpression } from '../ast/expressions/class-expr';
 import { createClassDeclaration } from '../ast/declarations/class-declaration';
-import { createForOfAwaitStatement } from '../ast/statements/for-of-stmt';
 import { createForInStatement } from '../ast/statements/for-in-stmt';
+import { createForOfStatement } from '../ast/statements/for-of-stmt';
 import { createForStatement } from '../ast/statements/for-stmt';
 import { createArrayLiteral } from '../ast/expressions/array-literal';
 import { createBindingRestElement } from '../ast/expressions/binding-rest-element';
@@ -96,10 +96,10 @@ import { createObjectAssignmentPattern } from '../ast/expressions/object-assignm
 import { createImportCall } from '../ast/expressions/import-call';
 import { createImportMeta } from '../ast/expressions/import-meta';
 import { createDirective } from '../ast/directive-node';
+import { createAssignmentRestProperty } from '../ast/expressions/assignment-rest-property';
 
 export type Dictionary = { [key: string]: any };
 
-/* @internal */
 export const DictionaryMap = {
   // All `create*` functions, but named by type
   Module: createModuleNode,
@@ -129,16 +129,16 @@ export const DictionaryMap = {
   OptionalExpression: createOptionalExpression,
   OptionalChain: createOptionalChain,
   AssignmentRestElement: createAssignmentRestElement,
+  AssignmentRestProperty: createAssignmentRestProperty,
   ObjectBindingPattern: createObjectBindingPattern,
   FunctionExpression: createFunctionExpression,
   FunctionDeclaration: createFunctionDeclaration,
-  ForDeclaration: createForDeclaration,
+  ForBinding: createForBinding,
   BindingElement: createBindingElement,
   ArrayBindingPattern: createArrayBindingPattern,
   ClassElement: createClassElement,
   ClassExpression: createClassExpression,
   ClassDeclaration: createClassDeclaration,
-  ForAwaitStatement: createForOfAwaitStatement,
   ForInStatement: createForInStatement,
   ForStatement: createForStatement,
   ParenthesizedExpression: createParenthesizedExpression,
@@ -191,6 +191,7 @@ export const DictionaryMap = {
   ImportCall: createImportCall,
   ImportMeta: createImportMeta,
   Directive: createDirective,
+  ForOfStatement: createForOfStatement,
 
   // Module
 

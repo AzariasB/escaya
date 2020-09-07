@@ -4,6 +4,12 @@ import { parseScript, recovery } from '../../../src/escaya';
 describe('Expressions - Update', () => {
   // Invalid cases
   for (const arg of [
+    // 12.4.1 - It is an early Reference Error if IsValidSimpleAssignmentTarget of LeftHandSideExpression is false.
+    '0++',
+    '0--',
+    // 12.5.1 - It is an early Reference Error if IsValidSimpleAssignmentTarget of UnaryExpression is false.
+    '++0',
+    '--0',
     '(}.x++)',
     '(this x++)',
     'this x++',
@@ -32,7 +38,6 @@ describe('Expressions - Update', () => {
     'new new foo()[bar]++;',
     'new new foo().bar++;',
     '2++;',
-
     'function f(){ return ++; }',
     '(x++;',
     '((x)))++;'

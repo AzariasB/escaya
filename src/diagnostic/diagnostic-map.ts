@@ -149,6 +149,7 @@ export const diagnosticMap: {
   [DiagnosticCode.NoSuper]: '`super` must be followed by an argument list or member access',
   [DiagnosticCode.DuplicateProto]: 'Redefinition of `__proto__` property',
   [DiagnosticCode.GetNoParam]: 'A `get` cannot have parameters',
+  [DiagnosticCode.IllegalUseStrict]: 'Illegal `use strict` directive in function with non-simple parameter list',
   [DiagnosticCode.StrictFunctionName]:
     'Function name may not contain any reserved words or be eval or arguments in strict mode'
 };

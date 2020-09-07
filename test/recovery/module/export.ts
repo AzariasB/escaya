@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Export', () => {
   it('export function *await(', () => {
-    t.deepEqual(recovery('export function *await(', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export function *await(', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -80,7 +80,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { default as', () => {
-    t.deepEqual(recovery('export { default as', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export { default as', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -147,7 +147,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { default as !!', () => {
-    t.deepEqual(recovery('export { default as !!', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export { default as !!', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -245,7 +245,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export var y = 0;', () => {
-    t.deepEqual(recovery('export var y = 0;', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export var y = 0;', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -310,7 +310,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { arguments } from "m.js";', () => {
-    t.deepEqual(recovery('export { arguments } from "m.js";', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export { arguments } from "m.js";', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -375,7 +375,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { a as b } from "m.js";', () => {
-    t.deepEqual(recovery('export { a as b } from "m.js";', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export { a as b } from "m.js";', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -447,7 +447,7 @@ describe('Recovery - Export', () => {
   });
 
   it('var a; export { a as b, a as c };', () => {
-    t.deepEqual(recovery('var a; export { a as b, a as c };', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('var a; export { a as b, a as c };', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -560,7 +560,7 @@ describe('Recovery - Export', () => {
   });
 
   it('class c { }; export default c', () => {
-    t.deepEqual(recovery('class c { }; export default c', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('class c { }; export default c', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -620,7 +620,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export let x = y, [...z] = y;', () => {
-    t.deepEqual(recovery('export let x = y, [...z] = y;', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export let x = y, [...z] = y;', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -725,7 +725,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export default () => {}', () => {
-    t.deepEqual(recovery('export default () => {}', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export default () => {}', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -771,7 +771,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export import from "foo"', () => {
-    t.deepEqual(recovery('export import from "foo"', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export import from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -854,7 +854,7 @@ describe('Recovery - Export', () => {
     });
   });
   it('export {!', () => {
-    t.deepEqual(recovery('export {!', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export {!', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -919,7 +919,7 @@ describe('Recovery - Export', () => {
     });
   });
   it('export function !', () => {
-    t.deepEqual(recovery('export function !', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export function !', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -1010,7 +1010,7 @@ describe('Recovery - Export', () => {
     });
   });
   it('export *', () => {
-    t.deepEqual(recovery('export *', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export *', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -1060,7 +1060,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { as', () => {
-    t.deepEqual(recovery('export { as', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export { as', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -1121,7 +1121,10 @@ describe('Recovery - Export', () => {
 
   it('export class function let const var async async function default', () => {
     t.deepEqual(
-      recovery('export class function let const var async async function default', 'recovery.js', { module: true }),
+      recovery('export class function let const var async async function default', 'recovery.js', {
+        module: true,
+        cst: true
+      }),
       {
         kind: 209,
         directives: [],
@@ -1320,7 +1323,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export const {', () => {
-    t.deepEqual(recovery('export const {', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export const {', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -1388,7 +1391,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export +', () => {
-    t.deepEqual(recovery('export +', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export +', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -1454,7 +1457,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { export !', () => {
-    t.deepEqual(recovery('export { export !', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export { export !', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -1537,7 +1540,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export (a (/  function foo bar !', () => {
-    t.deepEqual(recovery('export (a (/  function foo bar !', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export (a (/  function foo bar !', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -1628,282 +1631,285 @@ describe('Recovery - Export', () => {
   });
 
   it('export export export 3x import import 2x Yeah!', () => {
-    t.deepEqual(recovery('export export export 3x import import 2x Yeah!', 'recovery.js', { module: true }), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExportDeclaration',
-          declaration: null,
-          namedExports: [],
-          namedBinding: null,
-          fromClause: null,
-          exportedNames: [],
-          boundNames: [],
-          start: 0,
-          end: 6,
-          kind: 223,
-          flags: 0
-        },
-        {
-          type: 'ExportDeclaration',
-          declaration: null,
-          namedExports: [],
-          namedBinding: null,
-          fromClause: null,
-          exportedNames: [],
-          boundNames: [],
-          start: 6,
-          end: 13,
-          kind: 223,
-          flags: 0
-        },
-        {
-          type: 'ExportDeclaration',
-          declaration: null,
-          namedExports: [],
-          namedBinding: null,
-          fromClause: null,
-          exportedNames: [],
-          boundNames: [],
-          start: 13,
-          end: 20,
-          kind: 223,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'NumericLiteral',
-            value: 3,
+    t.deepEqual(
+      recovery('export export export 3x import import 2x Yeah!', 'recovery.js', { module: true, cst: true }),
+      {
+        kind: 209,
+        directives: [],
+        leafs: [
+          {
+            type: 'ExportDeclaration',
+            declaration: null,
+            namedExports: [],
+            namedBinding: null,
+            fromClause: null,
+            exportedNames: [],
+            boundNames: [],
+            start: 0,
+            end: 6,
+            kind: 223,
+            flags: 0
+          },
+          {
+            type: 'ExportDeclaration',
+            declaration: null,
+            namedExports: [],
+            namedBinding: null,
+            fromClause: null,
+            exportedNames: [],
+            boundNames: [],
+            start: 6,
+            end: 13,
+            kind: 223,
+            flags: 0
+          },
+          {
+            type: 'ExportDeclaration',
+            declaration: null,
+            namedExports: [],
+            namedBinding: null,
+            fromClause: null,
+            exportedNames: [],
+            boundNames: [],
+            start: 13,
+            end: 20,
+            kind: 223,
+            flags: 0
+          },
+          {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'NumericLiteral',
+              value: 3,
+              start: 20,
+              end: 22,
+              kind: 10,
+              flags: 0
+            },
             start: 20,
             end: 22,
-            kind: 10,
+            kind: 122,
             flags: 0
           },
-          start: 20,
-          end: 22,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'x',
+          {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'x',
+              start: 22,
+              end: 23,
+              kind: 13,
+              flags: 0
+            },
             start: 22,
             end: 23,
-            kind: 13,
+            kind: 122,
             flags: 0
           },
-          start: 22,
-          end: 23,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ImportDeclaration',
-          fromClause: null,
-          moduleSpecifier: null,
-          importClause: null,
-          start: 23,
-          end: 30,
-          kind: 217,
-          flags: 0
-        },
-        {
-          type: 'ImportDeclaration',
-          fromClause: null,
-          moduleSpecifier: null,
-          importClause: null,
-          start: 30,
-          end: 37,
-          kind: 217,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'NumericLiteral',
-            value: 2,
+          {
+            type: 'ImportDeclaration',
+            fromClause: null,
+            moduleSpecifier: null,
+            importClause: null,
+            start: 23,
+            end: 30,
+            kind: 217,
+            flags: 0
+          },
+          {
+            type: 'ImportDeclaration',
+            fromClause: null,
+            moduleSpecifier: null,
+            importClause: null,
+            start: 30,
+            end: 37,
+            kind: 217,
+            flags: 0
+          },
+          {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'NumericLiteral',
+              value: 2,
+              start: 37,
+              end: 39,
+              kind: 10,
+              flags: 0
+            },
             start: 37,
             end: 39,
-            kind: 10,
+            kind: 122,
             flags: 0
           },
-          start: 37,
-          end: 39,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'x',
+          {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'x',
+              start: 39,
+              end: 40,
+              kind: 13,
+              flags: 0
+            },
             start: 39,
             end: 40,
-            kind: 13,
+            kind: 122,
             flags: 0
           },
-          start: 39,
-          end: 40,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'Yeah',
+          {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'Yeah',
+              start: 40,
+              end: 45,
+              kind: 13,
+              flags: 0
+            },
             start: 40,
             end: 45,
-            kind: 13,
+            kind: 122,
             flags: 0
           },
-          start: 40,
-          end: 45,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'UnaryExpression',
-            operator: '!',
-            operand: {
-              type: 'IdentifierReference',
-              name: '',
-              start: 46,
+          {
+            type: 'ExpressionStatement',
+            expression: {
+              type: 'UnaryExpression',
+              operator: '!',
+              operand: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 46,
+                end: 46,
+                kind: 13,
+                flags: 2
+              },
+              start: 45,
               end: 46,
-              kind: 13,
-              flags: 2
+              kind: 160,
+              flags: 0
             },
             start: 45,
             end: 46,
-            kind: 160,
+            kind: 122,
             flags: 0
+          }
+        ],
+        text: 'export export export 3x import import 2x Yeah!',
+        fileName: 'recovery.js',
+        context: 0,
+        mutualFlags: 0,
+        diagnostics: [
+          {
+            kind: 2,
+            source: 2,
+            message: 'Export declaration expected',
+            code: 30,
+            start: 7,
+            length: 6
           },
-          start: 45,
-          end: 46,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: 'export export export 3x import import 2x Yeah!',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: 'Export declaration expected',
-          code: 30,
-          start: 7,
-          length: 6
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Export declaration expected',
-          code: 30,
-          start: 14,
-          length: 6
-        },
-        {
-          kind: 2,
-          source: 0,
-          message: 'An identifier or keyword cannot immediately follow a numeric literal',
-          code: 58,
-          start: 22,
-          length: 0
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Export declaration expected',
-          code: 30,
-          start: 21,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`;` expected',
-          code: 92,
-          start: 22,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`;` expected',
-          code: 92,
-          start: 24,
-          length: 6
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Unexpected token - `import`',
-          code: 6,
-          start: 31,
-          length: 6
-        },
-        {
-          kind: 2,
-          source: 0,
-          message: 'An identifier or keyword cannot immediately follow a numeric literal',
-          code: 58,
-          start: 39,
-          length: 0
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Unexpected token - `number`',
-          code: 6,
-          start: 38,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`;` expected',
-          code: 92,
-          start: 39,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`;` expected',
-          code: 92,
-          start: 41,
-          length: 4
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`;` expected',
-          code: 92,
-          start: 45,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 46,
-      end: 46
-    });
+          {
+            kind: 2,
+            source: 2,
+            message: 'Export declaration expected',
+            code: 30,
+            start: 14,
+            length: 6
+          },
+          {
+            kind: 2,
+            source: 0,
+            message: 'An identifier or keyword cannot immediately follow a numeric literal',
+            code: 58,
+            start: 22,
+            length: 0
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: 'Export declaration expected',
+            code: 30,
+            start: 21,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 22,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 24,
+            length: 6
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: 'Unexpected token - `import`',
+            code: 6,
+            start: 31,
+            length: 6
+          },
+          {
+            kind: 2,
+            source: 0,
+            message: 'An identifier or keyword cannot immediately follow a numeric literal',
+            code: 58,
+            start: 39,
+            length: 0
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: 'Unexpected token - `number`',
+            code: 6,
+            start: 38,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 39,
+            length: 1
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 41,
+            length: 4
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`;` expected',
+            code: 92,
+            start: 45,
+            length: 1
+          }
+        ],
+        detached: false,
+        incremental: false,
+        parent: null,
+        children: [],
+        start: 0,
+        length: 46,
+        end: 46
+      }
+    );
   });
 
   it('export {,,,,,,,,,,', () => {
-    t.deepEqual(recovery('export {,,,,,,,,,,', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export {,,,,,,,,,,', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -2018,7 +2024,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export {a,,b,,,,,c,', () => {
-    t.deepEqual(recovery('export {a,,b,,,,,c,', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export {a,,b,,,,,c,', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -2190,7 +2196,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export {a,,b,,,,,c from "string"', () => {
-    t.deepEqual(recovery('export {a,,b,,,,,c from "string"', 'recovery.js', { module: true }), {
+    t.deepEqual(recovery('export {a,,b,,,,,c from "string"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
       directives: [],
       leafs: [
@@ -2393,7 +2399,10 @@ describe('Recovery - Export', () => {
 
   it('possible to export import ? ! while I try this, I go for a walk', () => {
     t.deepEqual(
-      recovery('possible to export import ? ! while I try this, I go for a walk', 'recovery.js', { module: true }),
+      recovery('possible to export import ? ! while I try this, I go for a walk', 'recovery.js', {
+        module: true,
+        cst: true
+      }),
       {
         kind: 209,
         directives: [],

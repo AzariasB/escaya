@@ -4,6 +4,7 @@ import { Module } from './ast/module-node';
 import { TextChangeRange } from './types';
 import { parseInNormalMode, parseInCustomMode, parseInRecoveryMode, parseInIncrementalMode, Options } from './core';
 import { Dictionary } from './dictionary/dictionary-map';
+export { DictionaryMap } from './dictionary/dictionary-map';
 
 /**
  * Parse a script, optionally with various options.

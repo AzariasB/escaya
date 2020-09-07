@@ -1117,7 +1117,9 @@ describe('Recovery - Var', () => {
                       type: 'MethodDefinition',
                       async: false,
                       generator: false,
-                      propertySetParameterList: [],
+                      getter: true,
+                      setter: false,
+                      propertySetParameterList: null,
                       uniqueFormalParameters: [],
                       name: {
                         type: 'IdentifierName',
@@ -1561,8 +1563,8 @@ describe('Recovery - Var', () => {
     );
   });
 
-  it('var v = { foo() { }; a: b; get baz() { }; } ', () => {
-    t.deepEqual(recovery('var v = { foo() { }; a: b; get baz() { }; } ', 'recovery.js'), {
+  it('var v = { foo() { }; a: b; get baz() { }; }', () => {
+    t.deepEqual(recovery('var v = { foo() { }; a: b; get baz() { }; }', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
@@ -1586,7 +1588,9 @@ describe('Recovery - Var', () => {
                     type: 'MethodDefinition',
                     async: false,
                     generator: false,
-                    propertySetParameterList: [],
+                    getter: false,
+                    setter: false,
+                    propertySetParameterList: null,
                     uniqueFormalParameters: [],
                     name: {
                       type: 'IdentifierName',
@@ -1711,7 +1715,7 @@ describe('Recovery - Var', () => {
           flags: 0
         }
       ],
-      text: 'var v = { foo() { }; a: b; get baz() { }; } ',
+      text: 'var v = { foo() { }; a: b; get baz() { }; }',
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
@@ -1754,8 +1758,8 @@ describe('Recovery - Var', () => {
       parent: null,
       children: [],
       start: 0,
-      length: 44,
-      end: 44
+      length: 43,
+      end: 43
     });
   });
 

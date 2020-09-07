@@ -38,6 +38,12 @@ describe('Misc - Comments', () => {
   }
 
   for (const arg of [
+    'a/*\n*/-->',
+    'a/*\n*/-->b',
+    'a<!--\n-->',
+    'a<!--\n-->b',
+    'a<!--\n\n-->',
+    'a<!--\n\n-->b',
     '/* var*/',
     '\n/*\n^\n*/',
     '""\n/*\n^\n*/',

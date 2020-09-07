@@ -11,7 +11,6 @@ describe('Misc - Directives', () => {
     fine"; "use strict"; with (x) y;',
     '() => { "use strict"\nwith (x) y; }',
     '"use strict"\n;with (x) y;',
-    '""/x\n""',
     'function f(){ "use strict"; with (x) y; }',
     "'random\nnewline'",
     "'random\nnewline'",
@@ -61,6 +60,7 @@ describe('Misc - Directives', () => {
     '"use strict"; var foo = { }; foo.eval = {};',
     '"use strict"; var foo = { arguments: 1 };',
     '(w, o, e, m) => { "use strict" }',
+    '"use strict" \n .foo; eval = 1;',
     '(w, o, e, m) => { "use strict"; "use strict" }',
     `"a"
     "/b"`,
@@ -233,27 +233,42 @@ describe('Misc - Directives', () => {
 
   it('"ignore me"\n/x/g', () => {
     t.deepEqual(parseScript('"ignore me"\n/x/g', { loc: true }), {
-      directives: [
-        {
-          end: 11,
-          start: 0,
-          type: 'Directive',
-          raw: 'ignore me',
-          value: 'ignore me'
-        }
-      ],
+      directives: [],
       end: 16,
       leafs: [
         {
           end: 16,
           expression: {
             end: 16,
-            flag: 'g',
-            pattern: 'x',
-            start: 12,
-            type: 'RegularExpressionLiteral'
+            left: {
+              end: 14,
+              left: {
+                end: 11,
+                start: 0,
+                type: 'StringLiteral',
+                value: 'ignore me'
+              },
+              operator: '/',
+              right: {
+                end: 14,
+                name: 'x',
+                start: 13,
+                type: 'IdentifierReference'
+              },
+              start: 0,
+              type: 'BinaryExpression'
+            },
+            operator: '/',
+            right: {
+              end: 16,
+              name: 'g',
+              start: 15,
+              type: 'IdentifierReference'
+            },
+            start: 0,
+            type: 'BinaryExpression'
           },
-          start: 12,
+          start: 0,
           type: 'ExpressionStatement'
         }
       ],

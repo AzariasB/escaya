@@ -18,7 +18,8 @@ export const enum Context {
   DisallowFunction = 1 << 5,
   Return = 1 << 6,
   InGlobal = 1 << 7,
-  OptionsTS = 1 << 8,
+  OptionsCST = 1 << 8,
+  OptionsTS = 1 << 9,
   Strict = 1 << 10,
   Module = 1 << 11,
   AllowRegExp = 1 << 12,
@@ -49,7 +50,9 @@ export const enum Flags {
   SeenDefault = 1 << 1,
   Octal = 1 << 2,
   SeenProto = 1 << 3,
-  HasProto = 1 << 4
+  HasProto = 1 << 4,
+  HasStrictReserved = 1 << 5,
+  SimpleParameterList = 1 << 6
 }
 
 export const enum ArrowKind {
@@ -139,6 +142,13 @@ export interface ParserState {
 
   // For the scanner to work around lack of multiple return.
   lastChar: number;
+}
+
+export function isValidDirective(state: ParserState): boolean {
+  return (
+    state.token === Token.NumericLiteral ||
+    ((state.token & (Token.IsPropertyOrCall | Token.IsExpressionStart)) === 0 && canConsumeSemicolon(state))
+  );
 }
 
 export function canConsumeSemicolon(state: ParserState): boolean {

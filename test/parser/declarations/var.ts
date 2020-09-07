@@ -4,6 +4,11 @@ import { parseScript, recovery } from '../../../src/escaya';
 describe('Declarations - Var', () => {
   // Invalid cases
   for (const arg of [
+    // It is a Syntax Error if any element of the LexicallyDeclaredNames of ModuleItemList also occurs in
+    // the VarDeclaredNames of ModuleItemList.
+    //'var a; function a(){}',
+    'var a; let a;',
+    'var a; const a = 0;',
     'var',
     'var x,;',
     'var x,',
@@ -20,6 +25,7 @@ describe('Declarations - Var', () => {
     'var foo = {}; foo.-;',
     'var foo = {}; foo.--;',
     'var t4 = ++await 1;',
+    '"use strict"; var [yield] = 0;',
     'var f = (x,eval: x}) => {};',
     'var f = (x,{42e-2 : x = 42}) => {};',
     'var f = (x,{var: x = 42}) => {};',

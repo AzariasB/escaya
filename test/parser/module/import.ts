@@ -4,6 +4,13 @@ import { parseModule, recovery } from '../../../src/escaya';
 describe('Module - Import', () => {
   // Invalid cases
   for (const arg of [
+    // It is a Syntax Error if the BoundNames of ImportDeclaration contains any duplicate entries.
+    'import a, * as a from "module";',
+    'import a, {a} from "module";',
+    'import a, {b as a} from "module";',
+    'import {a, b as a} from "module";',
+    'import {a, a} from "module";',
+    'import {b as a, c as a} from "module";',
     'import',
     'import;',
     'import {}',

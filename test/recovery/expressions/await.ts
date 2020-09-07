@@ -693,7 +693,9 @@ describe('Recovery - Expressions - Await', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [
                   {
                     type: 'BindingElement',

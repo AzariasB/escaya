@@ -4,6 +4,39 @@ import { parseModule, recovery } from '../../../src/escaya';
 describe('Module - Export', () => {
   // Invalid cases
   for (const arg of [
+    // It is a Syntax Error if any element of the LexicallyDeclaredNames of ModuleItemList also occurs in
+    // the VarDeclaredNames of ModuleItemList.
+    'var a; export class a {};',
+    'var a; export function a(){};',
+    'var a; export let a;',
+    'var a; export const a = 0;',
+    'let a; export default function a(){};',
+    'let a; export default class a {};',
+    // It is a Syntax Error if the ExportedNames of ModuleItemList contains any duplicate entries.
+    'export var a; export var a;',
+    'let a; export {a, a};',
+    'let a, b; export {a, b as a};',
+    'let a; export {a, a as a};',
+    'export {a}; export function a(){};',
+    'export {a}; export class a{};',
+    'export let a; export {a};',
+    'export {a}; export const a = 0;',
+    'export let a; let b; export {b as a};',
+    'export default 0; export default 0;',
+    'export default 0; export default function f(){};',
+    'export default 0; export default class a {};',
+    'var a; export default function() {} export { a as default };',
+    'var a; export default class {} export { a as default };',
+    'var a, b; export default a; export { b as default };',
+    // It is a Syntax Error if any element of the ExportedBindings of ModuleItemList does not also occur
+    // in either the VarDeclaredNames of ModuleItemList, or the LexicallyDeclaredNames of ModuleItemList.
+    'export {a};',
+    'export {b as a};',
+    'var a; export {b as a};',
+    'export {a as b}; var b;',
+    'export {b as a};',
+    'let a; export {b as a};',
+    'export {a as b}; let b;',
     'export foo;',
     'export {y as z, y as x, y};',
     'export {y as x};',
@@ -557,6 +590,9 @@ describe('Module - Export', () => {
     `export default { foo: 1 };`,
     `var a; export { a as b, a as c };`,
     `export {thing}; import {thing} from 'a.js';`,
+    'export async function a(){}',
+    'export default async function (){}',
+    'export default async\nfunction a(){}',
     `export default class { constructor() {	foo() } a() {	bar()	}	}`,
     `var a, b, c; export { a, b as baz, c };`,
     `export default async function f(){}; export {f};`,
@@ -634,13 +670,13 @@ describe('Module - Export', () => {
     });
     it(`${arg}`, () => {
       t.doesNotThrow(() => {
-        recovery(`${arg}`, 'recovery.js', { module: true });
+        recovery(`${arg}`, 'recovery.js', { module: true, cst: true });
       });
     });
   }
 
   it('export { a as b } from "b";', () => {
-    t.deepEqual(parseModule('export { a as b } from "b";', { loc: true }), {
+    t.deepEqual(parseModule('export { a as b } from "b";', { loc: true, cst: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -690,7 +726,7 @@ describe('Module - Export', () => {
   });
 
   it('export let x = 0;', () => {
-    t.deepEqual(parseModule('export let x = 0;', { loc: true }), {
+    t.deepEqual(parseModule('export let x = 0;', { loc: true, cst: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -736,7 +772,7 @@ describe('Module - Export', () => {
   });
 
   it('export const z = 0;', () => {
-    t.deepEqual(parseModule('export const z = 0;', { loc: true }), {
+    t.deepEqual(parseModule('export const z = 0;', { loc: true, cst: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -781,12 +817,8 @@ describe('Module - Export', () => {
     });
   });
 
-  // it('export default async function() {}', () => {
-  // t.deepEqual(parseModule('export default async function() {}', { loc: true}), {});
-  // });
-
   it('export default x;', () => {
-    t.deepEqual(parseModule('export default x;', { loc: true }), {
+    t.deepEqual(parseModule('export default x;', { loc: true, cst: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -808,7 +840,7 @@ describe('Module - Export', () => {
   });
 
   it('export class C { };', () => {
-    t.deepEqual(parseModule('export class C { };', { loc: true }), {
+    t.deepEqual(parseModule('export class C { };', { loc: true, cst: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -847,7 +879,7 @@ describe('Module - Export', () => {
   });
 
   it('export { };', () => {
-    t.deepEqual(parseModule('export { };', { loc: true }), {
+    t.deepEqual(parseModule('export { };', { loc: true, cst: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -873,7 +905,7 @@ describe('Module - Export', () => {
     });
   });
   it('export class y {};', () => {
-    t.deepEqual(parseModule('export class y {};', { loc: true }), {
+    t.deepEqual(parseModule('export class y {};', { loc: true, cst: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -912,7 +944,7 @@ describe('Module - Export', () => {
   });
 
   it('export { a as b } from "x";', () => {
-    t.deepEqual(parseModule('export { a as b } from "x";', { loc: true }), {
+    t.deepEqual(parseModule('export { a as b } from "x";', { loc: true, cst: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -962,7 +994,7 @@ describe('Module - Export', () => {
   });
 
   it('export const joo = 42;', () => {
-    t.deepEqual(parseModule('export const joo = 42;', { loc: true }), {
+    t.deepEqual(parseModule('export const joo = 42;', { loc: true, cst: true }), {
       type: 'Module',
       directives: [],
       leafs: [
@@ -1008,7 +1040,7 @@ describe('Module - Export', () => {
   });
 
   it('export * from "x"', () => {
-    t.deepEqual(parseModule('export * from "x"', { loc: true }), {
+    t.deepEqual(parseModule('export * from "x"', { loc: true, cst: true }), {
       type: 'Module',
       directives: [],
       leafs: [

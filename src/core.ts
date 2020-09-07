@@ -1,5 +1,5 @@
 import { Directive } from './ast/directive-node';
-import { Context, canConsumeSemicolon, expectSemicolon, nextLiteralExactlyStrict } from './common';
+import { Context, isValidDirective, expectSemicolon, nextLiteralExactlyStrict } from './common';
 import { createRootNode, RootNode } from './ast/root-node';
 import { Script } from './ast/script-node';
 import { Module } from './ast/module-node';
@@ -31,6 +31,7 @@ export interface Options {
   impliedStrict?: boolean;
   // *only* for recovery / incremental mode
   module?: boolean;
+  cst?: boolean;
   ts?: boolean;
 }
 
@@ -42,6 +43,7 @@ export function parseRoot(source: string, context: Context, options?: Options): 
     if (options.next) context |= Context.OptionsNext;
     if (options.loc) context |= Context.OptionsLoc;
     if (options.impliedStrict) context |= Context.Strict;
+    if (options.cst) context |= Context.OptionsCST;
     if (options.ts) context |= Context.OptionsTS;
     if (options.disableWebCompat) context |= Context.OptionsDisableWebCompat;
   }
@@ -60,8 +62,8 @@ export function parseRoot(source: string, context: Context, options?: Options): 
 
   while (state.token === Token.StringLiteral) {
     const start = state.startIndex;
-    const expr = parseStringLiteral(state, context | Context.AllowRegExp, /* isDirective */ true);
-    if (canConsumeSemicolon(state)) {
+    const expr = parseStringLiteral(state, context, /* isDirective */ true);
+    if (isValidDirective(state)) {
       if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
       expectSemicolon(state, context);
       directives.push(expr as Directive);
@@ -79,7 +81,8 @@ export function parseRoot(source: string, context: Context, options?: Options): 
     context & Context.Module ? DictionaryMap.Module(directives, leafs) : DictionaryMap.Script(directives, leafs);
 
   if (context & Context.OptionsLoc) {
-    (node.start = 0), (node.end = source.length);
+    node.start = 0;
+    node.end = source.length;
   }
   return node;
 }
@@ -102,8 +105,8 @@ export function parseSourceFile(text: string, filename: string, context: Context
 
   while (state.token === Token.StringLiteral) {
     const start = state.startIndex;
-    const expr = parseStringLiteral(state, context | Context.AllowRegExp, /* isDirective */ true);
-    if (canConsumeSemicolon(state)) {
+    const expr = parseStringLiteral(state, context, /* isDirective */ true);
+    if (isValidDirective(state)) {
       if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
       expectSemicolon(state, context);
       directives.push(expr as Directive);
@@ -141,6 +144,7 @@ export function parseInRecoveryMode(text: string, filename: string, context: Con
     if (options.impliedStrict) context |= Context.Strict;
     if (options.module) context |= Context.Strict | Context.Module;
     if (options.disableWebCompat) context |= Context.OptionsDisableWebCompat;
+    if (options.cst) context |= Context.OptionsCST;
     if (options.ts) context |= Context.OptionsTS;
   }
   return parseSourceFile(text, filename, context | Context.ErrorRecovery);

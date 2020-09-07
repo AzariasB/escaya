@@ -3,7 +3,7 @@ import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Assign', () => {
   // Invalid cases
-  for (const arg of ['a = b + c = d', '[,', '[] += a']) {
+  for (const arg of ['a = b + c = d', '0 = 0;', '[] += a']) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);

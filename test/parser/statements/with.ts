@@ -23,6 +23,8 @@ describe('Statements - With', () => {
     'with(x{',
     'with(x=y/',
     'with catch',
+    'with({}) async function f(){};',
+    'with(0) label: function f(){}',
     // Lexical declaration cannot appear in a single-statement context
     'with ({}) let [a] = [42];',
     // Lexical declaration cannot appear in a single-statement context

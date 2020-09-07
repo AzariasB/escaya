@@ -54,6 +54,14 @@ describe('Statements - Labelled', () => {
 
   // Invalid cases
   for (const arg of [
+    // It is a Syntax Error if ContainsDuplicateLabels of StatementList with argument « » is true.
+    'label: label: ;',
+    // It is a Syntax Error if ContainsUndefinedBreakTarget of StatementList with argument « » is true.
+    'break label;',
+    'labelA: break labelB;',
+    // It is a Syntax Error if ContainsUndefinedContinueTarget of StatementList with arguments « » and « » is true.
+    'while(0) continue label;',
+    'labelA: while(0) continue labelB;',
     'switch/(":',
     'label: class C {};',
     'label: let x;',

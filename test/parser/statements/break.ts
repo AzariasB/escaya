@@ -250,6 +250,7 @@ describe('Statements - Break', () => {
             start: 13,
             end: 18
           },
+          await: false,
           start: 0,
           end: 18
         }

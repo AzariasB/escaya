@@ -1,6 +1,6 @@
-import { BindingType, Context, ParserState, Flags } from '../common';
+import { BindingType, Context, ParserState } from '../common';
 import { ScopeKind } from './common';
-import { addEarlyDiagnostic, addDiagnostic, DiagnosticKind, DiagnosticSource } from '../diagnostic';
+import { addEarlyDiagnostic } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
 import { Constants } from '../constants';
 

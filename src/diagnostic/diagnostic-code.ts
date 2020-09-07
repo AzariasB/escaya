@@ -145,6 +145,7 @@ export const enum DiagnosticCode {
   DuplicateProto,
   GetNoParam,
   StrictFunctionName,
+  IllegalUseStrict,
 
   /* Annex B */
   AnnexBB32,

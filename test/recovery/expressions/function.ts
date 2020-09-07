@@ -737,48 +737,40 @@ describe('Recovery - Expressions - Function', () => {
         },
         {
           type: 'ForStatement',
-          initializer: {
-            type: 'ForDeclaration',
-            isConst: false,
-            declarations: [
-              {
-                type: 'VariableDeclaration',
-                binding: {
-                  type: 'BindingIdentifier',
-                  name: 'of',
-                  start: 17,
-                  end: 20,
-                  kind: 168,
-                  flags: 0
-                },
-                initializer: null,
+          initializer: [
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'of',
                 start: 17,
                 end: 20,
-                kind: 144,
+                kind: 168,
                 flags: 0
               },
-              {
-                type: 'VariableDeclaration',
-                binding: {
-                  type: 'BindingIdentifier',
-                  name: 'X',
-                  start: 20,
-                  end: 22,
-                  kind: 168,
-                  flags: 0
-                },
-                initializer: null,
+              initializer: null,
+              start: 17,
+              end: 20,
+              kind: 144,
+              flags: 0
+            },
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'X',
                 start: 20,
                 end: 22,
-                kind: 144,
+                kind: 168,
                 flags: 0
-              }
-            ],
-            start: 14,
-            end: 22,
-            kind: 201,
-            flags: 0
-          },
+              },
+              initializer: null,
+              start: 20,
+              end: 22,
+              kind: 144,
+              flags: 0
+            }
+          ],
           condition: null,
           incrementor: {
             type: 'IdentifierReference',

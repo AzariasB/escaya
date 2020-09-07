@@ -14,39 +14,31 @@ describe('Recovery - For', () => {
         leafs: [
           {
             type: 'ForStatement',
-            initializer: {
-              type: 'ForDeclaration',
-              isConst: false,
-              declarations: [
-                {
-                  type: 'VariableDeclaration',
-                  binding: {
-                    type: 'BindingIdentifier',
-                    name: 'i',
-                    start: 8,
-                    end: 10,
-                    kind: 168,
-                    flags: 0
-                  },
-                  initializer: {
-                    type: 'NumericLiteral',
-                    value: 0,
-                    start: 12,
-                    end: 14,
-                    kind: 10,
-                    flags: 0
-                  },
+            initializer: [
+              {
+                type: 'VariableDeclaration',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'i',
                   start: 8,
-                  end: 14,
-                  kind: 144,
+                  end: 10,
+                  kind: 168,
                   flags: 0
-                }
-              ],
-              start: 5,
-              end: 14,
-              kind: 201,
-              flags: 0
-            },
+                },
+                initializer: {
+                  type: 'NumericLiteral',
+                  value: 0,
+                  start: 12,
+                  end: 14,
+                  kind: 10,
+                  flags: 0
+                },
+                start: 8,
+                end: 14,
+                kind: 144,
+                flags: 0
+              }
+            ],
             condition: {
               type: 'PostfixUpdateExpression',
               operator: '++',
@@ -479,6 +471,7 @@ describe('Recovery - For', () => {
             kind: 148,
             flags: 0
           },
+          await: false,
           start: 0,
           end: 23,
           kind: 131,
@@ -820,7 +813,7 @@ describe('Recovery - For', () => {
         {
           type: 'ForStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: false,
             declarations: [
               {
@@ -842,7 +835,7 @@ describe('Recovery - For', () => {
             ],
             start: 4,
             end: 9,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           condition: {
@@ -1311,12 +1304,11 @@ describe('Recovery - For', () => {
         {
           type: 'ForInStatement',
           initializer: {
-            type: 'ForDeclaration',
-            isConst: false,
+            type: 'ForBinding',
             declarations: [],
             start: 4,
             end: 7,
-            kind: 201,
+            kind: 202,
             flags: 0
           },
           expression: {
@@ -1433,8 +1425,7 @@ describe('Recovery - For', () => {
         {
           type: 'ForOfStatement',
           initializer: {
-            type: 'ForDeclaration',
-            isConst: false,
+            type: 'ForBinding',
             declarations: [
               {
                 type: 'VariableDeclaration',
@@ -1455,7 +1446,7 @@ describe('Recovery - For', () => {
             ],
             start: 4,
             end: 9,
-            kind: 201,
+            kind: 202,
             flags: 0
           },
           expression: {
@@ -1514,9 +1505,10 @@ describe('Recovery - For', () => {
             kind: 122,
             flags: 0
           },
+          await: false,
           start: 0,
           end: 17,
-          kind: 129,
+          kind: 132,
           flags: 0
         }
       ],
@@ -1591,6 +1583,7 @@ describe('Recovery - For', () => {
             kind: 123,
             flags: 0
           },
+          await: false,
           start: 0,
           end: 16,
           kind: 131,
@@ -1629,8 +1622,7 @@ describe('Recovery - For', () => {
         {
           type: 'ForOfStatement',
           initializer: {
-            type: 'ForDeclaration',
-            isConst: false,
+            type: 'ForBinding',
             declarations: [
               {
                 type: 'VariableDeclaration',
@@ -1651,7 +1643,7 @@ describe('Recovery - For', () => {
             ],
             start: 5,
             end: 11,
-            kind: 201,
+            kind: 202,
             flags: 0
           },
           expression: {
@@ -1670,9 +1662,10 @@ describe('Recovery - For', () => {
             kind: 123,
             flags: 0
           },
+          await: false,
           start: 0,
           end: 19,
-          kind: 129,
+          kind: 132,
           flags: 0
         }
       ],
@@ -1710,12 +1703,12 @@ describe('Recovery - For', () => {
           initializer: {
             type: 'AssignmentExpression',
             left: {
-              type: 'ForDeclaration',
+              type: 'LexicalDeclaration',
               isConst: true,
               declarations: [],
               start: 4,
               end: 9,
-              kind: 201,
+              kind: 145,
               flags: 0
             },
             operator: '=',
@@ -1800,7 +1793,7 @@ describe('Recovery - For', () => {
         {
           type: 'ForOfStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: true,
             declarations: [
               {
@@ -1822,7 +1815,7 @@ describe('Recovery - For', () => {
             ],
             start: 5,
             end: 12,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           expression: {
@@ -1879,9 +1872,10 @@ describe('Recovery - For', () => {
             kind: 132,
             flags: 0
           },
+          await: false,
           start: 0,
           end: 19,
-          kind: 129,
+          kind: 132,
           flags: 0
         }
       ],
@@ -1916,7 +1910,7 @@ describe('Recovery - For', () => {
         {
           type: 'ForOfStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: true,
             declarations: [
               {
@@ -1938,7 +1932,7 @@ describe('Recovery - For', () => {
             ],
             start: 5,
             end: 12,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           expression: {
@@ -1964,9 +1958,10 @@ describe('Recovery - For', () => {
             kind: 122,
             flags: 0
           },
+          await: false,
           start: 0,
           end: 15,
-          kind: 129,
+          kind: 132,
           flags: 0
         }
       ],

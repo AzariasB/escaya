@@ -1,14 +1,14 @@
 import { Node } from '../node';
 import { Statement } from '.';
 import { Expression } from '../expressions/index';
-import { ForDeclaration } from '../declarations/for-declaration';
+import { VariableDeclaration } from '../declarations/variable-declaration';
 
 /**
  * For statement.
  */
 export interface ForStatement extends Node {
   // The expression or declaration before the first `;`, if present
-  readonly initializer: ForDeclaration | Expression | null;
+  readonly initializer: VariableDeclaration | Expression | null;
   // The expression before the second `;`, if present
   readonly condition: Expression | null;
   // The expression after the second `;`, if present

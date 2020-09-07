@@ -5,6 +5,11 @@ describe('Expressions - Parentheized', () => {
   // Invalid cases
   for (const arg of [
     'y.)',
+    // 12.2.9.1
+    // It is a Syntax Error if the lexical token sequence matched by CoverParenthesizedExpressionAndArrowParameterList
+    // cannot be parsed with no tokens left over using ParenthesizedExpression as the goal symbol.
+    '(...a)',
+    //'(a, ...b)',
     '({static [expr',
     '({foo: {x:y} += x})',
     '({x:y} += x)',
@@ -12,6 +17,8 @@ describe('Expressions - Parentheized', () => {
     '(a = b)++;',
     '({foo: {x:y} += x})',
     '[] += a',
+    '({(a)} = 0)',
+    '({a:(b = 0)} = 1)',
     '({async **f(){}})',
     '({*=f(){}})',
     '(case)=2',
@@ -21,7 +28,6 @@ describe('Expressions - Parentheized', () => {
     //'(a,b,c,);',
     '(({ x: x4, x: (x+=1e4) }) = {})',
     '({a: ({1})})',
-    //'(a, ...b)',
     '({...{}} = {});',
     '({x = y}.z) => obj',
     '(({ x: y }) = {})',
@@ -185,7 +191,10 @@ describe('Expressions - Parentheized', () => {
     '({a}) = 2;',
     '({a, b}) = {a: 1, b:2};',
     '(((...a)))',
+    '((a, ...b)))',
     '({a: ("string") / a[3](((((a /= [b.c => a] = ([x / 2]())))))) })',
+    '({a}) = 0;',
+    '([a]) = 0;',
     '({...obj1,} = foo)',
     '({...(a,b)} = foo)',
     '({...(a,b)} = foo)',
@@ -332,6 +341,8 @@ describe('Expressions - Parentheized', () => {
     '((x,x)) = 5',
     '((x,x)) => 5',
     '((x,x) => x)',
+    '("\\u{110000}")',
+    '("\\u{FFFFFFF}")',
     '({a} += 0);',
     '({a,,} = 0)',
     '({ x: { get x() {} } } = { x: {} });',

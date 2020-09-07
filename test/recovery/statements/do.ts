@@ -1097,7 +1097,7 @@ describe('Statements - Do while', () => {
     });
   });
 
-  it('Unclosed block statement453897', () => {
+  it('do { class { function x() {}   } while /a/ - 2 ** a', () => {
     t.deepEqual(recovery('do { class { function x() {}   } while /a/ - 2 ** a', 'recovery.js'), {
       kind: 209,
       directives: [],
@@ -1127,7 +1127,9 @@ describe('Statements - Do while', () => {
                       type: 'MethodDefinition',
                       async: false,
                       generator: false,
-                      propertySetParameterList: [],
+                      getter: false,
+                      setter: false,
+                      propertySetParameterList: null,
                       uniqueFormalParameters: [],
                       name: {
                         type: 'IdentifierName',
@@ -1251,12 +1253,12 @@ describe('Statements - Do while', () => {
           length: 1
         },
         {
-          code: 39,
           kind: 2,
-          length: 1,
-          message: 'Unexpected token. A accessor was expected',
           source: 2,
-          start: 22
+          message: 'Unexpected token. A accessor was expected',
+          code: 39,
+          start: 22,
+          length: 1
         },
         {
           kind: 2,

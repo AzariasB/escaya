@@ -420,7 +420,9 @@ describe('Recovery - Expressions - Object', () => {
                     type: 'MethodDefinition',
                     async: false,
                     generator: false,
-                    propertySetParameterList: [],
+                    getter: false,
+                    setter: false,
+                    propertySetParameterList: null,
                     uniqueFormalParameters: [],
                     name: {
                       type: 'IdentifierName',
@@ -448,7 +450,9 @@ describe('Recovery - Expressions - Object', () => {
                     type: 'MethodDefinition',
                     async: true,
                     generator: false,
-                    propertySetParameterList: [],
+                    getter: false,
+                    setter: false,
+                    propertySetParameterList: null,
                     uniqueFormalParameters: [],
                     name: {
                       type: 'IdentifierName',
@@ -618,16 +622,16 @@ describe('Recovery - Expressions - Object', () => {
                     type: 'MethodDefinition',
                     async: false,
                     generator: false,
-                    propertySetParameterList: [
-                      {
-                        type: 'BindingIdentifier',
-                        name: '',
-                        start: 7,
-                        end: 9,
-                        kind: 168,
-                        flags: 0
-                      }
-                    ],
+                    getter: false,
+                    setter: true,
+                    propertySetParameterList: {
+                      type: 'BindingIdentifier',
+                      name: '',
+                      start: 7,
+                      end: 9,
+                      kind: 168,
+                      flags: 0
+                    },
                     uniqueFormalParameters: [],
                     name: {
                       type: 'ComputedPropertyName',
@@ -1567,98 +1571,100 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ x(/', () => {
     t.deepEqual(recovery('({ x(/', 'recovery.js'), {
-      children: [],
-      context: 0,
-      detached: false,
-      diagnostics: [
-        {
-          code: 5,
-          kind: 2,
-          length: 1,
-          message: '`)` expected',
-          source: 2,
-          start: 5
-        }
-      ],
-      directives: [],
-      end: 6,
-      fileName: 'recovery.js',
-      incremental: false,
       kind: 209,
+      directives: [],
       leafs: [
         {
-          end: 6,
+          type: 'ExpressionStatement',
           expression: {
-            end: 6,
+            type: 'ParenthesizedExpression',
             expression: {
-              end: 6,
-              flags: 0,
-              kind: 155,
+              type: 'BinaryExpression',
               left: {
-                end: 5,
-                flags: 0,
-                kind: 179,
+                type: 'ObjectLiteral',
                 properties: [
                   {
+                    type: 'MethodDefinition',
                     async: false,
-                    contents: {
-                      directives: [],
-                      end: 5,
-                      flags: 0,
-                      kind: 184,
-                      leafs: [],
-                      start: 5,
-                      type: 'FunctionBody'
-                    },
-                    end: 5,
-                    flags: 0,
                     generator: false,
-                    kind: 182,
+                    getter: false,
+                    setter: false,
+                    propertySetParameterList: null,
+                    uniqueFormalParameters: [],
                     name: {
-                      end: 4,
-                      flags: 0,
-                      kind: 13,
+                      type: 'IdentifierName',
                       name: 'x',
                       start: 2,
-                      type: 'IdentifierName'
+                      end: 4,
+                      kind: 13,
+                      flags: 0
                     },
-                    propertySetParameterList: [],
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
+                      start: 5,
+                      end: 5,
+                      kind: 184,
+                      flags: 0
+                    },
                     start: 4,
-                    type: 'MethodDefinition',
-                    uniqueFormalParameters: []
+                    end: 5,
+                    kind: 182,
+                    flags: 0
                   }
                 ],
                 start: 1,
-                type: 'ObjectLiteral'
+                end: 5,
+                kind: 179,
+                flags: 0
               },
               operator: '/',
               right: {
-                end: 6,
-                flags: 2,
-                kind: 13,
+                type: 'IdentifierReference',
                 name: '',
                 start: 6,
-                type: 'IdentifierReference'
+                end: 6,
+                kind: 13,
+                flags: 2
               },
               start: 1,
-              type: 'BinaryExpression'
+              end: 6,
+              kind: 155,
+              flags: 0
             },
-            flags: 0,
-            kind: 189,
             start: 0,
-            type: 'ParenthesizedExpression'
+            end: 6,
+            kind: 189,
+            flags: 0
           },
-          flags: 0,
-          kind: 122,
           start: 0,
-          type: 'ExpressionStatement'
+          end: 6,
+          kind: 122,
+          flags: 0
         }
       ],
-      length: 6,
+      text: '({ x(/',
+      fileName: 'recovery.js',
+      context: 0,
       mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`)` expected',
+          code: 5,
+          start: 5,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
       parent: null,
+      children: [],
       start: 0,
-      text: '({ x(/'
+      length: 6,
+      end: 6
     });
   });
 
@@ -1926,7 +1932,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: false,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [
                     {
                       type: 'BindingIdentifier',
@@ -2047,7 +2055,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: true,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
@@ -2075,7 +2085,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: false,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [
                     {
                       type: 'BindingIdentifier',
@@ -2181,16 +2193,16 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [
-                    {
-                      type: 'BindingIdentifier',
-                      name: 'get',
-                      start: 11,
-                      end: 15,
-                      kind: 168,
-                      flags: 0
-                    }
-                  ],
+                  getter: false,
+                  setter: true,
+                  propertySetParameterList: {
+                    type: 'BindingIdentifier',
+                    name: 'get',
+                    start: 11,
+                    end: 15,
+                    kind: 168,
+                    flags: 0
+                  },
                   uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
@@ -2218,7 +2230,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: true,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
@@ -2331,16 +2345,16 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [
-                    {
-                      type: 'BindingIdentifier',
-                      name: '',
-                      start: 11,
-                      end: 13,
-                      kind: 168,
-                      flags: 0
-                    }
-                  ],
+                  getter: false,
+                  setter: true,
+                  propertySetParameterList: {
+                    type: 'BindingIdentifier',
+                    name: '',
+                    start: 11,
+                    end: 13,
+                    kind: 168,
+                    flags: 0
+                  },
                   uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
@@ -3993,7 +4007,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: false,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [
                     {
                       type: 'BindingElement',
@@ -4091,7 +4107,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: true,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: false,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [
                     {
                       type: 'BindingElement',
@@ -4189,7 +4207,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: false,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
@@ -4296,7 +4316,9 @@ describe('Recovery - Expressions - Object', () => {
                     type: 'MethodDefinition',
                     async: false,
                     generator: false,
-                    propertySetParameterList: [],
+                    getter: false,
+                    setter: false,
+                    propertySetParameterList: null,
                     uniqueFormalParameters: [],
                     name: {
                       type: 'IdentifierName',
@@ -4413,7 +4435,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: true,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
@@ -4502,7 +4526,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: false,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
@@ -4583,7 +4609,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: false,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
@@ -4695,7 +4723,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: true,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
@@ -4824,7 +4854,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: false,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
@@ -4968,7 +5000,9 @@ describe('Recovery - Expressions - Object', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [],
+                  getter: false,
+                  setter: false,
+                  propertySetParameterList: null,
                   uniqueFormalParameters: [
                     {
                       type: 'BindingElement',

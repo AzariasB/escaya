@@ -1174,7 +1174,9 @@ describe('Recovery - Expressions', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',

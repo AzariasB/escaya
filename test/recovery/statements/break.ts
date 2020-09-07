@@ -143,6 +143,7 @@ describe('Recovery - Break', () => {
             kind: 124,
             flags: 0
           },
+          await: false,
           start: 0,
           end: 18,
           kind: 131,

@@ -1188,7 +1188,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           type: 'ForStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: false,
             declarations: [
               {
@@ -1210,7 +1210,7 @@ describe('test262-parser-tests - failing tests', () => {
             ],
             start: 5,
             end: 12,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           condition: {
@@ -1358,7 +1358,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           type: 'ForInStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: false,
             declarations: [
               {
@@ -1387,7 +1387,7 @@ describe('test262-parser-tests - failing tests', () => {
             ],
             start: 5,
             end: 15,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           expression: {
@@ -1478,7 +1478,9 @@ describe('test262-parser-tests - failing tests', () => {
                     type: 'MethodDefinition',
                     async: false,
                     generator: false,
-                    propertySetParameterList: [],
+                    getter: true,
+                    setter: false,
+                    propertySetParameterList: null,
                     uniqueFormalParameters: [],
                     name: {
                       type: 'IdentifierName',
@@ -1575,7 +1577,9 @@ describe('test262-parser-tests - failing tests', () => {
                     type: 'MethodDefinition',
                     async: false,
                     generator: false,
-                    propertySetParameterList: [],
+                    getter: false,
+                    setter: false,
+                    propertySetParameterList: null,
                     uniqueFormalParameters: [
                       {
                         type: 'BindingElement',
@@ -2394,7 +2398,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           type: 'ForStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: false,
             declarations: [
               {
@@ -2440,7 +2444,7 @@ describe('test262-parser-tests - failing tests', () => {
             ],
             start: 19,
             end: 32,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           condition: null,
@@ -2856,16 +2860,16 @@ describe('test262-parser-tests - failing tests', () => {
                   type: 'MethodDefinition',
                   async: false,
                   generator: false,
-                  propertySetParameterList: [
-                    {
-                      type: 'BindingIdentifier',
-                      name: '',
-                      start: 12,
-                      end: 13,
-                      kind: 168,
-                      flags: 0
-                    }
-                  ],
+                  getter: false,
+                  setter: true,
+                  propertySetParameterList: {
+                    type: 'BindingIdentifier',
+                    name: '',
+                    start: 12,
+                    end: 13,
+                    kind: 168,
+                    flags: 0
+                  },
                   uniqueFormalParameters: [],
                   name: {
                     type: 'IdentifierName',
@@ -3143,7 +3147,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           type: 'ForStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: false,
             declarations: [
               {
@@ -3213,7 +3217,7 @@ describe('test262-parser-tests - failing tests', () => {
             ],
             start: 5,
             end: 21,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           condition: {
@@ -3625,8 +3629,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           type: 'ForOfStatement',
           initializer: {
-            type: 'ForDeclaration',
-            isConst: false,
+            type: 'ForBinding',
             declarations: [
               {
                 type: 'VariableDeclaration',
@@ -3654,7 +3657,7 @@ describe('test262-parser-tests - failing tests', () => {
             ],
             start: 4,
             end: 13,
-            kind: 201,
+            kind: 202,
             flags: 0
           },
           expression: {
@@ -3672,9 +3675,10 @@ describe('test262-parser-tests - failing tests', () => {
             kind: 148,
             flags: 0
           },
+          await: false,
           start: 0,
           end: 20,
-          kind: 129,
+          kind: 132,
           flags: 0
         }
       ],
@@ -3712,7 +3716,7 @@ describe('test262-parser-tests - failing tests', () => {
           initializer: {
             type: 'MemberExpression',
             member: {
-              type: 'ForDeclaration',
+              type: 'LexicalDeclaration',
               isConst: false,
               declarations: [
                 {
@@ -3743,7 +3747,7 @@ describe('test262-parser-tests - failing tests', () => {
               ],
               start: 4,
               end: 10,
-              kind: 201,
+              kind: 145,
               flags: 0
             },
             expression: {
@@ -4020,7 +4024,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           type: 'ForOfStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: true,
             declarations: [
               {
@@ -4049,7 +4053,7 @@ describe('test262-parser-tests - failing tests', () => {
             ],
             start: 5,
             end: 16,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           expression: {
@@ -4067,9 +4071,10 @@ describe('test262-parser-tests - failing tests', () => {
             kind: 148,
             flags: 0
           },
+          await: false,
           start: 0,
           end: 23,
-          kind: 129,
+          kind: 132,
           flags: 0
         }
       ],
@@ -4346,7 +4351,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           type: 'ForOfStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: false,
             declarations: [
               {
@@ -4375,7 +4380,7 @@ describe('test262-parser-tests - failing tests', () => {
             ],
             start: 5,
             end: 15,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           expression: {
@@ -4418,9 +4423,10 @@ describe('test262-parser-tests - failing tests', () => {
             kind: 122,
             flags: 0
           },
+          await: false,
           start: 0,
           end: 36,
-          kind: 129,
+          kind: 132,
           flags: 0
         }
       ],
@@ -5038,7 +5044,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           type: 'ForStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: false,
             declarations: [
               {
@@ -5069,7 +5075,7 @@ describe('test262-parser-tests - failing tests', () => {
             ],
             start: 5,
             end: 14,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           condition: {
@@ -5272,7 +5278,7 @@ describe('test262-parser-tests - failing tests', () => {
         {
           type: 'ForStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: true,
             declarations: [
               {
@@ -5370,7 +5376,7 @@ describe('test262-parser-tests - failing tests', () => {
             ],
             start: 5,
             end: 39,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           condition: {
@@ -6600,7 +6606,9 @@ describe('test262-parser-tests - failing tests', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',

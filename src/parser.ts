@@ -30,13 +30,12 @@ import { AssignmentRestElement } from './ast/expressions/assignment-rest-element
 import { ObjectBindingPattern } from './ast/expressions/object-binding-pattern';
 import { FunctionExpression } from './ast/expressions/function-expr';
 import { FunctionDeclaration } from './ast/declarations/function-declaration';
-import { ForDeclaration } from './ast/declarations/for-declaration';
 import { BindingElement } from './ast/expressions/binding-element';
 import { ArrayBindingPattern } from './ast/expressions/array-binding-pattern';
 import { ClassElement } from './ast/expressions/class-element';
 import { ClassExpression } from './ast/expressions/class-expr';
 import { ClassDeclaration } from './ast/declarations/class-declaration';
-import { ForOfStatement, ForAwaitStatement } from './ast/statements/for-of-stmt';
+import { ForOfStatement } from './ast/statements/for-of-stmt';
 import { ForInStatement } from './ast/statements/for-in-stmt';
 import { ForStatement } from './ast/statements/for-stmt';
 import { ParenthesizedExpression } from './ast/expressions/parenthesized-expr';
@@ -129,6 +128,7 @@ import {
   PropertyKind,
   ArrowKind,
   finishNode,
+  isValidDirective,
   canConsumeSemicolon,
   validateFunctionName,
   validateIdentifierReference,
@@ -1000,7 +1000,7 @@ export function parseForStatement(
   context: Context,
   scope: ScopeState,
   labels: any[]
-): ForStatement | ForAwaitStatement | ForOfStatement | ForInStatement {
+): ForStatement | ForOfStatement | ForInStatement {
   const start = state.startIndex;
 
   consume(state, context, Token.ForKeyword);
@@ -1011,7 +1011,7 @@ export function parseForStatement(
 
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
 
-  let initializer: ForDeclaration | Expression | null | any = null;
+  let initializer: any | Expression | null | any = null;
   const innerStart = state.startIndex;
 
   if (state.token !== Token.Semicolon) {
@@ -1020,11 +1020,12 @@ export function parseForStatement(
       if (state.token === Token.LetKeyword) {
         nextToken(state, context);
         if (state.token & Constants.PatternOrIdentifier) {
-          initializer = parseForDeclaration(
+          initializer = parseForBinding(
             state,
             context | Context.DisallowIn,
-            /* isConst */ false,
             scope,
+            /* isLexical */ true,
+            /* isConst */ false,
             BindingType.Let,
             parseForLexicalBinding,
             innerStart
@@ -1051,11 +1052,12 @@ export function parseForStatement(
           if (state.token === Token.OfKeyword) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
         }
       } else if (consumeOpt(state, context, Token.ConstKeyword)) {
-        initializer = parseForDeclaration(
+        initializer = parseForBinding(
           state,
           context | Context.DisallowIn,
-          /* isConst */ true,
           scope,
+          /* isLexical */ true,
+          /* isConst */ true,
           BindingType.Const,
           parseForLexicalBinding,
           innerStart
@@ -1063,11 +1065,12 @@ export function parseForStatement(
         state.assignable = true;
       } else {
         nextToken(state, context);
-        initializer = parseForDeclaration(
+        initializer = parseForBinding(
           state,
           context | Context.DisallowIn,
-          /* isConst */ false,
           scope,
+          /* isLexical */ false,
+          /* isConst */ false,
           BindingType.Var,
           parseForVariableDeclaration,
           innerStart
@@ -1088,13 +1091,13 @@ export function parseForStatement(
           state,
           context,
           start,
-          DictionaryMap.ForAwaitStatement(
+          DictionaryMap.ForOfStatement(
             initializer,
             expression,
             parseStatement(state, context | Context.InIteration, scope, labels, null, false),
             isAwait
           ),
-          SyntaxKind.ForAwaitStatement
+          SyntaxKind.ForStatement
         );
       }
 
@@ -1182,7 +1185,7 @@ export function parseForStatement(
       state,
       context,
       start,
-      DictionaryMap.ForAwaitStatement(
+      DictionaryMap.ForOfStatement(
         initializer,
         expression,
         parseStatement(state, context | Context.InIteration, scope, labels, null, false),
@@ -1242,23 +1245,28 @@ export function parseForStatement(
 }
 
 // ForDeclaration : LetOrConst ForBinding  [MODIFIFED]
-export function parseForDeclaration(
+export function parseForBinding(
   state: ParserState,
   context: Context,
-  isConst: boolean,
   scope: any,
+  isLexical: boolean,
+  isConst: boolean,
   type: BindingType,
   cb: LexicalCallback,
   start: number
-): ForDeclaration {
-  const declarations = parseForBindingList(state, context, scope, type, cb);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.ForDeclaration(isConst, declarations),
-    SyntaxKind.ForDeclaration
-  );
+): any {
+  let declarations = parseForBindingList(state, context, scope, type, cb);
+  if (isLexical) {
+    return finishNode(
+      state,
+      context,
+      start,
+      DictionaryMap.LexicalDeclaration(isConst, declarations),
+      SyntaxKind.LexicalDeclaration
+    );
+  }
+  if ((state.token & Token.IsInOrOf) === 0) return declarations;
+  return finishNode(state, context, start, DictionaryMap.ForBinding(declarations), SyntaxKind.ForBinding);
 }
 
 // BindingList : [MODIFIED]
@@ -2627,7 +2635,7 @@ export function parseStringLiteral(state: ParserState, context: Context, isDirec
   const value = state.tokenValue;
   nextToken(state, context);
   state.assignable = false;
-  if (isDirective && canConsumeSemicolon(state)) {
+  if (isDirective && isValidDirective(state)) {
     // The `raw` property is the raw string source of the directive without quotes.
     const raw = state.source.slice(start + 1, state.endIndex - 1);
     return finishNode(state, context, start, DictionaryMap.Directive(value, raw), SyntaxKind.Directive);
@@ -3567,8 +3575,30 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
           state.token === Token.RightBrace ? DiagnosticCode.RestTrailing : DiagnosticCode.RestNotLastParam
         );
       }
-      isSimpleParameterList = (state.token & Token.IsPatternStart) === Token.IsPatternStart;
-      params.push(parseBindingElements(state, context, scope, BindingType.ArgumentList, parseBindingElement));
+      if (state.token & Token.IsPatternStart) {
+        let innerStart = state.startIndex;
+        isSimpleParameterList = true;
+        const left = parseBindingElements(state, context, scope, BindingType.ArgumentList, parseBindingPattern);
+        const right = consumeOpt(state, context | Context.AllowRegExp, Token.Assign)
+          ? parseExpression(state, context)
+          : null;
+        params.push(
+          finishNode(state, context, innerStart, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement)
+        );
+      } else {
+        let innerStart = state.startIndex;
+        if (state.token & Token.IsFutureReserved) state.flags |= Flags.HasStrictReserved;
+        const left = parseBindingIdentifier(state, context, scope, BindingType.ArgumentList);
+        if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
+          params.push(left);
+        } else {
+          const right = parseExpression(state, context);
+          isSimpleParameterList = true;
+          params.push(
+            finishNode(state, context, innerStart, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement)
+          );
+        }
+      }
 
       if (consumeOpt(state, context, Token.Comma)) continue;
       if (state.token === Token.RightParen) break;
@@ -3580,6 +3610,9 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
   if (isSimpleParameterList || context & Context.Strict) {
     addScopeDiagnostic(state, context, scope, DiagnosticCode.DupBind);
   }
+
+  if (isSimpleParameterList) state.flags |= Flags.SimpleParameterList;
+
   return params;
 }
 
@@ -3610,9 +3643,14 @@ export function parseFunctionBody(
 
     while (state.token === Token.StringLiteral) {
       const start = state.startIndex;
-      const expr = parseStringLiteral(state, context | Context.AllowRegExp, /* isDirective */ true);
-      if (canConsumeSemicolon(state)) {
-        if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
+      const expr = parseStringLiteral(state, context, /* isDirective */ true);
+      if (isValidDirective(state)) {
+        if (nextLiteralExactlyStrict(state, start)) {
+          if (state.flags & Flags.SimpleParameterList) {
+            addEarlyDiagnostic(state, context, DiagnosticCode.IllegalUseStrict);
+          }
+          context |= Context.Strict;
+        }
         expectSemicolon(state, context);
         directives.push(expr as Directive);
       } else {
@@ -3628,12 +3666,15 @@ export function parseFunctionBody(
         if (firstRestricted & Token.IsFutureReserved)
           addEarlyDiagnostic(state, context, DiagnosticCode.StrictFunctionName);
       }
+      if (state.flags & Flags.HasStrictReserved) addEarlyDiagnostic(state, context, DiagnosticCode.StrictModeReserved);
       if (state.flags & Flags.Octal) addEarlyDiagnostic(state, context, DiagnosticCode.StrictOctal);
     }
 
     scope = createParentScope(scope, ScopeKind.FunctionBody);
 
-    state.flags = state.flags = (state.flags | Flags.Octal) ^ Flags.Octal;
+    state.flags =
+      (state.flags | Flags.HasStrictReserved | Flags.Octal | Flags.SimpleParameterList) ^
+      (Flags.HasStrictReserved | Flags.Octal | Flags.SimpleParameterList);
 
     // Unset the 'Context.InGlobal' bit and set the 'Context.Return' and 'Context.InBlock' bits
     context = (context | 0b00010000000000000000000001000000) ^ Context.InGlobal;
@@ -3642,6 +3683,8 @@ export function parseFunctionBody(
       statements.push(parseBlockElements(state, context, scope, null, null, parseStatementListItem));
     }
     consume(state, isStatement ? context | Context.AllowRegExp : context, Token.RightBrace);
+
+    state.flags = (state.flags | Flags.SimpleParameterList) ^ Flags.SimpleParameterList;
   }
   return finishNode(state, context, start, DictionaryMap.FunctionBody(directives, statements), SyntaxKind.FunctionBody);
 }
@@ -3681,7 +3724,7 @@ export function parseMethodDefinition(
 
   const start = state.startIndex;
 
-  let propertySetParameterList: (BindingIdentifier | BindingElement)[] = [];
+  let propertySetParameterList: BindingIdentifier | BindingElement | null = null;
   let uniqueFormalParameters: Parameter[] = [];
 
   const scope = createParentScope(createScope(), ScopeKind.FunctionParams);
@@ -3691,7 +3734,7 @@ export function parseMethodDefinition(
     consumeBit(state, context, Token.RightParen, DiagnosticCode.GetNoParam);
   } else if (kind & PropertyKind.Setter) {
     consume(state, context, Token.LeftParen);
-    propertySetParameterList = [parseBindingElement(state, context, scope, BindingType.ArgumentList)];
+    propertySetParameterList = parseBindingElement(state, context, scope, BindingType.ArgumentList);
     addScopeDiagnostic(state, context, scope, DiagnosticCode.DupBind);
     consume(state, context, Token.RightParen);
   } else {
@@ -3710,6 +3753,8 @@ export function parseMethodDefinition(
     DictionaryMap.MethodDefinition(
       (kind & PropertyKind.Async) === PropertyKind.Async,
       (kind & PropertyKind.Generator) === PropertyKind.Generator,
+      (kind & PropertyKind.Getter) === PropertyKind.Getter,
+      (kind & PropertyKind.Setter) === PropertyKind.Setter,
       propertySetParameterList,
       uniqueFormalParameters,
       key,
@@ -4876,8 +4921,10 @@ export function parseExportDeclaration(
   let fromClause: StringLiteral | null = null;
   let namedBinding: IdentifierName | null = null;
   let namedExports: ExportSpecifier[] = [];
+
   const exportedNames: string[] = [];
   const boundNames: string[] = [];
+  const cst = (context & Context.OptionsCST) === Context.OptionsCST;
 
   switch (state.token) {
     case Token.LetKeyword:
@@ -4932,7 +4979,15 @@ export function parseExportDeclaration(
     state,
     context,
     start,
-    DictionaryMap.ExportDeclaration(declaration, namedExports, namedBinding, fromClause, exportedNames, boundNames),
+    DictionaryMap.ExportDeclaration(
+      declaration,
+      namedExports,
+      namedBinding,
+      fromClause,
+      cst,
+      exportedNames,
+      boundNames
+    ),
     SyntaxKind.ExportDeclaration
   );
 }

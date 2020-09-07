@@ -1309,7 +1309,9 @@ describe('Recovery - Async Function', () => {
                     type: 'MethodDefinition',
                     async: true,
                     generator: false,
-                    propertySetParameterList: [],
+                    getter: false,
+                    setter: false,
+                    propertySetParameterList: null,
                     uniqueFormalParameters: [],
                     name: {
                       type: 'IdentifierName',

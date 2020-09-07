@@ -10,7 +10,7 @@ describe('Recovery - For of', () => {
         {
           type: 'ForInStatement',
           initializer: {
-            type: 'ForDeclaration',
+            type: 'LexicalDeclaration',
             isConst: false,
             declarations: [
               {
@@ -32,7 +32,7 @@ describe('Recovery - For of', () => {
             ],
             start: 5,
             end: 10,
-            kind: 201,
+            kind: 145,
             flags: 0
           },
           expression: {
@@ -235,32 +235,24 @@ describe('Recovery - For of', () => {
       leafs: [
         {
           type: 'ForStatement',
-          initializer: {
-            type: 'ForDeclaration',
-            isConst: false,
-            declarations: [
-              {
-                type: 'VariableDeclaration',
-                binding: {
-                  type: 'BindingIdentifier',
-                  name: 'of',
-                  start: 8,
-                  end: 11,
-                  kind: 168,
-                  flags: 0
-                },
-                initializer: null,
+          initializer: [
+            {
+              type: 'VariableDeclaration',
+              binding: {
+                type: 'BindingIdentifier',
+                name: 'of',
                 start: 8,
                 end: 11,
-                kind: 144,
+                kind: 168,
                 flags: 0
-              }
-            ],
-            start: 5,
-            end: 11,
-            kind: 201,
-            flags: 0
-          },
+              },
+              initializer: null,
+              start: 8,
+              end: 11,
+              kind: 144,
+              flags: 0
+            }
+          ],
           condition: null,
           incrementor: null,
           statement: {
@@ -300,8 +292,7 @@ describe('Recovery - For of', () => {
         {
           type: 'ForInStatement',
           initializer: {
-            type: 'ForDeclaration',
-            isConst: false,
+            type: 'ForBinding',
             declarations: [
               {
                 type: 'VariableDeclaration',
@@ -329,7 +320,7 @@ describe('Recovery - For of', () => {
             ],
             start: 5,
             end: 15,
-            kind: 201,
+            kind: 202,
             flags: 0
           },
           expression: {

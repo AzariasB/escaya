@@ -24,8 +24,8 @@ export interface ExportDeclaration extends Node {
   readonly namedExports: ExportSpecifier[];
   readonly namedBinding: IdentifierName | null;
   readonly fromClause: StringLiteral | null;
-  readonly exportedNames: string[];
-  readonly boundNames: string[];
+  readonly exportedNames?: string[];
+  readonly boundNames?: string[];
   /* @internal */
   readonly parent?: RootNode;
 }
@@ -42,16 +42,25 @@ export function createExportDeclaration(
   namedExports: ExportSpecifier[],
   namedBinding: IdentifierName | null,
   fromClause: StringLiteral | null,
-  exportedNames: string[],
-  boundNames: string[]
+  cst: boolean,
+  exportedNames?: string[],
+  boundNames?: string[]
 ): ExportDeclaration {
-  return {
-    type: 'ExportDeclaration',
-    declaration,
-    namedExports,
-    namedBinding,
-    fromClause,
-    exportedNames,
-    boundNames
-  };
+  return cst
+    ? {
+        type: 'ExportDeclaration',
+        declaration,
+        namedExports,
+        namedBinding,
+        fromClause,
+        exportedNames,
+        boundNames
+      }
+    : {
+        type: 'ExportDeclaration',
+        declaration,
+        namedExports,
+        namedBinding,
+        fromClause
+      };
 }

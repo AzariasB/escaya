@@ -19,6 +19,8 @@ describe('Statements - Do', () => {
     'do let {} = y',
     'do {} while (',
     'do x, y while (z)',
+    'do label: function f(){} while (0)',
+    'do label: function f(){} while (0);',
     'do debugger while(x) x',
     'do class X {}; while (x);',
     'do;while(0)return',

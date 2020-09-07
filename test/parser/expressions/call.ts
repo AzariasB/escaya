@@ -51,6 +51,8 @@ describe('Expressions - Call', () => {
     'async({c=3} = {})',
     'async({a})',
     'x(x,);',
+    'a(b,)',
+    'async(a,)',
     'x(a)(b)',
     'x(a)(b)(c)(d)(e)',
     'x(...a)',

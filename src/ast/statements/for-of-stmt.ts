@@ -1,42 +1,32 @@
 import { Node } from '../node';
 import { Statement } from '.';
 import { Expression, AssignmentPattern } from '../expressions/index';
-import { ForDeclaration } from '../declarations/for-declaration';
+import { LexicalDeclaration } from '../declarations/lexical-declaration';
+import { ForBinding } from './forBinding';
 
-export interface ForOfBase extends Node {
+export interface ForOfStatement extends Node {
   /* 'null' can only occur in recovery mode */
-  readonly initializer: ForDeclaration | AssignmentPattern | Expression | null;
+  readonly initializer: LexicalDeclaration | ForBinding | AssignmentPattern | Expression | null;
   readonly expression: Expression;
   readonly statement: Statement;
+  readonly await: boolean;
 }
 
 /**
- * For statement.
+ * For-of statement.
  */
-export type ForOfStatement = ForOfBase;
 
-/**
- * For-await statement.
- */
-export type ForAwaitStatement = ForOfBase;
-
-export function createForOfAwaitStatement(
-  initializer: ForDeclaration | AssignmentPattern | Expression | null,
+export function createForOfStatement(
+  initializer: LexicalDeclaration | ForBinding | AssignmentPattern | Expression | null,
   expression: Expression,
   statement: Statement,
   isAwait: boolean
-): ForOfStatement | ForAwaitStatement {
-  return isAwait
-    ? {
-        type: 'ForAwaitStatement',
-        initializer,
-        expression,
-        statement
-      }
-    : {
-        type: 'ForOfStatement',
-        initializer,
-        expression,
-        statement
-      };
+): ForOfStatement {
+  return {
+    type: 'ForOfStatement',
+    initializer,
+    expression,
+    statement,
+    await: isAwait
+  };
 }

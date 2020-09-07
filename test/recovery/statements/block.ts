@@ -3087,7 +3087,9 @@ describe('Recovery - Block', () => {
                       type: 'MethodDefinition',
                       async: false,
                       generator: false,
-                      propertySetParameterList: [],
+                      getter: false,
+                      setter: false,
+                      propertySetParameterList: null,
                       uniqueFormalParameters: [
                         {
                           type: 'BindingIdentifier',

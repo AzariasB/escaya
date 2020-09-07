@@ -7,7 +7,7 @@ import { BreakStatement } from './break-stmt';
 import { ContinueStatement } from './continue-stmt';
 import { LabelledStatement } from './labelled-stmt';
 import { DoWhileStatement } from './do-stmt';
-import { ForOfStatement, ForAwaitStatement } from './for-of-stmt';
+import { ForOfStatement } from './for-of-stmt';
 import { ForInStatement } from './for-in-stmt';
 import { ForStatement } from './for-stmt';
 import { ReturnStatement } from './return-stmt';
@@ -23,7 +23,7 @@ import { CaseClause, DefaultClause  } from './case-clause';
 import { SwitchStatement  } from './switch-stmt';
 import { FunctionDeclaration  } from '../declarations/function-declaration';
 import { ClassDeclaration  } from '../declarations/class-declaration';
-import { ForDeclaration  } from '../declarations/for-declaration';
+import { ForBinding  } from './forBinding';
 
 export type CaseBlock = DefaultClause | CaseClause;
 
@@ -40,7 +40,6 @@ export type Statement
   | ContinueStatement
   | LabelledStatement
   | DoWhileStatement
-  | ForAwaitStatement
   | IfStatement
   | ForOfStatement
   | ForInStatement
@@ -57,6 +56,6 @@ export type Statement
   | LexicalDeclaration
   | LexicalBinding
   | FunctionDeclaration
-  | ForDeclaration
+  | ForBinding
   | ClassDeclaration
   ;

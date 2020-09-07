@@ -2,6 +2,7 @@ import { Expression } from '.';
 import { BindingIdentifier } from './binding-identifier';
 import { Node } from '../node';
 import { ClassElement } from './class-element';
+import { Semicolon } from './semicolon';
 
 /**
  * Class expression.
@@ -9,7 +10,7 @@ import { ClassElement } from './class-element';
 export interface ClassExpression extends Node {
   readonly name: BindingIdentifier | null;
   readonly heritage: Expression | null;
-  readonly elements: ClassElement[];
+  readonly elements: (Semicolon | ClassElement)[];
 }
 
 export function createClassExpression(

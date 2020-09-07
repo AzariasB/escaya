@@ -6,6 +6,7 @@ describe('Expressions - Compound assignment', () => {
   for (const arg of [
     '1 &= 1;',
     '1 |= 1;',
+    '[a] *= 0;',
     '[] += a',
     '({a} += {a});',
     '({a}) *=	-1',

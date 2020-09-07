@@ -4,6 +4,8 @@ import { parseScript, recovery } from '../../../src/escaya';
 describe('Expressions - New', () => {
   // Invalid cases
   for (const arg of [
+    // Mongolian vowel separator
+    'new\u180Ea',
     'new f(..g);',
     'new f(....g);',
     'new f(... ... g);',
@@ -34,9 +36,12 @@ describe('Expressions - New', () => {
     'new foo(1, 2);',
     'new new foo()();',
     'new foo.bar;',
+    'new async()',
     'new foo.bar();',
     'new foo',
     'new foo();',
+    'new a(b,)',
+    'new async(a,)',
     'new foo(1);',
     'new foo(1, 2);',
     'new foo()();',

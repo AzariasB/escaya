@@ -159,7 +159,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -481,7 +483,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: true,
                 generator: true,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -565,7 +569,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: true,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [
                   {
                     type: 'BindingIdentifier',
@@ -963,7 +969,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -1048,7 +1056,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: true,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [
                   {
                     type: 'BindingIdentifier',
@@ -1250,7 +1260,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -1631,7 +1643,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class x { async get constructor ', () => {
-    t.deepEqual(recovery('class x { async get constructor ', 'recovery.js'), {
+    t.deepEqual(recovery('class x { async get constructor', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
@@ -1654,7 +1666,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: true,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -1690,7 +1704,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -1726,7 +1742,7 @@ describe('Recovery - Class', () => {
           flags: 0
         }
       ],
-      text: 'class x { async get constructor ',
+      text: 'class x { async get constructor',
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
@@ -1738,14 +1754,6 @@ describe('Recovery - Class', () => {
           code: 5,
           start: 20,
           length: 11
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`(` expected',
-          code: 5,
-          start: 31,
-          length: 1
         }
       ],
       detached: false,
@@ -1753,8 +1761,8 @@ describe('Recovery - Class', () => {
       parent: null,
       children: [],
       start: 0,
-      length: 32,
-      end: 32
+      length: 31,
+      end: 31
     });
   });
 
@@ -2149,7 +2157,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -2233,7 +2243,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -2373,7 +2385,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: true,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -2450,7 +2464,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -2638,7 +2654,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -3104,7 +3122,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [],
                 name: {
                   type: 'IdentifierName',
@@ -3198,7 +3218,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [
                   {
                     type: 'BindingIdentifier',
@@ -3307,7 +3329,9 @@ describe('Recovery - Class', () => {
                 type: 'MethodDefinition',
                 async: false,
                 generator: false,
-                propertySetParameterList: [],
+                getter: false,
+                setter: false,
+                propertySetParameterList: null,
                 uniqueFormalParameters: [
                   {
                     type: 'BindingRestElement',
