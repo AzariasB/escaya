@@ -56,6 +56,7 @@ describe('Recovery - Human', () => {
       ),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -1156,6 +1157,7 @@ describe('Recovery - Human', () => {
       recovery(`Let a1,a2,a3,......,an be a set of numbers, average = (a1 + a2 + a3,+......+ an)/n`, 'recovery.js'),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {

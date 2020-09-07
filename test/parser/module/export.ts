@@ -678,6 +678,7 @@ describe('Module - Export', () => {
   it('export { a as b } from "b";', () => {
     t.deepEqual(parseModule('export { a as b } from "b";', { loc: true, cst: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -728,6 +729,7 @@ describe('Module - Export', () => {
   it('export let x = 0;', () => {
     t.deepEqual(parseModule('export let x = 0;', { loc: true, cst: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -774,6 +776,7 @@ describe('Module - Export', () => {
   it('export const z = 0;', () => {
     t.deepEqual(parseModule('export const z = 0;', { loc: true, cst: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -820,6 +823,7 @@ describe('Module - Export', () => {
   it('export default x;', () => {
     t.deepEqual(parseModule('export default x;', { loc: true, cst: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -842,6 +846,7 @@ describe('Module - Export', () => {
   it('export class C { };', () => {
     t.deepEqual(parseModule('export class C { };', { loc: true, cst: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -881,6 +886,7 @@ describe('Module - Export', () => {
   it('export { };', () => {
     t.deepEqual(parseModule('export { };', { loc: true, cst: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -907,6 +913,7 @@ describe('Module - Export', () => {
   it('export class y {};', () => {
     t.deepEqual(parseModule('export class y {};', { loc: true, cst: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -946,6 +953,7 @@ describe('Module - Export', () => {
   it('export { a as b } from "x";', () => {
     t.deepEqual(parseModule('export { a as b } from "x";', { loc: true, cst: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -996,6 +1004,7 @@ describe('Module - Export', () => {
   it('export const joo = 42;', () => {
     t.deepEqual(parseModule('export const joo = 42;', { loc: true, cst: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1042,6 +1051,7 @@ describe('Module - Export', () => {
   it('export * from "x"', () => {
     t.deepEqual(parseModule('export * from "x"', { loc: true, cst: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {

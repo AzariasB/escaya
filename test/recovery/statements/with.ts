@@ -13,6 +13,7 @@ describe('Recovery - Whith', () => {
       fileName: 'recovery.js',
       incremental: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           end: 14,
@@ -57,6 +58,7 @@ describe('Recovery - Whith', () => {
   it('as keyword', () => {
     t.deepEqual(recovery('with', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

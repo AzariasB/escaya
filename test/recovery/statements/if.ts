@@ -5,6 +5,7 @@ describe('Recovery - If', () => {
   it('if else (', () => {
     t.deepEqual(recovery('if else (', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -95,6 +96,7 @@ describe('Recovery - If', () => {
   it('if async function else babel (', () => {
     t.deepEqual(recovery('if async function else babel (', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -213,6 +215,7 @@ describe('Recovery - If', () => {
   it('if (x async function ) (', () => {
     t.deepEqual(recovery('if (x async function ) (', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -325,6 +328,7 @@ describe('Recovery - If', () => {
   it('if if if if async function else if if else (', () => {
     t.deepEqual(recovery('if if if if async function else if if else (', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -576,6 +580,7 @@ describe('Recovery - If', () => {
   it('if', () => {
     t.deepEqual(recovery('if', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -637,6 +642,7 @@ describe('Recovery - If', () => {
   it('Unclosed block statement32', () => {
     t.deepEqual(recovery('if(', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -698,6 +704,7 @@ describe('Recovery - If', () => {
   it('if(x', () => {
     t.deepEqual(recovery('if(x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -759,6 +766,7 @@ describe('Recovery - If', () => {
   it('if((((((((', () => {
     t.deepEqual(recovery('if((((((((', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -869,6 +877,7 @@ describe('Recovery - If', () => {
   it('if((((xx))))', () => {
     t.deepEqual(recovery('if((((xx))))', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -951,6 +960,7 @@ describe('Recovery - If', () => {
   it('if(((()', () => {
     t.deepEqual(recovery('if(((()', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1033,6 +1043,7 @@ describe('Recovery - If', () => {
   it('if((( {}', () => {
     t.deepEqual(recovery('if((( {}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1108,6 +1119,7 @@ describe('Recovery - If', () => {
   it('if(((((({{{{{{{{{{{]}', () => {
     t.deepEqual(recovery('if(((((({{{{{{{{{{{]}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1294,6 +1306,7 @@ describe('Recovery - If', () => {
   it('if(x) {', () => {
     t.deepEqual(recovery('if(x) {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1348,6 +1361,7 @@ describe('Recovery - If', () => {
   it('if{x}', () => {
     t.deepEqual(recovery('if{x}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1426,6 +1440,7 @@ describe('Recovery - If', () => {
   it('{if{}', () => {
     t.deepEqual(recovery('{if{}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1504,6 +1519,7 @@ describe('Recovery - If', () => {
   it('if{else', () => {
     t.deepEqual(recovery('if{else', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1582,6 +1598,7 @@ describe('Recovery - If', () => {
   it('ifx(function{x', () => {
     t.deepEqual(recovery('ifx(function{x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1687,6 +1704,7 @@ describe('Recovery - If', () => {
   it('if(x){function x( { ', () => {
     t.deepEqual(recovery('if(x){function x( { ', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1787,6 +1805,7 @@ describe('Recovery - If', () => {
   it('if else function', () => {
     t.deepEqual(recovery('if else function', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1877,6 +1896,7 @@ describe('Recovery - If', () => {
       recovery('if I try while I run for my life. then if I fall then i may scream while running', 'recovery.js'),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -2268,6 +2288,7 @@ describe('Recovery - If', () => {
   it('{if with missing ! & bracket and { and bullshit and (x) {}', () => {
     t.deepEqual(recovery('{if with missing ! & bracket and { and bullshit and (x) {}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2543,6 +2564,7 @@ describe('Recovery - If', () => {
   it('if( hello!! while acorn can not do this', () => {
     t.deepEqual(recovery('if( hello!! while acorn can not do this', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2742,6 +2764,7 @@ describe('Recovery - If', () => {
   it('{if if if', () => {
     t.deepEqual(recovery('{if if if', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2852,6 +2875,7 @@ describe('Recovery - If', () => {
   it('if{if', () => {
     t.deepEqual(recovery('if{if', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2930,6 +2954,7 @@ describe('Recovery - If', () => {
   it('else{if x=)', () => {
     t.deepEqual(recovery('else{if x=)', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3032,6 +3057,7 @@ describe('Recovery - If', () => {
   it('if{acorn = sloppy this ! loose while this fast', () => {
     t.deepEqual(recovery('if{acorn = sloppy this ! loose while this fast', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3202,6 +3228,7 @@ describe('Recovery - If', () => {
   it('if waiting for my package while do this', () => {
     t.deepEqual(recovery('if waiting for my package while do this', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3372,6 +3399,7 @@ describe('Recovery - If', () => {
   it('if {', () => {
     t.deepEqual(recovery('if {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3433,6 +3461,7 @@ describe('Recovery - If', () => {
   it('{}}}}}if!!&', () => {
     t.deepEqual(recovery('{}}}}}if!!&', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3574,6 +3603,7 @@ describe('Recovery - If', () => {
   it('if /{', () => {
     t.deepEqual(recovery('if /{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3636,6 +3666,7 @@ describe('Recovery - If', () => {
   it('if else/{', () => {
     t.deepEqual(recovery('if else/{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3743,6 +3774,7 @@ describe('Recovery - If', () => {
   it('if finally I try this ! {', () => {
     t.deepEqual(recovery('if finally I try this ! {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3922,6 +3954,7 @@ describe('Recovery - If', () => {
   it('{!if { else } ! / j', () => {
     t.deepEqual(recovery('{!if { else } ! / j', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4065,6 +4098,7 @@ describe('Recovery - If', () => {
   it('if(,,,,,,,,,,,,,,,,,,,,,,,,{', () => {
     t.deepEqual(recovery('if(,,,,,,,,,,,,,,,,,,,,,,,,{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4519,6 +4553,7 @@ describe('Recovery - If', () => {
   it('{,,,,,,,,,,,,,,if /a/ ,,,,,}', () => {
     t.deepEqual(recovery('{,,,,,,,,,,,,,,if /a/ ,,,,,}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4790,6 +4825,7 @@ describe('Recovery - If', () => {
   it('{;;;;;if /a//a/a/a/a/a while /adf//ads if else get mad', () => {
     t.deepEqual(recovery('{;;;;;if /a//a/a/a/a/a while /adf//ads if else get mad', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5093,6 +5129,7 @@ describe('Recovery - If', () => {
   it('if[]{', () => {
     t.deepEqual(recovery('if[]{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5155,6 +5192,7 @@ describe('Recovery - If', () => {
   it('{[]if/', () => {
     t.deepEqual(recovery('{[]if/', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5249,6 +5287,7 @@ describe('Recovery - If', () => {
   it('{(((if))', () => {
     t.deepEqual(recovery('{(((if))', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5371,6 +5410,7 @@ describe('Recovery - If', () => {
   it(']if]{', () => {
     t.deepEqual(recovery(']if]{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5456,6 +5496,7 @@ describe('Recovery - If', () => {
   it('[if]]else', () => {
     t.deepEqual(recovery('[if]]else', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5556,6 +5597,7 @@ describe('Recovery - If', () => {
   it('[]if', () => {
     t.deepEqual(recovery('[]if', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5632,6 +5674,7 @@ describe('Recovery - If', () => {
   it('Unclosed block statement43252435', () => {
     t.deepEqual(recovery('{}if', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5701,6 +5744,7 @@ describe('Recovery - If', () => {
   it('{if', () => {
     t.deepEqual(recovery('{if,', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5788,6 +5832,7 @@ describe('Recovery - If', () => {
   it('/* /* if(foo) {}', () => {
     t.deepEqual(recovery('/* /* if(foo) {}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [],
       text: '/* /* if(foo) {}',
@@ -5817,6 +5862,7 @@ describe('Recovery - If', () => {
   it('if else catch', () => {
     t.deepEqual(recovery('if else catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

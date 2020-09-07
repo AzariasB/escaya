@@ -5,6 +5,7 @@ describe('Module - Import', () => {
   it('import export from "s"', () => {
     t.deepEqual(recovery('import export from "s"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -103,6 +104,7 @@ describe('Module - Import', () => {
   it('import import from "s"', () => {
     t.deepEqual(recovery('import import from "s"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -183,6 +185,7 @@ describe('Module - Import', () => {
   it('import class from "s"', () => {
     t.deepEqual(recovery('import class from "s"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -262,6 +265,7 @@ describe('Module - Import', () => {
   it('import function from "s"', () => {
     t.deepEqual(recovery('import function from "s"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -351,6 +355,7 @@ describe('Module - Import', () => {
   it('import !foo from "s"', () => {
     t.deepEqual(recovery('import !foo from "s"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -460,6 +465,7 @@ describe('Module - Import', () => {
   it('import {a,,,,b,,,,,c!', () => {
     t.deepEqual(recovery('import {a,,,,b,,,,,c!', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -683,6 +689,7 @@ describe('Module - Import', () => {
   it('import {,,,,,,,,,,,,,,,,, !', () => {
     t.deepEqual(recovery('import {,,,,,,,,,,,,,,,,, !', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -911,6 +918,7 @@ describe('Module - Import', () => {
       ),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -1371,6 +1379,7 @@ describe('Module - Import', () => {
   it('import {', () => {
     t.deepEqual(recovery('import {', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1434,6 +1443,7 @@ describe('Module - Import', () => {
   it('import { import !', () => {
     t.deepEqual(recovery('import { import !', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1522,6 +1532,7 @@ describe('Module - Import', () => {
   it('import { let as l } from "foo";', () => {
     t.deepEqual(recovery('import { let as l } from "foo";', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1600,6 +1611,7 @@ describe('Module - Import', () => {
   it('import a, {as} from "foo"', () => {
     t.deepEqual(recovery('import a, {as} from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1678,6 +1690,7 @@ describe('Module - Import', () => {
   it('import a, {b as c} from "foo"', () => {
     t.deepEqual(recovery('import a, {b as c} from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1763,6 +1776,7 @@ describe('Module - Import', () => {
   it('import { static as s } from "foo"', () => {
     t.deepEqual(recovery('import { static as s } from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1841,6 +1855,7 @@ describe('Module - Import', () => {
   it('import {m as mm} from "foo"', () => {
     t.deepEqual(recovery('import {m as mm} from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1919,6 +1934,7 @@ describe('Module - Import', () => {
   it('import x, * as a from "foo"', () => {
     t.deepEqual(recovery('import x, * as a from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1982,6 +1998,7 @@ describe('Module - Import', () => {
       recovery('export import still module code ! script or import', 'recovery.js', { module: true, cst: true }),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -2167,6 +2184,7 @@ describe('Module - Import', () => {
       }),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -2492,6 +2510,7 @@ describe('Module - Import', () => {
       }),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {

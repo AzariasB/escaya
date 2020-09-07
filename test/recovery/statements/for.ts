@@ -10,6 +10,7 @@ describe('Recovery - For', () => {
       ),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -239,6 +240,7 @@ describe('Recovery - For', () => {
   it('for ([{__proto__: 1, __proto__: 2}];;);', () => {
     t.deepEqual(recovery('for ([{__proto__: 1, __proto__: 2}];;);', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -350,6 +352,7 @@ describe('Recovery - For', () => {
   it('for ([a];;);', () => {
     t.deepEqual(recovery('for ([a];;);', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -405,6 +408,7 @@ describe('Recovery - For', () => {
   it('for (((x)=>{}).x of y);', () => {
     t.deepEqual(recovery('for (((x)=>{}).x of y);', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -499,6 +503,7 @@ describe('Recovery - For', () => {
   it('for ({}[y] ^= x;;) x;', () => {
     t.deepEqual(recovery('for ({}[y] ^= x;;) x;', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -585,6 +590,7 @@ describe('Recovery - For', () => {
   it('for', () => {
     t.deepEqual(recovery('for', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -662,6 +668,7 @@ describe('Recovery - For', () => {
   it('for)', () => {
     t.deepEqual(recovery('for)', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -731,6 +738,7 @@ describe('Recovery - For', () => {
   it('for keyword11', () => {
     t.deepEqual(recovery('for(!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -815,6 +823,7 @@ describe('Recovery - For', () => {
   it('for(let x', () => {
     t.deepEqual(recovery('for(let x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -909,6 +918,7 @@ describe('Recovery - For', () => {
   it('for keywordd', () => {
     t.deepEqual(recovery('for(let.xy', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1001,6 +1011,7 @@ describe('Recovery - For', () => {
   it('for(let.s =', () => {
     t.deepEqual(recovery('for(let.s =', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1109,6 +1120,7 @@ describe('Recovery - For', () => {
   it('for let.for', () => {
     t.deepEqual(recovery('for let.for', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1209,6 +1221,7 @@ describe('Recovery - For', () => {
   it('for(for) {}', () => {
     t.deepEqual(recovery('for(for) {}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1312,6 +1325,7 @@ describe('Recovery - For', () => {
   it('for(var in x) {', () => {
     t.deepEqual(recovery('for(var in x) {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1372,6 +1386,7 @@ describe('Recovery - For', () => {
   it('for)var', () => {
     t.deepEqual(recovery('for)var', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1434,6 +1449,7 @@ describe('Recovery - For', () => {
   it('for(var x of y,,,', () => {
     t.deepEqual(recovery('for(var x of y,,,', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1569,6 +1585,7 @@ describe('Recovery - For', () => {
   it('for ( of of) { }', () => {
     t.deepEqual(recovery('for ( of of) { }', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1631,6 +1648,7 @@ describe('Recovery - For', () => {
   it('for (var of of) { }', () => {
     t.deepEqual(recovery('for (var of of) { }', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1710,6 +1728,7 @@ describe('Recovery - For', () => {
   it('for(const =', () => {
     t.deepEqual(recovery('for(const =', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1803,6 +1822,7 @@ describe('Recovery - For', () => {
   it('for (const x of for', () => {
     t.deepEqual(recovery('for (const x of for', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1921,6 +1941,7 @@ describe('Recovery - For', () => {
   it('for (const x of', () => {
     t.deepEqual(recovery('for (const x of', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2007,6 +2028,7 @@ describe('Recovery - For', () => {
   it('for (a.d.', () => {
     t.deepEqual(recovery('for (a.d.', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2115,6 +2137,7 @@ describe('Recovery - For', () => {
   it('for(a[', () => {
     t.deepEqual(recovery('for(a[', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2207,6 +2230,7 @@ describe('Recovery - For', () => {
   it('for(ab.[a', () => {
     t.deepEqual(recovery('for(ab.[a', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2323,6 +2347,7 @@ describe('Recovery - For', () => {
   it('for(,,,,,,,,,,,,', () => {
     t.deepEqual(recovery('for(,,,,,,,,,,,,', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2592,6 +2617,7 @@ describe('Recovery - For', () => {
   it('for(,,,,,,,,,[) {break;', () => {
     t.deepEqual(recovery('for(,,,,,,,,,[) {break;', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2824,6 +2850,7 @@ describe('Recovery - For', () => {
   it('for unary', () => {
     t.deepEqual(recovery('for!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

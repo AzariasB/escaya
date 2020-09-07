@@ -200,7 +200,7 @@ enum LogicalAssignmentOperator {
 ```js
 interface AssignmentExpression <: Expression {
     type: 'AssignmentExpression';
-    left: Expression;
+    left: ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
     operator: AssignmentOperator | LogicalAssignmentOperator;
     right: Expression;
 }
@@ -211,7 +211,16 @@ interface AssignmentExpression <: Expression {
 ```js
 interface AssignmentRestElement <: Expression {
     type: 'AssignmentRestElement';
-    argument: ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
+    argument: Expression;
+}
+```
+
+### AssignmentRestProperty
+
+```js
+interface AssignmentRestProperty <: Expression {
+    type: 'AssignmentRestProperty';
+    argument: ArrayAssignmentPattern | ObjectAssignmentPattern | AssignmentElement | Expression;
 }
 ```
 

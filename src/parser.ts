@@ -656,21 +656,21 @@ export function parseCaseOrDefaultClause(
   labels: any[],
   ownLabels: any[] | null
 ): CaseBlock {
-  const statements = [];
+  const leafs = [];
   const start = state.startIndex;
 
   if (consumeOpt(state, context | Context.AllowRegExp, Token.CaseKeyword)) {
     const expression = parseExpressions(state, context);
     consume(state, context | Context.AllowRegExp, Token.Colon);
-    while (state.token & check) statements.push(parseStatementListItem(state, context, scope, labels, ownLabels));
-    return finishNode(state, context, start, DictionaryMap.CaseClause(expression, statements), SyntaxKind.CaseClause);
+    while (state.token & check) leafs.push(parseStatementListItem(state, context, scope, labels, ownLabels));
+    return finishNode(state, context, start, DictionaryMap.CaseClause(expression, leafs), SyntaxKind.CaseClause);
   }
 
   consume(state, context, Token.DefaultKeyword);
   consume(state, context | Context.AllowRegExp, Token.Colon);
 
-  while (state.token & check) statements.push(parseStatementListItem(state, context, scope, labels, ownLabels));
-  return finishNode(state, context, start, DictionaryMap.DefaultClause(statements), SyntaxKind.DefaultClause);
+  while (state.token & check) leafs.push(parseStatementListItem(state, context, scope, labels, ownLabels));
+  return finishNode(state, context, start, DictionaryMap.DefaultClause(leafs), SyntaxKind.DefaultClause);
 }
 
 // WithStatement :
@@ -898,7 +898,7 @@ export function parseBlockStatement(
   ownLabels: any[] | null
 ): BlockStatement {
   const start = state.startIndex;
-  const statements = [];
+  const leafs = [];
   // We are no longer at the 'TopLevel', so we unset the 'Context.TopLevel' bit now and set the
   // 'Context.InBlock' bit instead to mark that we enter a new block scope for cases like '{}'.
   context = (context | 0b00110000000100000000000000000000) ^ 0b00100000000000000000000000000000;
@@ -908,12 +908,12 @@ export function parseBlockStatement(
     // cases like 'try {} catch(x) {}'. Instead we continue with current scope.
     if (!isCatchScope) scope = createParentScope(scope, ScopeKind.Block);
     while (state.token & Constants.SourceElements) {
-      statements.push(parseBlockElements(state, context, scope, labels, ownLabels, parseStatementListItem));
+      leafs.push(parseBlockElements(state, context, scope, labels, ownLabels, parseStatementListItem));
     }
     consume(state, context | Context.AllowRegExp, Token.RightBrace);
   }
 
-  return finishNode(state, context, start, DictionaryMap.BlockStatement(statements), SyntaxKind.BlockStatement);
+  return finishNode(state, context, start, DictionaryMap.BlockStatement(leafs), SyntaxKind.BlockStatement);
 }
 
 // DebuggerStatement : `debugger` `;
@@ -1264,7 +1264,7 @@ export function parseForBinding(
   cb: LexicalCallback,
   start: number
 ): any {
-  let declarations = parseForBindingList(state, context, scope, type, cb);
+  const declarations = parseForBindingList(state, context, scope, type, cb);
   if (isLexical) {
     return finishNode(
       state,
@@ -3585,7 +3585,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
         );
       }
       if (state.token & Token.IsPatternStart) {
-        let innerStart = state.startIndex;
+        const innerStart = state.startIndex;
         isSimpleParameterList = true;
         const left = parseBindingElements(state, context, scope, BindingType.ArgumentList, parseBindingPattern);
         const right = consumeOpt(state, context | Context.AllowRegExp, Token.Assign)
@@ -3595,7 +3595,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
           finishNode(state, context, innerStart, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement)
         );
       } else {
-        let innerStart = state.startIndex;
+        const innerStart = state.startIndex;
         if (state.token & Token.IsFutureReserved) state.flags |= Flags.HasStrictReserved;
         const left = parseBindingIdentifier(state, context, scope, BindingType.ArgumentList);
         if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
@@ -3645,7 +3645,7 @@ export function parseFunctionBody(
 ): FunctionBody {
   const start = state.startIndex;
   const directives: Directive[] = [];
-  const statements: Statement[] = [];
+  const leafs: Statement[] = [];
 
   if (consume(state, context | Context.AllowRegExp, Token.LeftBrace)) {
     const isNotPreviousStrict = (context & Context.Strict) === 0;
@@ -3663,7 +3663,7 @@ export function parseFunctionBody(
         expectSemicolon(state, context);
         directives.push(expr as Directive);
       } else {
-        statements.push(
+        leafs.push(
           parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start)
         );
       }
@@ -3689,13 +3689,13 @@ export function parseFunctionBody(
     context = (context | 0b00010000000000000000000001000000) ^ Context.InGlobal;
 
     while (state.token & Constants.SourceElements) {
-      statements.push(parseBlockElements(state, context, scope, null, null, parseStatementListItem));
+      leafs.push(parseBlockElements(state, context, scope, null, null, parseStatementListItem));
     }
     consume(state, isStatement ? context | Context.AllowRegExp : context, Token.RightBrace);
 
     state.flags = (state.flags | Flags.SimpleParameterList) ^ Flags.SimpleParameterList;
   }
-  return finishNode(state, context, start, DictionaryMap.FunctionBody(directives, statements), SyntaxKind.FunctionBody);
+  return finishNode(state, context, start, DictionaryMap.FunctionBody(directives, leafs), SyntaxKind.FunctionBody);
 }
 
 // MethodDefinition :

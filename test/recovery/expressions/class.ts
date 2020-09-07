@@ -7,6 +7,7 @@ describe('Recovery - Expressions - Class', () => {
   it('class', () => {
     t.deepEqual(recovery('class', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -47,6 +48,7 @@ describe('Recovery - Expressions - Class', () => {
   it('(class', () => {
     t.deepEqual(recovery('(class', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -101,6 +103,7 @@ describe('Recovery - Expressions - Class', () => {
   it('(class baz { static bar(); }', () => {
     t.deepEqual(recovery('(class baz { static bar(); }', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

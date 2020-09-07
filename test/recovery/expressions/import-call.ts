@@ -5,6 +5,7 @@ describe('Recovery - Expressions - Import call', () => {
   it('import[]!', () => {
     t.deepEqual(recovery('import[]!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -91,6 +92,7 @@ describe('Recovery - Expressions - Import call', () => {
   it('import("") >>>= 2(!', () => {
     t.deepEqual(recovery('import("") >>>= 2(!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -192,6 +194,7 @@ describe('Recovery - Expressions - Import call', () => {
   it('import(!', () => {
     t.deepEqual(recovery('import(!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

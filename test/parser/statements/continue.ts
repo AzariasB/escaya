@@ -108,6 +108,7 @@ describe('Statements - Continue', () => {
   it('foo: bar: do continue foo; while(z)', () => {
     t.deepEqual(parseScript('foo: bar: do continue foo; while(z)', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -163,6 +164,7 @@ describe('Statements - Continue', () => {
   it('while (true) { x: while (true) continue x; }', () => {
     t.deepEqual(parseScript('while (true) { x: while (true) continue x; }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {

@@ -5,6 +5,7 @@ describe('Recovery - Return', () => {
   it('! return (', () => {
     t.deepEqual(recovery('! return (', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -88,6 +89,7 @@ describe('Recovery - Return', () => {
   it('return (', () => {
     t.deepEqual(recovery('return (', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -148,6 +150,7 @@ describe('Recovery - Return', () => {
   it('with incomplete unary', () => {
     t.deepEqual(recovery('return !!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

@@ -5,6 +5,7 @@ describe('Recovery - Try', () => {
   it('try { throw [,]; } catch ([x = 23]) {}', () => {
     t.deepEqual(recovery('try { throw [,]; } catch ([x = 23]) {}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -113,6 +114,7 @@ describe('Recovery - Try', () => {
   it('try [', () => {
     t.deepEqual(recovery('try [', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -175,6 +177,7 @@ describe('Recovery - Try', () => {
   it('try [switch', () => {
     t.deepEqual(recovery('try [switch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -261,6 +264,7 @@ describe('Recovery - Try', () => {
   it('throw )()) => x', () => {
     t.deepEqual(recovery('throw )()) => x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -359,6 +363,7 @@ describe('Recovery - Try', () => {
   it('throw (', () => {
     t.deepEqual(recovery('throw (', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -411,6 +416,7 @@ describe('Recovery - Try', () => {
   it('throw { => x', () => {
     t.deepEqual(recovery('throw { => x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -471,6 +477,7 @@ describe('Recovery - Try', () => {
   it('as keyword', () => {
     t.deepEqual(recovery('try', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -518,6 +525,7 @@ describe('Recovery - Try', () => {
   it('with parens and no catch', () => {
     t.deepEqual(recovery('try (x)', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -587,6 +595,7 @@ describe('Recovery - Try', () => {
   it('with unclosed parans and no catch', () => {
     t.deepEqual(recovery('try(x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -664,6 +673,7 @@ describe('Recovery - Try', () => {
   it('with unclosed parans and catch', () => {
     t.deepEqual(recovery('try(x catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -773,6 +783,7 @@ describe('Recovery - Try', () => {
   it('with unclosed parans and finally', () => {
     t.deepEqual(recovery('try(x, y catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -899,6 +910,7 @@ describe('Recovery - Try', () => {
   it('try(x, y catch,', () => {
     t.deepEqual(recovery('try(x, y catch,', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1033,6 +1045,7 @@ describe('Recovery - Try', () => {
   it('try(x, y, catch', () => {
     t.deepEqual(recovery('try(x, y, catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1159,6 +1172,7 @@ describe('Recovery - Try', () => {
   it('try(x, y,,,,, catch', () => {
     t.deepEqual(recovery('try(x, y,,,,, catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1358,6 +1372,7 @@ describe('Recovery - Try', () => {
   it('try(x,,,,,, y catch', () => {
     t.deepEqual(recovery('try(x,,,,,, y catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1565,6 +1580,7 @@ describe('Recovery - Try', () => {
   it('try(x,,,, y,,,, catch', () => {
     t.deepEqual(recovery('try(x,,,, y,,,, catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1796,6 +1812,7 @@ describe('Recovery - Try', () => {
   it(',try(x, y catch', () => {
     t.deepEqual(recovery(',try(x, y catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1930,6 +1947,7 @@ describe('Recovery - Try', () => {
   it('try(x, /a/,, catch', () => {
     t.deepEqual(recovery('try(x, /a/,, catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2073,6 +2091,7 @@ describe('Recovery - Try', () => {
   it('try /a/', () => {
     t.deepEqual(recovery('try /a/', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2136,6 +2155,7 @@ describe('Recovery - Try', () => {
   it('try /a/ catch /a/ finally', () => {
     t.deepEqual(recovery('try /a/ catch /a/ finally', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2295,6 +2315,7 @@ describe('Recovery - Try', () => {
   it('try/{', () => {
     t.deepEqual(recovery('try/{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2358,6 +2379,7 @@ describe('Recovery - Try', () => {
   it('{try', () => {
     t.deepEqual(recovery('{try', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2414,6 +2436,7 @@ describe('Recovery - Try', () => {
   it('{catch', () => {
     t.deepEqual(recovery('{catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2485,6 +2508,7 @@ describe('Recovery - Try', () => {
   it('{finally', () => {
     t.deepEqual(recovery('{finally', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2548,6 +2572,7 @@ describe('Recovery - Try', () => {
   it('(finally{', () => {
     t.deepEqual(recovery('(finally{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2632,6 +2657,7 @@ describe('Recovery - Try', () => {
   it('catch/a/a{', () => {
     t.deepEqual(recovery('catch/a/a{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2734,6 +2760,7 @@ describe('Recovery - Try', () => {
   it('try/catch/finally/{', () => {
     t.deepEqual(recovery('try/catch/finally/{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2823,6 +2850,7 @@ describe('Recovery - Try', () => {
       recovery('try try try { I have tried it !! } or I try again and finally catch some sleep :)', 'recovery.js'),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -3303,6 +3331,7 @@ describe('Recovery - Try', () => {
   it('finaly I tried it! or { maybe I (should) try again ?', () => {
     t.deepEqual(recovery('finaly I tried it! or { maybe I (should) try again ?', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3591,6 +3620,7 @@ describe('Recovery - Try', () => {
   it('try {} catch(x)', () => {
     t.deepEqual(recovery('try {} catch(x)', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3660,6 +3690,7 @@ describe('Recovery - Try', () => {
   it('try {!} catch(x', () => {
     t.deepEqual(recovery('try {!} catch(x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3761,6 +3792,7 @@ describe('Recovery - Try', () => {
   it('try {,,,,,,} catch(x,,,)', () => {
     t.deepEqual(recovery('try {,,,,,,} catch(x,,,)', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3935,6 +3967,7 @@ describe('Recovery - Try', () => {
   it('try {/a//d -!} catch(x) { foo:', () => {
     t.deepEqual(recovery('try {/a//d -!} catch(x) { foo:', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4100,6 +4133,7 @@ describe('Recovery - Try', () => {
   it('try {/a//d -!} catch(x) { foo:  ? : b', () => {
     t.deepEqual(recovery('try {/a//d -!} catch(x) { foo:  ? : b', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4304,6 +4338,7 @@ describe('Recovery - Try', () => {
   it('try {a?b:c/a{!!!}} catch(x)', () => {
     t.deepEqual(recovery('try {a?b:c/a{!!!}} catch(x)', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4492,6 +4527,7 @@ describe('Recovery - Try', () => {
   it('try {} catch(x/[])', () => {
     t.deepEqual(recovery('try {} catch(x/[])', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4577,6 +4613,7 @@ describe('Recovery - Try', () => {
   it('try {} catch([[[{x}]]])', () => {
     t.deepEqual(recovery('try {} catch([[[{x}]]])', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4706,6 +4743,7 @@ describe('Recovery - Try', () => {
   it('try {} catch(x,[x])', () => {
     t.deepEqual(recovery('try {} catch(x,[x])', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4807,6 +4845,7 @@ describe('Recovery - Try', () => {
   it('try {} catch(break,,,)', () => {
     t.deepEqual(recovery('try {} catch(break,,,)', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4907,6 +4946,7 @@ describe('Recovery - Try', () => {
   it('try {} catch({{}{{}{}{{}{}{}{}{}{{x)!{}', () => {
     t.deepEqual(recovery('try {} catch({{}{{}{}{{}{}{}{}{}{{x)!{}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

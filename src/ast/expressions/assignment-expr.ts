@@ -1,6 +1,6 @@
 import { Expression } from './';
-import { ArrayLiteral } from './array-literal';
-import { ObjectLiteral } from './object-literal';
+import { ArrayAssignmentPattern } from './array-assignment-pattern';
+import { ObjectAssignmentPattern } from './object-assignment-pattern';
 import { Node } from '../node';
 
 export type AssignmentOperator =
@@ -24,13 +24,13 @@ export type LogicalAssignmentOperator = '||=' | '&&=' | '??=';
  * Assignment expression.
  */
 export interface AssignmentExpression extends Node {
-  readonly left: ObjectLiteral | ArrayLiteral | Expression;
+  readonly left: ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
   readonly operator: AssignmentOperator | LogicalAssignmentOperator;
   readonly right: Expression;
 }
 
 export function createAssignmentExpression(
-  left: Expression,
+  left: ObjectAssignmentPattern | ArrayAssignmentPattern | Expression,
   operator: AssignmentOperator | LogicalAssignmentOperator,
   right: Expression
 ): AssignmentExpression {

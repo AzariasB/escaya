@@ -5,6 +5,7 @@ describe('Recovery - Break', () => {
   it('foo: do break foo; while(foo);', () => {
     t.deepEqual(recovery('foo: do break foo; while(foo);', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -71,6 +72,7 @@ describe('Recovery - Break', () => {
   it('while (x) break', () => {
     t.deepEqual(recovery('while (x) break', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -115,6 +117,7 @@ describe('Recovery - Break', () => {
   it('for (x of y) break', () => {
     t.deepEqual(recovery('for (x of y) break', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -168,6 +171,7 @@ describe('Recovery - Break', () => {
   it('do break; while(foo);', () => {
     t.deepEqual(recovery('do break; while(foo);', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -212,6 +216,7 @@ describe('Recovery - Break', () => {
   it('as keyword', () => {
     t.deepEqual(recovery('break', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

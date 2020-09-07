@@ -5,6 +5,7 @@ describe('Recovery - Let', () => {
   it('"use strict"; let { package } = x;', () => {
     t.deepEqual(recovery('"use strict"; let { package } = x;', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [
         {
           type: 'Directive',
@@ -87,6 +88,7 @@ describe('Recovery - Let', () => {
   it('let { for } = x;', () => {
     t.deepEqual(recovery('let { for } = x;', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -159,6 +161,7 @@ describe('Recovery - Let', () => {
   it('let {{for', () => {
     t.deepEqual(recovery('let {{for', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -248,6 +251,7 @@ describe('Recovery - Let', () => {
   it('let {of', () => {
     t.deepEqual(recovery('let {of', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -313,6 +317,7 @@ describe('Recovery - Let', () => {
   it('let {of =', () => {
     t.deepEqual(recovery('let {of =', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -393,6 +398,7 @@ describe('Recovery - Let', () => {
   it('"use strict"; let {[ of =', () => {
     t.deepEqual(recovery('"use strict"; let {[ of =', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [
         {
           type: 'Directive',
@@ -506,6 +512,7 @@ describe('Recovery - Let', () => {
   it('let {x = y} = [z]', () => {
     t.deepEqual(recovery('let {x = y} = [z]', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -593,6 +600,7 @@ describe('Recovery - Let', () => {
   it('let {package} = x', () => {
     t.deepEqual(recovery('let {package} = x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -656,6 +664,7 @@ describe('Recovery - Let', () => {
   it('let {of:', () => {
     t.deepEqual(recovery('let {of:', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -736,6 +745,7 @@ describe('Recovery - Let', () => {
   it('"use strict"; let [package] = x;', () => {
     t.deepEqual(recovery('"use strict"; let [package] = x;', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [
         {
           type: 'Directive',
@@ -818,6 +828,7 @@ describe('Recovery - Let', () => {
   it('let [package] = x;', () => {
     t.deepEqual(recovery('let [package] = x;', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -881,6 +892,7 @@ describe('Recovery - Let', () => {
   it('let [a of', () => {
     t.deepEqual(recovery('let [a of', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -954,6 +966,7 @@ describe('Recovery - Let', () => {
   it('let [a for', () => {
     t.deepEqual(recovery('let [a for', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1091,6 +1104,7 @@ describe('Recovery - Let', () => {
       fileName: 'recovery.js',
       incremental: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           declarations: [
@@ -1154,6 +1168,7 @@ describe('Recovery - Let', () => {
   it('let of', () => {
     t.deepEqual(recovery('let of', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1201,6 +1216,7 @@ describe('Recovery - Let', () => {
   it('let [', () => {
     t.deepEqual(recovery('let [', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1257,6 +1273,7 @@ describe('Recovery - Let', () => {
   it('let [', () => {
     t.deepEqual(recovery('let [', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1313,6 +1330,7 @@ describe('Recovery - Let', () => {
   it('while let [', () => {
     t.deepEqual(recovery('while let [', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1397,6 +1415,7 @@ describe('Recovery - Let', () => {
   it('! let [', () => {
     t.deepEqual(recovery('! let [', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1466,6 +1485,7 @@ describe('Recovery - Let', () => {
   it('let const var', () => {
     t.deepEqual(recovery('let const var', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1530,6 +1550,7 @@ describe('Recovery - Let', () => {
   it('let 123', () => {
     t.deepEqual(recovery('let 123', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1590,6 +1611,7 @@ describe('Recovery - Let', () => {
   it(',,,,,,,,,,,,let', () => {
     t.deepEqual(recovery(',,,,,,,,,,,,let', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1723,6 +1745,7 @@ describe('Recovery - Let', () => {
   it('let {...( = foo', () => {
     t.deepEqual(recovery('let {...( = foo', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1866,6 +1889,7 @@ describe('Recovery - Let', () => {
       fileName: 'recovery.js',
       incremental: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           declarations: [
@@ -1945,6 +1969,7 @@ describe('Recovery - Let', () => {
       fileName: 'recovery.js',
       incremental: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           declarations: [
@@ -2007,6 +2032,7 @@ describe('Recovery - Let', () => {
   it('let {...', () => {
     t.deepEqual(recovery('let {...', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2079,6 +2105,7 @@ describe('Recovery - Let', () => {
   it('let {...(obj', () => {
     t.deepEqual(recovery('let {...(obj', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2181,6 +2208,7 @@ describe('Recovery - Let', () => {
   it('let {...(a, b', () => {
     t.deepEqual(recovery('let {...(a, b', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2300,6 +2328,7 @@ describe('Recovery - Let', () => {
   it('let', () => {
     t.deepEqual(recovery('let', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2336,6 +2365,7 @@ describe('Recovery - Let', () => {
   it('let {', () => {
     t.deepEqual(recovery('let {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2392,6 +2422,7 @@ describe('Recovery - Let', () => {
   it('let.', () => {
     t.deepEqual(recovery('let.', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2453,6 +2484,7 @@ describe('Recovery - Let', () => {
   it('let =>', () => {
     t.deepEqual(recovery('let =>', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2523,6 +2555,7 @@ describe('Recovery - Let', () => {
   it('=> let {', () => {
     t.deepEqual(recovery('=> let {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2587,6 +2620,7 @@ describe('Recovery - Let', () => {
   it('let =>', () => {
     t.deepEqual(recovery('let =>', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2690,6 +2724,7 @@ describe('Recovery - Let', () => {
       fileName: 'recovery.js',
       incremental: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           declarations: [
@@ -2778,6 +2813,7 @@ describe('Recovery - Let', () => {
   it('let [a', () => {
     t.deepEqual(recovery('let [a', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2843,6 +2879,7 @@ describe('Recovery - Let', () => {
   it('Unclosed block statemendfdsft', () => {
     t.deepEqual(recovery('let [break] = x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2938,6 +2975,7 @@ describe('Recovery - Let', () => {
   it('let catch', () => {
     t.deepEqual(recovery('let catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3009,6 +3047,7 @@ describe('Recovery - Let', () => {
   it('let (catch)', () => {
     t.deepEqual(recovery('let (catch)', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3102,6 +3141,7 @@ describe('Recovery - Let', () => {
   it('let.catch', () => {
     t.deepEqual(recovery('let.catch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3154,6 +3194,7 @@ describe('Recovery - Let', () => {
   it('let let let ! let . let /a/', () => {
     t.deepEqual(recovery('let let let ! let . let /a/', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3321,6 +3362,7 @@ describe('Recovery - Let', () => {
   it('let const y = ;', () => {
     t.deepEqual(recovery('let const y = ;', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3400,6 +3442,7 @@ describe('Recovery - Let', () => {
   it('let const = b', () => {
     t.deepEqual(recovery('let const = b', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3471,6 +3514,7 @@ describe('Recovery - Let', () => {
   it('let { =', () => {
     t.deepEqual(recovery('let { =', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3533,6 +3577,7 @@ describe('Recovery - Let', () => {
   it('let { x: b = c /', () => {
     t.deepEqual(recovery('let { x: b = c /', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

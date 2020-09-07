@@ -1311,6 +1311,7 @@ describe('Expressions - Parentheized', () => {
   it('(a)', () => {
     t.deepEqual(parseScript('(a)', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1338,6 +1339,7 @@ describe('Expressions - Parentheized', () => {
   it('(a, b)', () => {
     t.deepEqual(parseScript('(a, b)', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {

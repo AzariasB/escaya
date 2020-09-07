@@ -22,6 +22,7 @@ describe('Recovery - For await of', () => {
       incremental: false,
       detached: false,
       kind: 209,
+      webCompat: true,
       length: 9,
       mutualFlags: 0,
       parent: null,

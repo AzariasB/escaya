@@ -5,6 +5,7 @@ describe('Recovery - Numbers', () => {
   it('0b1__2', () => {
     t.deepEqual(recovery('0b1__2', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -90,6 +91,7 @@ describe('Recovery - Numbers', () => {
       incremental: false,
       detached: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           end: 3,
@@ -118,6 +120,7 @@ describe('Recovery - Numbers', () => {
   it('1a', () => {
     t.deepEqual(recovery('1a', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -178,6 +181,7 @@ describe('Recovery - Numbers', () => {
   it('1e', () => {
     t.deepEqual(recovery('1e', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -240,6 +244,7 @@ describe('Recovery - Numbers', () => {
       incremental: false,
       detached: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           end: 3,
@@ -285,6 +290,7 @@ describe('Recovery - Numbers', () => {
       incremental: false,
       detached: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           end: 3,
@@ -330,6 +336,7 @@ describe('Recovery - Numbers', () => {
       incremental: false,
       detached: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           end: 2,
@@ -375,6 +382,7 @@ describe('Recovery - Numbers', () => {
       incremental: false,
       detached: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           end: 6,

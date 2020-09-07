@@ -5,6 +5,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(', () => {
     t.deepEqual(recovery('(', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -57,6 +58,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(/ {', () => {
     t.deepEqual(recovery('(/ {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -110,6 +112,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(...', () => {
     t.deepEqual(recovery('(...', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -187,6 +190,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(a', () => {
     t.deepEqual(recovery('(a', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -239,6 +243,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(!', () => {
     t.deepEqual(recovery('(!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -299,6 +304,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(!=', () => {
     t.deepEqual(recovery('(!=', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -367,6 +373,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(!=,,,,,,', () => {
     t.deepEqual(recovery('(!=,,,,,,', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -540,6 +547,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(((((((((((((((((', () => {
     t.deepEqual(recovery('(((((((((((((((((', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -704,6 +712,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(with babel', () => {
     t.deepEqual(recovery('(with babel', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -794,6 +803,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('!(', () => {
     t.deepEqual(recovery('!(', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -854,6 +864,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('([,[', () => {
     t.deepEqual(recovery('([,[', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -922,6 +933,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('([...b', () => {
     t.deepEqual(recovery('([...b', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -990,6 +1002,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('([...b!', () => {
     t.deepEqual(recovery('([...b!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1074,6 +1087,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(a b c [] {} ...', () => {
     t.deepEqual(recovery('(a b c [] {} ...', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1212,6 +1226,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(while then I switch from Babel', () => {
     t.deepEqual(recovery('(while then I switch from Babel', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

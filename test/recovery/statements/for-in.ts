@@ -5,6 +5,7 @@ describe('Recovery - For in', () => {
   it('missing parenthesis', () => {
     t.deepEqual(recovery('for (x in y', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -73,6 +74,7 @@ describe('Recovery - For in', () => {
   it('for (/a in', () => {
     t.deepEqual(recovery('for (/a in', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -151,6 +153,7 @@ describe('Recovery - For in', () => {
   it('for (/a/ in', () => {
     t.deepEqual(recovery('for (/a/ in', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -245,6 +248,7 @@ describe('Recovery - For in', () => {
       fileName: 'recovery.js',
       incremental: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           end: 19,
@@ -304,6 +308,7 @@ describe('Recovery - For in', () => {
   it('for (5 in []) {}', () => {
     t.deepEqual(recovery('for (5 in []) {}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -365,6 +370,7 @@ describe('Recovery - For in', () => {
   it('for(x in', () => {
     t.deepEqual(recovery('for(x in', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

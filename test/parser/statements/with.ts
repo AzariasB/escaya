@@ -94,6 +94,7 @@ describe('Statements - With', () => {
   it('with ({}) let', () => {
     t.deepEqual(parseScript('with ({}) let', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -127,6 +128,7 @@ describe('Statements - With', () => {
   it('with (x) { foo }', () => {
     t.deepEqual(parseScript('with (x) { foo }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -167,6 +169,7 @@ describe('Statements - With', () => {
   it('with (x) foo;', () => {
     t.deepEqual(parseScript('with (x) foo;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {

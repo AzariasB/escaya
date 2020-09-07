@@ -315,7 +315,8 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration'
         }
       ],
-      type: 'Module'
+      type: 'Module',
+      webCompat: true
     });
   });
 
@@ -356,13 +357,15 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration'
         }
       ],
-      type: 'Module'
+      type: 'Module',
+      webCompat: true
     });
   });
 
   it('import b, * as c from "module";', () => {
     t.deepEqual(parseModule('import b, * as c from "module";', { loc: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -451,7 +454,8 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration'
         }
       ],
-      type: 'Module'
+      type: 'Module',
+      webCompat: true
     });
   });
 
@@ -505,7 +509,8 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration'
         }
       ],
-      type: 'Module'
+      type: 'Module',
+      webCompat: true
     });
   });
 
@@ -529,7 +534,8 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration'
         }
       ],
-      type: 'Module'
+      type: 'Module',
+      webCompat: true
     });
   });
 
@@ -590,13 +596,15 @@ describe('Module - Import', () => {
           type: 'ImportDeclaration'
         }
       ],
-      type: 'Module'
+      type: 'Module',
+      webCompat: true
     });
   });
 
   it('import thing, * as rest from "x"', () => {
     t.deepEqual(parseModule('import thing, * as rest from "x"', { loc: true }), {
       type: 'Module',
+      webCompat: true,
       directives: [],
       leafs: [
         {

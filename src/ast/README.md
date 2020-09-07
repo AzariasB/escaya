@@ -23,10 +23,13 @@ interface Script <: Node {
     type: string;
     directives: [ Directive ];
     leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault ];
+    webComat: boolean;
     start: number;
     end: number;
 }
 ```
+
+`webComat` is `true` while parsing with additional support for ECMAScript features for Web Browsers
 
 ### Module
 
@@ -35,12 +38,13 @@ interface Module <: Node {
     type: string;
     directives: [ Directive ];
     leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault ];
+    webComat: boolean;
     start: number;
     end: number;
 }
 ```
 
-`leafs` are used for every new block scope.
+`leafs` are used for every new block scope to make it easier not to forget that this is a block that should create a new lexical environment.
 
 ## Node
 
@@ -111,6 +115,7 @@ interface RootNode <: Node {
     diagnostics [ Diagnostics ];
     parent: Script | Module | null;
     children: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault ];
+    webComat: boolean;
     length: number;
     end: number;
 }

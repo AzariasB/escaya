@@ -1,14 +1,19 @@
 import { Node } from '../node';
 import { Expression } from '.';
+import { AssignmentElement } from './assignment-element';
+import { ArrayAssignmentPattern } from './array-assignment-pattern';
+import { ObjectAssignmentPattern } from './object-assignment-pattern';
 
 /**
  * Assignment rest property
  */
 export interface AssignmentRestProperty extends Node {
-  readonly argument: Expression;
+  readonly argument: ArrayAssignmentPattern | ObjectAssignmentPattern | AssignmentElement | Expression;
 }
 
-export function createAssignmentRestProperty(argument: Expression): AssignmentRestProperty {
+export function createAssignmentRestProperty(
+  argument: ArrayAssignmentPattern | ObjectAssignmentPattern | AssignmentElement | Expression
+): AssignmentRestProperty {
   return {
     type: 'AssignmentRestProperty',
     argument

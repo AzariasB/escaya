@@ -5,6 +5,7 @@ describe('Recovery - Expressions - Await', () => {
   it('5 + (await bar(', () => {
     t.deepEqual(recovery('5 + (await bar(', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -104,6 +105,7 @@ describe('Recovery - Expressions - Await', () => {
   it('class x {*f(foo = await bar', () => {
     t.deepEqual(recovery('class x {*f(foo = await bar', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -231,6 +233,7 @@ describe('Recovery - Expressions - Await', () => {
   it('await p + await q', () => {
     t.deepEqual(recovery('await p + await q', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -330,6 +333,7 @@ describe('Recovery - Expressions - Await', () => {
   it('([x] = await bar =>', () => {
     t.deepEqual(recovery('([x] = await bar =>', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -454,6 +458,7 @@ describe('Recovery - Expressions - Await', () => {
   it('(x=(await z)=', () => {
     t.deepEqual(recovery('(x=(await z)=', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -560,6 +565,7 @@ describe('Recovery - Expressions - Await', () => {
   it('async function foo(a, b) { await a +', () => {
     t.deepEqual(recovery('async function foo(a, b) { await a +', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -672,6 +678,7 @@ describe('Recovery - Expressions - Await', () => {
   it('class x {f(foo = await){', () => {
     t.deepEqual(recovery('class x {f(foo = await){', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -782,6 +789,7 @@ describe('Recovery - Expressions - Await', () => {
   it('(await!', () => {
     t.deepEqual(recovery('(await!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

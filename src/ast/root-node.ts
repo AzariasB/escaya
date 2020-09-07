@@ -20,6 +20,7 @@ export interface RootNode extends Node {
   readonly parent?: Node | null;
   readonly length?: number;
   readonly children: any[] | null;
+  readonly webCompat: boolean;
   readonly start: number;
   readonly end: number;
   detached: boolean;
@@ -29,6 +30,7 @@ export interface RootNode extends Node {
 export function createRootNode(
   directives: Directive[],
   leafs: ImportExport[],
+  webCompat: boolean,
   text: string,
   fileName: string,
   diagnostics: Diagnostic[]
@@ -48,6 +50,7 @@ export function createRootNode(
     children: [],
     start: 0,
     length: text.length,
+    webCompat,
     end: text.length
   };
 }

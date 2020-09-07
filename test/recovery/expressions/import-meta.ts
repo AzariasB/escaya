@@ -5,6 +5,7 @@ describe('Recovery - Expressions - Import meta', () => {
   it('import.meta(', () => {
     t.deepEqual(recovery('import.meta(', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

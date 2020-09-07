@@ -5,6 +5,7 @@ describe('Recovery - Expressions - Binary', () => {
   it('(a + b) >>', () => {
     t.deepEqual(recovery('(a + b) >>', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -89,6 +90,7 @@ describe('Recovery - Expressions - Binary', () => {
   it('a ?? b ??', () => {
     t.deepEqual(recovery('a ?? b ??', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -166,6 +168,7 @@ describe('Recovery - Expressions - Binary', () => {
   it('~3 ** => { **', () => {
     t.deepEqual(recovery('~3 ** => { **', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -292,6 +295,7 @@ describe('Recovery - Expressions - Binary', () => {
   it('typeof 3 *[', () => {
     t.deepEqual(recovery('typeof 3 *[', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -360,6 +364,7 @@ describe('Recovery - Expressions - Binary', () => {
   it('typeof 3 *[ {x=y}', () => {
     t.deepEqual(recovery('typeof 3 *[ {x=y}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -461,6 +466,7 @@ describe('Recovery - Expressions - Binary', () => {
   it('[**??!!))==abc', () => {
     t.deepEqual(recovery('[**??!!))==abc', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -626,6 +632,7 @@ describe('Recovery - Expressions - Binary', () => {
   it('a**/', () => {
     t.deepEqual(recovery('a**/', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -688,6 +695,7 @@ describe('Recovery - Expressions - Binary', () => {
   it('+/ a', () => {
     t.deepEqual(recovery('+/ a', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -742,6 +750,7 @@ describe('Recovery - Expressions - Binary', () => {
   it('a - (', () => {
     t.deepEqual(recovery('a - (', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

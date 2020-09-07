@@ -77,8 +77,12 @@ export function parseRoot(source: string, context: Context, options?: Options): 
       ? parseModuleItemList(state, context, scope, leafs)
       : parseStatementList(state, context, scope, leafs);
 
+  const isWebCompat = (context & Context.OptionsDisableWebCompat) !== Context.OptionsDisableWebCompat;
+
   const node =
-    context & Context.Module ? DictionaryMap.Module(directives, leafs) : DictionaryMap.Script(directives, leafs);
+    context & Context.Module
+      ? DictionaryMap.Module(directives, leafs, isWebCompat)
+      : DictionaryMap.Script(directives, leafs, isWebCompat);
 
   if (context & Context.OptionsLoc) {
     node.start = 0;
@@ -120,7 +124,9 @@ export function parseSourceFile(text: string, filename: string, context: Context
       ? parseStatemenOrModuleItemtList(state, context, scope, leafs, parseModuleItem)
       : parseStatemenOrModuleItemtList(state, context, scope, leafs, parseStatementListItem);
 
-  return createRootNode(directives, leafs, text, filename, state.diagnostics);
+  const isWebCompat = (context & Context.OptionsDisableWebCompat) !== Context.OptionsDisableWebCompat;
+
+  return createRootNode(directives, leafs, isWebCompat, text, filename, state.diagnostics);
 }
 
 export function parseInNormalMode(source: string, context: Context, options?: Options): Script | Module {

@@ -5,6 +5,7 @@ describe('Recovery - Continue', () => {
   it('while ! continue {', () => {
     t.deepEqual(recovery('while ! continue {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -90,6 +91,7 @@ describe('Recovery - Continue', () => {
   it('as keyword', () => {
     t.deepEqual(recovery('continue', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

@@ -5,6 +5,7 @@ describe('Statements - Empty', () => {
   it(';;;', () => {
     t.deepEqual(parseScript(';;;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -31,6 +32,7 @@ describe('Statements - Empty', () => {
   it(';;; EMPTY;;;', () => {
     t.deepEqual(parseScript(';;; EMPTY;;;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {

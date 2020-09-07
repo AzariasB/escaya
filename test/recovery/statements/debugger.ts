@@ -5,6 +5,7 @@ describe('Recovery - Debugger', () => {
   it('followed by incomplete unary expr', () => {
     t.deepEqual(recovery('debugger; !!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

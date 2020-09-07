@@ -268,6 +268,7 @@ describe('Statements - Block', () => {
   it('simple block', () => {
     t.deepEqual(parseScript('{}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -285,6 +286,7 @@ describe('Statements - Block', () => {
   it('block with lexical', () => {
     t.deepEqual(parseScript('{let foo = bar;}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -328,6 +330,7 @@ describe('Statements - Block', () => {
   it('block wrapped in paren', () => {
     t.deepEqual(parseScript('({})', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -407,7 +410,8 @@ describe('Statements - Block', () => {
           type: 'EmptyStatement'
         }
       ],
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -436,7 +440,8 @@ describe('Statements - Block', () => {
           type: 'BlockStatement'
         }
       ],
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -460,7 +465,8 @@ describe('Statements - Block', () => {
           type: 'BlockStatement'
         }
       ],
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 });

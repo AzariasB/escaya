@@ -155,6 +155,7 @@ describe('Statements - Labelled', () => {
   it('yield: x', () => {
     t.deepEqual(parseScript('yield: x', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -188,6 +189,7 @@ describe('Statements - Labelled', () => {
   it('a:b;!c', () => {
     t.deepEqual(parseScript('a:b;!c', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -238,6 +240,7 @@ describe('Statements - Labelled', () => {
   it('await: x', () => {
     t.deepEqual(parseScript('await: x', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -271,6 +274,7 @@ describe('Statements - Labelled', () => {
   it('foo: bar;', () => {
     t.deepEqual(parseScript('foo: bar;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -304,6 +308,7 @@ describe('Statements - Labelled', () => {
   it('await: while (await) { continue await; }', () => {
     t.deepEqual(parseScript('await: while (await) { continue await; }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -355,6 +360,7 @@ describe('Statements - Labelled', () => {
   it('async: while (async) { continue async; }', () => {
     t.deepEqual(parseScript('async: while (async) { continue async; }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -406,6 +412,7 @@ describe('Statements - Labelled', () => {
   it('let: foo', () => {
     t.deepEqual(parseScript('let: foo', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -439,6 +446,7 @@ describe('Statements - Labelled', () => {
   it('yield: await', () => {
     t.deepEqual(parseScript('yield: await', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -472,6 +480,7 @@ describe('Statements - Labelled', () => {
   it('__proto__: test', () => {
     t.deepEqual(parseScript('__proto__: test', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -505,6 +514,7 @@ describe('Statements - Labelled', () => {
   it('a:{break a;}', () => {
     t.deepEqual(parseScript('a:{break a;}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -545,6 +555,7 @@ describe('Statements - Labelled', () => {
   it('start: while (true) break start', () => {
     t.deepEqual(parseScript('start: while (true) break start', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -589,6 +600,7 @@ describe('Statements - Labelled', () => {
   it('function w(casecase){y:j:function casecase(){}}', () => {
     t.deepEqual(parseScript('function w(casecase){y:j:function casecase(){}}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -679,6 +691,7 @@ describe('Statements - Labelled', () => {
       ),
       {
         type: 'Script',
+        webCompat: true,
         directives: [],
         leafs: [
           {

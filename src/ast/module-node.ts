@@ -9,11 +9,13 @@ import { Directive } from './directive-node';
 export interface Module extends Node {
   readonly directives: Directive[];
   readonly leafs: ImportExport[];
+  readonly webCompat: boolean;
 }
 
-export function createModuleNode(directives: Directive[], leafs: ImportExport[]): Module {
+export function createModuleNode(directives: Directive[], leafs: ImportExport[], webCompat: boolean): Module {
   return {
     type: 'Module',
+    webCompat,
     directives,
     leafs
   };

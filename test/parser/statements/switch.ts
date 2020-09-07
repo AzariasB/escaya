@@ -330,6 +330,7 @@ describe('Statements - Switch', () => {
   it('switch (0) { case 1: var f; default: var f }', () => {
     t.deepEqual(parseScript('switch (0) { case 1: var f; default: var f }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -412,6 +413,7 @@ describe('Statements - Switch', () => {
   it('switch (x) { case a: var foo; break; default: var foo; break; }', () => {
     t.deepEqual(parseScript('switch (x) { case a: var foo; break; default: var foo; break; }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -508,6 +510,7 @@ describe('Statements - Switch', () => {
       parseScript('switch (x) {case a: function f(){}; break; case b: function f(){}; break; }', { loc: true }),
       {
         type: 'Script',
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -623,6 +626,7 @@ describe('Statements - Switch', () => {
   it('switch (x) { case c: function *f(){} function *f(){} }', () => {
     t.deepEqual(parseScript('switch (x) { case c: function *f(){} function *f(){} }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -709,6 +713,7 @@ describe('Statements - Switch', () => {
       ),
       {
         type: 'Script',
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -875,6 +880,7 @@ describe('Statements - Switch', () => {
   it('switch (0) { default: let f; if (false) ; else function f() {  } }', () => {
     t.deepEqual(parseScript('switch (0) { default: let f; if (false) ; else function f() {  } }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -963,6 +969,7 @@ describe('Statements - Switch', () => {
   it('switch (0) { case 1: var f; default: var f; }', () => {
     t.deepEqual(parseScript('switch (0) { case 1: var f; default: var f; }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1045,6 +1052,7 @@ describe('Statements - Switch', () => {
   it('switch (x) { case c: function f(){} function f(){} }', () => {
     t.deepEqual(parseScript('switch (x) { case c: function f(){} function f(){} }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1124,6 +1132,7 @@ describe('Statements - Switch', () => {
   it('switch (x) { case c: async function *f(){} async function *f(){} }', () => {
     t.deepEqual(parseScript('switch (x) { case c: async function *f(){} async function *f(){} }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1203,6 +1212,7 @@ describe('Statements - Switch', () => {
   it('switch (X) {}', () => {
     t.deepEqual(parseScript('switch (X) {}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1226,6 +1236,7 @@ describe('Statements - Switch', () => {
   it('switch (A) {default: B;}', () => {
     t.deepEqual(parseScript('switch (A) {default: B;}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1268,6 +1279,7 @@ describe('Statements - Switch', () => {
   it('switch (A) {case B: C; default: D;}', () => {
     t.deepEqual(parseScript('switch (A) {case B: C; default: D;}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1334,6 +1346,7 @@ describe('Statements - Switch', () => {
   it('switch (A) {case B: C; break; case D: E; break;}', () => {
     t.deepEqual(parseScript('switch (A) {case B: C; break; case D: E; break;}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {

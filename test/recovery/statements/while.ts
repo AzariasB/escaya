@@ -5,6 +5,7 @@ describe('Recovery - While', () => {
   it('while walking he ran for his life', () => {
     t.deepEqual(recovery('while walking he ran for his life', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -167,6 +168,7 @@ describe('Recovery - While', () => {
   it('while {!for!', () => {
     t.deepEqual(recovery('while {!for!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -314,6 +316,7 @@ describe('Recovery - While', () => {
   it('as keyword', () => {
     t.deepEqual(recovery('while', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -374,6 +377,7 @@ describe('Recovery - While', () => {
   it('while{', () => {
     t.deepEqual(recovery('while{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -434,6 +438,7 @@ describe('Recovery - While', () => {
   it('{while', () => {
     t.deepEqual(recovery('{while', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -503,6 +508,7 @@ describe('Recovery - While', () => {
   it('while/{', () => {
     t.deepEqual(recovery('while/{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -564,6 +570,7 @@ describe('Recovery - While', () => {
   it('while while{', () => {
     t.deepEqual(recovery('while while{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -647,6 +654,7 @@ describe('Recovery - While', () => {
   it('{while while', () => {
     t.deepEqual(recovery('{while while', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -731,6 +739,7 @@ describe('Recovery - While', () => {
   it('while (x {', () => {
     t.deepEqual(recovery('while (x {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -784,6 +793,7 @@ describe('Recovery - While', () => {
   it('{ while {}', () => {
     t.deepEqual(recovery('{ while {}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -861,6 +871,7 @@ describe('Recovery - While', () => {
   it('while {}{', () => {
     t.deepEqual(recovery('while {}{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -922,6 +933,7 @@ describe('Recovery - While', () => {
   it('while(x/{', () => {
     t.deepEqual(recovery('while(x/{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -998,6 +1010,7 @@ describe('Recovery - While', () => {
   it('while(do) {', () => {
     t.deepEqual(recovery('while(do) {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1097,6 +1110,7 @@ describe('Recovery - While', () => {
   it('while(catch){', () => {
     t.deepEqual(recovery('while(catch){', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1198,6 +1212,7 @@ describe('Recovery - While', () => {
   it('while label', () => {
     t.deepEqual(recovery('while label', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1258,6 +1273,7 @@ describe('Recovery - While', () => {
   it('while { break', () => {
     t.deepEqual(recovery('while { break', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1343,6 +1359,7 @@ describe('Recovery - While', () => {
   it('while I wait for the train', () => {
     t.deepEqual(recovery('while I wait for the train', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1482,6 +1499,7 @@ describe('Recovery - While', () => {
   it('while wait for the train I take a break and finally try to sleep !!', () => {
     t.deepEqual(recovery('while wait for the train I take a break and finally try to sleep !!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1810,6 +1828,7 @@ describe('Recovery - While', () => {
   it('I ran into infite loop while try to develop this {', () => {
     t.deepEqual(recovery('I ran into infite loop while try to develop this {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2071,6 +2090,7 @@ describe('Recovery - While', () => {
   it('while !', () => {
     t.deepEqual(recovery('while !', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2139,6 +2159,7 @@ describe('Recovery - While', () => {
   it('while class', () => {
     t.deepEqual(recovery('while class', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2201,6 +2222,7 @@ describe('Recovery - While', () => {
   it('while!{!', () => {
     t.deepEqual(recovery('while!{!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2285,6 +2307,7 @@ describe('Recovery - While', () => {
   it('(while(x,,,,,', () => {
     t.deepEqual(recovery('(while(x,,,,,', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2448,6 +2471,7 @@ describe('Recovery - While', () => {
   it('while(,,,,,,,,,,', () => {
     t.deepEqual(recovery('while(,,,,,,,,,,', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2669,6 +2693,7 @@ describe('Recovery - While', () => {
   it('while(/a/,,,/bb while x() {} while ', () => {
     t.deepEqual(recovery('while(/a/,,,/bb while x() {} while', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2780,6 +2805,7 @@ describe('Recovery - While', () => {
   it('while ! (x) {}', () => {
     t.deepEqual(recovery('while ! (x) {}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2856,6 +2882,7 @@ describe('Recovery - While', () => {
   it('while({} [] ! {', () => {
     t.deepEqual(recovery('while({} [] ! {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2956,6 +2983,7 @@ describe('Recovery - While', () => {
   it('while x break {}', () => {
     t.deepEqual(recovery('while x break {}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3033,6 +3061,7 @@ describe('Recovery - While', () => {
   it('while(x){', () => {
     t.deepEqual(recovery('while(x){', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3086,6 +3115,7 @@ describe('Recovery - While', () => {
   it('while x do{', () => {
     t.deepEqual(recovery('while x do{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3170,6 +3200,7 @@ describe('Recovery - While', () => {
   it('while for{', () => {
     t.deepEqual(recovery('while for{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3270,6 +3301,7 @@ describe('Recovery - While', () => {
   it('while try{', () => {
     t.deepEqual(recovery('while try{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3340,6 +3372,7 @@ describe('Recovery - While', () => {
   it('while continue{', () => {
     t.deepEqual(recovery('while continue{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3409,6 +3442,7 @@ describe('Recovery - While', () => {
   it('while let{', () => {
     t.deepEqual(recovery('while let{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3470,6 +3504,7 @@ describe('Recovery - While', () => {
   it('while let.let => {{', () => {
     t.deepEqual(recovery('while let.let => {{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3579,6 +3614,7 @@ describe('Recovery - While', () => {
   it('while ;;;;;;;;;;;;;;;;;;;;;;;;;;; ,,, do{', () => {
     t.deepEqual(recovery('while ;;;;;;;;;;;;;;;;;;;;;;;;;;; ,,, do{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3868,6 +3904,7 @@ describe('Recovery - While', () => {
   it('while x) {}', () => {
     t.deepEqual(recovery('while x) {}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3921,6 +3958,7 @@ describe('Recovery - While', () => {
   it('while !do{', () => {
     t.deepEqual(recovery('while !do{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4013,6 +4051,7 @@ describe('Recovery - While', () => {
   it('{!while!foo!bar;', () => {
     t.deepEqual(recovery('{!while!foo!bar;', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4145,6 +4184,7 @@ describe('Recovery - While', () => {
   it('a(while){', () => {
     t.deepEqual(recovery('a(while){', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

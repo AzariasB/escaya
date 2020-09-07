@@ -117,6 +117,7 @@ describe('Expressions - Update', () => {
   it('++a.a', () => {
     t.deepEqual(parseScript('++a.a', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -157,6 +158,7 @@ describe('Expressions - Update', () => {
   it('bar++', () => {
     t.deepEqual(parseScript('bar++', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {

@@ -5,6 +5,7 @@ describe('Recovery - Var', () => {
   it('var', () => {
     t.deepEqual(recovery('var', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -34,6 +35,7 @@ describe('Recovery - Var', () => {
   it('var /a/', () => {
     t.deepEqual(recovery('var /a/', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -88,6 +90,7 @@ describe('Recovery - Var', () => {
   it('var / a', () => {
     t.deepEqual(recovery('var / a', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -142,6 +145,7 @@ describe('Recovery - Var', () => {
   it('var !', () => {
     t.deepEqual(recovery('var !', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -203,6 +207,7 @@ describe('Recovery - Var', () => {
   it('var {', () => {
     t.deepEqual(recovery('var {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -258,6 +263,7 @@ describe('Recovery - Var', () => {
   it('{var', () => {
     t.deepEqual(recovery('{var', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -305,6 +311,7 @@ describe('Recovery - Var', () => {
   it('{var x', () => {
     t.deepEqual(recovery('{var x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -369,6 +376,7 @@ describe('Recovery - Var', () => {
   it('{ var x(,,,,,,,,,,,,,,,,,,,,,,,,,,,, a , b !![', () => {
     t.deepEqual(recovery('{ var x(,,,,,,,,,,,,,,,,,,,,,,,,,,,, a , b !![', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -967,6 +975,7 @@ describe('Recovery - Var', () => {
   it('var b = new B; // no error', () => {
     t.deepEqual(recovery('var b = new B; // no error', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1037,6 +1046,7 @@ describe('Recovery - Var', () => {
       ),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -1180,6 +1190,7 @@ describe('Recovery - Var', () => {
   it('var tt = { aa:  };', () => {
     t.deepEqual(recovery('var tt = { aa:  };', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1266,6 +1277,7 @@ describe('Recovery - Var', () => {
   it('var v = { a', () => {
     t.deepEqual(recovery('var v = { a', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1337,6 +1349,7 @@ describe('Recovery - Var', () => {
   it('var v = { a: 1', () => {
     t.deepEqual(recovery('var v = { a: 1', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1423,6 +1436,7 @@ describe('Recovery - Var', () => {
   it('var x = {', () => {
     t.deepEqual(recovery('var x = {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1494,6 +1508,7 @@ describe('Recovery - Var', () => {
       ),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -1566,6 +1581,7 @@ describe('Recovery - Var', () => {
   it('var v = { foo() { }; a: b; get baz() { }; }', () => {
     t.deepEqual(recovery('var v = { foo() { }; a: b; get baz() { }; }', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1766,6 +1782,7 @@ describe('Recovery - Var', () => {
   it('var v = { a; b; c }', () => {
     t.deepEqual(recovery('var v = { a; b; c }', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1875,6 +1892,7 @@ describe('Recovery - Var', () => {
   it('{,var', () => {
     t.deepEqual(recovery('{,var', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1921,6 +1939,7 @@ describe('Recovery - Var', () => {
   it('{var y = b ; /', () => {
     t.deepEqual(recovery('{var y = b ; /', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2025,6 +2044,7 @@ describe('Recovery - Var', () => {
       incremental: false,
       detached: false,
       kind: 209,
+      webCompat: true,
       length: 5,
       mutualFlags: 0,
       parent: null,
@@ -2062,6 +2082,7 @@ describe('Recovery - Var', () => {
   it('var [a, ,, b/, b=, ...a', () => {
     t.deepEqual(recovery('var [a, ,, b/, b=, ...a', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2259,6 +2280,7 @@ describe('Recovery - Var', () => {
   it('var o = {one: function() {} two:2};', () => {
     t.deepEqual(recovery('var o = {one: function() {} two:2};', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2379,6 +2401,7 @@ describe('Recovery - Var', () => {
   it('var o = {one: function() {} two:2 three: 3};', () => {
     t.deepEqual(recovery('var o = {one: function() {} two:2 three: 3};', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2530,6 +2553,7 @@ describe('Recovery - Var', () => {
   it('var o = {one: function() {} two:2, three: 3 "four":4};', () => {
     t.deepEqual(recovery('var o = {one: function() {} two:2, three: 3 "four":4};', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2704,6 +2728,7 @@ describe('Recovery - Var', () => {
   it('var o = {one: function() {} two:2, three: {aa: "a" bb: "b"} four: 4};', () => {
     t.deepEqual(recovery('var o = {one: function() {} two:2, three: {aa: "a" bb: "b"} four: 4};', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

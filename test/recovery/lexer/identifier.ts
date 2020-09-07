@@ -30,6 +30,7 @@ describe('Recovery - Identifier', () => {
       incremental: false,
       detached: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           end: 6,
@@ -57,6 +58,7 @@ describe('Recovery - Identifier', () => {
   it('x\\u foo', () => {
     t.deepEqual(recovery('x\\u foo', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -180,6 +182,7 @@ describe('Recovery - Identifier', () => {
       incremental: false,
       detached: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           end: 1,
@@ -223,6 +226,7 @@ describe('Recovery - Identifier', () => {
   it('x\\u{0 foo', () => {
     t.deepEqual(recovery('x\\u{0 foo', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

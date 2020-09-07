@@ -123,6 +123,7 @@ describe('Statements - If', () => {
   it('if (x) let: y;', () => {
     t.deepEqual(parseScript('if (x) let: y;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -168,6 +169,7 @@ describe('Statements - If', () => {
   it('if (x) var foo = 1; var foo = 1;', () => {
     t.deepEqual(parseScript('if (x) var foo = 1; var foo = 1;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -239,6 +241,7 @@ describe('Statements - If', () => {
   it('if (yield === void 0) { foo = false; }', () => {
     t.deepEqual(parseScript('if (yield === void 0) { foo = false; }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -310,6 +313,7 @@ describe('Statements - If', () => {
   it('if (yield === void 0) { async = false; }', () => {
     t.deepEqual(parseScript('if (yield === void 0) { async = false; }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -381,6 +385,7 @@ describe('Statements - If', () => {
   it('if(1)/  foo/', () => {
     t.deepEqual(parseScript('if(1)/  foo/', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -416,6 +421,7 @@ describe('Statements - If', () => {
   it('if (foo) a; if (bar) b; else c;', () => {
     t.deepEqual(parseScript('if (foo) a; if (bar) b; else c;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -488,6 +494,7 @@ describe('Statements - If', () => {
   it('if (a > 2) {b = c }', () => {
     t.deepEqual(parseScript('if (a > 2) {b = c }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -553,6 +560,7 @@ describe('Statements - If', () => {
   it('if(foo) a = b;', () => {
     t.deepEqual(parseScript('if(foo) a = b;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -602,6 +610,7 @@ describe('Statements - If', () => {
   it('if (foo) bar; else doo;', () => {
     t.deepEqual(parseScript('if (foo) bar; else doo;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -649,6 +658,7 @@ describe('Statements - If', () => {
   it('if(a)b;else c;', () => {
     t.deepEqual(parseScript('if(a)b;else c;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -696,6 +706,7 @@ describe('Statements - If', () => {
   it('if (true) if (false) {} else ; else {}', () => {
     t.deepEqual(parseScript('if (true) if (false) {} else ; else {}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {

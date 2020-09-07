@@ -155,6 +155,7 @@ describe('Statements - Break', () => {
   it('labels and while', () => {
     t.deepEqual(parseScript('foo: do break foo; while(foo);', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -199,6 +200,7 @@ describe('Statements - Break', () => {
   it('with break and no block body', () => {
     t.deepEqual(parseScript('while (x) break', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -228,6 +230,7 @@ describe('Statements - Break', () => {
   it('block wrapped in paren', () => {
     t.deepEqual(parseScript('for (x of y) break', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -263,6 +266,7 @@ describe('Statements - Break', () => {
   it('do break while', () => {
     t.deepEqual(parseScript('do break; while(foo);', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -292,6 +296,7 @@ describe('Statements - Break', () => {
   it('same level', () => {
     t.deepEqual(parseScript('foo: while (true) { break foo; }', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -343,6 +348,7 @@ describe('Statements - Break', () => {
   it('foo: while (true) if (x); else break foo;', () => {
     t.deepEqual(parseScript('foo: while (true) if (x); else break foo;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {

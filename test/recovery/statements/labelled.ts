@@ -13,6 +13,7 @@ describe('Recovery - Labelled', () => {
       fileName: 'recovery.js',
       incremental: false,
       kind: 209,
+      webCompat: true,
       leafs: [
         {
           end: 26,
@@ -83,6 +84,7 @@ describe('Recovery - Labelled', () => {
   it('missing label', () => {
     t.deepEqual(recovery('foo:', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -142,6 +144,7 @@ describe('Recovery - Labelled', () => {
   it('async ident with missing label', () => {
     t.deepEqual(recovery('async:', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

@@ -161,7 +161,8 @@ describe('Misc - Directives', () => {
       end: 13,
       leafs: [],
       start: 0,
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -202,7 +203,8 @@ describe('Misc - Directives', () => {
         }
       ],
       start: 0,
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -227,7 +229,8 @@ describe('Misc - Directives', () => {
       end: 17,
       leafs: [],
       start: 0,
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -273,13 +276,15 @@ describe('Misc - Directives', () => {
         }
       ],
       start: 0,
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
   it('"foo"', () => {
     t.deepEqual(parseScript('"foo"', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [
         {
           type: 'Directive',
@@ -338,7 +343,8 @@ describe('Misc - Directives', () => {
         }
       ],
       start: 0,
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -372,7 +378,8 @@ describe('Misc - Directives', () => {
         }
       ],
       start: 0,
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -407,13 +414,15 @@ describe('Misc - Directives', () => {
         }
       ],
       start: 0,
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
   it('"use strict"; foo', () => {
     t.deepEqual(parseScript('"use strict"; foo', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [
         {
           type: 'Directive',
@@ -444,6 +453,7 @@ describe('Misc - Directives', () => {
   it('() => "use strict"', () => {
     t.deepEqual(parseScript('() => "use strict"', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {

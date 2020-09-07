@@ -9,11 +9,13 @@ import { Statement } from './statements';
 export interface Script extends Node {
   readonly directives: Directive[];
   readonly leafs: Statement[];
+  readonly webCompat: boolean;
 }
 
-export function createScriptNode(directives: Directive[], leafs: Statement[]): Script {
+export function createScriptNode(directives: Directive[], leafs: Statement[], webCompat: boolean): Script {
   return {
     type: 'Script',
+    webCompat,
     directives,
     leafs
   };

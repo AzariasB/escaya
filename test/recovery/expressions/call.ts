@@ -5,6 +5,7 @@ describe('Recovery - Expressions - Call', () => {
   it('a(', () => {
     t.deepEqual(recovery('a(', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -58,6 +59,7 @@ describe('Recovery - Expressions - Call', () => {
   it('async(async => c', () => {
     t.deepEqual(recovery('async(async => c', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -143,6 +145,7 @@ describe('Recovery - Expressions - Call', () => {
   it('foo(/ {', () => {
     t.deepEqual(recovery('foo(/ {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -206,6 +209,7 @@ describe('Recovery - Expressions - Call', () => {
   it('async(async x => c', () => {
     t.deepEqual(recovery('async(async x => c', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -293,6 +297,7 @@ describe('Recovery - Expressions - Call', () => {
   it('async(async [ => c', () => {
     t.deepEqual(recovery('async(async [ => c', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -386,6 +391,7 @@ describe('Recovery - Expressions - Call', () => {
   it('async(async  => c', () => {
     t.deepEqual(recovery('async(async  => c', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -471,6 +477,7 @@ describe('Recovery - Expressions - Call', () => {
   it('async ....x', () => {
     t.deepEqual(recovery('async ....x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -539,6 +546,7 @@ describe('Recovery - Expressions - Call', () => {
   it('async ( ....x', () => {
     t.deepEqual(recovery('async ( ....x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -632,6 +640,7 @@ describe('Recovery - Expressions - Call', () => {
   it('async ( ...x', () => {
     t.deepEqual(recovery('async ( ...x', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -701,6 +710,7 @@ describe('Recovery - Expressions - Call', () => {
   it('async ( ...x =>', () => {
     t.deepEqual(recovery('async ( ...x =>', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -795,6 +805,7 @@ describe('Recovery - Expressions - Call', () => {
   it('!=>async a(b c', () => {
     t.deepEqual(recovery('!=>async a(b c', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -943,6 +954,7 @@ describe('Recovery - Expressions - Call', () => {
   it('!= >async a(b c', () => {
     t.deepEqual(recovery('!= >async a(b c', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1091,6 +1103,7 @@ describe('Recovery - Expressions - Call', () => {
   it('! =>async a(b c', () => {
     t.deepEqual(recovery('! =>async a(b c', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1222,6 +1235,7 @@ describe('Recovery - Expressions - Call', () => {
   it('a(b c', () => {
     t.deepEqual(recovery('a(b c', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

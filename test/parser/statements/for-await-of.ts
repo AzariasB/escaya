@@ -303,6 +303,7 @@ describe('Statements - For await of', () => {
   it('simple block', () => {
     t.deepEqual(parseScript('{}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -320,6 +321,7 @@ describe('Statements - For await of', () => {
   it('block with lexical', () => {
     t.deepEqual(parseScript('{let foo = bar;}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -364,6 +366,7 @@ describe('Statements - For await of', () => {
   it('block wrapped in paren', () => {
     t.deepEqual(parseScript('({})', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -443,7 +446,8 @@ describe('Statements - For await of', () => {
           type: 'EmptyStatement'
         }
       ],
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -472,7 +476,8 @@ describe('Statements - For await of', () => {
           type: 'BlockStatement'
         }
       ],
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -496,7 +501,8 @@ describe('Statements - For await of', () => {
           type: 'BlockStatement'
         }
       ],
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 });

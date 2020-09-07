@@ -5,6 +5,7 @@ describe('Recovery - For of', () => {
   it('for (let x in of if{)', () => {
     t.deepEqual(recovery('for (let x in of if{)', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -123,6 +124,7 @@ describe('Recovery - For of', () => {
   it('missing ident plus if statement mixed in', () => {
     t.deepEqual(recovery('for (of if{)', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -232,6 +234,7 @@ describe('Recovery - For of', () => {
   it('for (var of; ;) { }', () => {
     t.deepEqual(recovery('for (var of; ;) { }', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -289,6 +292,7 @@ describe('Recovery - For of', () => {
   it('for (var of = 0 in of) { }', () => {
     t.deepEqual(recovery('for (var of = 0 in of) { }', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

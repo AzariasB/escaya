@@ -104,6 +104,7 @@ describe('Statements - While', () => {
   it('simple block', () => {
     t.deepEqual(parseScript('{}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -121,6 +122,7 @@ describe('Statements - While', () => {
   it('block with lexical', () => {
     t.deepEqual(parseScript('{let foo = bar;}', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -165,6 +167,7 @@ describe('Statements - While', () => {
   it('block wrapped in paren', () => {
     t.deepEqual(parseScript('({})', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -244,7 +247,8 @@ describe('Statements - While', () => {
           type: 'EmptyStatement'
         }
       ],
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -273,7 +277,8 @@ describe('Statements - While', () => {
           type: 'BlockStatement'
         }
       ],
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -297,7 +302,8 @@ describe('Statements - While', () => {
           type: 'BlockStatement'
         }
       ],
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 });

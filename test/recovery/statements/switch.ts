@@ -5,6 +5,7 @@ describe('Recovery - Switch', () => {
   it('switch (true) { case true: function g() {} }', () => {
     t.deepEqual(recovery('switch (true) { case true: function g() {} }', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -87,6 +88,7 @@ describe('Recovery - Switch', () => {
   it('switch (x) { default: function *f(){} function *f(){} }', () => {
     t.deepEqual(recovery('switch (x) { default: function *f(){} function *f(){} }', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -188,6 +190,7 @@ describe('Recovery - Switch', () => {
   it('switch (0) { case 1: var f = 0; x; default: var {f} = x; } var {f} = f', () => {
     t.deepEqual(recovery('switch (0) { case 1: var f = 0; x; default: var {f} = x; } var {f} = f', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -381,6 +384,7 @@ describe('Recovery - Switch', () => {
   it('switch case !', () => {
     t.deepEqual(recovery('switch case !', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -460,6 +464,7 @@ describe('Recovery - Switch', () => {
   it('switch++', () => {
     t.deepEqual(recovery('switch++', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -514,6 +519,7 @@ describe('Recovery - Switch', () => {
   it('switch!', () => {
     t.deepEqual(recovery('switch!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -568,6 +574,7 @@ describe('Recovery - Switch', () => {
   it('switch )', () => {
     t.deepEqual(recovery('switch )', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -614,6 +621,7 @@ describe('Recovery - Switch', () => {
   it('switch foo+bar / for as keyword', () => {
     t.deepEqual(recovery('switch foo+bar / for as keyword', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -763,6 +771,7 @@ describe('Recovery - Switch', () => {
   it('as keyword', () => {
     t.deepEqual(recovery('switch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -809,6 +818,7 @@ describe('Recovery - Switch', () => {
   it('switch{', () => {
     t.deepEqual(recovery('switch{', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -855,6 +865,7 @@ describe('Recovery - Switch', () => {
   it('{switch', () => {
     t.deepEqual(recovery('{switch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -910,6 +921,7 @@ describe('Recovery - Switch', () => {
   it('switch({', () => {
     t.deepEqual(recovery('switch({', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -956,6 +968,7 @@ describe('Recovery - Switch', () => {
   it('switch default {', () => {
     t.deepEqual(recovery('switch default {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1028,6 +1041,7 @@ describe('Recovery - Switch', () => {
   it('switch { default :! ', () => {
     t.deepEqual(recovery('switch { default :! ', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1114,6 +1128,7 @@ describe('Recovery - Switch', () => {
   it('switch { case default case case ', () => {
     t.deepEqual(recovery('switch { case default case case', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1233,6 +1248,7 @@ describe('Recovery - Switch', () => {
   it('switch(x switch', () => {
     t.deepEqual(recovery('switch(x switch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1295,6 +1311,7 @@ describe('Recovery - Switch', () => {
   it('switch ! switch { default switch ', () => {
     t.deepEqual(recovery('switch ! switch { default switch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1424,6 +1441,7 @@ describe('Recovery - Switch', () => {
       recovery('I switch to try this ! in a { but in a while loop with in a switch { default clause', 'recovery.js'),
       {
         kind: 209,
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -1779,6 +1797,7 @@ describe('Recovery - Switch', () => {
   it('case {', () => {
     t.deepEqual(recovery('case {', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1825,6 +1844,7 @@ describe('Recovery - Switch', () => {
   it('switch switch default', () => {
     t.deepEqual(recovery('switch switch default', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1904,6 +1924,7 @@ describe('Recovery - Switch', () => {
   it('default{switch', () => {
     t.deepEqual(recovery('default{switch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1967,6 +1988,7 @@ describe('Recovery - Switch', () => {
   it('case{switch default', () => {
     t.deepEqual(recovery('case{switch default', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2039,6 +2061,7 @@ describe('Recovery - Switch', () => {
   it('switch( x ,, a! switch ! { default : yep ++', () => {
     t.deepEqual(recovery('switch( x ,, a! switch ! { default : yep ++', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2221,6 +2244,7 @@ describe('Recovery - Switch', () => {
   it('{ switch', () => {
     t.deepEqual(recovery('{ switch', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2276,6 +2300,7 @@ describe('Recovery - Switch', () => {
   it('switch !', () => {
     t.deepEqual(recovery('switch !', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2330,6 +2355,7 @@ describe('Recovery - Switch', () => {
   it('switch x { case y:', () => {
     t.deepEqual(recovery('switch x { case y:', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2409,6 +2435,7 @@ describe('Recovery - Switch', () => {
   it('switch (x) { case: default !!', () => {
     t.deepEqual(recovery('switch (x) { case: default !!', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2528,6 +2555,7 @@ describe('Recovery - Switch', () => {
   it('switch x {  case :::', () => {
     t.deepEqual(recovery('switch x {  case :::', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2623,6 +2651,7 @@ describe('Recovery - Switch', () => {
   it('switch { case x: { !}', () => {
     t.deepEqual(recovery('switch { case x: { !}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2748,6 +2777,7 @@ describe('Recovery - Switch', () => {
   it('switch (x) { case x: { !}', () => {
     t.deepEqual(recovery('switch (x) { case x: { !}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2844,6 +2874,7 @@ describe('Recovery - Switch', () => {
   it('switch { case foo: default: bar }', () => {
     t.deepEqual(recovery('switch { case foo: default: bar }', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2969,6 +3000,7 @@ describe('Recovery - Switch', () => {
   it('switch (f(a function(){} c);) { default x: { !}', () => {
     t.deepEqual(recovery('switch (f(a function(){} c);) { default x: { !}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3162,6 +3194,7 @@ describe('Recovery - Switch', () => {
   it('switch (x) { default x: { !}', () => {
     t.deepEqual(recovery('switch (x) { default x: { !}', 'recovery.js'), {
       kind: 209,
+      webCompat: true,
       directives: [],
       leafs: [
         {

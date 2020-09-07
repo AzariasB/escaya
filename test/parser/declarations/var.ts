@@ -1163,7 +1163,8 @@ describe('Declarations - Var', () => {
         }
       ],
       start: 0,
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 });

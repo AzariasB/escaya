@@ -141,7 +141,8 @@ describe('Statements - Throw', () => {
           type: 'ThrowStatement'
         }
       ],
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 
@@ -157,6 +158,7 @@ describe('Statements - Throw', () => {
       ),
       {
         type: 'Script',
+        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -215,6 +217,7 @@ describe('Statements - Throw', () => {
   it('throw foo;', () => {
     t.deepEqual(parseScript('throw foo;', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -238,6 +241,7 @@ describe('Statements - Throw', () => {
   it('throw 12', () => {
     t.deepEqual(parseScript('throw 12', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -260,6 +264,7 @@ describe('Statements - Throw', () => {
   it('throw x * y', () => {
     t.deepEqual(parseScript('throw x * y', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {

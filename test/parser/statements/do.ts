@@ -105,6 +105,7 @@ while(x);`,
   it('do if (x) {} while(x) x', () => {
     t.deepEqual(parseScript('do if (x) {} while(x) x', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -159,6 +160,7 @@ while(x);`,
   it('do; while (1)', () => {
     t.deepEqual(parseScript('do; while (1)', { loc: true }), {
       type: 'Script',
+      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -214,7 +216,8 @@ while(x);`,
           type: 'DoWhileStatement'
         }
       ],
-      type: 'Script'
+      type: 'Script',
+      webCompat: true
     });
   });
 });
