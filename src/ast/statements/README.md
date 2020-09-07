@@ -131,7 +131,7 @@ interface DoWhileStatement <: Statements {
 ```js
 interface ForStatement <: Statements {
     type: 'ForStatement';
-    initializer: ForDeclaration | Expression | null;
+    initializer: LexicalDeclaration | [ VariableDeclaration ] | Expression | null;
     condition: Expression | null;
     incrementor: Expression | null;
     statement: Statement;
@@ -143,7 +143,7 @@ interface ForStatement <: Statements {
 ```js
 interface ForOfStatement <: Statements {
     type: 'ForOfStatement';
-    initializer: exicalDeclaration | ForBinding | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
+    initializer: LexicalDeclaration | ForBinding | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
     expression: Expression;
     statement: Statement;
     await: boolean;
@@ -155,13 +155,13 @@ interface ForOfStatement <: Statements {
 ```js
 interface ForInStatement <: Statements {
     type: 'ForInStatement';
-    initializer: exicalDeclaration | ForBinding | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
+    initializer: LexicalDeclaration | ForBinding | ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
     expression: Expression;
     statement: Statement;
 }
 ```
 
-### ForBinding
+### ForBinding [Modified]
 
 ```js
 interface ForBinding <: Statements {
@@ -169,6 +169,10 @@ interface ForBinding <: Statements {
     declarations: [ VariableDeclaration ];
 }
 ```
+`ForBinding` represents a `in` or `of` binding and has been modified to contain an list of `VariableDeclaration`
+to be in line with `LexicalDeclaration`.
+
+See [13.7 Iteration Statements](https://tc39.es/ecma262/#sec-iteration-statements)
 
 ### VariableDeclaration
 

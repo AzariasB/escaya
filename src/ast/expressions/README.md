@@ -479,6 +479,13 @@ interface MethodDefinition <: Expression {
     contents: FunctionBody;
 }
 ```
+`getter` should be true **only** if `propertySetParameterList` is set to `null` and `uniqueFormalParameters` has
+an empty list. A getter cannot have any parameters.
+
+`propertySetParameterList` should be set if `getter` is false and `uniqueFormalParameters` has
+an empty list. E.g `({set x(y) {}})` can only have one paramater.
+
+This changes conforms to the ECMA specification.
 
 ### NewExpression
 
