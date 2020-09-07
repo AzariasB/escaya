@@ -441,7 +441,6 @@ describe('Module - Export', () => {
     'var d, e; export { d as dreary, e, };',
     'export default function *a() {}',
     'export var y = 0;',
-    'export const z = 0;',
     'export function func() { };',
     'function f() {}; f(); export { f };',
     'var a, b, c; export { a, b as baz, c };',
@@ -549,7 +548,6 @@ describe('Module - Export', () => {
     `export{};
     export {};
     export {}
-    export { };
     export
     {
     };
@@ -687,6 +685,7 @@ describe('Module - Export', () => {
           namedExports: [
             {
               type: 'ExportSpecifier',
+              moduleExportName: null,
               name: {
                 type: 'IdentifierName',
                 name: 'a',
@@ -703,6 +702,7 @@ describe('Module - Export', () => {
               end: 15
             }
           ],
+          moduleExportName: null,
           namedBinding: null,
           fromClause: {
             type: 'StringLiteral',
@@ -734,6 +734,7 @@ describe('Module - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: {
             type: 'LexicalDeclaration',
             isConst: false,
@@ -781,6 +782,7 @@ describe('Module - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: {
             type: 'LexicalDeclaration',
             isConst: true,
@@ -851,6 +853,7 @@ describe('Module - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: {
             type: 'ClassDeclaration',
             name: {
@@ -892,6 +895,7 @@ describe('Module - Export', () => {
         {
           type: 'ExportDeclaration',
           declaration: null,
+          moduleExportName: null,
           namedExports: [],
           namedBinding: null,
           fromClause: null,
@@ -908,171 +912,6 @@ describe('Module - Export', () => {
       ],
       start: 0,
       end: 11
-    });
-  });
-  it('export class y {};', () => {
-    t.deepEqual(parseModule('export class y {};', { loc: true, cst: true }), {
-      type: 'Module',
-      webCompat: true,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExportDeclaration',
-          declaration: {
-            type: 'ClassDeclaration',
-            name: {
-              type: 'BindingIdentifier',
-              name: 'y',
-              start: 13,
-              end: 14
-            },
-            heritage: null,
-            elements: [],
-            start: 7,
-            end: 17
-          },
-          namedExports: [],
-          namedBinding: null,
-          fromClause: null,
-          exportedNames: [],
-          boundNames: [],
-          start: 0,
-          end: 17
-        },
-        {
-          type: 'EmptyStatement',
-          start: 17,
-          end: 18
-        }
-      ],
-      start: 0,
-      end: 18
-    });
-  });
-
-  it('export { a as b } from "x";', () => {
-    t.deepEqual(parseModule('export { a as b } from "x";', { loc: true, cst: true }), {
-      type: 'Module',
-      webCompat: true,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExportDeclaration',
-          declaration: null,
-          namedExports: [
-            {
-              type: 'ExportSpecifier',
-              name: {
-                type: 'IdentifierName',
-                name: 'a',
-                start: 9,
-                end: 10
-              },
-              binding: {
-                type: 'IdentifierName',
-                name: 'b',
-                start: 14,
-                end: 15
-              },
-              start: 9,
-              end: 15
-            }
-          ],
-          namedBinding: null,
-          fromClause: {
-            type: 'StringLiteral',
-            value: 'x',
-            start: 23,
-            end: 26
-          },
-          exportedNames: ['b'],
-          boundNames: ['a'],
-          start: 0,
-          end: 26
-        },
-        {
-          type: 'EmptyStatement',
-          start: 26,
-          end: 27
-        }
-      ],
-      start: 0,
-      end: 27
-    });
-  });
-
-  it('export const joo = 42;', () => {
-    t.deepEqual(parseModule('export const joo = 42;', { loc: true, cst: true }), {
-      type: 'Module',
-      webCompat: true,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExportDeclaration',
-          declaration: {
-            type: 'LexicalDeclaration',
-            isConst: true,
-            declarations: [
-              {
-                type: 'LexicalBinding',
-                binding: {
-                  type: 'BindingIdentifier',
-                  name: 'joo',
-                  start: 13,
-                  end: 16
-                },
-                initializer: {
-                  type: 'NumericLiteral',
-                  value: 42,
-                  start: 19,
-                  end: 21
-                },
-                start: 13,
-                end: 21
-              }
-            ],
-            start: 7,
-            end: 22
-          },
-          namedExports: [],
-          namedBinding: null,
-          fromClause: null,
-          exportedNames: [],
-          boundNames: [],
-          start: 0,
-          end: 22
-        }
-      ],
-      start: 0,
-      end: 22
-    });
-  });
-
-  it('export * from "x"', () => {
-    t.deepEqual(parseModule('export * from "x"', { loc: true, cst: true }), {
-      type: 'Module',
-      webCompat: true,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExportDeclaration',
-          declaration: null,
-          namedExports: [],
-          namedBinding: null,
-          fromClause: {
-            type: 'StringLiteral',
-            value: 'x',
-            start: 14,
-            end: 17
-          },
-          exportedNames: [],
-          boundNames: [],
-          start: 0,
-          end: 17
-        }
-      ],
-      start: 0,
-      end: 17
     });
   });
 });

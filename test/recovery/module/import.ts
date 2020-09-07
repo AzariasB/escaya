@@ -20,6 +20,7 @@ describe('Module - Import', () => {
         },
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [],
           namedBinding: null,
@@ -488,6 +489,7 @@ describe('Module - Import', () => {
               importsList: [
                 {
                   type: 'ImportSpecifier',
+                  moduleExportName: null,
                   name: null,
                   binding: {
                     type: 'IdentifierName',
@@ -1046,6 +1048,7 @@ describe('Module - Import', () => {
           },
           {
             type: 'ExportDeclaration',
+            moduleExportName: null,
             declaration: null,
             namedExports: [],
             namedBinding: null,
@@ -1466,6 +1469,7 @@ describe('Module - Import', () => {
               importsList: [
                 {
                   type: 'ImportSpecifier',
+                  moduleExportName: null,
                   name: null,
                   binding: {
                     type: 'IdentifierName',
@@ -1555,6 +1559,7 @@ describe('Module - Import', () => {
               importsList: [
                 {
                   type: 'ImportSpecifier',
+                  moduleExportName: null,
                   name: {
                     type: 'IdentifierName',
                     name: 'let',
@@ -1641,6 +1646,7 @@ describe('Module - Import', () => {
               importsList: [
                 {
                   type: 'ImportSpecifier',
+                  moduleExportName: null,
                   name: null,
                   binding: {
                     type: 'IdentifierName',
@@ -1720,6 +1726,7 @@ describe('Module - Import', () => {
               importsList: [
                 {
                   type: 'ImportSpecifier',
+                  moduleExportName: null,
                   name: {
                     type: 'IdentifierName',
                     name: 'b',
@@ -1799,6 +1806,7 @@ describe('Module - Import', () => {
               importsList: [
                 {
                   type: 'ImportSpecifier',
+                  moduleExportName: null,
                   name: {
                     type: 'IdentifierName',
                     name: 'static',
@@ -1878,6 +1886,7 @@ describe('Module - Import', () => {
               importsList: [
                 {
                   type: 'ImportSpecifier',
+                  moduleExportName: null,
                   name: {
                     type: 'IdentifierName',
                     name: 'm',
@@ -2003,6 +2012,7 @@ describe('Module - Import', () => {
         leafs: [
           {
             type: 'ExportDeclaration',
+            moduleExportName: null,
             declaration: null,
             namedExports: [],
             namedBinding: null,
@@ -2219,6 +2229,7 @@ describe('Module - Import', () => {
           },
           {
             type: 'ExportDeclaration',
+            moduleExportName: null,
             declaration: null,
             namedExports: [],
             namedBinding: null,
@@ -2525,6 +2536,7 @@ describe('Module - Import', () => {
           },
           {
             type: 'ExportDeclaration',
+            moduleExportName: null,
             declaration: null,
             namedExports: [],
             namedBinding: null,
@@ -2576,6 +2588,7 @@ describe('Module - Import', () => {
           },
           {
             type: 'ExportDeclaration',
+            moduleExportName: null,
             declaration: null,
             namedExports: [],
             namedBinding: null,

@@ -10,6 +10,7 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: {
             type: 'FunctionDeclaration',
             name: {
@@ -88,10 +89,12 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
               type: 'ExportSpecifier',
+              moduleExportName: null,
               name: {
                 type: 'IdentifierName',
                 name: 'default',
@@ -156,10 +159,12 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
               type: 'ExportSpecifier',
+              moduleExportName: null,
               name: {
                 type: 'IdentifierName',
                 name: 'default',
@@ -255,6 +260,7 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: {
             type: 'VariableStatement',
             declarations: [
@@ -321,10 +327,12 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
               type: 'ExportSpecifier',
+              moduleExportName: null,
               name: {
                 type: 'IdentifierName',
                 name: 'arguments',
@@ -387,10 +395,12 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
               type: 'ExportSpecifier',
+              moduleExportName: null,
               name: {
                 type: 'IdentifierName',
                 name: 'a',
@@ -485,10 +495,12 @@ describe('Recovery - Export', () => {
         },
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
               type: 'ExportSpecifier',
+              moduleExportName: null,
               name: {
                 type: 'IdentifierName',
                 name: 'a',
@@ -512,6 +524,7 @@ describe('Recovery - Export', () => {
             },
             {
               type: 'ExportSpecifier',
+              moduleExportName: null,
               name: {
                 type: 'IdentifierName',
                 name: 'a',
@@ -635,6 +648,7 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: {
             type: 'LexicalDeclaration',
             isConst: false,
@@ -788,6 +802,7 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [],
           namedBinding: null,
@@ -872,6 +887,7 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [],
           namedBinding: null,
@@ -938,6 +954,7 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: {
             type: 'FunctionDeclaration',
             name: {
@@ -1030,6 +1047,7 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [],
           namedBinding: null,
@@ -1081,10 +1099,12 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
               type: 'ExportSpecifier',
+              moduleExportName: null,
               name: {
                 type: 'IdentifierName',
                 name: 'as',
@@ -1147,6 +1167,7 @@ describe('Recovery - Export', () => {
         leafs: [
           {
             type: 'ExportDeclaration',
+            moduleExportName: null,
             declaration: {
               type: 'ClassDeclaration',
               name: null,
@@ -1346,6 +1367,7 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: {
             type: 'LexicalDeclaration',
             isConst: true,
@@ -1415,6 +1437,7 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [],
           namedBinding: null,
@@ -1482,10 +1505,12 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
               type: 'ExportSpecifier',
+              moduleExportName: null,
               name: {
                 type: 'IdentifierName',
                 name: 'export',
@@ -1566,6 +1591,7 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [],
           namedBinding: null,
@@ -1660,6 +1686,7 @@ describe('Recovery - Export', () => {
         leafs: [
           {
             type: 'ExportDeclaration',
+            moduleExportName: null,
             declaration: null,
             namedExports: [],
             namedBinding: null,
@@ -1673,6 +1700,7 @@ describe('Recovery - Export', () => {
           },
           {
             type: 'ExportDeclaration',
+            moduleExportName: null,
             declaration: null,
             namedExports: [],
             namedBinding: null,
@@ -1686,6 +1714,7 @@ describe('Recovery - Export', () => {
           },
           {
             type: 'ExportDeclaration',
+            moduleExportName: null,
             declaration: null,
             namedExports: [],
             namedBinding: null,
@@ -1937,6 +1966,7 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [],
           namedBinding: null,
@@ -2053,10 +2083,12 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
               type: 'ExportSpecifier',
+              moduleExportName: null,
               name: {
                 type: 'IdentifierName',
                 name: 'a',
@@ -2226,10 +2258,12 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
               type: 'ExportSpecifier',
+              moduleExportName: null,
               name: {
                 type: 'IdentifierName',
                 name: 'a',
@@ -2464,6 +2498,7 @@ describe('Recovery - Export', () => {
           },
           {
             type: 'ExportDeclaration',
+            moduleExportName: null,
             declaration: null,
             namedExports: [],
             namedBinding: null,

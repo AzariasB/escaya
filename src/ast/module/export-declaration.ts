@@ -26,11 +26,13 @@ export interface ExportDeclaration extends Node {
   readonly fromClause: StringLiteral | null;
   readonly exportedNames?: string[];
   readonly boundNames?: string[];
+  readonly moduleExportName: StringLiteral | null;
   /* @internal */
   readonly parent?: RootNode;
 }
 
 export function createExportDeclaration(
+  moduleExportName: StringLiteral | null,
   declaration:
     | AssignmentExpression
     | VariableStatement
@@ -49,6 +51,7 @@ export function createExportDeclaration(
   return cst
     ? {
         type: 'ExportDeclaration',
+        moduleExportName,
         declaration,
         namedExports,
         namedBinding,
@@ -58,6 +61,7 @@ export function createExportDeclaration(
       }
     : {
         type: 'ExportDeclaration',
+        moduleExportName,
         declaration,
         namedExports,
         namedBinding,

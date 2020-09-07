@@ -404,113 +404,59 @@ describe('Module - Import', () => {
     });
   });
 
-  it('import { a as of } from "k";', () => {
-    t.deepEqual(parseModule('import { a as of } from "k";', { loc: true }), {
-      directives: [],
-      end: 28,
-      start: 0,
-      leafs: [
-        {
-          end: 28,
-          fromClause: {
-            end: 27,
-            start: 24,
-            type: 'StringLiteral',
-            value: 'k'
-          },
-          importClause: {
-            defaultBinding: null,
-            end: 18,
-            nameSpaceImport: null,
-            namedImports: {
-              end: 18,
-              importsList: [
-                {
-                  binding: {
-                    end: 16,
-                    name: 'of',
-                    start: 14,
-                    type: 'BindingIdentifier'
-                  },
-                  end: 16,
-                  name: {
-                    end: 10,
-                    name: 'a',
-                    start: 9,
-                    type: 'IdentifierName'
-                  },
-                  start: 9,
-                  type: 'ImportSpecifier'
-                }
-              ],
-              start: 7,
-              type: 'NamedImports'
-            },
-            start: 7,
-            type: 'ImportClause'
-          },
-          moduleSpecifier: null,
-          start: 0,
-          type: 'ImportDeclaration'
-        }
-      ],
-      type: 'Module',
-      webCompat: true
-    });
-  });
-
   it('import { let as l } from "foo";', () => {
     t.deepEqual(parseModule('import { let as l } from "foo";', { loc: true }), {
+      type: 'Module',
+      webCompat: true,
       directives: [],
-      end: 31,
-      start: 0,
       leafs: [
         {
-          end: 31,
+          type: 'ImportDeclaration',
           fromClause: {
-            end: 30,
-            start: 25,
             type: 'StringLiteral',
-            value: 'foo'
+            value: 'foo',
+            start: 25,
+            end: 30
           },
+          moduleSpecifier: null,
           importClause: {
+            type: 'ImportClause',
             defaultBinding: null,
-            end: 19,
             nameSpaceImport: null,
             namedImports: {
-              end: 19,
+              type: 'NamedImports',
               importsList: [
                 {
-                  binding: {
-                    end: 17,
-                    name: 'l',
-                    start: 16,
-                    type: 'BindingIdentifier'
-                  },
-                  end: 17,
+                  type: 'ImportSpecifier',
+                  moduleExportName: null,
                   name: {
-                    end: 12,
+                    type: 'IdentifierName',
                     name: 'let',
                     start: 9,
-                    type: 'IdentifierName'
+                    end: 12
+                  },
+                  binding: {
+                    type: 'BindingIdentifier',
+                    name: 'l',
+                    start: 16,
+                    end: 17
                   },
                   start: 9,
-                  type: 'ImportSpecifier'
+                  end: 17
                 }
               ],
               start: 7,
-              type: 'NamedImports'
+              end: 19
             },
             start: 7,
-            type: 'ImportClause'
+            end: 19
           },
-          moduleSpecifier: null,
           start: 0,
-          type: 'ImportDeclaration'
+          end: 31
         }
       ],
-      type: 'Module',
-      webCompat: true
+      start: 0,
+      end: 31
     });
   });
 
@@ -530,68 +476,6 @@ describe('Module - Import', () => {
             type: 'StringLiteral',
             value: 'string'
           },
-          start: 0,
-          type: 'ImportDeclaration'
-        }
-      ],
-      type: 'Module',
-      webCompat: true
-    });
-  });
-
-  it('import {x, z,} from "y"', () => {
-    t.deepEqual(parseModule('import {x, z,} from "y"', { loc: true }), {
-      directives: [],
-      end: 23,
-      start: 0,
-      leafs: [
-        {
-          end: 23,
-          fromClause: {
-            end: 23,
-            start: 20,
-            type: 'StringLiteral',
-            value: 'y'
-          },
-          importClause: {
-            defaultBinding: null,
-            end: 14,
-            nameSpaceImport: null,
-            namedImports: {
-              end: 14,
-              importsList: [
-                {
-                  binding: {
-                    end: 9,
-                    name: 'x',
-                    start: 8,
-                    type: 'IdentifierName'
-                  },
-                  end: 9,
-                  name: null,
-                  start: 8,
-                  type: 'ImportSpecifier'
-                },
-                {
-                  binding: {
-                    end: 12,
-                    name: 'z',
-                    start: 11,
-                    type: 'IdentifierName'
-                  },
-                  end: 12,
-                  name: null,
-                  start: 11,
-                  type: 'ImportSpecifier'
-                }
-              ],
-              start: 7,
-              type: 'NamedImports'
-            },
-            start: 7,
-            type: 'ImportClause'
-          },
-          moduleSpecifier: null,
           start: 0,
           type: 'ImportDeclaration'
         }

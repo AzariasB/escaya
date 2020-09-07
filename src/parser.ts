@@ -559,11 +559,11 @@ export function parseImportSpecifier(state: ParserState, context: Context, scope
   const tokenValue = state.tokenValue;
   const token = state.token;
   const name = parseIdentifierName(state, context);
-  let exportName: StringLiteral | null = null;
+  let moduleExportName: StringLiteral | null = null;
   let importedBinding: BindingIdentifier | IdentifierName | null = null;
   let identifierName: BindingIdentifier | IdentifierName | null = null;
-  if (context & Context.OptionsNext && state.token & Token.StringLiteral) {
-    exportName = parseModuleExportName(state, context);
+  if (state.token === Token.StringLiteral) {
+    moduleExportName = parseModuleExportName(state, context);
     consume(state, context, Token.AsKeyword);
     importedBinding = parseBindingIdentifier(state, context, scope, BindingType.Let);
   } else if (consumeOpt(state, context, Token.AsKeyword)) {
@@ -583,7 +583,7 @@ export function parseImportSpecifier(state: ParserState, context: Context, scope
     state,
     context,
     start,
-    DictionaryMap.ImportSpecifier(identifierName, importedBinding),
+    DictionaryMap.ImportSpecifier(moduleExportName, identifierName, importedBinding),
     SyntaxKind.NamedImports
   );
 }
@@ -1264,7 +1264,7 @@ export function parseForBinding(
   cb: LexicalCallback,
   start: number
 ): any {
-  const declarations = parseForBindingList(state, context, scope, type, cb);
+  let declarations = parseForBindingList(state, context, scope, type, cb);
   if (isLexical) {
     return finishNode(
       state,
@@ -3585,7 +3585,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
         );
       }
       if (state.token & Token.IsPatternStart) {
-        const innerStart = state.startIndex;
+        let innerStart = state.startIndex;
         isSimpleParameterList = true;
         const left = parseBindingElements(state, context, scope, BindingType.ArgumentList, parseBindingPattern);
         const right = consumeOpt(state, context | Context.AllowRegExp, Token.Assign)
@@ -3595,7 +3595,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
           finishNode(state, context, innerStart, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement)
         );
       } else {
-        const innerStart = state.startIndex;
+        let innerStart = state.startIndex;
         if (state.token & Token.IsFutureReserved) state.flags |= Flags.HasStrictReserved;
         const left = parseBindingIdentifier(state, context, scope, BindingType.ArgumentList);
         if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
@@ -4884,7 +4884,7 @@ export function parseImportMeta(state: ParserState, context: Context, start: num
   return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ExpressionStatement);
 }
 
-// ModuleExportName : StringLiteral
+// ModulemoduleExportName : StringLiteral
 export function parseModuleExportName(state: ParserState, context: Context) {
   return parseStringLiteral(state, context, /* isDirective */ false);
 }
@@ -4909,7 +4909,7 @@ export function parseFromClause(state: ParserState, context: Context): StringLit
 // ExportFromClause :
 //   `*`
 //   `*` as IdentifierName
-//   `*` as ModuleExportName
+//   `*` as ModulemoduleExportName
 //   NamedExports
 export function parseExportDeclaration(
   state: ParserState,
@@ -4936,7 +4936,7 @@ export function parseExportDeclaration(
   let fromClause: StringLiteral | null = null;
   let namedBinding: IdentifierName | null = null;
   let namedExports: ExportSpecifier[] = [];
-  let exportName: StringLiteral | null = null;
+  let moduleExportName: StringLiteral | null = null;
 
   const exportedNames: string[] = [];
   const boundNames: string[] = [];
@@ -4981,8 +4981,8 @@ export function parseExportDeclaration(
     case Token.Multiply: {
       nextToken(state, context);
       if (consumeOpt(state, context, Token.AsKeyword)) {
-        if (context & Context.OptionsNext && state.token & Token.StringLiteral) {
-          exportName = parseModuleExportName(state, context);
+        if (state.token === Token.StringLiteral) {
+          moduleExportName = parseModuleExportName(state, context);
         } else {
           declareUnboundVariable(state, context, state.tokenValue);
           namedBinding = parseIdentifierName(state, context);
@@ -5000,6 +5000,7 @@ export function parseExportDeclaration(
     context,
     start,
     DictionaryMap.ExportDeclaration(
+      moduleExportName,
       declaration,
       namedExports,
       namedBinding,
@@ -5046,12 +5047,12 @@ export function parseExportSpecifier(
   const start = state.startIndex;
   const tokenValue = state.tokenValue;
   let value = tokenValue;
-  let exportName: StringLiteral | null = null;
+  let moduleExportName: StringLiteral | null = null;
   const name = parseIdentifierName(state, context);
   let exportedName = null;
   if (consumeOpt(state, context, Token.AsKeyword)) {
-    if (context & Context.OptionsNext && state.token & Token.StringLiteral) {
-      exportName = parseModuleExportName(state, context);
+    if (state.token === Token.StringLiteral) {
+      moduleExportName = parseModuleExportName(state, context);
     } else {
       value = state.tokenValue;
       exportedName = parseIdentifierName(state, context);
@@ -5065,7 +5066,7 @@ export function parseExportSpecifier(
     state,
     context,
     start,
-    DictionaryMap.ExportSpecifier(name, exportedName),
+    DictionaryMap.ExportSpecifier(name, moduleExportName, exportedName),
     SyntaxKind.ExportSpecifier
   );
 }
