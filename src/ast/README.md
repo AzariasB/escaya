@@ -23,13 +23,13 @@ interface Script <: Node {
     type: string;
     directives: [ Directive ];
     leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault ];
-    webComat: boolean;
+    webCompat: boolean;
     start: number;
     end: number;
 }
 ```
 
-`webComat` is `true` while parsing with additional support for ECMAScript features for Web Browsers
+`webCompat` is `true` while parsing with additional support for ECMAScript features for Web Browsers
 
 ### Module
 
@@ -38,7 +38,7 @@ interface Module <: Node {
     type: string;
     directives: [ Directive ];
     leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault ];
-    webComat: boolean;
+    webCompat: boolean;
     start: number;
     end: number;
 }
@@ -115,7 +115,7 @@ interface RootNode <: Node {
     diagnostics [ Diagnostics ];
     parent: Script | Module | null;
     children: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault ];
-    webComat: boolean;
+    webCompat: boolean;
     length: number;
     end: number;
 }
