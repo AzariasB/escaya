@@ -20,7 +20,7 @@
 * Emits an ECMAScript® 2021 compatible abstract syntax tree
 * Error recovery mode with incremental parsing support
 * Errors diagnostics
-* Supports JSON
+* Supports JSON serializing
 * Possible to use a custom AST such as ESTree and Babel AST
 * No backtracking
 * Low memory usage
