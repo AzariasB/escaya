@@ -45,6 +45,7 @@
       'change #input': 'onInputChange',
       'change #range': 'onRangeChange',
       'change #next': 'onNextChange',
+      'change #cst': 'onCSTChange',
       'change #incremental': 'incremental',     
       'change #raw': 'onRawChange',
       'change #loc': 'onLocChange',
@@ -67,6 +68,7 @@
       this.$output = this.$el.find('#output');
       this.$range = this.$el.find('#range');
       this.$next = this.$el.find('#next');
+      this.$cst = this.$el.find('#cst');
       this.$raw = this.$el.find('#raw');
       this.$module = this.$el.find('#module');
       this.$loc = this.$el.find('#loc');
@@ -83,6 +85,7 @@
       this.onRangeChange();
       this.onLocChange();
       this.onNextChange();
+      this.onCSTChange();
       this.onRawChange();
       this.onModuleChange();
       this.onDirectivesChange();
@@ -107,6 +110,10 @@
     },
     onNextChange: function(event) {
       this._options.incremental = this.$next.prop('checked');
+      this.parse();
+    },
+    onCSTChange: function(event) {
+      this._options.cst = this.$cst.prop('checked');
       this.parse();
     },
     onRawChange: function(event) {
@@ -177,6 +184,7 @@
         range: this._options.ranges,
         loc: this._options.loc,
         next: this._options.incremental,
+        cst: this._options.cst,
         module: this._options.module,
         raw: this._options.raw,
         jsx: this._options.jsx,
@@ -202,6 +210,9 @@
       }
       if (params.next === 'true') {
         this.$next.prop('checked', true).change();
+      }
+      if (params.cst === 'true') {
+        this.$cst.prop('checked', true).change();
       }
       if (params.module === 'true') {
         this.$module.prop('checked', true).change();
