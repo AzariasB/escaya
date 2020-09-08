@@ -914,6 +914,7 @@ describe('test262-parser-tests - early tests', () => {
                                 type: 'CallExpression',
                                 expression: {
                                   type: 'SuperProperty',
+                                  computed: false,
                                   super: {
                                     type: 'IdentifierName',
                                     name: 'd',
@@ -1293,6 +1294,7 @@ describe('test262-parser-tests - early tests', () => {
                                   type: 'CallExpression',
                                   expression: {
                                     type: 'SuperProperty',
+                                    computed: false,
                                     super: {
                                       type: 'IdentifierName',
                                       name: 'd',

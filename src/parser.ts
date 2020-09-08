@@ -4781,9 +4781,11 @@ export function parseSuperCallOrProperty(state: ParserState, context: Context): 
   if ((context & Context.SuperProperty) === 0) addEarlyDiagnostic(state, context, DiagnosticCode.NoSuperProperty);
 
   let expr!: Expression | IdentifierName;
+  let computed = false;
   if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket)) {
     expr = parseExpression(state, context);
     consume(state, context, Token.RightBracket);
+    computed = true;
   } else {
     if (state.token !== Token.Period) {
       addEarlyDiagnostic(
@@ -4803,7 +4805,7 @@ export function parseSuperCallOrProperty(state: ParserState, context: Context): 
 
   state.assignable = true;
 
-  return finishNode(state, context, start, DictionaryMap.SuperProperty(expr), SyntaxKind.SuperProperty);
+  return finishNode(state, context, start, DictionaryMap.SuperProperty(expr, computed), SyntaxKind.SuperProperty);
 }
 
 // AssignmentExpression :

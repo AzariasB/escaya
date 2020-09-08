@@ -542,6 +542,7 @@ added to represent the `...AssignmentExpression` production.
 interface SuperProperty <: Expression {
     type: 'SuperProperty';
     super: Expression | IdentifierName | null;
+    computed: boolean;
 }
 ```
 

@@ -1073,6 +1073,7 @@ describe('Recovery - Expressions', () => {
                     type: 'ComputedPropertyName',
                     expression: {
                       type: 'SuperProperty',
+                      computed: true,
                       super: {
                         type: 'IdentifierReference',
                         name: 'foo',
@@ -1314,6 +1315,7 @@ describe('Recovery - Expressions', () => {
                                 type: 'NewExpression',
                                 expression: {
                                   type: 'SuperProperty',
+                                  computed: false,
                                   super: {
                                     type: 'IdentifierName',
                                     name: '',
@@ -1418,6 +1420,7 @@ describe('Recovery - Expressions', () => {
             type: 'CallExpression',
             expression: {
               type: 'SuperProperty',
+              computed: true,
               super: {
                 type: 'NumericLiteral',
                 value: 27,

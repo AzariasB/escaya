@@ -6714,6 +6714,7 @@ describe('test262-parser-tests - failing tests', () => {
                           type: 'CallExpression',
                           expression: {
                             type: 'SuperProperty',
+                            computed: false,
                             super: {
                               type: 'IdentifierName',
                               name: '',
