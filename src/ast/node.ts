@@ -5,6 +5,8 @@ export interface Node {
   type?: string;
   kind?: SyntaxKind | NodeFlags;
   flags?: NodeFlags;
+  asi?: boolean;
+  newline?: boolean;
   start?: number;
   end?: number;
 }

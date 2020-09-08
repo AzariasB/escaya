@@ -681,6 +681,7 @@ describe('Module - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
+          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
@@ -690,35 +691,46 @@ describe('Module - Export', () => {
                 type: 'IdentifierName',
                 name: 'a',
                 start: 9,
-                end: 10
+                end: 10,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               binding: {
                 type: 'IdentifierName',
                 name: 'b',
                 start: 14,
-                end: 15
+                end: 15,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               start: 9,
-              end: 15
+              end: 15,
+              newlineBeforeNextToken: false,
+              asi: true
             }
           ],
-          moduleExportName: null,
           namedBinding: null,
           fromClause: {
             type: 'StringLiteral',
             value: 'b',
             start: 23,
-            end: 26
+            end: 26,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           exportedNames: ['b'],
           boundNames: ['a'],
           start: 0,
-          end: 26
+          end: 26,
+          newlineBeforeNextToken: false,
+          asi: true
         },
         {
           type: 'EmptyStatement',
           start: 26,
-          end: 27
+          end: 27,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       start: 0,
@@ -745,20 +757,28 @@ describe('Module - Export', () => {
                   type: 'BindingIdentifier',
                   name: 'x',
                   start: 11,
-                  end: 12
+                  end: 12,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 },
                 initializer: {
                   type: 'NumericLiteral',
                   value: 0,
                   start: 15,
-                  end: 16
+                  end: 16,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 },
                 start: 11,
-                end: 16
+                end: 16,
+                newlineBeforeNextToken: false,
+                asi: true
               }
             ],
             start: 7,
-            end: 17
+            end: 17,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           namedExports: [],
           namedBinding: null,
@@ -766,7 +786,9 @@ describe('Module - Export', () => {
           exportedNames: [],
           boundNames: [],
           start: 0,
-          end: 17
+          end: 17,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       start: 0,
@@ -793,20 +815,28 @@ describe('Module - Export', () => {
                   type: 'BindingIdentifier',
                   name: 'z',
                   start: 13,
-                  end: 14
+                  end: 14,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 },
                 initializer: {
                   type: 'NumericLiteral',
                   value: 0,
                   start: 17,
-                  end: 18
+                  end: 18,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 },
                 start: 13,
-                end: 18
+                end: 18,
+                newlineBeforeNextToken: false,
+                asi: true
               }
             ],
             start: 7,
-            end: 19
+            end: 19,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           namedExports: [],
           namedBinding: null,
@@ -814,7 +844,9 @@ describe('Module - Export', () => {
           exportedNames: [],
           boundNames: [],
           start: 0,
-          end: 19
+          end: 19,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       start: 0,
@@ -834,10 +866,14 @@ describe('Module - Export', () => {
             type: 'IdentifierReference',
             name: 'x',
             start: 15,
-            end: 16
+            end: 16,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 0,
-          end: 17
+          end: 17,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       start: 0,
@@ -846,7 +882,7 @@ describe('Module - Export', () => {
   });
 
   it('export class C { };', () => {
-    t.deepEqual(parseModule('export class C { };', { loc: true, cst: true }), {
+    t.deepEqual(parseModule('export class C { };', { loc: false, cst: true }), {
       type: 'Module',
       webCompat: true,
       directives: [],
@@ -859,59 +895,55 @@ describe('Module - Export', () => {
             name: {
               type: 'BindingIdentifier',
               name: 'C',
-              start: 13,
-              end: 14
+              newlineBeforeNextToken: false,
+              asi: false
             },
             heritage: null,
             elements: [],
-            start: 7,
-            end: 18
+            newlineBeforeNextToken: false,
+            asi: true
           },
           namedExports: [],
           namedBinding: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
-          start: 0,
-          end: 18
+          newlineBeforeNextToken: false,
+          asi: true
         },
         {
           type: 'EmptyStatement',
-          start: 18,
-          end: 19
+          newlineBeforeNextToken: false,
+          asi: true
         }
-      ],
-      start: 0,
-      end: 19
+      ]
     });
   });
 
   it('export { };', () => {
-    t.deepEqual(parseModule('export { };', { loc: true, cst: true }), {
+    t.deepEqual(parseModule('export { };', { loc: false, cst: true }), {
       type: 'Module',
       webCompat: true,
       directives: [],
       leafs: [
         {
           type: 'ExportDeclaration',
-          declaration: null,
           moduleExportName: null,
+          declaration: null,
           namedExports: [],
           namedBinding: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
-          start: 0,
-          end: 10
+          newlineBeforeNextToken: false,
+          asi: true
         },
         {
           type: 'EmptyStatement',
-          start: 10,
-          end: 11
+          newlineBeforeNextToken: false,
+          asi: true
         }
-      ],
-      start: 0,
-      end: 11
+      ]
     });
   });
 });

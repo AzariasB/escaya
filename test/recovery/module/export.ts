@@ -5,7 +5,6 @@ describe('Recovery - Export', () => {
   it('export function *await(', () => {
     t.deepEqual(recovery('export function *await(', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -19,7 +18,9 @@ describe('Recovery - Export', () => {
               start: 17,
               end: 22,
               kind: 168,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             generator: true,
             async: false,
@@ -31,12 +32,16 @@ describe('Recovery - Export', () => {
               start: 23,
               end: 23,
               kind: 184,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 6,
             end: 23,
             kind: 186,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           namedExports: [],
           namedBinding: null,
@@ -46,7 +51,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 23,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export function *await(',
@@ -77,6 +84,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 23,
+      webCompat: true,
       end: 23
     });
   });
@@ -84,7 +92,6 @@ describe('Recovery - Export', () => {
   it('export { default as', () => {
     t.deepEqual(recovery('export { default as', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -101,7 +108,9 @@ describe('Recovery - Export', () => {
                 start: 8,
                 end: 16,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               binding: {
                 type: 'IdentifierName',
@@ -109,12 +118,16 @@ describe('Recovery - Export', () => {
                 start: 19,
                 end: 19,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               start: 8,
               end: 19,
               kind: 225,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             }
           ],
           namedBinding: null,
@@ -124,7 +137,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 19,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export { default as',
@@ -147,6 +162,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 19,
+      webCompat: true,
       end: 19
     });
   });
@@ -154,7 +170,6 @@ describe('Recovery - Export', () => {
   it('export { default as !!', () => {
     t.deepEqual(recovery('export { default as !!', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -171,7 +186,9 @@ describe('Recovery - Export', () => {
                 start: 8,
                 end: 16,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               binding: {
                 type: 'IdentifierName',
@@ -179,12 +196,16 @@ describe('Recovery - Export', () => {
                 start: 21,
                 end: 21,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               start: 8,
               end: 21,
               kind: 225,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             }
           ],
           namedBinding: null,
@@ -194,7 +215,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 21,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -207,17 +230,23 @@ describe('Recovery - Export', () => {
               start: 22,
               end: 22,
               kind: 13,
-              flags: 2
+              flags: 2,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 21,
             end: 22,
             kind: 160,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 21,
           end: 22,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export { default as !!',
@@ -248,6 +277,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 22,
+      webCompat: true,
       end: 22
     });
   });
@@ -255,7 +285,6 @@ describe('Recovery - Export', () => {
   it('export var y = 0;', () => {
     t.deepEqual(recovery('export var y = 0;', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -272,7 +301,9 @@ describe('Recovery - Export', () => {
                   start: 10,
                   end: 12,
                   kind: 168,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 },
                 initializer: {
                   type: 'NumericLiteral',
@@ -280,18 +311,24 @@ describe('Recovery - Export', () => {
                   start: 14,
                   end: 16,
                   kind: 10,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 },
                 start: 10,
                 end: 16,
                 kind: 144,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: true
               }
             ],
             start: 6,
             end: 17,
             kind: 143,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           namedExports: [],
           namedBinding: null,
@@ -301,7 +338,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 17,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export var y = 0;',
@@ -315,6 +354,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 17,
+      webCompat: true,
       end: 17
     });
   });
@@ -322,7 +362,6 @@ describe('Recovery - Export', () => {
   it('export { arguments } from "m.js";', () => {
     t.deepEqual(recovery('export { arguments } from "m.js";', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -339,13 +378,17 @@ describe('Recovery - Export', () => {
                 start: 8,
                 end: 18,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               binding: null,
               start: 8,
               end: 18,
               kind: 225,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             }
           ],
           namedBinding: null,
@@ -355,21 +398,27 @@ describe('Recovery - Export', () => {
             start: 25,
             end: 32,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           exportedNames: ['arguments'],
           boundNames: ['arguments'],
           start: 0,
           end: 32,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         },
         {
           type: 'EmptyStatement',
           start: 32,
           end: 33,
           kind: 148,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export { arguments } from "m.js";',
@@ -383,6 +432,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 33,
+      webCompat: true,
       end: 33
     });
   });
@@ -390,7 +440,6 @@ describe('Recovery - Export', () => {
   it('export { a as b } from "m.js";', () => {
     t.deepEqual(recovery('export { a as b } from "m.js";', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -407,7 +456,9 @@ describe('Recovery - Export', () => {
                 start: 8,
                 end: 10,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               binding: {
                 type: 'IdentifierName',
@@ -415,12 +466,16 @@ describe('Recovery - Export', () => {
                 start: 13,
                 end: 15,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               start: 8,
               end: 15,
               kind: 225,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             }
           ],
           namedBinding: null,
@@ -430,21 +485,27 @@ describe('Recovery - Export', () => {
             start: 22,
             end: 29,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           exportedNames: ['b'],
           boundNames: ['a'],
           start: 0,
           end: 29,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         },
         {
           type: 'EmptyStatement',
           start: 29,
           end: 30,
           kind: 148,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export { a as b } from "m.js";',
@@ -458,6 +519,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 30,
+      webCompat: true,
       end: 30
     });
   });
@@ -465,7 +527,6 @@ describe('Recovery - Export', () => {
   it('var a; export { a as b, a as c };', () => {
     t.deepEqual(recovery('var a; export { a as b, a as c };', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -479,19 +540,25 @@ describe('Recovery - Export', () => {
                 start: 3,
                 end: 5,
                 kind: 168,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               initializer: null,
               start: 3,
               end: 5,
               kind: 144,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             }
           ],
           start: 0,
           end: 6,
           kind: 143,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExportDeclaration',
@@ -507,7 +574,9 @@ describe('Recovery - Export', () => {
                 start: 15,
                 end: 17,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               binding: {
                 type: 'IdentifierName',
@@ -515,12 +584,16 @@ describe('Recovery - Export', () => {
                 start: 20,
                 end: 22,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               start: 15,
               end: 22,
               kind: 225,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             {
               type: 'ExportSpecifier',
@@ -531,7 +604,9 @@ describe('Recovery - Export', () => {
                 start: 23,
                 end: 25,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               binding: {
                 type: 'IdentifierName',
@@ -539,12 +614,16 @@ describe('Recovery - Export', () => {
                 start: 28,
                 end: 30,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               start: 23,
               end: 30,
               kind: 225,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             }
           ],
           namedBinding: null,
@@ -554,14 +633,18 @@ describe('Recovery - Export', () => {
           start: 6,
           end: 32,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         },
         {
           type: 'EmptyStatement',
           start: 32,
           end: 33,
           kind: 148,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'var a; export { a as b, a as c };',
@@ -575,6 +658,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 33,
+      webCompat: true,
       end: 33
     });
   });
@@ -582,7 +666,6 @@ describe('Recovery - Export', () => {
   it('class c { }; export default c', () => {
     t.deepEqual(recovery('class c { }; export default c', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -593,21 +676,27 @@ describe('Recovery - Export', () => {
             start: 5,
             end: 7,
             kind: 168,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           heritage: null,
           elements: [],
           start: 0,
           end: 11,
           kind: 150,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         },
         {
           type: 'EmptyStatement',
           start: 11,
           end: 12,
           kind: 148,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExportDefault',
@@ -617,12 +706,16 @@ describe('Recovery - Export', () => {
             start: 27,
             end: 29,
             kind: 13,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 12,
           end: 29,
           kind: 224,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'class c { }; export default c',
@@ -636,6 +729,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 29,
+      webCompat: true,
       end: 29
     });
   });
@@ -643,7 +737,6 @@ describe('Recovery - Export', () => {
   it('export let x = y, [...z] = y;', () => {
     t.deepEqual(recovery('export let x = y, [...z] = y;', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -661,7 +754,9 @@ describe('Recovery - Export', () => {
                   start: 10,
                   end: 12,
                   kind: 168,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 },
                 initializer: {
                   type: 'IdentifierReference',
@@ -669,12 +764,16 @@ describe('Recovery - Export', () => {
                   start: 14,
                   end: 16,
                   kind: 13,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 },
                 start: 10,
                 end: 16,
                 kind: 146,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'LexicalBinding',
@@ -689,18 +788,24 @@ describe('Recovery - Export', () => {
                         start: 22,
                         end: 23,
                         kind: 168,
-                        flags: 0
+                        flags: 0,
+                        newlineBeforeNextToken: false,
+                        asi: false
                       },
                       start: 19,
                       end: 23,
                       kind: 175,
-                      flags: 0
+                      flags: 0,
+                      newlineBeforeNextToken: false,
+                      asi: false
                     }
                   ],
                   start: 17,
                   end: 24,
                   kind: 174,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 },
                 initializer: {
                   type: 'IdentifierReference',
@@ -708,18 +813,24 @@ describe('Recovery - Export', () => {
                   start: 26,
                   end: 28,
                   kind: 13,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 },
                 start: 17,
                 end: 28,
                 kind: 146,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: true
               }
             ],
             start: 6,
             end: 29,
             kind: 145,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           namedExports: [],
           namedBinding: null,
@@ -729,7 +840,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 29,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export let x = y, [...z] = y;',
@@ -743,6 +856,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 29,
+      webCompat: true,
       end: 29
     });
   });
@@ -750,7 +864,6 @@ describe('Recovery - Export', () => {
   it('export default () => {}', () => {
     t.deepEqual(recovery('export default () => {}', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -765,18 +878,24 @@ describe('Recovery - Export', () => {
               start: 20,
               end: 23,
               kind: 184,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             async: false,
             start: 14,
             end: 23,
             kind: 188,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 0,
           end: 23,
           kind: 224,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export default () => {}',
@@ -790,6 +909,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 23,
+      webCompat: true,
       end: 23
     });
   });
@@ -797,7 +917,6 @@ describe('Recovery - Export', () => {
   it('export import from "foo"', () => {
     t.deepEqual(recovery('export import from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -812,7 +931,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 6,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ImportDeclaration',
@@ -822,7 +943,9 @@ describe('Recovery - Export', () => {
             start: 18,
             end: 24,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           moduleSpecifier: null,
           importClause: {
@@ -833,19 +956,25 @@ describe('Recovery - Export', () => {
               start: 13,
               end: 18,
               kind: 168,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             nameSpaceImport: null,
             namedImports: null,
             start: 13,
             end: 18,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 6,
           end: 24,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export import from "foo"',
@@ -876,13 +1005,13 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 24,
+      webCompat: true,
       end: 24
     });
   });
   it('export {!', () => {
     t.deepEqual(recovery('export {!', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -897,7 +1026,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 8,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -910,17 +1041,23 @@ describe('Recovery - Export', () => {
               start: 9,
               end: 9,
               kind: 13,
-              flags: 2
+              flags: 2,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 8,
             end: 9,
             kind: 160,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 8,
           end: 9,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export {!',
@@ -943,13 +1080,13 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 9,
+      webCompat: true,
       end: 9
     });
   });
   it('export function !', () => {
     t.deepEqual(recovery('export function !', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -963,7 +1100,9 @@ describe('Recovery - Export', () => {
               start: 15,
               end: 15,
               kind: 168,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             generator: false,
             async: false,
@@ -975,12 +1114,16 @@ describe('Recovery - Export', () => {
               start: 15,
               end: 15,
               kind: 184,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 6,
             end: 15,
             kind: 186,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           namedExports: [],
           namedBinding: null,
@@ -990,7 +1133,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 15,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -1003,17 +1148,23 @@ describe('Recovery - Export', () => {
               start: 17,
               end: 17,
               kind: 13,
-              flags: 2
+              flags: 2,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 15,
             end: 17,
             kind: 160,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 15,
           end: 17,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export function !',
@@ -1036,13 +1187,13 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 17,
+      webCompat: true,
       end: 17
     });
   });
   it('export *', () => {
     t.deepEqual(recovery('export *', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1057,14 +1208,18 @@ describe('Recovery - Export', () => {
             start: 8,
             end: 8,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           exportedNames: [],
           boundNames: [],
           start: 0,
           end: 8,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export *',
@@ -1087,6 +1242,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 8,
+      webCompat: true,
       end: 8
     });
   });
@@ -1094,7 +1250,6 @@ describe('Recovery - Export', () => {
   it('export { as', () => {
     t.deepEqual(recovery('export { as', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1111,13 +1266,17 @@ describe('Recovery - Export', () => {
                 start: 8,
                 end: 11,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               binding: null,
               start: 8,
               end: 11,
               kind: 225,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             }
           ],
           namedBinding: null,
@@ -1127,7 +1286,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 11,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export { as',
@@ -1150,6 +1311,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 11,
+      webCompat: true,
       end: 11
     });
   });
@@ -1162,7 +1324,6 @@ describe('Recovery - Export', () => {
       }),
       {
         kind: 209,
-        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -1176,7 +1337,9 @@ describe('Recovery - Export', () => {
               start: 6,
               end: 12,
               kind: 150,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             namedExports: [],
             namedBinding: null,
@@ -1186,7 +1349,9 @@ describe('Recovery - Export', () => {
             start: 0,
             end: 12,
             kind: 223,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'FunctionDeclaration',
@@ -1196,7 +1361,9 @@ describe('Recovery - Export', () => {
               start: 21,
               end: 25,
               kind: 168,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             generator: false,
             async: false,
@@ -1208,12 +1375,16 @@ describe('Recovery - Export', () => {
               start: 25,
               end: 25,
               kind: 184,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 12,
             end: 25,
             kind: 186,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'LexicalDeclaration',
@@ -1222,7 +1393,9 @@ describe('Recovery - Export', () => {
             start: 25,
             end: 31,
             kind: 145,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'VariableStatement',
@@ -1235,13 +1408,17 @@ describe('Recovery - Export', () => {
                   start: 35,
                   end: 41,
                   kind: 168,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 },
                 initializer: null,
                 start: 35,
                 end: 41,
                 kind: 144,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'VariableDeclaration',
@@ -1251,19 +1428,25 @@ describe('Recovery - Export', () => {
                   start: 41,
                   end: 47,
                   kind: 168,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 },
                 initializer: null,
                 start: 41,
                 end: 47,
                 kind: 144,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               }
             ],
             start: 31,
             end: 47,
             kind: 143,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'FunctionDeclaration',
@@ -1278,12 +1461,16 @@ describe('Recovery - Export', () => {
               start: 56,
               end: 56,
               kind: 184,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 47,
             end: 56,
             kind: 186,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           }
         ],
         text: 'export class function let const var async async function default',
@@ -1354,6 +1541,7 @@ describe('Recovery - Export', () => {
         children: [],
         start: 0,
         length: 64,
+        webCompat: true,
         end: 64
       }
     );
@@ -1362,7 +1550,6 @@ describe('Recovery - Export', () => {
   it('export const {', () => {
     t.deepEqual(recovery('export const {', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1380,19 +1567,25 @@ describe('Recovery - Export', () => {
                   start: 12,
                   end: 14,
                   kind: 169,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 },
                 initializer: null,
                 start: 12,
                 end: 14,
                 kind: 146,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: true
               }
             ],
             start: 6,
             end: 14,
             kind: 145,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           namedExports: [],
           namedBinding: null,
@@ -1402,7 +1595,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 14,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export const {',
@@ -1425,6 +1620,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 14,
+      webCompat: true,
       end: 14
     });
   });
@@ -1432,7 +1628,6 @@ describe('Recovery - Export', () => {
   it('export +', () => {
     t.deepEqual(recovery('export +', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1447,7 +1642,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 6,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -1460,17 +1657,23 @@ describe('Recovery - Export', () => {
               start: 8,
               end: 8,
               kind: 13,
-              flags: 2
+              flags: 2,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 6,
             end: 8,
             kind: 160,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 6,
           end: 8,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export +',
@@ -1493,6 +1696,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 8,
+      webCompat: true,
       end: 8
     });
   });
@@ -1500,7 +1704,6 @@ describe('Recovery - Export', () => {
   it('export { export !', () => {
     t.deepEqual(recovery('export { export !', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1517,13 +1720,17 @@ describe('Recovery - Export', () => {
                 start: 8,
                 end: 15,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               binding: null,
               start: 8,
               end: 15,
               kind: 225,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             }
           ],
           namedBinding: null,
@@ -1533,7 +1740,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 15,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -1546,17 +1755,23 @@ describe('Recovery - Export', () => {
               start: 17,
               end: 17,
               kind: 13,
-              flags: 2
+              flags: 2,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 15,
             end: 17,
             kind: 160,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 15,
           end: 17,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export { export !',
@@ -1579,6 +1794,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 17,
+      webCompat: true,
       end: 17
     });
   });
@@ -1586,7 +1802,6 @@ describe('Recovery - Export', () => {
   it('export (a (/  function foo bar !', () => {
     t.deepEqual(recovery('export (a (/  function foo bar !', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1601,7 +1816,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 6,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -1615,7 +1832,9 @@ describe('Recovery - Export', () => {
                 start: 8,
                 end: 9,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               arguments: [
                 {
@@ -1625,23 +1844,31 @@ describe('Recovery - Export', () => {
                   start: 11,
                   end: 32,
                   kind: 15,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 }
               ],
               start: 8,
               end: 32,
               kind: 156,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 6,
             end: 32,
             kind: 189,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 6,
           end: 32,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export (a (/  function foo bar !',
@@ -1672,6 +1899,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 32,
+      webCompat: true,
       end: 32
     });
   });
@@ -1681,7 +1909,6 @@ describe('Recovery - Export', () => {
       recovery('export export export 3x import import 2x Yeah!', 'recovery.js', { module: true, cst: true }),
       {
         kind: 209,
-        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -1696,7 +1923,9 @@ describe('Recovery - Export', () => {
             start: 0,
             end: 6,
             kind: 223,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExportDeclaration',
@@ -1710,7 +1939,9 @@ describe('Recovery - Export', () => {
             start: 6,
             end: 13,
             kind: 223,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExportDeclaration',
@@ -1724,7 +1955,9 @@ describe('Recovery - Export', () => {
             start: 13,
             end: 20,
             kind: 223,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -1734,12 +1967,16 @@ describe('Recovery - Export', () => {
               start: 20,
               end: 22,
               kind: 10,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 20,
             end: 22,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -1749,12 +1986,16 @@ describe('Recovery - Export', () => {
               start: 22,
               end: 23,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 22,
             end: 23,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ImportDeclaration',
@@ -1764,7 +2005,9 @@ describe('Recovery - Export', () => {
             start: 23,
             end: 30,
             kind: 217,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ImportDeclaration',
@@ -1774,7 +2017,9 @@ describe('Recovery - Export', () => {
             start: 30,
             end: 37,
             kind: 217,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -1784,12 +2029,16 @@ describe('Recovery - Export', () => {
               start: 37,
               end: 39,
               kind: 10,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 37,
             end: 39,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -1799,12 +2048,16 @@ describe('Recovery - Export', () => {
               start: 39,
               end: 40,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 39,
             end: 40,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -1814,12 +2067,16 @@ describe('Recovery - Export', () => {
               start: 40,
               end: 45,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 40,
             end: 45,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -1832,17 +2089,23 @@ describe('Recovery - Export', () => {
                 start: 46,
                 end: 46,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               start: 45,
               end: 46,
               kind: 160,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 45,
             end: 46,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           }
         ],
         text: 'export export export 3x import import 2x Yeah!',
@@ -1953,6 +2216,7 @@ describe('Recovery - Export', () => {
         children: [],
         start: 0,
         length: 46,
+        webCompat: true,
         end: 46
       }
     );
@@ -1961,7 +2225,6 @@ describe('Recovery - Export', () => {
   it('export {,,,,,,,,,,', () => {
     t.deepEqual(recovery('export {,,,,,,,,,,', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1976,7 +2239,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 8,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         }
       ],
       text: 'export {,,,,,,,,,,',
@@ -2071,6 +2336,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 18,
+      webCompat: true,
       end: 18
     });
   });
@@ -2078,7 +2344,6 @@ describe('Recovery - Export', () => {
   it('export {a,,b,,,,,c,', () => {
     t.deepEqual(recovery('export {a,,b,,,,,c,', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2095,13 +2360,17 @@ describe('Recovery - Export', () => {
                 start: 8,
                 end: 9,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               binding: null,
               start: 8,
               end: 9,
               kind: 225,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             }
           ],
           namedBinding: null,
@@ -2111,7 +2380,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 10,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -2124,7 +2395,9 @@ describe('Recovery - Export', () => {
                 start: 11,
                 end: 12,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -2132,7 +2405,9 @@ describe('Recovery - Export', () => {
                 start: 13,
                 end: 13,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -2140,7 +2415,9 @@ describe('Recovery - Export', () => {
                 start: 14,
                 end: 14,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -2148,7 +2425,9 @@ describe('Recovery - Export', () => {
                 start: 15,
                 end: 15,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -2156,7 +2435,9 @@ describe('Recovery - Export', () => {
                 start: 16,
                 end: 16,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -2164,7 +2445,9 @@ describe('Recovery - Export', () => {
                 start: 17,
                 end: 18,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -2172,18 +2455,24 @@ describe('Recovery - Export', () => {
                 start: 19,
                 end: 19,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: true
               }
             ],
             start: 11,
             end: 19,
             kind: 147,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 11,
           end: 19,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export {a,,b,,,,,c,',
@@ -2246,6 +2535,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 19,
+      webCompat: true,
       end: 19
     });
   });
@@ -2253,7 +2543,6 @@ describe('Recovery - Export', () => {
   it('export {a,,b,,,,,c from "string"', () => {
     t.deepEqual(recovery('export {a,,b,,,,,c from "string"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2270,13 +2559,17 @@ describe('Recovery - Export', () => {
                 start: 8,
                 end: 9,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               binding: null,
               start: 8,
               end: 9,
               kind: 225,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             }
           ],
           namedBinding: null,
@@ -2286,7 +2579,9 @@ describe('Recovery - Export', () => {
           start: 0,
           end: 10,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -2299,7 +2594,9 @@ describe('Recovery - Export', () => {
                 start: 11,
                 end: 12,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -2307,7 +2604,9 @@ describe('Recovery - Export', () => {
                 start: 13,
                 end: 13,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -2315,7 +2614,9 @@ describe('Recovery - Export', () => {
                 start: 14,
                 end: 14,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -2323,7 +2624,9 @@ describe('Recovery - Export', () => {
                 start: 15,
                 end: 15,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -2331,7 +2634,9 @@ describe('Recovery - Export', () => {
                 start: 16,
                 end: 16,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -2339,18 +2644,24 @@ describe('Recovery - Export', () => {
                 start: 17,
                 end: 18,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               }
             ],
             start: 11,
             end: 18,
             kind: 147,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 11,
           end: 18,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -2360,12 +2671,16 @@ describe('Recovery - Export', () => {
             start: 18,
             end: 23,
             kind: 13,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 18,
           end: 23,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -2375,12 +2690,16 @@ describe('Recovery - Export', () => {
             start: 23,
             end: 32,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 23,
           end: 32,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'export {a,,b,,,,,c from "string"',
@@ -2451,6 +2770,7 @@ describe('Recovery - Export', () => {
       children: [],
       start: 0,
       length: 32,
+      webCompat: true,
       end: 32
     });
   });
@@ -2463,7 +2783,6 @@ describe('Recovery - Export', () => {
       }),
       {
         kind: 209,
-        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -2474,12 +2793,16 @@ describe('Recovery - Export', () => {
               start: 0,
               end: 8,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 0,
             end: 8,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2489,12 +2812,16 @@ describe('Recovery - Export', () => {
               start: 8,
               end: 11,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 8,
             end: 11,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExportDeclaration',
@@ -2508,7 +2835,9 @@ describe('Recovery - Export', () => {
             start: 11,
             end: 18,
             kind: 223,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ImportDeclaration',
@@ -2518,7 +2847,9 @@ describe('Recovery - Export', () => {
             start: 18,
             end: 25,
             kind: 217,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2531,17 +2862,23 @@ describe('Recovery - Export', () => {
                 start: 29,
                 end: 29,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               start: 27,
               end: 29,
               kind: 160,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 27,
             end: 29,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'WhileStatement',
@@ -2551,7 +2888,9 @@ describe('Recovery - Export', () => {
               start: 35,
               end: 37,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             statement: {
               type: 'TryStatement',
@@ -2561,19 +2900,25 @@ describe('Recovery - Export', () => {
                 start: 41,
                 end: 41,
                 kind: 123,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               catchClause: null,
               finalizer: null,
               start: 37,
               end: 41,
               kind: 138,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 29,
             end: 41,
             kind: 139,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2585,7 +2930,9 @@ describe('Recovery - Export', () => {
                   start: 41,
                   end: 46,
                   kind: 165,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 },
                 {
                   type: 'IdentifierReference',
@@ -2593,18 +2940,24 @@ describe('Recovery - Export', () => {
                   start: 47,
                   end: 49,
                   kind: 13,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 }
               ],
               start: 41,
               end: 49,
               kind: 147,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 41,
             end: 49,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2614,23 +2967,28 @@ describe('Recovery - Export', () => {
               start: 49,
               end: 52,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 49,
             end: 52,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ForStatement',
-            variableDeclarationList: false,
             initializer: {
               type: 'IdentifierReference',
               name: 'a',
               start: 56,
               end: 58,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             condition: {
               type: 'IdentifierReference',
@@ -2638,7 +2996,9 @@ describe('Recovery - Export', () => {
               start: 63,
               end: 63,
               kind: 13,
-              flags: 2
+              flags: 2,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             incrementor: {
               type: 'IdentifierReference',
@@ -2646,8 +3006,11 @@ describe('Recovery - Export', () => {
               start: 58,
               end: 63,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
+            variableDeclarationList: false,
             statement: {
               type: 'ExpressionStatement',
               expression: {
@@ -2656,17 +3019,23 @@ describe('Recovery - Export', () => {
                 start: 63,
                 end: 63,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               start: 63,
               end: 63,
               kind: 122,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 52,
             end: 63,
             kind: 132,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           }
         ],
         text: 'possible to export import ? ! while I try this, I go for a walk',
@@ -2777,6 +3146,7 @@ describe('Recovery - Export', () => {
         children: [],
         start: 0,
         length: 63,
+        webCompat: true,
         end: 63
       }
     );

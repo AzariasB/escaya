@@ -225,6 +225,11 @@ export function finishNode(state: ParserState, context: Context, start: number, 
       node.flags = NodeFlags.None;
     }
   }
+  if (context & Context.OptionsCST) {
+    node.newlineBeforeNextToken = state.lineTerminatorBeforeNextToken;
+    node.asi = (state.token & Token.IsAutomaticSemicolon) !== 0;
+  }
+
   return node;
 }
 

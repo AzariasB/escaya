@@ -5,7 +5,6 @@ describe('Module - Import', () => {
   it('import export from "s"', () => {
     t.deepEqual(recovery('import export from "s"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -16,7 +15,9 @@ describe('Module - Import', () => {
           start: 0,
           end: 6,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExportDeclaration',
@@ -30,7 +31,9 @@ describe('Module - Import', () => {
           start: 6,
           end: 13,
           kind: 223,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -40,12 +43,16 @@ describe('Module - Import', () => {
             start: 13,
             end: 18,
             kind: 13,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 13,
           end: 18,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -55,12 +62,16 @@ describe('Module - Import', () => {
             start: 18,
             end: 22,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 18,
           end: 22,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import export from "s"',
@@ -99,13 +110,13 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 22,
+      webCompat: true,
       end: 22
     });
   });
   it('import import from "s"', () => {
     t.deepEqual(recovery('import import from "s"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -116,7 +127,9 @@ describe('Module - Import', () => {
           start: 0,
           end: 6,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ImportDeclaration',
@@ -126,7 +139,9 @@ describe('Module - Import', () => {
             start: 18,
             end: 22,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           moduleSpecifier: null,
           importClause: {
@@ -137,19 +152,25 @@ describe('Module - Import', () => {
               start: 13,
               end: 18,
               kind: 168,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             nameSpaceImport: null,
             namedImports: null,
             start: 13,
             end: 18,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 6,
           end: 22,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import import from "s"',
@@ -180,13 +201,13 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 22,
+      webCompat: true,
       end: 22
     });
   });
   it('import class from "s"', () => {
     t.deepEqual(recovery('import class from "s"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -197,7 +218,9 @@ describe('Module - Import', () => {
           start: 0,
           end: 6,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ClassDeclaration',
@@ -207,14 +230,18 @@ describe('Module - Import', () => {
             start: 12,
             end: 17,
             kind: 168,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           heritage: null,
           elements: [],
           start: 6,
           end: 17,
           kind: 150,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -224,12 +251,16 @@ describe('Module - Import', () => {
             start: 17,
             end: 21,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 17,
           end: 21,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import class from "s"',
@@ -260,13 +291,13 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 21,
+      webCompat: true,
       end: 21
     });
   });
   it('import function from "s"', () => {
     t.deepEqual(recovery('import function from "s"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -277,7 +308,9 @@ describe('Module - Import', () => {
           start: 0,
           end: 6,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'FunctionDeclaration',
@@ -287,7 +320,9 @@ describe('Module - Import', () => {
             start: 15,
             end: 20,
             kind: 168,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           generator: false,
           async: false,
@@ -299,12 +334,16 @@ describe('Module - Import', () => {
             start: 20,
             end: 20,
             kind: 184,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 6,
           end: 20,
           kind: 186,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -314,12 +353,16 @@ describe('Module - Import', () => {
             start: 20,
             end: 24,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 20,
           end: 24,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import function from "s"',
@@ -350,13 +393,13 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 24,
+      webCompat: true,
       end: 24
     });
   });
   it('import !foo from "s"', () => {
     t.deepEqual(recovery('import !foo from "s"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -367,7 +410,9 @@ describe('Module - Import', () => {
           start: 0,
           end: 6,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -380,17 +425,23 @@ describe('Module - Import', () => {
               start: 8,
               end: 11,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 6,
             end: 11,
             kind: 160,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 6,
           end: 11,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -400,12 +451,16 @@ describe('Module - Import', () => {
             start: 11,
             end: 16,
             kind: 13,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 11,
           end: 16,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -415,12 +470,16 @@ describe('Module - Import', () => {
             start: 16,
             end: 20,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 16,
           end: 20,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import !foo from "s"',
@@ -459,6 +518,7 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 20,
+      webCompat: true,
       end: 20
     });
   });
@@ -466,7 +526,6 @@ describe('Module - Import', () => {
   it('import {a,,,,b,,,,,c!', () => {
     t.deepEqual(recovery('import {a,,,,b,,,,,c!', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -477,7 +536,9 @@ describe('Module - Import', () => {
             start: 10,
             end: 11,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           moduleSpecifier: null,
           importClause: {
@@ -497,28 +558,38 @@ describe('Module - Import', () => {
                     start: 8,
                     end: 9,
                     kind: 13,
-                    flags: 0
+                    flags: 0,
+                    newlineBeforeNextToken: false,
+                    asi: false
                   },
                   start: 8,
                   end: 9,
                   kind: 222,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 }
               ],
               start: 6,
               end: 10,
               kind: 222,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 6,
             end: 10,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 0,
           end: 11,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -531,7 +602,9 @@ describe('Module - Import', () => {
                 start: 13,
                 end: 14,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -539,7 +612,9 @@ describe('Module - Import', () => {
                 start: 15,
                 end: 15,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -547,7 +622,9 @@ describe('Module - Import', () => {
                 start: 16,
                 end: 16,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -555,7 +632,9 @@ describe('Module - Import', () => {
                 start: 17,
                 end: 17,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -563,7 +642,9 @@ describe('Module - Import', () => {
                 start: 18,
                 end: 18,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               {
                 type: 'IdentifierReference',
@@ -571,18 +652,24 @@ describe('Module - Import', () => {
                 start: 19,
                 end: 20,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               }
             ],
             start: 13,
             end: 20,
             kind: 147,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 13,
           end: 20,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -595,17 +682,23 @@ describe('Module - Import', () => {
               start: 21,
               end: 21,
               kind: 13,
-              flags: 2
+              flags: 2,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 20,
             end: 21,
             kind: 160,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 20,
           end: 21,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import {a,,,,b,,,,,c!',
@@ -684,6 +777,7 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 21,
+      webCompat: true,
       end: 21
     });
   });
@@ -691,7 +785,6 @@ describe('Module - Import', () => {
   it('import {,,,,,,,,,,,,,,,,, !', () => {
     t.deepEqual(recovery('import {,,,,,,,,,,,,,,,,, !', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -702,7 +795,9 @@ describe('Module - Import', () => {
             start: 8,
             end: 9,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           moduleSpecifier: null,
           importClause: {
@@ -715,17 +810,23 @@ describe('Module - Import', () => {
               start: 6,
               end: 8,
               kind: 222,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 6,
             end: 8,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 0,
           end: 9,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: false
         },
         {
           type: 'ExpressionStatement',
@@ -738,17 +839,23 @@ describe('Module - Import', () => {
               start: 27,
               end: 27,
               kind: 13,
-              flags: 2
+              flags: 2,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 25,
             end: 27,
             kind: 160,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 25,
           end: 27,
           kind: 122,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import {,,,,,,,,,,,,,,,,, !',
@@ -907,6 +1014,7 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 27,
+      webCompat: true,
       end: 27
     });
   });
@@ -920,7 +1028,6 @@ describe('Module - Import', () => {
       ),
       {
         kind: 209,
-        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -931,7 +1038,9 @@ describe('Module - Import', () => {
               start: 12,
               end: 19,
               kind: 12,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             moduleSpecifier: null,
             importClause: {
@@ -942,19 +1051,25 @@ describe('Module - Import', () => {
                 start: 6,
                 end: 12,
                 kind: 168,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               nameSpaceImport: null,
               namedImports: null,
               start: 6,
               end: 12,
               kind: 218,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 0,
             end: 19,
             kind: 217,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -964,12 +1079,16 @@ describe('Module - Import', () => {
               start: 19,
               end: 23,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 19,
             end: 23,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -979,12 +1098,16 @@ describe('Module - Import', () => {
               start: 23,
               end: 34,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 23,
             end: 34,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -994,12 +1117,16 @@ describe('Module - Import', () => {
               start: 34,
               end: 44,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 34,
             end: 44,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -1009,12 +1136,16 @@ describe('Module - Import', () => {
               start: 44,
               end: 49,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 44,
             end: 49,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -1024,12 +1155,16 @@ describe('Module - Import', () => {
               start: 49,
               end: 53,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 49,
             end: 53,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -1039,12 +1174,16 @@ describe('Module - Import', () => {
               start: 53,
               end: 57,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 53,
             end: 57,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExportDeclaration',
@@ -1058,7 +1197,9 @@ describe('Module - Import', () => {
             start: 57,
             end: 64,
             kind: 223,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -1068,12 +1209,16 @@ describe('Module - Import', () => {
               start: 64,
               end: 67,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 64,
             end: 67,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -1083,12 +1228,16 @@ describe('Module - Import', () => {
               start: 75,
               end: 78,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 75,
             end: 78,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'TryStatement',
@@ -1098,14 +1247,18 @@ describe('Module - Import', () => {
               start: 82,
               end: 82,
               kind: 123,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             catchClause: null,
             finalizer: null,
             start: 78,
             end: 82,
             kind: 138,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'WhileStatement',
@@ -1115,7 +1268,9 @@ describe('Module - Import', () => {
               start: 88,
               end: 96,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             statement: {
               type: 'ExpressionStatement',
@@ -1125,17 +1280,23 @@ describe('Module - Import', () => {
                 start: 96,
                 end: 99,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               start: 96,
               end: 99,
               kind: 122,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 82,
             end: 99,
             kind: 139,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'SwitchStatement',
@@ -1145,24 +1306,29 @@ describe('Module - Import', () => {
               start: 106,
               end: 106,
               kind: 13,
-              flags: 2
+              flags: 2,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             clauses: [],
             start: 99,
             end: 106,
             kind: 136,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ForStatement',
-            variableDeclarationList: false,
             initializer: {
               type: 'IdentifierReference',
               name: 'something',
               start: 110,
               end: 120,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             condition: {
               type: 'UnaryExpression',
@@ -1173,12 +1339,16 @@ describe('Module - Import', () => {
                 start: 127,
                 end: 127,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               start: 125,
               end: 127,
               kind: 160,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             incrementor: {
               type: 'IdentifierReference',
@@ -1186,8 +1356,11 @@ describe('Module - Import', () => {
               start: 120,
               end: 125,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
+            variableDeclarationList: false,
             statement: {
               type: 'ExpressionStatement',
               expression: {
@@ -1196,17 +1369,23 @@ describe('Module - Import', () => {
                 start: 127,
                 end: 127,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               start: 127,
               end: 127,
               kind: 122,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 106,
             end: 127,
             kind: 132,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           }
         ],
         text:
@@ -1374,6 +1553,7 @@ describe('Module - Import', () => {
         children: [],
         start: 0,
         length: 127,
+        webCompat: true,
         end: 127
       }
     );
@@ -1382,7 +1562,6 @@ describe('Module - Import', () => {
   it('import {', () => {
     t.deepEqual(recovery('import {', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1393,7 +1572,9 @@ describe('Module - Import', () => {
             start: 8,
             end: 8,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           moduleSpecifier: null,
           importClause: {
@@ -1406,17 +1587,23 @@ describe('Module - Import', () => {
               start: 6,
               end: 8,
               kind: 222,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 6,
             end: 8,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           start: 0,
           end: 8,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import {',
@@ -1439,6 +1626,7 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 8,
+      webCompat: true,
       end: 8
     });
   });
@@ -1446,7 +1634,6 @@ describe('Module - Import', () => {
   it('import { import !', () => {
     t.deepEqual(recovery('import { import !', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1457,7 +1644,9 @@ describe('Module - Import', () => {
             start: 15,
             end: 17,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           moduleSpecifier: null,
           importClause: {
@@ -1477,28 +1666,38 @@ describe('Module - Import', () => {
                     start: 8,
                     end: 15,
                     kind: 13,
-                    flags: 0
+                    flags: 0,
+                    newlineBeforeNextToken: false,
+                    asi: false
                   },
                   start: 8,
                   end: 15,
                   kind: 222,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 }
               ],
               start: 6,
               end: 15,
               kind: 222,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 6,
             end: 15,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 0,
           end: 17,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import { import !',
@@ -1529,6 +1728,7 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 17,
+      webCompat: true,
       end: 17
     });
   });
@@ -1536,7 +1736,6 @@ describe('Module - Import', () => {
   it('import { let as l } from "foo";', () => {
     t.deepEqual(recovery('import { let as l } from "foo";', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1547,7 +1746,9 @@ describe('Module - Import', () => {
             start: 24,
             end: 30,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           moduleSpecifier: null,
           importClause: {
@@ -1566,7 +1767,9 @@ describe('Module - Import', () => {
                     start: 8,
                     end: 12,
                     kind: 13,
-                    flags: 0
+                    flags: 0,
+                    newlineBeforeNextToken: false,
+                    asi: false
                   },
                   binding: {
                     type: 'BindingIdentifier',
@@ -1574,28 +1777,38 @@ describe('Module - Import', () => {
                     start: 15,
                     end: 17,
                     kind: 168,
-                    flags: 0
+                    flags: 0,
+                    newlineBeforeNextToken: false,
+                    asi: true
                   },
                   start: 8,
                   end: 17,
                   kind: 222,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 }
               ],
               start: 6,
               end: 19,
               kind: 222,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 6,
             end: 19,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 0,
           end: 31,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import { let as l } from "foo";',
@@ -1609,6 +1822,7 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 31,
+      webCompat: true,
       end: 31
     });
   });
@@ -1616,7 +1830,6 @@ describe('Module - Import', () => {
   it('import a, {as} from "foo"', () => {
     t.deepEqual(recovery('import a, {as} from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1627,7 +1840,9 @@ describe('Module - Import', () => {
             start: 19,
             end: 25,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           moduleSpecifier: null,
           importClause: {
@@ -1638,7 +1853,9 @@ describe('Module - Import', () => {
               start: 6,
               end: 8,
               kind: 168,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             nameSpaceImport: null,
             namedImports: {
@@ -1654,28 +1871,38 @@ describe('Module - Import', () => {
                     start: 11,
                     end: 13,
                     kind: 13,
-                    flags: 0
+                    flags: 0,
+                    newlineBeforeNextToken: false,
+                    asi: true
                   },
                   start: 11,
                   end: 13,
                   kind: 222,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 }
               ],
               start: 9,
               end: 14,
               kind: 222,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 6,
             end: 14,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 0,
           end: 25,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import a, {as} from "foo"',
@@ -1689,6 +1916,7 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 25,
+      webCompat: true,
       end: 25
     });
   });
@@ -1696,7 +1924,6 @@ describe('Module - Import', () => {
   it('import a, {b as c} from "foo"', () => {
     t.deepEqual(recovery('import a, {b as c} from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1707,7 +1934,9 @@ describe('Module - Import', () => {
             start: 23,
             end: 29,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           moduleSpecifier: null,
           importClause: {
@@ -1718,7 +1947,9 @@ describe('Module - Import', () => {
               start: 6,
               end: 8,
               kind: 168,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             nameSpaceImport: null,
             namedImports: {
@@ -1733,7 +1964,9 @@ describe('Module - Import', () => {
                     start: 11,
                     end: 12,
                     kind: 13,
-                    flags: 0
+                    flags: 0,
+                    newlineBeforeNextToken: false,
+                    asi: false
                   },
                   binding: {
                     type: 'BindingIdentifier',
@@ -1741,28 +1974,38 @@ describe('Module - Import', () => {
                     start: 15,
                     end: 17,
                     kind: 168,
-                    flags: 0
+                    flags: 0,
+                    newlineBeforeNextToken: false,
+                    asi: true
                   },
                   start: 11,
                   end: 17,
                   kind: 222,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 }
               ],
               start: 9,
               end: 18,
               kind: 222,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 6,
             end: 18,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 0,
           end: 29,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import a, {b as c} from "foo"',
@@ -1776,6 +2019,7 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 29,
+      webCompat: true,
       end: 29
     });
   });
@@ -1783,7 +2027,6 @@ describe('Module - Import', () => {
   it('import { static as s } from "foo"', () => {
     t.deepEqual(recovery('import { static as s } from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1794,7 +2037,9 @@ describe('Module - Import', () => {
             start: 27,
             end: 33,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           moduleSpecifier: null,
           importClause: {
@@ -1813,7 +2058,9 @@ describe('Module - Import', () => {
                     start: 8,
                     end: 15,
                     kind: 13,
-                    flags: 0
+                    flags: 0,
+                    newlineBeforeNextToken: false,
+                    asi: false
                   },
                   binding: {
                     type: 'BindingIdentifier',
@@ -1821,28 +2068,38 @@ describe('Module - Import', () => {
                     start: 18,
                     end: 20,
                     kind: 168,
-                    flags: 0
+                    flags: 0,
+                    newlineBeforeNextToken: false,
+                    asi: true
                   },
                   start: 8,
                   end: 20,
                   kind: 222,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 }
               ],
               start: 6,
               end: 22,
               kind: 222,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 6,
             end: 22,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 0,
           end: 33,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import { static as s } from "foo"',
@@ -1856,6 +2113,7 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 33,
+      webCompat: true,
       end: 33
     });
   });
@@ -1863,7 +2121,6 @@ describe('Module - Import', () => {
   it('import {m as mm} from "foo"', () => {
     t.deepEqual(recovery('import {m as mm} from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1874,7 +2131,9 @@ describe('Module - Import', () => {
             start: 21,
             end: 27,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           moduleSpecifier: null,
           importClause: {
@@ -1893,7 +2152,9 @@ describe('Module - Import', () => {
                     start: 8,
                     end: 9,
                     kind: 13,
-                    flags: 0
+                    flags: 0,
+                    newlineBeforeNextToken: false,
+                    asi: false
                   },
                   binding: {
                     type: 'BindingIdentifier',
@@ -1901,28 +2162,38 @@ describe('Module - Import', () => {
                     start: 12,
                     end: 15,
                     kind: 168,
-                    flags: 0
+                    flags: 0,
+                    newlineBeforeNextToken: false,
+                    asi: true
                   },
                   start: 8,
                   end: 15,
                   kind: 222,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 }
               ],
               start: 6,
               end: 16,
               kind: 222,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 6,
             end: 16,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 0,
           end: 27,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import {m as mm} from "foo"',
@@ -1936,6 +2207,7 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 27,
+      webCompat: true,
       end: 27
     });
   });
@@ -1943,7 +2215,6 @@ describe('Module - Import', () => {
   it('import x, * as a from "foo"', () => {
     t.deepEqual(recovery('import x, * as a from "foo"', 'recovery.js', { module: true, cst: true }), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1954,7 +2225,9 @@ describe('Module - Import', () => {
             start: 21,
             end: 27,
             kind: 12,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           },
           moduleSpecifier: null,
           importClause: {
@@ -1965,7 +2238,9 @@ describe('Module - Import', () => {
               start: 6,
               end: 8,
               kind: 168,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             nameSpaceImport: {
               type: 'BindingIdentifier',
@@ -1973,18 +2248,24 @@ describe('Module - Import', () => {
               start: 14,
               end: 16,
               kind: 168,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             namedImports: null,
             start: 6,
             end: 16,
             kind: 218,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           start: 0,
           end: 27,
           kind: 217,
-          flags: 0
+          flags: 0,
+          newlineBeforeNextToken: false,
+          asi: true
         }
       ],
       text: 'import x, * as a from "foo"',
@@ -1998,6 +2279,7 @@ describe('Module - Import', () => {
       children: [],
       start: 0,
       length: 27,
+      webCompat: true,
       end: 27
     });
   });
@@ -2007,7 +2289,6 @@ describe('Module - Import', () => {
       recovery('export import still module code ! script or import', 'recovery.js', { module: true, cst: true }),
       {
         kind: 209,
-        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -2022,7 +2303,9 @@ describe('Module - Import', () => {
             start: 0,
             end: 6,
             kind: 223,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ImportDeclaration',
@@ -2032,7 +2315,9 @@ describe('Module - Import', () => {
               start: 19,
               end: 26,
               kind: 12,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             moduleSpecifier: null,
             importClause: {
@@ -2043,19 +2328,25 @@ describe('Module - Import', () => {
                 start: 13,
                 end: 19,
                 kind: 168,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               nameSpaceImport: null,
               namedImports: null,
               start: 13,
               end: 19,
               kind: 218,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 6,
             end: 26,
             kind: 217,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2065,12 +2356,16 @@ describe('Module - Import', () => {
               start: 26,
               end: 31,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 26,
             end: 31,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2083,17 +2378,23 @@ describe('Module - Import', () => {
                 start: 33,
                 end: 40,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               start: 31,
               end: 40,
               kind: 160,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 31,
             end: 40,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2103,12 +2404,16 @@ describe('Module - Import', () => {
               start: 40,
               end: 43,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 40,
             end: 43,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ImportDeclaration',
@@ -2118,7 +2423,9 @@ describe('Module - Import', () => {
             start: 43,
             end: 50,
             kind: 217,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           }
         ],
         text: 'export import still module code ! script or import',
@@ -2181,6 +2488,7 @@ describe('Module - Import', () => {
         children: [],
         start: 0,
         length: 50,
+        webCompat: true,
         end: 50
       }
     );
@@ -2194,7 +2502,6 @@ describe('Module - Import', () => {
       }),
       {
         kind: 209,
-        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -2205,12 +2512,16 @@ describe('Module - Import', () => {
               start: 0,
               end: 8,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 0,
             end: 8,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2220,12 +2531,16 @@ describe('Module - Import', () => {
               start: 8,
               end: 11,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 8,
             end: 11,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExportDeclaration',
@@ -2239,7 +2554,9 @@ describe('Module - Import', () => {
             start: 11,
             end: 18,
             kind: 223,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ImportDeclaration',
@@ -2249,7 +2566,9 @@ describe('Module - Import', () => {
             start: 18,
             end: 25,
             kind: 217,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2262,17 +2581,23 @@ describe('Module - Import', () => {
                 start: 29,
                 end: 29,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               start: 27,
               end: 29,
               kind: 160,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 27,
             end: 29,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'WhileStatement',
@@ -2282,7 +2607,9 @@ describe('Module - Import', () => {
               start: 35,
               end: 37,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             statement: {
               type: 'TryStatement',
@@ -2292,19 +2619,25 @@ describe('Module - Import', () => {
                 start: 41,
                 end: 41,
                 kind: 123,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               catchClause: null,
               finalizer: null,
               start: 37,
               end: 41,
               kind: 138,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 29,
             end: 41,
             kind: 139,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2316,7 +2649,9 @@ describe('Module - Import', () => {
                   start: 41,
                   end: 46,
                   kind: 165,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 },
                 {
                   type: 'IdentifierReference',
@@ -2324,18 +2659,24 @@ describe('Module - Import', () => {
                   start: 47,
                   end: 49,
                   kind: 13,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 }
               ],
               start: 41,
               end: 49,
               kind: 147,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 41,
             end: 49,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2345,23 +2686,28 @@ describe('Module - Import', () => {
               start: 49,
               end: 52,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 49,
             end: 52,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ForStatement',
-            variableDeclarationList: false,
             initializer: {
               type: 'IdentifierReference',
               name: 'a',
               start: 56,
               end: 58,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             condition: {
               type: 'IdentifierReference',
@@ -2369,7 +2715,9 @@ describe('Module - Import', () => {
               start: 63,
               end: 63,
               kind: 13,
-              flags: 2
+              flags: 2,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             incrementor: {
               type: 'IdentifierReference',
@@ -2377,8 +2725,11 @@ describe('Module - Import', () => {
               start: 58,
               end: 63,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
+            variableDeclarationList: false,
             statement: {
               type: 'ExpressionStatement',
               expression: {
@@ -2387,17 +2738,23 @@ describe('Module - Import', () => {
                 start: 63,
                 end: 63,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               start: 63,
               end: 63,
               kind: 122,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 52,
             end: 63,
             kind: 132,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           }
         ],
         text: 'possible to export import ? ! while I try this, I go for a walk',
@@ -2508,6 +2865,7 @@ describe('Module - Import', () => {
         children: [],
         start: 0,
         length: 63,
+        webCompat: true,
         end: 63
       }
     );
@@ -2521,7 +2879,6 @@ describe('Module - Import', () => {
       }),
       {
         kind: 209,
-        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -2532,7 +2889,9 @@ describe('Module - Import', () => {
             start: 0,
             end: 6,
             kind: 217,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExportDeclaration',
@@ -2546,7 +2905,9 @@ describe('Module - Import', () => {
             start: 6,
             end: 13,
             kind: 223,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2558,7 +2919,9 @@ describe('Module - Import', () => {
                 start: 13,
                 end: 13,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               operator: '||',
               right: {
@@ -2569,22 +2932,30 @@ describe('Module - Import', () => {
                   start: 18,
                   end: 20,
                   kind: 13,
-                  flags: 0
+                  flags: 0,
+                  newlineBeforeNextToken: false,
+                  asi: false
                 },
                 start: 16,
                 end: 21,
                 kind: 189,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               start: 13,
               end: 21,
               kind: 155,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 13,
             end: 21,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExportDeclaration',
@@ -2598,7 +2969,9 @@ describe('Module - Import', () => {
             start: 21,
             end: 28,
             kind: 223,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ImportDeclaration',
@@ -2608,7 +2981,9 @@ describe('Module - Import', () => {
             start: 28,
             end: 35,
             kind: 217,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2618,12 +2993,16 @@ describe('Module - Import', () => {
               start: 36,
               end: 38,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 36,
             end: 38,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'TryStatement',
@@ -2633,14 +3012,18 @@ describe('Module - Import', () => {
               start: 42,
               end: 42,
               kind: 123,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             catchClause: null,
             finalizer: null,
             start: 38,
             end: 42,
             kind: 138,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'WhileStatement',
@@ -2650,7 +3033,9 @@ describe('Module - Import', () => {
               start: 48,
               end: 50,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             statement: {
               type: 'ExpressionStatement',
@@ -2660,17 +3045,23 @@ describe('Module - Import', () => {
                 start: 50,
                 end: 54,
                 kind: 13,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               start: 50,
               end: 54,
               kind: 122,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 42,
             end: 54,
             kind: 139,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ExpressionStatement',
@@ -2683,28 +3074,35 @@ describe('Module - Import', () => {
                 start: 55,
                 end: 55,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: false
               },
               start: 54,
               end: 55,
               kind: 160,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             start: 54,
             end: 55,
             kind: 122,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: false
           },
           {
             type: 'ForStatement',
-            variableDeclarationList: false,
             initializer: {
               type: 'NumericLiteral',
               value: 11,
               start: 59,
               end: 62,
               kind: 10,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
             condition: {
               type: 'UnaryExpression',
@@ -2718,17 +3116,23 @@ describe('Module - Import', () => {
                   start: 69,
                   end: 69,
                   kind: 13,
-                  flags: 2
+                  flags: 2,
+                  newlineBeforeNextToken: false,
+                  asi: true
                 },
                 start: 68,
                 end: 69,
                 kind: 160,
-                flags: 0
+                flags: 0,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               start: 67,
               end: 69,
               kind: 160,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             incrementor: {
               type: 'IdentifierReference',
@@ -2736,8 +3140,11 @@ describe('Module - Import', () => {
               start: 62,
               end: 67,
               kind: 13,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: false
             },
+            variableDeclarationList: false,
             statement: {
               type: 'ExpressionStatement',
               expression: {
@@ -2746,17 +3153,23 @@ describe('Module - Import', () => {
                 start: 69,
                 end: 69,
                 kind: 13,
-                flags: 2
+                flags: 2,
+                newlineBeforeNextToken: false,
+                asi: true
               },
               start: 69,
               end: 69,
               kind: 122,
-              flags: 0
+              flags: 0,
+              newlineBeforeNextToken: false,
+              asi: true
             },
             start: 55,
             end: 69,
             kind: 132,
-            flags: 0
+            flags: 0,
+            newlineBeforeNextToken: false,
+            asi: true
           }
         ],
         text: 'import export || (or) export import? I try while I eat! for 11 time!!',
@@ -2891,6 +3304,7 @@ describe('Module - Import', () => {
         children: [],
         start: 0,
         length: 69,
+        webCompat: true,
         end: 69
       }
     );

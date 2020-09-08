@@ -17,6 +17,7 @@
 * Conforms to the standard ECMAScript® 2021 (ECMA-262 11th Edition) language specification
 * Support for additional ECMAScript features for Web Browsers
 * Optionally track syntactic node locations
+* Optionally concrete syntax
 * Emits an ECMAScript® 2021 compatible abstract syntax tree
 * Error recovery mode with incremental parsing support
 * Errors diagnostics
@@ -51,7 +52,7 @@ This is the available options:
 | `next`              | Enable stage 3 support (ESNext) |
 | `disableWebCompat`  | Disable web compatibility |
 | `loc`               | Enable line/column location information start and end offsets to each node |
-| `globalReturn`      | Allow return in the global scope |
+| `cst`               | Enable additional concrete syntax to each node |
 | `impliedStrict`     | Enable strict mode initial enforcement |
 | `module`            | Enable parsing in module goal in error recovery mode |
 

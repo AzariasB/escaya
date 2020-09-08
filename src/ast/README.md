@@ -51,6 +51,8 @@ interface Module <: Node {
 ```js
 interface Node {
     type: string;
+    asi?: boolean;
+    newline?: boolean;
     start?: number;
     end?: number;
     loc?: SourceLocation;
@@ -64,6 +66,9 @@ The `type` field is a string representing the AST variant type, and the `start` 
 are optional properties representing the start and end values of each `AST node`.
 
 The optional `loc` field contains the source location information of the node.
+
+The optional `newline` and `asi` fields contains information wherever there is a line terminator
+before next token and if AST should kick in after current token.
 
 ```js
 interface SourceLocation {
