@@ -1,7 +1,6 @@
 import * as t from 'assert';
 import { Context } from '../../src/common';
 import { create } from '../../src/parser';
-import { Token } from '../../src/ast/token';
 import { scanSingleToken } from '../../src/lexer/scan';
 
 describe('Scanner - Whitespace', () => {

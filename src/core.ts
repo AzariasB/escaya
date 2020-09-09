@@ -159,7 +159,9 @@ export function parseInRecoveryMode(text: string, filename: string, context: Con
 export function parseInIncrementalMode(
   text: string,
   filename: string,
+  /* eslint-disable */
   _root: RootNode,
+  /* eslint-disable */
   _textChangeRange: TextChangeRange
 ): RootNode {
   // TODO!

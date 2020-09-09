@@ -1,5 +1,5 @@
 import * as t from 'assert';
-import { parseScript, parseModule, recovery } from '../../../src/escaya';
+import { parseScript, recovery } from '../../../src/escaya';
 
 describe('Expressions - Member', () => {
   // Invalid cases
