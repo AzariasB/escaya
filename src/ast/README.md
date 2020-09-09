@@ -51,8 +51,7 @@ interface Module <: Node {
 ```js
 interface Node {
     type: string;
-    asi?: boolean;
-    newline?: boolean;
+    meta?: NodeMeta;
     start?: number;
     end?: number;
     loc?: SourceLocation;
