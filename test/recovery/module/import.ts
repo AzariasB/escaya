@@ -2020,7 +2020,7 @@ describe('Module - Import', () => {
           end: 31,
           kind: 217,
           flags: 0,
-          meta: { 
+          meta: {
             asi: true,
             newlineBeforeNextToken: false
           }
@@ -3495,6 +3495,7 @@ describe('Module - Import', () => {
             type: 'ForStatement',
             initializer: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 11,
               start: 59,
               end: 62,

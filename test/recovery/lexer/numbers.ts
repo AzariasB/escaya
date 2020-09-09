@@ -12,6 +12,7 @@ describe('Recovery - Numbers', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 0,
             end: 5,
@@ -27,6 +28,7 @@ describe('Recovery - Numbers', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 2,
             start: 5,
             end: 6,
@@ -101,6 +103,7 @@ describe('Recovery - Numbers', () => {
             kind: 10,
             start: 0,
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 0
           },
           flags: 0,
@@ -127,6 +130,7 @@ describe('Recovery - Numbers', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 0,
             end: 1,
@@ -188,6 +192,7 @@ describe('Recovery - Numbers', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 0,
             end: 3,
@@ -254,6 +259,7 @@ describe('Recovery - Numbers', () => {
             kind: 10,
             start: 0,
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1
           },
           flags: 0,
@@ -300,6 +306,7 @@ describe('Recovery - Numbers', () => {
             kind: 10,
             start: 0,
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1
           },
           flags: 0,
@@ -346,6 +353,7 @@ describe('Recovery - Numbers', () => {
             kind: 10,
             start: 0,
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 0
           },
           flags: 0,
@@ -392,6 +400,7 @@ describe('Recovery - Numbers', () => {
             kind: 10,
             start: 0,
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1
           },
           flags: 0,

@@ -639,18 +639,21 @@ describe('Statements - Try', () => {
                   elements: [
                     {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 3,
                       start: 13,
                       end: 14
                     },
                     {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 4,
                       start: 16,
                       end: 17
                     },
                     {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 5,
                       start: 19,
                       end: 20
@@ -843,7 +846,7 @@ describe('Statements - Try', () => {
                                 end: 34
                               },
                               expression: {
-                                type: 'NumericLiteral',
+                                type: 'NumericLiteral', "floatingPoint": false,
                                 name: 7,
                                 start: 36,
                                 end: 37
@@ -942,7 +945,7 @@ describe('Statements - Try', () => {
                               end: 74
                             },
                             expression: {
-                              type: 'NumericLiteral',
+                              type: 'NumericLiteral', "floatingPoint": false,
                               name: 4,
                               start: 76,
                               end: 77
@@ -959,7 +962,7 @@ describe('Statements - Try', () => {
                               end: 80
                             },
                             expression: {
-                              type: 'NumericLiteral',
+                              type: 'NumericLiteral', "floatingPoint": false,
                               name: 5,
                               start: 82,
                               end: 83
@@ -976,7 +979,7 @@ describe('Statements - Try', () => {
                               end: 86
                             },
                             expression: {
-                              type: 'NumericLiteral',
+                              type: 'NumericLiteral', "floatingPoint": false,
                               name: 6,
                               start: 88,
                               end: 89
@@ -1590,6 +1593,7 @@ describe('Statements - Try', () => {
                     operator: '=',
                     right: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 0,
                       start: 22,
                       end: 23
@@ -1666,6 +1670,7 @@ describe('Statements - Try', () => {
                           operator: '=',
                           right: {
                             type: 'NumericLiteral',
+                            floatingPoint: false,
                             value: 1,
                             start: 34,
                             end: 35

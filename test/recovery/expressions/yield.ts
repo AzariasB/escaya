@@ -308,6 +308,7 @@ describe('Recovery - Expressions - Yield', () => {
                   type: 'BinaryExpression',
                   left: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 5,
                     start: 13,
                     end: 15,
@@ -435,6 +436,7 @@ describe('Recovery - Expressions - Yield', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 11,
             end: 13,
@@ -586,6 +588,7 @@ describe('Recovery - Expressions - Yield', () => {
                           },
                           value: {
                             type: 'NumericLiteral',
+                            floatingPoint: false,
                             value: 1,
                             start: 31,
                             end: 33,

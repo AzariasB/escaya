@@ -52,7 +52,8 @@ export const enum Flags {
   SeenProto = 1 << 3,
   HasProto = 1 << 4,
   HasStrictReserved = 1 << 5,
-  SimpleParameterList = 1 << 6
+  SimpleParameterList = 1 << 6,
+  HasFloatingNumber = 1 << 7
 }
 
 export const enum ConcreteSyntax {

@@ -78,6 +78,7 @@ describe('Recovery - Expressions - Object', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 3,
                       start: 22,
                       end: 24,
@@ -187,6 +188,7 @@ describe('Recovery - Expressions - Object', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 4,
                       start: 19,
                       end: 21,
@@ -292,6 +294,7 @@ describe('Recovery - Expressions - Object', () => {
                 type: 'BinaryExpression',
                 left: {
                   type: 'NumericLiteral',
+                  floatingPoint: false,
                   value: 1,
                   start: 11,
                   end: 13,
@@ -677,6 +680,7 @@ describe('Recovery - Expressions - Object', () => {
               arguments: [
                 {
                   type: 'NumericLiteral',
+                  floatingPoint: false,
                   value: 0,
                   start: 11,
                   end: 12,
@@ -703,6 +707,7 @@ describe('Recovery - Expressions - Object', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 0,
             start: 13,
             end: 15,
@@ -2918,6 +2923,7 @@ describe('Recovery - Expressions - Object', () => {
                   },
                   value: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 0,
                     start: 4,
                     end: 6,

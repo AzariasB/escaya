@@ -421,6 +421,7 @@ describe('Recovery - Human', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 18,
               start: 156,
               end: 159,
@@ -617,6 +618,7 @@ describe('Recovery - Human', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 18,
               start: 239,
               end: 242,
@@ -662,6 +664,7 @@ describe('Recovery - Human', () => {
                   elements: [
                     {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 1,
                       start: 254,
                       end: 255,
@@ -748,6 +751,7 @@ describe('Recovery - Human', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 1800,
               start: 286,
               end: 291,
@@ -778,6 +782,7 @@ describe('Recovery - Human', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 1850,
               start: 294,
               end: 299,

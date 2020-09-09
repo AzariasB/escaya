@@ -180,6 +180,7 @@ describe('Recovery - Expressions - Binary', () => {
               operator: '~',
               operand: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 3,
                 start: 1,
                 end: 2,
@@ -307,6 +308,7 @@ describe('Recovery - Expressions - Binary', () => {
               operator: 'typeof',
               operand: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 3,
                 start: 6,
                 end: 8,
@@ -376,6 +378,7 @@ describe('Recovery - Expressions - Binary', () => {
               operator: 'typeof',
               operand: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 3,
                 start: 6,
                 end: 8,

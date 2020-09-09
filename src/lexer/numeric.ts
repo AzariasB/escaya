@@ -158,7 +158,6 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
   let index = state.index;
 
   if (isFloat) {
-    state.cst |= ConcreteSyntax.IsFloat;
     do {
       cp = source.charCodeAt(++index);
     } while (cp <= Char.Nine && cp >= Char.Zero);

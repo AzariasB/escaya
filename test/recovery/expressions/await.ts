@@ -14,6 +14,7 @@ describe('Recovery - Expressions - Await', () => {
             type: 'BinaryExpression',
             left: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 5,
               start: 0,
               end: 1,

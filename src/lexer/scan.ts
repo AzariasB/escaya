@@ -1,5 +1,5 @@
 import { Token } from './../ast/token';
-import { Context, ParserState, ConcreteSyntax } from '../common';
+import { Context, ParserState, ConcreteSyntax, Flags } from '../common';
 import { unicodeLookup } from './unicode';
 import { addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
@@ -194,6 +194,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
             cp = state.source.charCodeAt(index);
 
             if (cp >= Char.Zero && cp <= Char.Nine) {
+              state.flags |= Flags.HasFloatingNumber;
               return scanNumber(state, context, cp, true);
             }
 
@@ -543,6 +544,7 @@ export function nextToken(state: ParserState, context: Context): void {
   // Concrete syntax is unique for each node so we need to reset that
   // information now
   state.cst = ConcreteSyntax.Empty;
+  state.flags = (state.flags | Flags.HasFloatingNumber) ^ Flags.HasFloatingNumber;
   // Position of 'index' before whitespace.
   state.startIndex = state.index;
   state.lineTerminatorBeforeNextToken = false;

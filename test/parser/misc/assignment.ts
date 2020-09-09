@@ -28,6 +28,7 @@ describe('Misc - Assignment', () => {
                       },
                       right: {
                         type: 'NumericLiteral',
+                        floatingPoint: false,
                         value: 0,
                         start: 4,
                         end: 5
@@ -52,6 +53,7 @@ describe('Misc - Assignment', () => {
                       },
                       right: {
                         type: 'NumericLiteral',
+                        floatingPoint: false,
                         value: 0,
                         start: 10,
                         end: 11
@@ -69,6 +71,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 16,
               end: 17
@@ -110,6 +113,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 7,
               end: 8
@@ -156,6 +160,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 8,
               end: 9
@@ -204,6 +209,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 8,
               end: 9
@@ -262,6 +268,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 15,
               end: 16
@@ -313,6 +320,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 10,
               end: 11
@@ -366,6 +374,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 11,
               end: 12
@@ -410,6 +419,7 @@ describe('Misc - Assignment', () => {
                         type: 'PropertyName',
                         key: {
                           type: 'NumericLiteral',
+                          floatingPoint: false,
                           value: 0,
                           start: 8,
                           end: 9
@@ -436,6 +446,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 17,
               end: 18
@@ -483,6 +494,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 9,
               end: 10
@@ -535,6 +547,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 12,
               end: 13
@@ -775,6 +788,7 @@ describe('Misc - Assignment', () => {
                       },
                       right: {
                         type: 'NumericLiteral',
+                        floatingPoint: false,
                         value: 0,
                         start: 4,
                         end: 5
@@ -799,6 +813,7 @@ describe('Misc - Assignment', () => {
                       },
                       right: {
                         type: 'NumericLiteral',
+                        floatingPoint: false,
                         value: 0,
                         start: 10,
                         end: 11
@@ -816,6 +831,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 16,
               end: 17
@@ -855,6 +871,7 @@ describe('Misc - Assignment', () => {
                   },
                   right: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 0,
                     start: 5,
                     end: 6
@@ -877,6 +894,7 @@ describe('Misc - Assignment', () => {
                         },
                         right: {
                           type: 'NumericLiteral',
+                          floatingPoint: false,
                           value: 0,
                           start: 16,
                           end: 17
@@ -897,6 +915,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 22,
               end: 23
@@ -939,6 +958,7 @@ describe('Misc - Assignment', () => {
                       },
                       right: {
                         type: 'NumericLiteral',
+                        floatingPoint: false,
                         value: 0,
                         start: 4,
                         end: 5
@@ -967,6 +987,7 @@ describe('Misc - Assignment', () => {
             },
             right: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 0,
               start: 16,
               end: 17
@@ -1010,6 +1031,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 0,
                 start: 7,
                 end: 8
@@ -1056,6 +1078,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 0,
                 start: 8,
                 end: 9
@@ -1108,6 +1131,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 0,
                 start: 9,
                 end: 10
@@ -1160,6 +1184,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 0,
                 start: 10,
                 end: 11
@@ -1203,6 +1228,7 @@ describe('Misc - Assignment', () => {
                     },
                     right: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 0,
                       start: 6,
                       end: 7
@@ -1216,6 +1242,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 1,
                 start: 12,
                 end: 13
@@ -1254,6 +1281,7 @@ describe('Misc - Assignment', () => {
                     type: 'PropertyName',
                     key: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 0,
                       start: 2,
                       end: 3
@@ -1273,6 +1301,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 0,
                 start: 10,
                 end: 11
@@ -1311,6 +1340,7 @@ describe('Misc - Assignment', () => {
                     type: 'PropertyName',
                     key: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 0,
                       start: 2,
                       end: 3
@@ -1328,6 +1358,7 @@ describe('Misc - Assignment', () => {
                     type: 'PropertyName',
                     key: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 1,
                       start: 8,
                       end: 9
@@ -1347,6 +1378,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 0,
                 start: 16,
                 end: 17
@@ -1408,6 +1440,7 @@ describe('Misc - Assignment', () => {
                         operator: '=',
                         right: {
                           type: 'NumericLiteral',
+                          floatingPoint: false,
                           value: 0,
                           start: 13,
                           end: 14
@@ -1427,6 +1460,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 1,
                 start: 18,
                 end: 19
@@ -1486,6 +1520,7 @@ describe('Misc - Assignment', () => {
                       },
                       right: {
                         type: 'NumericLiteral',
+                        floatingPoint: false,
                         value: 0,
                         start: 11,
                         end: 12
@@ -1502,6 +1537,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 1,
                 start: 16,
                 end: 17
@@ -1559,6 +1595,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 0,
                 start: 11,
                 end: 12
@@ -1616,6 +1653,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 0,
                 start: 13,
                 end: 14
@@ -1660,6 +1698,7 @@ describe('Misc - Assignment', () => {
                     },
                     right: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 0,
                       start: 10,
                       end: 11
@@ -1673,6 +1712,7 @@ describe('Misc - Assignment', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 0,
                 start: 15,
                 end: 16
@@ -1755,6 +1795,7 @@ describe('Misc - Assignment', () => {
                       },
                       right: {
                         type: 'NumericLiteral',
+                        floatingPoint: false,
                         value: 0,
                         start: 36,
                         end: 37

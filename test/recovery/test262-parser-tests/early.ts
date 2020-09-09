@@ -429,6 +429,7 @@ describe('test262-parser-tests - early tests', () => {
               elements: [
                 {
                   type: 'NumericLiteral',
+                  floatingPoint: false,
                   value: 0,
                   start: 6,
                   end: 7,
@@ -447,6 +448,7 @@ describe('test262-parser-tests - early tests', () => {
           },
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 0,
             start: 12,
             end: 14,
@@ -543,6 +545,7 @@ describe('test262-parser-tests - early tests', () => {
           },
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 19,
             end: 21,
@@ -782,6 +785,7 @@ describe('test262-parser-tests - early tests', () => {
                       },
                       initializer: {
                         type: 'NumericLiteral',
+                        floatingPoint: false,
                         value: 1,
                         start: 18,
                         end: 20,
@@ -1959,6 +1963,7 @@ describe('test262-parser-tests - early tests', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
+                  floatingPoint: false,
                   value: 1,
                   start: 13,
                   end: 15,
@@ -2424,6 +2429,7 @@ describe('test262-parser-tests - early tests', () => {
                     type: 'ConciseBody',
                     expression: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 1,
                       start: 31,
                       end: 33,
@@ -2595,6 +2601,7 @@ describe('test262-parser-tests - early tests', () => {
                   type: 'WhileStatement',
                   expression: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 1,
                     start: 23,
                     end: 24,
@@ -2777,6 +2784,7 @@ describe('test262-parser-tests - early tests', () => {
           },
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 19,
             end: 21,
@@ -2869,6 +2877,7 @@ describe('test262-parser-tests - early tests', () => {
                       },
                       initializer: {
                         type: 'NumericLiteral',
+                        floatingPoint: false,
                         value: 1,
                         start: 20,
                         end: 22,
@@ -3146,6 +3155,7 @@ describe('test262-parser-tests - early tests', () => {
                   operator: '=',
                   right: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 1,
                     start: 40,
                     end: 42,
@@ -3239,6 +3249,7 @@ describe('test262-parser-tests - early tests', () => {
                   },
                   initializer: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 1,
                     start: 18,
                     end: 20,
@@ -3414,6 +3425,7 @@ describe('test262-parser-tests - early tests', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 0,
                 start: 14,
                 end: 16,
@@ -3524,6 +3536,7 @@ describe('test262-parser-tests - early tests', () => {
                     type: 'ConciseBody',
                     expression: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 1,
                       start: 32,
                       end: 34,
@@ -3596,6 +3609,7 @@ describe('test262-parser-tests - early tests', () => {
                 },
                 value: {
                   type: 'NumericLiteral',
+                  floatingPoint: false,
                   value: 0,
                   start: 7,
                   end: 9,
@@ -3615,6 +3629,7 @@ describe('test262-parser-tests - early tests', () => {
           },
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 0,
             start: 13,
             end: 15,
@@ -3818,6 +3833,7 @@ describe('test262-parser-tests - early tests', () => {
               type: 'ExpressionStatement',
               expression: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 1,
                 start: 21,
                 end: 23,
@@ -3874,6 +3890,7 @@ describe('test262-parser-tests - early tests', () => {
           type: 'SwitchStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 7,
             end: 8,
@@ -3885,6 +3902,7 @@ describe('test262-parser-tests - early tests', () => {
               type: 'CaseClause',
               expression: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 2,
                 start: 16,
                 end: 18,
@@ -3983,6 +4001,7 @@ describe('test262-parser-tests - early tests', () => {
           type: 'SwitchStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 7,
             end: 8,
@@ -3994,6 +4013,7 @@ describe('test262-parser-tests - early tests', () => {
               type: 'CaseClause',
               expression: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 2,
                 start: 16,
                 end: 18,
@@ -4037,6 +4057,7 @@ describe('test262-parser-tests - early tests', () => {
               type: 'CaseClause',
               expression: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 3,
                 start: 31,
                 end: 33,
@@ -4117,6 +4138,7 @@ describe('test262-parser-tests - early tests', () => {
           type: 'IfStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 3,
             end: 4,
@@ -4287,6 +4309,7 @@ describe('test262-parser-tests - early tests', () => {
           type: 'IfStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 3,
             end: 4,
@@ -4454,6 +4477,7 @@ describe('test262-parser-tests - early tests', () => {
           type: 'WhileStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 6,
             end: 7,
@@ -5274,6 +5298,7 @@ describe('test262-parser-tests - early tests', () => {
                   },
                   initializer: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 1,
                     start: 11,
                     end: 13,
@@ -5868,6 +5893,7 @@ describe('test262-parser-tests - early tests', () => {
                       },
                       initializer: {
                         type: 'NumericLiteral',
+                        floatingPoint: false,
                         value: 1,
                         start: 20,
                         end: 22,
@@ -6354,6 +6380,7 @@ describe('test262-parser-tests - early tests', () => {
                   operator: '=',
                   right: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 1,
                     start: 37,
                     end: 39,
@@ -6459,6 +6486,7 @@ describe('test262-parser-tests - early tests', () => {
               },
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 0,
                 start: 11,
                 end: 13,
@@ -6537,6 +6565,7 @@ describe('test262-parser-tests - early tests', () => {
               type: 'ConciseBody',
               expression: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 1,
                 start: 9,
                 end: 11,
@@ -6756,6 +6785,7 @@ describe('test262-parser-tests - early tests', () => {
           },
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 1,
             start: 14,
             end: 16,

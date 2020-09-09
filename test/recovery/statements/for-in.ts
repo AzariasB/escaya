@@ -315,6 +315,7 @@ describe('Recovery - For in', () => {
           type: 'ForInStatement',
           initializer: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 5,
             start: 5,
             end: 6,

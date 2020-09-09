@@ -66,9 +66,6 @@ are optional properties representing the start and end values of each `AST node`
 
 The optional `loc` field contains the source location information of the node.
 
-The optional `newline` and `asi` fields contains information wherever there is a line terminator
-before next token and if AST should kick in after current token.
-
 ```js
 interface SourceLocation {
   start: LineAndColumnData;
@@ -87,6 +84,15 @@ interface LineAndColumnData {
 ```
 
 The `line` field is `1-indexed` and the `column` field is `0-indexed`
+
+
+```js
+export interface NodeMeta {
+  asi?: boolean,
+  newlineBeforNextToken?: boolean;
+}
+```
+
 
 ## Directive prologues
 

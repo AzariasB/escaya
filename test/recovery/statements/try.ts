@@ -59,6 +59,7 @@ describe('Recovery - Try', () => {
                   },
                   right: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 23,
                     start: 30,
                     end: 33,

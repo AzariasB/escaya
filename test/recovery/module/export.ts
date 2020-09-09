@@ -20,7 +20,7 @@ describe('Recovery - Export', () => {
               kind: 168,
               flags: 0,
               meta: {
-                asi: false,     
+                asi: false,
                 newlineBeforeNextToken: false
               }
             },
@@ -36,7 +36,7 @@ describe('Recovery - Export', () => {
               kind: 184,
               flags: 0,
               meta: {
-                asi: true,    
+                asi: true,
                 newlineBeforeNextToken: false
               }
             },
@@ -204,7 +204,7 @@ describe('Recovery - Export', () => {
                 kind: 13,
                 flags: 0,
                 meta: {
-                  asi: false,      
+                  asi: false,
                   newlineBeforeNextToken: false
                 }
               },
@@ -339,6 +339,7 @@ describe('Recovery - Export', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
+                  floatingPoint: false,
                   value: 0,
                   start: 14,
                   end: 16,
@@ -665,7 +666,7 @@ describe('Recovery - Export', () => {
               kind: 225,
               flags: 0,
               meta: {
-                asi: false,  
+                asi: false,
                 newlineBeforeNextToken: false
               }
             },
@@ -850,7 +851,7 @@ describe('Recovery - Export', () => {
                   kind: 168,
                   flags: 0,
                   meta: {
-                    asi: false,     
+                    asi: false,
                     newlineBeforeNextToken: false
                   }
                 },
@@ -862,7 +863,7 @@ describe('Recovery - Export', () => {
                   kind: 13,
                   flags: 0,
                   meta: {
-                    asi: false,  
+                    asi: false,
                     newlineBeforeNextToken: false
                   }
                 },
@@ -871,7 +872,7 @@ describe('Recovery - Export', () => {
                 kind: 146,
                 flags: 0,
                 meta: {
-                  asi: false, 
+                  asi: false,
                   newlineBeforeNextToken: false
                 }
               },
@@ -890,7 +891,7 @@ describe('Recovery - Export', () => {
                         kind: 168,
                         flags: 0,
                         meta: {
-                          asi: false,         
+                          asi: false,
                           newlineBeforeNextToken: false
                         }
                       },
@@ -899,7 +900,7 @@ describe('Recovery - Export', () => {
                       kind: 175,
                       flags: 0,
                       meta: {
-                        asi: false,     
+                        asi: false,
                         newlineBeforeNextToken: false
                       }
                     }
@@ -909,7 +910,7 @@ describe('Recovery - Export', () => {
                   kind: 174,
                   flags: 0,
                   meta: {
-                    asi: false,  
+                    asi: false,
                     newlineBeforeNextToken: false
                   }
                 },
@@ -921,7 +922,7 @@ describe('Recovery - Export', () => {
                   kind: 13,
                   flags: 0,
                   meta: {
-                    asi: true,  
+                    asi: true,
                     newlineBeforeNextToken: false
                   }
                 },
@@ -994,7 +995,7 @@ describe('Recovery - Export', () => {
               kind: 184,
               flags: 0,
               meta: {
-                asi: true, 
+                asi: true,
                 newlineBeforeNextToken: false
               }
             },
@@ -1778,7 +1779,7 @@ describe('Recovery - Export', () => {
             flags: 0,
             meta: {
               asi: true,
-    
+
               newlineBeforeNextToken: false
             }
           },
@@ -2198,6 +2199,7 @@ describe('Recovery - Export', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 3,
               start: 20,
               end: 22,
@@ -2227,7 +2229,7 @@ describe('Recovery - Export', () => {
               kind: 13,
               flags: 0,
               meta: {
-                asi: false,    
+                asi: false,
                 newlineBeforeNextToken: false
               }
             },
@@ -2238,7 +2240,7 @@ describe('Recovery - Export', () => {
             meta: {
               asi: false,
               newlineBeforeNextToken: false
-            } 
+            }
           },
           {
             type: 'ImportDeclaration',
@@ -2272,6 +2274,7 @@ describe('Recovery - Export', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 2,
               start: 37,
               end: 39,
@@ -2350,7 +2353,7 @@ describe('Recovery - Export', () => {
                 kind: 13,
                 flags: 2,
                 meta: {
-                  asi: true, 
+                  asi: true,
                   newlineBeforeNextToken: false
                 }
               },
@@ -2629,7 +2632,7 @@ describe('Recovery - Export', () => {
                 kind: 13,
                 flags: 0,
                 meta: {
-                  asi: false,   
+                  asi: false,
                   newlineBeforeNextToken: false
                 }
               },
@@ -2670,7 +2673,7 @@ describe('Recovery - Export', () => {
                 kind: 13,
                 flags: 0,
                 meta: {
-                  asi: false,     
+                  asi: false,
                   newlineBeforeNextToken: false
                 }
               },
@@ -2852,7 +2855,7 @@ describe('Recovery - Export', () => {
                 kind: 13,
                 flags: 0,
                 meta: {
-                  asi: false,    
+                  asi: false,
                   newlineBeforeNextToken: false
                 }
               },
@@ -2862,7 +2865,7 @@ describe('Recovery - Export', () => {
               kind: 225,
               flags: 0,
               meta: {
-                asi: false, 
+                asi: false,
                 newlineBeforeNextToken: false
               }
             }
@@ -2894,7 +2897,7 @@ describe('Recovery - Export', () => {
                 flags: 0,
                 meta: {
                   asi: false,
-        
+
                   newlineBeforeNextToken: false
                 }
               },
@@ -2906,7 +2909,7 @@ describe('Recovery - Export', () => {
                 kind: 13,
                 flags: 2,
                 meta: {
-                  asi: false, 
+                  asi: false,
                   newlineBeforeNextToken: false
                 }
               },
@@ -3117,7 +3120,7 @@ describe('Recovery - Export', () => {
               kind: 13,
               flags: 0,
               meta: {
-                asi: false, 
+                asi: false,
                 newlineBeforeNextToken: false
               }
             },
@@ -3140,7 +3143,7 @@ describe('Recovery - Export', () => {
               kind: 13,
               flags: 0,
               meta: {
-                asi: false,  
+                asi: false,
                 newlineBeforeNextToken: false
               }
             },
@@ -3198,7 +3201,7 @@ describe('Recovery - Export', () => {
                 kind: 13,
                 flags: 2,
                 meta: {
-                  asi: false,   
+                  asi: false,
                   newlineBeforeNextToken: false
                 }
               },

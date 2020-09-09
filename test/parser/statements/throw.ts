@@ -248,6 +248,7 @@ describe('Statements - Throw', () => {
           type: 'ThrowStatement',
           expression: {
             type: 'NumericLiteral',
+            floatingPoint: false,
             value: 12,
             start: 6,
             end: 8

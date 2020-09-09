@@ -1193,6 +1193,7 @@ describe('Statements - Do while', () => {
                     type: 'BinaryExpression',
                     left: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 2,
                       start: 44,
                       end: 46,
@@ -1531,6 +1532,7 @@ describe('Statements - Do while', () => {
                       type: 'BinaryExpression',
                       left: {
                         type: 'NumericLiteral',
+                        floatingPoint: false,
                         value: 123,
                         start: 4,
                         end: 7,
@@ -1542,6 +1544,7 @@ describe('Statements - Do while', () => {
                         type: 'BinaryExpression',
                         left: {
                           type: 'NumericLiteral',
+                          floatingPoint: false,
                           value: 3,
                           start: 9,
                           end: 11,
@@ -1691,6 +1694,7 @@ describe('Statements - Do while', () => {
                   type: 'ExpressionStatement',
                   expression: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 1,
                     start: 58,
                     end: 60,
@@ -1706,6 +1710,7 @@ describe('Statements - Do while', () => {
                   type: 'ExpressionStatement',
                   expression: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 2,
                     start: 60,
                     end: 62,
@@ -1721,6 +1726,7 @@ describe('Statements - Do while', () => {
                   type: 'ExpressionStatement',
                   expression: {
                     type: 'NumericLiteral',
+                    floatingPoint: false,
                     value: 3,
                     start: 62,
                     end: 64,

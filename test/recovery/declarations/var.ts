@@ -1380,6 +1380,7 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 1,
                       start: 12,
                       end: 14,
@@ -2346,6 +2347,7 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 2,
                       start: 32,
                       end: 33,
@@ -2467,6 +2469,7 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 2,
                       start: 32,
                       end: 33,
@@ -2490,6 +2493,7 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 3,
                       start: 40,
                       end: 42,
@@ -2619,6 +2623,7 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 2,
                       start: 32,
                       end: 33,
@@ -2642,6 +2647,7 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 3,
                       start: 41,
                       end: 43,
@@ -2665,6 +2671,7 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 4,
                       start: 51,
                       end: 52,
@@ -2794,6 +2801,7 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 2,
                       start: 32,
                       end: 33,
@@ -2887,6 +2895,7 @@ describe('Recovery - Var', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 4,
                       start: 65,
                       end: 67,

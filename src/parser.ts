@@ -2618,9 +2618,10 @@ export function parseBooleanLiteral(state: ParserState, context: Context): Boole
 export function parseNumericLiteral(state: ParserState, context: Context): NumericLiteral {
   const start = state.startIndex;
   const value = state.tokenValue;
+  const isFloat = (state.flags & Flags.HasFloatingNumber) === Flags.HasFloatingNumber;
   state.assignable = false;
   nextToken(state, context);
-  return finishNode(state, context, start, DictionaryMap.NumericLiteral(value), SyntaxKind.NumericLiteral);
+  return finishNode(state, context, start, DictionaryMap.NumericLiteral(value, isFloat), SyntaxKind.NumericLiteral);
 }
 export function parseBigIntLiteral(state: ParserState, context: Context): NumericLiteral {
   const start = state.startIndex;

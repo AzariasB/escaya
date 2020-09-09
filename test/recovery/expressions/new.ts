@@ -455,6 +455,7 @@ describe('Recovery - Expressions - New', () => {
             type: 'NewExpression',
             expression: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 123,
               start: 3,
               end: 7,
@@ -804,6 +805,7 @@ describe('Recovery - Expressions - New', () => {
             type: 'MemberExpression',
             member: {
               type: 'NumericLiteral',
+              floatingPoint: false,
               value: 1,
               start: 16,
               end: 18,

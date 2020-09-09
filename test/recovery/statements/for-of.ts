@@ -312,6 +312,7 @@ describe('Recovery - For of', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
+                  floatingPoint: false,
                   value: 0,
                   start: 13,
                   end: 15,

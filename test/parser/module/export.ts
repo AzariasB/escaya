@@ -694,7 +694,7 @@ describe('Module - Export', () => {
                 end: 10,
                 meta: {
                   asi: false,
-                  newlineBeforeNextToken: false,
+                  newlineBeforeNextToken: false
                 }
               },
               binding: {
@@ -704,7 +704,7 @@ describe('Module - Export', () => {
                 end: 15,
                 meta: {
                   asi: true,
-                  newlineBeforeNextToken: false 
+                  newlineBeforeNextToken: false
                 }
               },
               start: 9,
@@ -777,12 +777,13 @@ describe('Module - Export', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
+                  floatingPoint: false,
                   value: 0,
                   start: 15,
                   end: 16,
                   meta: {
                     asi: true,
-                    newlineBeforeNextToken: false,
+                    newlineBeforeNextToken: false
                   }
                 },
                 start: 11,
@@ -840,11 +841,12 @@ describe('Module - Export', () => {
                   end: 14,
                   meta: {
                     asi: false,
-                    newlineBeforeNextToken: false,
+                    newlineBeforeNextToken: false
                   }
                 },
                 initializer: {
                   type: 'NumericLiteral',
+                  floatingPoint: false,
                   value: 0,
                   start: 17,
                   end: 18,
@@ -934,7 +936,7 @@ describe('Module - Export', () => {
               meta: {
                 asi: false,
                 newlineBeforeNextToken: false
-              }            
+              }
             },
             heritage: null,
             elements: [],

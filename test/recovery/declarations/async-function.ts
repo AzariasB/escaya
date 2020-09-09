@@ -2248,6 +2248,7 @@ describe('Recovery - Async Function', () => {
                           },
                           value: {
                             type: 'NumericLiteral',
+                            floatingPoint: false,
                             value: 44,
                             start: 37,
                             end: 40,
@@ -2271,6 +2272,7 @@ describe('Recovery - Async Function', () => {
                           },
                           value: {
                             type: 'NumericLiteral',
+                            floatingPoint: false,
                             value: 55,
                             start: 44,
                             end: 47,
@@ -2294,6 +2296,7 @@ describe('Recovery - Async Function', () => {
                           },
                           value: {
                             type: 'NumericLiteral',
+                            floatingPoint: false,
                             value: 66,
                             start: 51,
                             end: 54,

@@ -29,6 +29,7 @@ describe('Recovery - For', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
+                  floatingPoint: false,
                   value: 0,
                   start: 12,
                   end: 14,
@@ -70,6 +71,7 @@ describe('Recovery - For', () => {
               operator: '<',
               right: {
                 type: 'NumericLiteral',
+                floatingPoint: false,
                 value: 40000,
                 start: 19,
                 end: 25,
@@ -130,6 +132,7 @@ describe('Recovery - For', () => {
                             operator: '-',
                             operand: {
                               type: 'NumericLiteral',
+                              floatingPoint: false,
                               value: 9007199254740991,
                               start: 52,
                               end: 68,
@@ -264,6 +267,7 @@ describe('Recovery - For', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 1,
                       start: 17,
                       end: 19,
@@ -287,6 +291,7 @@ describe('Recovery - For', () => {
                     },
                     value: {
                       type: 'NumericLiteral',
+                      floatingPoint: false,
                       value: 2,
                       start: 31,
                       end: 33,
