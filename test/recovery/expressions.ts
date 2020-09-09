@@ -9310,7 +9310,7 @@ describe('Recovery - Expressions', () => {
             type: 'MemberExpression',
             member: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floatingPoint: true,
               value: 1,
               start: 0,
               end: 2,

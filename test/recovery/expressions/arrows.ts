@@ -2254,7 +2254,7 @@ describe('Recovery - Expressions - Arrows', () => {
               type: 'MemberExpression',
               member: {
                 type: 'NumericLiteral',
-                floatingPoint: false,
+                floatingPoint: true,
                 value: 1,
                 start: 0,
                 end: 2,

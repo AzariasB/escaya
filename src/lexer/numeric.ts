@@ -158,6 +158,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
   let index = state.index;
 
   if (isFloat) {
+    state.flags |= Flags.HasFloatingNumber;
     do {
       cp = source.charCodeAt(++index);
     } while (cp <= Char.Nine && cp >= Char.Zero);
@@ -392,6 +393,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
 
     if (cp === Char.Period) {
       disallowBigInt = true;
+      state.flags |= Flags.HasFloatingNumber;
       cp = source.charCodeAt(++index);
       while (cp <= Char.Nine && cp >= Char.Zero) {
         cp = source.charCodeAt(++index);

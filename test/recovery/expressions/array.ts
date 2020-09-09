@@ -2106,7 +2106,7 @@ describe('Recovery - Expressions - Array', () => {
                   type: 'MemberExpression',
                   member: {
                     type: 'NumericLiteral',
-                    floatingPoint: false,
+                    floatingPoint: true,
                     value: 1,
                     start: 1,
                     end: 3,

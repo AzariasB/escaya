@@ -194,7 +194,6 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
             cp = state.source.charCodeAt(index);
 
             if (cp >= Char.Zero && cp <= Char.Nine) {
-              state.flags |= Flags.HasFloatingNumber;
               return scanNumber(state, context, cp, true);
             }
 
