@@ -16,8 +16,10 @@ describe('Module - Import', () => {
           end: 6,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExportDeclaration',
@@ -32,8 +34,10 @@ describe('Module - Import', () => {
           end: 13,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -44,15 +48,19 @@ describe('Module - Import', () => {
             end: 18,
             kind: 13,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 13,
           end: 18,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -63,15 +71,19 @@ describe('Module - Import', () => {
             end: 22,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 18,
           end: 22,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import export from "s"',
@@ -128,8 +140,10 @@ describe('Module - Import', () => {
           end: 6,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ImportDeclaration',
@@ -140,8 +154,10 @@ describe('Module - Import', () => {
             end: 22,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -153,8 +169,10 @@ describe('Module - Import', () => {
               end: 18,
               kind: 168,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             nameSpaceImport: null,
             namedImports: null,
@@ -162,15 +180,19 @@ describe('Module - Import', () => {
             end: 18,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 6,
           end: 22,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import import from "s"',
@@ -219,8 +241,10 @@ describe('Module - Import', () => {
           end: 6,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ClassDeclaration',
@@ -231,8 +255,10 @@ describe('Module - Import', () => {
             end: 17,
             kind: 168,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           heritage: null,
           elements: [],
@@ -240,8 +266,10 @@ describe('Module - Import', () => {
           end: 17,
           kind: 150,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -252,15 +280,19 @@ describe('Module - Import', () => {
             end: 21,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 17,
           end: 21,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import class from "s"',
@@ -309,8 +341,10 @@ describe('Module - Import', () => {
           end: 6,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'FunctionDeclaration',
@@ -321,8 +355,10 @@ describe('Module - Import', () => {
             end: 20,
             kind: 168,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           generator: false,
           async: false,
@@ -335,15 +371,19 @@ describe('Module - Import', () => {
             end: 20,
             kind: 184,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 6,
           end: 20,
           kind: 186,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -354,15 +394,19 @@ describe('Module - Import', () => {
             end: 24,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 20,
           end: 24,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import function from "s"',
@@ -411,8 +455,10 @@ describe('Module - Import', () => {
           end: 6,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -426,22 +472,28 @@ describe('Module - Import', () => {
               end: 11,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 11,
             kind: 160,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 6,
           end: 11,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -452,15 +504,19 @@ describe('Module - Import', () => {
             end: 16,
             kind: 13,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 11,
           end: 16,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -471,15 +527,19 @@ describe('Module - Import', () => {
             end: 20,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 16,
           end: 20,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import !foo from "s"',
@@ -537,8 +597,10 @@ describe('Module - Import', () => {
             end: 11,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -559,37 +621,47 @@ describe('Module - Import', () => {
                     end: 9,
                     kind: 13,
                     flags: 0,
-                    newlineBeforeNextToken: false,
-                    asi: false
+                    meta: {
+                      asi: false,
+                      newlineBeforeNextToken: false
+                    }
                   },
                   start: 8,
                   end: 9,
                   kind: 222,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,
+                    newlineBeforeNextToken: false
+                  }
                 }
               ],
               start: 6,
               end: 10,
               kind: 222,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 10,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 0,
           end: 11,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -603,8 +675,10 @@ describe('Module - Import', () => {
                 end: 14,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -613,8 +687,10 @@ describe('Module - Import', () => {
                 end: 15,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -623,8 +699,10 @@ describe('Module - Import', () => {
                 end: 16,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -633,8 +711,10 @@ describe('Module - Import', () => {
                 end: 17,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -643,8 +723,10 @@ describe('Module - Import', () => {
                 end: 18,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -653,23 +735,29 @@ describe('Module - Import', () => {
                 end: 20,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               }
             ],
             start: 13,
             end: 20,
             kind: 147,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 13,
           end: 20,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -683,22 +771,28 @@ describe('Module - Import', () => {
               end: 21,
               kind: 13,
               flags: 2,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 20,
             end: 21,
             kind: 160,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 20,
           end: 21,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import {a,,,,b,,,,,c!',
@@ -796,8 +890,10 @@ describe('Module - Import', () => {
             end: 9,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -811,22 +907,29 @@ describe('Module - Import', () => {
               end: 8,
               kind: 222,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 8,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+
+              newlineBeforeNextToken: false
+            }
           },
           start: 0,
           end: 9,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -840,22 +943,28 @@ describe('Module - Import', () => {
               end: 27,
               kind: 13,
               flags: 2,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 25,
             end: 27,
             kind: 160,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 25,
           end: 27,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import {,,,,,,,,,,,,,,,,, !',
@@ -1039,8 +1148,10 @@ describe('Module - Import', () => {
               end: 19,
               kind: 12,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             moduleSpecifier: null,
             importClause: {
@@ -1052,8 +1163,10 @@ describe('Module - Import', () => {
                 end: 12,
                 kind: 168,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               nameSpaceImport: null,
               namedImports: null,
@@ -1061,15 +1174,19 @@ describe('Module - Import', () => {
               end: 12,
               kind: 218,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 0,
             end: 19,
             kind: 217,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -1080,15 +1197,19 @@ describe('Module - Import', () => {
               end: 23,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 19,
             end: 23,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -1099,15 +1220,19 @@ describe('Module - Import', () => {
               end: 34,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 23,
             end: 34,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -1118,15 +1243,19 @@ describe('Module - Import', () => {
               end: 44,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 34,
             end: 44,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -1137,15 +1266,19 @@ describe('Module - Import', () => {
               end: 49,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 44,
             end: 49,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -1156,15 +1289,19 @@ describe('Module - Import', () => {
               end: 53,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 49,
             end: 53,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -1175,15 +1312,19 @@ describe('Module - Import', () => {
               end: 57,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 53,
             end: 57,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExportDeclaration',
@@ -1198,8 +1339,10 @@ describe('Module - Import', () => {
             end: 64,
             kind: 223,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -1210,15 +1353,19 @@ describe('Module - Import', () => {
               end: 67,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 64,
             end: 67,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -1229,15 +1376,19 @@ describe('Module - Import', () => {
               end: 78,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 75,
             end: 78,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'TryStatement',
@@ -1248,8 +1399,10 @@ describe('Module - Import', () => {
               end: 82,
               kind: 123,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             catchClause: null,
             finalizer: null,
@@ -1257,8 +1410,10 @@ describe('Module - Import', () => {
             end: 82,
             kind: 138,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'WhileStatement',
@@ -1269,8 +1424,10 @@ describe('Module - Import', () => {
               end: 96,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             statement: {
               type: 'ExpressionStatement',
@@ -1281,22 +1438,28 @@ describe('Module - Import', () => {
                 end: 99,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 96,
               end: 99,
               kind: 122,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 82,
             end: 99,
             kind: 139,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'SwitchStatement',
@@ -1307,16 +1470,20 @@ describe('Module - Import', () => {
               end: 106,
               kind: 13,
               flags: 2,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             clauses: [],
             start: 99,
             end: 106,
             kind: 136,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ForStatement',
@@ -1327,8 +1494,10 @@ describe('Module - Import', () => {
               end: 120,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             condition: {
               type: 'UnaryExpression',
@@ -1340,15 +1509,19 @@ describe('Module - Import', () => {
                 end: 127,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 125,
               end: 127,
               kind: 160,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             incrementor: {
               type: 'IdentifierReference',
@@ -1357,8 +1530,10 @@ describe('Module - Import', () => {
               end: 125,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             variableDeclarationList: false,
             statement: {
@@ -1370,22 +1545,28 @@ describe('Module - Import', () => {
                 end: 127,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 127,
               end: 127,
               kind: 122,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 106,
             end: 127,
             kind: 132,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           }
         ],
         text:
@@ -1573,8 +1754,10 @@ describe('Module - Import', () => {
             end: 8,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -1588,22 +1771,28 @@ describe('Module - Import', () => {
               end: 8,
               kind: 222,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 8,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 0,
           end: 8,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import {',
@@ -1645,8 +1834,10 @@ describe('Module - Import', () => {
             end: 17,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -1667,37 +1858,47 @@ describe('Module - Import', () => {
                     end: 15,
                     kind: 13,
                     flags: 0,
-                    newlineBeforeNextToken: false,
-                    asi: false
+                    meta: {
+                      asi: false,
+                      newlineBeforeNextToken: false
+                    }
                   },
                   start: 8,
                   end: 15,
                   kind: 222,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,
+                    newlineBeforeNextToken: false
+                  }
                 }
               ],
               start: 6,
               end: 15,
               kind: 222,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 15,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 0,
           end: 17,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import { import !',
@@ -1747,8 +1948,10 @@ describe('Module - Import', () => {
             end: 30,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -1768,8 +1971,10 @@ describe('Module - Import', () => {
                     end: 12,
                     kind: 13,
                     flags: 0,
-                    newlineBeforeNextToken: false,
-                    asi: false
+                    meta: {
+                      asi: false,
+                      newlineBeforeNextToken: false
+                    }
                   },
                   binding: {
                     type: 'BindingIdentifier',
@@ -1778,37 +1983,47 @@ describe('Module - Import', () => {
                     end: 17,
                     kind: 168,
                     flags: 0,
-                    newlineBeforeNextToken: false,
-                    asi: true
+                    meta: {
+                      asi: true,
+                      newlineBeforeNextToken: false
+                    }
                   },
                   start: 8,
                   end: 17,
                   kind: 222,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: true
+                  meta: {
+                    asi: true,
+                    newlineBeforeNextToken: false
+                  }
                 }
               ],
               start: 6,
               end: 19,
               kind: 222,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 19,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 0,
           end: 31,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: { 
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import { let as l } from "foo";',
@@ -1841,8 +2056,10 @@ describe('Module - Import', () => {
             end: 25,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -1854,8 +2071,10 @@ describe('Module - Import', () => {
               end: 8,
               kind: 168,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             nameSpaceImport: null,
             namedImports: {
@@ -1872,37 +2091,47 @@ describe('Module - Import', () => {
                     end: 13,
                     kind: 13,
                     flags: 0,
-                    newlineBeforeNextToken: false,
-                    asi: true
+                    meta: {
+                      asi: true,
+                      newlineBeforeNextToken: false
+                    }
                   },
                   start: 11,
                   end: 13,
                   kind: 222,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: true
+                  meta: {
+                    asi: true,
+                    newlineBeforeNextToken: false
+                  }
                 }
               ],
               start: 9,
               end: 14,
               kind: 222,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 14,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 0,
           end: 25,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import a, {as} from "foo"',
@@ -1935,8 +2164,10 @@ describe('Module - Import', () => {
             end: 29,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -1948,8 +2179,10 @@ describe('Module - Import', () => {
               end: 8,
               kind: 168,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             nameSpaceImport: null,
             namedImports: {
@@ -1965,8 +2198,10 @@ describe('Module - Import', () => {
                     end: 12,
                     kind: 13,
                     flags: 0,
-                    newlineBeforeNextToken: false,
-                    asi: false
+                    meta: {
+                      asi: false,
+                      newlineBeforeNextToken: false
+                    }
                   },
                   binding: {
                     type: 'BindingIdentifier',
@@ -1975,37 +2210,47 @@ describe('Module - Import', () => {
                     end: 17,
                     kind: 168,
                     flags: 0,
-                    newlineBeforeNextToken: false,
-                    asi: true
+                    meta: {
+                      asi: true,
+                      newlineBeforeNextToken: false
+                    }
                   },
                   start: 11,
                   end: 17,
                   kind: 222,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: true
+                  meta: {
+                    asi: true,
+                    newlineBeforeNextToken: false
+                  }
                 }
               ],
               start: 9,
               end: 18,
               kind: 222,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 18,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 0,
           end: 29,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import a, {b as c} from "foo"',
@@ -2038,8 +2283,10 @@ describe('Module - Import', () => {
             end: 33,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -2059,8 +2306,10 @@ describe('Module - Import', () => {
                     end: 15,
                     kind: 13,
                     flags: 0,
-                    newlineBeforeNextToken: false,
-                    asi: false
+                    meta: {
+                      asi: false,
+                      newlineBeforeNextToken: false
+                    }
                   },
                   binding: {
                     type: 'BindingIdentifier',
@@ -2069,37 +2318,47 @@ describe('Module - Import', () => {
                     end: 20,
                     kind: 168,
                     flags: 0,
-                    newlineBeforeNextToken: false,
-                    asi: true
+                    meta: {
+                      asi: true,
+                      newlineBeforeNextToken: false
+                    }
                   },
                   start: 8,
                   end: 20,
                   kind: 222,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: true
+                  meta: {
+                    asi: true,
+                    newlineBeforeNextToken: false
+                  }
                 }
               ],
               start: 6,
               end: 22,
               kind: 222,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 22,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 0,
           end: 33,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import { static as s } from "foo"',
@@ -2132,8 +2391,10 @@ describe('Module - Import', () => {
             end: 27,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -2153,8 +2414,10 @@ describe('Module - Import', () => {
                     end: 9,
                     kind: 13,
                     flags: 0,
-                    newlineBeforeNextToken: false,
-                    asi: false
+                    meta: {
+                      asi: false,
+                      newlineBeforeNextToken: false
+                    }
                   },
                   binding: {
                     type: 'BindingIdentifier',
@@ -2163,37 +2426,47 @@ describe('Module - Import', () => {
                     end: 15,
                     kind: 168,
                     flags: 0,
-                    newlineBeforeNextToken: false,
-                    asi: true
+                    meta: {
+                      asi: true,
+                      newlineBeforeNextToken: false
+                    }
                   },
                   start: 8,
                   end: 15,
                   kind: 222,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: true
+                  meta: {
+                    asi: true,
+                    newlineBeforeNextToken: false
+                  }
                 }
               ],
               start: 6,
               end: 16,
               kind: 222,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 16,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 0,
           end: 27,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import {m as mm} from "foo"',
@@ -2226,8 +2499,10 @@ describe('Module - Import', () => {
             end: 27,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -2239,8 +2514,10 @@ describe('Module - Import', () => {
               end: 8,
               kind: 168,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             nameSpaceImport: {
               type: 'BindingIdentifier',
@@ -2249,23 +2526,29 @@ describe('Module - Import', () => {
               end: 16,
               kind: 168,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             namedImports: null,
             start: 6,
             end: 16,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 0,
           end: 27,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'import x, * as a from "foo"',
@@ -2304,8 +2587,10 @@ describe('Module - Import', () => {
             end: 6,
             kind: 223,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ImportDeclaration',
@@ -2316,8 +2601,10 @@ describe('Module - Import', () => {
               end: 26,
               kind: 12,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             moduleSpecifier: null,
             importClause: {
@@ -2329,8 +2616,10 @@ describe('Module - Import', () => {
                 end: 19,
                 kind: 168,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               nameSpaceImport: null,
               namedImports: null,
@@ -2338,15 +2627,19 @@ describe('Module - Import', () => {
               end: 19,
               kind: 218,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 26,
             kind: 217,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2357,15 +2650,19 @@ describe('Module - Import', () => {
               end: 31,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 26,
             end: 31,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2379,22 +2676,28 @@ describe('Module - Import', () => {
                 end: 40,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 31,
               end: 40,
               kind: 160,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 31,
             end: 40,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2405,15 +2708,19 @@ describe('Module - Import', () => {
               end: 43,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 40,
             end: 43,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ImportDeclaration',
@@ -2424,8 +2731,10 @@ describe('Module - Import', () => {
             end: 50,
             kind: 217,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           }
         ],
         text: 'export import still module code ! script or import',
@@ -2513,15 +2822,19 @@ describe('Module - Import', () => {
               end: 8,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 0,
             end: 8,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2532,15 +2845,19 @@ describe('Module - Import', () => {
               end: 11,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 8,
             end: 11,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExportDeclaration',
@@ -2555,8 +2872,10 @@ describe('Module - Import', () => {
             end: 18,
             kind: 223,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ImportDeclaration',
@@ -2567,8 +2886,10 @@ describe('Module - Import', () => {
             end: 25,
             kind: 217,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2582,22 +2903,28 @@ describe('Module - Import', () => {
                 end: 29,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 27,
               end: 29,
               kind: 160,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 27,
             end: 29,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'WhileStatement',
@@ -2608,8 +2935,10 @@ describe('Module - Import', () => {
               end: 37,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             statement: {
               type: 'TryStatement',
@@ -2620,8 +2949,10 @@ describe('Module - Import', () => {
                 end: 41,
                 kind: 123,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               catchClause: null,
               finalizer: null,
@@ -2629,15 +2960,19 @@ describe('Module - Import', () => {
               end: 41,
               kind: 138,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 29,
             end: 41,
             kind: 139,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2650,8 +2985,10 @@ describe('Module - Import', () => {
                   end: 46,
                   kind: 165,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,
+                    newlineBeforeNextToken: false
+                  }
                 },
                 {
                   type: 'IdentifierReference',
@@ -2660,23 +2997,29 @@ describe('Module - Import', () => {
                   end: 49,
                   kind: 13,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,
+                    newlineBeforeNextToken: false
+                  }
                 }
               ],
               start: 41,
               end: 49,
               kind: 147,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 41,
             end: 49,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2687,15 +3030,19 @@ describe('Module - Import', () => {
               end: 52,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 49,
             end: 52,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ForStatement',
@@ -2706,8 +3053,10 @@ describe('Module - Import', () => {
               end: 58,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             condition: {
               type: 'IdentifierReference',
@@ -2716,8 +3065,10 @@ describe('Module - Import', () => {
               end: 63,
               kind: 13,
               flags: 2,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             incrementor: {
               type: 'IdentifierReference',
@@ -2726,8 +3077,10 @@ describe('Module - Import', () => {
               end: 63,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             variableDeclarationList: false,
             statement: {
@@ -2739,22 +3092,28 @@ describe('Module - Import', () => {
                 end: 63,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 63,
               end: 63,
               kind: 122,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 52,
             end: 63,
             kind: 132,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           }
         ],
         text: 'possible to export import ? ! while I try this, I go for a walk',
@@ -2890,8 +3249,10 @@ describe('Module - Import', () => {
             end: 6,
             kind: 217,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExportDeclaration',
@@ -2906,8 +3267,10 @@ describe('Module - Import', () => {
             end: 13,
             kind: 223,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2920,8 +3283,10 @@ describe('Module - Import', () => {
                 end: 13,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               operator: '||',
               right: {
@@ -2933,29 +3298,37 @@ describe('Module - Import', () => {
                   end: 20,
                   kind: 13,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,
+                    newlineBeforeNextToken: false
+                  }
                 },
                 start: 16,
                 end: 21,
                 kind: 189,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 13,
               end: 21,
               kind: 155,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 13,
             end: 21,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExportDeclaration',
@@ -2970,8 +3343,10 @@ describe('Module - Import', () => {
             end: 28,
             kind: 223,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ImportDeclaration',
@@ -2982,8 +3357,10 @@ describe('Module - Import', () => {
             end: 35,
             kind: 217,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2994,15 +3371,19 @@ describe('Module - Import', () => {
               end: 38,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 36,
             end: 38,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'TryStatement',
@@ -3013,8 +3394,10 @@ describe('Module - Import', () => {
               end: 42,
               kind: 123,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             catchClause: null,
             finalizer: null,
@@ -3022,8 +3405,10 @@ describe('Module - Import', () => {
             end: 42,
             kind: 138,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'WhileStatement',
@@ -3034,8 +3419,10 @@ describe('Module - Import', () => {
               end: 50,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             statement: {
               type: 'ExpressionStatement',
@@ -3046,22 +3433,28 @@ describe('Module - Import', () => {
                 end: 54,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 50,
               end: 54,
               kind: 122,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 42,
             end: 54,
             kind: 139,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -3075,22 +3468,28 @@ describe('Module - Import', () => {
                 end: 55,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 54,
               end: 55,
               kind: 160,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 54,
             end: 55,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ForStatement',
@@ -3101,8 +3500,10 @@ describe('Module - Import', () => {
               end: 62,
               kind: 10,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             condition: {
               type: 'UnaryExpression',
@@ -3117,22 +3518,28 @@ describe('Module - Import', () => {
                   end: 69,
                   kind: 13,
                   flags: 2,
-                  newlineBeforeNextToken: false,
-                  asi: true
+                  meta: {
+                    asi: true,
+                    newlineBeforeNextToken: false
+                  }
                 },
                 start: 68,
                 end: 69,
                 kind: 160,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 67,
               end: 69,
               kind: 160,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             incrementor: {
               type: 'IdentifierReference',
@@ -3141,8 +3548,10 @@ describe('Module - Import', () => {
               end: 67,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             variableDeclarationList: false,
             statement: {
@@ -3154,22 +3563,28 @@ describe('Module - Import', () => {
                 end: 69,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 69,
               end: 69,
               kind: 122,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 55,
             end: 69,
             kind: 132,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           }
         ],
         text: 'import export || (or) export import? I try while I eat! for 11 time!!',

@@ -19,8 +19,10 @@ describe('Recovery - Export', () => {
               end: 22,
               kind: 168,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,     
+                newlineBeforeNextToken: false
+              }
             },
             generator: true,
             async: false,
@@ -33,15 +35,19 @@ describe('Recovery - Export', () => {
               end: 23,
               kind: 184,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,    
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 23,
             kind: 186,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           namedExports: [],
           namedBinding: null,
@@ -52,8 +58,10 @@ describe('Recovery - Export', () => {
           end: 23,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export function *await(',
@@ -109,8 +117,10 @@ describe('Recovery - Export', () => {
                 end: 16,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               binding: {
                 type: 'IdentifierName',
@@ -119,15 +129,19 @@ describe('Recovery - Export', () => {
                 end: 19,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 8,
               end: 19,
               kind: 225,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             }
           ],
           namedBinding: null,
@@ -138,8 +152,10 @@ describe('Recovery - Export', () => {
           end: 19,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export { default as',
@@ -187,8 +203,10 @@ describe('Recovery - Export', () => {
                 end: 16,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,      
+                  newlineBeforeNextToken: false
+                }
               },
               binding: {
                 type: 'IdentifierName',
@@ -197,15 +215,19 @@ describe('Recovery - Export', () => {
                 end: 21,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 8,
               end: 21,
               kind: 225,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             }
           ],
           namedBinding: null,
@@ -216,8 +238,10 @@ describe('Recovery - Export', () => {
           end: 21,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -231,22 +255,28 @@ describe('Recovery - Export', () => {
               end: 22,
               kind: 13,
               flags: 2,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 21,
             end: 22,
             kind: 160,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 21,
           end: 22,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export { default as !!',
@@ -302,8 +332,10 @@ describe('Recovery - Export', () => {
                   end: 12,
                   kind: 168,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,
+                    newlineBeforeNextToken: false
+                  }
                 },
                 initializer: {
                   type: 'NumericLiteral',
@@ -312,23 +344,29 @@ describe('Recovery - Export', () => {
                   end: 16,
                   kind: 10,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: true
+                  meta: {
+                    asi: true,
+                    newlineBeforeNextToken: false
+                  }
                 },
                 start: 10,
                 end: 16,
                 kind: 144,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               }
             ],
             start: 6,
             end: 17,
             kind: 143,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           namedExports: [],
           namedBinding: null,
@@ -339,8 +377,10 @@ describe('Recovery - Export', () => {
           end: 17,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export var y = 0;',
@@ -379,16 +419,20 @@ describe('Recovery - Export', () => {
                 end: 18,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               binding: null,
               start: 8,
               end: 18,
               kind: 225,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             }
           ],
           namedBinding: null,
@@ -399,8 +443,10 @@ describe('Recovery - Export', () => {
             end: 32,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           exportedNames: ['arguments'],
           boundNames: ['arguments'],
@@ -408,8 +454,10 @@ describe('Recovery - Export', () => {
           end: 32,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'EmptyStatement',
@@ -417,8 +465,10 @@ describe('Recovery - Export', () => {
           end: 33,
           kind: 148,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export { arguments } from "m.js";',
@@ -457,8 +507,10 @@ describe('Recovery - Export', () => {
                 end: 10,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               binding: {
                 type: 'IdentifierName',
@@ -467,15 +519,19 @@ describe('Recovery - Export', () => {
                 end: 15,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 8,
               end: 15,
               kind: 225,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             }
           ],
           namedBinding: null,
@@ -486,8 +542,10 @@ describe('Recovery - Export', () => {
             end: 29,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           exportedNames: ['b'],
           boundNames: ['a'],
@@ -495,8 +553,10 @@ describe('Recovery - Export', () => {
           end: 29,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'EmptyStatement',
@@ -504,8 +564,10 @@ describe('Recovery - Export', () => {
           end: 30,
           kind: 148,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export { a as b } from "m.js";',
@@ -541,24 +603,30 @@ describe('Recovery - Export', () => {
                 end: 5,
                 kind: 168,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               initializer: null,
               start: 3,
               end: 5,
               kind: 144,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             }
           ],
           start: 0,
           end: 6,
           kind: 143,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExportDeclaration',
@@ -575,8 +643,10 @@ describe('Recovery - Export', () => {
                 end: 17,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               binding: {
                 type: 'IdentifierName',
@@ -585,15 +655,19 @@ describe('Recovery - Export', () => {
                 end: 22,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 15,
               end: 22,
               kind: 225,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,  
+                newlineBeforeNextToken: false
+              }
             },
             {
               type: 'ExportSpecifier',
@@ -605,8 +679,10 @@ describe('Recovery - Export', () => {
                 end: 25,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               binding: {
                 type: 'IdentifierName',
@@ -615,15 +691,19 @@ describe('Recovery - Export', () => {
                 end: 30,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 23,
               end: 30,
               kind: 225,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             }
           ],
           namedBinding: null,
@@ -634,8 +714,10 @@ describe('Recovery - Export', () => {
           end: 32,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'EmptyStatement',
@@ -643,8 +725,10 @@ describe('Recovery - Export', () => {
           end: 33,
           kind: 148,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'var a; export { a as b, a as c };',
@@ -677,8 +761,10 @@ describe('Recovery - Export', () => {
             end: 7,
             kind: 168,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           heritage: null,
           elements: [],
@@ -686,8 +772,10 @@ describe('Recovery - Export', () => {
           end: 11,
           kind: 150,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'EmptyStatement',
@@ -695,8 +783,10 @@ describe('Recovery - Export', () => {
           end: 12,
           kind: 148,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExportDefault',
@@ -707,15 +797,19 @@ describe('Recovery - Export', () => {
             end: 29,
             kind: 13,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 12,
           end: 29,
           kind: 224,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'class c { }; export default c',
@@ -755,8 +849,10 @@ describe('Recovery - Export', () => {
                   end: 12,
                   kind: 168,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,     
+                    newlineBeforeNextToken: false
+                  }
                 },
                 initializer: {
                   type: 'IdentifierReference',
@@ -765,15 +861,19 @@ describe('Recovery - Export', () => {
                   end: 16,
                   kind: 13,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,  
+                    newlineBeforeNextToken: false
+                  }
                 },
                 start: 10,
                 end: 16,
                 kind: 146,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false, 
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'LexicalBinding',
@@ -789,23 +889,29 @@ describe('Recovery - Export', () => {
                         end: 23,
                         kind: 168,
                         flags: 0,
-                        newlineBeforeNextToken: false,
-                        asi: false
+                        meta: {
+                          asi: false,         
+                          newlineBeforeNextToken: false
+                        }
                       },
                       start: 19,
                       end: 23,
                       kind: 175,
                       flags: 0,
-                      newlineBeforeNextToken: false,
-                      asi: false
+                      meta: {
+                        asi: false,     
+                        newlineBeforeNextToken: false
+                      }
                     }
                   ],
                   start: 17,
                   end: 24,
                   kind: 174,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,  
+                    newlineBeforeNextToken: false
+                  }
                 },
                 initializer: {
                   type: 'IdentifierReference',
@@ -814,23 +920,29 @@ describe('Recovery - Export', () => {
                   end: 28,
                   kind: 13,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: true
+                  meta: {
+                    asi: true,  
+                    newlineBeforeNextToken: false
+                  }
                 },
                 start: 17,
                 end: 28,
                 kind: 146,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               }
             ],
             start: 6,
             end: 29,
             kind: 145,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           namedExports: [],
           namedBinding: null,
@@ -841,8 +953,10 @@ describe('Recovery - Export', () => {
           end: 29,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export let x = y, [...z] = y;',
@@ -879,23 +993,29 @@ describe('Recovery - Export', () => {
               end: 23,
               kind: 184,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true, 
+                newlineBeforeNextToken: false
+              }
             },
             async: false,
             start: 14,
             end: 23,
             kind: 188,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 0,
           end: 23,
           kind: 224,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export default () => {}',
@@ -932,8 +1052,10 @@ describe('Recovery - Export', () => {
           end: 6,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ImportDeclaration',
@@ -944,8 +1066,10 @@ describe('Recovery - Export', () => {
             end: 24,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           moduleSpecifier: null,
           importClause: {
@@ -957,8 +1081,10 @@ describe('Recovery - Export', () => {
               end: 18,
               kind: 168,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             nameSpaceImport: null,
             namedImports: null,
@@ -966,15 +1092,19 @@ describe('Recovery - Export', () => {
             end: 18,
             kind: 218,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 6,
           end: 24,
           kind: 217,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export import from "foo"',
@@ -1027,8 +1157,10 @@ describe('Recovery - Export', () => {
           end: 8,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -1042,22 +1174,28 @@ describe('Recovery - Export', () => {
               end: 9,
               kind: 13,
               flags: 2,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 8,
             end: 9,
             kind: 160,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 8,
           end: 9,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export {!',
@@ -1101,8 +1239,10 @@ describe('Recovery - Export', () => {
               end: 15,
               kind: 168,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             generator: false,
             async: false,
@@ -1115,15 +1255,19 @@ describe('Recovery - Export', () => {
               end: 15,
               kind: 184,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 15,
             kind: 186,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           namedExports: [],
           namedBinding: null,
@@ -1134,8 +1278,10 @@ describe('Recovery - Export', () => {
           end: 15,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -1149,22 +1295,28 @@ describe('Recovery - Export', () => {
               end: 17,
               kind: 13,
               flags: 2,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 15,
             end: 17,
             kind: 160,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 15,
           end: 17,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export function !',
@@ -1209,8 +1361,10 @@ describe('Recovery - Export', () => {
             end: 8,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           exportedNames: [],
           boundNames: [],
@@ -1218,8 +1372,10 @@ describe('Recovery - Export', () => {
           end: 8,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export *',
@@ -1267,16 +1423,20 @@ describe('Recovery - Export', () => {
                 end: 11,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               binding: null,
               start: 8,
               end: 11,
               kind: 225,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             }
           ],
           namedBinding: null,
@@ -1287,8 +1447,10 @@ describe('Recovery - Export', () => {
           end: 11,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export { as',
@@ -1338,8 +1500,10 @@ describe('Recovery - Export', () => {
               end: 12,
               kind: 150,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             namedExports: [],
             namedBinding: null,
@@ -1350,8 +1514,10 @@ describe('Recovery - Export', () => {
             end: 12,
             kind: 223,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'FunctionDeclaration',
@@ -1362,8 +1528,10 @@ describe('Recovery - Export', () => {
               end: 25,
               kind: 168,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             generator: false,
             async: false,
@@ -1376,15 +1544,19 @@ describe('Recovery - Export', () => {
               end: 25,
               kind: 184,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 12,
             end: 25,
             kind: 186,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'LexicalDeclaration',
@@ -1394,8 +1566,10 @@ describe('Recovery - Export', () => {
             end: 31,
             kind: 145,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'VariableStatement',
@@ -1409,16 +1583,20 @@ describe('Recovery - Export', () => {
                   end: 41,
                   kind: 168,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,
+                    newlineBeforeNextToken: false
+                  }
                 },
                 initializer: null,
                 start: 35,
                 end: 41,
                 kind: 144,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'VariableDeclaration',
@@ -1429,24 +1607,30 @@ describe('Recovery - Export', () => {
                   end: 47,
                   kind: 168,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,
+                    newlineBeforeNextToken: false
+                  }
                 },
                 initializer: null,
                 start: 41,
                 end: 47,
                 kind: 144,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               }
             ],
             start: 31,
             end: 47,
             kind: 143,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'FunctionDeclaration',
@@ -1462,15 +1646,19 @@ describe('Recovery - Export', () => {
               end: 56,
               kind: 184,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 47,
             end: 56,
             kind: 186,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           }
         ],
         text: 'export class function let const var async async function default',
@@ -1568,24 +1756,31 @@ describe('Recovery - Export', () => {
                   end: 14,
                   kind: 169,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: true
+                  meta: {
+                    asi: true,
+                    newlineBeforeNextToken: false
+                  }
                 },
                 initializer: null,
                 start: 12,
                 end: 14,
                 kind: 146,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               }
             ],
             start: 6,
             end: 14,
             kind: 145,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+    
+              newlineBeforeNextToken: false
+            }
           },
           namedExports: [],
           namedBinding: null,
@@ -1596,8 +1791,10 @@ describe('Recovery - Export', () => {
           end: 14,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export const {',
@@ -1643,8 +1840,10 @@ describe('Recovery - Export', () => {
           end: 6,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -1658,22 +1857,28 @@ describe('Recovery - Export', () => {
               end: 8,
               kind: 13,
               flags: 2,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 8,
             kind: 160,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 6,
           end: 8,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export +',
@@ -1721,16 +1926,20 @@ describe('Recovery - Export', () => {
                 end: 15,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               binding: null,
               start: 8,
               end: 15,
               kind: 225,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             }
           ],
           namedBinding: null,
@@ -1741,8 +1950,10 @@ describe('Recovery - Export', () => {
           end: 15,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -1756,22 +1967,28 @@ describe('Recovery - Export', () => {
               end: 17,
               kind: 13,
               flags: 2,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 15,
             end: 17,
             kind: 160,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 15,
           end: 17,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export { export !',
@@ -1817,8 +2034,10 @@ describe('Recovery - Export', () => {
           end: 6,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -1833,8 +2052,10 @@ describe('Recovery - Export', () => {
                 end: 9,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               arguments: [
                 {
@@ -1845,30 +2066,38 @@ describe('Recovery - Export', () => {
                   end: 32,
                   kind: 15,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: true
+                  meta: {
+                    asi: true,
+                    newlineBeforeNextToken: false
+                  }
                 }
               ],
               start: 8,
               end: 32,
               kind: 156,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 6,
             end: 32,
             kind: 189,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 6,
           end: 32,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export (a (/  function foo bar !',
@@ -1924,8 +2153,10 @@ describe('Recovery - Export', () => {
             end: 6,
             kind: 223,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExportDeclaration',
@@ -1940,8 +2171,10 @@ describe('Recovery - Export', () => {
             end: 13,
             kind: 223,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExportDeclaration',
@@ -1956,8 +2189,10 @@ describe('Recovery - Export', () => {
             end: 20,
             kind: 223,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -1968,15 +2203,19 @@ describe('Recovery - Export', () => {
               end: 22,
               kind: 10,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 20,
             end: 22,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -1987,15 +2226,19 @@ describe('Recovery - Export', () => {
               end: 23,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,    
+                newlineBeforeNextToken: false
+              }
             },
             start: 22,
             end: 23,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            } 
           },
           {
             type: 'ImportDeclaration',
@@ -2006,8 +2249,10 @@ describe('Recovery - Export', () => {
             end: 30,
             kind: 217,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ImportDeclaration',
@@ -2018,8 +2263,10 @@ describe('Recovery - Export', () => {
             end: 37,
             kind: 217,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2030,15 +2277,19 @@ describe('Recovery - Export', () => {
               end: 39,
               kind: 10,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 37,
             end: 39,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2049,15 +2300,19 @@ describe('Recovery - Export', () => {
               end: 40,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 39,
             end: 40,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2068,15 +2323,19 @@ describe('Recovery - Export', () => {
               end: 45,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 40,
             end: 45,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2090,22 +2349,28 @@ describe('Recovery - Export', () => {
                 end: 46,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true, 
+                  newlineBeforeNextToken: false
+                }
               },
               start: 45,
               end: 46,
               kind: 160,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 45,
             end: 46,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           }
         ],
         text: 'export export export 3x import import 2x Yeah!',
@@ -2240,8 +2505,10 @@ describe('Recovery - Export', () => {
           end: 8,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export {,,,,,,,,,,',
@@ -2361,16 +2628,20 @@ describe('Recovery - Export', () => {
                 end: 9,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,   
+                  newlineBeforeNextToken: false
+                }
               },
               binding: null,
               start: 8,
               end: 9,
               kind: 225,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             }
           ],
           namedBinding: null,
@@ -2381,8 +2652,10 @@ describe('Recovery - Export', () => {
           end: 10,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -2396,8 +2669,10 @@ describe('Recovery - Export', () => {
                 end: 12,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,     
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -2406,8 +2681,10 @@ describe('Recovery - Export', () => {
                 end: 13,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -2416,8 +2693,10 @@ describe('Recovery - Export', () => {
                 end: 14,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -2426,8 +2705,10 @@ describe('Recovery - Export', () => {
                 end: 15,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -2436,8 +2717,10 @@ describe('Recovery - Export', () => {
                 end: 16,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -2446,8 +2729,10 @@ describe('Recovery - Export', () => {
                 end: 18,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -2456,23 +2741,29 @@ describe('Recovery - Export', () => {
                 end: 19,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               }
             ],
             start: 11,
             end: 19,
             kind: 147,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 11,
           end: 19,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export {a,,b,,,,,c,',
@@ -2560,16 +2851,20 @@ describe('Recovery - Export', () => {
                 end: 9,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,    
+                  newlineBeforeNextToken: false
+                }
               },
               binding: null,
               start: 8,
               end: 9,
               kind: 225,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false, 
+                newlineBeforeNextToken: false
+              }
             }
           ],
           namedBinding: null,
@@ -2580,8 +2875,10 @@ describe('Recovery - Export', () => {
           end: 10,
           kind: 223,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -2595,8 +2892,11 @@ describe('Recovery - Export', () => {
                 end: 12,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+        
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -2605,8 +2905,10 @@ describe('Recovery - Export', () => {
                 end: 13,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false, 
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -2615,8 +2917,10 @@ describe('Recovery - Export', () => {
                 end: 14,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -2625,8 +2929,10 @@ describe('Recovery - Export', () => {
                 end: 15,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -2635,8 +2941,10 @@ describe('Recovery - Export', () => {
                 end: 16,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               {
                 type: 'IdentifierReference',
@@ -2645,23 +2953,29 @@ describe('Recovery - Export', () => {
                 end: 18,
                 kind: 13,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               }
             ],
             start: 11,
             end: 18,
             kind: 147,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 11,
           end: 18,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -2672,15 +2986,19 @@ describe('Recovery - Export', () => {
             end: 23,
             kind: 13,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           start: 18,
           end: 23,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: false
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          }
         },
         {
           type: 'ExpressionStatement',
@@ -2691,15 +3009,19 @@ describe('Recovery - Export', () => {
             end: 32,
             kind: 12,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           },
           start: 23,
           end: 32,
           kind: 122,
           flags: 0,
-          newlineBeforeNextToken: false,
-          asi: true
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          }
         }
       ],
       text: 'export {a,,b,,,,,c from "string"',
@@ -2794,15 +3116,19 @@ describe('Recovery - Export', () => {
               end: 8,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false, 
+                newlineBeforeNextToken: false
+              }
             },
             start: 0,
             end: 8,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2813,15 +3139,19 @@ describe('Recovery - Export', () => {
               end: 11,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,  
+                newlineBeforeNextToken: false
+              }
             },
             start: 8,
             end: 11,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExportDeclaration',
@@ -2836,8 +3166,10 @@ describe('Recovery - Export', () => {
             end: 18,
             kind: 223,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ImportDeclaration',
@@ -2848,8 +3180,10 @@ describe('Recovery - Export', () => {
             end: 25,
             kind: 217,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2863,22 +3197,28 @@ describe('Recovery - Export', () => {
                 end: 29,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,   
+                  newlineBeforeNextToken: false
+                }
               },
               start: 27,
               end: 29,
               kind: 160,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 27,
             end: 29,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'WhileStatement',
@@ -2889,8 +3229,10 @@ describe('Recovery - Export', () => {
               end: 37,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             statement: {
               type: 'TryStatement',
@@ -2901,8 +3243,10 @@ describe('Recovery - Export', () => {
                 end: 41,
                 kind: 123,
                 flags: 0,
-                newlineBeforeNextToken: false,
-                asi: false
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                }
               },
               catchClause: null,
               finalizer: null,
@@ -2910,15 +3254,19 @@ describe('Recovery - Export', () => {
               end: 41,
               kind: 138,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 29,
             end: 41,
             kind: 139,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2931,8 +3279,10 @@ describe('Recovery - Export', () => {
                   end: 46,
                   kind: 165,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,
+                    newlineBeforeNextToken: false
+                  }
                 },
                 {
                   type: 'IdentifierReference',
@@ -2941,23 +3291,29 @@ describe('Recovery - Export', () => {
                   end: 49,
                   kind: 13,
                   flags: 0,
-                  newlineBeforeNextToken: false,
-                  asi: false
+                  meta: {
+                    asi: false,
+                    newlineBeforeNextToken: false
+                  }
                 }
               ],
               start: 41,
               end: 49,
               kind: 147,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 41,
             end: 49,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ExpressionStatement',
@@ -2968,15 +3324,19 @@ describe('Recovery - Export', () => {
               end: 52,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             start: 49,
             end: 52,
             kind: 122,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: false
+            meta: {
+              asi: false,
+              newlineBeforeNextToken: false
+            }
           },
           {
             type: 'ForStatement',
@@ -2987,8 +3347,10 @@ describe('Recovery - Export', () => {
               end: 58,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: false
+              meta: {
+                asi: false,
+                newlineBeforeNextToken: false
+              }
             },
             condition: {
               type: 'IdentifierReference',
@@ -2997,8 +3359,10 @@ describe('Recovery - Export', () => {
               end: 63,
               kind: 13,
               flags: 2,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             incrementor: {
               type: 'IdentifierReference',
@@ -3007,8 +3371,10 @@ describe('Recovery - Export', () => {
               end: 63,
               kind: 13,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             variableDeclarationList: false,
             statement: {
@@ -3020,22 +3386,28 @@ describe('Recovery - Export', () => {
                 end: 63,
                 kind: 13,
                 flags: 2,
-                newlineBeforeNextToken: false,
-                asi: true
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                }
               },
               start: 63,
               end: 63,
               kind: 122,
               flags: 0,
-              newlineBeforeNextToken: false,
-              asi: true
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              }
             },
             start: 52,
             end: 63,
             kind: 132,
             flags: 0,
-            newlineBeforeNextToken: false,
-            asi: true
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
           }
         ],
         text: 'possible to export import ? ! while I try this, I go for a walk',

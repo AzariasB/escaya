@@ -1,14 +1,21 @@
 /**
- * Every single valid AST Node types.
+ * Every single valid AST Node type.
  */
 export interface Node {
   type?: string;
   kind?: SyntaxKind | NodeFlags;
+  meta?: NodeMeta;
   flags?: NodeFlags;
-  asi?: boolean;
-  newline?: boolean;
   start?: number;
   end?: number;
+}
+
+/**
+ * Every single valid CST Node type.
+ */
+export interface NodeMeta {
+  asi?: boolean,
+  newlineBeforNextToken?: boolean;
 }
 
 export const enum NodeFlags {

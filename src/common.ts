@@ -241,12 +241,10 @@ export function finishNode(state: ParserState, context: Context, start: number, 
   }
 
   if (context & Context.OptionsCST) {
-    node.newlineBeforeNextToken = state.lineTerminatorBeforeNextToken;
-    node.asi = (state.token & Token.IsAutomaticSemicolon) !== 0;
-    // node.isFloat = (state.cst & ConcreteSyntax.IsFloat) === ConcreteSyntax.IsFloat;
-    // node.scientific = (state.cst & ConcreteSyntax.Scientific) === ConcreteSyntax.Scientific;
-    // node.containsSeparator = (state.cst & ConcreteSyntax.ContainsSeparator) === ConcreteSyntax.ContainsSeparator;
-    // node.nextToken = KeywordDescTable[state.token & Token.Type];
+    node.meta = {};
+
+    node.meta.asi = (state.token & Token.IsAutomaticSemicolon) !== 0;
+    node.meta.newlineBeforeNextToken = state.lineTerminatorBeforeNextToken;
   }
 
   return node;
