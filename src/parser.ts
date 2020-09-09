@@ -1266,7 +1266,7 @@ export function parseForBinding(
   cb: LexicalCallback,
   start: number
 ): any {
-  let declarations = parseForBindingList(state, context, scope, type, cb);
+  const declarations = parseForBindingList(state, context, scope, type, cb);
   if (isLexical) {
     return finishNode(
       state,
@@ -3587,7 +3587,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
         );
       }
       if (state.token & Token.IsPatternStart) {
-        let innerStart = state.startIndex;
+        const innerStart = state.startIndex;
         isSimpleParameterList = true;
         const left = parseBindingElements(state, context, scope, BindingType.ArgumentList, parseBindingPattern);
         const right = consumeOpt(state, context | Context.AllowRegExp, Token.Assign)
@@ -3597,7 +3597,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
           finishNode(state, context, innerStart, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement)
         );
       } else {
-        let innerStart = state.startIndex;
+        const innerStart = state.startIndex;
         if (state.token & Token.IsFutureReserved) state.flags |= Flags.HasStrictReserved;
         const left = parseBindingIdentifier(state, context, scope, BindingType.ArgumentList);
         if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
@@ -4970,7 +4970,6 @@ export function parseExportDeclaration(
       if (state.token === Token.FromKeyword) {
         fromClause = parseFromClause(state, context);
       } else {
-        const i = exportedNames.length;
         for (let i = exportedNames.length - 1; i >= 0; i -= 1) {
           const name = '#' + exportedNames[i];
           if (state.exportedNames[name]) {

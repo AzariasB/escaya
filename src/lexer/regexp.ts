@@ -1,7 +1,7 @@
 import { Char } from './char';
 import { Token } from '../ast/token';
 import { AsciiCharFlags, AsciiCharTypes } from './asciiChar';
-import { isIdentifierPart, fromCodePoint } from './common';
+import { isIdentifierPart } from './common';
 import { Context, ParserState } from '../common';
 import { addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';

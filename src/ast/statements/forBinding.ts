@@ -1,5 +1,4 @@
 import { Node } from '../node';
-import { LexicalDeclaration } from '../declarations/lexical-declaration';
 import { VariableDeclaration } from '../declarations/variable-declaration';
 
 /**
