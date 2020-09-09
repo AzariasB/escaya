@@ -117,6 +117,7 @@ import {
 import {
   Context,
   Flags,
+  ConcreteSyntax,
   BindingType,
   ParserState,
   Destructible,
@@ -164,6 +165,7 @@ export function create(source: string, nodeCursor?: any): ParserState {
   return {
     source,
     flags: Flags.Empty,
+    cst: ConcreteSyntax.Empty,
     index: 0,
     line: 1,
     columnOffset: 0,

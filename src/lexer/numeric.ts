@@ -1,5 +1,5 @@
 import { Token } from './../ast/token';
-import { Context, ParserState, Flags } from '../common';
+import { Context, ParserState, Flags, ConcreteSyntax } from '../common';
 import { toHex } from './common';
 import { addLexerDiagnostic } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
@@ -158,8 +158,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
   let index = state.index;
 
   if (isFloat) {
-    state.flags |= Flags.IsFloat;
-
+    state.cst |= ConcreteSyntax.IsFloat;
     do {
       cp = source.charCodeAt(++index);
     } while (cp <= Char.Nine && cp >= Char.Zero);
@@ -266,6 +265,8 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
             // `_`
             case Char.Underscore:
               if (allowSeparator === 0) {
+                state.cst |= ConcreteSyntax.ContainsSeparator;
+
                 // We need to consume '__' for cases like '0b1__2' so we can correctly parse out two
                 // numeric literal - '1' - and '2'.
                 // '0b' and '__' are seen as invalid characters and should
@@ -416,7 +417,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
   if ((cp | 32) === Char.LowerE) {
     index++;
     cp = source.charCodeAt(index);
-
+    state.cst |= ConcreteSyntax.Scientific;
     // e+ or E+ or e- or E-
     if (cp === Char.Plus || cp === Char.Hyphen) {
       index++;

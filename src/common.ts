@@ -52,14 +52,20 @@ export const enum Flags {
   SeenProto = 1 << 3,
   HasProto = 1 << 4,
   HasStrictReserved = 1 << 5,
-  SimpleParameterList = 1 << 6,
+  SimpleParameterList = 1 << 6
+}
+
+export const enum ConcreteSyntax {
+  Empty = 0,
 
   // Numbers
 
-  IsFloat = 1 << 7,
-  IsHex = 1 << 8,
-  IsOctal = 1 << 9,
-  IsBinary = 1 << 10
+  IsFloat = 1 << 1,
+  IsHex = 1 << 2,
+  IsOctal = 1 << 3,
+  IsBinary = 1 << 4,
+  ContainsSeparator = 1 << 5, // Numeric separators
+  Scientific = 1 << 6
 }
 
 export const enum ArrowKind {
@@ -118,6 +124,7 @@ export const enum Destructible {
 export interface ParserState {
   source: string;
   flags: Flags;
+  cst: ConcreteSyntax;
   index: number;
   line: number;
   columnOffset: number;
@@ -236,7 +243,9 @@ export function finishNode(state: ParserState, context: Context, start: number, 
   if (context & Context.OptionsCST) {
     node.newlineBeforeNextToken = state.lineTerminatorBeforeNextToken;
     node.asi = (state.token & Token.IsAutomaticSemicolon) !== 0;
-    // node.isFloat = (state.flags & Flags.IsFloat) === Flags.IsFloat;
+    // node.isFloat = (state.cst & ConcreteSyntax.IsFloat) === ConcreteSyntax.IsFloat;
+    // node.scientific = (state.cst & ConcreteSyntax.Scientific) === ConcreteSyntax.Scientific;
+    // node.containsSeparator = (state.cst & ConcreteSyntax.ContainsSeparator) === ConcreteSyntax.ContainsSeparator;
     // node.nextToken = KeywordDescTable[state.token & Token.Type];
   }
 
