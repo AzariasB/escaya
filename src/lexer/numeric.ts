@@ -158,6 +158,8 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
   let index = state.index;
 
   if (isFloat) {
+    state.flags |= Flags.IsFloat;
+
     do {
       cp = source.charCodeAt(++index);
     } while (cp <= Char.Nine && cp >= Char.Zero);
@@ -331,6 +333,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
         if (context & Context.Strict) {
           addLexerDiagnostic(state, context, start, index, DiagnosticCode.StrictOctal);
         }
+
         state.flags |= Flags.Octal;
         // BigInt suffix is invalid in non-octal decimal integer literal,
         // so we need to set 'disallowBigInt' to 'true' here

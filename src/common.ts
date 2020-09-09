@@ -52,7 +52,14 @@ export const enum Flags {
   SeenProto = 1 << 3,
   HasProto = 1 << 4,
   HasStrictReserved = 1 << 5,
-  SimpleParameterList = 1 << 6
+  SimpleParameterList = 1 << 6,
+
+  // Numbers
+
+  IsFloat = 1 << 7,
+  IsHex = 1 << 8,
+  IsOctal = 1 << 9,
+  IsBinary = 1 << 10
 }
 
 export const enum ArrowKind {
@@ -225,9 +232,12 @@ export function finishNode(state: ParserState, context: Context, start: number, 
       node.flags = NodeFlags.None;
     }
   }
+
   if (context & Context.OptionsCST) {
     node.newlineBeforeNextToken = state.lineTerminatorBeforeNextToken;
     node.asi = (state.token & Token.IsAutomaticSemicolon) !== 0;
+    // node.isFloat = (state.flags & Flags.IsFloat) === Flags.IsFloat;
+    // node.nextToken = KeywordDescTable[state.token & Token.Type];
   }
 
   return node;
