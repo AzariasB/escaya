@@ -1859,7 +1859,7 @@ describe('Recovery - Expressions - Member', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floatingPoint: true,
+            floating: true,
             value: 0.1,
             start: 1,
             end: 3,

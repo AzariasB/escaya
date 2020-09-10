@@ -339,7 +339,7 @@ describe('Recovery - Export', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 0,
                   start: 14,
                   end: 16,
@@ -2199,7 +2199,7 @@ describe('Recovery - Export', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 3,
               start: 20,
               end: 22,
@@ -2274,7 +2274,7 @@ describe('Recovery - Export', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 2,
               start: 37,
               end: 39,

@@ -653,7 +653,7 @@ describe('Recovery - Expressions - Arrows', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-                floatingPoint: false,
+                floating: false,
                 value: 0,
                 start: 12,
                 end: 14,
@@ -2254,7 +2254,7 @@ describe('Recovery - Expressions - Arrows', () => {
               type: 'MemberExpression',
               member: {
                 type: 'NumericLiteral',
-                floatingPoint: true,
+                floating: true,
                 value: 1,
                 start: 0,
                 end: 2,
@@ -2369,7 +2369,7 @@ describe('Recovery - Expressions - Arrows', () => {
             type: 'CallExpression',
             expression: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 1,
               start: 0,
               end: 1,
@@ -2537,7 +2537,7 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floatingPoint: true,
+            floating: true,
             value: 0.1,
             start: 1,
             end: 3,
@@ -2717,7 +2717,7 @@ describe('Recovery - Expressions - Arrows', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 1,
               start: 1,
               end: 2,
@@ -2809,7 +2809,7 @@ describe('Recovery - Expressions - Arrows', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 1,
               start: 1,
               end: 2,

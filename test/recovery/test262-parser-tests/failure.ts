@@ -243,7 +243,7 @@ describe('test262-parser-tests - failing tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floatingPoint: false,
+            floating: false,
             value: 0,
             start: 9,
             end: 10,
@@ -616,7 +616,7 @@ describe('test262-parser-tests - failing tests', () => {
                     },
                     right: {
                       type: 'NumericLiteral',
-                      floatingPoint: false,
+                      floating: false,
                       value: 0,
                       start: 4,
                       end: 5,
@@ -638,7 +638,7 @@ describe('test262-parser-tests - failing tests', () => {
                 type: 'SpreadElement',
                 argument: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 0,
                   start: 10,
                   end: 11,
@@ -739,7 +739,7 @@ describe('test262-parser-tests - failing tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floatingPoint: false,
+            floating: false,
             value: 1,
             start: 17,
             end: 19,
@@ -1018,7 +1018,7 @@ describe('test262-parser-tests - failing tests', () => {
                       },
                       right: {
                         type: 'NumericLiteral',
-                        floatingPoint: false,
+                        floating: false,
                         value: 0,
                         start: 6,
                         end: 8,
@@ -1318,7 +1318,7 @@ describe('test262-parser-tests - failing tests', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 10,
               start: 1,
               end: 3,
@@ -1339,7 +1339,7 @@ describe('test262-parser-tests - failing tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floatingPoint: false,
+            floating: false,
             value: 0,
             start: 7,
             end: 9,
@@ -1400,7 +1400,7 @@ describe('test262-parser-tests - failing tests', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 42,
                   start: 12,
                   end: 15,
@@ -1547,7 +1547,7 @@ describe('test262-parser-tests - failing tests', () => {
             operator: '=',
             right: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 0,
               start: 14,
               end: 15,
@@ -1830,7 +1830,7 @@ describe('test262-parser-tests - failing tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floatingPoint: false,
+            floating: false,
             value: 0,
             start: 11,
             end: 13,
@@ -2156,7 +2156,7 @@ describe('test262-parser-tests - failing tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floatingPoint: false,
+            floating: false,
             value: 1,
             start: 0,
             end: 4,
@@ -2214,7 +2214,7 @@ describe('test262-parser-tests - failing tests', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-                floatingPoint: false,
+                floating: false,
                 value: 11,
                 start: 9,
                 end: 12,
@@ -2579,7 +2579,7 @@ describe('test262-parser-tests - failing tests', () => {
                     type: 'ExpressionStatement',
                     expression: {
                       type: 'NumericLiteral',
-                      floatingPoint: false,
+                      floating: false,
                       value: 3,
                       start: 19,
                       end: 21,
@@ -2673,7 +2673,7 @@ describe('test262-parser-tests - failing tests', () => {
                       },
                       expression: {
                         type: 'NumericLiteral',
-                        floatingPoint: false,
+                        floating: false,
                         value: 0,
                         start: 6,
                         end: 7,
@@ -2702,7 +2702,7 @@ describe('test262-parser-tests - failing tests', () => {
               type: 'ConciseBody',
               expression: {
                 type: 'NumericLiteral',
-                floatingPoint: false,
+                floating: false,
                 value: 0,
                 start: 12,
                 end: 13,
@@ -3066,7 +3066,7 @@ describe('test262-parser-tests - failing tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floatingPoint: false,
+            floating: false,
             value: 0,
             start: 13,
             end: 15,
@@ -3707,7 +3707,7 @@ describe('test262-parser-tests - failing tests', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 0,
                   start: 11,
                   end: 13,
@@ -3833,7 +3833,7 @@ describe('test262-parser-tests - failing tests', () => {
           },
           condition: {
             type: 'NumericLiteral',
-            floatingPoint: false,
+            floating: false,
             value: 0,
             start: 15,
             end: 17,
@@ -4110,7 +4110,7 @@ describe('test262-parser-tests - failing tests', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 1,
                   start: 14,
                   end: 16,
@@ -4272,7 +4272,7 @@ describe('test262-parser-tests - failing tests', () => {
             operator: '=',
             right: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 10,
               start: 10,
               end: 13,
@@ -4444,7 +4444,7 @@ describe('test262-parser-tests - failing tests', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 42,
                   start: 12,
                   end: 15,
@@ -4942,7 +4942,7 @@ describe('test262-parser-tests - failing tests', () => {
               type: 'BinaryExpression',
               left: {
                 type: 'NumericLiteral',
-                floatingPoint: false,
+                floating: false,
                 value: 1,
                 start: 0,
                 end: 1,
@@ -5024,7 +5024,7 @@ describe('test262-parser-tests - failing tests', () => {
                   type: 'AssignmentRestProperty',
                   argument: {
                     type: 'NumericLiteral',
-                    floatingPoint: false,
+                    floating: false,
                     value: 0,
                     start: 4,
                     end: 5,
@@ -5053,7 +5053,7 @@ describe('test262-parser-tests - failing tests', () => {
                         },
                         right: {
                           type: 'NumericLiteral',
-                          floatingPoint: false,
+                          floating: false,
                           value: 0,
                           start: 12,
                           end: 13,
@@ -5084,7 +5084,7 @@ describe('test262-parser-tests - failing tests', () => {
             },
             right: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 0,
               start: 16,
               end: 17,
@@ -5277,7 +5277,7 @@ describe('test262-parser-tests - failing tests', () => {
             operator: '=',
             right: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 4,
               start: 8,
               end: 10,
@@ -5329,7 +5329,7 @@ describe('test262-parser-tests - failing tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floatingPoint: false,
+            floating: false,
             value: 0,
             start: 0,
             end: 3,
@@ -5391,7 +5391,7 @@ describe('test262-parser-tests - failing tests', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 1,
                   start: 14,
                   end: 16,
@@ -5415,7 +5415,7 @@ describe('test262-parser-tests - failing tests', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 2,
                   start: 21,
                   end: 23,
@@ -5439,7 +5439,7 @@ describe('test262-parser-tests - failing tests', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 3,
                   start: 28,
                   end: 30,
@@ -5463,7 +5463,7 @@ describe('test262-parser-tests - failing tests', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 0,
                   start: 37,
                   end: 39,
@@ -5568,7 +5568,7 @@ describe('test262-parser-tests - failing tests', () => {
                   type: 'AssignmentRestProperty',
                   argument: {
                     type: 'NumericLiteral',
-                    floatingPoint: false,
+                    floating: false,
                     value: 0,
                     start: 4,
                     end: 5,
@@ -5595,7 +5595,7 @@ describe('test262-parser-tests - failing tests', () => {
                       },
                       right: {
                         type: 'NumericLiteral',
-                        floatingPoint: false,
+                        floating: false,
                         value: 0,
                         start: 9,
                         end: 10,
@@ -5621,7 +5621,7 @@ describe('test262-parser-tests - failing tests', () => {
             },
             right: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 0,
               start: 13,
               end: 14,
@@ -5913,7 +5913,7 @@ describe('test262-parser-tests - failing tests', () => {
                   },
                   right: {
                     type: 'NumericLiteral',
-                    floatingPoint: false,
+                    floating: false,
                     value: 0,
                     start: 10,
                     end: 12,
@@ -6254,7 +6254,7 @@ describe('test262-parser-tests - failing tests', () => {
                                                                                                       expression: {
                                                                                                         type:
                                                                                                           'NumericLiteral',
-                                                                                                        floatingPoint: false,
+                                                                                                        floating: false,
                                                                                                         value: 0,
                                                                                                         start: 26,
                                                                                                         end: 27,
@@ -6403,7 +6403,7 @@ describe('test262-parser-tests - failing tests', () => {
               type: 'ConciseBody',
               expression: {
                 type: 'NumericLiteral',
-                floatingPoint: false,
+                floating: false,
                 value: 0,
                 start: 52,
                 end: 53,
@@ -6654,7 +6654,7 @@ describe('test262-parser-tests - failing tests', () => {
             },
             right: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 0,
               start: 6,
               end: 8,

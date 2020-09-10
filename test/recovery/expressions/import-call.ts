@@ -119,7 +119,7 @@ describe('Recovery - Expressions - Import call', () => {
               type: 'CallExpression',
               expression: {
                 type: 'NumericLiteral',
-                floatingPoint: false,
+                floating: false,
                 value: 2,
                 start: 15,
                 end: 17,

@@ -3495,7 +3495,7 @@ describe('Module - Import', () => {
             type: 'ForStatement',
             initializer: {
               type: 'NumericLiteral',
-              floatingPoint: false,
+              floating: false,
               value: 11,
               start: 59,
               end: 62,

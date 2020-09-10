@@ -167,7 +167,7 @@ while(x);`,
           type: 'DoWhileStatement',
           expression: {
             type: 'NumericLiteral',
-            floatingPoint: false,
+            floating: false,
             value: 1,
             start: 11,
             end: 12

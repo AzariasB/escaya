@@ -1572,7 +1572,7 @@ describe('Recovery - Let', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floatingPoint: false,
+            floating: false,
             value: 123,
             start: 3,
             end: 7,

@@ -777,7 +777,7 @@ describe('Module - Export', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 0,
                   start: 15,
                   end: 16,
@@ -846,7 +846,7 @@ describe('Module - Export', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 0,
                   start: 17,
                   end: 18,

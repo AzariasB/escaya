@@ -135,7 +135,7 @@ describe('Recovery - Expressions - Array', () => {
                 },
                 expression: {
                   type: 'NumericLiteral',
-                  floatingPoint: false,
+                  floating: false,
                   value: 5,
                   start: 3,
                   end: 4,
@@ -350,7 +350,7 @@ describe('Recovery - Expressions - Array', () => {
                     type: 'AssignmentExpression',
                     left: {
                       type: 'NumericLiteral',
-                      floatingPoint: false,
+                      floating: false,
                       value: 2,
                       start: 2,
                       end: 3,
@@ -585,7 +585,7 @@ describe('Recovery - Expressions - Array', () => {
                     },
                     right: {
                       type: 'NumericLiteral',
-                      floatingPoint: false,
+                      floating: false,
                       value: 1,
                       start: 7,
                       end: 9,
@@ -1000,7 +1000,7 @@ describe('Recovery - Expressions - Array', () => {
                   type: 'AssignmentExpression',
                   left: {
                     type: 'NumericLiteral',
-                    floatingPoint: false,
+                    floating: false,
                     value: 2,
                     start: 5,
                     end: 7,
@@ -1075,7 +1075,7 @@ describe('Recovery - Expressions - Array', () => {
             elements: [
               {
                 type: 'NumericLiteral',
-                floatingPoint: false,
+                floating: false,
                 value: 50,
                 start: 1,
                 end: 3,
@@ -2106,7 +2106,7 @@ describe('Recovery - Expressions - Array', () => {
                   type: 'MemberExpression',
                   member: {
                     type: 'NumericLiteral',
-                    floatingPoint: true,
+                    floating: true,
                     value: 1,
                     start: 1,
                     end: 3,
