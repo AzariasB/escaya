@@ -47,14 +47,17 @@ interface LabelIdentifier <: Expression {
 
 ## 12.2.4 Literals
 
-### NumericLiteral
+### NumericLiteral [MODIFIED]
 
 ```js
 interface NumericLiteral <: Expression {
     type: 'NumericLiteral';
     value: number;
+    floating: boolean
 }
 ```
+`floating` should be true if the `NumericLiteral` contain a floating decimal points. For example, the
+numbers `5.5` and `0.001` are floating point numbers.
 
 ### BigIntLiteral
 

@@ -66,6 +66,8 @@ are optional properties representing the start and end values of each `AST node`
 
 The optional `loc` field contains the source location information of the node.
 
+### SourceLocation
+
 ```js
 interface SourceLocation {
   start: LineAndColumnData;
@@ -76,6 +78,8 @@ interface SourceLocation {
 The `start` field is the position of the first character of the parsed source region, and the
 `end` field is the position of the first character after the parsed source region.
 
+### LineAndColumnData
+
 ```js
 interface LineAndColumnData {
   line: number;
@@ -85,6 +89,7 @@ interface LineAndColumnData {
 
 The `line` field is `1-indexed` and the `column` field is `0-indexed`
 
+### MetaData
 
 ```js
 export interface NodeMeta {
@@ -92,7 +97,7 @@ export interface NodeMeta {
   newlineBeforNextToken?: boolean;
 }
 ```
-
+Every single valid CST Node type.
 
 ## Directive prologues
 

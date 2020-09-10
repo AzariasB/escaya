@@ -5,13 +5,13 @@ import { Node } from '../node';
  */
 export interface NumericLiteral extends Node {
   readonly value: number;
-  readonly floatingPoint: boolean;
+  readonly floating: boolean;
 }
 
-export function createNumericLiteral(value: number, floatingPoint: boolean): NumericLiteral {
+export function createNumericLiteral(value: number, floating: boolean): NumericLiteral {
   return {
     type: 'NumericLiteral',
     value,
-    floatingPoint
+    floating
   };
 }
