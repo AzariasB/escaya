@@ -739,7 +739,7 @@ interface ObjectLiteral <: Expression {
 ```js
 interface ObjectBindingPattern <: Expression {
     type: 'ObjectBindingPattern';
-    properties: [ BindingRestProperty | BindingElement | BindingIdentifier ];
+    properties: [ PropertyName | BindingRestProperty | BindingElement | BindingIdentifier ];
 }
 ```
 
