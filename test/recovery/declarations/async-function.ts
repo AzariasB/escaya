@@ -652,7 +652,6 @@ describe('Recovery - Async Function', () => {
   it('async function foo(a = () => x) { var x; return', () => {
     t.deepEqual(recovery('async function foo(a = () => x) { var x; return', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -682,18 +681,11 @@ describe('Recovery - Async Function', () => {
                 type: 'ArrowFunction',
                 params: [],
                 contents: {
-                  type: 'ConciseBody',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: 'x',
-                    start: 28,
-                    end: 30,
-                    kind: 13,
-                    flags: 0
-                  },
+                  type: 'IdentifierReference',
+                  name: 'x',
                   start: 28,
                   end: 30,
-                  kind: 187,
+                  kind: 13,
                   flags: 0
                 },
                 async: false,
@@ -777,6 +769,7 @@ describe('Recovery - Async Function', () => {
       children: [],
       start: 0,
       length: 47,
+      webCompat: true,
       end: 47
     });
   });
@@ -2248,7 +2241,7 @@ describe('Recovery - Async Function', () => {
                           },
                           value: {
                             type: 'NumericLiteral',
-                            floating: false,
+
                             value: 44,
                             start: 37,
                             end: 40,
@@ -2272,7 +2265,7 @@ describe('Recovery - Async Function', () => {
                           },
                           value: {
                             type: 'NumericLiteral',
-                            floating: false,
+
                             value: 55,
                             start: 44,
                             end: 47,
@@ -2296,7 +2289,7 @@ describe('Recovery - Async Function', () => {
                           },
                           value: {
                             type: 'NumericLiteral',
-                            floating: false,
+
                             value: 66,
                             start: 51,
                             end: 54,

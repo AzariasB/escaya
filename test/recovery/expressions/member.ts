@@ -1837,7 +1837,6 @@ describe('Recovery - Expressions - Member', () => {
   it('a.1', () => {
     t.deepEqual(recovery('a.1', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1858,8 +1857,7 @@ describe('Recovery - Expressions - Member', () => {
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'NumericLiteral',
-            floating: true,
+            type: 'FloatingPointLiteral',
             value: 0.1,
             start: 1,
             end: 3,
@@ -1892,6 +1890,7 @@ describe('Recovery - Expressions - Member', () => {
       children: [],
       start: 0,
       length: 3,
+      webCompat: true,
       end: 3
     });
   });

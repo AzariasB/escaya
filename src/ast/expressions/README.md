@@ -47,16 +47,25 @@ interface LabelIdentifier <: Expression {
 
 ## 12.2.4 Literals
 
-### NumericLiteral [MODIFIED]
+### NumericLiteral
 
 ```js
 interface NumericLiteral <: Expression {
     type: 'NumericLiteral';
     value: number;
-    floating: boolean
 }
 ```
-`floating` should be true if the `NumericLiteral` contain a floating decimal points. For example, the
+
+### FloatingPointLiteral [MODIFIED]
+
+```js
+interface FloatingPointLiteral <: Expression {
+    type: 'FloatingPointLiteral';
+    value: number;
+}
+```
+
+`FloatingPointLiteral` are numbers that contain floating decimal points. For example, the
 numbers `5.5` and `0.001` are floating point numbers.
 
 ### BigIntLiteral
@@ -156,6 +165,7 @@ interface ArrayLiteral <: Expression {
 interface ArrowFunction <: Expression {
     type: 'ArrowFunction';
     params: [ BindingIdentifier | BindingRestElement | ArrayBindingPattern | ObjectBindingPattern ];
+    content: Expression | FunctionBody
 }
 ```
 

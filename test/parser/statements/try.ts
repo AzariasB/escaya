@@ -639,21 +639,21 @@ describe('Statements - Try', () => {
                   elements: [
                     {
                       type: 'NumericLiteral',
-                      floating: false,
+
                       value: 3,
                       start: 13,
                       end: 14
                     },
                     {
                       type: 'NumericLiteral',
-                      floating: false,
+
                       value: 4,
                       start: 16,
                       end: 17
                     },
                     {
                       type: 'NumericLiteral',
-                      floating: false,
+
                       value: 5,
                       start: 19,
                       end: 20
@@ -1593,7 +1593,7 @@ describe('Statements - Try', () => {
                     operator: '=',
                     right: {
                       type: 'NumericLiteral',
-                      floating: false,
+
                       value: 0,
                       start: 22,
                       end: 23
@@ -1670,7 +1670,7 @@ describe('Statements - Try', () => {
                           operator: '=',
                           right: {
                             type: 'NumericLiteral',
-                            floating: false,
+
                             value: 1,
                             start: 34,
                             end: 35

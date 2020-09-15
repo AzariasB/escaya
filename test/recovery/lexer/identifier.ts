@@ -40,7 +40,7 @@ describe('Recovery - Identifier', () => {
             kind: 10,
             start: 0,
             type: 'NumericLiteral',
-            floating: false,
+
             value: 1
           },
           flags: 0,
@@ -282,7 +282,7 @@ describe('Recovery - Identifier', () => {
               type: 'ExpressionStatement',
               expression: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 0,
                 start: 4,
                 end: 5,

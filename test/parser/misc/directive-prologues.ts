@@ -462,13 +462,8 @@ describe('Misc - Directives', () => {
             type: 'ArrowFunction',
             params: [],
             contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'StringLiteral',
-                value: 'use strict',
-                start: 6,
-                end: 18
-              },
+              type: 'StringLiteral',
+              value: 'use strict',
               start: 6,
               end: 18
             },

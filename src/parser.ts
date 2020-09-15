@@ -45,7 +45,6 @@ import { SuperCall } from './ast/expressions/super-call';
 import { SuperProperty } from './ast/expressions/super-property';
 import { SpreadElement } from './ast/expressions/spread-element';
 import { SpreadProperty } from './ast/expressions/spread-property';
-import { ConciseBody } from './ast/expressions/concise-body';
 import { ArrowFunction, ArrowFormals } from './ast/expressions/arrow-function';
 import { MethodDefinition } from './ast/expressions/method-definition';
 import { FunctionBody } from './ast/expressions/function-body';
@@ -2490,6 +2489,8 @@ export function parsePrimaryExpression(
       return parseUnaryExpression(state, context);
     case Token.NumericLiteral:
       return parseNumericLiteral(state, context);
+    case Token.FloatingPointLiteral:
+      return parseFloatingPointLiteral(state, context);
     case Token.BigIntLiteral:
       return parseBigIntLiteral(state, context);
     case Token.StringLiteral:
@@ -2618,11 +2619,20 @@ export function parseBooleanLiteral(state: ParserState, context: Context): Boole
 export function parseNumericLiteral(state: ParserState, context: Context): NumericLiteral {
   const start = state.startIndex;
   const value = state.tokenValue;
-  const isFloat = (state.flags & Flags.HasFloatingNumber) === Flags.HasFloatingNumber;
   state.assignable = false;
   nextToken(state, context);
-  return finishNode(state, context, start, DictionaryMap.NumericLiteral(value, isFloat), SyntaxKind.NumericLiteral);
+  return finishNode(state, context, start, DictionaryMap.NumericLiteral(value), SyntaxKind.NumericLiteral);
 }
+
+// FloatingPointLiteral
+export function parseFloatingPointLiteral(state: ParserState, context: Context): NumericLiteral {
+  const start = state.startIndex;
+  const value = state.tokenValue;
+  state.assignable = false;
+  nextToken(state, context);
+  return finishNode(state, context, start, DictionaryMap.FloatingPointLiteral(value), SyntaxKind.NumericLiteral);
+}
+
 export function parseBigIntLiteral(state: ParserState, context: Context): NumericLiteral {
   const start = state.startIndex;
   const value = state.tokenValue;
@@ -3557,6 +3567,10 @@ export function parsePropertyName(state: ParserState, context: Context): any {
   if (state.token === Token.NumericLiteral) {
     return parseNumericLiteral(state, context);
   }
+  if (state.token === Token.FloatingPointLiteral) {
+    return parseFloatingPointLiteral(state, context);
+  }
+
   if (state.token === Token.BigIntLiteral) {
     return parseBigIntLiteral(state, context);
   }
@@ -4199,7 +4213,7 @@ export function parseConciseOrFunctionBody(
   state: ParserState,
   context: Context,
   scope: any
-): FunctionBody | ConciseBody {
+): FunctionBody | Expression {
   addScopeDiagnostic(state, context, scope, DiagnosticCode.DupBind);
 
   if (state.token === Token.LeftBrace) {
@@ -4283,13 +4297,7 @@ export function parseConciseOrFunctionBody(
     return body;
   }
 
-  return finishNode(
-    state,
-    context,
-    state.startIndex,
-    DictionaryMap.ConciseBody(parseExpression(state, context)),
-    SyntaxKind.ConciseBody
-  );
+  return parseExpression(state, context);
 }
 
 // CoverParenthesizedExpressionAndArrowParameterList :

@@ -26,7 +26,6 @@ import { MethodDefinition } from './method-definition';
 import { FunctionExpression } from './function-expr';
 import { FunctionBody } from './function-body';
 import { ArrowFunction } from './arrow-function';
-import { ConciseBody } from './concise-body';
 import { ParenthesizedExpression } from './parenthesized-expr';
 import { BindingRestElement } from './binding-rest-element';
 import { ClassExpression } from './class-expr';
@@ -86,7 +85,6 @@ export type Expression =
   | FunctionExpression
   | Elison
   | ArrowFunction
-  | ConciseBody
   | AwaitExpression
   | YieldExpression
   | LabelIdentifier;

@@ -5,7 +5,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
   it('async () =>(', () => {
     t.deepEqual(recovery('async () =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -14,25 +13,18 @@ describe('Recovery - Expressions - Async Arrows', () => {
             type: 'ArrowFunction',
             params: [],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 12,
-                  end: 12,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 11,
+                type: 'IdentifierReference',
+                name: '',
+                start: 12,
                 end: 12,
-                kind: 189,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               start: 11,
               end: 12,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: true,
@@ -67,6 +59,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 12,
+      webCompat: true,
       end: 12
     });
   });
@@ -74,7 +67,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
   it('async (() =>', () => {
     t.deepEqual(recovery('async (() =>', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -94,19 +86,12 @@ describe('Recovery - Expressions - Async Arrows', () => {
                 type: 'ArrowFunction',
                 params: [],
                 contents: {
-                  type: 'ConciseBody',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: '',
-                    start: 12,
-                    end: 12,
-                    kind: 13,
-                    flags: 2
-                  },
+                  type: 'IdentifierReference',
+                  name: '',
                   start: 12,
                   end: 12,
-                  kind: 187,
-                  flags: 0
+                  kind: 13,
+                  flags: 2
                 },
                 async: false,
                 start: 7,
@@ -146,6 +131,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 12,
+      webCompat: true,
       end: 12
     });
   });
@@ -153,7 +139,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
   it('async yield =>( "use strict";', () => {
     t.deepEqual(recovery('async yield =>( "use strict";', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -171,25 +156,18 @@ describe('Recovery - Expressions - Async Arrows', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'StringLiteral',
-                  value: 'use strict',
-                  start: 15,
-                  end: 28,
-                  kind: 12,
-                  flags: 0
-                },
-                start: 14,
+                type: 'StringLiteral',
+                value: 'use strict',
+                start: 15,
                 end: 28,
-                kind: 189,
+                kind: 12,
                 flags: 0
               },
               start: 14,
               end: 28,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: true,
@@ -224,6 +202,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 29,
+      webCompat: true,
       end: 29
     });
   });
@@ -231,7 +210,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
   it('"use strict"; async ( =>(', () => {
     t.deepEqual(recovery('"use strict"; async ( =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [
         {
           type: 'Directive',
@@ -250,25 +228,18 @@ describe('Recovery - Expressions - Async Arrows', () => {
             type: 'ArrowFunction',
             params: [],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 25,
-                  end: 25,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 24,
+                type: 'IdentifierReference',
+                name: '',
+                start: 25,
                 end: 25,
-                kind: 189,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               start: 24,
               end: 25,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: true,
@@ -311,6 +282,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 25,
+      webCompat: true,
       end: 25
     });
   });
@@ -318,7 +290,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
   it('"use strict"; async (yield await =>(', () => {
     t.deepEqual(recovery('"use strict"; async (yield await =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [
         {
           type: 'Directive',
@@ -365,25 +336,18 @@ describe('Recovery - Expressions - Async Arrows', () => {
                   }
                 ],
                 contents: {
-                  type: 'ConciseBody',
+                  type: 'ParenthesizedExpression',
                   expression: {
-                    type: 'ParenthesizedExpression',
-                    expression: {
-                      type: 'IdentifierReference',
-                      name: '',
-                      start: 36,
-                      end: 36,
-                      kind: 13,
-                      flags: 2
-                    },
-                    start: 35,
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 36,
                     end: 36,
-                    kind: 189,
-                    flags: 0
+                    kind: 13,
+                    flags: 2
                   },
                   start: 35,
                   end: 36,
-                  kind: 187,
+                  kind: 189,
                   flags: 0
                 },
                 async: false,
@@ -410,12 +374,12 @@ describe('Recovery - Expressions - Async Arrows', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 21,
           kind: 3,
-          length: 5,
-          message: 'Unexpected `yield` as identifier in this context',
           source: 2,
-          start: 21
+          message: 'Unexpected `yield` as identifier in this context',
+          code: 21,
+          start: 21,
+          length: 5
         },
         {
           kind: 2,
@@ -432,6 +396,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 36,
+      webCompat: true,
       end: 36
     });
   });
@@ -439,7 +404,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
   it('async await =>(', () => {
     t.deepEqual(recovery('async await =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -457,25 +421,18 @@ describe('Recovery - Expressions - Async Arrows', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 15,
-                  end: 15,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 14,
+                type: 'IdentifierReference',
+                name: '',
+                start: 15,
                 end: 15,
-                kind: 189,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               start: 14,
               end: 15,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: true,
@@ -510,6 +467,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 15,
+      webCompat: true,
       end: 15
     });
   });
@@ -625,7 +583,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
   it('async a...=>(', () => {
     t.deepEqual(recovery('async a...=>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -643,19 +600,12 @@ describe('Recovery - Expressions - Async Arrows', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 7,
-                end: 7,
-                kind: 13,
-                flags: 2
-              },
+              type: 'IdentifierReference',
+              name: '',
               start: 7,
               end: 7,
-              kind: 187,
-              flags: 0
+              kind: 13,
+              flags: 2
             },
             async: true,
             start: 0,
@@ -727,6 +677,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 13,
+      webCompat: true,
       end: 13
     });
   });
@@ -734,7 +685,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
   it('async ([]) =>(', () => {
     t.deepEqual(recovery('async ([]) =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -752,25 +702,18 @@ describe('Recovery - Expressions - Async Arrows', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 14,
-                  end: 14,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 13,
+                type: 'IdentifierReference',
+                name: '',
+                start: 14,
                 end: 14,
-                kind: 189,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               start: 13,
               end: 14,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: true,
@@ -805,6 +748,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 14,
+      webCompat: true,
       end: 14
     });
   });
@@ -1020,7 +964,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
   it('(async () =>', () => {
     t.deepEqual(recovery('(async () =>', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1031,19 +974,12 @@ describe('Recovery - Expressions - Async Arrows', () => {
               type: 'ArrowFunction',
               params: [],
               contents: {
-                type: 'ConciseBody',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 12,
-                  end: 12,
-                  kind: 13,
-                  flags: 2
-                },
+                type: 'IdentifierReference',
+                name: '',
                 start: 12,
                 end: 12,
-                kind: 187,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               async: true,
               start: 1,
@@ -1082,6 +1018,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 12,
+      webCompat: true,
       end: 12
     });
   });
@@ -1089,7 +1026,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
   it('(() async =>() =>', () => {
     t.deepEqual(recovery('(() async =>() =>', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1134,34 +1070,20 @@ describe('Recovery - Expressions - Async Arrows', () => {
               flags: 0
             },
             contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'ArrowFunction',
-                params: [],
-                contents: {
-                  type: 'ConciseBody',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: '',
-                    start: 17,
-                    end: 17,
-                    kind: 13,
-                    flags: 2
-                  },
-                  start: 17,
-                  end: 17,
-                  kind: 187,
-                  flags: 0
-                },
-                async: false,
-                start: 12,
+              type: 'ArrowFunction',
+              params: [],
+              contents: {
+                type: 'IdentifierReference',
+                name: '',
+                start: 17,
                 end: 17,
-                kind: 188,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
+              async: false,
               start: 12,
               end: 17,
-              kind: 187,
+              kind: 188,
               flags: 0
             },
             async: false,
@@ -1204,6 +1126,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 17,
+      webCompat: true,
       end: 17
     });
   });

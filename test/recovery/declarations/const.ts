@@ -32,7 +32,7 @@ describe('Recovery - Const', () => {
             operator: '=',
             right: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 12,
               end: 14,
@@ -96,7 +96,7 @@ describe('Recovery - Const', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 2,
                 start: 9,
                 end: 11,

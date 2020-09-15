@@ -337,7 +337,7 @@ describe('Statements - Switch', () => {
           type: 'SwitchStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 0,
             start: 8,
             end: 9
@@ -347,7 +347,7 @@ describe('Statements - Switch', () => {
               type: 'CaseClause',
               expression: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 1,
                 start: 18,
                 end: 19
@@ -722,7 +722,7 @@ describe('Statements - Switch', () => {
             type: 'SwitchStatement',
             expression: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 0,
               start: 8,
               end: 9
@@ -732,7 +732,7 @@ describe('Statements - Switch', () => {
                 type: 'CaseClause',
                 expression: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 1,
                   start: 18,
                   end: 19
@@ -752,7 +752,7 @@ describe('Statements - Switch', () => {
                         },
                         initializer: {
                           type: 'NumericLiteral',
-                          floating: false,
+
                           value: 0,
                           start: 29,
                           end: 30
@@ -802,7 +802,7 @@ describe('Statements - Switch', () => {
             type: 'SwitchStatement',
             expression: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 0,
               start: 75,
               end: 76
@@ -812,7 +812,7 @@ describe('Statements - Switch', () => {
                 type: 'CaseClause',
                 expression: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 1,
                   start: 85,
                   end: 86
@@ -832,7 +832,7 @@ describe('Statements - Switch', () => {
                         },
                         initializer: {
                           type: 'NumericLiteral',
-                          floating: false,
+
                           value: 0,
                           start: 96,
                           end: 97
@@ -895,7 +895,7 @@ describe('Statements - Switch', () => {
           type: 'SwitchStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 0,
             start: 8,
             end: 9
@@ -985,7 +985,7 @@ describe('Statements - Switch', () => {
           type: 'SwitchStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 0,
             start: 8,
             end: 9
@@ -995,7 +995,7 @@ describe('Statements - Switch', () => {
               type: 'CaseClause',
               expression: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 1,
                 start: 18,
                 end: 19

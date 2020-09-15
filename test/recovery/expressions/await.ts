@@ -14,7 +14,7 @@ describe('Recovery - Expressions - Await', () => {
             type: 'BinaryExpression',
             left: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 5,
               start: 0,
               end: 1,
@@ -334,7 +334,6 @@ describe('Recovery - Expressions - Await', () => {
   it('([x] = await bar =>', () => {
     t.deepEqual(recovery('([x] = await bar =>', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -398,19 +397,12 @@ describe('Recovery - Expressions - Await', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 19,
-                end: 19,
-                kind: 13,
-                flags: 2
-              },
+              type: 'IdentifierReference',
+              name: '',
               start: 19,
               end: 19,
-              kind: 187,
-              flags: 0
+              kind: 13,
+              flags: 2
             },
             async: false,
             start: 12,
@@ -452,6 +444,7 @@ describe('Recovery - Expressions - Await', () => {
       children: [],
       start: 0,
       length: 19,
+      webCompat: true,
       end: 19
     });
   });

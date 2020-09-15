@@ -156,9 +156,10 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
   let disallowBigInt = false;
   const source = state.source;
   let index = state.index;
+  let token = Token.NumericLiteral;
 
   if (isFloat) {
-    state.flags |= Flags.HasFloatingNumber;
+    token = Token.FloatingPointLiteral;
     do {
       cp = source.charCodeAt(++index);
     } while (cp <= Char.Nine && cp >= Char.Zero);
@@ -393,7 +394,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
 
     if (cp === Char.Period) {
       disallowBigInt = true;
-      state.flags |= Flags.HasFloatingNumber;
+      token = Token.FloatingPointLiteral;
       cp = source.charCodeAt(++index);
       while (cp <= Char.Nine && cp >= Char.Zero) {
         cp = source.charCodeAt(++index);
@@ -449,5 +450,5 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
 
   state.index = index;
   state.tokenValue = parseFloat(source.slice(start, index));
-  return Token.NumericLiteral;
+  return token;
 }

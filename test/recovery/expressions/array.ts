@@ -135,7 +135,7 @@ describe('Recovery - Expressions - Array', () => {
                 },
                 expression: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 5,
                   start: 3,
                   end: 4,
@@ -350,7 +350,7 @@ describe('Recovery - Expressions - Array', () => {
                     type: 'AssignmentExpression',
                     left: {
                       type: 'NumericLiteral',
-                      floating: false,
+
                       value: 2,
                       start: 2,
                       end: 3,
@@ -585,7 +585,7 @@ describe('Recovery - Expressions - Array', () => {
                     },
                     right: {
                       type: 'NumericLiteral',
-                      floating: false,
+
                       value: 1,
                       start: 7,
                       end: 9,
@@ -1000,7 +1000,7 @@ describe('Recovery - Expressions - Array', () => {
                   type: 'AssignmentExpression',
                   left: {
                     type: 'NumericLiteral',
-                    floating: false,
+
                     value: 2,
                     start: 5,
                     end: 7,
@@ -1075,7 +1075,7 @@ describe('Recovery - Expressions - Array', () => {
             elements: [
               {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 50,
                 start: 1,
                 end: 3,
@@ -2091,22 +2091,19 @@ describe('Recovery - Expressions - Array', () => {
   it('[1...=>(', () => {
     t.deepEqual(recovery('[1...=>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrayLiteral',
-            kind: 178,
             elements: [
               {
                 type: 'MemberExpression',
                 member: {
                   type: 'MemberExpression',
                   member: {
-                    type: 'NumericLiteral',
-                    floating: true,
+                    type: 'FloatingPointLiteral',
                     value: 1,
                     start: 1,
                     end: 3,
@@ -2144,6 +2141,7 @@ describe('Recovery - Expressions - Array', () => {
             ],
             start: 0,
             end: 5,
+            kind: 178,
             flags: 0
           },
           start: 0,
@@ -2210,6 +2208,7 @@ describe('Recovery - Expressions - Array', () => {
       children: [],
       start: 0,
       length: 8,
+      webCompat: true,
       end: 8
     });
   });

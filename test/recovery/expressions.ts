@@ -127,7 +127,7 @@ describe('Recovery - Expressions', () => {
                   operator: '=',
                   right: {
                     type: 'NumericLiteral',
-                    floating: false,
+
                     value: 0,
                     start: 5,
                     end: 7,
@@ -204,7 +204,7 @@ describe('Recovery - Expressions', () => {
               elements: [
                 {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 2,
                   start: 6,
                   end: 7,
@@ -314,7 +314,7 @@ describe('Recovery - Expressions', () => {
                       type: 'CallExpression',
                       expression: {
                         type: 'NumericLiteral',
-                        floating: false,
+
                         value: 0,
                         start: 11,
                         end: 13,
@@ -463,7 +463,7 @@ describe('Recovery - Expressions', () => {
                     operator: '=',
                     right: {
                       type: 'NumericLiteral',
-                      floating: false,
+
                       value: 0,
                       start: 11,
                       end: 13,
@@ -628,7 +628,7 @@ describe('Recovery - Expressions', () => {
                     operator: '=',
                     right: {
                       type: 'NumericLiteral',
-                      floating: false,
+
                       value: 0,
                       start: 11,
                       end: 13,
@@ -818,7 +818,7 @@ describe('Recovery - Expressions', () => {
                       },
                       right: {
                         type: 'NumericLiteral',
-                        floating: false,
+
                         value: 0,
                         start: 11,
                         end: 13,
@@ -843,7 +843,7 @@ describe('Recovery - Expressions', () => {
               },
               right: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 1,
                 start: 16,
                 end: 18,
@@ -1281,7 +1281,6 @@ describe('Recovery - Expressions', () => {
   it('({ f: function*() {() => new super', () => {
     t.deepEqual(recovery('({ f: function*() {() => new super', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1317,34 +1316,27 @@ describe('Recovery - Expressions', () => {
                             type: 'ArrowFunction',
                             params: [],
                             contents: {
-                              type: 'ConciseBody',
+                              type: 'NewExpression',
                               expression: {
-                                type: 'NewExpression',
-                                expression: {
-                                  type: 'SuperProperty',
-                                  computed: false,
-                                  super: {
-                                    type: 'IdentifierName',
-                                    name: '',
-                                    start: 34,
-                                    end: 34,
-                                    kind: 13,
-                                    flags: 0
-                                  },
-                                  start: 28,
+                                type: 'SuperProperty',
+                                super: {
+                                  type: 'IdentifierName',
+                                  name: '',
+                                  start: 34,
                                   end: 34,
-                                  kind: 192,
+                                  kind: 13,
                                   flags: 0
                                 },
-                                arguments: [],
-                                start: 24,
+                                computed: false,
+                                start: 28,
                                 end: 34,
-                                kind: 163,
+                                kind: 192,
                                 flags: 0
                               },
+                              arguments: [],
                               start: 24,
                               end: 34,
-                              kind: 187,
+                              kind: 163,
                               flags: 0
                             },
                             async: false,
@@ -1411,6 +1403,7 @@ describe('Recovery - Expressions', () => {
       children: [],
       start: 0,
       length: 34,
+      webCompat: true,
       end: 34
     });
   });
@@ -1430,7 +1423,7 @@ describe('Recovery - Expressions', () => {
               computed: true,
               super: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 27,
                 start: 6,
                 end: 8,
@@ -1675,7 +1668,7 @@ describe('Recovery - Expressions', () => {
             },
             consequent: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 3,
               start: 5,
               end: 6,
@@ -1816,7 +1809,7 @@ describe('Recovery - Expressions', () => {
                 type: 'AssignmentExpression',
                 left: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 1,
                   start: 1,
                   end: 2,
@@ -2014,7 +2007,7 @@ describe('Recovery - Expressions', () => {
                 arguments: [
                   {
                     type: 'NumericLiteral',
-                    floating: false,
+
                     value: 0,
                     start: 2,
                     end: 3,
@@ -2044,7 +2037,7 @@ describe('Recovery - Expressions', () => {
             arguments: [
               {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 14,
                 start: 7,
                 end: 9,
@@ -2053,7 +2046,7 @@ describe('Recovery - Expressions', () => {
               },
               {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 3,
                 start: 10,
                 end: 12,
@@ -2062,7 +2055,7 @@ describe('Recovery - Expressions', () => {
               },
               {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 77,
                 start: 13,
                 end: 16,
@@ -2337,7 +2330,7 @@ describe('Recovery - Expressions', () => {
             type: 'BinaryExpression',
             left: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 3,
               start: 0,
               end: 1,
@@ -2398,7 +2391,7 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 3,
             start: 0,
             end: 3,
@@ -2445,7 +2438,7 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 3,
             start: 0,
             end: 4,
@@ -2492,7 +2485,7 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 3,
             start: 0,
             end: 1,
@@ -2554,7 +2547,7 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 1,
             start: 0,
             end: 2,
@@ -2616,7 +2609,7 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 1,
             start: 0,
             end: 4,
@@ -2663,7 +2656,7 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 1,
             start: 0,
             end: 4,
@@ -2814,7 +2807,7 @@ describe('Recovery - Expressions', () => {
             operator: '++',
             operand: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 0,
               end: 1,
@@ -2870,7 +2863,7 @@ describe('Recovery - Expressions', () => {
               type: 'BinaryExpression',
               left: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 1,
                 start: 5,
                 end: 6,
@@ -2880,7 +2873,7 @@ describe('Recovery - Expressions', () => {
               operator: '+',
               right: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 1,
                 start: 8,
                 end: 10,
@@ -3079,7 +3072,7 @@ describe('Recovery - Expressions', () => {
             type: 'BinaryExpression',
             left: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 0,
               end: 1,
@@ -3142,7 +3135,7 @@ describe('Recovery - Expressions', () => {
             type: 'BinaryExpression',
             left: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 0,
               end: 1,
@@ -3229,7 +3222,7 @@ describe('Recovery - Expressions', () => {
             type: 'BinaryExpression',
             left: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 0,
               end: 1,
@@ -3396,7 +3389,7 @@ describe('Recovery - Expressions', () => {
             operator: '=',
             right: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 42,
               start: 8,
               end: 11,
@@ -3491,7 +3484,7 @@ describe('Recovery - Expressions', () => {
             operator: '=',
             right: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 42,
               start: 4,
               end: 7,
@@ -3562,7 +3555,7 @@ describe('Recovery - Expressions', () => {
             operator: '=',
             right: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 42,
               start: 4,
               end: 7,
@@ -3616,7 +3609,7 @@ describe('Recovery - Expressions', () => {
             type: 'BinaryExpression',
             left: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 0,
               end: 1,
@@ -3742,7 +3735,7 @@ describe('Recovery - Expressions', () => {
               type: 'ExpressionStatement',
               expression: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 2,
                 start: 5,
                 end: 7,
@@ -4128,7 +4121,7 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 42,
             start: 8,
             end: 11,
@@ -4204,7 +4197,7 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 42,
             start: 11,
             end: 14,
@@ -4310,7 +4303,7 @@ describe('Recovery - Expressions', () => {
             operator: '=',
             right: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 10,
               start: 8,
               end: 11,
@@ -4824,7 +4817,7 @@ describe('Recovery - Expressions', () => {
                     type: 'ParenthesizedExpression',
                     expression: {
                       type: 'NumericLiteral',
-                      floating: false,
+
                       value: 1,
                       start: 9,
                       end: 10,
@@ -4904,7 +4897,7 @@ describe('Recovery - Expressions', () => {
               },
               right: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 1,
                 start: 5,
                 end: 7,
@@ -4963,7 +4956,7 @@ describe('Recovery - Expressions', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 1,
               end: 2,
@@ -5056,7 +5049,7 @@ describe('Recovery - Expressions', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 1,
               end: 2,
@@ -5150,7 +5143,7 @@ describe('Recovery - Expressions', () => {
             elements: [
               {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 1,
                 start: 5,
                 end: 6,
@@ -5211,7 +5204,7 @@ describe('Recovery - Expressions', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 1,
               end: 2,
@@ -5457,7 +5450,6 @@ describe('Recovery - Expressions', () => {
   it('(...x.y)', () => {
     t.deepEqual(recovery('(...x.y)', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5482,34 +5474,27 @@ describe('Recovery - Expressions', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'MemberExpression',
-                member: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 5,
-                  end: 5,
-                  kind: 13,
-                  flags: 2
-                },
-                expression: {
-                  type: 'IdentifierName',
-                  name: 'y',
-                  start: 6,
-                  end: 7,
-                  kind: 13,
-                  flags: 0
-                },
-                computed: false,
+              type: 'MemberExpression',
+              member: {
+                type: 'IdentifierReference',
+                name: '',
                 start: 5,
+                end: 5,
+                kind: 13,
+                flags: 2
+              },
+              expression: {
+                type: 'IdentifierName',
+                name: 'y',
+                start: 6,
                 end: 7,
-                kind: 154,
+                kind: 13,
                 flags: 0
               },
+              computed: false,
               start: 5,
               end: 7,
-              kind: 187,
+              kind: 154,
               flags: 0
             },
             async: false,
@@ -5552,6 +5537,7 @@ describe('Recovery - Expressions', () => {
       children: [],
       start: 0,
       length: 8,
+      webCompat: true,
       end: 8
     });
   });
@@ -5650,7 +5636,6 @@ describe('Recovery - Expressions', () => {
   it('(...x = y) => x', () => {
     t.deepEqual(recovery('(...x = y) => x', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5675,34 +5660,27 @@ describe('Recovery - Expressions', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'AssignmentExpression',
-                left: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 5,
-                  end: 5,
-                  kind: 13,
-                  flags: 2
-                },
-                operator: '=',
-                right: {
-                  type: 'IdentifierReference',
-                  name: 'y',
-                  start: 7,
-                  end: 9,
-                  kind: 13,
-                  flags: 0
-                },
+              type: 'AssignmentExpression',
+              left: {
+                type: 'IdentifierReference',
+                name: '',
                 start: 5,
+                end: 5,
+                kind: 13,
+                flags: 2
+              },
+              operator: '=',
+              right: {
+                type: 'IdentifierReference',
+                name: 'y',
+                start: 7,
                 end: 9,
-                kind: 152,
+                kind: 13,
                 flags: 0
               },
               start: 5,
               end: 9,
-              kind: 187,
+              kind: 152,
               flags: 0
             },
             async: false,
@@ -5768,6 +5746,7 @@ describe('Recovery - Expressions', () => {
       children: [],
       start: 0,
       length: 15,
+      webCompat: true,
       end: 15
     });
   });
@@ -8336,7 +8315,7 @@ describe('Recovery - Expressions', () => {
                 operator: '=',
                 right: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 2,
                   start: 3,
                   end: 5,
@@ -9160,7 +9139,7 @@ describe('Recovery - Expressions', () => {
             type: 'BinaryExpression',
             left: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 0,
               end: 1,
@@ -9234,7 +9213,7 @@ describe('Recovery - Expressions', () => {
               operator: '--',
               operand: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 1,
                 start: 0,
                 end: 1,
@@ -9301,7 +9280,6 @@ describe('Recovery - Expressions', () => {
   it('1..', () => {
     t.deepEqual(recovery('1..', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -9309,8 +9287,7 @@ describe('Recovery - Expressions', () => {
           expression: {
             type: 'MemberExpression',
             member: {
-              type: 'NumericLiteral',
-              floating: true,
+              type: 'FloatingPointLiteral',
               value: 1,
               start: 0,
               end: 2,
@@ -9357,6 +9334,7 @@ describe('Recovery - Expressions', () => {
       children: [],
       start: 0,
       length: 3,
+      webCompat: true,
       end: 3
     });
   });
@@ -9371,7 +9349,7 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 1,
             start: 0,
             end: 1,
@@ -9605,7 +9583,7 @@ describe('Recovery - Expressions', () => {
                   operator: '-',
                   operand: {
                     type: 'NumericLiteral',
-                    floating: false,
+
                     value: 345,
                     start: 20,
                     end: 23,
@@ -9848,7 +9826,7 @@ describe('Recovery - Expressions', () => {
                   operator: '-',
                   operand: {
                     type: 'NumericLiteral',
-                    floating: false,
+
                     value: 345,
                     start: 14,
                     end: 17,
@@ -10096,7 +10074,7 @@ describe('Recovery - Expressions', () => {
                 operator: '!',
                 operand: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 458,
                   start: 2,
                   end: 5,

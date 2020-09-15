@@ -112,7 +112,6 @@ describe('Recovery - Expressions - Parenthesized', () => {
   it('(...', () => {
     t.deepEqual(recovery('(...', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -137,19 +136,12 @@ describe('Recovery - Expressions - Parenthesized', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 4,
-                end: 4,
-                kind: 13,
-                flags: 2
-              },
+              type: 'IdentifierReference',
+              name: '',
               start: 4,
               end: 4,
-              kind: 187,
-              flags: 0
+              kind: 13,
+              flags: 2
             },
             async: false,
             start: 0,
@@ -183,6 +175,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
       children: [],
       start: 0,
       length: 4,
+      webCompat: true,
       end: 4
     });
   });

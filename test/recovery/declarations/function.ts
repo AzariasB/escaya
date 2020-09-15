@@ -652,7 +652,6 @@ describe('Recovery - Function', () => {
   it('async => function x(...(a, {', () => {
     t.deepEqual(recovery('async => function x(...(a, {', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -668,78 +667,71 @@ describe('Recovery - Function', () => {
               flags: 0
             },
             contents: {
-              type: 'ConciseBody',
+              type: 'CallExpression',
               expression: {
-                type: 'CallExpression',
-                expression: {
-                  type: 'FunctionExpression',
-                  name: {
-                    type: 'BindingIdentifier',
-                    name: 'x',
-                    start: 17,
-                    end: 19,
-                    kind: 168,
-                    flags: 0
-                  },
-                  generator: false,
-                  async: false,
-                  params: [
-                    {
-                      type: 'BindingRestElement',
-                      argument: {
-                        type: 'BindingIdentifier',
-                        name: '',
-                        start: 20,
-                        end: 23,
-                        kind: 168,
-                        flags: 0
-                      },
-                      start: 20,
-                      end: 23,
-                      kind: 175,
-                      flags: 0
-                    }
-                  ],
-                  contents: {
-                    type: 'FunctionBody',
-                    directives: [],
-                    leafs: [],
-                    start: 23,
-                    end: 23,
-                    kind: 184,
-                    flags: 0
-                  },
-                  start: 8,
-                  end: 23,
-                  kind: 185,
+                type: 'FunctionExpression',
+                name: {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 17,
+                  end: 19,
+                  kind: 168,
                   flags: 0
                 },
-                arguments: [
+                generator: false,
+                async: false,
+                params: [
                   {
-                    type: 'IdentifierReference',
-                    name: 'a',
-                    start: 24,
-                    end: 25,
-                    kind: 13,
-                    flags: 0
-                  },
-                  {
-                    type: 'ObjectLiteral',
-                    properties: [],
-                    start: 26,
-                    end: 28,
-                    kind: 179,
+                    type: 'BindingRestElement',
+                    argument: {
+                      type: 'BindingIdentifier',
+                      name: '',
+                      start: 20,
+                      end: 23,
+                      kind: 168,
+                      flags: 0
+                    },
+                    start: 20,
+                    end: 23,
+                    kind: 175,
                     flags: 0
                   }
                 ],
+                contents: {
+                  type: 'FunctionBody',
+                  directives: [],
+                  leafs: [],
+                  start: 23,
+                  end: 23,
+                  kind: 184,
+                  flags: 0
+                },
                 start: 8,
-                end: 28,
-                kind: 156,
+                end: 23,
+                kind: 185,
                 flags: 0
               },
+              arguments: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 24,
+                  end: 25,
+                  kind: 13,
+                  flags: 0
+                },
+                {
+                  type: 'ObjectLiteral',
+                  properties: [],
+                  start: 26,
+                  end: 28,
+                  kind: 179,
+                  flags: 0
+                }
+              ],
               start: 8,
               end: 28,
-              kind: 187,
+              kind: 156,
               flags: 0
             },
             async: false,
@@ -782,6 +774,7 @@ describe('Recovery - Function', () => {
       children: [],
       start: 0,
       length: 28,
+      webCompat: true,
       end: 28
     });
   });

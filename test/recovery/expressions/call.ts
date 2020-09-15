@@ -59,7 +59,6 @@ describe('Recovery - Expressions - Call', () => {
   it('async(async => c', () => {
     t.deepEqual(recovery('async(async => c', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -86,18 +85,11 @@ describe('Recovery - Expressions - Call', () => {
                   flags: 0
                 },
                 contents: {
-                  type: 'ConciseBody',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: 'c',
-                    start: 14,
-                    end: 16,
-                    kind: 13,
-                    flags: 0
-                  },
+                  type: 'IdentifierReference',
+                  name: 'c',
                   start: 14,
                   end: 16,
-                  kind: 187,
+                  kind: 13,
                   flags: 0
                 },
                 async: false,
@@ -138,6 +130,7 @@ describe('Recovery - Expressions - Call', () => {
       children: [],
       start: 0,
       length: 16,
+      webCompat: true,
       end: 16
     });
   });
@@ -209,7 +202,6 @@ describe('Recovery - Expressions - Call', () => {
   it('async(async x => c', () => {
     t.deepEqual(recovery('async(async x => c', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -238,18 +230,11 @@ describe('Recovery - Expressions - Call', () => {
                   }
                 ],
                 contents: {
-                  type: 'ConciseBody',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: 'c',
-                    start: 16,
-                    end: 18,
-                    kind: 13,
-                    flags: 0
-                  },
+                  type: 'IdentifierReference',
+                  name: 'c',
                   start: 16,
                   end: 18,
-                  kind: 187,
+                  kind: 13,
                   flags: 0
                 },
                 async: true,
@@ -290,6 +275,7 @@ describe('Recovery - Expressions - Call', () => {
       children: [],
       start: 0,
       length: 18,
+      webCompat: true,
       end: 18
     });
   });
@@ -391,7 +377,6 @@ describe('Recovery - Expressions - Call', () => {
   it('async(async  => c', () => {
     t.deepEqual(recovery('async(async  => c', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -418,18 +403,11 @@ describe('Recovery - Expressions - Call', () => {
                   flags: 0
                 },
                 contents: {
-                  type: 'ConciseBody',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: 'c',
-                    start: 15,
-                    end: 17,
-                    kind: 13,
-                    flags: 0
-                  },
+                  type: 'IdentifierReference',
+                  name: 'c',
                   start: 15,
                   end: 17,
-                  kind: 187,
+                  kind: 13,
                   flags: 0
                 },
                 async: false,
@@ -470,6 +448,7 @@ describe('Recovery - Expressions - Call', () => {
       children: [],
       start: 0,
       length: 17,
+      webCompat: true,
       end: 17
     });
   });
@@ -710,7 +689,6 @@ describe('Recovery - Expressions - Call', () => {
   it('async ( ...x =>', () => {
     t.deepEqual(recovery('async ( ...x =>', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -741,19 +719,12 @@ describe('Recovery - Expressions - Call', () => {
                     }
                   ],
                   contents: {
-                    type: 'ConciseBody',
-                    expression: {
-                      type: 'IdentifierReference',
-                      name: '',
-                      start: 15,
-                      end: 15,
-                      kind: 13,
-                      flags: 2
-                    },
+                    type: 'IdentifierReference',
+                    name: '',
                     start: 15,
                     end: 15,
-                    kind: 187,
-                    flags: 0
+                    kind: 13,
+                    flags: 2
                   },
                   async: false,
                   start: 11,
@@ -798,6 +769,7 @@ describe('Recovery - Expressions - Call', () => {
       children: [],
       start: 0,
       length: 15,
+      webCompat: true,
       end: 15
     });
   });
@@ -805,7 +777,6 @@ describe('Recovery - Expressions - Call', () => {
   it('!=>async a(b c', () => {
     t.deepEqual(recovery('!=>async a(b c', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -845,25 +816,18 @@ describe('Recovery - Expressions - Call', () => {
                   }
                 ],
                 contents: {
-                  type: 'ConciseBody',
+                  type: 'ParenthesizedExpression',
                   expression: {
-                    type: 'ParenthesizedExpression',
-                    expression: {
-                      type: 'IdentifierReference',
-                      name: 'b',
-                      start: 11,
-                      end: 12,
-                      kind: 13,
-                      flags: 0
-                    },
-                    start: 10,
+                    type: 'IdentifierReference',
+                    name: 'b',
+                    start: 11,
                     end: 12,
-                    kind: 189,
+                    kind: 13,
                     flags: 0
                   },
                   start: 10,
                   end: 12,
-                  kind: 187,
+                  kind: 189,
                   flags: 0
                 },
                 async: true,
@@ -947,6 +911,7 @@ describe('Recovery - Expressions - Call', () => {
       children: [],
       start: 0,
       length: 14,
+      webCompat: true,
       end: 14
     });
   });
@@ -954,7 +919,6 @@ describe('Recovery - Expressions - Call', () => {
   it('!= >async a(b c', () => {
     t.deepEqual(recovery('!= >async a(b c', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -994,25 +958,18 @@ describe('Recovery - Expressions - Call', () => {
                   }
                 ],
                 contents: {
-                  type: 'ConciseBody',
+                  type: 'ParenthesizedExpression',
                   expression: {
-                    type: 'ParenthesizedExpression',
-                    expression: {
-                      type: 'IdentifierReference',
-                      name: 'b',
-                      start: 12,
-                      end: 13,
-                      kind: 13,
-                      flags: 0
-                    },
-                    start: 11,
+                    type: 'IdentifierReference',
+                    name: 'b',
+                    start: 12,
                     end: 13,
-                    kind: 189,
+                    kind: 13,
                     flags: 0
                   },
                   start: 11,
                   end: 13,
-                  kind: 187,
+                  kind: 189,
                   flags: 0
                 },
                 async: true,
@@ -1096,6 +1053,7 @@ describe('Recovery - Expressions - Call', () => {
       children: [],
       start: 0,
       length: 15,
+      webCompat: true,
       end: 15
     });
   });
@@ -1103,7 +1061,6 @@ describe('Recovery - Expressions - Call', () => {
   it('! =>async a(b c', () => {
     t.deepEqual(recovery('! =>async a(b c', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1144,25 +1101,18 @@ describe('Recovery - Expressions - Call', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: 'b',
-                  start: 12,
-                  end: 13,
-                  kind: 13,
-                  flags: 0
-                },
-                start: 11,
+                type: 'IdentifierReference',
+                name: 'b',
+                start: 12,
                 end: 13,
-                kind: 189,
+                kind: 13,
                 flags: 0
               },
               start: 11,
               end: 13,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: true,
@@ -1228,6 +1178,7 @@ describe('Recovery - Expressions - Call', () => {
       children: [],
       start: 0,
       length: 15,
+      webCompat: true,
       end: 15
     });
   });

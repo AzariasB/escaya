@@ -26,7 +26,6 @@ import { createSuperCall } from '../ast/expressions/super-call';
 import { createSuperProperty } from '../ast/expressions/super-property';
 import { createSpreadElement } from '../ast/expressions/spread-element';
 import { createSpreadProperty } from '../ast/expressions/spread-property';
-import { createConciseBody } from '../ast/expressions/concise-body';
 import { createArrowFunction } from '../ast/expressions/arrow-function';
 import { createMethodDefinition } from '../ast/expressions/method-definition';
 import { createElison } from '../ast/expressions/elison';
@@ -61,6 +60,7 @@ import { createVariableStatement } from '../ast/statements/variable-stmt';
 import { createVariableDeclaration } from '../ast/declarations/variable-declaration';
 import { createSwitchStatement } from '../ast/statements/switch-stmt';
 import { createNumericLiteral } from '../ast/expressions/numeric-literal';
+import { createFloatingPointLiteral } from '../ast/expressions/floating-point';
 import { createBigIntLiteral } from '../ast/expressions/bigint-literal';
 import { createStringLiteral } from '../ast/expressions/string-literal';
 import { createCoverInitializedName } from '../ast/expressions/cover-initialized-name';
@@ -109,6 +109,7 @@ export const DictionaryMap = {
   ArrayAssignmentPattern: createArrayAssignmentPattern,
   AssignmentElement: createAssignmentElement,
   NumericLiteral: createNumericLiteral,
+  FloatingPointLiteral: createFloatingPointLiteral,
   BigInt: createBigIntLiteral,
   AwaitExpression: createAwaitExpression,
   YieldExpression: createYieldExpression,
@@ -148,7 +149,6 @@ export const DictionaryMap = {
   SuperProperty: createSuperProperty,
   SpreadElement: createSpreadElement,
   SpreadProperty: createSpreadProperty,
-  ConciseBody: createConciseBody,
   MethodDefinition: createMethodDefinition,
   Elison: createElison,
   FunctionBody: createFunctionBody,

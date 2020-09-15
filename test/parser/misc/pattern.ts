@@ -33,7 +33,7 @@ describe('Misc - Pattern', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 0,
                 start: 11,
                 end: 12
@@ -81,7 +81,7 @@ describe('Misc - Pattern', () => {
                 elements: [
                   {
                     type: 'NumericLiteral',
-                    floating: false,
+
                     value: 1,
                     start: 9,
                     end: 10
@@ -135,7 +135,7 @@ describe('Misc - Pattern', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 0,
                 start: 13,
                 end: 14
@@ -289,7 +289,7 @@ describe('Misc - Pattern', () => {
                           },
                           right: {
                             type: 'NumericLiteral',
-                            floating: false,
+
                             value: 0,
                             start: 10,
                             end: 11
@@ -311,7 +311,7 @@ describe('Misc - Pattern', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 0,
                 start: 16,
                 end: 17
@@ -396,7 +396,7 @@ describe('Misc - Pattern', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 0,
                 start: 35,
                 end: 36
@@ -487,7 +487,7 @@ describe('Misc - Pattern', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 0,
                 start: 21,
                 end: 22
@@ -530,7 +530,6 @@ describe('Misc - Pattern', () => {
               },
               {
                 type: 'ArrayBindingPattern',
-
                 elements: [
                   {
                     type: 'BindingIdentifier',
@@ -544,14 +543,8 @@ describe('Misc - Pattern', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'NumericLiteral',
-                floating: false,
-                value: 0,
-                start: 15,
-                end: 16
-              },
+              type: 'NumericLiteral',
+              value: 0,
               start: 15,
               end: 16
             },
@@ -645,7 +638,7 @@ describe('Misc - Pattern', () => {
                   },
                   right: {
                     type: 'NumericLiteral',
-                    floating: false,
+
                     value: 0,
                     start: 19,
                     end: 20

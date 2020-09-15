@@ -249,7 +249,8 @@ export const enum Token {
   Unknown = 124,
 
   EscapedIdentifier = 125,
-  IdentifierOrKeyword = 126
+  IdentifierOrKeyword = 126,
+  FloatingPointLiteral = 127 | IsExpressionStart | IsProperty
 }
 
 export const KeywordDescTable = [

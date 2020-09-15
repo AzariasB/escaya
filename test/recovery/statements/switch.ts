@@ -197,7 +197,7 @@ describe('Recovery - Switch', () => {
           type: 'SwitchStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 0,
             start: 8,
             end: 9,
@@ -209,7 +209,7 @@ describe('Recovery - Switch', () => {
               type: 'CaseClause',
               expression: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 1,
                 start: 17,
                 end: 19,
@@ -232,7 +232,7 @@ describe('Recovery - Switch', () => {
                       },
                       initializer: {
                         type: 'NumericLiteral',
-                        floating: false,
+
                         value: 0,
                         start: 28,
                         end: 30,

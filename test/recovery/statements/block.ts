@@ -100,7 +100,7 @@ describe('Recovery - Block', () => {
                         operator: '=',
                         right: {
                           type: 'NumericLiteral',
-                          floating: false,
+
                           value: 5,
                           start: 17,
                           end: 19,
@@ -297,7 +297,7 @@ describe('Recovery - Block', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 42,
                 start: 12,
                 end: 15,
@@ -514,7 +514,7 @@ describe('Recovery - Block', () => {
                     type: 'SwitchStatement',
                     expression: {
                       type: 'NumericLiteral',
-                      floating: false,
+
                       value: 1,
                       start: 42,
                       end: 43,
@@ -3044,7 +3044,7 @@ describe('Recovery - Block', () => {
                 type: 'AssignmentExpression',
                 left: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 1,
                   start: 1,
                   end: 3,
@@ -3054,7 +3054,7 @@ describe('Recovery - Block', () => {
                 operator: '=',
                 right: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 2,
                   start: 5,
                   end: 7,
@@ -3476,7 +3476,7 @@ describe('Recovery - Block', () => {
             type: 'AssignmentExpression',
             left: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 2,
               start: 0,
               end: 1,
@@ -3486,7 +3486,7 @@ describe('Recovery - Block', () => {
             operator: '=',
             right: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 3,
               start: 2,
               end: 3,
@@ -3595,7 +3595,7 @@ describe('Recovery - Block', () => {
             type: 'BinaryExpression',
             left: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 0,
               end: 1,
@@ -3605,7 +3605,7 @@ describe('Recovery - Block', () => {
             operator: '/',
             right: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 2,
               start: 2,
               end: 3,
@@ -3669,7 +3669,7 @@ describe('Recovery - Block', () => {
                 type: 'BinaryExpression',
                 left: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 2,
                   start: 1,
                   end: 2,
@@ -3682,7 +3682,7 @@ describe('Recovery - Block', () => {
                   operator: '--',
                   operand: {
                     type: 'NumericLiteral',
-                    floating: false,
+
                     value: 3,
                     start: 5,
                     end: 6,

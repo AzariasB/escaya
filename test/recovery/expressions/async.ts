@@ -59,7 +59,6 @@ describe('Recovery - Expressions - Async', () => {
   it('async(async=>!', () => {
     t.deepEqual(recovery('async(async=>!', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -86,26 +85,19 @@ describe('Recovery - Expressions - Async', () => {
                   flags: 0
                 },
                 contents: {
-                  type: 'ConciseBody',
-                  expression: {
-                    type: 'UnaryExpression',
-                    operator: '!',
-                    operand: {
-                      type: 'IdentifierReference',
-                      name: '',
-                      start: 14,
-                      end: 14,
-                      kind: 13,
-                      flags: 2
-                    },
-                    start: 13,
+                  type: 'UnaryExpression',
+                  operator: '!',
+                  operand: {
+                    type: 'IdentifierReference',
+                    name: '',
+                    start: 14,
                     end: 14,
-                    kind: 160,
-                    flags: 0
+                    kind: 13,
+                    flags: 2
                   },
                   start: 13,
                   end: 14,
-                  kind: 187,
+                  kind: 160,
                   flags: 0
                 },
                 async: false,
@@ -146,6 +138,7 @@ describe('Recovery - Expressions - Async', () => {
       children: [],
       start: 0,
       length: 14,
+      webCompat: true,
       end: 14
     });
   });

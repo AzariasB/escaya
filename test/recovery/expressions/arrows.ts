@@ -69,7 +69,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('() =>', () => {
     t.deepEqual(recovery('() =>', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -78,19 +77,12 @@ describe('Recovery - Expressions - Arrows', () => {
             type: 'ArrowFunction',
             params: [],
             contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 5,
-                end: 5,
-                kind: 13,
-                flags: 2
-              },
+              type: 'IdentifierReference',
+              name: '',
               start: 5,
               end: 5,
-              kind: 187,
-              flags: 0
+              kind: 13,
+              flags: 2
             },
             async: false,
             start: 0,
@@ -124,6 +116,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 5,
+      webCompat: true,
       end: 5
     });
   });
@@ -254,7 +247,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('( {}[a] => async!', () => {
     t.deepEqual(recovery('( {}[a] => async!', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -362,6 +354,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 17,
+      webCompat: true,
       end: 17
     });
   });
@@ -369,7 +362,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('(x[, {}[a] => async', () => {
     t.deepEqual(recovery('(x[, {}[a] => async', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -487,6 +479,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 19,
+      webCompat: true,
       end: 19
     });
   });
@@ -494,7 +487,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('(x, {}[a] => async', () => {
     t.deepEqual(recovery('(x, {}[a] => async', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -588,6 +580,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 18,
+      webCompat: true,
       end: 18
     });
   });
@@ -595,7 +588,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('a => var v = 0; }', () => {
     t.deepEqual(recovery('a => var v = 0; }', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -613,19 +605,12 @@ describe('Recovery - Expressions - Arrows', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 4,
-                end: 4,
-                kind: 13,
-                flags: 2
-              },
+              type: 'IdentifierReference',
+              name: '',
               start: 4,
               end: 4,
-              kind: 187,
-              flags: 0
+              kind: 13,
+              flags: 2
             },
             async: false,
             start: 0,
@@ -653,7 +638,6 @@ describe('Recovery - Expressions - Arrows', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-                floating: false,
                 value: 0,
                 start: 12,
                 end: 14,
@@ -700,6 +684,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 17,
+      webCompat: true,
       end: 17
     });
   });
@@ -707,7 +692,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('() =>(', () => {
     t.deepEqual(recovery('() =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -716,25 +700,18 @@ describe('Recovery - Expressions - Arrows', () => {
             type: 'ArrowFunction',
             params: [],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 6,
-                  end: 6,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 5,
+                type: 'IdentifierReference',
+                name: '',
+                start: 6,
                 end: 6,
-                kind: 189,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               start: 5,
               end: 6,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: false,
@@ -769,6 +746,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 6,
+      webCompat: true,
       end: 6
     });
   });
@@ -776,7 +754,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('(() =>', () => {
     t.deepEqual(recovery('(() =>', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -787,19 +764,12 @@ describe('Recovery - Expressions - Arrows', () => {
               type: 'ArrowFunction',
               params: [],
               contents: {
-                type: 'ConciseBody',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 6,
-                  end: 6,
-                  kind: 13,
-                  flags: 2
-                },
+                type: 'IdentifierReference',
+                name: '',
                 start: 6,
                 end: 6,
-                kind: 187,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               async: false,
               start: 1,
@@ -838,6 +808,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 6,
+      webCompat: true,
       end: 6
     });
   });
@@ -845,7 +816,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('(=>', () => {
     t.deepEqual(recovery('(=>', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -891,6 +861,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 3,
+      webCompat: true,
       end: 3
     });
   });
@@ -1088,7 +1059,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('(...=>(', () => {
     t.deepEqual(recovery('(...=>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1113,25 +1083,18 @@ describe('Recovery - Expressions - Arrows', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 7,
-                  end: 7,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 6,
+                type: 'IdentifierReference',
+                name: '',
+                start: 7,
                 end: 7,
-                kind: 189,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               start: 6,
               end: 7,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: false,
@@ -1174,6 +1137,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 7,
+      webCompat: true,
       end: 7
     });
   });
@@ -1181,7 +1145,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('(a, ...=>(', () => {
     t.deepEqual(recovery('(a, ...=>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1214,25 +1177,18 @@ describe('Recovery - Expressions - Arrows', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 10,
-                  end: 10,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 9,
+                type: 'IdentifierReference',
+                name: '',
+                start: 10,
                 end: 10,
-                kind: 189,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               start: 9,
               end: 10,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: false,
@@ -1275,6 +1231,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 10,
+      webCompat: true,
       end: 10
     });
   });
@@ -1282,7 +1239,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('([] =>(', () => {
     t.deepEqual(recovery('([] =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1358,6 +1314,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 7,
+      webCompat: true,
       end: 7
     });
   });
@@ -1365,7 +1322,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('([]) =>(', () => {
     t.deepEqual(recovery('([]) =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1383,25 +1339,18 @@ describe('Recovery - Expressions - Arrows', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 8,
-                  end: 8,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 7,
+                type: 'IdentifierReference',
+                name: '',
+                start: 8,
                 end: 8,
-                kind: 189,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               start: 7,
               end: 8,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: false,
@@ -1436,6 +1385,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 8,
+      webCompat: true,
       end: 8
     });
   });
@@ -1443,7 +1393,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('a...=>(', () => {
     t.deepEqual(recovery('a...=>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1520,6 +1469,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 7,
+      webCompat: true,
       end: 7
     });
   });
@@ -1806,7 +1756,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('await =>(', () => {
     t.deepEqual(recovery('await =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1824,25 +1773,18 @@ describe('Recovery - Expressions - Arrows', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 9,
-                  end: 9,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 8,
+                type: 'IdentifierReference',
+                name: '',
+                start: 9,
                 end: 9,
-                kind: 189,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               start: 8,
               end: 9,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: false,
@@ -1877,6 +1819,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 9,
+      webCompat: true,
       end: 9
     });
   });
@@ -1884,7 +1827,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('"use strict"; yield await =>(', () => {
     t.deepEqual(recovery('"use strict"; yield await =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [
         {
           type: 'Directive',
@@ -1927,25 +1869,18 @@ describe('Recovery - Expressions - Arrows', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'IdentifierReference',
-                  name: '',
-                  start: 29,
-                  end: 29,
-                  kind: 13,
-                  flags: 2
-                },
-                start: 28,
+                type: 'IdentifierReference',
+                name: '',
+                start: 29,
                 end: 29,
-                kind: 189,
-                flags: 0
+                kind: 13,
+                flags: 2
               },
               start: 28,
               end: 29,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: false,
@@ -1966,12 +1901,12 @@ describe('Recovery - Expressions - Arrows', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 21,
           kind: 3,
-          length: 6,
-          message: 'Unexpected `yield` as identifier in this context',
           source: 2,
-          start: 13
+          message: 'Unexpected `yield` as identifier in this context',
+          code: 21,
+          start: 13,
+          length: 6
         },
         {
           kind: 2,
@@ -1996,6 +1931,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 29,
+      webCompat: true,
       end: 29
     });
   });
@@ -2003,7 +1939,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('"use strict"; ( =>(', () => {
     t.deepEqual(recovery('"use strict"; ( =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [
         {
           type: 'Directive',
@@ -2089,6 +2024,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 19,
+      webCompat: true,
       end: 19
     });
   });
@@ -2096,7 +2032,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('yield =>( "use strict";', () => {
     t.deepEqual(recovery('yield =>( "use strict";', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2114,25 +2049,18 @@ describe('Recovery - Expressions - Arrows', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
+              type: 'ParenthesizedExpression',
               expression: {
-                type: 'ParenthesizedExpression',
-                expression: {
-                  type: 'StringLiteral',
-                  value: 'use strict',
-                  start: 9,
-                  end: 22,
-                  kind: 12,
-                  flags: 0
-                },
-                start: 8,
+                type: 'StringLiteral',
+                value: 'use strict',
+                start: 9,
                 end: 22,
-                kind: 189,
+                kind: 12,
                 flags: 0
               },
               start: 8,
               end: 22,
-              kind: 187,
+              kind: 189,
               flags: 0
             },
             async: false,
@@ -2167,6 +2095,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 23,
+      webCompat: true,
       end: 23
     });
   });
@@ -2243,7 +2172,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('1...=>(', () => {
     t.deepEqual(recovery('1...=>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2253,8 +2181,7 @@ describe('Recovery - Expressions - Arrows', () => {
             member: {
               type: 'MemberExpression',
               member: {
-                type: 'NumericLiteral',
-                floating: true,
+                type: 'FloatingPointLiteral',
                 value: 1,
                 start: 0,
                 end: 2,
@@ -2353,6 +2280,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 7,
+      webCompat: true,
       end: 7
     });
   });
@@ -2369,7 +2297,7 @@ describe('Recovery - Expressions - Arrows', () => {
             type: 'CallExpression',
             expression: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 0,
               end: 1,
@@ -2530,14 +2458,12 @@ describe('Recovery - Expressions - Arrows', () => {
   it('..1...=>(', () => {
     t.deepEqual(recovery('..1...=>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
           type: 'ExpressionStatement',
           expression: {
-            type: 'NumericLiteral',
-            floating: true,
+            type: 'FloatingPointLiteral',
             value: 0.1,
             start: 1,
             end: 3,
@@ -2616,6 +2542,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 9,
+      webCompat: true,
       end: 9
     });
   });
@@ -2623,7 +2550,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('(a =>(', () => {
     t.deepEqual(recovery('(a =>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2643,25 +2569,18 @@ describe('Recovery - Expressions - Arrows', () => {
                 }
               ],
               contents: {
-                type: 'ConciseBody',
+                type: 'ParenthesizedExpression',
                 expression: {
-                  type: 'ParenthesizedExpression',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: '',
-                    start: 6,
-                    end: 6,
-                    kind: 13,
-                    flags: 2
-                  },
-                  start: 5,
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 6,
                   end: 6,
-                  kind: 189,
-                  flags: 0
+                  kind: 13,
+                  flags: 2
                 },
                 start: 5,
                 end: 6,
-                kind: 187,
+                kind: 189,
                 flags: 0
               },
               async: false,
@@ -2701,6 +2620,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 6,
+      webCompat: true,
       end: 6
     });
   });
@@ -2708,7 +2628,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('(1)...=>(', () => {
     t.deepEqual(recovery('(1)...=>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2717,7 +2636,6 @@ describe('Recovery - Expressions - Arrows', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'NumericLiteral',
-              floating: false,
               value: 1,
               start: 1,
               end: 2,
@@ -2793,6 +2711,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 9,
+      webCompat: true,
       end: 9
     });
   });
@@ -2800,7 +2719,6 @@ describe('Recovery - Expressions - Arrows', () => {
   it('(1)function...=>(', () => {
     t.deepEqual(recovery('(1)function...=>(', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2809,7 +2727,6 @@ describe('Recovery - Expressions - Arrows', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'NumericLiteral',
-              floating: false,
               value: 1,
               start: 1,
               end: 2,
@@ -2913,6 +2830,7 @@ describe('Recovery - Expressions - Arrows', () => {
       children: [],
       start: 0,
       length: 17,
+      webCompat: true,
       end: 17
     });
   });

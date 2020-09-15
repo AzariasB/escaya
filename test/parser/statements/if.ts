@@ -193,7 +193,7 @@ describe('Statements - If', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 1,
                   start: 17,
                   end: 18
@@ -222,7 +222,7 @@ describe('Statements - If', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 1,
                 start: 30,
                 end: 31
@@ -262,7 +262,7 @@ describe('Statements - If', () => {
               operator: 'void',
               operand: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 0,
                 start: 19,
                 end: 20
@@ -335,7 +335,7 @@ describe('Statements - If', () => {
               operator: 'void',
               operand: {
                 type: 'NumericLiteral',
-                floating: false,
+
                 value: 0,
                 start: 19,
                 end: 20
@@ -396,7 +396,7 @@ describe('Statements - If', () => {
           type: 'IfStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 1,
             start: 3,
             end: 4
@@ -515,7 +515,7 @@ describe('Statements - If', () => {
             operator: '>',
             right: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 2,
               start: 8,
               end: 9

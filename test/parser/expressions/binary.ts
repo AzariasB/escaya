@@ -415,7 +415,7 @@ describe('Expressions - Binary', () => {
                   operator: '-',
                   operand: {
                     type: 'NumericLiteral',
-                    floating: false,
+
                     value: 1,
                     start: 2,
                     end: 3
@@ -474,7 +474,7 @@ describe('Expressions - Binary', () => {
                   operator: '-',
                   operand: {
                     type: 'NumericLiteral',
-                    floating: false,
+
                     value: 0,
                     start: 3,
                     end: 4
@@ -625,7 +625,7 @@ describe('Expressions - Binary', () => {
                 type: 'ParenthesizedExpression',
                 expression: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 1,
                   start: 1,
                   end: 2
@@ -679,7 +679,7 @@ describe('Expressions - Binary', () => {
                       operator: '-',
                       operand: {
                         type: 'NumericLiteral',
-                        floating: false,
+
                         value: 0,
                         start: 3,
                         end: 4
@@ -1467,7 +1467,7 @@ describe('Expressions - Binary', () => {
             type: 'BinaryExpression',
             left: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 1,
               start: 0,
               end: 1
@@ -1475,7 +1475,7 @@ describe('Expressions - Binary', () => {
             operator: '+',
             right: {
               type: 'NumericLiteral',
-              floating: false,
+
               value: 2,
               start: 2,
               end: 3
@@ -1508,7 +1508,7 @@ describe('Expressions - Binary', () => {
                 type: 'ParenthesizedExpression',
                 expression: {
                   type: 'NumericLiteral',
-                  floating: false,
+
                   value: 1,
                   start: 1,
                   end: 2

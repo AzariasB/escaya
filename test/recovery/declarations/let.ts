@@ -1572,7 +1572,7 @@ describe('Recovery - Let', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-            floating: false,
+
             value: 123,
             start: 3,
             end: 7,
@@ -2485,7 +2485,6 @@ describe('Recovery - Let', () => {
   it('let =>', () => {
     t.deepEqual(recovery('let =>', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2503,19 +2502,12 @@ describe('Recovery - Let', () => {
               }
             ],
             contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 6,
-                end: 6,
-                kind: 13,
-                flags: 2
-              },
+              type: 'IdentifierReference',
+              name: '',
               start: 6,
               end: 6,
-              kind: 187,
-              flags: 0
+              kind: 13,
+              flags: 2
             },
             async: false,
             start: 0,
@@ -2549,6 +2541,7 @@ describe('Recovery - Let', () => {
       children: [],
       start: 0,
       length: 6,
+      webCompat: true,
       end: 6
     });
   });
@@ -2556,7 +2549,6 @@ describe('Recovery - Let', () => {
   it('=> let {', () => {
     t.deepEqual(recovery('=> let {', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2614,78 +2606,8 @@ describe('Recovery - Let', () => {
       children: [],
       start: 0,
       length: 8,
-      end: 8
-    });
-  });
-
-  it('let =>', () => {
-    t.deepEqual(recovery('let =>', 'recovery.js'), {
-      kind: 209,
       webCompat: true,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'let',
-                start: 0,
-                end: 3,
-                kind: 168,
-                flags: 0
-              }
-            ],
-            contents: {
-              type: 'ConciseBody',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 6,
-                end: 6,
-                kind: 13,
-                flags: 2
-              },
-              start: 6,
-              end: 6,
-              kind: 187,
-              flags: 0
-            },
-            async: false,
-            start: 0,
-            end: 6,
-            kind: 188,
-            flags: 0
-          },
-          start: 0,
-          end: 6,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: 'let =>',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 4,
-          length: 2
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 6,
-      end: 6
+      end: 8
     });
   });
 
