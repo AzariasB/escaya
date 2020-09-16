@@ -4614,7 +4614,6 @@ describe('Recovery - Try', () => {
   it('try {} catch([[[{x}]]])', () => {
     t.deepEqual(recovery('try {} catch([[[{x}]]])', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4633,62 +4632,38 @@ describe('Recovery - Try', () => {
               type: 'ArrayBindingPattern',
               elements: [
                 {
-                  type: 'BindingElement',
-                  left: {
-                    type: 'ArrayBindingPattern',
-                    elements: [
-                      {
-                        type: 'BindingElement',
-                        left: {
-                          type: 'ArrayBindingPattern',
-                          elements: [
+                  type: 'ArrayBindingPattern',
+                  elements: [
+                    {
+                      type: 'ArrayBindingPattern',
+                      elements: [
+                        {
+                          type: 'ObjectBindingPattern',
+                          properties: [
                             {
-                              type: 'BindingElement',
-                              left: {
-                                type: 'ObjectBindingPattern',
-                                properties: [
-                                  {
-                                    type: 'BindingIdentifier',
-                                    name: 'x',
-                                    start: 17,
-                                    end: 18,
-                                    kind: 168,
-                                    flags: 0
-                                  }
-                                ],
-                                start: 16,
-                                end: 19,
-                                kind: 169,
-                                flags: 0
-                              },
-                              right: null,
-                              start: 16,
-                              end: 19,
-                              kind: 172,
+                              type: 'BindingIdentifier',
+                              name: 'x',
+                              start: 17,
+                              end: 18,
+                              kind: 168,
                               flags: 0
                             }
                           ],
-                          start: 15,
-                          end: 20,
-                          kind: 174,
+                          start: 16,
+                          end: 19,
+                          kind: 169,
                           flags: 0
-                        },
-                        right: null,
-                        start: 15,
-                        end: 20,
-                        kind: 172,
-                        flags: 0
-                      }
-                    ],
-                    start: 14,
-                    end: 21,
-                    kind: 174,
-                    flags: 0
-                  },
-                  right: null,
+                        }
+                      ],
+                      start: 15,
+                      end: 20,
+                      kind: 174,
+                      flags: 0
+                    }
+                  ],
                   start: 14,
                   end: 21,
-                  kind: 172,
+                  kind: 174,
                   flags: 0
                 }
               ],
@@ -4737,6 +4712,7 @@ describe('Recovery - Try', () => {
       children: [],
       start: 0,
       length: 23,
+      webCompat: true,
       end: 23
     });
   });

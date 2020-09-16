@@ -22,7 +22,14 @@ import { RegularExpressionLiteral } from './ast/expressions/regular-expression';
 import { YieldExpression } from './ast/expressions/yield-expr';
 import { NewTarget } from './ast/expressions/new-target';
 import { AssignmentElement } from './ast/expressions/assignment-element';
-import { Expression, MethodName, Parameter, BindingPattern, LeftHandSideExpression } from './ast/expressions/index';
+import {
+  Expression,
+  MethodName,
+  Parameter,
+  BindingPattern,
+  LeftHandSideExpression,
+  AssignmentPattern
+} from './ast/expressions/index';
 import { createIdentifier, createBindingIdentifier } from './incremental/common';
 import { MemberExpression } from './ast/expressions/member-expr';
 import { IdentifierReference, createIdentifierReference } from './ast/expressions/identifierreference';
@@ -2870,20 +2877,14 @@ export function parseBindingElement(
   context: Context,
   scope: any,
   type: BindingType
-): BindingElement | BindingIdentifier {
+): BindingElement | BindingIdentifier | BindingPattern {
   const start = state.startIndex;
-
-  let left;
-
-  if (state.token & Token.IsPatternStart) {
-    left = parseBindingPattern(state, context, scope, type);
-  } else {
-    left = parseBindingIdentifier(state, context, scope, type);
-    if (state.token !== Token.Assign) return left;
-  }
-
-  const right = consumeOpt(state, context | Context.AllowRegExp, Token.Assign) ? parseExpression(state, context) : null;
-
+  let left =
+    state.token & Token.IsPatternStart
+      ? parseBindingPattern(state, context, scope, type)
+      : parseBindingIdentifier(state, context, scope, type);
+  if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) return left;
+  const right = parseExpression(state, context);
   return finishNode(state, context, start, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement);
 }
 
@@ -3373,7 +3374,13 @@ export function parseAssignmentElement(
       (kind !== DestuctionKind.NORMAL ? Destructible.NotDestructible : Destructible.None)) ^
     (Destructible.MustDestruct | Destructible.HasProto);
 
-  return finishNode(state, context, start, DictionaryMap.AssignmentElement(left, right), SyntaxKind.AssignmentElement);
+  return finishNode(
+    state,
+    context,
+    start,
+    DictionaryMap.AssignmentElement(left as AssignmentPattern | IdentifierReference, right),
+    SyntaxKind.AssignmentElement
+  );
 }
 
 // PropertyDefinition :
@@ -3625,15 +3632,8 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
         );
       }
       if (state.token & Token.IsPatternStart) {
-        const innerStart = state.startIndex;
         isSimpleParameterList = true;
-        const left = parseBindingElements(state, context, scope, BindingType.ArgumentList, parseBindingPattern);
-        const right = consumeOpt(state, context | Context.AllowRegExp, Token.Assign)
-          ? parseExpression(state, context)
-          : null;
-        params.push(
-          finishNode(state, context, innerStart, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement)
-        );
+        params.push(parseBindingElements(state, context, scope, BindingType.ArgumentList, parseBindingElement));
       } else {
         const innerStart = state.startIndex;
         if (state.token & Token.IsFutureReserved) state.flags |= Flags.HasStrictReserved;
@@ -3773,7 +3773,7 @@ export function parseMethodDefinition(
 
   const start = state.startIndex;
 
-  let propertySetParameterList: BindingIdentifier | BindingElement | null = null;
+  let propertySetParameterList: BindingIdentifier | BindingPattern | BindingElement | null = null;
   let uniqueFormalParameters: Parameter[] = [];
 
   const scope = createParentScope(createScope(), ScopeKind.FunctionParams);

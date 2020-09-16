@@ -275,33 +275,26 @@ describe('Misc - Pattern', () => {
                 type: 'ArrayBindingPattern',
                 elements: [
                   {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ObjectBindingPattern',
-                      properties: [
-                        {
-                          type: 'BindingElement',
-                          left: {
-                            type: 'BindingIdentifier',
-                            name: 'a',
-                            start: 6,
-                            end: 7
-                          },
-                          right: {
-                            type: 'NumericLiteral',
-
-                            value: 0,
-                            start: 10,
-                            end: 11
-                          },
+                    type: 'ObjectBindingPattern',
+                    properties: [
+                      {
+                        type: 'BindingElement',
+                        left: {
+                          type: 'BindingIdentifier',
+                          name: 'a',
                           start: 6,
+                          end: 7
+                        },
+                        right: {
+                          type: 'NumericLiteral',
+                          value: 0,
+                          start: 10,
                           end: 11
-                        }
-                      ],
-                      start: 5,
-                      end: 12
-                    },
-                    right: null,
+                        },
+                        start: 6,
+                        end: 11
+                      }
+                    ],
                     start: 5,
                     end: 12
                   }
@@ -311,7 +304,6 @@ describe('Misc - Pattern', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-
                 value: 0,
                 start: 16,
                 end: 17
@@ -344,49 +336,43 @@ describe('Misc - Pattern', () => {
                 type: 'ArrayBindingPattern',
                 elements: [
                   {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ObjectBindingPattern',
-                      properties: [
-                        {
-                          type: 'PropertyName',
-                          key: {
-                            type: 'IdentifierName',
-                            name: '__proto__',
-                            start: 6,
-                            end: 16
-                          },
-                          value: {
-                            type: 'BindingIdentifier',
-                            name: 'a',
-                            start: 16,
-                            end: 17
-                          },
+                    type: 'ObjectBindingPattern',
+                    properties: [
+                      {
+                        type: 'PropertyName',
+                        key: {
+                          type: 'IdentifierName',
+                          name: '__proto__',
                           start: 6,
+                          end: 16
+                        },
+                        value: {
+                          type: 'BindingIdentifier',
+                          name: 'a',
+                          start: 16,
                           end: 17
                         },
-                        {
-                          type: 'PropertyName',
-                          key: {
-                            type: 'IdentifierName',
-                            name: '__proto__',
-                            start: 19,
-                            end: 29
-                          },
-                          value: {
-                            type: 'BindingIdentifier',
-                            name: 'b',
-                            start: 29,
-                            end: 30
-                          },
+                        start: 6,
+                        end: 17
+                      },
+                      {
+                        type: 'PropertyName',
+                        key: {
+                          type: 'IdentifierName',
+                          name: '__proto__',
                           start: 19,
+                          end: 29
+                        },
+                        value: {
+                          type: 'BindingIdentifier',
+                          name: 'b',
+                          start: 29,
                           end: 30
-                        }
-                      ],
-                      start: 5,
-                      end: 31
-                    },
-                    right: null,
+                        },
+                        start: 19,
+                        end: 30
+                      }
+                    ],
                     start: 5,
                     end: 31
                   }
@@ -396,7 +382,6 @@ describe('Misc - Pattern', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-
                 value: 0,
                 start: 35,
                 end: 36
@@ -449,32 +434,26 @@ describe('Misc - Pattern', () => {
                       end: 10
                     },
                     value: {
-                      type: 'BindingElement',
-                      left: {
-                        type: 'ObjectBindingPattern',
-                        properties: [
-                          {
-                            type: 'PropertyName',
-                            key: {
-                              type: 'IdentifierName',
-                              name: 'y',
-                              start: 12,
-                              end: 14
-                            },
-                            value: {
-                              type: 'BindingIdentifier',
-                              name: 'a',
-                              start: 15,
-                              end: 16
-                            },
+                      type: 'ObjectBindingPattern',
+                      properties: [
+                        {
+                          type: 'PropertyName',
+                          key: {
+                            type: 'IdentifierName',
+                            name: 'y',
                             start: 12,
+                            end: 14
+                          },
+                          value: {
+                            type: 'BindingIdentifier',
+                            name: 'a',
+                            start: 15,
                             end: 16
-                          }
-                        ],
-                        start: 11,
-                        end: 17
-                      },
-                      right: null,
+                          },
+                          start: 12,
+                          end: 16
+                        }
+                      ],
                       start: 11,
                       end: 17
                     },
@@ -487,7 +466,6 @@ describe('Misc - Pattern', () => {
               },
               initializer: {
                 type: 'NumericLiteral',
-
                 value: 0,
                 start: 21,
                 end: 22

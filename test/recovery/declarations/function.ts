@@ -2962,7 +2962,6 @@ describe('Recovery - Function', () => {
   it('function(...[{[x]},,,,', () => {
     t.deepEqual(recovery('function(...[{[x]},,,,', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2984,50 +2983,42 @@ describe('Recovery - Function', () => {
                 type: 'ArrayBindingPattern',
                 elements: [
                   {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ObjectBindingPattern',
-                      properties: [
-                        {
-                          type: 'PropertyName',
-                          key: {
-                            type: 'ComputedPropertyName',
-                            expression: {
-                              type: 'IdentifierReference',
-                              name: 'x',
-                              start: 15,
-                              end: 16,
-                              kind: 13,
-                              flags: 0
-                            },
-                            start: 14,
-                            end: 17,
-                            kind: 171,
-                            flags: 0
-                          },
-                          value: {
-                            type: 'BindingIdentifier',
-                            name: '',
-                            start: 17,
-                            end: 18,
-                            kind: 168,
+                    type: 'ObjectBindingPattern',
+                    properties: [
+                      {
+                        type: 'PropertyName',
+                        key: {
+                          type: 'ComputedPropertyName',
+                          expression: {
+                            type: 'IdentifierReference',
+                            name: 'x',
+                            start: 15,
+                            end: 16,
+                            kind: 13,
                             flags: 0
                           },
                           start: 14,
-                          end: 18,
-                          kind: 227,
+                          end: 17,
+                          kind: 171,
                           flags: 0
-                        }
-                      ],
-                      start: 13,
-                      end: 19,
-                      kind: 169,
-                      flags: 0
-                    },
-                    right: null,
+                        },
+                        value: {
+                          type: 'BindingIdentifier',
+                          name: '',
+                          start: 17,
+                          end: 18,
+                          kind: 168,
+                          flags: 0
+                        },
+                        start: 14,
+                        end: 18,
+                        kind: 227,
+                        flags: 0
+                      }
+                    ],
                     start: 13,
                     end: 19,
-                    kind: 172,
+                    kind: 169,
                     flags: 0
                   },
                   {
@@ -3115,6 +3106,7 @@ describe('Recovery - Function', () => {
       children: [],
       start: 0,
       length: 22,
+      webCompat: true,
       end: 22
     });
   });
@@ -3215,7 +3207,6 @@ describe('Recovery - Function', () => {
   it('function ({function (function (', () => {
     t.deepEqual(recovery('function ({function (function (', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -3232,28 +3223,20 @@ describe('Recovery - Function', () => {
           async: false,
           params: [
             {
-              type: 'BindingElement',
-              left: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'function',
-                    start: 11,
-                    end: 19,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
-                start: 10,
-                end: 19,
-                kind: 169,
-                flags: 0
-              },
-              right: null,
+              type: 'ObjectBindingPattern',
+              properties: [
+                {
+                  type: 'BindingIdentifier',
+                  name: 'function',
+                  start: 11,
+                  end: 19,
+                  kind: 168,
+                  flags: 0
+                }
+              ],
               start: 10,
               end: 19,
-              kind: 172,
+              kind: 169,
               flags: 0
             }
           ],
@@ -3350,6 +3333,7 @@ describe('Recovery - Function', () => {
       children: [],
       start: 0,
       length: 31,
+      webCompat: true,
       end: 31
     });
   });

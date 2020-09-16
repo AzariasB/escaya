@@ -8,15 +8,12 @@ import { Node } from '../node';
 
 export interface BindingElement extends Node {
   readonly left: BindingPattern | BindingIdentifier;
-  readonly right: Expression | null; // Optional initializer
+  readonly right: Expression;
   /*@internal*/
   readonly parent?: BindingPattern;
 }
 
-export function createBindingElement(
-  left: BindingPattern | BindingIdentifier,
-  right: Expression | null
-): BindingElement {
+export function createBindingElement(left: BindingPattern | BindingIdentifier, right: Expression): BindingElement {
   return {
     type: 'BindingElement',
     left,

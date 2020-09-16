@@ -1592,7 +1592,6 @@ describe('test262-parser-tests - failing tests', () => {
   it('({a({e: a.b}){}})', () => {
     t.deepEqual(recovery('({a({e: a.b}){}})', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1613,43 +1612,35 @@ describe('test262-parser-tests - failing tests', () => {
                     propertySetParameterList: null,
                     uniqueFormalParameters: [
                       {
-                        type: 'BindingElement',
-                        left: {
-                          type: 'ObjectBindingPattern',
-                          properties: [
-                            {
-                              type: 'PropertyName',
-                              key: {
-                                type: 'IdentifierName',
-                                name: 'e',
-                                start: 5,
-                                end: 7,
-                                kind: 13,
-                                flags: 0
-                              },
-                              value: {
-                                type: 'BindingIdentifier',
-                                name: 'a',
-                                start: 7,
-                                end: 9,
-                                kind: 168,
-                                flags: 0
-                              },
+                        type: 'ObjectBindingPattern',
+                        properties: [
+                          {
+                            type: 'PropertyName',
+                            key: {
+                              type: 'IdentifierName',
+                              name: 'e',
                               start: 5,
-                              end: 9,
-                              kind: 227,
+                              end: 7,
+                              kind: 13,
                               flags: 0
-                            }
-                          ],
-                          start: 4,
-                          end: 9,
-                          kind: 169,
-                          flags: 0
-                        },
-                        right: null,
+                            },
+                            value: {
+                              type: 'BindingIdentifier',
+                              name: 'a',
+                              start: 7,
+                              end: 9,
+                              kind: 168,
+                              flags: 0
+                            },
+                            start: 5,
+                            end: 9,
+                            kind: 227,
+                            flags: 0
+                          }
+                        ],
                         start: 4,
                         end: 9,
-                        kind: 172,
+                        kind: 169,
                         flags: 0
                       }
                     ],
@@ -1766,6 +1757,7 @@ describe('test262-parser-tests - failing tests', () => {
       children: [],
       start: 0,
       length: 17,
+      webCompat: true,
       end: 17
     });
   });

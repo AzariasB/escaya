@@ -2613,123 +2613,115 @@ describe('Recovery - Let', () => {
 
   it('let a.b[[', () => {
     t.deepEqual(recovery('let a.b[[', 'recovery.js'), {
-      children: [],
-      context: 0,
-      detached: false,
-      diagnostics: [
-        {
-          code: 5,
-          kind: 2,
-          length: 1,
-          message: '`,` expected',
-          source: 2,
-          start: 6
-        },
-        {
-          code: 16,
-          kind: 2,
-          length: 1,
-          message: 'Lexical binding expected',
-          source: 2,
-          start: 7
-        },
-        {
-          code: 5,
-          kind: 2,
-          length: 1,
-          message: '`]` expected',
-          source: 2,
-          start: 8
-        }
-      ],
-      directives: [],
-      end: 9,
-      fileName: 'recovery.js',
-      incremental: false,
       kind: 209,
-      webCompat: true,
+      directives: [],
       leafs: [
         {
+          type: 'LexicalDeclaration',
+          isConst: false,
           declarations: [
             {
+              type: 'LexicalBinding',
               binding: {
-                end: 5,
-                flags: 0,
-                kind: 168,
+                type: 'BindingIdentifier',
                 name: 'a',
                 start: 3,
-                type: 'BindingIdentifier'
+                end: 5,
+                kind: 168,
+                flags: 0
               },
-              end: 5,
-              flags: 0,
               initializer: null,
-              kind: 146,
               start: 3,
-              type: 'LexicalBinding'
+              end: 5,
+              kind: 146,
+              flags: 0
             },
             {
+              type: 'LexicalBinding',
               binding: {
-                end: 7,
-                flags: 0,
-                kind: 168,
+                type: 'BindingIdentifier',
                 name: 'b',
                 start: 6,
-                type: 'BindingIdentifier'
+                end: 7,
+                kind: 168,
+                flags: 0
               },
-              end: 7,
-              flags: 0,
               initializer: null,
-              kind: 146,
               start: 6,
-              type: 'LexicalBinding'
+              end: 7,
+              kind: 146,
+              flags: 0
             },
             {
+              type: 'LexicalBinding',
               binding: {
+                type: 'ArrayBindingPattern',
                 elements: [
                   {
-                    end: 9,
-                    flags: 0,
-                    kind: 172,
-                    left: {
-                      elements: [],
-                      end: 9,
-                      flags: 0,
-                      kind: 174,
-                      start: 8,
-                      type: 'ArrayBindingPattern'
-                    },
-                    right: null,
+                    type: 'ArrayBindingPattern',
+                    elements: [],
                     start: 8,
-                    type: 'BindingElement'
+                    end: 9,
+                    kind: 174,
+                    flags: 0
                   }
                 ],
-                end: 9,
-                flags: 0,
-                kind: 174,
                 start: 7,
-                type: 'ArrayBindingPattern'
+                end: 9,
+                kind: 174,
+                flags: 0
               },
-              end: 9,
-              flags: 0,
               initializer: null,
-              kind: 146,
               start: 7,
-              type: 'LexicalBinding'
+              end: 9,
+              kind: 146,
+              flags: 0
             }
           ],
-          end: 9,
-          flags: 0,
-          isConst: false,
-          kind: 145,
           start: 0,
-          type: 'LexicalDeclaration'
+          end: 9,
+          kind: 145,
+          flags: 0
         }
       ],
-      length: 9,
+      text: 'let a.b[[',
+      fileName: 'recovery.js',
+      context: 0,
       mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`,` expected',
+          code: 5,
+          start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Lexical binding expected',
+          code: 16,
+          start: 7,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`]` expected',
+          code: 5,
+          start: 8,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
       parent: null,
+      children: [],
       start: 0,
-      text: 'let a.b[['
+      length: 9,
+      webCompat: true,
+      end: 9
     });
   });
 

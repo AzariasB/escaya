@@ -1742,7 +1742,6 @@ describe('Recovery - Expressions - Yield', () => {
   it('async function *x(yield { yield x', () => {
     t.deepEqual(recovery('async function *x(yield { yield x', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1767,36 +1766,28 @@ describe('Recovery - Expressions - Yield', () => {
               flags: 0
             },
             {
-              type: 'BindingElement',
-              left: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'yield',
-                    start: 25,
-                    end: 31,
-                    kind: 168,
-                    flags: 0
-                  },
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'x',
-                    start: 31,
-                    end: 33,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
-                start: 23,
-                end: 33,
-                kind: 169,
-                flags: 0
-              },
-              right: null,
+              type: 'ObjectBindingPattern',
+              properties: [
+                {
+                  type: 'BindingIdentifier',
+                  name: 'yield',
+                  start: 25,
+                  end: 31,
+                  kind: 168,
+                  flags: 0
+                },
+                {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 31,
+                  end: 33,
+                  kind: 168,
+                  flags: 0
+                }
+              ],
               start: 23,
               end: 33,
-              kind: 172,
+              kind: 169,
               flags: 0
             }
           ],
@@ -1837,12 +1828,12 @@ describe('Recovery - Expressions - Yield', () => {
           length: 1
         },
         {
-          code: 21,
           kind: 3,
-          length: 8,
-          message: 'Unexpected `yield` as identifier in this context',
           source: 2,
-          start: 25
+          message: 'Unexpected `yield` as identifier in this context',
+          code: 21,
+          start: 25,
+          length: 8
         },
         {
           kind: 2,
@@ -1875,6 +1866,7 @@ describe('Recovery - Expressions - Yield', () => {
       children: [],
       start: 0,
       length: 33,
+      webCompat: true,
       end: 33
     });
   });

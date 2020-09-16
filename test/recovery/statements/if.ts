@@ -1702,9 +1702,8 @@ describe('Recovery - If', () => {
   });
 
   it('if(x){function x( { ', () => {
-    t.deepEqual(recovery('if(x){function x( { ', 'recovery.js'), {
+    t.deepEqual(recovery('if(x){function x( {', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1734,20 +1733,11 @@ describe('Recovery - If', () => {
                 async: false,
                 params: [
                   {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ObjectBindingPattern',
-
-                      properties: [],
-                      start: 17,
-                      end: 19,
-                      kind: 169,
-                      flags: 0
-                    },
-                    right: null,
+                    type: 'ObjectBindingPattern',
+                    properties: [],
                     start: 17,
                     end: 19,
-                    kind: 172,
+                    kind: 169,
                     flags: 0
                   }
                 ],
@@ -1778,7 +1768,7 @@ describe('Recovery - If', () => {
           flags: 0
         }
       ],
-      text: 'if(x){function x( { ',
+      text: 'if(x){function x( {',
       fileName: 'recovery.js',
       context: 0,
       mutualFlags: 0,
@@ -1788,7 +1778,7 @@ describe('Recovery - If', () => {
           source: 2,
           message: '`}` expected',
           code: 5,
-          start: 19,
+          start: 18,
           length: 1
         }
       ],
@@ -1797,8 +1787,9 @@ describe('Recovery - If', () => {
       parent: null,
       children: [],
       start: 0,
-      length: 20,
-      end: 20
+      length: 19,
+      webCompat: true,
+      end: 19
     });
   });
 

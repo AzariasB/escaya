@@ -674,7 +674,6 @@ describe('Statements - Do while', () => {
   it('do { function x({[]})  } (while)', () => {
     t.deepEqual(recovery('do { function x({[]})  } (while)', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -704,50 +703,42 @@ describe('Statements - Do while', () => {
                 async: false,
                 params: [
                   {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ObjectBindingPattern',
-                      properties: [
-                        {
-                          type: 'PropertyName',
-                          key: {
-                            type: 'ComputedPropertyName',
-                            expression: {
-                              type: 'IdentifierReference',
-                              name: '',
-                              start: 18,
-                              end: 18,
-                              kind: 13,
-                              flags: 2
-                            },
-                            start: 17,
-                            end: 19,
-                            kind: 171,
-                            flags: 0
-                          },
-                          value: {
-                            type: 'BindingIdentifier',
+                    type: 'ObjectBindingPattern',
+                    properties: [
+                      {
+                        type: 'PropertyName',
+                        key: {
+                          type: 'ComputedPropertyName',
+                          expression: {
+                            type: 'IdentifierReference',
                             name: '',
-                            start: 19,
-                            end: 20,
-                            kind: 168,
-                            flags: 0
+                            start: 18,
+                            end: 18,
+                            kind: 13,
+                            flags: 2
                           },
                           start: 17,
-                          end: 20,
-                          kind: 227,
+                          end: 19,
+                          kind: 171,
                           flags: 0
-                        }
-                      ],
-                      start: 16,
-                      end: 20,
-                      kind: 169,
-                      flags: 0
-                    },
-                    right: null,
+                        },
+                        value: {
+                          type: 'BindingIdentifier',
+                          name: '',
+                          start: 19,
+                          end: 20,
+                          kind: 168,
+                          flags: 0
+                        },
+                        start: 17,
+                        end: 20,
+                        kind: 227,
+                        flags: 0
+                      }
+                    ],
                     start: 16,
                     end: 20,
-                    kind: 172,
+                    kind: 169,
                     flags: 0
                   }
                 ],
@@ -875,6 +866,7 @@ describe('Statements - Do while', () => {
       children: [],
       start: 0,
       length: 32,
+      webCompat: true,
       end: 32
     });
   });
@@ -958,7 +950,6 @@ describe('Statements - Do while', () => {
   it('do(yield function ( {x } while)', () => {
     t.deepEqual(recovery('do(yield function ( {x } while)', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -970,28 +961,20 @@ describe('Statements - Do while', () => {
             async: false,
             params: [
               {
-                type: 'BindingElement',
-                left: {
-                  type: 'ObjectBindingPattern',
-                  properties: [
-                    {
-                      type: 'BindingIdentifier',
-                      name: 'x',
-                      start: 21,
-                      end: 22,
-                      kind: 168,
-                      flags: 0
-                    }
-                  ],
-                  start: 19,
-                  end: 24,
-                  kind: 169,
-                  flags: 0
-                },
-                right: null,
+                type: 'ObjectBindingPattern',
+                properties: [
+                  {
+                    type: 'BindingIdentifier',
+                    name: 'x',
+                    start: 21,
+                    end: 22,
+                    kind: 168,
+                    flags: 0
+                  }
+                ],
                 start: 19,
                 end: 24,
-                kind: 172,
+                kind: 169,
                 flags: 0
               }
             ],
@@ -1103,6 +1086,7 @@ describe('Statements - Do while', () => {
       children: [],
       start: 0,
       length: 31,
+      webCompat: true,
       end: 31
     });
   });

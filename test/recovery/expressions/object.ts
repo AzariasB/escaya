@@ -4043,7 +4043,6 @@ describe('Recovery - Expressions - Object', () => {
   it('({ x( {}', () => {
     t.deepEqual(recovery('({ x( {}', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4062,19 +4061,11 @@ describe('Recovery - Expressions - Object', () => {
                   propertySetParameterList: null,
                   uniqueFormalParameters: [
                     {
-                      type: 'BindingElement',
-                      left: {
-                        type: 'ObjectBindingPattern',
-                        properties: [],
-                        start: 5,
-                        end: 8,
-                        kind: 169,
-                        flags: 0
-                      },
-                      right: null,
+                      type: 'ObjectBindingPattern',
+                      properties: [],
                       start: 5,
                       end: 8,
-                      kind: 172,
+                      kind: 169,
                       flags: 0
                     }
                   ],
@@ -4137,6 +4128,7 @@ describe('Recovery - Expressions - Object', () => {
       children: [],
       start: 0,
       length: 8,
+      webCompat: true,
       end: 8
     });
   });
@@ -4144,7 +4136,6 @@ describe('Recovery - Expressions - Object', () => {
   it('({ async x( {}', () => {
     t.deepEqual(recovery('({ async x( {}', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4163,19 +4154,11 @@ describe('Recovery - Expressions - Object', () => {
                   propertySetParameterList: null,
                   uniqueFormalParameters: [
                     {
-                      type: 'BindingElement',
-                      left: {
-                        type: 'ObjectBindingPattern',
-                        properties: [],
-                        start: 11,
-                        end: 14,
-                        kind: 169,
-                        flags: 0
-                      },
-                      right: null,
+                      type: 'ObjectBindingPattern',
+                      properties: [],
                       start: 11,
                       end: 14,
-                      kind: 172,
+                      kind: 169,
                       flags: 0
                     }
                   ],
@@ -4238,6 +4221,7 @@ describe('Recovery - Expressions - Object', () => {
       children: [],
       start: 0,
       length: 14,
+      webCompat: true,
       end: 14
     });
   });
@@ -5045,7 +5029,6 @@ describe('Recovery - Expressions - Object', () => {
   it('({ x( {}!', () => {
     t.deepEqual(recovery('({ x( {}!', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5064,19 +5047,11 @@ describe('Recovery - Expressions - Object', () => {
                   propertySetParameterList: null,
                   uniqueFormalParameters: [
                     {
-                      type: 'BindingElement',
-                      left: {
-                        type: 'ObjectBindingPattern',
-                        properties: [],
-                        start: 5,
-                        end: 8,
-                        kind: 169,
-                        flags: 0
-                      },
-                      right: null,
+                      type: 'ObjectBindingPattern',
+                      properties: [],
                       start: 5,
                       end: 8,
-                      kind: 172,
+                      kind: 169,
                       flags: 0
                     }
                   ],
@@ -5162,6 +5137,7 @@ describe('Recovery - Expressions - Object', () => {
       children: [],
       start: 0,
       length: 9,
+      webCompat: true,
       end: 9
     });
   });

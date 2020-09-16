@@ -281,7 +281,6 @@ describe('test262-parser-tests - early tests', () => {
   it('function* a(){ function* b({[yield]: c}){} }', () => {
     t.deepEqual(recovery('function* a(){ function* b({[yield]: c}){} }', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -315,51 +314,43 @@ describe('test262-parser-tests - early tests', () => {
                 async: false,
                 params: [
                   {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ObjectBindingPattern',
-                      properties: [
-                        {
-                          type: 'PropertyName',
-                          key: {
-                            type: 'ComputedPropertyName',
-                            expression: {
-                              type: 'YieldExpression',
-                              delegate: false,
-                              argument: null,
-                              start: 29,
-                              end: 34,
-                              kind: 193,
-                              flags: 0
-                            },
-                            start: 28,
-                            end: 35,
-                            kind: 171,
-                            flags: 0
-                          },
-                          value: {
-                            type: 'BindingIdentifier',
-                            name: 'c',
-                            start: 36,
-                            end: 38,
-                            kind: 168,
+                    type: 'ObjectBindingPattern',
+                    properties: [
+                      {
+                        type: 'PropertyName',
+                        key: {
+                          type: 'ComputedPropertyName',
+                          expression: {
+                            type: 'YieldExpression',
+                            delegate: false,
+                            argument: null,
+                            start: 29,
+                            end: 34,
+                            kind: 193,
                             flags: 0
                           },
                           start: 28,
-                          end: 38,
-                          kind: 227,
+                          end: 35,
+                          kind: 171,
                           flags: 0
-                        }
-                      ],
-                      start: 27,
-                      end: 39,
-                      kind: 169,
-                      flags: 0
-                    },
-                    right: null,
+                        },
+                        value: {
+                          type: 'BindingIdentifier',
+                          name: 'c',
+                          start: 36,
+                          end: 38,
+                          kind: 168,
+                          flags: 0
+                        },
+                        start: 28,
+                        end: 38,
+                        kind: 227,
+                        flags: 0
+                      }
+                    ],
                     start: 27,
                     end: 39,
-                    kind: 172,
+                    kind: 169,
                     flags: 0
                   }
                 ],
@@ -395,12 +386,12 @@ describe('test262-parser-tests - early tests', () => {
       mutualFlags: 0,
       diagnostics: [
         {
-          code: 24,
           kind: 3,
-          length: 5,
-          message: '`Yield` expression cannot be used in function parameters',
           source: 2,
-          start: 29
+          message: '`Yield` expression cannot be used in function parameters',
+          code: 24,
+          start: 29,
+          length: 5
         }
       ],
       detached: false,
@@ -409,6 +400,7 @@ describe('test262-parser-tests - early tests', () => {
       children: [],
       start: 0,
       length: 44,
+      webCompat: true,
       end: 44
     });
   });
@@ -4797,7 +4789,6 @@ describe('test262-parser-tests - early tests', () => {
   it('(function({a: b}, {c: b}){})', () => {
     t.deepEqual(recovery('(function({a: b}, {c: b}){})', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4811,83 +4802,67 @@ describe('test262-parser-tests - early tests', () => {
               async: false,
               params: [
                 {
-                  type: 'BindingElement',
-                  left: {
-                    type: 'ObjectBindingPattern',
-                    properties: [
-                      {
-                        type: 'PropertyName',
-                        key: {
-                          type: 'IdentifierName',
-                          name: 'a',
-                          start: 11,
-                          end: 13,
-                          kind: 13,
-                          flags: 0
-                        },
-                        value: {
-                          type: 'BindingIdentifier',
-                          name: 'b',
-                          start: 13,
-                          end: 15,
-                          kind: 168,
-                          flags: 0
-                        },
+                  type: 'ObjectBindingPattern',
+                  properties: [
+                    {
+                      type: 'PropertyName',
+                      key: {
+                        type: 'IdentifierName',
+                        name: 'a',
                         start: 11,
-                        end: 15,
-                        kind: 227,
+                        end: 13,
+                        kind: 13,
                         flags: 0
-                      }
-                    ],
-                    start: 10,
-                    end: 16,
-                    kind: 169,
-                    flags: 0
-                  },
-                  right: null,
+                      },
+                      value: {
+                        type: 'BindingIdentifier',
+                        name: 'b',
+                        start: 13,
+                        end: 15,
+                        kind: 168,
+                        flags: 0
+                      },
+                      start: 11,
+                      end: 15,
+                      kind: 227,
+                      flags: 0
+                    }
+                  ],
                   start: 10,
                   end: 16,
-                  kind: 172,
+                  kind: 169,
                   flags: 0
                 },
                 {
-                  type: 'BindingElement',
-                  left: {
-                    type: 'ObjectBindingPattern',
-                    properties: [
-                      {
-                        type: 'PropertyName',
-                        key: {
-                          type: 'IdentifierName',
-                          name: 'c',
-                          start: 19,
-                          end: 21,
-                          kind: 13,
-                          flags: 0
-                        },
-                        value: {
-                          type: 'BindingIdentifier',
-                          name: 'b',
-                          start: 21,
-                          end: 23,
-                          kind: 168,
-                          flags: 0
-                        },
+                  type: 'ObjectBindingPattern',
+                  properties: [
+                    {
+                      type: 'PropertyName',
+                      key: {
+                        type: 'IdentifierName',
+                        name: 'c',
                         start: 19,
-                        end: 23,
-                        kind: 227,
+                        end: 21,
+                        kind: 13,
                         flags: 0
-                      }
-                    ],
-                    start: 17,
-                    end: 24,
-                    kind: 169,
-                    flags: 0
-                  },
-                  right: null,
+                      },
+                      value: {
+                        type: 'BindingIdentifier',
+                        name: 'b',
+                        start: 21,
+                        end: 23,
+                        kind: 168,
+                        flags: 0
+                      },
+                      start: 19,
+                      end: 23,
+                      kind: 227,
+                      flags: 0
+                    }
+                  ],
                   start: 17,
                   end: 24,
-                  kind: 172,
+                  kind: 169,
                   flags: 0
                 }
               ],
@@ -4936,6 +4911,7 @@ describe('test262-parser-tests - early tests', () => {
       children: [],
       start: 0,
       length: 28,
+      webCompat: true,
       end: 28
     });
   });
@@ -4943,7 +4919,6 @@ describe('test262-parser-tests - early tests', () => {
   it('"use strict"; function a(b, { b }){}', () => {
     t.deepEqual(recovery('"use strict"; function a(b, { b }){}', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [
         {
           type: 'Directive',
@@ -4978,28 +4953,20 @@ describe('test262-parser-tests - early tests', () => {
               flags: 0
             },
             {
-              type: 'BindingElement',
-              left: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'b',
-                    start: 29,
-                    end: 31,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
-                start: 27,
-                end: 33,
-                kind: 169,
-                flags: 0
-              },
-              right: null,
+              type: 'ObjectBindingPattern',
+              properties: [
+                {
+                  type: 'BindingIdentifier',
+                  name: 'b',
+                  start: 29,
+                  end: 31,
+                  kind: 168,
+                  flags: 0
+                }
+              ],
               start: 27,
               end: 33,
-              kind: 172,
+              kind: 169,
               flags: 0
             }
           ],
@@ -5038,6 +5005,7 @@ describe('test262-parser-tests - early tests', () => {
       children: [],
       start: 0,
       length: 36,
+      webCompat: true,
       end: 36
     });
   });
@@ -5045,7 +5013,6 @@ describe('test262-parser-tests - early tests', () => {
   it('!{ set a([b, b]){} };', () => {
     t.deepEqual(recovery('!{ set a([b, b]){} };', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -5063,36 +5030,28 @@ describe('test262-parser-tests - early tests', () => {
                   getter: false,
                   setter: true,
                   propertySetParameterList: {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ArrayBindingPattern',
-                      elements: [
-                        {
-                          type: 'BindingIdentifier',
-                          name: 'b',
-                          start: 10,
-                          end: 11,
-                          kind: 168,
-                          flags: 0
-                        },
-                        {
-                          type: 'BindingIdentifier',
-                          name: 'b',
-                          start: 12,
-                          end: 14,
-                          kind: 168,
-                          flags: 0
-                        }
-                      ],
-                      start: 9,
-                      end: 15,
-                      kind: 174,
-                      flags: 0
-                    },
-                    right: null,
+                    type: 'ArrayBindingPattern',
+                    elements: [
+                      {
+                        type: 'BindingIdentifier',
+                        name: 'b',
+                        start: 10,
+                        end: 11,
+                        kind: 168,
+                        flags: 0
+                      },
+                      {
+                        type: 'BindingIdentifier',
+                        name: 'b',
+                        start: 12,
+                        end: 14,
+                        kind: 168,
+                        flags: 0
+                      }
+                    ],
                     start: 9,
                     end: 15,
-                    kind: 172,
+                    kind: 174,
                     flags: 0
                   },
                   uniqueFormalParameters: [],
@@ -5155,6 +5114,7 @@ describe('test262-parser-tests - early tests', () => {
       children: [],
       start: 0,
       length: 21,
+      webCompat: true,
       end: 21
     });
   });
@@ -6585,7 +6545,6 @@ describe('test262-parser-tests - early tests', () => {
   it('!{ set a({b}){ let b; } };', () => {
     t.deepEqual(recovery('!{ set a({b}){ let b; } };', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -6603,28 +6562,20 @@ describe('test262-parser-tests - early tests', () => {
                   getter: false,
                   setter: true,
                   propertySetParameterList: {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ObjectBindingPattern',
-                      properties: [
-                        {
-                          type: 'BindingIdentifier',
-                          name: 'b',
-                          start: 10,
-                          end: 11,
-                          kind: 168,
-                          flags: 0
-                        }
-                      ],
-                      start: 9,
-                      end: 12,
-                      kind: 169,
-                      flags: 0
-                    },
-                    right: null,
+                    type: 'ObjectBindingPattern',
+                    properties: [
+                      {
+                        type: 'BindingIdentifier',
+                        name: 'b',
+                        start: 10,
+                        end: 11,
+                        kind: 168,
+                        flags: 0
+                      }
+                    ],
                     start: 9,
                     end: 12,
-                    kind: 172,
+                    kind: 169,
                     flags: 0
                   },
                   uniqueFormalParameters: [],
@@ -6714,6 +6665,7 @@ describe('test262-parser-tests - early tests', () => {
       children: [],
       start: 0,
       length: 26,
+      webCompat: true,
       end: 26
     });
   });

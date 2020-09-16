@@ -3,7 +3,7 @@ import { ObjectBindingPattern } from './object-binding-pattern';
 import { ObjectAssignmentPattern } from './object-assignment-pattern';
 import { ClassDeclaration } from './../declarations/class-declaration';
 import { ClassExpression } from './class-expr';
-import { MethodName, Parameter } from '.';
+import { MethodName, Parameter, BindingPattern } from '.';
 import { BindingElement } from './binding-element';
 import { BindingIdentifier } from './binding-identifier';
 import { FunctionBody } from './function-body';
@@ -17,7 +17,7 @@ export interface MethodDefinition extends Node {
   readonly generator: boolean;
   readonly getter: boolean;
   readonly setter: boolean;
-  readonly propertySetParameterList: BindingIdentifier | BindingElement | null;
+  readonly propertySetParameterList: BindingIdentifier | BindingPattern | BindingElement | null;
   readonly uniqueFormalParameters: Parameter[];
   readonly name: MethodName;
   readonly contents: FunctionBody;
@@ -30,7 +30,7 @@ export function createMethodDefinition(
   generator: boolean,
   getter: boolean,
   setter: boolean,
-  propertySetParameterList: BindingIdentifier | BindingElement | null,
+  propertySetParameterList: BindingIdentifier | BindingPattern | BindingElement | null,
   uniqueFormalParameters: Parameter[],
   name: MethodName,
   contents: FunctionBody

@@ -358,7 +358,6 @@ describe('Recovery - Async Function', () => {
   it('async function x({x}', () => {
     t.deepEqual(recovery('async function x({x}', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -375,28 +374,20 @@ describe('Recovery - Async Function', () => {
           async: true,
           params: [
             {
-              type: 'BindingElement',
-              left: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'x',
-                    start: 18,
-                    end: 19,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
-                start: 17,
-                end: 20,
-                kind: 169,
-                flags: 0
-              },
-              right: null,
+              type: 'ObjectBindingPattern',
+              properties: [
+                {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 18,
+                  end: 19,
+                  kind: 168,
+                  flags: 0
+                }
+              ],
               start: 17,
               end: 20,
-              kind: 172,
+              kind: 169,
               flags: 0
             }
           ],
@@ -435,6 +426,7 @@ describe('Recovery - Async Function', () => {
       children: [],
       start: 0,
       length: 20,
+      webCompat: true,
       end: 20
     });
   });
@@ -442,7 +434,6 @@ describe('Recovery - Async Function', () => {
   it('async function x({x, y) { var z =', () => {
     t.deepEqual(recovery('async function x({x, y) { var z =', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -459,36 +450,28 @@ describe('Recovery - Async Function', () => {
           async: true,
           params: [
             {
-              type: 'BindingElement',
-              left: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'x',
-                    start: 18,
-                    end: 19,
-                    kind: 168,
-                    flags: 0
-                  },
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'y',
-                    start: 20,
-                    end: 22,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
-                start: 17,
-                end: 22,
-                kind: 169,
-                flags: 0
-              },
-              right: null,
+              type: 'ObjectBindingPattern',
+              properties: [
+                {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 18,
+                  end: 19,
+                  kind: 168,
+                  flags: 0
+                },
+                {
+                  type: 'BindingIdentifier',
+                  name: 'y',
+                  start: 20,
+                  end: 22,
+                  kind: 168,
+                  flags: 0
+                }
+              ],
               start: 17,
               end: 22,
-              kind: 172,
+              kind: 169,
               flags: 0
             }
           ],
@@ -568,6 +551,7 @@ describe('Recovery - Async Function', () => {
       children: [],
       start: 0,
       length: 33,
+      webCompat: true,
       end: 33
     });
   });
@@ -2019,7 +2003,6 @@ describe('Recovery - Async Function', () => {
   it('async function f13({x}, y, [z], v) { var x,', () => {
     t.deepEqual(recovery('async function f13({x}, y, [z], v) { var x,', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2036,28 +2019,20 @@ describe('Recovery - Async Function', () => {
           async: true,
           params: [
             {
-              type: 'BindingElement',
-              left: {
-                type: 'ObjectBindingPattern',
-                properties: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'x',
-                    start: 20,
-                    end: 21,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
-                start: 19,
-                end: 22,
-                kind: 169,
-                flags: 0
-              },
-              right: null,
+              type: 'ObjectBindingPattern',
+              properties: [
+                {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 20,
+                  end: 21,
+                  kind: 168,
+                  flags: 0
+                }
+              ],
               start: 19,
               end: 22,
-              kind: 172,
+              kind: 169,
               flags: 0
             },
             {
@@ -2069,28 +2044,20 @@ describe('Recovery - Async Function', () => {
               flags: 0
             },
             {
-              type: 'BindingElement',
-              left: {
-                type: 'ArrayBindingPattern',
-                elements: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'z',
-                    start: 28,
-                    end: 29,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
-                start: 26,
-                end: 30,
-                kind: 174,
-                flags: 0
-              },
-              right: null,
+              type: 'ArrayBindingPattern',
+              elements: [
+                {
+                  type: 'BindingIdentifier',
+                  name: 'z',
+                  start: 28,
+                  end: 29,
+                  kind: 168,
+                  flags: 0
+                }
+              ],
               start: 26,
               end: 30,
-              kind: 172,
+              kind: 174,
               flags: 0
             },
             {
@@ -2163,6 +2130,7 @@ describe('Recovery - Async Function', () => {
       children: [],
       start: 0,
       length: 43,
+      webCompat: true,
       end: 43
     });
   });
@@ -2170,7 +2138,6 @@ describe('Recovery - Async Function', () => {
   it('async function* f([{ x, y, z } = { x: 44, y: 55, z: 66', () => {
     t.deepEqual(recovery('async function* f([{ x, y, z } = { x: 44, y: 55, z: 66', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -2187,141 +2154,130 @@ describe('Recovery - Async Function', () => {
           async: true,
           params: [
             {
-              type: 'BindingElement',
-              left: {
-                type: 'ArrayBindingPattern',
-                elements: [
-                  {
-                    type: 'BindingElement',
-                    left: {
-                      type: 'ObjectBindingPattern',
-                      properties: [
-                        {
-                          type: 'BindingIdentifier',
-                          name: 'x',
-                          start: 20,
-                          end: 22,
-                          kind: 168,
-                          flags: 0
-                        },
-                        {
-                          type: 'BindingIdentifier',
-                          name: 'y',
-                          start: 23,
-                          end: 25,
-                          kind: 168,
-                          flags: 0
-                        },
-                        {
-                          type: 'BindingIdentifier',
-                          name: 'z',
-                          start: 26,
-                          end: 28,
-                          kind: 168,
-                          flags: 0
-                        }
-                      ],
-                      start: 19,
-                      end: 30,
-                      kind: 169,
-                      flags: 0
-                    },
-                    right: {
-                      type: 'ObjectLiteral',
-                      properties: [
-                        {
-                          type: 'PropertyName',
-                          key: {
-                            type: 'IdentifierName',
-                            name: 'x',
-                            start: 34,
-                            end: 36,
-                            kind: 13,
-                            flags: 0
-                          },
-                          value: {
-                            type: 'NumericLiteral',
-
-                            value: 44,
-                            start: 37,
-                            end: 40,
-                            kind: 10,
-                            flags: 0
-                          },
-                          start: 34,
-                          end: 40,
-                          kind: 227,
-                          flags: 0
-                        },
-                        {
-                          type: 'PropertyName',
-                          key: {
-                            type: 'IdentifierName',
-                            name: 'y',
-                            start: 41,
-                            end: 43,
-                            kind: 13,
-                            flags: 0
-                          },
-                          value: {
-                            type: 'NumericLiteral',
-
-                            value: 55,
-                            start: 44,
-                            end: 47,
-                            kind: 10,
-                            flags: 0
-                          },
-                          start: 41,
-                          end: 47,
-                          kind: 227,
-                          flags: 0
-                        },
-                        {
-                          type: 'PropertyName',
-                          key: {
-                            type: 'IdentifierName',
-                            name: 'z',
-                            start: 48,
-                            end: 50,
-                            kind: 13,
-                            flags: 0
-                          },
-                          value: {
-                            type: 'NumericLiteral',
-
-                            value: 66,
-                            start: 51,
-                            end: 54,
-                            kind: 10,
-                            flags: 0
-                          },
-                          start: 48,
-                          end: 54,
-                          kind: 227,
-                          flags: 0
-                        }
-                      ],
-                      start: 32,
-                      end: 54,
-                      kind: 179,
-                      flags: 0
-                    },
+              type: 'ArrayBindingPattern',
+              elements: [
+                {
+                  type: 'BindingElement',
+                  left: {
+                    type: 'ObjectBindingPattern',
+                    properties: [
+                      {
+                        type: 'BindingIdentifier',
+                        name: 'x',
+                        start: 20,
+                        end: 22,
+                        kind: 168,
+                        flags: 0
+                      },
+                      {
+                        type: 'BindingIdentifier',
+                        name: 'y',
+                        start: 23,
+                        end: 25,
+                        kind: 168,
+                        flags: 0
+                      },
+                      {
+                        type: 'BindingIdentifier',
+                        name: 'z',
+                        start: 26,
+                        end: 28,
+                        kind: 168,
+                        flags: 0
+                      }
+                    ],
                     start: 19,
-                    end: 54,
-                    kind: 172,
+                    end: 30,
+                    kind: 169,
                     flags: 0
-                  }
-                ],
-                start: 18,
-                end: 54,
-                kind: 174,
-                flags: 0
-              },
-              right: null,
+                  },
+                  right: {
+                    type: 'ObjectLiteral',
+                    properties: [
+                      {
+                        type: 'PropertyName',
+                        key: {
+                          type: 'IdentifierName',
+                          name: 'x',
+                          start: 34,
+                          end: 36,
+                          kind: 13,
+                          flags: 0
+                        },
+                        value: {
+                          type: 'NumericLiteral',
+                          value: 44,
+                          start: 37,
+                          end: 40,
+                          kind: 10,
+                          flags: 0
+                        },
+                        start: 34,
+                        end: 40,
+                        kind: 227,
+                        flags: 0
+                      },
+                      {
+                        type: 'PropertyName',
+                        key: {
+                          type: 'IdentifierName',
+                          name: 'y',
+                          start: 41,
+                          end: 43,
+                          kind: 13,
+                          flags: 0
+                        },
+                        value: {
+                          type: 'NumericLiteral',
+                          value: 55,
+                          start: 44,
+                          end: 47,
+                          kind: 10,
+                          flags: 0
+                        },
+                        start: 41,
+                        end: 47,
+                        kind: 227,
+                        flags: 0
+                      },
+                      {
+                        type: 'PropertyName',
+                        key: {
+                          type: 'IdentifierName',
+                          name: 'z',
+                          start: 48,
+                          end: 50,
+                          kind: 13,
+                          flags: 0
+                        },
+                        value: {
+                          type: 'NumericLiteral',
+                          value: 66,
+                          start: 51,
+                          end: 54,
+                          kind: 10,
+                          flags: 0
+                        },
+                        start: 48,
+                        end: 54,
+                        kind: 227,
+                        flags: 0
+                      }
+                    ],
+                    start: 32,
+                    end: 54,
+                    kind: 179,
+                    flags: 0
+                  },
+                  start: 19,
+                  end: 54,
+                  kind: 172,
+                  flags: 0
+                }
+              ],
               start: 18,
               end: 54,
-              kind: 172,
+              kind: 174,
               flags: 0
             }
           ],
@@ -2360,6 +2316,7 @@ describe('Recovery - Async Function', () => {
       children: [],
       start: 0,
       length: 54,
+      webCompat: true,
       end: 54
     });
   });
