@@ -6,7 +6,7 @@ import { DiagnosticCode } from '../diagnostic/diagnostic-code';
 import { Char } from './char';
 import { fromCodePoint } from './common';
 import { scanRegExp } from './regexp';
-import { scanNumber } from './numeric';
+import { scanNumber, parseFloatingPointLiteral } from './numeric';
 import { scanString } from './string';
 import { skipMultiLineComment, skipSingleLineComment } from './comments';
 import { scanTemplateSpan } from './template';
@@ -184,7 +184,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
         // `0`...`9`
         case Token.NumericLiteral:
-          return scanNumber(state, context, cp, false);
+          return scanNumber(state, context, cp);
 
         // `.`, `...`, `.123` (numeric literal)
         case Token.Period:
@@ -194,7 +194,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
             cp = state.source.charCodeAt(index);
 
             if (cp >= Char.Zero && cp <= Char.Nine) {
-              return scanNumber(state, context, cp, true);
+              return parseFloatingPointLiteral(state, context, cp);
             }
 
             if (cp === Char.Period) {

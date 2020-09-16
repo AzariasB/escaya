@@ -137,7 +137,7 @@ export const leadingZeroChar = [
   /* 127 - Delete             */ Char.Unknown
 ];
 
-export function scanNumber(state: ParserState, context: Context, cp: number, isFloat: boolean): Token {
+export function scanNumber(state: ParserState, context: Context, cp: number): Token {
   const start = state.index;
 
   const enum NumberKind {
@@ -154,251 +154,241 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
   let value = 0;
   let type = NumberKind.Decimal;
   let disallowBigInt = false;
-  const source = state.source;
   let index = state.index;
   let token = Token.NumericLiteral;
 
-  if (isFloat) {
-    token = Token.FloatingPointLiteral;
-    do {
-      cp = source.charCodeAt(++index);
-    } while (cp <= Char.Nine && cp >= Char.Zero);
+  // Zero digits - '0' - is structured as an optimized finite state machine
+  // and does a quick scan for a hexadecimal, binary, octal or implicit octal
+  if (cp === Char.Zero) {
+    index++; // skips '0'
 
-    disallowBigInt = true;
-  } else {
-    // Zero digits - '0' - is structured as an optimized finite state machine
-    // and does a quick scan for a hexadecimal, binary, octal or implicit octal
-    if (cp === Char.Zero) {
-      index++; // skips '0'
+    cp = state.source.charCodeAt(index);
 
-      cp = source.charCodeAt(index);
+    if (AsciiCharTypes[cp] & AsciiCharFlags.OctHexBin) {
+      let digits = 0;
+      let allowSeparator: 0 | 1 = 1;
 
-      if (AsciiCharTypes[cp] & AsciiCharFlags.OctHexBin) {
-        let digits = 0;
-        let allowSeparator: 0 | 1 = 1;
-
-        do {
-          switch (leadingZeroChar[cp]) {
-            // `x`, `X`
-            case Char.LowerX:
-            case Char.UpperX:
-              if (type & 0b00001110) {
-                addLexerDiagnostic(state, context, index - 1, index, DiagnosticCode.UnexpectedIdentNumber);
-                break;
-              }
-              type = NumberKind.Hex;
+      do {
+        switch (leadingZeroChar[cp]) {
+          // `x`, `X`
+          case Char.LowerX:
+          case Char.UpperX:
+            if (type & 0b00001110) {
+              addLexerDiagnostic(state, context, index - 1, index, DiagnosticCode.UnexpectedIdentNumber);
               break;
+            }
+            type = NumberKind.Hex;
+            break;
 
-            // `b`, `B`
-            case Char.LowerB:
-            case Char.UpperB:
-              if (type === NumberKind.Hex) {
-                allowSeparator = 0;
-                value = value * 0x0010 + toHex(cp);
-                break;
-              }
-
-              if (type & 0b00001100) {
-                addLexerDiagnostic(state, context, index - 1, index, DiagnosticCode.UnexpectedIdentNumber);
-                break;
-              }
-
-              type = NumberKind.Binary;
+          // `b`, `B`
+          case Char.LowerB:
+          case Char.UpperB:
+            if (type === NumberKind.Hex) {
+              allowSeparator = 0;
+              value = value * 0x0010 + toHex(cp);
               break;
+            }
 
-            // `o`, `O`
-            case Char.LowerO:
-            case Char.UpperO:
-              if (type & 0b00001110) {
-                addLexerDiagnostic(state, context, index - 1, index, DiagnosticCode.UnexpectedIdentNumber);
-                break;
-              }
-              type = NumberKind.Octal;
+            if (type & 0b00001100) {
+              addLexerDiagnostic(state, context, index - 1, index, DiagnosticCode.UnexpectedIdentNumber);
               break;
+            }
 
-            // `0`...`7`
-            case Char.Zero:
-            case Char.One:
-              if (type & NumberKind.Binary) {
-                allowSeparator = 0;
-                value = value * 2 + (cp - Char.Zero);
-                break;
-              }
-            case Char.Two:
-            case Char.Three:
-            case Char.Four:
-            case Char.Five:
-            case Char.Six:
-            case Char.Seven:
-              if (type & NumberKind.Octal) {
-                allowSeparator = 0;
-                value = value * 8 + (cp - Char.Zero);
-                break;
-              }
+            type = NumberKind.Binary;
+            break;
 
-            // `8`...`9`, `a-f`...`A-F`
-            case Char.Eight:
-            case Char.Nine:
-            case Char.LowerA:
-            case Char.LowerC:
-            case Char.LowerD:
-            case Char.LowerE:
-            case Char.LowerF:
-            case Char.UpperA:
-            case Char.UpperC:
-            case Char.UpperD:
-            case Char.UpperE:
-            case Char.UpperF:
-              if (type & NumberKind.Hex) {
-                allowSeparator = 0;
-                value = value * 0x0010 + toHex(cp);
-                break;
-              }
-              addLexerDiagnostic(
-                state,
-                context,
-                index,
-                index + 1,
-                type & NumberKind.Binary ? DiagnosticCode.BinarySequence : DiagnosticCode.OctalSequence
-              );
+          // `o`, `O`
+          case Char.LowerO:
+          case Char.UpperO:
+            if (type & 0b00001110) {
+              addLexerDiagnostic(state, context, index - 1, index, DiagnosticCode.UnexpectedIdentNumber);
               break;
+            }
+            type = NumberKind.Octal;
+            break;
 
-            // `_`
-            case Char.Underscore:
-              if (allowSeparator === 0) {
-                state.cst |= ConcreteSyntax.ContainsSeparator;
-
-                // We need to consume '__' for cases like '0b1__2' so we can correctly parse out two
-                // numeric literal - '1' - and '2'.
-                // '0b' and '__' are seen as invalid characters and should
-                // only be consumed.
-                if (state.source.charCodeAt(index + 1) === Char.Underscore) {
-                  addLexerDiagnostic(state, context, index, index + 1, DiagnosticCode.ContinuousNumericSeparator);
-                  state.index += 5;
-                  state.tokenValue = value;
-                  return Token.NumericLiteral;
-                }
-                addLexerDiagnostic(state, context, index, index + 1, DiagnosticCode.SeparatorsDisallowed);
-              }
-              allowSeparator = 1;
+          // `0`...`7`
+          case Char.Zero:
+          case Char.One:
+            if (type & NumberKind.Binary) {
+              allowSeparator = 0;
+              value = value * 2 + (cp - Char.Zero);
               break;
-            // `n`
-            case Char.LowerN:
-              state.tokenValue = value;
-              state.index = index + 1;
-              return Token.BigIntLiteral;
-          }
+            }
+          case Char.Two:
+          case Char.Three:
+          case Char.Four:
+          case Char.Five:
+          case Char.Six:
+          case Char.Seven:
+            if (type & NumberKind.Octal) {
+              allowSeparator = 0;
+              value = value * 8 + (cp - Char.Zero);
+              break;
+            }
 
-          digits++;
-          index++;
-          cp = source.charCodeAt(index);
-        } while (AsciiCharTypes[cp] & (AsciiCharFlags.IsSeparator | AsciiCharFlags.Hex | AsciiCharFlags.OctHexBin));
+          // `8`...`9`, `a-f`...`A-F`
+          case Char.Eight:
+          case Char.Nine:
+          case Char.LowerA:
+          case Char.LowerC:
+          case Char.LowerD:
+          case Char.LowerE:
+          case Char.LowerF:
+          case Char.UpperA:
+          case Char.UpperC:
+          case Char.UpperD:
+          case Char.UpperE:
+          case Char.UpperF:
+            if (type & NumberKind.Hex) {
+              allowSeparator = 0;
+              value = value * 0x0010 + toHex(cp);
+              break;
+            }
+            addLexerDiagnostic(
+              state,
+              context,
+              index,
+              index + 1,
+              type & NumberKind.Binary ? DiagnosticCode.BinarySequence : DiagnosticCode.OctalSequence
+            );
+            break;
 
-        if (AsciiCharTypes[cp] & 0b000000011) {
-          addLexerDiagnostic(state, context, index, index, DiagnosticCode.IdafterNumber);
-          index++; // skip invalid chars
+          // `_`
+          case Char.Underscore:
+            if (allowSeparator === 0) {
+              state.cst |= ConcreteSyntax.ContainsSeparator;
+
+              // We need to consume '__' for cases like '0b1__2' so we can correctly parse out two
+              // numeric literal - '1' - and '2'.
+              // '0b' and '__' are seen as invalid characters and should
+              // only be consumed.
+              if (state.source.charCodeAt(index + 1) === Char.Underscore) {
+                addLexerDiagnostic(state, context, index, index + 1, DiagnosticCode.ContinuousNumericSeparator);
+                state.index += 5;
+                state.tokenValue = value;
+                return Token.NumericLiteral;
+              }
+              addLexerDiagnostic(state, context, index, index + 1, DiagnosticCode.SeparatorsDisallowed);
+            }
+            allowSeparator = 1;
+            break;
+          // `n`
+          case Char.LowerN:
+            state.tokenValue = value;
+            state.index = index + 1;
+            return Token.BigIntLiteral;
         }
 
-        if (type & 0b00001110 && digits <= 1) {
-          addLexerDiagnostic(
-            state,
-            context,
-            index - 1,
-            index,
-            type & NumberKind.Binary
-              ? // Binary integer literal like sequence without any digits
-                DiagnosticCode.BinarySequenceNoDigits
-              : type & NumberKind.Octal
-              ? // Octal integer literal like sequence without any digits
-                DiagnosticCode.OctalSequenceNoDigits
-              : // Hex integer literal like sequence without any digits
-                DiagnosticCode.HexSequenceNoDigits
-          );
+        digits++;
+        index++;
+        cp = state.source.charCodeAt(index);
+      } while (AsciiCharTypes[cp] & (AsciiCharFlags.IsSeparator | AsciiCharFlags.Hex | AsciiCharFlags.OctHexBin));
 
-          // We can't avoid this branching if we want to avoid double diagnostics, or
-          // we can but it will require use of 2x 'charCodeAt' and some unnecessary
-          // property / meber access.
-        } else if (allowSeparator === 1) {
-          // It's more performance and memory friendly to do a 'start + 2' here rather than
-          // than to give the 'start' variable a new value.
-          addLexerDiagnostic(state, context, start + 2, index + 1, DiagnosticCode.TrailingNumericSeparator);
+      if (AsciiCharTypes[cp] & 0b000000011) {
+        addLexerDiagnostic(state, context, index, index, DiagnosticCode.IdafterNumber);
+        index++; // skip invalid chars
+      }
+
+      if (type & 0b00001110 && digits <= 1) {
+        addLexerDiagnostic(
+          state,
+          context,
+          index - 1,
+          index,
+          type & NumberKind.Binary
+            ? // Binary integer literal like sequence without any digits
+              DiagnosticCode.BinarySequenceNoDigits
+            : type & NumberKind.Octal
+            ? // Octal integer literal like sequence without any digits
+              DiagnosticCode.OctalSequenceNoDigits
+            : // Hex integer literal like sequence without any digits
+              DiagnosticCode.HexSequenceNoDigits
+        );
+
+        // We can't avoid this branching if we want to avoid double diagnostics, or
+        // we can but it will require use of 2x 'charCodeAt' and some unnecessary
+        // property / meber access.
+      } else if (allowSeparator === 1) {
+        // It's more performance and memory friendly to do a 'start + 2' here rather than
+        // than to give the 'start' variable a new value.
+        addLexerDiagnostic(state, context, start + 2, index + 1, DiagnosticCode.TrailingNumericSeparator);
+      }
+
+      state.index = index;
+      state.tokenValue = value;
+      return Token.NumericLiteral;
+    }
+
+    // Implicit octal with fallback to decimal with leading zero
+    if (cp >= Char.Zero && cp <= Char.Eight) {
+      // Octal integer literals are not permitted in strict mode code
+      if (context & Context.Strict) {
+        addLexerDiagnostic(state, context, start, index, DiagnosticCode.StrictOctal);
+      }
+
+      state.flags |= Flags.Octal;
+      // BigInt suffix is invalid in non-octal decimal integer literal,
+      // so we need to set 'disallowBigInt' to 'true' here
+      disallowBigInt = true;
+
+      type = NumberKind.ImplicitOctal;
+
+      do {
+        value = value * 8 + (cp - Char.Zero);
+
+        cp = state.source.charCodeAt(++index);
+
+        if (cp >= Char.Eight) {
+          type = NumberKind.DecimalWithLeadingZero;
+          break;
         }
+      } while (cp >= Char.Zero && cp <= Char.Nine);
 
+      if (cp === Char.Underscore) {
+        addLexerDiagnostic(state, context, start + 1, index, DiagnosticCode.UnderscoreAfterZero);
+      }
+
+      // BigInt suffix is disallowed in legacy octal integer literal
+      if (cp === Char.LowerN) {
+        addLexerDiagnostic(state, context, index, index, DiagnosticCode.InvalidBigIntLiteral);
+      }
+
+      if (type === NumberKind.ImplicitOctal) {
         state.index = index;
         state.tokenValue = value;
         return Token.NumericLiteral;
       }
-
-      // Implicit octal with fallback to decimal with leading zero
-      if (cp >= Char.Zero && cp <= Char.Eight) {
-        // Octal integer literals are not permitted in strict mode code
-        if (context & Context.Strict) {
-          addLexerDiagnostic(state, context, start, index, DiagnosticCode.StrictOctal);
-        }
-
-        state.flags |= Flags.Octal;
-        // BigInt suffix is invalid in non-octal decimal integer literal,
-        // so we need to set 'disallowBigInt' to 'true' here
-        disallowBigInt = true;
-
-        type = NumberKind.ImplicitOctal;
-
-        do {
-          value = value * 8 + (cp - Char.Zero);
-
-          cp = source.charCodeAt(++index);
-
-          if (cp >= Char.Eight) {
-            type = NumberKind.DecimalWithLeadingZero;
-            break;
-          }
-        } while (cp >= Char.Zero && cp <= Char.Nine);
-
-        if (cp === Char.Underscore) {
-          addLexerDiagnostic(state, context, start + 1, index, DiagnosticCode.UnderscoreAfterZero);
-        }
-
-        // BigInt suffix is disallowed in legacy octal integer literal
-        if (cp === Char.LowerN) {
-          addLexerDiagnostic(state, context, index, index, DiagnosticCode.InvalidBigIntLiteral);
-        }
-
-        if (type === NumberKind.ImplicitOctal) {
-          state.index = index;
-          state.tokenValue = value;
-          return Token.NumericLiteral;
-        }
-      }
     }
+  }
 
-    let digit = 9;
+  let digit = 9;
 
+  while (cp <= Char.Nine && cp >= Char.Zero) {
+    value = value * 10 + (cp - Char.Zero);
+    cp = state.source.charCodeAt(++index);
+    --digit;
+  }
+
+  if (
+    digit >= 0 &&
+    (AsciiCharTypes[cp] & 0b000000011) === 0 &&
+    type !== NumberKind.DecimalWithLeadingZero &&
+    cp !== Char.Period
+  ) {
+    // Most numbers are pure decimal integers without fractional component
+    // or exponential notation - handle that with optimized code
+    state.tokenValue = value;
+    state.index = index;
+    return Token.NumericLiteral;
+  }
+
+  if (cp === Char.Period) {
+    disallowBigInt = true;
+    token = Token.FloatingPointLiteral;
+    cp = state.source.charCodeAt(++index);
     while (cp <= Char.Nine && cp >= Char.Zero) {
-      value = value * 10 + (cp - Char.Zero);
-      cp = source.charCodeAt(++index);
-      --digit;
-    }
-
-    if (
-      digit >= 0 &&
-      (AsciiCharTypes[cp] & 0b000000011) === 0 &&
-      type !== NumberKind.DecimalWithLeadingZero &&
-      cp !== Char.Period
-    ) {
-      // Most numbers are pure decimal integers without fractional component
-      // or exponential notation - handle that with optimized code
-      state.tokenValue = value;
-      state.index = index;
-      return Token.NumericLiteral;
-    }
-
-    if (cp === Char.Period) {
-      disallowBigInt = true;
-      token = Token.FloatingPointLiteral;
-      cp = source.charCodeAt(++index);
-      while (cp <= Char.Nine && cp >= Char.Zero) {
-        cp = source.charCodeAt(++index);
-      }
+      cp = state.source.charCodeAt(++index);
     }
   }
 
@@ -407,7 +397,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
       // It's safe to continue to parse as normal in 'recovery mode'
       addLexerDiagnostic(state, context, index, index, DiagnosticCode.InvalidBigIntLiteral);
     }
-    state.tokenValue = source.slice(start, index);
+    state.tokenValue = state.source.slice(start, index);
     state.index = index + 1; // skips: 'n'
     return Token.BigIntLiteral;
   }
@@ -418,18 +408,18 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
   // e-<number>   E-<number>
   if ((cp | 32) === Char.LowerE) {
     index++;
-    cp = source.charCodeAt(index);
+    cp = state.source.charCodeAt(index);
     state.cst |= ConcreteSyntax.Scientific;
     // e+ or E+ or e- or E-
     if (cp === Char.Plus || cp === Char.Hyphen) {
       index++;
-      cp = source.charCodeAt(index);
+      cp = state.source.charCodeAt(index);
     }
     let digits = 0;
 
     // e+<number> or E+<number> or e-<number> or E-<number>
     while (cp <= Char.Nine && cp >= Char.Zero) {
-      cp = source.charCodeAt(++index);
+      cp = state.source.charCodeAt(++index);
       digits++;
     }
     if (digits === 0) {
@@ -449,6 +439,53 @@ export function scanNumber(state: ParserState, context: Context, cp: number, isF
   }
 
   state.index = index;
-  state.tokenValue = parseFloat(source.slice(start, index));
+  state.tokenValue = parseFloat(state.source.slice(start, index));
   return token;
+}
+
+export function parseFloatingPointLiteral(state: ParserState, context: Context, cp: number): Token {
+  const start = state.index;
+
+  do {
+    cp = state.source.charCodeAt(++state.index);
+  } while (cp <= Char.Nine && cp >= Char.Zero);
+
+  // If we see an 'e' or 'E' we should only consume it if its of the form:
+  // e<number> or E<number>
+  // e+<number>   E+<number>
+  // e-<number>   E-<number>
+  if ((cp | 32) === Char.LowerE) {
+    state.index++;
+    cp = state.source.charCodeAt(state.index);
+    state.cst |= ConcreteSyntax.Scientific;
+    // e+ or E+ or e- or E-
+    if (cp === Char.Plus || cp === Char.Hyphen) {
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+    }
+    let digits = 0;
+
+    // e+<number> or E+<number> or e-<number> or E-<number>
+    while (cp <= Char.Nine && cp >= Char.Zero) {
+      cp = state.source.charCodeAt(++state.index);
+      digits++;
+    }
+    if (digits === 0) {
+      addLexerDiagnostic(state, context, state.index, state.index, DiagnosticCode.MissingExponent);
+      // For cases like '1e!', '1e€' etc we do a 'state.index + 1' so we can consume the
+      // invalid char. If we do it this way, we will avoid parsing out an invalid
+      // 'UnaryExpression for cases like '1e!' and for this last case - '1e€', the '€'
+      // will be consumed anyway and never seen again.
+      state.index++;
+    }
+  }
+  // https://tc39.github.io/ecma262/#sec-literals-numeric-literals
+  // The SourceCharacter immediately following a NumericLiteral must not be an IdentifierStart or DecimalDigit.
+  // For example : 3in is an error and not the two input elements 3 and in
+  if ((AsciiCharTypes[cp] & 0b00000000000000000000000000000011) > 0) {
+    addLexerDiagnostic(state, context, state.index, state.index, DiagnosticCode.IdafterNumber);
+  }
+
+  state.tokenValue = parseFloat(state.source.slice(start, state.index));
+  return Token.FloatingPointLiteral;
 }
