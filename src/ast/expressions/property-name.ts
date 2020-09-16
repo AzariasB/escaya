@@ -1,5 +1,6 @@
 import { Node } from '../node';
-import { Expression, PropertyKey } from '.';
+import { PropertyKey } from '.';
+import { AssignmentExpression } from './assignment-expr';
 import { BindingElement } from './binding-element';
 import { AssignmentElement } from './assignment-element';
 
@@ -8,12 +9,12 @@ import { AssignmentElement } from './assignment-element';
  */
 export interface PropertyName extends Node {
   readonly key: PropertyKey;
-  readonly value: Expression | BindingElement | AssignmentElement;
+  readonly value: AssignmentExpression | BindingElement | AssignmentElement;
 }
 
 export function createPropertyName(
   key: PropertyKey,
-  value: Expression | BindingElement | AssignmentElement
+  value: AssignmentExpression | BindingElement | AssignmentElement
 ): PropertyName {
   return {
     type: 'PropertyName',

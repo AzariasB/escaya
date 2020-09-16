@@ -11,9 +11,8 @@ import { Node } from '../node';
 
 export type Properties =
   | PropertyName
-  | CoverInitializedName
+  | CoverInitializedName // *recovery mode*
   | MethodDefinition
-  | LeftHandSideExpression
   | SpreadProperty;
 
 export interface ObjectLiteral extends Node {

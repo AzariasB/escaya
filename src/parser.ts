@@ -1927,7 +1927,11 @@ export function parseConditionalExpression(
     state,
     context,
     start,
-    DictionaryMap.ConditionalExpression(shortCircuit, consequent, alternate),
+    DictionaryMap.ConditionalExpression(
+      shortCircuit,
+      consequent as AssignmentExpression,
+      alternate as AssignmentExpression
+    ),
     SyntaxKind.ConditionalExpression
   );
 }
@@ -2825,7 +2829,13 @@ export function parseBindingProperty(
     if (consumeOpt(state, context, Token.Colon)) {
       left = finishNode(state, context, start, DictionaryMap.IdentifierName(tokenValue), SyntaxKind.Identifier);
       const right = parseBindingElement(state, context, scope, type);
-      return finishNode(state, context, start, DictionaryMap.PropertyName(left, right), SyntaxKind.PropertyName);
+      return finishNode(
+        state,
+        context,
+        start,
+        DictionaryMap.PropertyName(left, right as BindingElement),
+        SyntaxKind.PropertyName
+      );
     }
     validateIdentifier(state, context, token, start);
     addVarOrBlock(state, context, scope, tokenValue, type);
@@ -2839,7 +2849,13 @@ export function parseBindingProperty(
   left = parsePropertyName(state, context);
   consumeOpt(state, context, Token.Colon);
   const right = parseBindingElement(state, context, scope, type);
-  return finishNode(state, context, start, DictionaryMap.PropertyName(left, right), SyntaxKind.PropertyName);
+  return finishNode(
+    state,
+    context,
+    start,
+    DictionaryMap.PropertyName(left, right as BindingElement),
+    SyntaxKind.PropertyName
+  );
 }
 
 // BindingElement :
@@ -3531,7 +3547,13 @@ export function parsePropertyDefinition(
     }
 
     state.destructible = destructible;
-    return finishNode(state, context, startIndex, DictionaryMap.PropertyName(key, value), SyntaxKind.PropertyName);
+    return finishNode(
+      state,
+      context,
+      startIndex,
+      DictionaryMap.PropertyName(key, value as AssignmentExpression),
+      SyntaxKind.PropertyName
+    );
   }
 
   addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ColonExpected, DiagnosticKind.Error);

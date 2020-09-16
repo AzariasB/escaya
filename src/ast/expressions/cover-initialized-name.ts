@@ -3,7 +3,7 @@ import { Expression } from '.';
 import { IdentifierName } from './identifiername';
 
 /**
- * CoverInitializedName.
+ * CoverInitializedName
  */
 export interface CoverInitializedName extends Node {
   readonly left: Expression | IdentifierName | null;

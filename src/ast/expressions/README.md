@@ -400,9 +400,9 @@ interface ConciseBody <: Expression {
 ```js
 interface ConditionalExpression  <: Expression {
     type: 'ConditionalExpression';
-    shortCircuit: Expression;
-    consequent: Expression;
-    alternate: Expression;
+    shortCircuit: BinaryExpression | Expression;
+    consequent: AssignmentExpression;
+    alternate: AssignmentExpression;
 }
 ```
 
@@ -699,7 +699,7 @@ enum PropertyKey {
 interface PropertyName <: Expression {
     type: 'PropertyName';
     key: PropertyKey;
-    value: Expression;
+    value: AssignmentExpression | BindingElement | AssignmentElement;
 }
 ```
 

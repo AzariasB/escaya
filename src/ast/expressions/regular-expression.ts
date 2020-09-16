@@ -1,4 +1,4 @@
-import { SyntaxKind, Node } from '../node';
+import { Node } from '../node';
 
 export type RegExpFlags = 'g' | 'i' | 'm' | 'u' | 's' | 'y';
 
@@ -6,7 +6,6 @@ export type RegExpFlags = 'g' | 'i' | 'm' | 'u' | 's' | 'y';
  * Regular expression literal
  */
 export interface RegularExpressionLiteral extends Node {
-  readonly kind?: SyntaxKind.RegularExpressionLiteral;
   readonly pattern: string;
   readonly flag: string;
 }

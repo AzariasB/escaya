@@ -1,7 +1,7 @@
 import { Node } from '../node';
 
 /**
- * Import call.
+ * Import Meta
  */
 export type ImportMeta = Node;
 

@@ -2,7 +2,7 @@ import { Node } from '../node';
 import { Expression } from '.';
 
 /**
- * Import call.
+ * Import call
  */
 export interface ImportCall extends Node {
   readonly import: Expression;

@@ -1,7 +1,7 @@
 import { Node } from '../node';
 
 /**
- * IdentifierName.
+ * IdentifierName
  */
 export interface IdentifierName extends Node {
   readonly name: string;
