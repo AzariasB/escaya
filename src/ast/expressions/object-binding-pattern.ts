@@ -10,13 +10,13 @@ import { Node } from '../node';
  * Object binding pattern.
  */
 export interface ObjectBindingPattern extends Node {
-  readonly properties: (PropertyName | BindingRestProperty | BindingElement | BindingIdentifier)[];
+  readonly properties: (PropertyName | BindingRestProperty | BindingIdentifier)[];
   /* @internal */
   readonly parent?: BindingElement | VariableDeclaration | Parameter;
 }
 
 export function createObjectBindingPattern(
-  properties: (PropertyName | BindingRestProperty | BindingElement | BindingIdentifier)[]
+  properties: (PropertyName | BindingRestProperty | BindingIdentifier)[]
 ): ObjectBindingPattern {
   return {
     type: 'ObjectBindingPattern',

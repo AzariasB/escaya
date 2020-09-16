@@ -740,24 +740,33 @@ interface PostfixUpdateExpression <: Expression {
 ```js
 interface ObjectLiteral <: Expression {
     type: 'ObjectLiteral';
-    properties: [ PropertyDefinition | MethodDefinition | SpreadProperty | CoverInitializedName | Expression ];
+    properties: [ IdentifierReference | PropertyName | CoverInitializedName | MethodDefinition | SpreadProperty ];
 }
 ```
+
+See [PropertyDefinition](https://tc39.es/ecma262/#prod-PropertyDefinition).
 
 ### ObjectBindingPattern
 
 ```js
 interface ObjectBindingPattern <: Expression {
     type: 'ObjectBindingPattern';
-    properties: [ PropertyName | BindingRestProperty | BindingElement | BindingIdentifier ];
+    properties: [ PropertyName | BindingRestProperty | BindingIdentifier ];
 }
 ```
+
+`BindingIdentifier` is equalent to `SingleNameBinding`
+
+See [BindingPropertyList](https://tc39.es/ecma262/#prod-BindingPropertyList).
+
 
 ### ObjectAssignmentPattern
 
 ```js
 interface ObjectAssignmentPattern <: Expression {
     type: 'ObjectAssignmentPattern';
-    properties: [ IdentifierReference | IdentifierName | AssignmentElement | AssignmentRestProperty ];
+    properties: [ IdentifierReference | PropertyName | AssignmentRestProperty ];
 }
 ```
+
+See [AssignmentProperty](https://tc39.es/ecma262/#prod-AssignmentProperty).

@@ -1,3 +1,4 @@
+import { PropertyName } from './ast/expressions/property-name';
 import { ImportCall } from './ast/expressions/import-call';
 import { TemplateLiteral } from './ast/expressions/template-literal';
 import { TemplateElement } from './ast/expressions/template-element';
@@ -2816,7 +2817,7 @@ export function parseBindingProperty(
   context: Context,
   scope: ScopeState,
   type: BindingType
-): BindingElement | BindingIdentifier {
+): PropertyName | BindingIdentifier {
   const start = state.startIndex;
   let left!: BindingIdentifier | IdentifierName;
   if (state.token & Constants.IdentifierOrKeyword) {
