@@ -129,6 +129,7 @@ export interface ParserState {
   index: number;
   line: number;
   columnOffset: number;
+  parent: number;
   lineTerminatorBeforeNextToken: boolean;
   positionForNextToken: number;
   lineForNextToken: number;
@@ -146,6 +147,7 @@ export interface ParserState {
   tokenRaw: string;
   destructible: Destructible;
   assignable: boolean;
+  comments: any[];
   diagnostics: any[];
   exportedNames: any;
   exportedBindings: any;
@@ -235,6 +237,14 @@ export function finishNode(state: ParserState, context: Context, start: number, 
   if (context & (Context.OptionsLoc | Context.ErrorRecovery)) {
     node.start = start;
     node.end = state.endIndex;
+    if (state.comments.length !== 0) {
+      if (state.parent === state.comments[0].parent) {
+        node.multiLine = { comment: state.comments[0].comment };
+        state.parent = -1;
+      }
+      console.log(state.comments[0]);
+      console.log(state.parent);
+    }
     if ((context & Context.ErrorRecovery) === Context.ErrorRecovery) {
       node.kind = kind;
       node.flags = NodeFlags.None;
