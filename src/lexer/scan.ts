@@ -268,7 +268,9 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
             // or `?.5` then it should be treated as a ternary rather than as an optional chain
             cp = state.source.charCodeAt(state.index);
 
-            if (cp >= Char.Zero && cp <= Char.Nine) return Token.QuestionMark;
+            if (cp >= Char.Zero && cp <= Char.Nine) {
+              return Token.QuestionMark;
+            }
 
             return Token.QuestionMarkPeriod;
           }
@@ -538,6 +540,10 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 }
 
 export function nextToken(state: ParserState, context: Context): void {
+  // Concrete syntax is unique for each node so we need to reset that
+  // information now
+  state.cst = ConcreteSyntax.Empty;
+  state.flags = (state.flags | Flags.HasFloatingNumber) ^ Flags.HasFloatingNumber;
   // Position of 'index' before whitespace.
   state.startIndex = state.index;
   state.lineTerminatorBeforeNextToken = false;

@@ -7,6 +7,8 @@ import { addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
 
 export function scanRegExp(state: ParserState, context: Context): Token {
+  // 1. Preparse the regexp, to see what slice to parse.
+
   if (state.index >= state.length) {
     addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnknownRegExpFlag, DiagnosticKind.Error);
   }
@@ -19,6 +21,8 @@ export function scanRegExp(state: ParserState, context: Context): Token {
     Class = 0x2
   }
 
+  // We *know* this can't be a `*`, because comments are tested first. Thus, we don't need to
+  // check for it.
   let preparseState = Preparse.Empty;
 
   while (true) {
@@ -47,6 +51,8 @@ export function scanRegExp(state: ParserState, context: Context): Token {
       }
     }
 
+    // If we reach the end of a file, or hit a newline, then this is an unterminated
+    // regex.  Report error and return what we have so far.
     if (state.index >= state.length) {
       addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedRegExp, DiagnosticKind.Error);
       break;
@@ -55,6 +61,8 @@ export function scanRegExp(state: ParserState, context: Context): Token {
 
   const bodyEnd = state.index - 1; // drop the slash from the slice
 
+  // 2. Parse the flags as normal, checking duplicates via a mask, and get them as a string.
+  // Note: we can't parse the body as the `u` flag *will* change how we parse it.
   const enum Flags {
     Empty = 0,
     Global = 0x01,

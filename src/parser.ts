@@ -22,6 +22,14 @@ import { RegularExpressionLiteral } from './ast/expressions/regular-expression';
 import { YieldExpression } from './ast/expressions/yield-expr';
 import { NewTarget } from './ast/expressions/new-target';
 import { AssignmentElement } from './ast/expressions/assignment-element';
+import {
+  Expression,
+  MethodName,
+  Parameter,
+  BindingPattern,
+  LeftHandSideExpression,
+  AssignmentPattern
+} from './ast/expressions/index';
 import { createIdentifier, createBindingIdentifier } from './incremental/common';
 import { MemberExpression } from './ast/expressions/member-expr';
 import { IdentifierReference, createIdentifierReference } from './ast/expressions/identifierreference';
@@ -90,14 +98,6 @@ import { nextToken } from './lexer/scan';
 import { scanTemplateTail } from './lexer/template';
 import { DictionaryMap } from './dictionary/dictionary-map';
 import { ScopeKind } from './scope/common';
-import {
-  Expression,
-  MethodName,
-  Parameter,
-  BindingPattern,
-  LeftHandSideExpression,
-  AssignmentPattern
-} from './ast/expressions/index';
 import {
   addDiagnostic,
   addparserDiagnostic,
@@ -181,7 +181,6 @@ export function create(source: string, nodeCursor?: any): ParserState {
     lineForNextToken: 0,
     columnForNextToken: 0,
     startIndex: 0,
-    parent: -1,
     endIndex: 0,
     endColumn: 0,
     regExpPattern: '',
@@ -189,7 +188,6 @@ export function create(source: string, nodeCursor?: any): ParserState {
     nodeHasError: false,
     positionBeforeToken: 0,
     length: source.length,
-    comments: [],
     token: 0,
     tokenValue: '',
     tokenRaw: '',
