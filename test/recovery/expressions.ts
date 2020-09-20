@@ -4162,7 +4162,6 @@ describe('Recovery - Expressions', () => {
   it('(a, (b)) => 42', () => {
     t.deepEqual(recovery('(a, (b)) => 42', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -4170,18 +4169,35 @@ describe('Recovery - Expressions', () => {
           expression: {
             type: 'ParenthesizedExpression',
             expression: {
-              type: 'ParenthesizedExpression',
-              expression: {
-                type: 'IdentifierReference',
-                name: 'b',
-                start: 5,
-                end: 6,
-                kind: 13,
-                flags: 0
-              },
-              start: 3,
+              type: 'CommaOperator',
+              expressions: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 1,
+                  end: 2,
+                  kind: 13,
+                  flags: 0
+                },
+                {
+                  type: 'ParenthesizedExpression',
+                  expression: {
+                    type: 'IdentifierReference',
+                    name: 'b',
+                    start: 5,
+                    end: 6,
+                    kind: 13,
+                    flags: 0
+                  },
+                  start: 3,
+                  end: 7,
+                  kind: 189,
+                  flags: 0
+                }
+              ],
+              start: 0,
               end: 7,
-              kind: 189,
+              kind: 147,
               flags: 0
             },
             start: 0,
@@ -4198,7 +4214,6 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-
             value: 42,
             start: 11,
             end: 14,
@@ -4231,6 +4246,7 @@ describe('Recovery - Expressions', () => {
       children: [],
       start: 0,
       length: 14,
+      webCompat: true,
       end: 14
     });
   });

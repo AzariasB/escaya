@@ -710,6 +710,7 @@ describe('Expressions - Arrow', () => {
     'let => x = b',
     'let => x, let => x',
     '({...obj} = {}) => {}',
+    '(a, (b, (c, d) => 0))',
     '(() => {}).x',
     '([a]) => b;',
     '([a=[b.c]=d]) => e;',

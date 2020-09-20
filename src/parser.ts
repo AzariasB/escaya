@@ -4505,9 +4505,19 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
         } else {
           destructible |= Destructible.NotDestructible;
 
-          expression = parseExpression(state, context);
+          expressions.push(parseExpression(state, context));
 
-          expression = parseCommaOperator(state, context, expression, start);
+          while (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
+            expressions.push(parseExpression(state, context));
+          }
+
+          expression = finishNode(
+            state,
+            context,
+            start,
+            DictionaryMap.CommaOperator(expressions),
+            SyntaxKind.CommaOperator
+          );
 
           consume(state, context, Token.RightParen);
 

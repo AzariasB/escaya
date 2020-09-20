@@ -1162,7 +1162,6 @@ describe('Recovery - Human', () => {
       recovery(`Let a1,a2,a3,......,an be a set of numbers, average = (a1 + a2 + a3,+......+ an)/n`, 'recovery.js'),
       {
         kind: 209,
-        webCompat: true,
         directives: [],
         leafs: [
           {
@@ -1330,19 +1329,68 @@ describe('Recovery - Human', () => {
                   right: {
                     type: 'ParenthesizedExpression',
                     expression: {
-                      type: 'UnaryExpression',
-                      operator: '+',
-                      operand: {
-                        type: 'IdentifierReference',
-                        name: '',
-                        start: 69,
-                        end: 69,
-                        kind: 13,
-                        flags: 2
-                      },
-                      start: 68,
+                      type: 'CommaOperator',
+                      expressions: [
+                        {
+                          type: 'BinaryExpression',
+                          left: {
+                            type: 'BinaryExpression',
+                            left: {
+                              type: 'IdentifierReference',
+                              name: 'a1',
+                              start: 55,
+                              end: 57,
+                              kind: 13,
+                              flags: 0
+                            },
+                            operator: '+',
+                            right: {
+                              type: 'IdentifierReference',
+                              name: 'a2',
+                              start: 59,
+                              end: 62,
+                              kind: 13,
+                              flags: 0
+                            },
+                            start: 55,
+                            end: 62,
+                            kind: 155,
+                            flags: 0
+                          },
+                          operator: '+',
+                          right: {
+                            type: 'IdentifierReference',
+                            name: 'a3',
+                            start: 64,
+                            end: 67,
+                            kind: 13,
+                            flags: 0
+                          },
+                          start: 55,
+                          end: 67,
+                          kind: 155,
+                          flags: 0
+                        },
+                        {
+                          type: 'UnaryExpression',
+                          operator: '+',
+                          operand: {
+                            type: 'IdentifierReference',
+                            name: '',
+                            start: 69,
+                            end: 69,
+                            kind: 13,
+                            flags: 2
+                          },
+                          start: 68,
+                          end: 69,
+                          kind: 160,
+                          flags: 0
+                        }
+                      ],
+                      start: 53,
                       end: 69,
-                      kind: 160,
+                      kind: 147,
                       flags: 0
                     },
                     start: 53,
@@ -1522,6 +1570,7 @@ describe('Recovery - Human', () => {
         children: [],
         start: 0,
         length: 82,
+        webCompat: true,
         end: 82
       }
     );

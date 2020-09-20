@@ -1948,7 +1948,6 @@ describe('Recovery - Try', () => {
   it('try(x, /a/,, catch', () => {
     t.deepEqual(recovery('try(x, /a/,, catch', 'recovery.js'), {
       kind: 209,
-      webCompat: true,
       directives: [],
       leafs: [
         {
@@ -1975,6 +1974,14 @@ describe('Recovery - Try', () => {
             expression: {
               type: 'CommaOperator',
               expressions: [
+                {
+                  type: 'IdentifierReference',
+                  name: 'x',
+                  start: 4,
+                  end: 5,
+                  kind: 13,
+                  flags: 0
+                },
                 {
                   type: 'RegularExpressionLiteral',
                   pattern: 'a',
@@ -2085,6 +2092,7 @@ describe('Recovery - Try', () => {
       children: [],
       start: 0,
       length: 18,
+      webCompat: true,
       end: 18
     });
   });
