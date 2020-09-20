@@ -11,6 +11,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [],
             contents: {
               type: 'ParenthesizedExpression',
@@ -84,6 +85,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
             arguments: [
               {
                 type: 'ArrowFunction',
+                arrowParameters: true,
                 params: [],
                 contents: {
                   type: 'IdentifierReference',
@@ -145,16 +147,15 @@ describe('Recovery - Expressions - Async Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'yield',
-                start: 5,
-                end: 11,
-                kind: 168,
-                flags: 0
-              }
-            ],
+            arrowParameters: false,
+            params: {
+              type: 'BindingIdentifier',
+              name: 'yield',
+              start: 5,
+              end: 11,
+              kind: 168,
+              flags: 0
+            },
             contents: {
               type: 'ParenthesizedExpression',
               expression: {
@@ -226,6 +227,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [],
             contents: {
               type: 'ParenthesizedExpression',
@@ -325,16 +327,15 @@ describe('Recovery - Expressions - Async Arrows', () => {
               },
               {
                 type: 'ArrowFunction',
-                params: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'await',
-                    start: 26,
-                    end: 32,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
+                arrowParameters: false,
+                params: {
+                  type: 'BindingIdentifier',
+                  name: 'await',
+                  start: 26,
+                  end: 32,
+                  kind: 168,
+                  flags: 0
+                },
                 contents: {
                   type: 'ParenthesizedExpression',
                   expression: {
@@ -410,16 +411,15 @@ describe('Recovery - Expressions - Async Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'await',
-                start: 5,
-                end: 11,
-                kind: 168,
-                flags: 0
-              }
-            ],
+            arrowParameters: false,
+            params: {
+              type: 'BindingIdentifier',
+              name: 'await',
+              start: 5,
+              end: 11,
+              kind: 168,
+              flags: 0
+            },
             contents: {
               type: 'ParenthesizedExpression',
               expression: {
@@ -589,16 +589,15 @@ describe('Recovery - Expressions - Async Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'a',
-                start: 5,
-                end: 7,
-                kind: 168,
-                flags: 0
-              }
-            ],
+            arrowParameters: false,
+            params: {
+              type: 'BindingIdentifier',
+              name: 'a',
+              start: 5,
+              end: 7,
+              kind: 168,
+              flags: 0
+            },
             contents: {
               type: 'IdentifierReference',
               name: '',
@@ -691,6 +690,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'ArrayBindingPattern',
@@ -972,6 +972,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'ArrowFunction',
+              arrowParameters: true,
               params: [],
               contents: {
                 type: 'IdentifierReference',
@@ -1020,114 +1021,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
       length: 12,
       webCompat: true,
       end: 12
-    });
-  });
-
-  it('(() async =>() =>', () => {
-    t.deepEqual(recovery('(() async =>() =>', 'recovery.js'), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'ParenthesizedExpression',
-            expression: {
-              type: 'ParenthesizedExpression',
-              expression: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 3,
-                end: 3,
-                kind: 13,
-                flags: 2
-              },
-              start: 1,
-              end: 3,
-              kind: 189,
-              flags: 0
-            },
-            start: 0,
-            end: 3,
-            kind: 189,
-            flags: 0
-          },
-          start: 0,
-          end: 3,
-          kind: 122,
-          flags: 0
-        },
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'ArrowFunction',
-            params: {
-              type: 'IdentifierReference',
-              name: 'async',
-              start: 3,
-              end: 9,
-              kind: 13,
-              flags: 0
-            },
-            contents: {
-              type: 'ArrowFunction',
-              params: [],
-              contents: {
-                type: 'IdentifierReference',
-                name: '',
-                start: 17,
-                end: 17,
-                kind: 13,
-                flags: 2
-              },
-              async: false,
-              start: 12,
-              end: 17,
-              kind: 188,
-              flags: 0
-            },
-            async: false,
-            start: 3,
-            end: 17,
-            kind: 188,
-            flags: 0
-          },
-          start: 3,
-          end: 17,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: '(() async =>() =>',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`=>` expected',
-          code: 46,
-          start: 4,
-          length: 5
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: 'Expression expected',
-          code: 7,
-          start: 15,
-          length: 2
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 17,
-      webCompat: true,
-      end: 17
     });
   });
 });

@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Async Function', () => {
   it('async function f(x = await', () => {
-    t.deepEqual(recovery('async function f(x = await', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function f(x = await', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -92,7 +92,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function f(await){', () => {
-    t.deepEqual(recovery('async function f(await){', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function f(await){', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -167,7 +167,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function f(){ let', () => {
-    t.deepEqual(recovery('async function f(){ let', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function f(){ let', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -241,7 +241,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function f() { let y = await x *', () => {
-    t.deepEqual(recovery('async function f() { let y = await x *', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function f() { let y = await x *', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -356,7 +356,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function x({x}', () => {
-    t.deepEqual(recovery('async function x({x}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function x({x}', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
@@ -432,7 +432,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function x({x, y) { var z =', () => {
-    t.deepEqual(recovery('async function x({x, y) { var z =', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function x({x, y) { var z =', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
@@ -557,7 +557,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('"use strict"; async function a() {{', () => {
-    t.deepEqual(recovery('"use strict"; async function a() {{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; async function a() {{', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [
@@ -634,7 +634,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function foo(a = () => x) { var x; return', () => {
-    t.deepEqual(recovery('async function foo(a = () => x) { var x; return', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function foo(a = () => x) { var x; return', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
@@ -663,6 +663,7 @@ describe('Recovery - Async Function', () => {
               },
               right: {
                 type: 'ArrowFunction',
+                arrowParameters: true,
                 params: [],
                 contents: {
                   type: 'IdentifierReference',
@@ -759,7 +760,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function foo(/ {', () => {
-    t.deepEqual(recovery('async function foo(/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function foo(/ {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -856,7 +857,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('function async foo(/ {', () => {
-    t.deepEqual(recovery('function async foo(/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function async foo(/ {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -955,7 +956,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('!!function async foo(/ {', () => {
-    t.deepEqual(recovery('!!function async foo(/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!!function async foo(/ {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1077,7 +1078,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function async function async function foo(/ {', () => {
-    t.deepEqual(recovery('async function async function async function foo(/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function async function async function foo(/ {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1244,7 +1245,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('function foo(/ !{ async function', () => {
-    t.deepEqual(recovery('function foo(/ !{ async function', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function foo(/ !{ async function', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1380,7 +1381,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function yield', () => {
-    t.deepEqual(recovery('async function yield', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function yield', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1438,7 +1439,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function* x(a, b, ...c', () => {
-    t.deepEqual(recovery('async function* x(a, b, ...c', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function* x(a, b, ...c', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1528,7 +1529,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function f() {   class x {', () => {
-    t.deepEqual(recovery('async function f() {   class x {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function f() {   class x {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1604,7 +1605,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function fn() { const x = await import(a(', () => {
-    t.deepEqual(recovery('async function fn() { const x = await import(a(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function fn() { const x = await import(a(', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1718,7 +1719,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function fn() { (await x).a foo(/ {', () => {
-    t.deepEqual(recovery('async function fn() { (await x).a foo(/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function fn() { (await x).a foo(/ {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1863,7 +1864,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function f() { for await (x[a in', () => {
-    t.deepEqual(recovery('async function f() { for await (x[a in', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function f() { for await (x[a in', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2001,7 +2002,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function f13({x}, y, [z], v) { var x,', () => {
-    t.deepEqual(recovery('async function f13({x}, y, [z], v) { var x,', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function f13({x}, y, [z], v) { var x,', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [
@@ -2136,7 +2137,7 @@ describe('Recovery - Async Function', () => {
   });
 
   it('async function* f([{ x, y, z } = { x: 44, y: 55, z: 66', () => {
-    t.deepEqual(recovery('async function* f([{ x, y, z } = { x: 44, y: 55, z: 66', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function* f([{ x, y, z } = { x: 44, y: 55, z: 66', 'recovery.js'), {
       kind: 209,
       directives: [],
       leafs: [

@@ -118,6 +118,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'BindingRestElement',

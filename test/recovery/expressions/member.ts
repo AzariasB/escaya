@@ -893,16 +893,15 @@ describe('Recovery - Expressions - Member', () => {
               operator: '!',
               operand: {
                 type: 'ArrowFunction',
-                params: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'x',
-                    start: 11,
-                    end: 12,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
+                arrowParameters: false,
+                params: {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 11,
+                  end: 12,
+                  kind: 168,
+                  flags: 0
+                },
                 contents: {
                   type: 'FunctionBody',
                   directives: [],

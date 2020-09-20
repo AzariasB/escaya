@@ -76,12 +76,13 @@ describe('Recovery - Expressions - Async', () => {
             arguments: [
               {
                 type: 'ArrowFunction',
+                arrowParameters: false,
                 params: {
-                  type: 'IdentifierReference',
+                  type: 'BindingIdentifier',
                   name: 'async',
                   start: 6,
                   end: 11,
-                  kind: 13,
+                  kind: 168,
                   flags: 0
                 },
                 contents: {

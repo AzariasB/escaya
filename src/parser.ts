@@ -1766,7 +1766,8 @@ export function parseLetAsIdentifierReference(
       state,
       context,
       {},
-      [finishNode(state, context, start, DictionaryMap.BindingIdentifier('let'), SyntaxKind.BindingIdentifier)],
+      false,
+      finishNode(state, context, start, DictionaryMap.BindingIdentifier('let'), SyntaxKind.BindingIdentifier),
       ArrowKind.NORMAL,
       start
     );
@@ -2475,7 +2476,7 @@ export function parsePrimaryExpression(
       return parseArrowAfterIdentifier(
         state,
         context,
-        [finishNode(state, context, start, DictionaryMap.BindingIdentifier(value), SyntaxKind.BindingIdentifier)],
+        finishNode(state, context, start, DictionaryMap.BindingIdentifier(value), SyntaxKind.BindingIdentifier),
         value,
         assignable,
         ArrowKind.NORMAL,
@@ -2879,7 +2880,7 @@ export function parseBindingElement(
   type: BindingType
 ): BindingElement | BindingIdentifier | BindingPattern {
   const start = state.startIndex;
-  let left =
+  const left =
     state.token & Token.IsPatternStart
       ? parseBindingPattern(state, context, scope, type)
       : parseBindingIdentifier(state, context, scope, type);
@@ -3893,7 +3894,8 @@ export function parseAsyncArrowExpression(
         state,
         context,
         {},
-        [parseBindingIdentifier(state, context, {}, BindingType.None)],
+        false,
+        parseBindingIdentifier(state, context, {}, BindingType.None),
         ArrowKind.ASYNC,
         start
       );
@@ -3914,7 +3916,15 @@ export function parseAsyncArrowExpression(
 
   // IdentifierReference [no LineTerminator here] `=>`
   if (state.token === Token.Arrow) {
-    return parseArrowFunction(state, context, {}, expr, ArrowKind.NORMAL, start);
+    return parseArrowFunction(
+      state,
+      context,
+      {},
+      false,
+      finishNode(state, context, start, DictionaryMap.BindingIdentifier('async'), SyntaxKind.BindingIdentifier),
+      ArrowKind.NORMAL,
+      start
+    );
   }
   state.assignable = true;
   // `async`
@@ -4025,7 +4035,7 @@ export function parseAsyncArrowDeclaration(state: ParserState, context: Context,
       let expr: any = parseArrowAfterIdentifier(
         state,
         context,
-        [parseBindingIdentifier(state, context, {}, BindingType.None)],
+        parseBindingIdentifier(state, context, {}, BindingType.None),
         value,
         true,
         ArrowKind.ASYNC,
@@ -4043,12 +4053,20 @@ export function parseAsyncArrowDeclaration(state: ParserState, context: Context,
     return parseLabelledStatement(state, context, void 0, Token.AsyncKeyword, 'async', [], null, false, start);
   }
 
-  // `async ()`, `async () => ...`
-  if (state.token === Token.LeftParen) {
+  if (state.token === Token.Arrow) {
+    expr = parseArrowAfterIdentifier(
+      state,
+      context,
+      finishNode(state, context, start, DictionaryMap.BindingIdentifier('async'), SyntaxKind.BindingIdentifier),
+      'async',
+      true,
+      ArrowKind.NORMAL,
+      start
+    );
+    // `async ()`, `async () => ...`
+  } else if (state.token === Token.LeftParen) {
     expr = parseCoverCallExpressionAndAsyncArrowHead(state, context, expr, hasLineTerminator, true, start);
     // `async => ...`
-  } else if (state.token === Token.Arrow) {
-    expr = parseArrowAfterIdentifier(state, context, expr, 'async', true, ArrowKind.NORMAL, start);
   }
   state.assignable = true;
   // `async++`, `async`\n${0}`:`, `async?.()`
@@ -4060,7 +4078,7 @@ export function parseAsyncArrowDeclaration(state: ParserState, context: Context,
 export function parseArrowAfterIdentifier(
   state: ParserState,
   context: Context,
-  params: ArrowFormals[],
+  params: BindingIdentifier,
   value: string,
   assignable: boolean,
   kind: ArrowKind,
@@ -4075,7 +4093,7 @@ export function parseArrowAfterIdentifier(
   }
   const scope = createParentScope(createScope(), ScopeKind.ArrowParams);
   addBlockName(state, context, scope, value, BindingType.ArgumentList);
-  return parseArrowFunction(state, context, scope, params, kind, start);
+  return parseArrowFunction(state, context, scope, false, params, kind, start);
 }
 
 // `CoverCallExpressionAndAsyncArrowHead : MemberExpressionArguments`
@@ -4093,7 +4111,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
   if (consumeOpt(state, context, Token.RightParen)) {
     if (state.token === Token.Arrow) {
       if (hasLineTerminator) addEarlyDiagnostic(state, context, DiagnosticCode.AsyncLineT);
-      return parseArrowFunction(state, context, scope, [], ArrowKind.ASYNC, start);
+      return parseArrowFunction(state, context, scope, true, [], ArrowKind.ASYNC, start);
     }
 
     return finishNode(state, context, start, DictionaryMap.CallExpression(expr, []), SyntaxKind.CallExpression);
@@ -4202,7 +4220,8 @@ export function parseArrowFunction(
   state: ParserState,
   context: Context,
   scope: any,
-  parameters: ArrowFormals[],
+  arrowParameters: boolean,
+  parameters: any,
   isAsync: ArrowKind,
   start: number
 ): ArrowFunction {
@@ -4211,17 +4230,23 @@ export function parseArrowFunction(
     ((context | 0b0000000111100000000_0000_00000000) ^ 0b0000000111100000000_0000_00000000) |
     (isAsync << 22) |
     Context.Return;
-
-  let i = parameters.length;
-  while (i--) {
-    reinterpretToPattern(parameters[i]);
+  if (arrowParameters) {
+    let i = parameters.length;
+    while (i--) {
+      reinterpretToPattern(parameters[i]);
+    }
   }
   state.assignable = false;
   return finishNode(
     state,
     context,
     start,
-    DictionaryMap.ArrowFunction(parameters, parseConciseOrFunctionBody(state, context, scope), isAsync === 1),
+    DictionaryMap.ArrowFunction(
+      parameters,
+      parseConciseOrFunctionBody(state, context, scope),
+      arrowParameters,
+      isAsync === 1
+    ),
     SyntaxKind.ArrowFunction
   );
 }
@@ -4351,7 +4376,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
     if (state.token === Token.Ellipsis) {
       const param = parseBindingRestElement(state, context, scope, BindingType.ArgumentList);
       consume(state, context, Token.RightParen);
-      return parseArrowFunction(state, context, scope, [param], ArrowKind.NORMAL, start);
+      return parseArrowFunction(state, context, scope, true, [param], ArrowKind.NORMAL, start);
     }
 
     if (state.token & Constants.IdentifierOrKeyword) {
@@ -4583,7 +4608,7 @@ export function parseArrowAfterParen(
     addEarlyDiagnostic(state, context, DiagnosticCode.LHSADestruct);
   }
 
-  return parseArrowFunction(state, context, scope, params, kind, start);
+  return parseArrowFunction(state, context, scope, true, params, kind, start);
 }
 
 // ClassDeclaration :

@@ -1314,6 +1314,7 @@ describe('Recovery - Expressions', () => {
                           type: 'ExpressionStatement',
                           expression: {
                             type: 'ArrowFunction',
+                            arrowParameters: true,
                             params: [],
                             contents: {
                               type: 'NewExpression',
@@ -5456,6 +5457,7 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'BindingRestElement',
@@ -5642,6 +5644,7 @@ describe('Recovery - Expressions', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'BindingRestElement',

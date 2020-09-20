@@ -747,6 +747,7 @@ describe('test262-parser-tests - early tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'BindingIdentifier',
@@ -2210,6 +2211,7 @@ describe('test262-parser-tests - early tests', () => {
               type: 'ParenthesizedExpression',
               expression: {
                 type: 'ArrowFunction',
+                arrowParameters: true,
                 params: [
                   {
                     type: 'BindingRestElement',
@@ -2374,6 +2376,7 @@ describe('test262-parser-tests - early tests', () => {
                 type: 'ExpressionStatement',
                 expression: {
                   type: 'ArrowFunction',
+                  arrowParameters: true,
                   params: [
                     {
                       type: 'ObjectBindingPattern',
@@ -2815,6 +2818,7 @@ describe('test262-parser-tests - early tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'ArrayBindingPattern',
@@ -3475,6 +3479,7 @@ describe('test262-parser-tests - early tests', () => {
                 type: 'ExpressionStatement',
                 expression: {
                   type: 'ArrowFunction',
+                  arrowParameters: true,
                   params: [
                     {
                       type: 'BindingElement',
@@ -5791,6 +5796,7 @@ describe('test262-parser-tests - early tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'ObjectBindingPattern',
@@ -6479,6 +6485,7 @@ describe('test262-parser-tests - early tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'BindingIdentifier',

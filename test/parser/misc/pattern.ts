@@ -493,6 +493,7 @@ describe('Misc - Pattern', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'BindingIdentifier',

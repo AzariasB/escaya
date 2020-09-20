@@ -56,85 +56,6 @@ describe('Recovery - Expressions - Call', () => {
     });
   });
 
-  it('async(async => c', () => {
-    t.deepEqual(recovery('async(async => c', 'recovery.js'), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'CallExpression',
-            expression: {
-              type: 'IdentifierReference',
-              name: 'async',
-              start: 0,
-              end: 5,
-              kind: 13,
-              flags: 0
-            },
-            arguments: [
-              {
-                type: 'ArrowFunction',
-                params: {
-                  type: 'IdentifierReference',
-                  name: 'async',
-                  start: 6,
-                  end: 11,
-                  kind: 13,
-                  flags: 0
-                },
-                contents: {
-                  type: 'IdentifierReference',
-                  name: 'c',
-                  start: 14,
-                  end: 16,
-                  kind: 13,
-                  flags: 0
-                },
-                async: false,
-                start: 6,
-                end: 16,
-                kind: 188,
-                flags: 0
-              }
-            ],
-            start: 0,
-            end: 16,
-            kind: 156,
-            flags: 0
-          },
-          start: 0,
-          end: 16,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: 'async(async => c',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`)` expected',
-          code: 5,
-          start: 15,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 16,
-      webCompat: true,
-      end: 16
-    });
-  });
-
   it('foo(/ {', () => {
     t.deepEqual(recovery('foo(/ {', 'recovery.js'), {
       kind: 209,
@@ -219,16 +140,15 @@ describe('Recovery - Expressions - Call', () => {
             arguments: [
               {
                 type: 'ArrowFunction',
-                params: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'x',
-                    start: 11,
-                    end: 13,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
+                arrowParameters: false,
+                params: {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 11,
+                  end: 13,
+                  kind: 168,
+                  flags: 0
+                },
                 contents: {
                   type: 'IdentifierReference',
                   name: 'c',
@@ -371,85 +291,6 @@ describe('Recovery - Expressions - Call', () => {
       start: 0,
       length: 18,
       end: 18
-    });
-  });
-
-  it('async(async  => c', () => {
-    t.deepEqual(recovery('async(async  => c', 'recovery.js'), {
-      kind: 209,
-      directives: [],
-      leafs: [
-        {
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'CallExpression',
-            expression: {
-              type: 'IdentifierReference',
-              name: 'async',
-              start: 0,
-              end: 5,
-              kind: 13,
-              flags: 0
-            },
-            arguments: [
-              {
-                type: 'ArrowFunction',
-                params: {
-                  type: 'IdentifierReference',
-                  name: 'async',
-                  start: 6,
-                  end: 11,
-                  kind: 13,
-                  flags: 0
-                },
-                contents: {
-                  type: 'IdentifierReference',
-                  name: 'c',
-                  start: 15,
-                  end: 17,
-                  kind: 13,
-                  flags: 0
-                },
-                async: false,
-                start: 6,
-                end: 17,
-                kind: 188,
-                flags: 0
-              }
-            ],
-            start: 0,
-            end: 17,
-            kind: 156,
-            flags: 0
-          },
-          start: 0,
-          end: 17,
-          kind: 122,
-          flags: 0
-        }
-      ],
-      text: 'async(async  => c',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`)` expected',
-          code: 5,
-          start: 16,
-          length: 1
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 17,
-      webCompat: true,
-      end: 17
     });
   });
 
@@ -708,16 +549,15 @@ describe('Recovery - Expressions - Call', () => {
                 type: 'AssignmentRestElement',
                 argument: {
                   type: 'ArrowFunction',
-                  params: [
-                    {
-                      type: 'BindingIdentifier',
-                      name: 'x',
-                      start: 11,
-                      end: 12,
-                      kind: 168,
-                      flags: 0
-                    }
-                  ],
+                  arrowParameters: false,
+                  params: {
+                    type: 'BindingIdentifier',
+                    name: 'x',
+                    start: 11,
+                    end: 12,
+                    kind: 168,
+                    flags: 0
+                  },
                   contents: {
                     type: 'IdentifierReference',
                     name: '',
@@ -805,16 +645,15 @@ describe('Recovery - Expressions - Call', () => {
               operator: '>',
               right: {
                 type: 'ArrowFunction',
-                params: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'a',
-                    start: 8,
-                    end: 10,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
+                arrowParameters: false,
+                params: {
+                  type: 'BindingIdentifier',
+                  name: 'a',
+                  start: 8,
+                  end: 10,
+                  kind: 168,
+                  flags: 0
+                },
                 contents: {
                   type: 'ParenthesizedExpression',
                   expression: {
@@ -947,16 +786,15 @@ describe('Recovery - Expressions - Call', () => {
               operator: '>',
               right: {
                 type: 'ArrowFunction',
-                params: [
-                  {
-                    type: 'BindingIdentifier',
-                    name: 'a',
-                    start: 9,
-                    end: 11,
-                    kind: 168,
-                    flags: 0
-                  }
-                ],
+                arrowParameters: false,
+                params: {
+                  type: 'BindingIdentifier',
+                  name: 'a',
+                  start: 9,
+                  end: 11,
+                  kind: 168,
+                  flags: 0
+                },
                 contents: {
                   type: 'ParenthesizedExpression',
                   expression: {
@@ -1090,16 +928,15 @@ describe('Recovery - Expressions - Call', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'a',
-                start: 9,
-                end: 11,
-                kind: 168,
-                flags: 0
-              }
-            ],
+            arrowParameters: false,
+            params: {
+              type: 'BindingIdentifier',
+              name: 'a',
+              start: 9,
+              end: 11,
+              kind: 168,
+              flags: 0
+            },
             contents: {
               type: 'ParenthesizedExpression',
               expression: {

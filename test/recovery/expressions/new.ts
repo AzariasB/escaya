@@ -539,6 +539,7 @@ describe('Recovery - Expressions - New', () => {
                 arguments: [
                   {
                     type: 'ArrowFunction',
+                    arrowParameters: true,
                     params: [],
                     contents: {
                       type: 'FunctionBody',

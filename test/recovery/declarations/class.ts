@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Class', () => {
   it('class foo { "static *async ', () => {
-    t.deepEqual(recovery('class foo { "static *async ', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class foo { "static *async ', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -66,7 +66,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class foo(/ {', () => {
-    t.deepEqual(recovery('class foo(/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class foo(/ {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -145,7 +145,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class { adf&/()})', () => {
-    t.deepEqual(recovery('class { adf&/()})', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class { adf&/()})', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -273,7 +273,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class x{[yield](a){}}', () => {
-    t.deepEqual(recovery('class x{[yield](a){}}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class x{[yield](a){}}', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -386,7 +386,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class x{   *', () => {
-    t.deepEqual(recovery('class x{   *', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class x{   *', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -465,7 +465,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class x { async *prot\\u006fty', () => {
-    t.deepEqual(recovery('class x { async *prot\\u006fty', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class x { async *prot\\u006fty', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -552,7 +552,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class A { async class(x)', () => {
-    t.deepEqual(recovery('class A { async class(x)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class A { async class(x)', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -648,7 +648,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class foo extends foo(/ {', () => {
-    t.deepEqual(recovery('class foo extends foo(/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class foo extends foo(/ {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -721,7 +721,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class foo extends/ {', () => {
-    t.deepEqual(recovery('class foo extends/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class foo extends/ {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -777,7 +777,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class foo extends {', () => {
-    t.deepEqual(recovery('class foo extends {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class foo extends {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -832,7 +832,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class true {}', () => {
-    t.deepEqual(recovery('class true {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class true {}', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -904,7 +904,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class a { ;;; };', () => {
-    t.deepEqual(recovery('class a { ;;; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class a { ;;; }', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -965,7 +965,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class  { static prototype', () => {
-    t.deepEqual(recovery('class  { static prototype', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class  { static prototype', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1053,7 +1053,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class { async get(x', () => {
-    t.deepEqual(recovery('class { async get(x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class { async get(x', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1150,7 +1150,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class class class (class)', () => {
-    t.deepEqual(recovery('class class class (class)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class class class (class)', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1259,7 +1259,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class { class', () => {
-    t.deepEqual(recovery('class { class', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class { class', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1347,7 +1347,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class function async yield await class', () => {
-    t.deepEqual(recovery('class function async yield await class', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class function async yield await class', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1479,7 +1479,7 @@ describe('Recovery - Class', () => {
   });
 
   it('[class}!', () => {
-    t.deepEqual(recovery('[class}!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('[class}!', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1567,7 +1567,7 @@ describe('Recovery - Class', () => {
   });
 
   it('!class!!', () => {
-    t.deepEqual(recovery('!class!!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!class!!', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1662,7 +1662,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class x { async get constructor ', () => {
-    t.deepEqual(recovery('class x { async get constructor', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class x { async get constructor', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1787,7 +1787,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class z y(){} x() {{', () => {
-    t.deepEqual(recovery('class z y(){} x() {{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class z y(){} x() {{', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1930,7 +1930,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class {', () => {
-    t.deepEqual(recovery('class {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -1971,7 +1971,7 @@ describe('Recovery - Class', () => {
   });
 
   it('{class', () => {
-    t.deepEqual(recovery('{class', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{class', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2021,7 +2021,7 @@ describe('Recovery - Class', () => {
   });
 
   it('if(class) {', () => {
-    t.deepEqual(recovery('if(class) {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if(class) {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2086,7 +2086,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class(class{', () => {
-    t.deepEqual(recovery('class(class{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class(class{', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2159,7 +2159,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class a {class', () => {
-    t.deepEqual(recovery('class a {class', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class a {class', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2246,7 +2246,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class a { a() {}', () => {
-    t.deepEqual(recovery('class a { a() {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class a { a() {}', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2333,7 +2333,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class [}', () => {
-    t.deepEqual(recovery('class [}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class [}', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2397,7 +2397,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class { async get () {}}', () => {
-    t.deepEqual(recovery('class { async get () {}}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class { async get () {}}', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2477,7 +2477,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class{ static x', () => {
-    t.deepEqual(recovery('class{ static x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class{ static x', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2565,7 +2565,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class while { constructor x', () => {
-    t.deepEqual(recovery('class while { constructor x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class while { constructor x', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2669,7 +2669,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class { constructor x', () => {
-    t.deepEqual(recovery('class { constructor x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class { constructor x', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2757,7 +2757,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class extends {', () => {
-    t.deepEqual(recovery('class extends {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class extends {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2813,7 +2813,7 @@ describe('Recovery - Class', () => {
   });
 
   it('Unterminated regexp after class', () => {
-    t.deepEqual(recovery('class /a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class /a', 'recovery.js'), {
       children: [],
       context: 0,
       diagnostics: [
@@ -2870,7 +2870,7 @@ describe('Recovery - Class', () => {
   });
 
   it('Unterminated regexp in parenthesis after class', () => {
-    t.deepEqual(recovery('class a (/a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class a (/a', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -2949,7 +2949,7 @@ describe('Recovery - Class', () => {
   });
 
   it('Unterminated regexp in parenthesis after class element', () => {
-    t.deepEqual(recovery('class a {/a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class a {/a', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -3013,7 +3013,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class extends { class', () => {
-    t.deepEqual(recovery('class extends { class', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class extends { class', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -3086,7 +3086,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class extends class', () => {
-    t.deepEqual(recovery('class extends class', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class extends class', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -3144,7 +3144,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class { a() {{', () => {
-    t.deepEqual(recovery('class { a() {{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class { a() {{', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -3241,7 +3241,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class{set(x,...', () => {
-    t.deepEqual(recovery('class{set(x,...', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class{set(x,...', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -3353,7 +3353,7 @@ describe('Recovery - Class', () => {
   });
 
   it('class{foo(....a) class', () => {
-    t.deepEqual(recovery('class{foo(....a) class', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class{foo(....a) class', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],

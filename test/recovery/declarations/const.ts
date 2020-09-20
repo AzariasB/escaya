@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Const', () => {
   it('const ...a = 1;', () => {
-    t.deepEqual(recovery('const ...a = 1;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const ...a = 1;', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -75,7 +75,7 @@ describe('Recovery - Const', () => {
   });
 
   it('const a = 2, ...b = ', () => {
-    t.deepEqual(recovery('const a = 2, ...b = ', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const a = 2, ...b = ', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -179,7 +179,7 @@ describe('Recovery - Const', () => {
   });
 
   it('const l\\u006', () => {
-    t.deepEqual(recovery('const l\\u006', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const l\\u006', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -276,7 +276,7 @@ describe('Recovery - Const', () => {
   });
 
   it('const {x:y=/ {', () => {
-    t.deepEqual(recovery('const {x:y=/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const {x:y=/ {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -373,7 +373,7 @@ describe('Recovery - Const', () => {
   });
 
   it('const {/ {', () => {
-    t.deepEqual(recovery('const {/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const {/ {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -469,7 +469,7 @@ describe('Recovery - Const', () => {
   });
 
   it('const a;b;', () => {
-    t.deepEqual(recovery('const a;b;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const a;b;', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -541,7 +541,7 @@ describe('Recovery - Const', () => {
   });
 
   it('const \nb;', () => {
-    t.deepEqual(recovery('const \nb;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const \nb;', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -598,7 +598,7 @@ describe('Recovery - Const', () => {
   });
 
   it('const a\nb;', () => {
-    t.deepEqual(recovery('const a\nb;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const a\nb;', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -670,7 +670,7 @@ describe('Recovery - Const', () => {
   });
 
   it('const', () => {
-    t.deepEqual(recovery('const', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -701,7 +701,7 @@ describe('Recovery - Const', () => {
   });
 
   it('const {', () => {
-    t.deepEqual(recovery('const {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const {', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -758,7 +758,7 @@ describe('Recovery - Const', () => {
   });
 
   it('!{const ,,,', () => {
-    t.deepEqual(recovery('!{const ,,,', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!{const ,,,', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],
@@ -862,7 +862,7 @@ describe('Recovery - Const', () => {
   });
 
   it('const ({', () => {
-    t.deepEqual(recovery('const ({', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const ({', 'recovery.js'), {
       kind: 209,
       webCompat: true,
       directives: [],

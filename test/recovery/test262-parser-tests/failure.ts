@@ -2638,6 +2638,7 @@ describe('test262-parser-tests - failing tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'ObjectBindingPattern',
@@ -5801,16 +5802,15 @@ describe('test262-parser-tests - failing tests', () => {
             type: 'CallExpression',
             expression: {
               type: 'ArrowFunction',
-              params: [
-                {
-                  type: 'BindingIdentifier',
-                  name: 'a',
-                  start: 0,
-                  end: 1,
-                  kind: 168,
-                  flags: 0
-                }
-              ],
+              arrowParameters: false,
+              params: {
+                type: 'BindingIdentifier',
+                name: 'a',
+                start: 0,
+                end: 1,
+                kind: 168,
+                flags: 0
+              },
               contents: {
                 type: 'FunctionBody',
                 directives: [],
@@ -6144,6 +6144,7 @@ describe('test262-parser-tests - failing tests', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'ArrayBindingPattern',

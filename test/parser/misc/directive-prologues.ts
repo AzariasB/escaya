@@ -460,6 +460,7 @@ describe('Misc - Directives', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [],
             contents: {
               type: 'StringLiteral',

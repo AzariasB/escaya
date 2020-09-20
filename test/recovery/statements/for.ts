@@ -424,6 +424,7 @@ describe('Recovery - For', () => {
               type: 'ParenthesizedExpression',
               expression: {
                 type: 'ArrowFunction',
+                arrowParameters: true,
                 params: [
                   {
                     type: 'BindingIdentifier',

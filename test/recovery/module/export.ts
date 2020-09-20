@@ -984,6 +984,7 @@ describe('Recovery - Export', () => {
           type: 'ExportDefault',
           declaration: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [],
             contents: {
               type: 'FunctionBody',

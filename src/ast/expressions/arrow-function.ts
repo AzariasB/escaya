@@ -11,6 +11,7 @@ export type ArrowFormals = BindingIdentifier | BindingRestElement | ArrayBinding
 export interface ArrowFunction extends Node {
   readonly params: ArrowFormals[];
   readonly contents: Expression | FunctionBody;
+  readonly arrowParameters: boolean;
   // True for `AsyncArrowFunction`, false otherwise.
   async: boolean;
 }
@@ -18,12 +19,14 @@ export interface ArrowFunction extends Node {
 export function createArrowFunction(
   params: ArrowFormals[],
   contents: Expression | FunctionBody,
+  arrowParameters: boolean,
   async: boolean
 ): ArrowFunction {
   return {
     type: 'ArrowFunction',
     params,
     contents,
+    arrowParameters,
     async
   };
 }

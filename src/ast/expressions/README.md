@@ -164,10 +164,14 @@ interface ArrayLiteral <: Expression {
 ```js
 interface ArrowFunction <: Expression {
     type: 'ArrowFunction';
-    params: [ BindingIdentifier | BindingRestElement | ArrayBindingPattern | ObjectBindingPattern ];
+    arrowParameters: boolean,
+    params: BindingIdentifier | [ BindingIdentifier | BindingRestElement | ArrayBindingPattern | ObjectBindingPattern ];
     content: Expression | FunctionBody
 }
 ```
+`arrowParameters` is `true` if the arrow param is an `BindingIdentifier`, and not an arrow parameter list.
+
+Ses [Arrow Function Definitions](https://tc39.es/ecma262/#prod-ArrowFunction)
 
 ### AssignmentElement
 

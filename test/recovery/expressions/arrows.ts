@@ -12,6 +12,7 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'BindingIdentifier',
@@ -75,6 +76,7 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [],
             contents: {
               type: 'IdentifierReference',
@@ -594,16 +596,15 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'a',
-                start: 0,
-                end: 1,
-                kind: 168,
-                flags: 0
-              }
-            ],
+            arrowParameters: false,
+            params: {
+              type: 'BindingIdentifier',
+              name: 'a',
+              start: 0,
+              end: 1,
+              kind: 168,
+              flags: 0
+            },
             contents: {
               type: 'IdentifierReference',
               name: '',
@@ -698,6 +699,7 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [],
             contents: {
               type: 'ParenthesizedExpression',
@@ -762,6 +764,7 @@ describe('Recovery - Expressions - Arrows', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'ArrowFunction',
+              arrowParameters: true,
               params: [],
               contents: {
                 type: 'IdentifierReference',
@@ -898,16 +901,15 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'n',
-                start: 2,
-                end: 4,
-                kind: 168,
-                flags: 0
-              }
-            ],
+            arrowParameters: false,
+            params: {
+              type: 'BindingIdentifier',
+              name: 'n',
+              start: 2,
+              end: 4,
+              kind: 168,
+              flags: 0
+            },
             contents: {
               type: 'FunctionBody',
               directives: [],
@@ -993,16 +995,15 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'n',
-                start: 6,
-                end: 7,
-                kind: 168,
-                flags: 0
-              }
-            ],
+            arrowParameters: false,
+            params: {
+              type: 'BindingIdentifier',
+              name: 'n',
+              start: 6,
+              end: 7,
+              kind: 168,
+              flags: 0
+            },
             contents: {
               type: 'FunctionBody',
               directives: [],
@@ -1065,6 +1066,7 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'BindingRestElement',
@@ -1151,6 +1153,7 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'BindingIdentifier',
@@ -1328,6 +1331,7 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
+            arrowParameters: true,
             params: [
               {
                 type: 'ArrayBindingPattern',
@@ -1762,16 +1766,15 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'await',
-                start: 0,
-                end: 5,
-                kind: 168,
-                flags: 0
-              }
-            ],
+            arrowParameters: false,
+            params: {
+              type: 'BindingIdentifier',
+              name: 'await',
+              start: 0,
+              end: 5,
+              kind: 168,
+              flags: 0
+            },
             contents: {
               type: 'ParenthesizedExpression',
               expression: {
@@ -1858,16 +1861,15 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'await',
-                start: 19,
-                end: 25,
-                kind: 168,
-                flags: 0
-              }
-            ],
+            arrowParameters: false,
+            params: {
+              type: 'BindingIdentifier',
+              name: 'await',
+              start: 19,
+              end: 25,
+              kind: 168,
+              flags: 0
+            },
             contents: {
               type: 'ParenthesizedExpression',
               expression: {
@@ -2038,16 +2040,15 @@ describe('Recovery - Expressions - Arrows', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'yield',
-                start: 0,
-                end: 5,
-                kind: 168,
-                flags: 0
-              }
-            ],
+            arrowParameters: false,
+            params: {
+              type: 'BindingIdentifier',
+              name: 'yield',
+              start: 0,
+              end: 5,
+              kind: 168,
+              flags: 0
+            },
             contents: {
               type: 'ParenthesizedExpression',
               expression: {
@@ -2558,16 +2559,15 @@ describe('Recovery - Expressions - Arrows', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'ArrowFunction',
-              params: [
-                {
-                  type: 'BindingIdentifier',
-                  name: 'a',
-                  start: 1,
-                  end: 2,
-                  kind: 168,
-                  flags: 0
-                }
-              ],
+              arrowParameters: false,
+              params: {
+                type: 'BindingIdentifier',
+                name: 'a',
+                start: 1,
+                end: 2,
+                kind: 168,
+                flags: 0
+              },
               contents: {
                 type: 'ParenthesizedExpression',
                 expression: {

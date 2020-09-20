@@ -386,16 +386,15 @@ describe('Recovery - Expressions - Await', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrowFunction',
-            params: [
-              {
-                type: 'BindingIdentifier',
-                name: 'bar',
-                start: 12,
-                end: 16,
-                kind: 168,
-                flags: 0
-              }
-            ],
+            arrowParameters: false,
+            params: {
+              type: 'BindingIdentifier',
+              name: 'bar',
+              start: 12,
+              end: 16,
+              kind: 168,
+              flags: 0
+            },
             contents: {
               type: 'IdentifierReference',
               name: '',
