@@ -398,7 +398,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
       addLexerDiagnostic(state, context, index, index, DiagnosticCode.InvalidBigIntLiteral);
     }
     state.tokenValue = state.source.slice(start, index);
-    state.index = index + 1; // skips: 'n'
+    state.index = index++; // skips: 'n'
     return Token.BigIntLiteral;
   }
 
