@@ -52,7 +52,7 @@ import { FunctionBody } from './ast/expressions/function-body';
 import { ObjectLiteral } from './ast/expressions/object-literal';
 import { MemberChain } from './ast/expressions/member-chain-expr';
 import { ThisExpression } from './ast/expressions/this-expr';
-import { NullLiteral } from './ast/expressions/null-expr';
+import { NullLiteral } from './ast/expressions/null-literal';
 import { StringLiteral } from './ast/expressions/string-literal';
 import { NumericLiteral } from './ast/expressions/numeric-literal';
 import { BooleanLiteral } from './ast/expressions/boolean-literal';

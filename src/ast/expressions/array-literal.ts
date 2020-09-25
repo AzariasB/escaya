@@ -4,7 +4,7 @@ import { SpreadElement } from './spread-element';
 import { Elison } from './elison';
 
 /**
- * An IdentifierReference expression.
+ * Array literal
  */
 export interface ArrayLiteral extends Node {
   readonly elements: (Elison | SpreadElement | Expression)[];

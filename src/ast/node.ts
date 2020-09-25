@@ -14,7 +14,7 @@ export interface Node {
  * Every single valid CST Node type.
  */
 export interface NodeMeta {
-  asi?: boolean,
+  asi?: boolean;
   newlineBeforNextToken?: boolean;
 }
 
@@ -297,5 +297,6 @@ export enum SyntaxKind {
   OptionalChain,
   PropertyName,
   ImportMeta,
-  Directive
+  Directive,
+  FloatingPointLiteral
 }

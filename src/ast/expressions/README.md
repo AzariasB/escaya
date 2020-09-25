@@ -501,7 +501,7 @@ interface MethodDefinition <: Expression {
     getter: boolean;
     propertySetParameterList: BindingIdentifier | BindingElement | null;
     uniqueFormalParameters: [ BindingIdentifier | BindingElement | BindingRestElement ];
-    name: IdentifierReference | StringLiteral | BigIntLiteral | NumericLiteral | IdentifierName;
+    name: IdentifierReference | StringLiteral | BigIntLiteral | NumericLiteral | FloatingPointLiteral | IdentifierName;
     contents: FunctionBody;
 }
 ```
@@ -674,7 +674,7 @@ interface OptionalChain <: Expression {
 interface MemberChain <: Expression {
     type: 'MemberChain';
     chain: MemberChain | CallChain | null;
-    property: Expression | IdentifierName | null;
+    member: Expression | IdentifierName | null;
     computed: boolean;
 }
 ```
@@ -693,7 +693,7 @@ interface CallChain <: Expression {
 
 ```js
 enum PropertyKey {
-    IdentifierName, NumericLiteral, BigIntLiteral, StringLiteral, ComputedPropertyName
+    IdentifierName, NumericLiteral, FloatingPointLiteral, BigIntLiteral, StringLiteral, ComputedPropertyName
 }
 ```
 

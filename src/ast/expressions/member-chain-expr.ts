@@ -8,19 +8,19 @@ import { Node } from '../node';
  */
 export interface MemberChain extends Node {
   readonly chain: MemberChain | CallChain | null;
-  readonly property: Expression | IdentifierName | null;
+  readonly member: Expression | IdentifierName | null;
   readonly computed: boolean;
 }
 
 export function createMemberChain(
   chain: MemberChain | CallChain | null,
-  property: Expression | IdentifierName | null,
+  member: Expression | IdentifierName | null,
   computed: boolean
 ): MemberChain {
   return {
     type: 'MemberChain',
     chain,
-    property,
+    member,
     computed
   };
 }

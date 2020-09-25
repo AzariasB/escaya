@@ -33,7 +33,7 @@ import { createFunctionBody } from '../ast/expressions/function-body';
 import { createObjectLiteral } from '../ast/expressions/object-literal';
 import { createMemberChain } from '../ast/expressions/member-chain-expr';
 import { createThisExpression } from '../ast/expressions/this-expr';
-import { createNullExpression } from '../ast/expressions/null-expr';
+import { createNullExpression } from '../ast/expressions/null-literal';
 import { createBooleanLiteral } from '../ast/expressions/boolean-literal';
 import { createCallChain } from '../ast/expressions/call-chain';
 import { createNewExpression } from '../ast/expressions/new-expr';

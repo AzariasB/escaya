@@ -15,7 +15,7 @@ import { PrefixUpdateExpression } from './prefix-update-expr';
 import { PostfixUpdateExpression } from './postfix-update-expr';
 import { AssignmentElement } from './assignment-element';
 import { NewExpression } from './new-expr';
-import { NullLiteral } from './null-expr';
+import { NullLiteral } from './null-literal';
 import { ThisExpression } from './this-expr';
 import { BooleanLiteral } from './boolean-literal';
 import { ArrayLiteral } from './array-literal';
@@ -54,16 +54,7 @@ import { LabelIdentifier } from './labelIdentifier-expr';
 import { ObjectAssignmentPattern } from './object-assignment-pattern';
 import { ArrayAssignmentPattern } from './array-assignment-pattern';
 import { ImportMeta } from './import-meta';
-
-export type BindingPattern = ObjectBindingPattern | ArrayBindingPattern;
-
-export type AssignmentPattern = ObjectAssignmentPattern | ArrayAssignmentPattern;
-
-export type Binding = BindingPattern | BindingIdentifier;
-
-export type Parameter = BindingIdentifier | BindingElement | BindingRestElement;
-
-export type MethodName = IdentifierReference | StringLiteral | BigIntLiteral | NumericLiteral | IdentifierName;
+import { FloatingPointLiteral } from './floating-point';
 
 /**
  * The set of all syntax items which are expressions.
@@ -123,9 +114,34 @@ export type LeftHandSideExpression =
   | ImportMeta
   | Literals;
 
-/**
- * The set of all literal nodes
- */
-export type Literals = NumericLiteral | BigIntLiteral | StringLiteral | RegularExpressionLiteral | TemplateLiteral;
+export type BindingPattern = ObjectBindingPattern | ArrayBindingPattern;
 
-export type PropertyKey = IdentifierName | NumericLiteral | BigIntLiteral | StringLiteral | ComputedPropertyName;
+export type AssignmentPattern = ObjectAssignmentPattern | ArrayAssignmentPattern;
+
+export type Binding = BindingPattern | BindingIdentifier;
+
+export type Parameter = BindingIdentifier | BindingElement | BindingRestElement;
+
+export type MethodName =
+  | IdentifierReference
+  | StringLiteral
+  | FloatingPointLiteral
+  | BigIntLiteral
+  | NumericLiteral
+  | IdentifierName;
+
+export type Literals =
+  | NumericLiteral
+  | FloatingPointLiteral
+  | BigIntLiteral
+  | StringLiteral
+  | RegularExpressionLiteral
+  | TemplateLiteral;
+
+export type PropertyKey =
+  | IdentifierName
+  | NumericLiteral
+  | FloatingPointLiteral
+  | BigIntLiteral
+  | StringLiteral
+  | ComputedPropertyName;

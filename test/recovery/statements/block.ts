@@ -1839,7 +1839,7 @@ describe('Recovery - Block', () => {
                   chain: {
                     type: 'MemberChain',
                     chain: null,
-                    property: {
+                    member: {
                       type: 'IdentifierReference',
                       name: 'b',
                       start: 4,
@@ -1924,7 +1924,7 @@ describe('Recovery - Block', () => {
                   chain: {
                     type: 'MemberChain',
                     chain: null,
-                    property: {
+                    member: {
                       type: 'IdentifierReference',
                       name: 'a',
                       start: 5,

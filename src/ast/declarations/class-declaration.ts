@@ -5,17 +5,16 @@ import { ClassElement } from '../expressions/class-element';
 import { Semicolon } from '../expressions/semicolon';
 
 /**
- * Class expression.
+ * Class declaration
  */
 export interface ClassDeclaration extends Node {
-  // *only* 'null' in recovery mode
+  // May be null in `export default class { ... }`
   readonly name: BindingIdentifier | null;
   readonly heritage: Expression | null;
   readonly elements: (Semicolon | ClassElement)[];
 }
 
 export function createClassDeclaration(
-  // *only* null in recovery mode
   name: BindingIdentifier | null,
   heritage: Expression | null,
   elements: (Semicolon | ClassElement)[]

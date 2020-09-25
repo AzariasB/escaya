@@ -723,7 +723,7 @@ describe('Recovery - Expressions - Member', () => {
               chain: {
                 type: 'MemberChain',
                 chain: null,
-                property: {
+                member: {
                   type: 'IdentifierReference',
                   name: 'c',
                   start: 8,
@@ -854,7 +854,7 @@ describe('Recovery - Expressions - Member', () => {
               chain: {
                 type: 'MemberChain',
                 chain: null,
-                property: {
+                member: {
                   type: 'IdentifierReference',
                   name: 'c',
                   start: 8,
@@ -1058,7 +1058,7 @@ describe('Recovery - Expressions - Member', () => {
               chain: {
                 type: 'MemberChain',
                 chain: null,
-                property: {
+                member: {
                   type: 'IdentifierReference',
                   name: 'c',
                   start: 8,

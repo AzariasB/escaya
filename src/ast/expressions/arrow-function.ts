@@ -9,7 +9,7 @@ import { Node } from '../node';
 export type ArrowFormals = BindingIdentifier | BindingRestElement | ArrayBindingPattern | ObjectBindingPattern;
 
 export interface ArrowFunction extends Node {
-  readonly params: ArrowFormals[];
+  readonly params: BindingIdentifier | ArrowFormals[];
   readonly contents: Expression | FunctionBody;
   readonly arrowParameters: boolean;
   // True for `AsyncArrowFunction`, false otherwise.
@@ -17,7 +17,7 @@ export interface ArrowFunction extends Node {
 }
 
 export function createArrowFunction(
-  params: ArrowFormals[],
+  params: BindingIdentifier | ArrowFormals[],
   contents: Expression | FunctionBody,
   arrowParameters: boolean,
   async: boolean

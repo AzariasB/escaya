@@ -1,7 +1,7 @@
 import { Node } from '../node';
 
 /**
- * Null expression.
+ * Null literal.
  */
 export interface NullLiteral extends Node {
   value: null;
