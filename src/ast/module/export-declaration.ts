@@ -9,6 +9,7 @@ import { VariableStatement } from '../statements/variable-stmt';
 import { LexicalDeclaration } from '../declarations/lexical-declaration';
 import { FunctionDeclaration } from '../declarations/function-declaration';
 import { ClassDeclaration } from '../declarations/class-declaration';
+import { ExportFromClause } from './export-from-clause';
 
 /** Export declaration */
 
@@ -22,17 +23,15 @@ export interface ExportDeclaration extends Node {
     | Statement
     | null;
   readonly namedExports: ExportSpecifier[];
-  readonly namedBinding: IdentifierName | null;
   readonly fromClause: StringLiteral | null;
+  readonly exportFromClause: ExportFromClause | null;
   readonly exportedNames?: string[];
   readonly boundNames?: string[];
-  readonly moduleExportName: StringLiteral | null;
   /* @internal */
   readonly parent?: RootNode;
 }
 
 export function createExportDeclaration(
-  moduleExportName: StringLiteral | null,
   declaration:
     | AssignmentExpression
     | VariableStatement
@@ -42,8 +41,8 @@ export function createExportDeclaration(
     | Statement
     | null,
   namedExports: ExportSpecifier[],
-  namedBinding: IdentifierName | null,
   fromClause: StringLiteral | null,
+  exportFromClause: ExportFromClause | null,
   cst: boolean,
   exportedNames?: string[],
   boundNames?: string[]
@@ -51,20 +50,18 @@ export function createExportDeclaration(
   return cst
     ? {
         type: 'ExportDeclaration',
-        moduleExportName,
         declaration,
         namedExports,
-        namedBinding,
+        exportFromClause,
         fromClause,
         exportedNames,
         boundNames
       }
     : {
         type: 'ExportDeclaration',
-        moduleExportName,
         declaration,
         namedExports,
-        namedBinding,
+        exportFromClause,
         fromClause
       };
 }

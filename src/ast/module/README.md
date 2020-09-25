@@ -52,7 +52,7 @@ interface ExportDeclaration <: Node {
     type: 'ExportDeclaration';
     declaration: AssignmentExpression | VariableStatement | LexicalDeclaration | FunctionDeclaration | ClassDeclaration | null;
     namedExports: [ ExportSpecifier ];
-    namedBinding: IdentifierName | null;
+    exportFromClause: ExportFromClause | null,
     fromClause: StringLiteral | null;
     exportedNames: [ string ];
     boundNames: [ string ];
@@ -62,6 +62,15 @@ interface ExportDeclaration <: Node {
 `exportedNames` shall be returned as `ExportedNames` of `NamedExports`.
 
 `boundNames` property shall be returned as `BoundNames` of `VariableStatement` and `Declaration`.
+
+### ExportFromClause
+
+```js
+interface ExportFromClause <: Node {
+  readonly moduleExportName: StringLiteral | null;
+  readonly namedBinding: IdentifierName | null;
+}
+```
 
   ### ExportSpecifier
 

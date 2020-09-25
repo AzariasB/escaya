@@ -258,6 +258,7 @@ describe('Declarations - Class', () => {
     '(class { static *const() {}});',
     'class C {const() {}}',
     'class C { get set() {}}',
+    '(class  {set 4256n(v) {}});',
     'class C { static set true(v) {}}',
     'class C { *"string"() {}}',
     '(class A {set prototype(x){}})',

@@ -9,7 +9,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: {
             type: 'FunctionDeclaration',
             name: {
@@ -50,7 +49,7 @@ describe('Recovery - Export', () => {
             }
           },
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -104,7 +103,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
@@ -144,7 +142,7 @@ describe('Recovery - Export', () => {
               }
             }
           ],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: ['as'],
           boundNames: ['default'],
@@ -190,7 +188,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
@@ -230,7 +227,7 @@ describe('Recovery - Export', () => {
               }
             }
           ],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: ['as'],
           boundNames: ['default'],
@@ -319,7 +316,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: {
             type: 'VariableStatement',
             declarations: [
@@ -369,7 +365,7 @@ describe('Recovery - Export', () => {
             }
           },
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -406,7 +402,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
@@ -435,7 +430,7 @@ describe('Recovery - Export', () => {
               }
             }
           ],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: {
             type: 'StringLiteral',
             value: 'm.js',
@@ -494,7 +489,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
@@ -534,7 +528,7 @@ describe('Recovery - Export', () => {
               }
             }
           ],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: {
             type: 'StringLiteral',
             value: 'm.js',
@@ -630,7 +624,6 @@ describe('Recovery - Export', () => {
         },
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
@@ -706,7 +699,7 @@ describe('Recovery - Export', () => {
               }
             }
           ],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: ['b', 'c'],
           boundNames: ['a', 'a'],
@@ -835,7 +828,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: {
             type: 'LexicalDeclaration',
             isConst: false,
@@ -945,7 +937,7 @@ describe('Recovery - Export', () => {
             }
           },
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -1042,10 +1034,9 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -1147,10 +1138,9 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -1230,7 +1220,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: {
             type: 'FunctionDeclaration',
             name: {
@@ -1271,7 +1260,7 @@ describe('Recovery - Export', () => {
             }
           },
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -1351,10 +1340,21 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: {
+            type: 'ExportSpecifier',
+            moduleExportName: null,
+            namedBinding: null,
+            start: 0,
+            end: 8,
+            kind: 225,
+            flags: 0,
+            meta: {
+              asi: true,
+              newlineBeforeNextToken: false
+            }
+          },
           fromClause: {
             type: 'StringLiteral',
             value: 'export',
@@ -1411,7 +1411,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
@@ -1440,7 +1439,7 @@ describe('Recovery - Export', () => {
               }
             }
           ],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: ['as'],
           boundNames: ['as'],
@@ -1491,7 +1490,6 @@ describe('Recovery - Export', () => {
         leafs: [
           {
             type: 'ExportDeclaration',
-            moduleExportName: null,
             declaration: {
               type: 'ClassDeclaration',
               name: null,
@@ -1507,7 +1505,7 @@ describe('Recovery - Export', () => {
               }
             },
             namedExports: [],
-            namedBinding: null,
+            exportFromClause: null,
             fromClause: null,
             exportedNames: [],
             boundNames: [],
@@ -1743,7 +1741,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: {
             type: 'LexicalDeclaration',
             isConst: true,
@@ -1779,12 +1776,11 @@ describe('Recovery - Export', () => {
             flags: 0,
             meta: {
               asi: true,
-
               newlineBeforeNextToken: false
             }
           },
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -1830,10 +1826,9 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -1914,7 +1909,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
@@ -1943,7 +1937,7 @@ describe('Recovery - Export', () => {
               }
             }
           ],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: ['export'],
           boundNames: ['export'],
@@ -2024,10 +2018,9 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -2143,10 +2136,9 @@ describe('Recovery - Export', () => {
         leafs: [
           {
             type: 'ExportDeclaration',
-            moduleExportName: null,
             declaration: null,
             namedExports: [],
-            namedBinding: null,
+            exportFromClause: null,
             fromClause: null,
             exportedNames: [],
             boundNames: [],
@@ -2161,10 +2153,9 @@ describe('Recovery - Export', () => {
           },
           {
             type: 'ExportDeclaration',
-            moduleExportName: null,
             declaration: null,
             namedExports: [],
-            namedBinding: null,
+            exportFromClause: null,
             fromClause: null,
             exportedNames: [],
             boundNames: [],
@@ -2179,10 +2170,9 @@ describe('Recovery - Export', () => {
           },
           {
             type: 'ExportDeclaration',
-            moduleExportName: null,
             declaration: null,
             namedExports: [],
-            namedBinding: null,
+            exportFromClause: null,
             fromClause: null,
             exportedNames: [],
             boundNames: [],
@@ -2495,10 +2485,9 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -2616,7 +2605,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
@@ -2645,7 +2633,7 @@ describe('Recovery - Export', () => {
               }
             }
           ],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: ['a'],
           boundNames: ['a'],
@@ -2839,7 +2827,6 @@ describe('Recovery - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
@@ -2868,7 +2855,7 @@ describe('Recovery - Export', () => {
               }
             }
           ],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: ['a'],
           boundNames: ['a'],
@@ -2895,7 +2882,6 @@ describe('Recovery - Export', () => {
                 flags: 0,
                 meta: {
                   asi: false,
-
                   newlineBeforeNextToken: false
                 }
               },
@@ -3156,10 +3142,9 @@ describe('Recovery - Export', () => {
           },
           {
             type: 'ExportDeclaration',
-            moduleExportName: null,
             declaration: null,
             namedExports: [],
-            namedBinding: null,
+            exportFromClause: null,
             fromClause: null,
             exportedNames: [],
             boundNames: [],

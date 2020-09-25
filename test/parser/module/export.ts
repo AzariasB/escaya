@@ -681,7 +681,6 @@ describe('Module - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [
             {
@@ -715,7 +714,7 @@ describe('Module - Export', () => {
               }
             }
           ],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: {
             type: 'StringLiteral',
             value: 'b',
@@ -758,7 +757,6 @@ describe('Module - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: {
             type: 'LexicalDeclaration',
             isConst: false,
@@ -777,7 +775,6 @@ describe('Module - Export', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-
                   value: 0,
                   start: 15,
                   end: 16,
@@ -802,7 +799,7 @@ describe('Module - Export', () => {
             }
           },
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -827,7 +824,6 @@ describe('Module - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: {
             type: 'LexicalDeclaration',
             isConst: true,
@@ -846,7 +842,6 @@ describe('Module - Export', () => {
                 },
                 initializer: {
                   type: 'NumericLiteral',
-
                   value: 0,
                   start: 17,
                   end: 18,
@@ -871,7 +866,7 @@ describe('Module - Export', () => {
             }
           },
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -927,7 +922,6 @@ describe('Module - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: {
             type: 'ClassDeclaration',
             name: {
@@ -946,7 +940,7 @@ describe('Module - Export', () => {
             }
           },
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],
@@ -974,10 +968,9 @@ describe('Module - Export', () => {
       leafs: [
         {
           type: 'ExportDeclaration',
-          moduleExportName: null,
           declaration: null,
           namedExports: [],
-          namedBinding: null,
+          exportFromClause: null,
           fromClause: null,
           exportedNames: [],
           boundNames: [],

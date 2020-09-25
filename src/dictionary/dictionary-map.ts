@@ -80,6 +80,7 @@ import { createNewTarget } from '../ast/expressions/new-target';
 import { createAssignmentElement } from '../ast/expressions/assignment-element';
 import { createArrayAssignmentPattern } from '../ast/expressions/array-assignment-pattern';
 import { createImportDeclaration } from '../ast/module/import-declaration';
+import { createExportFromClause } from '../ast/module/export-from-clause';
 import { createNamedImports } from '../ast/module/named-imports';
 import { createImportClause } from '../ast/module/import-clause';
 import { createImportSpecifier } from '../ast/module/import-specifier';
@@ -200,6 +201,7 @@ export const DictionaryMap = {
   ImportSpecifier: createImportSpecifier,
   NamedImports: createNamedImports,
   ExportDeclaration: createExportDeclaration,
+  ExportFromClause: createExportFromClause,
   ExportDefault: createExportDefault,
   ExportSpecifier: createExportSpecifier,
   TemplateElement: createTemplateElement,

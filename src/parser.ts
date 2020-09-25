@@ -1,3 +1,4 @@
+import { ExportFromClause } from './ast/module/export-from-clause';
 import { PropertyName } from './ast/expressions/property-name';
 import { ImportCall } from './ast/expressions/import-call';
 import { TemplateLiteral } from './ast/expressions/template-literal';
@@ -4977,10 +4978,6 @@ export function parseFromClause(state: ParserState, context: Context): StringLit
 //   `export` `default` ClassDeclaration  [MODIFIED]
 //   `export` `default` AssignmentExpression `;`  [MODIFIED]
 //
-// ExportFromClause :
-//   `*`
-//   `*` as IdentifierName
-//   `*` as ModulemoduleExportName
 //   NamedExports
 export function parseExportDeclaration(
   state: ParserState,
@@ -5005,9 +5002,8 @@ export function parseExportDeclaration(
     | null = null;
 
   let fromClause: StringLiteral | null = null;
-  let namedBinding: IdentifierName | null = null;
   let namedExports: ExportSpecifier[] = [];
-  let moduleExportName: StringLiteral | null = null;
+  let exportFromClause: ExportFromClause | null = null;
 
   const exportedNames: string[] = [];
   const boundNames: string[] = [];
@@ -5049,15 +5045,7 @@ export function parseExportDeclaration(
       break;
     }
     case Token.Multiply: {
-      nextToken(state, context);
-      if (consumeOpt(state, context, Token.AsKeyword)) {
-        if (state.token === Token.StringLiteral) {
-          moduleExportName = parseModuleExportName(state, context);
-        } else {
-          declareUnboundVariable(state, context, state.tokenValue);
-          namedBinding = parseIdentifierName(state, context);
-        }
-      }
+      exportFromClause = parseExportFromClause(state, context, start);
       fromClause = parseFromClause(state, context);
       expectSemicolon(state, context);
       break;
@@ -5070,16 +5058,40 @@ export function parseExportDeclaration(
     context,
     start,
     DictionaryMap.ExportDeclaration(
-      moduleExportName,
       declaration,
       namedExports,
-      namedBinding,
       fromClause,
+      exportFromClause,
       cst,
       exportedNames,
       boundNames
     ),
     SyntaxKind.ExportDeclaration
+  );
+}
+
+// ExportFromClause :
+//   `*`
+//   `*` as IdentifierName
+//   `*` as ModulemoduleExportName
+export function parseExportFromClause(state: ParserState, context: Context, start: number): ExportFromClause {
+  nextToken(state, context);
+  let moduleExportName: StringLiteral | null = null;
+  let namedBinding: IdentifierName | null = null;
+  if (consumeOpt(state, context, Token.AsKeyword)) {
+    if (state.token === Token.StringLiteral) {
+      moduleExportName = parseModuleExportName(state, context);
+    } else {
+      declareUnboundVariable(state, context, state.tokenValue);
+      namedBinding = parseIdentifierName(state, context);
+    }
+  }
+  return finishNode(
+    state,
+    context,
+    start,
+    DictionaryMap.ExportFromClause(namedBinding, moduleExportName),
+    SyntaxKind.ExportSpecifier
   );
 }
 
