@@ -15,7 +15,7 @@ export function createExportFromClause(
   moduleExportName: StringLiteral | null
 ): ExportFromClause {
   return {
-    type: 'ExportSpecifier',
+    type: 'ExportFromClause',
     moduleExportName,
     namedBinding
   };

@@ -1343,7 +1343,7 @@ describe('Recovery - Export', () => {
           declaration: null,
           namedExports: [],
           exportFromClause: {
-            type: 'ExportSpecifier',
+            type: 'ExportFromClause',
             moduleExportName: null,
             namedBinding: null,
             start: 0,
