@@ -4,7 +4,7 @@ import { unicodeLookup } from './unicode';
 import { addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
 import { Char } from './char';
-import { fromCodePoint } from './common';
+import { fromCodePoint, ScannerState } from './common';
 import { scanRegExp } from './regexp';
 import { scanNumber, parseFloatingPointLiteral } from './numeric';
 import { scanString } from './string';
@@ -148,8 +148,7 @@ export const firstCharKinds = [
 ];
 
 export function scanSingleToken(state: ParserState, context: Context): Token {
-  let lastIsCR = false;
-  const newsLine = state.index === 0;
+  let kjr = state.index === 0 ? ScannerState.NewLine : ScannerState.None;
   while (state.index < state.length) {
     let cp = state.source.charCodeAt(state.index);
     state.positionBeforeToken = state.index;
@@ -212,11 +211,11 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
           return scanString(state, context, cp);
 
         case Token.LineFeed:
-          if (!lastIsCR) state.line++;
+          if ((kjr & ScannerState.LastIsCR) === 0) state.line++;
+          kjr = (kjr & ~ScannerState.LastIsCR) | ScannerState.NewLine;
           state.index++;
           state.columnOffset = state.index;
           state.lineTerminatorBeforeNextToken = true;
-          lastIsCR = false;
           break;
 
         // `=`, `==`, `===`, `=>`
@@ -329,7 +328,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
           }
 
           if (cp === Char.Asterisk) {
-            skipMultiLineComment(state, context);
+            kjr = skipMultiLineComment(state, context, kjr);
             continue;
           }
 
@@ -351,7 +350,7 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
             state.index++;
             if (
               (context & (Context.Module | Context.OptionsDisableWebCompat)) === 0 &&
-              (newsLine || state.lineTerminatorBeforeNextToken) &&
+              kjr & ScannerState.NewLine &&
               state.source.charCodeAt(state.index) === Char.GreaterThan
             ) {
               skipSingleLineComment(state);
@@ -369,9 +368,9 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
         case Token.CarriageReturn:
           state.index++;
           state.line++;
+          kjr |= ScannerState.NewLine | ScannerState.LastIsCR;
           state.columnOffset = state.index;
           state.lineTerminatorBeforeNextToken = true;
-          lastIsCR = true;
           break;
 
         // `<`, `<=`, `<<`, `<<=`, `</`, `<!--`
@@ -500,10 +499,10 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
       if ((unicodeLookup[(cp >>> 5) + 104448] >>> cp) & 31 & 1) {
         state.index++;
         if ((cp & ~1) === Char.LineSeparator) {
-          if (!lastIsCR) state.line++;
+          state.line++;
+          kjr = (kjr & ~ScannerState.LastIsCR) | ScannerState.NewLine;
           state.columnOffset = state.index;
           state.lineTerminatorBeforeNextToken = true;
-          lastIsCR = false;
         }
 
         continue;

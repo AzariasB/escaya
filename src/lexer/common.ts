@@ -2,6 +2,14 @@ import { AsciiCharTypes, AsciiCharFlags } from './asciiChar';
 import { Char } from './char';
 import { unicodeLookup } from './unicode';
 
+export const enum ScannerState {
+  None = 0,
+  NewLine = 1 << 0,
+  SameLine = 1 << 1,
+  LastIsCR = 1 << 2,
+  Collecting = 1 << 3
+}
+
 export function isIdentifierPart(cp: number): any {
   /*
    * ES2020 11.6 IdentifierPart

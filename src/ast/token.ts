@@ -250,7 +250,10 @@ export const enum Token {
 
   EscapedIdentifier = 125,
   IdentifierOrKeyword = 126,
-  FloatingPointLiteral = 127 | IsExpressionStart | IsProperty
+  FloatingPointLiteral = 127 | IsExpressionStart | IsProperty,
+
+  SingleLine = 128,
+  MultiLine = 129
 }
 
 export const KeywordDescTable = [

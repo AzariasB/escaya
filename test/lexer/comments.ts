@@ -149,7 +149,7 @@ describe('Scanner - Comments', () => {
     source: '/* \u2029 \u2028 \r\n \u2028 */',
     context: Context.Empty,
     hasNext: false,
-    line: 5,
+    line: 6,
     column: 3
   });
 
