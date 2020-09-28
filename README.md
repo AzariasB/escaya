@@ -59,17 +59,14 @@ This is the available options:
 
 ### Comments
 
-Comments can be extracted with either `extractCommentsScript` or `extractCommentsModule` and let you extract leading and trailing
-comments from a given position. It takes the source code you are parsing as it's first argument. The second argument is the position
-within the source code you want to extract the comments from, and the last argument is if you want to extract leading or
-trailing comments.
+`Escaya` lets you extract leading and trailing comments from a given position with either `extractCommentsScript` or `extractCommentsModule`. It takes the source code as it's first argument, the position within the source code where you want to extract the comments from as it's second argument. The last argument let's you decide if you want to extract leading or trailing comments - `collectCommentsScript(source, start, boolean);`
 
 Here is an example on how to get all trailing comments belonging to `bar`
 
 ```ts
-import { collectCommentsScript } from './escaya';
+import { extractCommentsScript } from './escaya';
 
-collectCommentsScript('/* MultieLine */ bar /* trailing */', 20, true);
+extractCommentsScript('/* MultieLine */ bar /* trailing */', 20, true);
 
 ```
 
