@@ -67,9 +67,9 @@ trailing comments.
 Here is an example on how to get all trailing comments belonging to `bar`
 
 ```ts
-import { collectCommentsScript, collectCommentsModule } from './escaya';
+import { collectCommentsScript } from './escaya';
 
-parseScript('/* MultieLine */ bar /* trailing */', 20, true);
+collectCommentsScript('/* MultieLine */ bar /* trailing */', 20, true);
 
 ```
 
