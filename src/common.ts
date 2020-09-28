@@ -154,9 +154,6 @@ export interface ParserState {
     pattern: string;
     flags: string;
   };
-
-  // For the scanner to work around lack of multiple return.
-  lastChar: number;
 }
 
 export function isValidDirective(state: ParserState): boolean {
