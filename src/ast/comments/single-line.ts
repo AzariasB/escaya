@@ -1,9 +1,9 @@
-import { Comments } from './';
+import { Comment } from './';
 
 /**
  * SingleLine
  */
-export interface SingleLine extends Comments {}
+export type SingleLine = Comment;
 
 export function createHTMLClose(comment: string, newLine: boolean): SingleLine {
   return {

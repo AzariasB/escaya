@@ -6,10 +6,7 @@ import { parseInNormalMode, parseInCustomMode, parseInRecoveryMode, parseInIncre
 import { Dictionary } from './dictionary/dictionary-map';
 export { DictionaryMap } from './dictionary/dictionary-map';
 import { collectComments } from './lexer/comments';
-import { MultiLine } from './ast/comments/multi-line';
-import { SingleLine } from './ast/comments/single-line';
-import { HTMLOpen } from './ast/comments/html-open';
-import { HTMLClose } from './ast/comments/html-close';
+import { Comments } from './ast/comments';
 
 /**
  * Parse a script, optionally with various options.
@@ -54,24 +51,16 @@ export function update(text: string, fileName: string, root: RootNode, textChang
 }
 
 /**
- * Collect trailing and leading comments from given position in sloppy module
+ * Extract trailing and leading comments from given position in sloppy module
  */
-export function collectCommentsScript(
-  source: string,
-  start: number,
-  trailing: boolean
-): (MultiLine | SingleLine | HTMLOpen | HTMLClose)[] {
+export function extractCommentsScript(source: string, start: number, trailing: boolean): Comments[] {
   return collectComments(source, start, /*isModule */ false, trailing);
 }
 
 /**
- * Collect trailing and leading comments from given position with module goal
+ * Extract trailing and leading comments from given position with module goal
  */
-export function collectCommentsModule(
-  source: string,
-  start: number,
-  trailing: boolean
-): (MultiLine | SingleLine | HTMLOpen | HTMLClose)[] {
+export function extractCommentsModule(source: string, start: number, trailing: boolean): Comments[] {
   return collectComments(source, start, /*isModule */ true, trailing);
 }
 export const version = '0.22';

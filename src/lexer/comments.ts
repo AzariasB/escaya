@@ -187,7 +187,7 @@ export function collectComments(
   let commentStart = index;
   let comment = '';
   let state = trailing || index === 0 ? ScannerState.Collecting : ScannerState.None;
-  let result: (MultiLine | SingleLine | HTMLOpen | HTMLClose)[] = [];
+  const result: (MultiLine | SingleLine | HTMLOpen | HTMLClose)[] = [];
 
   loop: while (index >= 0 && index < source.length) {
     const cp = source.charCodeAt(index);
@@ -224,7 +224,7 @@ export function collectComments(
           index += 2;
           if (nextChar === Char.Slash) {
             while (index < source.length) {
-              let next = source.charCodeAt(index);
+              const next = source.charCodeAt(index);
               if ((unicodeLookup[(next >>> 5) + 69632] >>> next) & 31 & 1 || (next ^ Char.LineSeparator) <= 1) {
                 state |= ScannerState.NewLine;
                 break;
@@ -271,7 +271,7 @@ export function collectComments(
         ) {
           index += 4;
           while (index < source.length) {
-            let next = source.charCodeAt(index);
+            const next = source.charCodeAt(index);
             if ((unicodeLookup[(next >>> 5) + 69632] >>> next) & 31 & 1 || (next ^ Char.LineSeparator) <= 1) {
               state |= ScannerState.NewLine;
               break;
@@ -304,7 +304,7 @@ export function collectComments(
         if (source.charCodeAt(index) === Char.Hyphen && source.charCodeAt(index + 1) === Char.GreaterThan) {
           index += 3;
           while (index < source.length) {
-            let next = source.charCodeAt(index);
+            const next = source.charCodeAt(index);
             if ((unicodeLookup[(next >>> 5) + 69632] >>> next) & 31 & 1 || (next ^ Char.LineSeparator) <= 1) {
               state |= ScannerState.NewLine;
               break;

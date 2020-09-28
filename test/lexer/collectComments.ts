@@ -1,8 +1,5 @@
 import * as t from 'assert';
-import { Context } from '../../src/common';
 import { collectComments } from '../../src/lexer/comments';
-import { Token } from '../../src/ast/token';
-import { scanSingleToken } from '../../src/lexer/scan';
 
 describe('Scanner - Comments', () => {
   it('MultieLine - trailing', () => {

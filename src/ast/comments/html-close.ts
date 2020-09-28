@@ -1,9 +1,9 @@
-import { Comments } from './';
+import { Comment } from './';
 
 /**
  * HTMLClose
  */
-export interface HTMLClose extends Comments {}
+export type HTMLClose = Comment;
 
 export function createHTMLClose(comment: string, newLine: boolean): HTMLClose {
   return {

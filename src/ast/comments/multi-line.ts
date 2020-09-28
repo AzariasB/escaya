@@ -1,9 +1,9 @@
-import { Comments } from './';
+import { Comment } from './';
 
 /**
  * MultiLine
  */
-export interface MultiLine extends Comments {}
+export type MultiLine = Comment;
 
 export function createHTMLClose(comment: string, newLine: boolean): MultiLine {
   return {

@@ -1,7 +1,7 @@
 # Comments
 
 ```js
-export interface Comments <: Node {
+export interface Comment <: Node {
    type: 'SingleLine' | 'MultiLine' | 'HTMLClose' | 'HTMLOpen';
    comment: string;
    newLine: boolean;
@@ -11,7 +11,7 @@ export interface Comments <: Node {
 ## SingleLine
 
 ```js
-interface SingleLine <: Comments {
+interface SingleLine <: Comment {
 
 }
 ```
@@ -19,7 +19,7 @@ interface SingleLine <: Comments {
 ## MultiLine
 
 ```js
-interface MultiLine <: Comments {
+interface MultiLine <: Comment {
 
 }
 ```
@@ -27,7 +27,7 @@ interface MultiLine <: Comments {
 ## HTMLOpen
 
 ```js
-interface HTMLOpen <: Comments {
+interface HTMLOpen <: Comment {
 
 }
 ```
@@ -35,7 +35,7 @@ interface HTMLOpen <: Comments {
 ## HTMLClose
 
 ```js
-interface HTMLClose <: Comments {
+interface HTMLClose <: Comment {
 
 }
 ```
