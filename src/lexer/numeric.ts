@@ -157,14 +157,15 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
   let index = state.index;
   let token = Token.NumericLiteral;
 
-  // Zero digits - '0' - is structured as an optimized finite state machine
-  // and does a quick scan for a hexadecimal, binary, octal or implicit octal
   if (cp === Char.Zero) {
     index++; // skips '0'
 
     cp = state.source.charCodeAt(index);
 
     if (AsciiCharTypes[cp] & AsciiCharFlags.OctHexBin) {
+      // This is structured as an optimized finite state machine
+      // and does a quick scan for a hexadecimal, binary and octals
+
       let digits = 0;
       let allowSeparator: 0 | 1 = 1;
 
@@ -273,6 +274,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
             }
             allowSeparator = 1;
             break;
+
           // `n`
           case Char.LowerN:
             state.tokenValue = value;
@@ -308,10 +310,8 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
 
         // We can't avoid this branching if we want to avoid double diagnostics, or
         // we can but it will require use of 2x 'charCodeAt' and some unnecessary
-        // property / meber access.
+        // property / member access.
       } else if (allowSeparator === 1) {
-        // It's more performance and memory friendly to do a 'start + 2' here rather than
-        // than to give the 'start' variable a new value.
         addLexerDiagnostic(state, context, start + 2, index + 1, DiagnosticCode.TrailingNumericSeparator);
       }
 
@@ -349,7 +349,6 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
         addLexerDiagnostic(state, context, start + 1, index, DiagnosticCode.UnderscoreAfterZero);
       }
 
-      // BigInt suffix is disallowed in legacy octal integer literal
       if (cp === Char.LowerN) {
         addLexerDiagnostic(state, context, index, index, DiagnosticCode.InvalidBigIntLiteral);
       }
@@ -387,6 +386,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
     disallowBigInt = true;
     token = Token.FloatingPointLiteral;
     cp = state.source.charCodeAt(++index);
+
     while (cp <= Char.Nine && cp >= Char.Zero) {
       cp = state.source.charCodeAt(++index);
     }
@@ -473,9 +473,8 @@ export function parseFloatingPointLiteral(state: ParserState, context: Context, 
     if (digits === 0) {
       addLexerDiagnostic(state, context, state.index, state.index, DiagnosticCode.MissingExponent);
       // For cases like '1e!', '1e€' etc we do a 'state.index + 1' so we can consume the
-      // invalid char. If we do it this way, we will avoid parsing out an invalid
-      // 'UnaryExpression for cases like '1e!' and for this last case - '1e€', the '€'
-      // will be consumed anyway and never seen again.
+      // invalid char instead of for example parsing out an invalid
+      // 'UnaryExpression for cases like '1e!'.
       state.index++;
     }
   }

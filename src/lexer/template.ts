@@ -143,28 +143,25 @@ export const escapeChar = [
  */
 export function scanTemplateSpan(state: ParserState, context: Context): Token {
   state.index++;
-  const source = state.source;
   let ret: string | null = '';
   let lastIsCR = 0;
+  let cp = state.source.charCodeAt(state.index);
   const start = state.index;
-  let cp = source.charCodeAt(state.index);
-
   while (state.index < state.length) {
     // '`'
     if (cp === Char.Backtick) {
       state.tokenValue = ret;
       state.index++; // skips '`'
-      state.tokenRaw = source.slice(start, state.index - 1);
+      state.tokenRaw = state.source.slice(start, state.index - 1);
       return Token.TemplateTail;
     }
 
     // '${'
     if (cp === Char.Dollar) {
-      const index = state.index + 1;
-      if (index < state.length && source.charCodeAt(index) === Char.LeftBrace) {
-        state.index = index + 1; // Consume '$', '{'
+      if (state.source.charCodeAt(state.index + 1) === Char.LeftBrace) {
+        state.tokenRaw = state.source.slice(start, state.index);
+        state.index = state.index += 2; // Consume '$', '{'
         state.tokenValue = ret;
-        state.tokenRaw = source.slice(start, state.index - 2);
         return Token.TemplateCont;
       }
       ret += '$';
@@ -173,20 +170,24 @@ export function scanTemplateSpan(state: ParserState, context: Context): Token {
     // Escape character
     if (cp === Char.Backslash) {
       state.index++;
-      const cp = source.charCodeAt(state.index);
+      cp = state.source.charCodeAt(state.index);
       // The TV of LineContinuation :: \ LineTerminatorSequence is the empty
       // code unit sequence.
       if ((unicodeLookup[(cp >>> 5) + 69632] >>> cp) & 31 & 1) {
         if (cp === Char.CarriageReturn) {
           state.index++;
-          if (source.charCodeAt(state.index) === Char.LineFeed) {
-            state.index++;
-          }
+          if (state.source.charCodeAt(state.index) === Char.LineFeed) state.index++;
         }
         state.columnOffset = state.index;
         state.line++;
       } else {
-        const code = parseTemplateEscape(state, context, source, cp);
+        const code = parseTemplateEscape(
+          state,
+          context,
+          state.source,
+          (context & Context.TaggedTemplate) === Context.TaggedTemplate,
+          cp
+        );
         // Invalid escape sequence checking is handled in the state
         ret = code < 0 ? null : (ret as string) + code;
       }
@@ -211,7 +212,7 @@ export function scanTemplateSpan(state: ParserState, context: Context): Token {
       }
       if (ret != null) ret += fromCodePoint(cp);
     }
-    cp = source.charCodeAt(state.index);
+    cp = state.source.charCodeAt(state.index);
   }
 
   addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnterminatedTemplate, DiagnosticKind.Error);
@@ -221,7 +222,13 @@ export function scanTemplateSpan(state: ParserState, context: Context): Token {
   return Token.TemplateTail;
 }
 
-export function parseTemplateEscape(state: ParserState, context: Context, source: string, cp: number): string | number {
+export function parseTemplateEscape(
+  state: ParserState,
+  context: Context,
+  source: string,
+  isTagged: boolean,
+  cp: number
+): string | number {
   state.index++;
   switch (escapeChar[cp]) {
     case Char.LowerB:
@@ -244,7 +251,7 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
         (AsciiCharTypes[first] & AsciiCharFlags.Hex) === 0 ||
         (AsciiCharTypes[source.charCodeAt(state.index + 1)] & AsciiCharFlags.Hex) === 0
       ) {
-        if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
+        if (!isTagged) {
           addDiagnostic(
             state,
             context,
@@ -272,17 +279,13 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
       cp = source.charCodeAt(state.index);
 
       if (cp === Char.LeftBrace) {
-        state.index++; // skips: '{'
-
-        // \u{N}
-
         // The first digit is required, so handle it *out* of the loop.
-        cp = source.charCodeAt(state.index);
+        cp = source.charCodeAt(++state.index);
 
         let digit = toHex(cp);
 
         if (digit < 0) {
-          if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
+          if (!isTagged) {
             addDiagnostic(
               state,
               context,
@@ -300,7 +303,7 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
           // Check this early to avoid `code` wrapping to a negative on overflow (which is
           // reserved for abnormal conditions).
           if (code > Char.LastUnicodeChar) {
-            if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
+            if (!isTagged) {
               addDiagnostic(
                 state,
                 context,
@@ -312,13 +315,11 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
             return -1;
           }
 
-          state.index++;
-
-          digit = toHex(source.charCodeAt(state.index));
+          digit = toHex(source.charCodeAt(++state.index));
         } while (digit >= 0);
 
         if (0 < digit || source.charCodeAt(state.index) !== Char.RightBrace) {
-          if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
+          if (!isTagged) {
             addDiagnostic(
               state,
               context,
@@ -342,7 +343,7 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
       for (let i = 0; i < 4; i++) {
         const digit = toHex(cp);
         if (digit < 0) {
-          if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
+          if (!isTagged) {
             addDiagnostic(
               state,
               context,
@@ -353,20 +354,20 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
           }
           return -1;
         }
-        state.index++;
-        cp = source.charCodeAt(state.index);
+        cp = source.charCodeAt(++state.index);
         code = (code << 4) | digit;
       }
 
       return fromCodePoint(code);
 
-    case Char.Zero: // fall through
-    case Char.One: // fall through
-    case Char.Two: // fall through
-    case Char.Three: // fall through
-    case Char.Four: // fall through
-    case Char.Five: // fall through
-    case Char.Six: // fall through
+    // '0 ... 7'
+    case Char.Zero:
+    case Char.One:
+    case Char.Two:
+    case Char.Three:
+    case Char.Four:
+    case Char.Five:
+    case Char.Six:
     case Char.Seven:
       const next = source.charCodeAt(state.index);
 
@@ -376,7 +377,7 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
 
       if (cp === Char.Zero && (next < Char.Zero || next > Char.Nine)) return '\0';
 
-      if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
+      if (!isTagged) {
         addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.TemplateBadEscape, DiagnosticKind.Error);
       }
 
@@ -384,12 +385,13 @@ export function parseTemplateEscape(state: ParserState, context: Context, source
       // even if template literals may not contain octal escape sequences
 
       if (next >= Char.Zero && next <= Char.Nine) state.index++;
+
       return -1;
 
     // `8`, `9` (invalid escapes)
     case Char.Eight:
     case Char.Nine:
-      if ((context & Context.TaggedTemplate) !== Context.TaggedTemplate) {
+      if (!isTagged) {
         addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.TemplateBadEscape, DiagnosticKind.Error);
       }
       return -1;

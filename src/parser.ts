@@ -198,8 +198,7 @@ export function create(source: string, nodeCursor?: any): ParserState {
     exportedNames: [],
     exportedBindings: [],
     diagnostics: [],
-    nodeCursor,
-    lastChar: 0
+    nodeCursor
   };
 }
 
@@ -236,7 +235,6 @@ export function parseStatementList(
 ): Statement[] {
   // StatementList ::
   //   (StatementListItem)* <end_token>
-
   while (state.token !== Token.EOF) {
     statementList.push(parseStatementListItem(state, context, scope, null, null));
   }

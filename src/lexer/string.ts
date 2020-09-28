@@ -222,7 +222,6 @@ export function scanStringEscape(state: ParserState, context: Context, source: s
             const next = source.charCodeAt(index);
 
             if (next >= Char.Zero && next <= Char.Seven) {
-              state.lastChar = next;
               code = (code << 3) | (next - Char.Zero);
               index++;
             }
@@ -267,7 +266,7 @@ export function scanStringEscape(state: ParserState, context: Context, source: s
         // \u{N}
         // The first digit is required, so handle it *out* of the loop.
         state.index++;
-        cp = state.lastChar = source.charCodeAt(state.index);
+        cp = source.charCodeAt(state.index);
         let code = toHex(cp);
         if (code < 0) {
           addDiagnostic(
@@ -279,8 +278,9 @@ export function scanStringEscape(state: ParserState, context: Context, source: s
           );
           return '';
         }
-        state.index++;
-        cp = state.lastChar = source.charCodeAt(state.index);
+
+        cp = source.charCodeAt(++state.index);
+
         while (cp !== Char.RightBrace) {
           const digit = toHex(cp);
           if (digit < 0) {
@@ -301,8 +301,7 @@ export function scanStringEscape(state: ParserState, context: Context, source: s
             addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.UnicodeOverflow, DiagnosticKind.Error);
             return '';
           }
-          state.index++;
-          cp = source.charCodeAt(state.index);
+          cp = source.charCodeAt(++state.index);
         }
         state.index++;
         return fromCodePoint(code);
@@ -321,8 +320,7 @@ export function scanStringEscape(state: ParserState, context: Context, source: s
         }
 
         for (let i = 0; i < 3; i++) {
-          state.index++;
-          cp = source.charCodeAt(state.index);
+          cp = source.charCodeAt(++state.index);
           const digit = toHex(cp);
           if (digit < 0) {
             addDiagnostic(
@@ -343,6 +341,7 @@ export function scanStringEscape(state: ParserState, context: Context, source: s
     // ASCII escapes
     case Char.LowerX:
       const hi = toHex(source.charCodeAt(state.index));
+
       if (hi < 0) {
         addDiagnostic(
           state,
@@ -353,9 +352,10 @@ export function scanStringEscape(state: ParserState, context: Context, source: s
         );
         return '';
       }
-      state.index++;
-      const ch2 = source.charCodeAt(state.index);
+
+      const ch2 = source.charCodeAt(++state.index);
       const lo = toHex(ch2);
+
       if (lo < 0) {
         addDiagnostic(
           state,
@@ -366,7 +366,9 @@ export function scanStringEscape(state: ParserState, context: Context, source: s
         );
         return '';
       }
+
       state.index++;
+
       return fromCodePoint((hi << 4) | lo);
 
     default:
