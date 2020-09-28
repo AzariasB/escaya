@@ -26,6 +26,18 @@ describe('Scanner - Comments', () => {
     ]);
   });
 
+  it('SingleLine with line break', () => {
+    t.deepStrictEqual(collectComments('// SingleLine line break \n\t ', 0, false, false), [
+      {
+        comment: ' SingleLine line break ',
+        end: 25,
+        newLine: true,
+        start: 0,
+        type: 'SingleLine'
+      }
+    ]);
+  });
+
   it('MultieLine', () => {
     t.deepStrictEqual(
       collectComments('/* MultieLine */ /* MultieLine */ /* MultieLine */ /* MultieLine */', 0, false, false),
@@ -62,6 +74,36 @@ describe('Scanner - Comments', () => {
     );
   });
 
+  it('MultieLine and HTML open', () => {
+    t.deepStrictEqual(collectComments('/* MultieLine */ <!-- HTML open', 0, false, false), [
+      {
+        comment: ' MultieLine ',
+        end: 16,
+        newLine: false,
+        start: 0,
+        type: 'MultiLine'
+      },
+      {
+        comment: ' HTML open',
+        end: 31,
+        newLine: false,
+        start: 17,
+        type: 'HTMLOpen'
+      }
+    ]);
+  });
+
+  it('HTMLClose', () => {
+    t.deepStrictEqual(collectComments('--> HTMLClose', 0, false, false), [
+      {
+        comment: ' HTMLClose',
+        end: 13,
+        newLine: false,
+        start: 0,
+        type: 'HTMLClose'
+      }
+    ]);
+  });
   it('SingleLine', () => {
     t.deepStrictEqual(collectComments('// SingleLine', 0, false, false), [
       {

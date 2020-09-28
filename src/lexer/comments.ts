@@ -298,9 +298,10 @@ export function collectComments(
       case Char.Hyphen: {
         // Break the loop rather than throwing, so we can report it as an unexpected token
         // instead.
-        if (isModule || !(state & ScannerState.NewLine)) break loop;
+        if (isModule || !(state & ScannerState.Collecting)) break loop;
         commentStart = index;
         index++; // skip `-`
+
         if (source.charCodeAt(index) === Char.Hyphen && source.charCodeAt(index + 1) === Char.GreaterThan) {
           index += 3;
           while (index < source.length) {
