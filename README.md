@@ -60,7 +60,9 @@ This is the available options:
 ### Comments
 
 Comments can be extracted with either `collectCommentsScript` or `collectCommentsModule` and let you extract leading and trailing
-comments from a given position.
+comments from a given position. It takes the source code you are parsing as it's first argument. The second argument is the position
+within the source code you want to extract the comments from, and the last argument is if you want to extract leading or 
+trailing comments.
 
 Here is an example on how to get all trailing comments belonging to `bar`
 
