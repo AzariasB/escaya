@@ -57,6 +57,32 @@ This is the available options:
 | `module`            | Enable parsing in module goal in error recovery mode |
 
 
+### Comments
+
+Comments can be extracted with either `collectCommentsScript` or `collectCommentsModule` and let you extract leading and trailing
+comments from a given position.
+
+Here is an example on how to get all trailing comments belonging to `bar`
+
+```ts
+import { collectCommentsScript, collectCommentsModule } from './escaya';
+
+parseScript('/* MultieLine */ bar /* trailing */', 20, true);
+
+```
+
+Outputs:
+
+```ts
+{
+        comment: ' trailing ',
+        end: 35,
+        newLine: false,
+        start: 21,
+        type: 'MultiLine'
+}
+```
+
 ## Escaya AST
 
 The AST used by `Escaya` represents the structure of an ECMAScript program as a tree and is designed to stay true to the [ECMAScript® 2021 specification](https://tc39.es/ecma262/index.html). The AST has been designed for performance, and it nearly eliminates the chance of accidentally creating an AST that does not represent an ECMAScript program while also requiring fewer bytes than an `ESTree AST` like `Babel` and `Acorn` produce, and `Babel parser's` own AST.
