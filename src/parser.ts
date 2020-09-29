@@ -233,7 +233,7 @@ export function parseStatementList(
   scope: ScopeState,
   statementList: Statement[]
 ): Statement[] {
-  // StatementList ::
+  // StatementList :
   //   (StatementListItem)* <end_token>
   while (state.token !== Token.EOF) {
     statementList.push(parseStatementListItem(state, context, scope, null, null));
@@ -297,8 +297,6 @@ export function parseStatementListItem(
       return parseFunctionDeclaration(state, context, scope, false);
     case Token.ClassKeyword:
       return parseClassDeclaration(state, context, scope);
-    case Token.VarKeyword:
-      return parseVariableStatement(state, context, scope, BindingType.Var);
     case Token.ConstKeyword:
       return parseLexicalDeclaration(state, context, scope, BindingType.Const, labels, ownLabels);
     case Token.LetKeyword:
@@ -563,14 +561,12 @@ export function parseNamedImports(state: ParserState, context: Context, scope: S
 //   ImportedBinding
 //   IdentifierName `as` ImportedBinding
 export function parseImportSpecifier(state: ParserState, context: Context, scope: ScopeState): ImportSpecifier {
-  const start = state.startIndex;
-  const tokenValue = state.tokenValue;
-  const token = state.token;
+  const { startIndex, tokenValue, token } = state;
   const name = parseIdentifierName(state, context);
   let moduleExportName: StringLiteral | null = null;
   let importedBinding: BindingIdentifier | IdentifierName | null = null;
   let identifierName: BindingIdentifier | IdentifierName | null = null;
-  if (state.token === Token.StringLiteral) {
+  if (token === Token.StringLiteral) {
     moduleExportName = parseModuleExportName(state, context);
     consume(state, context, Token.AsKeyword);
     importedBinding = parseBindingIdentifier(state, context, scope, BindingType.Let);
@@ -590,7 +586,7 @@ export function parseImportSpecifier(state: ParserState, context: Context, scope
   return finishNode(
     state,
     context,
-    start,
+    startIndex,
     DictionaryMap.ImportSpecifier(moduleExportName, identifierName, importedBinding),
     SyntaxKind.NamedImports
   );
@@ -830,8 +826,6 @@ export function parseIfStatement(state: ParserState, context: Context, scope: Sc
   );
 }
 
-// 'B Additional ECMAScript Features for Web Browsers'
-//   - B.3.4 FunctionDeclarations in IfStatement Statement Clauses
 export function parseConsequentOrAlternative(
   state: ParserState,
   context: Context,
@@ -1020,8 +1014,6 @@ export function parseForStatement(
 
   const isAwait = (context & Context.Await) === Context.Await && consumeOpt(state, context, Token.AwaitKeyword);
 
-  scope = createParentScope(scope, ScopeKind.ForStatement);
-
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
 
   let initializer: any | Expression | null | any = null;
@@ -1030,6 +1022,8 @@ export function parseForStatement(
   if (state.token !== Token.Semicolon) {
     // 'var', 'let', 'const'
     if (state.token & Token.IsVarLexical) {
+      scope = createParentScope(scope, ScopeKind.ForStatement);
+
       let isVariableDeclarationList = false;
       if (state.token === Token.LetKeyword) {
         nextToken(state, context);
@@ -3851,10 +3845,12 @@ export function parseFunctionExpression(
     (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword)
   ) {
     firstRestricted = state.token;
+    let tokenValue = state.tokenValue;
     name = validateFunctionName(
       state,
       ((context | 0b00000101111111101010000000000000) ^ 0b00000001111111101010000000000000) | generatorAndAsyncFlags
     );
+    addVarName(state, context, scope, tokenValue, BindingType.Var);
   } else if (state.token !== Token.LeftParen) {
     name = createBindingIdentifier(state, context, DiagnosticCode.ExpectedBindingIdent, /* shouldConsume */ false);
     scope = createParentScope(scope, ScopeKind.FunctionRoot);
@@ -3983,9 +3979,12 @@ export function parseFunctionDeclaration(
     state.token &
     (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword)
   ) {
-    const { tokenValue } = state;
+    const tokenValue = state.tokenValue;
+
     firstRestricted = state.token;
+
     name = validateFunctionName(state, context | ((context & 0b0000000000000000000_1100_00000000) << 11));
+
     if (context & Context.TopLevel && (context & Context.Module) !== Context.Module) {
       addVarName(state, context, scope, tokenValue, BindingType.Var);
     } else {
@@ -3999,11 +3998,14 @@ export function parseFunctionDeclaration(
     // In recovery mode we allow everything that can start an expression as an function name so we can insert an
     // dummy identifier without priming the scanner. It makes a clear distinction when it comes to cases
     // like 'function while() {}', 'function true() {}' and 'function function (function)'.
-    if (state.token & Token.IsExpressionStart && (context & Context.Default) !== Context.Default) {
-      firstRestricted = state.token;
-      name = createBindingIdentifier(state, context, DiagnosticCode.ExpectedBindingIdent, /* shouldConsume */ false);
-    } else if ((context & Context.Default) !== Context.Default) {
-      addEarlyDiagnostic(state, context, DiagnosticCode.MissingFuncName);
+    if ((context & Context.Default) !== Context.Default) {
+      if (state.token & Token.IsExpressionStart) {
+        firstRestricted = state.token;
+        name = createBindingIdentifier(state, context, DiagnosticCode.ExpectedBindingIdent, /* shouldConsume */ false);
+      } else {
+        addEarlyDiagnostic(state, context, DiagnosticCode.MissingFuncName);
+        innerScope = createParentScope(innerScope, ScopeKind.FunctionRoot);
+      }
     }
   }
 

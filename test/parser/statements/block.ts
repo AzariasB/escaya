@@ -19,8 +19,6 @@ describe('Statements - Block', () => {
     '{ { var f; } function* f() {}; }',
     '{ const f = 0; function* f() {} }',
     '{ { var f; } let f; }',
-    // '{ function a(){} function a(){} }',
-    // '{ function a(){} function* a(){} }',
     '{ let a; function a(){} }',
     '{ const a = 0; function a(){} }',
     '{ var a; const a = 0; }',
@@ -112,6 +110,8 @@ describe('Statements - Block', () => {
     '{ function f() {} ; function f() {} }',
     '{ function f(){} function f(){} }',
     '{ if (x) function f() {} ; function f() {} }',
+    '{ function a(){} function a(){} }',
+    '{ function a(){} function* a(){} }',
     '{ async function f() {} let f }'
   ]) {
     it(`${arg}`, () => {

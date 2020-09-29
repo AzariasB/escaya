@@ -261,6 +261,7 @@ describe('Expressions - Function', () => {
     'x = function f([foo=a,bar=b] = x){}',
     'x = function f([...[a, b]] = obj){}',
     'x = function f([...[a, b]]){}',
+    'x = function f(){ let f; }',
     '(function foo([x = 1] = [2]) {})',
     '(function foo({x1:[y1 = 1]}) {})',
     '(function foo([x1, {y1:y1 = 1}]) {})',
