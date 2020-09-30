@@ -18,6 +18,7 @@ describe('Statements - For of', () => {
     'for(let x=1 of [1,2,3]) 0',
     'for ({x} = y of z);',
     'for (a, b of c);',
+    'for (foo() of []) {}',
     'for (let.a of x);',
     'for ([x] = y of z);',
     'for (let() of y);',

@@ -15,6 +15,7 @@ describe('Expressions - Call', () => {
     'foo({a=1})',
     'async({a=1})',
     'async(a)(b)async',
+    '--foo();',
     'yield({a=1}. {b=2}, {c=3} = {}))',
     'async({a=1}. {b=2}, {c=3} = {}))',
     'a.b( c() ).d.e(()).f.g',

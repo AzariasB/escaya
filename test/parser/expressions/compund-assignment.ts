@@ -15,6 +15,8 @@ describe('Expressions - Compound assignment', () => {
     '([(a = b)] = []',
     '[a >>>= a] += 1;',
     '({a: (b = 0)} = {})',
+    'foo() += 1;',
+    'foo() /= 1;',
     '1 >>>= 1;',
     '1 &= 1;',
     '0.toString'

@@ -3823,40 +3823,37 @@ export function parseFunctionExpression(
   assignable: boolean
 ): FunctionExpression | IdentifierReference | Expression {
   const start = state.startIndex;
-  let isAsync = 0;
+  let generatorAndAsyncFlags = 0;
 
-  if (optionalBit(state, context, Token.AsyncKeyword)) {
+  if (consumeOpt(state, context, Token.AsyncKeyword)) {
     if (state.token !== Token.FunctionKeyword || state.lineTerminatorBeforeNextToken) {
       return parseAsyncArrowExpression(state, context, assignable, start);
     }
-    isAsync = 1;
+    generatorAndAsyncFlags = 2;
   }
 
   consume(state, context | Context.AllowRegExp, Token.FunctionKeyword);
 
-  const isGenerator = optionalBit(state, context, Token.Multiply);
-  const generatorAndAsyncFlags = (isAsync * 2 + isGenerator) << 21;
+  context =
+    ((context | 0b00000101111111101010000000000000) ^ 0b00000001111111101010000000000000) |
+    ((generatorAndAsyncFlags + optionalBit(state, context, Token.Multiply)) << 21);
 
   let scope = createScope();
   let name: BindingIdentifier | null = null;
   let firstRestricted!: Token;
+
   if (
     state.token &
     (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword)
   ) {
     firstRestricted = state.token;
     let tokenValue = state.tokenValue;
-    name = validateFunctionName(
-      state,
-      ((context | 0b00000101111111101010000000000000) ^ 0b00000001111111101010000000000000) | generatorAndAsyncFlags
-    );
+    name = validateFunctionName(state, context);
     addVarName(state, context, scope, tokenValue, BindingType.Var);
   } else if (state.token !== Token.LeftParen) {
     name = createBindingIdentifier(state, context, DiagnosticCode.ExpectedBindingIdent, /* shouldConsume */ false);
     scope = createParentScope(scope, ScopeKind.FunctionRoot);
   }
-  context =
-    ((context | 0b00000101111111101010000000000000) ^ 0b00000001111111101010000000000000) | generatorAndAsyncFlags;
 
   scope = createParentScope(scope, ScopeKind.FunctionParams);
 
@@ -3870,7 +3867,13 @@ export function parseFunctionExpression(
     state,
     context,
     start,
-    DictionaryMap.FunctionExpression(name, isGenerator === 1, isAsync === 1, params, contents),
+    DictionaryMap.FunctionExpression(
+      name,
+      (context & Context.Yield) !== 0,
+      (context & Context.Await) !== 0,
+      params,
+      contents
+    ),
     SyntaxKind.FunctionExpression
   );
 }
@@ -3945,33 +3948,31 @@ export function parseAsyncArrowExpression(
 export function parseFunctionDeclaration(
   state: ParserState,
   context: Context,
-  scope: any,
+  scope: ScopeState,
   disallowGen: boolean,
   isHoisted = false
 ): FunctionDeclaration | ExpressionStatement | ArrowFunction {
   const start = state.startIndex;
-
-  let isAsync = 0;
+  let generatorAndAsyncFlags = 0;
 
   if (consumeOpt(state, context, Token.AsyncKeyword)) {
     if (state.token !== Token.FunctionKeyword || state.lineTerminatorBeforeNextToken) {
       return parseAsyncArrowDeclaration(state, context, start);
     }
-    isAsync = 1;
+    generatorAndAsyncFlags = 2;
   }
 
   consume(state, context | Context.AllowRegExp, Token.FunctionKeyword);
 
-  const isGenerator = optionalBit(state, context, Token.Multiply);
+  if (consumeOpt(state, context, Token.Multiply)) {
+    if (disallowGen) addEarlyDiagnostic(state, context, DiagnosticCode.FuncGenLabel);
+    generatorAndAsyncFlags++;
+  }
 
-  // FunctionDeclaration doesn't include generators
-  if (disallowGen && isGenerator) addEarlyDiagnostic(state, context, DiagnosticCode.FuncGenLabel);
-
-  const generatorAndAsyncFlags = (isAsync * 2 + isGenerator) << 21;
+  generatorAndAsyncFlags = generatorAndAsyncFlags << 21;
 
   // Create a new function scope
   let innerScope = createScope();
-
   let name: BindingIdentifier | null = null;
   let firstRestricted!: Token;
 
@@ -3994,18 +3995,16 @@ export function parseFunctionDeclaration(
     if (isHoisted) declareUnboundVariable(state, context, tokenValue);
 
     innerScope = createParentScope(innerScope, ScopeKind.FunctionRoot);
-  } else {
     // In recovery mode we allow everything that can start an expression as an function name so we can insert an
     // dummy identifier without priming the scanner. It makes a clear distinction when it comes to cases
     // like 'function while() {}', 'function true() {}' and 'function function (function)'.
-    if ((context & Context.Default) !== Context.Default) {
-      if (state.token & Token.IsExpressionStart) {
-        firstRestricted = state.token;
-        name = createBindingIdentifier(state, context, DiagnosticCode.ExpectedBindingIdent, /* shouldConsume */ false);
-      } else {
-        addEarlyDiagnostic(state, context, DiagnosticCode.MissingFuncName);
-        innerScope = createParentScope(innerScope, ScopeKind.FunctionRoot);
-      }
+  } else if ((context & Context.Default) !== Context.Default) {
+    if (state.token & Token.IsExpressionStart) {
+      firstRestricted = state.token;
+      name = createBindingIdentifier(state, context, DiagnosticCode.ExpectedBindingIdent, /* shouldConsume */ false);
+    } else {
+      addEarlyDiagnostic(state, context, DiagnosticCode.MissingFuncName);
+      innerScope = createParentScope(innerScope, ScopeKind.FunctionRoot);
     }
   }
 
@@ -4022,7 +4021,13 @@ export function parseFunctionDeclaration(
     state,
     context,
     start,
-    DictionaryMap.FunctionDeclaration(name, isGenerator === 1, isAsync === 1, params, contents),
+    DictionaryMap.FunctionDeclaration(
+      name,
+      (context & Context.Yield) !== 0,
+      (context & Context.Await) !== 0,
+      params,
+      contents
+    ),
     SyntaxKind.FunctionDeclaration
   );
 }

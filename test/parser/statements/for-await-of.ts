@@ -11,6 +11,7 @@ describe('Statements - For await of', () => {
     'async function f() { for await (var x in y) {} }',
     'async function f() { for await (const x in y) {} }',
     `for await ({x} = y of z);`,
+    'for await (foo() of []) {}',
     'function f() { for await (x of y) {} }',
     'function f() { for await (x of y) {} }',
     'function f() { for await (x of y) {} }',

@@ -18,6 +18,7 @@ describe('Statements - For in', () => {
     'for ({} = y in y);',
     'for(let x=1 in [1,2,3]) 0',
     '"use strict"; for (let in x) {}',
+    'for (foo() in {}) {}',
     'for (x in a>c;;) x',
     'for(const a in b) label: function f(){}',
     'for(let let in 0);',

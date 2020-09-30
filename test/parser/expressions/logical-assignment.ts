@@ -3,7 +3,20 @@ import { parseScript, parseModule, recovery } from '../../../src/escaya';
 
 describe('Expressions - Logical Assignment', () => {
   // Invalid cases
-  for (const arg of ['[', '[,', '[] += a']) {
+  for (const arg of [
+    'foo() &&= 1',
+    '[,',
+    '[] += a',
+    '1 ??= 1;',
+    'foo() &&= 1;',
+    'foo() ||= 1;',
+    'foo() ??= 1;',
+    'bar?.value ?? [] : []',
+    // 'arguments &&= 20;',
+    // 'eval &&= 20;'
+    'test() ??= 1;',
+    '1 &&= 1;'
+  ]) {
     it(`${arg}`, () => {
       t.throws(() => {
         parseScript(`${arg}`);
@@ -24,7 +37,6 @@ describe('Expressions - Logical Assignment', () => {
     'x &&= "foo"',
     'x &&= 42',
     'x ||= 42',
-    //'bar?.value ?? [] : []',
     `class a extends (a ??= 0) {}`,
     '() => { let a = (a &&= 0); }',
     '() => { fn &&= 1; }',
@@ -32,7 +44,19 @@ describe('Expressions - Logical Assignment', () => {
     `let a = (a ||= 0);`,
     `const a = (a &&= 0);`,
     `(a = (b ??= 0), b) => {}`,
+    'x	&&=	2, 2',
+    'x\t&&=2',
+    'x\t&&=\u20292',
+    'x\t&&=\u20282',
+    'x\t&&=\r\n2',
     'x ??= y();',
+    'x ??=	1, 1',
+    'obj[incr()] ??= incr()',
+    'obj.prop ??= 1;',
+
+    'obj.prop ||= 1',
+    'obj.prop ||= 1, 2, "obj.prop"',
+    'obj.prop &&= 1;',
     'obj[pk] &&= true;',
     'obj[pk] ??= true;',
     'a ||= false;',
