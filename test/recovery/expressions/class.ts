@@ -6,7 +6,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Expressions - Class', () => {
   it('class', () => {
     t.deepEqual(recovery('class', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -17,7 +17,6 @@ describe('Recovery - Expressions - Class', () => {
           elements: [],
           start: 0,
           end: 5,
-          kind: 150,
           flags: 0
         }
       ],
@@ -47,7 +46,7 @@ describe('Recovery - Expressions - Class', () => {
 
   it('(class', () => {
     t.deepEqual(recovery('(class', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -62,17 +61,14 @@ describe('Recovery - Expressions - Class', () => {
               elements: [],
               start: 1,
               end: 6,
-              kind: 149,
               flags: 0
             },
             start: 0,
             end: 6,
-            kind: 189,
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
           flags: 0
         }
       ],
@@ -102,7 +98,7 @@ describe('Recovery - Expressions - Class', () => {
 
   it('(class baz { static bar(); }', () => {
     t.deepEqual(recovery('(class baz { static bar(); }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -117,7 +113,7 @@ describe('Recovery - Expressions - Class', () => {
                 name: 'baz',
                 start: 6,
                 end: 10,
-                kind: 168,
+
                 flags: 0
               },
               heritage: null,
@@ -138,7 +134,7 @@ describe('Recovery - Expressions - Class', () => {
                       name: 'bar',
                       start: 19,
                       end: 23,
-                      kind: 13,
+
                       flags: 0
                     },
                     contents: {
@@ -147,40 +143,33 @@ describe('Recovery - Expressions - Class', () => {
                       leafs: [],
                       start: 25,
                       end: 25,
-                      kind: 184,
                       flags: 0
                     },
                     start: 23,
                     end: 25,
-                    kind: 182,
                     flags: 0
                   },
                   start: 19,
                   end: 25,
-                  kind: 151,
                   flags: 0
                 },
                 {
                   type: 'Semicolon',
                   start: 25,
                   end: 26,
-                  kind: 28,
                   flags: 0
                 }
               ],
               start: 1,
               end: 28,
-              kind: 149,
               flags: 0
             },
             start: 0,
             end: 28,
-            kind: 189,
             flags: 0
           },
           start: 0,
           end: 28,
-          kind: 122,
           flags: 0
         }
       ],

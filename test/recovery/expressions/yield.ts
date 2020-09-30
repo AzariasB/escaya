@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Expressions - Yield', () => {
   it('yield(!', () => {
     t.deepEqual(recovery('yield(!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -17,7 +17,7 @@ describe('Recovery - Expressions - Yield', () => {
               name: 'yield',
               start: 0,
               end: 5,
-              kind: 13,
+
               flags: 0
             },
             arguments: [
@@ -29,23 +29,23 @@ describe('Recovery - Expressions - Yield', () => {
                   name: '',
                   start: 7,
                   end: 7,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 6,
                 end: 7,
-                kind: 160,
+
                 flags: 0
               }
             ],
             start: 0,
             end: 7,
-            kind: 156,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -75,7 +75,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('function* fn() { (yield!', () => {
     t.deepEqual(recovery('function* fn() { (yield!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -86,7 +86,7 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'fn',
             start: 9,
             end: 12,
-            kind: 168,
+
             flags: 0
           },
           generator: true,
@@ -111,38 +111,38 @@ describe('Recovery - Expressions - Yield', () => {
                         name: '',
                         start: 24,
                         end: 24,
-                        kind: 13,
+
                         flags: 2
                       },
                       start: 23,
                       end: 24,
-                      kind: 160,
+
                       flags: 0
                     },
                     start: 18,
                     end: 24,
-                    kind: 193,
+
                     flags: 0
                   },
                   start: 16,
                   end: 24,
-                  kind: 189,
+
                   flags: 0
                 },
                 start: 16,
                 end: 24,
-                kind: 122,
+
                 flags: 0
               }
             ],
             start: 14,
             end: 24,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 24,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -172,7 +172,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('{ (x = y = yield z', () => {
     t.deepEqual(recovery('{ (x = y = yield z', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -190,7 +190,7 @@ describe('Recovery - Expressions - Yield', () => {
                     name: 'x',
                     start: 3,
                     end: 4,
-                    kind: 13,
+
                     flags: 0
                   },
                   operator: '=',
@@ -201,7 +201,7 @@ describe('Recovery - Expressions - Yield', () => {
                       name: 'y',
                       start: 6,
                       end: 8,
-                      kind: 13,
+
                       flags: 0
                     },
                     operator: '=',
@@ -210,27 +210,27 @@ describe('Recovery - Expressions - Yield', () => {
                       name: 'yield',
                       start: 10,
                       end: 16,
-                      kind: 13,
+
                       flags: 0
                     },
                     start: 6,
                     end: 16,
-                    kind: 152,
+
                     flags: 0
                   },
                   start: 3,
                   end: 16,
-                  kind: 152,
+
                   flags: 0
                 },
                 start: 1,
                 end: 16,
-                kind: 189,
+
                 flags: 0
               },
               start: 1,
               end: 16,
-              kind: 122,
+
               flags: 0
             },
             {
@@ -240,18 +240,18 @@ describe('Recovery - Expressions - Yield', () => {
                 name: 'z',
                 start: 16,
                 end: 18,
-                kind: 13,
+
                 flags: 0
               },
               start: 16,
               end: 18,
-              kind: 122,
+
               flags: 0
             }
           ],
           start: 0,
           end: 18,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -281,7 +281,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('function f(){ 5 + yield x;', () => {
     t.deepEqual(recovery('function f(){ 5 + yield x;', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -292,7 +292,7 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'f',
             start: 8,
             end: 10,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -312,7 +312,7 @@ describe('Recovery - Expressions - Yield', () => {
                     value: 5,
                     start: 13,
                     end: 15,
-                    kind: 10,
+
                     flags: 0
                   },
                   operator: '+',
@@ -321,17 +321,17 @@ describe('Recovery - Expressions - Yield', () => {
                     name: 'yield',
                     start: 17,
                     end: 23,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 13,
                   end: 23,
-                  kind: 155,
+
                   flags: 0
                 },
                 start: 13,
                 end: 23,
-                kind: 122,
+
                 flags: 0
               },
               {
@@ -341,23 +341,23 @@ describe('Recovery - Expressions - Yield', () => {
                   name: 'x',
                   start: 23,
                   end: 25,
-                  kind: 13,
+
                   flags: 0
                 },
                 start: 23,
                 end: 26,
-                kind: 122,
+
                 flags: 0
               }
             ],
             start: 12,
             end: 26,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 26,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -395,7 +395,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('= {[yield]: 1}) => z', () => {
     t.deepEqual(recovery('= {[yield]: 1}) => z', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -412,24 +412,24 @@ describe('Recovery - Expressions - Yield', () => {
                     name: 'yield',
                     start: 4,
                     end: 9,
-                    kind: 13,
+
                     flags: 0
                   }
                 ],
                 start: 3,
                 end: 10,
-                kind: 178,
+
                 flags: 0
               },
               start: 3,
               end: 10,
-              kind: 122,
+
               flags: 0
             }
           ],
           start: 1,
           end: 10,
-          kind: 123,
+
           flags: 0
         },
         {
@@ -440,12 +440,12 @@ describe('Recovery - Expressions - Yield', () => {
             value: 1,
             start: 11,
             end: 13,
-            kind: 10,
+
             flags: 0
           },
           start: 11,
           end: 13,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -455,12 +455,12 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'z',
             start: 18,
             end: 20,
-            kind: 13,
+
             flags: 0
           },
           start: 18,
           end: 20,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -522,7 +522,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('function *g(){ (x = {[yield y]: 1}) }', () => {
     t.deepEqual(recovery('function *g(){ (x = {[yield y]: 1}) }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -533,7 +533,7 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'g',
             start: 10,
             end: 11,
-            kind: 168,
+
             flags: 0
           },
           generator: true,
@@ -554,7 +554,7 @@ describe('Recovery - Expressions - Yield', () => {
                       name: 'x',
                       start: 16,
                       end: 17,
-                      kind: 13,
+
                       flags: 0
                     },
                     operator: '=',
@@ -573,17 +573,16 @@ describe('Recovery - Expressions - Yield', () => {
                                 name: 'y',
                                 start: 27,
                                 end: 29,
-                                kind: 13,
+
                                 flags: 0
                               },
                               start: 22,
                               end: 29,
-                              kind: 193,
+
                               flags: 0
                             },
                             start: 21,
                             end: 30,
-                            kind: 171,
                             flags: 0
                           },
                           value: {
@@ -592,44 +591,42 @@ describe('Recovery - Expressions - Yield', () => {
                             value: 1,
                             start: 31,
                             end: 33,
-                            kind: 10,
+
                             flags: 0
                           },
                           start: 21,
                           end: 33,
-                          kind: 227,
                           flags: 0
                         }
                       ],
                       start: 19,
                       end: 34,
-                      kind: 179,
                       flags: 0
                     },
                     start: 16,
                     end: 34,
-                    kind: 152,
+
                     flags: 0
                   },
                   start: 14,
                   end: 35,
-                  kind: 189,
+
                   flags: 0
                 },
                 start: 14,
                 end: 35,
-                kind: 122,
+
                 flags: 0
               }
             ],
             start: 13,
             end: 37,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 37,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -650,7 +647,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it(':yield/(', () => {
     t.deepEqual(recovery(':yield/(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -663,7 +660,7 @@ describe('Recovery - Expressions - Yield', () => {
               name: 'yield',
               start: 1,
               end: 6,
-              kind: 13,
+
               flags: 0
             },
             operator: '/',
@@ -674,22 +671,22 @@ describe('Recovery - Expressions - Yield', () => {
                 name: '',
                 start: 8,
                 end: 8,
-                kind: 13,
+
                 flags: 2
               },
               start: 7,
               end: 8,
-              kind: 189,
+
               flags: 0
             },
             start: 1,
             end: 8,
-            kind: 155,
+
             flags: 0
           },
           start: 1,
           end: 8,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -727,7 +724,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('a:yield/x', () => {
     t.deepEqual(recovery('a:yield/x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -738,7 +735,7 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'a',
             start: 0,
             end: 2,
-            kind: 13,
+
             flags: 0
           },
           labelledItem: {
@@ -750,7 +747,7 @@ describe('Recovery - Expressions - Yield', () => {
                 name: 'yield',
                 start: 2,
                 end: 7,
-                kind: 13,
+
                 flags: 0
               },
               operator: '/',
@@ -759,22 +756,21 @@ describe('Recovery - Expressions - Yield', () => {
                 name: 'x',
                 start: 8,
                 end: 9,
-                kind: 13,
+
                 flags: 0
               },
               start: 2,
               end: 9,
-              kind: 155,
+
               flags: 0
             },
             start: 2,
             end: 9,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 134,
           flags: 0
         }
       ],
@@ -795,7 +791,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('yield = ((y)) =', () => {
     t.deepEqual(recovery('yield = ((y)) =', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -808,7 +804,7 @@ describe('Recovery - Expressions - Yield', () => {
               name: 'yield',
               start: 0,
               end: 5,
-              kind: 13,
+
               flags: 0
             },
             operator: '=',
@@ -823,17 +819,17 @@ describe('Recovery - Expressions - Yield', () => {
                     name: 'y',
                     start: 10,
                     end: 11,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 9,
                   end: 12,
-                  kind: 189,
+
                   flags: 0
                 },
                 start: 7,
                 end: 13,
-                kind: 189,
+
                 flags: 0
               },
               operator: '=',
@@ -842,22 +838,22 @@ describe('Recovery - Expressions - Yield', () => {
                 name: '',
                 start: 15,
                 end: 15,
-                kind: 13,
+
                 flags: 2
               },
               start: 7,
               end: 15,
-              kind: 152,
+
               flags: 0
             },
             start: 0,
             end: 15,
-            kind: 152,
+
             flags: 0
           },
           start: 0,
           end: 15,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -895,7 +891,8 @@ describe('Recovery - Expressions - Yield', () => {
       end: 23,
       fileName: 'recovery.js',
       incremental: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -904,7 +901,7 @@ describe('Recovery - Expressions - Yield', () => {
             directives: [],
             end: 23,
             flags: 0,
-            kind: 184,
+
             leafs: [
               {
                 end: 21,
@@ -913,12 +910,12 @@ describe('Recovery - Expressions - Yield', () => {
                   delegate: false,
                   end: 21,
                   flags: 0,
-                  kind: 193,
+
                   start: 15,
                   type: 'YieldExpression'
                 },
                 flags: 0,
-                kind: 122,
+
                 start: 15,
                 type: 'ExpressionStatement'
               }
@@ -929,11 +926,11 @@ describe('Recovery - Expressions - Yield', () => {
           end: 23,
           flags: 0,
           generator: true,
-          kind: 186,
+
           name: {
             end: 11,
             flags: 0,
-            kind: 168,
+
             name: 'g',
             start: 9,
             type: 'BindingIdentifier'
@@ -970,7 +967,8 @@ describe('Recovery - Expressions - Yield', () => {
       end: 29,
       fileName: 'recovery.js',
       incremental: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -979,7 +977,7 @@ describe('Recovery - Expressions - Yield', () => {
             directives: [],
             end: 29,
             flags: 0,
-            kind: 184,
+
             leafs: [
               {
                 end: 27,
@@ -987,7 +985,7 @@ describe('Recovery - Expressions - Yield', () => {
                   argument: {
                     end: 27,
                     flags: 0,
-                    kind: 13,
+
                     name: 'foo',
                     start: 23,
                     type: 'IdentifierReference'
@@ -995,12 +993,12 @@ describe('Recovery - Expressions - Yield', () => {
                   delegate: true,
                   end: 27,
                   flags: 0,
-                  kind: 193,
+
                   start: 15,
                   type: 'YieldExpression'
                 },
                 flags: 0,
-                kind: 122,
+
                 start: 15,
                 type: 'ExpressionStatement'
               }
@@ -1011,11 +1009,11 @@ describe('Recovery - Expressions - Yield', () => {
           end: 29,
           flags: 0,
           generator: true,
-          kind: 186,
+
           name: {
             end: 11,
             flags: 0,
-            kind: 168,
+
             name: 'g',
             start: 9,
             type: 'BindingIdentifier'
@@ -1035,7 +1033,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('function* g() { yield* }', () => {
     t.deepEqual(recovery('function* g() { yield* }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1046,7 +1044,7 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'g',
             start: 9,
             end: 11,
-            kind: 168,
+
             flags: 0
           },
           generator: true,
@@ -1066,28 +1064,28 @@ describe('Recovery - Expressions - Yield', () => {
                     name: '',
                     start: 22,
                     end: 22,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 15,
                   end: 22,
-                  kind: 193,
+
                   flags: 0
                 },
                 start: 15,
                 end: 22,
-                kind: 122,
+
                 flags: 0
               }
             ],
             start: 13,
             end: 24,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 24,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -1117,7 +1115,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('yield', () => {
     t.deepEqual(recovery('yield', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1128,12 +1126,12 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'yield',
             start: 0,
             end: 5,
-            kind: 13,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1154,7 +1152,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('(yield', () => {
     t.deepEqual(recovery('(yield', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1167,17 +1165,17 @@ describe('Recovery - Expressions - Yield', () => {
               name: 'yield',
               start: 1,
               end: 6,
-              kind: 13,
+
               flags: 0
             },
             start: 0,
             end: 6,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1207,7 +1205,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('(!yield', () => {
     t.deepEqual(recovery('(!yield', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1223,22 +1221,22 @@ describe('Recovery - Expressions - Yield', () => {
                 name: 'yield',
                 start: 2,
                 end: 7,
-                kind: 13,
+
                 flags: 0
               },
               start: 1,
               end: 7,
-              kind: 160,
+
               flags: 0
             },
             start: 0,
             end: 7,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1268,7 +1266,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('function *a yield (', () => {
     t.deepEqual(recovery('function *a yield (', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1279,7 +1277,7 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'a',
             start: 10,
             end: 11,
-            kind: 168,
+
             flags: 0
           },
           generator: true,
@@ -1291,12 +1289,12 @@ describe('Recovery - Expressions - Yield', () => {
             leafs: [],
             start: 11,
             end: 11,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -1308,18 +1306,18 @@ describe('Recovery - Expressions - Yield', () => {
               name: 'yield',
               start: 11,
               end: 17,
-              kind: 13,
+
               flags: 0
             },
             arguments: [],
             start: 11,
             end: 19,
-            kind: 156,
+
             flags: 0
           },
           start: 11,
           end: 19,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1357,7 +1355,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('function async * yield (', () => {
     t.deepEqual(recovery('function async * yield (', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1368,7 +1366,7 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'async',
             start: 8,
             end: 14,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -1380,12 +1378,12 @@ describe('Recovery - Expressions - Yield', () => {
             leafs: [],
             start: 14,
             end: 14,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -1397,7 +1395,7 @@ describe('Recovery - Expressions - Yield', () => {
               name: '',
               start: 14,
               end: 14,
-              kind: 13,
+
               flags: 2
             },
             operator: '*',
@@ -1408,23 +1406,23 @@ describe('Recovery - Expressions - Yield', () => {
                 name: 'yield',
                 start: 16,
                 end: 22,
-                kind: 13,
+
                 flags: 0
               },
               arguments: [],
               start: 16,
               end: 24,
-              kind: 156,
+
               flags: 0
             },
             start: 14,
             end: 24,
-            kind: 155,
+
             flags: 0
           },
           start: 14,
           end: 24,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1462,7 +1460,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('(*foo=bar yield', () => {
     t.deepEqual(recovery('(*foo=bar yield', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1479,7 +1477,7 @@ describe('Recovery - Expressions - Yield', () => {
                   name: '',
                   start: 1,
                   end: 1,
-                  kind: 13,
+
                   flags: 2
                 },
                 operator: '*',
@@ -1488,17 +1486,17 @@ describe('Recovery - Expressions - Yield', () => {
                   name: 'foo',
                   start: 2,
                   end: 5,
-                  kind: 13,
+
                   flags: 0
                 },
                 start: 1,
                 end: 5,
-                kind: 155,
+
                 flags: 0
               },
               start: 0,
               end: 5,
-              kind: 189,
+
               flags: 0
             },
             operator: '=',
@@ -1507,17 +1505,17 @@ describe('Recovery - Expressions - Yield', () => {
               name: 'bar',
               start: 6,
               end: 9,
-              kind: 13,
+
               flags: 0
             },
             start: 0,
             end: 9,
-            kind: 152,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1527,12 +1525,12 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'yield',
             start: 9,
             end: 15,
-            kind: 13,
+
             flags: 0
           },
           start: 9,
           end: 15,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1578,7 +1576,7 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('!yield(', () => {
     t.deepEqual(recovery('!yield(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1594,23 +1592,23 @@ describe('Recovery - Expressions - Yield', () => {
                 name: 'yield',
                 start: 1,
                 end: 6,
-                kind: 13,
+
                 flags: 0
               },
               arguments: [],
               start: 1,
               end: 7,
-              kind: 156,
+
               flags: 0
             },
             start: 0,
             end: 7,
-            kind: 160,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1642,7 +1640,7 @@ describe('Recovery - Expressions - Yield', () => {
   // not part of the function body. '{' is missing
   it('async function *x(yield yield x', () => {
     t.deepEqual(recovery('async function *x(yield yield x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1653,7 +1651,7 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'x',
             start: 16,
             end: 17,
-            kind: 168,
+
             flags: 0
           },
           generator: true,
@@ -1664,7 +1662,7 @@ describe('Recovery - Expressions - Yield', () => {
               name: 'yield',
               start: 18,
               end: 23,
-              kind: 168,
+
               flags: 0
             },
             {
@@ -1672,7 +1670,7 @@ describe('Recovery - Expressions - Yield', () => {
               name: 'yield',
               start: 23,
               end: 29,
-              kind: 168,
+
               flags: 0
             },
             {
@@ -1680,7 +1678,7 @@ describe('Recovery - Expressions - Yield', () => {
               name: 'x',
               start: 29,
               end: 31,
-              kind: 168,
+
               flags: 0
             }
           ],
@@ -1690,12 +1688,12 @@ describe('Recovery - Expressions - Yield', () => {
             leafs: [],
             start: 31,
             end: 31,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 31,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -1741,7 +1739,6 @@ describe('Recovery - Expressions - Yield', () => {
 
   it('async function *x(yield { yield x', () => {
     t.deepEqual(recovery('async function *x(yield { yield x', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -1751,7 +1748,7 @@ describe('Recovery - Expressions - Yield', () => {
             name: 'x',
             start: 16,
             end: 17,
-            kind: 168,
+
             flags: 0
           },
           generator: true,
@@ -1762,7 +1759,7 @@ describe('Recovery - Expressions - Yield', () => {
               name: 'yield',
               start: 18,
               end: 23,
-              kind: 168,
+
               flags: 0
             },
             {
@@ -1773,7 +1770,6 @@ describe('Recovery - Expressions - Yield', () => {
                   name: 'yield',
                   start: 25,
                   end: 31,
-                  kind: 168,
                   flags: 0
                 },
                 {
@@ -1781,13 +1777,12 @@ describe('Recovery - Expressions - Yield', () => {
                   name: 'x',
                   start: 31,
                   end: 33,
-                  kind: 168,
+
                   flags: 0
                 }
               ],
               start: 23,
               end: 33,
-              kind: 169,
               flags: 0
             }
           ],
@@ -1797,12 +1792,10 @@ describe('Recovery - Expressions - Yield', () => {
             leafs: [],
             start: 33,
             end: 33,
-            kind: 184,
             flags: 0
           },
           start: 0,
           end: 33,
-          kind: 186,
           flags: 0
         }
       ],
@@ -1866,6 +1859,7 @@ describe('Recovery - Expressions - Yield', () => {
       children: [],
       start: 0,
       length: 33,
+      type: 'RootNode',
       webCompat: true,
       end: 33
     });

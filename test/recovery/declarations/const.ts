@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Const', () => {
   it('const ...a = 1;', () => {
     t.deepStrictEqual(recovery('const ...a = 1;', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -14,7 +14,7 @@ describe('Recovery - Const', () => {
           declarations: [],
           start: 0,
           end: 5,
-          kind: 145,
+
           flags: 0
         },
         {
@@ -26,7 +26,7 @@ describe('Recovery - Const', () => {
               name: 'a',
               start: 9,
               end: 10,
-              kind: 13,
+
               flags: 0
             },
             operator: '=',
@@ -36,17 +36,17 @@ describe('Recovery - Const', () => {
               value: 1,
               start: 12,
               end: 14,
-              kind: 10,
+
               flags: 0
             },
             start: 9,
             end: 14,
-            kind: 152,
+
             flags: 0
           },
           start: 9,
           end: 15,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -76,7 +76,7 @@ describe('Recovery - Const', () => {
 
   it('const a = 2, ...b = ', () => {
     t.deepStrictEqual(recovery('const a = 2, ...b = ', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -91,7 +91,7 @@ describe('Recovery - Const', () => {
                 name: 'a',
                 start: 5,
                 end: 7,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -100,18 +100,18 @@ describe('Recovery - Const', () => {
                 value: 2,
                 start: 9,
                 end: 11,
-                kind: 10,
+
                 flags: 0
               },
               start: 5,
               end: 11,
-              kind: 146,
+
               flags: 0
             }
           ],
           start: 0,
           end: 12,
-          kind: 145,
+
           flags: 0
         },
         {
@@ -123,7 +123,7 @@ describe('Recovery - Const', () => {
               name: 'b',
               start: 16,
               end: 17,
-              kind: 13,
+
               flags: 0
             },
             operator: '=',
@@ -132,17 +132,17 @@ describe('Recovery - Const', () => {
               name: '',
               start: 19,
               end: 19,
-              kind: 13,
+
               flags: 2
             },
             start: 16,
             end: 19,
-            kind: 152,
+
             flags: 0
           },
           start: 16,
           end: 19,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -180,7 +180,7 @@ describe('Recovery - Const', () => {
 
   it('const l\\u006', () => {
     t.deepStrictEqual(recovery('const l\\u006', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -195,13 +195,13 @@ describe('Recovery - Const', () => {
                 name: 'l',
                 start: 5,
                 end: 7,
-                kind: 168,
+
                 flags: 0
               },
               initializer: null,
               start: 5,
               end: 7,
-              kind: 146,
+
               flags: 0
             },
             {
@@ -211,13 +211,13 @@ describe('Recovery - Const', () => {
                 name: '￿',
                 start: 7,
                 end: 8,
-                kind: 168,
+
                 flags: 0
               },
               initializer: null,
               start: 7,
               end: 8,
-              kind: 146,
+
               flags: 0
             },
             {
@@ -227,19 +227,19 @@ describe('Recovery - Const', () => {
                 name: 'u006',
                 start: 8,
                 end: 12,
-                kind: 168,
+
                 flags: 0
               },
               initializer: null,
               start: 8,
               end: 12,
-              kind: 146,
+
               flags: 0
             }
           ],
           start: 0,
           end: 12,
-          kind: 145,
+
           flags: 0
         }
       ],
@@ -277,7 +277,7 @@ describe('Recovery - Const', () => {
 
   it('const {x:y=/ {', () => {
     t.deepStrictEqual(recovery('const {x:y=/ {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -297,7 +297,7 @@ describe('Recovery - Const', () => {
                       name: 'x',
                       start: 7,
                       end: 9,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -307,7 +307,7 @@ describe('Recovery - Const', () => {
                         name: 'y',
                         start: 9,
                         end: 10,
-                        kind: 168,
+
                         flags: 0
                       },
                       right: {
@@ -316,35 +316,35 @@ describe('Recovery - Const', () => {
                         flag: '',
                         start: 11,
                         end: 14,
-                        kind: 15,
+
                         flags: 0
                       },
                       start: 9,
                       end: 14,
-                      kind: 172,
+
                       flags: 0
                     },
                     start: 7,
                     end: 14,
-                    kind: 227,
+
                     flags: 0
                   }
                 ],
                 start: 5,
                 end: 14,
-                kind: 169,
+
                 flags: 0
               },
               initializer: null,
               start: 5,
               end: 14,
-              kind: 146,
+
               flags: 0
             }
           ],
           start: 0,
           end: 14,
-          kind: 145,
+
           flags: 0
         }
       ],
@@ -374,7 +374,7 @@ describe('Recovery - Const', () => {
 
   it('const {/ {', () => {
     t.deepStrictEqual(recovery('const {/ {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -389,19 +389,19 @@ describe('Recovery - Const', () => {
                 properties: [],
                 start: 5,
                 end: 7,
-                kind: 169,
+
                 flags: 0
               },
               initializer: null,
               start: 5,
               end: 7,
-              kind: 146,
+
               flags: 0
             }
           ],
           start: 0,
           end: 7,
-          kind: 145,
+
           flags: 0
         },
         {
@@ -413,7 +413,7 @@ describe('Recovery - Const', () => {
               name: '',
               start: 7,
               end: 7,
-              kind: 13,
+
               flags: 2
             },
             operator: '/',
@@ -422,17 +422,17 @@ describe('Recovery - Const', () => {
               properties: [],
               start: 8,
               end: 10,
-              kind: 179,
+
               flags: 0
             },
             start: 7,
             end: 10,
-            kind: 155,
+
             flags: 0
           },
           start: 7,
           end: 10,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -470,7 +470,7 @@ describe('Recovery - Const', () => {
 
   it('const a;b;', () => {
     t.deepStrictEqual(recovery('const a;b;', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -485,19 +485,19 @@ describe('Recovery - Const', () => {
                 name: 'a',
                 start: 5,
                 end: 7,
-                kind: 168,
+
                 flags: 0
               },
               initializer: null,
               start: 5,
               end: 7,
-              kind: 146,
+
               flags: 0
             }
           ],
           start: 0,
           end: 8,
-          kind: 145,
+
           flags: 0
         },
         {
@@ -507,12 +507,12 @@ describe('Recovery - Const', () => {
             name: 'b',
             start: 8,
             end: 9,
-            kind: 13,
+
             flags: 0
           },
           start: 8,
           end: 10,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -559,7 +559,8 @@ describe('Recovery - Const', () => {
       end: 9,
       fileName: 'recovery.js',
       incremental: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -568,7 +569,7 @@ describe('Recovery - Const', () => {
               binding: {
                 end: 8,
                 flags: 0,
-                kind: 168,
+
                 name: 'b',
                 start: 5,
                 type: 'BindingIdentifier'
@@ -576,7 +577,7 @@ describe('Recovery - Const', () => {
               end: 8,
               flags: 0,
               initializer: null,
-              kind: 146,
+
               start: 5,
               type: 'LexicalBinding'
             }
@@ -584,7 +585,7 @@ describe('Recovery - Const', () => {
           end: 9,
           flags: 0,
           isConst: true,
-          kind: 145,
+
           start: 0,
           type: 'LexicalDeclaration'
         }
@@ -616,7 +617,8 @@ describe('Recovery - Const', () => {
       end: 10,
       fileName: 'recovery.js',
       incremental: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -625,7 +627,7 @@ describe('Recovery - Const', () => {
               binding: {
                 end: 7,
                 flags: 0,
-                kind: 168,
+
                 name: 'a',
                 start: 5,
                 type: 'BindingIdentifier'
@@ -633,7 +635,7 @@ describe('Recovery - Const', () => {
               end: 7,
               flags: 0,
               initializer: null,
-              kind: 146,
+
               start: 5,
               type: 'LexicalBinding'
             }
@@ -641,7 +643,7 @@ describe('Recovery - Const', () => {
           end: 7,
           flags: 0,
           isConst: true,
-          kind: 145,
+
           start: 0,
           type: 'LexicalDeclaration'
         },
@@ -650,13 +652,13 @@ describe('Recovery - Const', () => {
           expression: {
             end: 9,
             flags: 0,
-            kind: 13,
+
             name: 'b',
             start: 7,
             type: 'IdentifierReference'
           },
           flags: 0,
-          kind: 122,
+
           start: 7,
           type: 'ExpressionStatement'
         }
@@ -671,7 +673,7 @@ describe('Recovery - Const', () => {
 
   it('const', () => {
     t.deepStrictEqual(recovery('const', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -681,7 +683,7 @@ describe('Recovery - Const', () => {
           declarations: [],
           start: 0,
           end: 5,
-          kind: 145,
+
           flags: 0
         }
       ],
@@ -702,7 +704,7 @@ describe('Recovery - Const', () => {
 
   it('const {', () => {
     t.deepStrictEqual(recovery('const {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -717,19 +719,19 @@ describe('Recovery - Const', () => {
                 properties: [],
                 start: 5,
                 end: 7,
-                kind: 169,
+
                 flags: 0
               },
               initializer: null,
               start: 5,
               end: 7,
-              kind: 146,
+
               flags: 0
             }
           ],
           start: 0,
           end: 7,
-          kind: 145,
+
           flags: 0
         }
       ],
@@ -759,7 +761,7 @@ describe('Recovery - Const', () => {
 
   it('!{const ,,,', () => {
     t.deepStrictEqual(recovery('!{const ,,,', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -779,18 +781,18 @@ describe('Recovery - Const', () => {
                       name: 'const',
                       start: 2,
                       end: 7,
-                      kind: 13,
+
                       flags: 0
                     }
                   ],
                   start: 1,
                   end: 9,
-                  kind: 179,
+
                   flags: 0
                 },
                 start: 0,
                 end: 9,
-                kind: 160,
+
                 flags: 0
               },
               {
@@ -798,7 +800,7 @@ describe('Recovery - Const', () => {
                 name: '',
                 start: 10,
                 end: 10,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -806,18 +808,18 @@ describe('Recovery - Const', () => {
                 name: '',
                 start: 11,
                 end: 11,
-                kind: 13,
+
                 flags: 2
               }
             ],
             start: 0,
             end: 11,
-            kind: 147,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -863,7 +865,7 @@ describe('Recovery - Const', () => {
 
   it('const ({', () => {
     t.deepStrictEqual(recovery('const ({', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -873,7 +875,7 @@ describe('Recovery - Const', () => {
           declarations: [],
           start: 0,
           end: 5,
-          kind: 145,
+
           flags: 0
         },
         {
@@ -885,17 +887,17 @@ describe('Recovery - Const', () => {
               properties: [],
               start: 7,
               end: 8,
-              kind: 179,
+
               flags: 0
             },
             start: 5,
             end: 8,
-            kind: 189,
+
             flags: 0
           },
           start: 5,
           end: 8,
-          kind: 122,
+
           flags: 0
         }
       ],

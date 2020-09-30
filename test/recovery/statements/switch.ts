@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Switch', () => {
   it('switch (true) { case true: function g() {} }', () => {
     t.deepEqual(recovery('switch (true) { case true: function g() {} }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -15,7 +15,7 @@ describe('Recovery - Switch', () => {
             value: true,
             start: 8,
             end: 12,
-            kind: 166,
+
             flags: 0
           },
           clauses: [
@@ -26,7 +26,7 @@ describe('Recovery - Switch', () => {
                 value: true,
                 start: 20,
                 end: 25,
-                kind: 166,
+
                 flags: 0
               },
               leafs: [
@@ -37,7 +37,6 @@ describe('Recovery - Switch', () => {
                     name: 'g',
                     start: 35,
                     end: 37,
-                    kind: 168,
                     flags: 0
                   },
                   generator: false,
@@ -49,24 +48,23 @@ describe('Recovery - Switch', () => {
                     leafs: [],
                     start: 39,
                     end: 42,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 26,
                   end: 42,
-                  kind: 186,
+
                   flags: 0
                 }
               ],
               start: 15,
               end: 42,
-              kind: 141,
               flags: 0
             }
           ],
           start: 0,
           end: 44,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -87,7 +85,7 @@ describe('Recovery - Switch', () => {
 
   it('switch (x) { default: function *f(){} function *f(){} }', () => {
     t.deepEqual(recovery('switch (x) { default: function *f(){} function *f(){} }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -98,7 +96,6 @@ describe('Recovery - Switch', () => {
             name: 'x',
             start: 8,
             end: 9,
-            kind: 13,
             flags: 0
           },
           clauses: [
@@ -112,7 +109,6 @@ describe('Recovery - Switch', () => {
                     name: 'f',
                     start: 32,
                     end: 33,
-                    kind: 168,
                     flags: 0
                   },
                   generator: true,
@@ -124,12 +120,11 @@ describe('Recovery - Switch', () => {
                     leafs: [],
                     start: 35,
                     end: 37,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 21,
                   end: 37,
-                  kind: 186,
                   flags: 0
                 },
                 {
@@ -139,7 +134,6 @@ describe('Recovery - Switch', () => {
                     name: 'f',
                     start: 48,
                     end: 49,
-                    kind: 168,
                     flags: 0
                   },
                   generator: true,
@@ -151,24 +145,21 @@ describe('Recovery - Switch', () => {
                     leafs: [],
                     start: 51,
                     end: 53,
-                    kind: 184,
                     flags: 0
                   },
                   start: 37,
                   end: 53,
-                  kind: 186,
                   flags: 0
                 }
               ],
               start: 12,
               end: 53,
-              kind: 142,
+
               flags: 0
             }
           ],
           start: 0,
           end: 55,
-          kind: 136,
           flags: 0
         }
       ],
@@ -189,7 +180,7 @@ describe('Recovery - Switch', () => {
 
   it('switch (0) { case 1: var f = 0; x; default: var {f} = x; } var {f} = f', () => {
     t.deepEqual(recovery('switch (0) { case 1: var f = 0; x; default: var {f} = x; } var {f} = f', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -201,7 +192,7 @@ describe('Recovery - Switch', () => {
             value: 0,
             start: 8,
             end: 9,
-            kind: 10,
+
             flags: 0
           },
           clauses: [
@@ -213,7 +204,7 @@ describe('Recovery - Switch', () => {
                 value: 1,
                 start: 17,
                 end: 19,
-                kind: 10,
+
                 flags: 0
               },
               leafs: [
@@ -227,7 +218,7 @@ describe('Recovery - Switch', () => {
                         name: 'f',
                         start: 24,
                         end: 26,
-                        kind: 168,
+
                         flags: 0
                       },
                       initializer: {
@@ -236,18 +227,18 @@ describe('Recovery - Switch', () => {
                         value: 0,
                         start: 28,
                         end: 30,
-                        kind: 10,
+
                         flags: 0
                       },
                       start: 24,
                       end: 30,
-                      kind: 144,
+
                       flags: 0
                     }
                   ],
                   start: 20,
                   end: 31,
-                  kind: 143,
+
                   flags: 0
                 },
                 {
@@ -257,18 +248,18 @@ describe('Recovery - Switch', () => {
                     name: 'x',
                     start: 31,
                     end: 33,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 31,
                   end: 34,
-                  kind: 122,
+
                   flags: 0
                 }
               ],
               start: 12,
               end: 34,
-              kind: 141,
+
               flags: 0
             },
             {
@@ -287,13 +278,13 @@ describe('Recovery - Switch', () => {
                             name: 'f',
                             start: 49,
                             end: 50,
-                            kind: 168,
+
                             flags: 0
                           }
                         ],
                         start: 47,
                         end: 51,
-                        kind: 169,
+
                         flags: 0
                       },
                       initializer: {
@@ -301,30 +292,30 @@ describe('Recovery - Switch', () => {
                         name: 'x',
                         start: 53,
                         end: 55,
-                        kind: 13,
+
                         flags: 0
                       },
                       start: 47,
                       end: 55,
-                      kind: 144,
+
                       flags: 0
                     }
                   ],
                   start: 43,
                   end: 56,
-                  kind: 143,
+
                   flags: 0
                 }
               ],
               start: 34,
               end: 56,
-              kind: 142,
+
               flags: 0
             }
           ],
           start: 0,
           end: 58,
-          kind: 136,
+
           flags: 0
         },
         {
@@ -340,13 +331,13 @@ describe('Recovery - Switch', () => {
                     name: 'f',
                     start: 64,
                     end: 65,
-                    kind: 168,
+
                     flags: 0
                   }
                 ],
                 start: 62,
                 end: 66,
-                kind: 169,
+
                 flags: 0
               },
               initializer: {
@@ -354,18 +345,18 @@ describe('Recovery - Switch', () => {
                 name: 'f',
                 start: 68,
                 end: 70,
-                kind: 13,
+
                 flags: 0
               },
               start: 62,
               end: 70,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 58,
           end: 70,
-          kind: 143,
+
           flags: 0
         }
       ],
@@ -386,7 +377,7 @@ describe('Recovery - Switch', () => {
 
   it('switch case !', () => {
     t.deepEqual(recovery('switch case !', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -397,7 +388,7 @@ describe('Recovery - Switch', () => {
             name: '',
             start: 6,
             end: 6,
-            kind: 13,
+
             flags: 2
           },
           clauses: [
@@ -411,24 +402,24 @@ describe('Recovery - Switch', () => {
                   name: '',
                   start: 13,
                   end: 13,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 11,
                 end: 13,
-                kind: 160,
+
                 flags: 0
               },
               leafs: [],
               start: 6,
               end: 13,
-              kind: 141,
+
               flags: 0
             }
           ],
           start: 0,
           end: 13,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -466,7 +457,7 @@ describe('Recovery - Switch', () => {
 
   it('switch++', () => {
     t.deepEqual(recovery('switch++', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -480,18 +471,15 @@ describe('Recovery - Switch', () => {
               name: '',
               start: 8,
               end: 8,
-              kind: 13,
               flags: 2
             },
             start: 6,
             end: 8,
-            kind: 161,
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 8,
-          kind: 136,
           flags: 0
         }
       ],
@@ -521,7 +509,7 @@ describe('Recovery - Switch', () => {
 
   it('switch!', () => {
     t.deepEqual(recovery('switch!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -535,18 +523,18 @@ describe('Recovery - Switch', () => {
               name: '',
               start: 7,
               end: 7,
-              kind: 13,
+
               flags: 2
             },
             start: 6,
             end: 7,
-            kind: 160,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 7,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -576,7 +564,7 @@ describe('Recovery - Switch', () => {
 
   it('switch )', () => {
     t.deepEqual(recovery('switch )', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -587,13 +575,13 @@ describe('Recovery - Switch', () => {
             name: '',
             start: 6,
             end: 6,
-            kind: 13,
+
             flags: 2
           },
           clauses: [],
           start: 0,
           end: 8,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -623,7 +611,7 @@ describe('Recovery - Switch', () => {
 
   it('switch foo+bar / for as keyword', () => {
     t.deepEqual(recovery('switch foo+bar / for as keyword', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -636,7 +624,7 @@ describe('Recovery - Switch', () => {
               name: 'foo',
               start: 6,
               end: 10,
-              kind: 13,
+
               flags: 0
             },
             operator: '+',
@@ -647,7 +635,7 @@ describe('Recovery - Switch', () => {
                 name: 'bar',
                 start: 11,
                 end: 14,
-                kind: 13,
+
                 flags: 0
               },
               operator: '/',
@@ -656,23 +644,23 @@ describe('Recovery - Switch', () => {
                 name: '',
                 start: 16,
                 end: 16,
-                kind: 13,
+
                 flags: 2
               },
               start: 14,
               end: 16,
-              kind: 155,
+
               flags: 0
             },
             start: 6,
             end: 16,
-            kind: 155,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 16,
-          kind: 136,
+
           flags: 0
         },
         {
@@ -683,7 +671,7 @@ describe('Recovery - Switch', () => {
             name: 'as',
             start: 20,
             end: 23,
-            kind: 13,
+
             flags: 0
           },
           condition: {
@@ -691,7 +679,7 @@ describe('Recovery - Switch', () => {
             name: '',
             start: 31,
             end: 31,
-            kind: 13,
+
             flags: 2
           },
           incrementor: {
@@ -699,7 +687,7 @@ describe('Recovery - Switch', () => {
             name: 'keyword',
             start: 23,
             end: 31,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -709,17 +697,16 @@ describe('Recovery - Switch', () => {
               name: '',
               start: 31,
               end: 31,
-              kind: 13,
+
               flags: 2
             },
             start: 31,
             end: 31,
-            kind: 122,
+
             flags: 0
           },
           start: 16,
           end: 31,
-          kind: 132,
           flags: 0
         }
       ],
@@ -773,7 +760,7 @@ describe('Recovery - Switch', () => {
 
   it('as keyword', () => {
     t.deepEqual(recovery('switch', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -781,7 +768,7 @@ describe('Recovery - Switch', () => {
           type: 'SwitchStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 6,
             end: 6,
@@ -790,7 +777,7 @@ describe('Recovery - Switch', () => {
           clauses: [],
           start: 0,
           end: 6,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -820,7 +807,7 @@ describe('Recovery - Switch', () => {
 
   it('switch{', () => {
     t.deepEqual(recovery('switch{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -831,13 +818,13 @@ describe('Recovery - Switch', () => {
             properties: [],
             start: 6,
             end: 7,
-            kind: 179,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 7,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -867,7 +854,7 @@ describe('Recovery - Switch', () => {
 
   it('{switch', () => {
     t.deepEqual(recovery('{switch', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -881,19 +868,18 @@ describe('Recovery - Switch', () => {
                 name: '',
                 start: 7,
                 end: 7,
-                kind: 13,
+
                 flags: 2
               },
               clauses: [],
               start: 1,
               end: 7,
-              kind: 136,
+
               flags: 0
             }
           ],
           start: 0,
           end: 7,
-          kind: 123,
           flags: 0
         }
       ],
@@ -923,7 +909,7 @@ describe('Recovery - Switch', () => {
 
   it('switch({', () => {
     t.deepEqual(recovery('switch({', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -934,13 +920,13 @@ describe('Recovery - Switch', () => {
             properties: [],
             start: 7,
             end: 8,
-            kind: 179,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 8,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -970,7 +956,7 @@ describe('Recovery - Switch', () => {
 
   it('switch default {', () => {
     t.deepEqual(recovery('switch default {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -981,7 +967,7 @@ describe('Recovery - Switch', () => {
             name: '',
             start: 6,
             end: 6,
-            kind: 13,
+
             flags: 2
           },
           clauses: [
@@ -993,19 +979,19 @@ describe('Recovery - Switch', () => {
                   leafs: [],
                   start: 14,
                   end: 16,
-                  kind: 123,
+
                   flags: 0
                 }
               ],
               start: 6,
               end: 16,
-              kind: 142,
+
               flags: 0
             }
           ],
           start: 0,
           end: 16,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -1043,7 +1029,7 @@ describe('Recovery - Switch', () => {
 
   it('switch { default :! ', () => {
     t.deepEqual(recovery('switch { default :! ', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1059,7 +1045,7 @@ describe('Recovery - Switch', () => {
                   name: 'default',
                   start: 8,
                   end: 16,
-                  kind: 13,
+
                   flags: 0
                 },
                 value: {
@@ -1070,29 +1056,29 @@ describe('Recovery - Switch', () => {
                     name: '',
                     start: 19,
                     end: 19,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 18,
                   end: 19,
-                  kind: 160,
+
                   flags: 0
                 },
                 start: 8,
                 end: 19,
-                kind: 227,
+
                 flags: 0
               }
             ],
             start: 6,
             end: 19,
-            kind: 179,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 19,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -1130,7 +1116,7 @@ describe('Recovery - Switch', () => {
 
   it('switch { case default case case ', () => {
     t.deepEqual(recovery('switch { case default case case', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1144,7 +1130,7 @@ describe('Recovery - Switch', () => {
                 name: 'case',
                 start: 8,
                 end: 13,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -1152,7 +1138,7 @@ describe('Recovery - Switch', () => {
                 name: 'default',
                 start: 13,
                 end: 21,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -1160,7 +1146,7 @@ describe('Recovery - Switch', () => {
                 name: 'case',
                 start: 21,
                 end: 26,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -1168,19 +1154,19 @@ describe('Recovery - Switch', () => {
                 name: 'case',
                 start: 26,
                 end: 31,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 6,
             end: 31,
-            kind: 179,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 31,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -1250,7 +1236,7 @@ describe('Recovery - Switch', () => {
 
   it('switch(x switch', () => {
     t.deepEqual(recovery('switch(x switch', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1258,7 +1244,7 @@ describe('Recovery - Switch', () => {
           type: 'SwitchStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: 'x',
             start: 7,
             end: 8,
@@ -1267,14 +1253,14 @@ describe('Recovery - Switch', () => {
           clauses: [],
           start: 0,
           end: 8,
-          kind: 136,
+
           flags: 0
         },
         {
           type: 'SwitchStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 15,
             end: 15,
@@ -1283,7 +1269,7 @@ describe('Recovery - Switch', () => {
           clauses: [],
           start: 8,
           end: 15,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -1313,7 +1299,7 @@ describe('Recovery - Switch', () => {
 
   it('switch ! switch { default switch ', () => {
     t.deepEqual(recovery('switch ! switch { default switch', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1327,18 +1313,18 @@ describe('Recovery - Switch', () => {
               name: '',
               start: 8,
               end: 8,
-              kind: 13,
+
               flags: 2
             },
             start: 6,
             end: 8,
-            kind: 160,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 8,
-          kind: 136,
+
           flags: 0
         },
         {
@@ -1351,7 +1337,7 @@ describe('Recovery - Switch', () => {
                 name: 'default',
                 start: 17,
                 end: 25,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -1359,19 +1345,19 @@ describe('Recovery - Switch', () => {
                 name: 'switch',
                 start: 25,
                 end: 32,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 15,
             end: 32,
-            kind: 179,
+
             flags: 0
           },
           clauses: [],
           start: 8,
           end: 32,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -1443,7 +1429,7 @@ describe('Recovery - Switch', () => {
     t.deepEqual(
       recovery('I switch to try this ! in a { but in a while loop with in a switch { default clause', 'recovery.js'),
       {
-        kind: 209,
+        type: 'RootNode',
         webCompat: true,
         directives: [],
         leafs: [
@@ -1454,12 +1440,12 @@ describe('Recovery - Switch', () => {
               name: 'I',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             start: 0,
             end: 1,
-            kind: 122,
+
             flags: 0
           },
           {
@@ -1469,13 +1455,13 @@ describe('Recovery - Switch', () => {
               name: 'to',
               start: 8,
               end: 11,
-              kind: 13,
+
               flags: 0
             },
             clauses: [],
             start: 1,
             end: 11,
-            kind: 136,
+
             flags: 0
           },
           {
@@ -1485,14 +1471,14 @@ describe('Recovery - Switch', () => {
               leafs: [],
               start: 15,
               end: 15,
-              kind: 123,
+
               flags: 0
             },
             catchClause: null,
             finalizer: null,
             start: 11,
             end: 15,
-            kind: 138,
+
             flags: 0
           },
           {
@@ -1501,12 +1487,12 @@ describe('Recovery - Switch', () => {
               type: 'ThisExpression',
               start: 15,
               end: 20,
-              kind: 165,
+
               flags: 0
             },
             start: 15,
             end: 20,
-            kind: 122,
+
             flags: 0
           },
           {
@@ -1521,12 +1507,12 @@ describe('Recovery - Switch', () => {
                   name: '',
                   start: 22,
                   end: 22,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 20,
                 end: 22,
-                kind: 160,
+
                 flags: 0
               },
               operator: 'in',
@@ -1535,17 +1521,17 @@ describe('Recovery - Switch', () => {
                 name: 'a',
                 start: 25,
                 end: 27,
-                kind: 13,
+
                 flags: 0
               },
               start: 20,
               end: 27,
-              kind: 155,
+
               flags: 0
             },
             start: 20,
             end: 27,
-            kind: 122,
+
             flags: 0
           },
           {
@@ -1560,7 +1546,7 @@ describe('Recovery - Switch', () => {
                     name: 'but',
                     start: 29,
                     end: 33,
-                    kind: 13,
+
                     flags: 0
                   },
                   operator: 'in',
@@ -1569,17 +1555,17 @@ describe('Recovery - Switch', () => {
                     name: 'a',
                     start: 36,
                     end: 38,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 29,
                   end: 38,
-                  kind: 155,
+
                   flags: 0
                 },
                 start: 29,
                 end: 38,
-                kind: 122,
+
                 flags: 0
               },
               {
@@ -1589,7 +1575,7 @@ describe('Recovery - Switch', () => {
                   name: 'loop',
                   start: 44,
                   end: 49,
-                  kind: 13,
+
                   flags: 0
                 },
                 statement: {
@@ -1601,7 +1587,7 @@ describe('Recovery - Switch', () => {
                       name: '',
                       start: 54,
                       end: 54,
-                      kind: 13,
+
                       flags: 2
                     },
                     operator: 'in',
@@ -1610,12 +1596,12 @@ describe('Recovery - Switch', () => {
                       name: 'a',
                       start: 57,
                       end: 59,
-                      kind: 13,
+
                       flags: 0
                     },
                     start: 54,
                     end: 59,
-                    kind: 155,
+
                     flags: 0
                   },
                   statement: {
@@ -1628,7 +1614,7 @@ describe('Recovery - Switch', () => {
                           name: 'default',
                           start: 68,
                           end: 76,
-                          kind: 13,
+
                           flags: 0
                         },
                         {
@@ -1636,35 +1622,35 @@ describe('Recovery - Switch', () => {
                           name: 'clause',
                           start: 76,
                           end: 83,
-                          kind: 13,
+
                           flags: 0
                         }
                       ],
                       start: 66,
                       end: 83,
-                      kind: 179,
+
                       flags: 0
                     },
                     clauses: [],
                     start: 59,
                     end: 83,
-                    kind: 136,
+
                     flags: 0
                   },
                   start: 49,
                   end: 83,
-                  kind: 128,
+
                   flags: 0
                 },
                 start: 38,
                 end: 83,
-                kind: 139,
+
                 flags: 0
               }
             ],
             start: 27,
             end: 83,
-            kind: 123,
+
             flags: 0
           }
         ],
@@ -1799,7 +1785,7 @@ describe('Recovery - Switch', () => {
 
   it('case {', () => {
     t.deepEqual(recovery('case {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1808,7 +1794,7 @@ describe('Recovery - Switch', () => {
           leafs: [],
           start: 4,
           end: 6,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -1846,7 +1832,7 @@ describe('Recovery - Switch', () => {
 
   it('switch switch default', () => {
     t.deepEqual(recovery('switch switch default', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1857,13 +1843,13 @@ describe('Recovery - Switch', () => {
             name: '',
             start: 6,
             end: 6,
-            kind: 13,
+
             flags: 2
           },
           clauses: [],
           start: 0,
           end: 6,
-          kind: 136,
+
           flags: 0
         },
         {
@@ -1873,7 +1859,7 @@ describe('Recovery - Switch', () => {
             name: '',
             start: 13,
             end: 13,
-            kind: 13,
+
             flags: 2
           },
           clauses: [
@@ -1882,13 +1868,13 @@ describe('Recovery - Switch', () => {
               leafs: [],
               start: 13,
               end: 21,
-              kind: 142,
+
               flags: 0
             }
           ],
           start: 6,
           end: 21,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -1926,7 +1912,7 @@ describe('Recovery - Switch', () => {
 
   it('default{switch', () => {
     t.deepEqual(recovery('default{switch', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1940,19 +1926,19 @@ describe('Recovery - Switch', () => {
                 name: '',
                 start: 14,
                 end: 14,
-                kind: 13,
+
                 flags: 2
               },
               clauses: [],
               start: 8,
               end: 14,
-              kind: 136,
+
               flags: 0
             }
           ],
           start: 7,
           end: 14,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -1990,7 +1976,7 @@ describe('Recovery - Switch', () => {
 
   it('case{switch default', () => {
     t.deepEqual(recovery('case{switch default', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2004,7 +1990,7 @@ describe('Recovery - Switch', () => {
                 name: '',
                 start: 11,
                 end: 11,
-                kind: 13,
+
                 flags: 2
               },
               clauses: [
@@ -2013,19 +1999,19 @@ describe('Recovery - Switch', () => {
                   leafs: [],
                   start: 11,
                   end: 19,
-                  kind: 142,
+
                   flags: 0
                 }
               ],
               start: 5,
               end: 19,
-              kind: 136,
+
               flags: 0
             }
           ],
           start: 4,
           end: 19,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -2063,7 +2049,7 @@ describe('Recovery - Switch', () => {
 
   it('switch( x ,, a! switch ! { default : yep ++', () => {
     t.deepEqual(recovery('switch( x ,, a! switch ! { default : yep ++', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2077,7 +2063,7 @@ describe('Recovery - Switch', () => {
                 name: 'x',
                 start: 7,
                 end: 9,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -2085,7 +2071,7 @@ describe('Recovery - Switch', () => {
                 name: '',
                 start: 11,
                 end: 11,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2093,19 +2079,19 @@ describe('Recovery - Switch', () => {
                 name: 'a',
                 start: 12,
                 end: 14,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 7,
             end: 14,
-            kind: 147,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 14,
-          kind: 136,
+
           flags: 0
         },
         {
@@ -2118,17 +2104,17 @@ describe('Recovery - Switch', () => {
               name: '',
               start: 15,
               end: 15,
-              kind: 13,
+
               flags: 2
             },
             start: 14,
             end: 15,
-            kind: 160,
+
             flags: 0
           },
           start: 14,
           end: 15,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2146,7 +2132,7 @@ describe('Recovery - Switch', () => {
                     name: 'default',
                     start: 26,
                     end: 34,
-                    kind: 13,
+
                     flags: 0
                   },
                   value: {
@@ -2157,34 +2143,34 @@ describe('Recovery - Switch', () => {
                       name: 'yep',
                       start: 36,
                       end: 40,
-                      kind: 13,
+
                       flags: 0
                     },
                     start: 40,
                     end: 43,
-                    kind: 162,
+
                     flags: 0
                   },
                   start: 26,
                   end: 43,
-                  kind: 227,
+
                   flags: 0
                 }
               ],
               start: 24,
               end: 43,
-              kind: 179,
+
               flags: 0
             },
             start: 22,
             end: 43,
-            kind: 160,
+
             flags: 0
           },
           clauses: [],
           start: 15,
           end: 43,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -2246,7 +2232,7 @@ describe('Recovery - Switch', () => {
 
   it('{ switch', () => {
     t.deepEqual(recovery('{ switch', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2260,19 +2246,19 @@ describe('Recovery - Switch', () => {
                 name: '',
                 start: 8,
                 end: 8,
-                kind: 13,
+
                 flags: 2
               },
               clauses: [],
               start: 1,
               end: 8,
-              kind: 136,
+
               flags: 0
             }
           ],
           start: 0,
           end: 8,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -2302,7 +2288,7 @@ describe('Recovery - Switch', () => {
 
   it('switch !', () => {
     t.deepEqual(recovery('switch !', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2316,18 +2302,18 @@ describe('Recovery - Switch', () => {
               name: '',
               start: 8,
               end: 8,
-              kind: 13,
+
               flags: 2
             },
             start: 6,
             end: 8,
-            kind: 160,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 8,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -2357,7 +2343,7 @@ describe('Recovery - Switch', () => {
 
   it('switch x { case y:', () => {
     t.deepEqual(recovery('switch x { case y:', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2368,7 +2354,7 @@ describe('Recovery - Switch', () => {
             name: 'x',
             start: 6,
             end: 8,
-            kind: 13,
+
             flags: 0
           },
           clauses: [
@@ -2379,19 +2365,19 @@ describe('Recovery - Switch', () => {
                 name: 'y',
                 start: 15,
                 end: 17,
-                kind: 13,
+
                 flags: 0
               },
               leafs: [],
               start: 10,
               end: 18,
-              kind: 141,
+
               flags: 0
             }
           ],
           start: 0,
           end: 18,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -2437,7 +2423,7 @@ describe('Recovery - Switch', () => {
 
   it('switch (x) { case: default !!', () => {
     t.deepEqual(recovery('switch (x) { case: default !!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2448,7 +2434,7 @@ describe('Recovery - Switch', () => {
             name: 'x',
             start: 8,
             end: 9,
-            kind: 13,
+
             flags: 0
           },
           clauses: [
@@ -2459,13 +2445,13 @@ describe('Recovery - Switch', () => {
                 name: '',
                 start: 17,
                 end: 17,
-                kind: 13,
+
                 flags: 2
               },
               leafs: [],
               start: 12,
               end: 18,
-              kind: 141,
+
               flags: 0
             },
             {
@@ -2484,34 +2470,34 @@ describe('Recovery - Switch', () => {
                         name: '',
                         start: 29,
                         end: 29,
-                        kind: 13,
+
                         flags: 2
                       },
                       start: 28,
                       end: 29,
-                      kind: 160,
+
                       flags: 0
                     },
                     start: 26,
                     end: 29,
-                    kind: 160,
+
                     flags: 0
                   },
                   start: 26,
                   end: 29,
-                  kind: 122,
+
                   flags: 0
                 }
               ],
               start: 18,
               end: 29,
-              kind: 142,
+
               flags: 0
             }
           ],
           start: 0,
           end: 29,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -2557,7 +2543,7 @@ describe('Recovery - Switch', () => {
 
   it('switch x {  case :::', () => {
     t.deepEqual(recovery('switch x {  case :::', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2568,7 +2554,7 @@ describe('Recovery - Switch', () => {
             name: 'x',
             start: 6,
             end: 8,
-            kind: 13,
+
             flags: 0
           },
           clauses: [
@@ -2579,19 +2565,19 @@ describe('Recovery - Switch', () => {
                 name: '',
                 start: 16,
                 end: 16,
-                kind: 13,
+
                 flags: 2
               },
               leafs: [],
               start: 10,
               end: 18,
-              kind: 141,
+
               flags: 0
             }
           ],
           start: 0,
           end: 18,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -2653,7 +2639,7 @@ describe('Recovery - Switch', () => {
 
   it('switch { case x: { !}', () => {
     t.deepEqual(recovery('switch { case x: { !}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2667,7 +2653,7 @@ describe('Recovery - Switch', () => {
                 name: 'case',
                 start: 8,
                 end: 13,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -2677,7 +2663,7 @@ describe('Recovery - Switch', () => {
                   name: 'x',
                   start: 13,
                   end: 15,
-                  kind: 13,
+
                   flags: 0
                 },
                 value: {
@@ -2685,24 +2671,24 @@ describe('Recovery - Switch', () => {
                   properties: [],
                   start: 16,
                   end: 18,
-                  kind: 179,
+
                   flags: 0
                 },
                 start: 13,
                 end: 18,
-                kind: 227,
+
                 flags: 0
               }
             ],
             start: 6,
             end: 18,
-            kind: 179,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 18,
-          kind: 136,
+
           flags: 0
         },
         {
@@ -2715,17 +2701,17 @@ describe('Recovery - Switch', () => {
               name: '',
               start: 20,
               end: 20,
-              kind: 13,
+
               flags: 2
             },
             start: 18,
             end: 20,
-            kind: 160,
+
             flags: 0
           },
           start: 18,
           end: 20,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2779,7 +2765,7 @@ describe('Recovery - Switch', () => {
 
   it('switch (x) { case x: { !}', () => {
     t.deepEqual(recovery('switch (x) { case x: { !}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2787,7 +2773,7 @@ describe('Recovery - Switch', () => {
           type: 'SwitchStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: 'x',
             start: 8,
             end: 9,
@@ -2798,7 +2784,7 @@ describe('Recovery - Switch', () => {
               type: 'CaseClause',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: 'x',
                 start: 17,
                 end: 19,
@@ -2815,7 +2801,7 @@ describe('Recovery - Switch', () => {
                         operator: '!',
                         operand: {
                           type: 'IdentifierReference',
-                          kind: 13,
+
                           name: '',
                           start: 24,
                           end: 24,
@@ -2823,30 +2809,30 @@ describe('Recovery - Switch', () => {
                         },
                         start: 22,
                         end: 24,
-                        kind: 160,
+
                         flags: 0
                       },
                       start: 22,
                       end: 24,
-                      kind: 122,
+
                       flags: 0
                     }
                   ],
                   start: 20,
                   end: 25,
-                  kind: 123,
+
                   flags: 0
                 }
               ],
               start: 12,
               end: 25,
-              kind: 141,
+
               flags: 0
             }
           ],
           start: 0,
           end: 25,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -2876,7 +2862,7 @@ describe('Recovery - Switch', () => {
 
   it('switch { case foo: default: bar }', () => {
     t.deepEqual(recovery('switch { case foo: default: bar }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2890,7 +2876,7 @@ describe('Recovery - Switch', () => {
                 name: 'case',
                 start: 8,
                 end: 13,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -2900,7 +2886,7 @@ describe('Recovery - Switch', () => {
                   name: 'foo',
                   start: 13,
                   end: 17,
-                  kind: 13,
+
                   flags: 0
                 },
                 value: {
@@ -2908,12 +2894,12 @@ describe('Recovery - Switch', () => {
                   name: '',
                   start: 18,
                   end: 18,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 13,
                 end: 18,
-                kind: 227,
+
                 flags: 0
               },
               {
@@ -2923,7 +2909,7 @@ describe('Recovery - Switch', () => {
                   name: 'default',
                   start: 18,
                   end: 26,
-                  kind: 13,
+
                   flags: 0
                 },
                 value: {
@@ -2931,24 +2917,24 @@ describe('Recovery - Switch', () => {
                   name: 'bar',
                   start: 27,
                   end: 31,
-                  kind: 13,
+
                   flags: 0
                 },
                 start: 18,
                 end: 31,
-                kind: 227,
+
                 flags: 0
               }
             ],
             start: 6,
             end: 33,
-            kind: 179,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 33,
-          kind: 136,
+
           flags: 0
         }
       ],
@@ -3002,7 +2988,7 @@ describe('Recovery - Switch', () => {
 
   it('switch (f(a function(){} c);) { default x: { !}', () => {
     t.deepEqual(recovery('switch (f(a function(){} c);) { default x: { !}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3015,7 +3001,7 @@ describe('Recovery - Switch', () => {
               name: 'f',
               start: 8,
               end: 9,
-              kind: 13,
+
               flags: 0
             },
             arguments: [
@@ -3024,7 +3010,7 @@ describe('Recovery - Switch', () => {
                 name: 'a',
                 start: 10,
                 end: 11,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -3039,12 +3025,11 @@ describe('Recovery - Switch', () => {
                   leafs: [],
                   start: 22,
                   end: 24,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 11,
                 end: 24,
-                kind: 185,
                 flags: 0
               },
               {
@@ -3052,26 +3037,25 @@ describe('Recovery - Switch', () => {
                 name: 'c',
                 start: 24,
                 end: 26,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 8,
             end: 27,
-            kind: 156,
+
             flags: 0
           },
           clauses: [],
           start: 0,
           end: 27,
-          kind: 136,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 27,
           end: 28,
-          kind: 148,
           flags: 0
         },
         {
@@ -3079,7 +3063,7 @@ describe('Recovery - Switch', () => {
           leafs: [],
           start: 29,
           end: 31,
-          kind: 123,
+
           flags: 0
         },
         {
@@ -3089,7 +3073,7 @@ describe('Recovery - Switch', () => {
             name: 'x',
             start: 39,
             end: 42,
-            kind: 13,
+
             flags: 0
           },
           labelledItem: {
@@ -3105,28 +3089,27 @@ describe('Recovery - Switch', () => {
                     name: '',
                     start: 46,
                     end: 46,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 44,
                   end: 46,
-                  kind: 160,
+
                   flags: 0
                 },
                 start: 44,
                 end: 46,
-                kind: 122,
+
                 flags: 0
               }
             ],
             start: 42,
             end: 47,
-            kind: 123,
+
             flags: 0
           },
           start: 39,
           end: 47,
-          kind: 134,
           flags: 0
         }
       ],
@@ -3196,7 +3179,7 @@ describe('Recovery - Switch', () => {
 
   it('switch (x) { default x: { !}', () => {
     t.deepEqual(recovery('switch (x) { default x: { !}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3207,7 +3190,7 @@ describe('Recovery - Switch', () => {
             name: 'x',
             start: 8,
             end: 9,
-            kind: 13,
+
             flags: 0
           },
           clauses: [
@@ -3221,7 +3204,7 @@ describe('Recovery - Switch', () => {
                     name: 'x',
                     start: 20,
                     end: 23,
-                    kind: 13,
+
                     flags: 0
                   },
                   labelledItem: {
@@ -3237,40 +3220,39 @@ describe('Recovery - Switch', () => {
                             name: '',
                             start: 27,
                             end: 27,
-                            kind: 13,
+
                             flags: 2
                           },
                           start: 25,
                           end: 27,
-                          kind: 160,
+
                           flags: 0
                         },
                         start: 25,
                         end: 27,
-                        kind: 122,
+
                         flags: 0
                       }
                     ],
                     start: 23,
                     end: 28,
-                    kind: 123,
+
                     flags: 0
                   },
                   start: 20,
                   end: 28,
-                  kind: 134,
                   flags: 0
                 }
               ],
               start: 12,
               end: 28,
-              kind: 142,
+
               flags: 0
             }
           ],
           start: 0,
           end: 28,
-          kind: 136,
+
           flags: 0
         }
       ],

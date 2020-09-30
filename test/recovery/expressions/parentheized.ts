@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Expressions - Parenthesized', () => {
   it('(', () => {
     t.deepEqual(recovery('(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -17,17 +17,17 @@ describe('Recovery - Expressions - Parenthesized', () => {
               name: '',
               start: 1,
               end: 1,
-              kind: 13,
+
               flags: 2
             },
             start: 0,
             end: 1,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 1,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -57,7 +57,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('(/ {', () => {
     t.deepEqual(recovery('(/ {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -71,17 +71,17 @@ describe('Recovery - Expressions - Parenthesized', () => {
               flag: '',
               start: 1,
               end: 4,
-              kind: 15,
+
               flags: 0
             },
             start: 0,
             end: 4,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -111,7 +111,6 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('(...', () => {
     t.deepEqual(recovery('(...', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -127,12 +126,10 @@ describe('Recovery - Expressions - Parenthesized', () => {
                   name: '',
                   start: 1,
                   end: 4,
-                  kind: 168,
                   flags: 0
                 },
                 start: 1,
                 end: 4,
-                kind: 175,
                 flags: 0
               }
             ],
@@ -141,18 +138,16 @@ describe('Recovery - Expressions - Parenthesized', () => {
               name: '',
               start: 4,
               end: 4,
-              kind: 13,
               flags: 2
             },
             async: false,
             start: 0,
             end: 4,
-            kind: 188,
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -176,6 +171,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
       children: [],
       start: 0,
       length: 4,
+      type: 'RootNode',
       webCompat: true,
       end: 4
     });
@@ -183,7 +179,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('(a', () => {
     t.deepEqual(recovery('(a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -196,17 +192,14 @@ describe('Recovery - Expressions - Parenthesized', () => {
               name: 'a',
               start: 1,
               end: 2,
-              kind: 13,
               flags: 0
             },
             start: 0,
             end: 2,
-            kind: 189,
             flags: 0
           },
           start: 0,
           end: 2,
-          kind: 122,
           flags: 0
         }
       ],
@@ -236,7 +229,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('(!', () => {
     t.deepEqual(recovery('(!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -252,22 +245,18 @@ describe('Recovery - Expressions - Parenthesized', () => {
                 name: '',
                 start: 2,
                 end: 2,
-                kind: 13,
                 flags: 2
               },
               start: 1,
               end: 2,
-              kind: 160,
               flags: 0
             },
             start: 0,
             end: 2,
-            kind: 189,
             flags: 0
           },
           start: 0,
           end: 2,
-          kind: 122,
           flags: 0
         }
       ],
@@ -297,7 +286,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('(!=', () => {
     t.deepEqual(recovery('(!=', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -312,7 +301,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
                 name: '',
                 start: 1,
                 end: 1,
-                kind: 13,
+
                 flags: 2
               },
               operator: '!=',
@@ -321,22 +310,18 @@ describe('Recovery - Expressions - Parenthesized', () => {
                 name: '',
                 start: 3,
                 end: 3,
-                kind: 13,
                 flags: 2
               },
               start: 1,
               end: 3,
-              kind: 155,
               flags: 0
             },
             start: 0,
             end: 3,
-            kind: 189,
             flags: 0
           },
           start: 0,
           end: 3,
-          kind: 122,
           flags: 0
         }
       ],
@@ -366,7 +351,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('(!=,,,,,,', () => {
     t.deepEqual(recovery('(!=,,,,,,', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -384,7 +369,6 @@ describe('Recovery - Expressions - Parenthesized', () => {
                     name: '',
                     start: 1,
                     end: 1,
-                    kind: 13,
                     flags: 2
                   },
                   operator: '!=',
@@ -393,12 +377,11 @@ describe('Recovery - Expressions - Parenthesized', () => {
                     name: '',
                     start: 3,
                     end: 3,
-                    kind: 13,
                     flags: 2
                   },
                   start: 1,
                   end: 3,
-                  kind: 155,
+
                   flags: 0
                 },
                 {
@@ -406,7 +389,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
                   name: '',
                   start: 4,
                   end: 4,
-                  kind: 13,
+
                   flags: 2
                 },
                 {
@@ -414,7 +397,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
                   name: '',
                   start: 5,
                   end: 5,
-                  kind: 13,
+
                   flags: 2
                 },
                 {
@@ -422,7 +405,6 @@ describe('Recovery - Expressions - Parenthesized', () => {
                   name: '',
                   start: 6,
                   end: 6,
-                  kind: 13,
                   flags: 2
                 },
                 {
@@ -430,7 +412,6 @@ describe('Recovery - Expressions - Parenthesized', () => {
                   name: '',
                   start: 7,
                   end: 7,
-                  kind: 13,
                   flags: 2
                 },
                 {
@@ -438,7 +419,6 @@ describe('Recovery - Expressions - Parenthesized', () => {
                   name: '',
                   start: 8,
                   end: 8,
-                  kind: 13,
                   flags: 2
                 },
                 {
@@ -446,23 +426,21 @@ describe('Recovery - Expressions - Parenthesized', () => {
                   name: '',
                   start: 9,
                   end: 9,
-                  kind: 13,
                   flags: 2
                 }
               ],
               start: 0,
               end: 9,
-              kind: 147,
               flags: 0
             },
             start: 0,
             end: 9,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -540,7 +518,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('(((((((((((((((((', () => {
     t.deepEqual(recovery('(((((((((((((((((', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -585,97 +563,97 @@ describe('Recovery - Expressions - Parenthesized', () => {
                                               name: '',
                                               start: 17,
                                               end: 17,
-                                              kind: 13,
+
                                               flags: 2
                                             },
                                             start: 16,
                                             end: 17,
-                                            kind: 189,
+
                                             flags: 0
                                           },
                                           start: 15,
                                           end: 17,
-                                          kind: 189,
+
                                           flags: 0
                                         },
                                         start: 14,
                                         end: 17,
-                                        kind: 189,
+
                                         flags: 0
                                       },
                                       start: 13,
                                       end: 17,
-                                      kind: 189,
+
                                       flags: 0
                                     },
                                     start: 12,
                                     end: 17,
-                                    kind: 189,
+
                                     flags: 0
                                   },
                                   start: 11,
                                   end: 17,
-                                  kind: 189,
+
                                   flags: 0
                                 },
                                 start: 10,
                                 end: 17,
-                                kind: 189,
+
                                 flags: 0
                               },
                               start: 9,
                               end: 17,
-                              kind: 189,
+
                               flags: 0
                             },
                             start: 8,
                             end: 17,
-                            kind: 189,
+
                             flags: 0
                           },
                           start: 7,
                           end: 17,
-                          kind: 189,
+
                           flags: 0
                         },
                         start: 6,
                         end: 17,
-                        kind: 189,
+
                         flags: 0
                       },
                       start: 5,
                       end: 17,
-                      kind: 189,
+
                       flags: 0
                     },
                     start: 4,
                     end: 17,
-                    kind: 189,
+
                     flags: 0
                   },
                   start: 3,
                   end: 17,
-                  kind: 189,
+
                   flags: 0
                 },
                 start: 2,
                 end: 17,
-                kind: 189,
+
                 flags: 0
               },
               start: 1,
               end: 17,
-              kind: 189,
+
               flags: 0
             },
             start: 0,
             end: 17,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 17,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -705,7 +683,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('(with babel', () => {
     t.deepEqual(recovery('(with babel', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -718,17 +696,16 @@ describe('Recovery - Expressions - Parenthesized', () => {
               name: '',
               start: 1,
               end: 1,
-              kind: 13,
+
               flags: 2
             },
             start: 0,
             end: 1,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 1,
-          kind: 122,
           flags: 0
         },
         {
@@ -738,7 +715,6 @@ describe('Recovery - Expressions - Parenthesized', () => {
             name: 'babel',
             start: 5,
             end: 11,
-            kind: 13,
             flags: 0
           },
           statement: {
@@ -748,17 +724,14 @@ describe('Recovery - Expressions - Parenthesized', () => {
               name: '',
               start: 11,
               end: 11,
-              kind: 13,
               flags: 2
             },
             start: 11,
             end: 11,
-            kind: 122,
             flags: 0
           },
           start: 1,
           end: 11,
-          kind: 128,
           flags: 0
         }
       ],
@@ -796,7 +769,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('!(', () => {
     t.deepEqual(recovery('!(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -812,22 +785,18 @@ describe('Recovery - Expressions - Parenthesized', () => {
                 name: '',
                 start: 2,
                 end: 2,
-                kind: 13,
                 flags: 2
               },
               start: 1,
               end: 2,
-              kind: 189,
               flags: 0
             },
             start: 0,
             end: 2,
-            kind: 160,
             flags: 0
           },
           start: 0,
           end: 2,
-          kind: 122,
           flags: 0
         }
       ],
@@ -857,7 +826,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('([,[', () => {
     t.deepEqual(recovery('([,[', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -867,18 +836,16 @@ describe('Recovery - Expressions - Parenthesized', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'ArrayLiteral',
-              kind: 178,
               elements: [
                 {
                   type: 'Elison',
                   start: 3,
                   end: 3,
-                  kind: 176,
                   flags: 0
                 },
                 {
                   type: 'ArrayLiteral',
-                  kind: 178,
+
                   elements: [],
                   start: 3,
                   end: 4,
@@ -891,12 +858,10 @@ describe('Recovery - Expressions - Parenthesized', () => {
             },
             start: 0,
             end: 4,
-            kind: 189,
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
           flags: 0
         }
       ],
@@ -926,7 +891,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('([...b', () => {
     t.deepEqual(recovery('([...b', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -936,7 +901,6 @@ describe('Recovery - Expressions - Parenthesized', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'ArrayLiteral',
-              kind: 178,
               elements: [
                 {
                   type: 'SpreadElement',
@@ -945,12 +909,11 @@ describe('Recovery - Expressions - Parenthesized', () => {
                     name: 'b',
                     start: 5,
                     end: 6,
-                    kind: 13,
                     flags: 0
                   },
                   start: 2,
                   end: 6,
-                  kind: 177,
+
                   flags: 0
                 }
               ],
@@ -960,12 +923,12 @@ describe('Recovery - Expressions - Parenthesized', () => {
             },
             start: 0,
             end: 6,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -995,7 +958,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('([...b!', () => {
     t.deepEqual(recovery('([...b!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1005,7 +968,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'ArrayLiteral',
-              kind: 178,
+
               elements: [
                 {
                   type: 'SpreadElement',
@@ -1014,12 +977,12 @@ describe('Recovery - Expressions - Parenthesized', () => {
                     name: 'b',
                     start: 5,
                     end: 6,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 2,
                   end: 6,
-                  kind: 177,
+
                   flags: 0
                 },
                 {
@@ -1030,12 +993,12 @@ describe('Recovery - Expressions - Parenthesized', () => {
                     name: '',
                     start: 7,
                     end: 7,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 6,
                   end: 7,
-                  kind: 160,
+
                   flags: 0
                 }
               ],
@@ -1045,12 +1008,12 @@ describe('Recovery - Expressions - Parenthesized', () => {
             },
             start: 0,
             end: 7,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1080,7 +1043,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('(a b c [] {} ...', () => {
     t.deepEqual(recovery('(a b c [] {} ...', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1093,17 +1056,17 @@ describe('Recovery - Expressions - Parenthesized', () => {
               name: 'a',
               start: 1,
               end: 2,
-              kind: 13,
+
               flags: 0
             },
             start: 0,
             end: 2,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 2,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1113,12 +1076,12 @@ describe('Recovery - Expressions - Parenthesized', () => {
             name: 'b',
             start: 2,
             end: 4,
-            kind: 13,
+
             flags: 0
           },
           start: 2,
           end: 4,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1130,7 +1093,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
               name: 'c',
               start: 4,
               end: 6,
-              kind: 13,
+
               flags: 0
             },
             expression: {
@@ -1138,18 +1101,17 @@ describe('Recovery - Expressions - Parenthesized', () => {
               name: '',
               start: 8,
               end: 8,
-              kind: 13,
+
               flags: 2
             },
             computed: true,
             start: 4,
             end: 9,
-            kind: 154,
             flags: 0
           },
           start: 4,
           end: 9,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1157,7 +1119,6 @@ describe('Recovery - Expressions - Parenthesized', () => {
           leafs: [],
           start: 9,
           end: 12,
-          kind: 123,
           flags: 0
         }
       ],
@@ -1219,7 +1180,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
 
   it('(while then I switch from Babel', () => {
     t.deepEqual(recovery('(while then I switch from Babel', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1232,17 +1193,17 @@ describe('Recovery - Expressions - Parenthesized', () => {
               name: '',
               start: 1,
               end: 1,
-              kind: 13,
+
               flags: 2
             },
             start: 0,
             end: 1,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 1,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1252,7 +1213,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
             name: 'then',
             start: 6,
             end: 11,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -1262,17 +1223,16 @@ describe('Recovery - Expressions - Parenthesized', () => {
               name: 'I',
               start: 11,
               end: 13,
-              kind: 13,
+
               flags: 0
             },
             start: 11,
             end: 13,
-            kind: 122,
+
             flags: 0
           },
           start: 1,
           end: 13,
-          kind: 139,
           flags: 0
         },
         {
@@ -1282,13 +1242,12 @@ describe('Recovery - Expressions - Parenthesized', () => {
             name: 'from',
             start: 20,
             end: 25,
-            kind: 13,
+
             flags: 0
           },
           clauses: [],
           start: 13,
           end: 25,
-          kind: 136,
           flags: 0
         },
         {
@@ -1298,12 +1257,12 @@ describe('Recovery - Expressions - Parenthesized', () => {
             name: 'Babel',
             start: 25,
             end: 31,
-            kind: 13,
+
             flags: 0
           },
           start: 25,
           end: 31,
-          kind: 122,
+
           flags: 0
         }
       ],

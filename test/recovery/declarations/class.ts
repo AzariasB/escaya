@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Class', () => {
   it('class foo { "static *async ', () => {
     t.deepStrictEqual(recovery('class foo { "static *async ', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -15,14 +15,14 @@ describe('Recovery - Class', () => {
             name: 'foo',
             start: 5,
             end: 9,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
           elements: [],
           start: 0,
           end: 11,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -32,12 +32,12 @@ describe('Recovery - Class', () => {
             value: '',
             start: 11,
             end: 27,
-            kind: 12,
+
             flags: 0
           },
           start: 11,
           end: 27,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -67,7 +67,7 @@ describe('Recovery - Class', () => {
 
   it('class foo(/ {', () => {
     t.deepStrictEqual(recovery('class foo(/ {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -78,14 +78,14 @@ describe('Recovery - Class', () => {
             name: 'foo',
             start: 5,
             end: 9,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
           elements: [],
           start: 0,
           end: 9,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -98,17 +98,17 @@ describe('Recovery - Class', () => {
               flag: '',
               start: 10,
               end: 13,
-              kind: 15,
+
               flags: 0
             },
             start: 9,
             end: 13,
-            kind: 189,
+
             flags: 0
           },
           start: 9,
           end: 13,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -146,7 +146,7 @@ describe('Recovery - Class', () => {
 
   it('class { adf&/()})', () => {
     t.deepStrictEqual(recovery('class { adf&/()})', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -171,7 +171,7 @@ describe('Recovery - Class', () => {
                   name: 'adf',
                   start: 7,
                   end: 11,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -180,23 +180,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 11,
                   end: 11,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 11,
                 end: 11,
-                kind: 182,
+
                 flags: 0
               },
               start: 7,
               end: 11,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 11,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -208,7 +208,7 @@ describe('Recovery - Class', () => {
               name: '',
               start: 11,
               end: 11,
-              kind: 13,
+
               flags: 2
             },
             operator: '&',
@@ -218,17 +218,17 @@ describe('Recovery - Class', () => {
               flag: '',
               start: 12,
               end: 17,
-              kind: 15,
+
               flags: 0
             },
             start: 11,
             end: 17,
-            kind: 155,
+
             flags: 0
           },
           start: 11,
           end: 17,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -274,7 +274,7 @@ describe('Recovery - Class', () => {
 
   it('class x{[yield](a){}}', () => {
     t.deepStrictEqual(recovery('class x{[yield](a){}}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -285,14 +285,14 @@ describe('Recovery - Class', () => {
             name: 'x',
             start: 5,
             end: 7,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
           elements: [],
           start: 0,
           end: 8,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -307,13 +307,13 @@ describe('Recovery - Class', () => {
                   name: 'yield',
                   start: 9,
                   end: 14,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 8,
               end: 15,
-              kind: 178,
+
               flags: 0
             },
             arguments: [
@@ -322,18 +322,18 @@ describe('Recovery - Class', () => {
                 name: 'a',
                 start: 16,
                 end: 17,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 8,
             end: 18,
-            kind: 156,
+
             flags: 0
           },
           start: 8,
           end: 18,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -341,7 +341,7 @@ describe('Recovery - Class', () => {
           leafs: [],
           start: 18,
           end: 20,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -387,7 +387,7 @@ describe('Recovery - Class', () => {
 
   it('class x{   *', () => {
     t.deepStrictEqual(recovery('class x{   *', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -398,14 +398,14 @@ describe('Recovery - Class', () => {
             name: 'x',
             start: 5,
             end: 7,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
           elements: [],
           start: 0,
           end: 8,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -417,7 +417,7 @@ describe('Recovery - Class', () => {
               name: '',
               start: 8,
               end: 8,
-              kind: 13,
+
               flags: 2
             },
             operator: '*',
@@ -426,17 +426,17 @@ describe('Recovery - Class', () => {
               name: '',
               start: 12,
               end: 12,
-              kind: 13,
+
               flags: 2
             },
             start: 8,
             end: 12,
-            kind: 155,
+
             flags: 0
           },
           start: 8,
           end: 12,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -466,7 +466,7 @@ describe('Recovery - Class', () => {
 
   it('class x { async *prot\\u006fty', () => {
     t.deepStrictEqual(recovery('class x { async *prot\\u006fty', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -477,7 +477,7 @@ describe('Recovery - Class', () => {
             name: 'x',
             start: 5,
             end: 7,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
@@ -498,7 +498,7 @@ describe('Recovery - Class', () => {
                   name: 'prototy',
                   start: 17,
                   end: 29,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -507,23 +507,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 29,
                   end: 29,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 29,
                 end: 29,
-                kind: 182,
+
                 flags: 0
               },
               start: 9,
               end: 29,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 29,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -553,7 +553,7 @@ describe('Recovery - Class', () => {
 
   it('class A { async class(x)', () => {
     t.deepStrictEqual(recovery('class A { async class(x)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -564,7 +564,7 @@ describe('Recovery - Class', () => {
             name: 'A',
             start: 5,
             end: 7,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
@@ -585,7 +585,7 @@ describe('Recovery - Class', () => {
                     name: 'x',
                     start: 22,
                     end: 23,
-                    kind: 168,
+
                     flags: 0
                   }
                 ],
@@ -594,7 +594,7 @@ describe('Recovery - Class', () => {
                   name: 'class',
                   start: 15,
                   end: 21,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -603,23 +603,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 24,
                   end: 24,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 21,
                 end: 24,
-                kind: 182,
+
                 flags: 0
               },
               start: 9,
               end: 24,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 24,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -649,7 +649,7 @@ describe('Recovery - Class', () => {
 
   it('class foo extends foo(/ {', () => {
     t.deepStrictEqual(recovery('class foo extends foo(/ {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -660,7 +660,7 @@ describe('Recovery - Class', () => {
             name: 'foo',
             start: 5,
             end: 9,
-            kind: 168,
+
             flags: 0
           },
           heritage: {
@@ -670,7 +670,7 @@ describe('Recovery - Class', () => {
               name: 'foo',
               start: 17,
               end: 21,
-              kind: 13,
+
               flags: 0
             },
             arguments: [
@@ -680,19 +680,19 @@ describe('Recovery - Class', () => {
                 flag: '',
                 start: 22,
                 end: 25,
-                kind: 15,
+
                 flags: 0
               }
             ],
             start: 17,
             end: 25,
-            kind: 156,
+
             flags: 0
           },
           elements: [],
           start: 0,
           end: 25,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -722,7 +722,7 @@ describe('Recovery - Class', () => {
 
   it('class foo extends/ {', () => {
     t.deepStrictEqual(recovery('class foo extends/ {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -733,7 +733,7 @@ describe('Recovery - Class', () => {
             name: 'foo',
             start: 5,
             end: 9,
-            kind: 168,
+
             flags: 0
           },
           heritage: {
@@ -742,13 +742,13 @@ describe('Recovery - Class', () => {
             flag: '',
             start: 17,
             end: 20,
-            kind: 15,
+
             flags: 0
           },
           elements: [],
           start: 0,
           end: 20,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -778,7 +778,7 @@ describe('Recovery - Class', () => {
 
   it('class foo extends {', () => {
     t.deepStrictEqual(recovery('class foo extends {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -789,7 +789,7 @@ describe('Recovery - Class', () => {
             name: 'foo',
             start: 5,
             end: 9,
-            kind: 168,
+
             flags: 0
           },
           heritage: {
@@ -797,13 +797,13 @@ describe('Recovery - Class', () => {
             properties: [],
             start: 17,
             end: 19,
-            kind: 179,
+
             flags: 0
           },
           elements: [],
           start: 0,
           end: 19,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -833,7 +833,7 @@ describe('Recovery - Class', () => {
 
   it('class true {}', () => {
     t.deepStrictEqual(recovery('class true {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -844,7 +844,7 @@ describe('Recovery - Class', () => {
           elements: [],
           start: 0,
           end: 5,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -854,12 +854,12 @@ describe('Recovery - Class', () => {
             value: true,
             start: 5,
             end: 10,
-            kind: 166,
+
             flags: 0
           },
           start: 5,
           end: 10,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -867,7 +867,7 @@ describe('Recovery - Class', () => {
           leafs: [],
           start: 10,
           end: 13,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -905,7 +905,7 @@ describe('Recovery - Class', () => {
 
   it('class a { ;;; };', () => {
     t.deepStrictEqual(recovery('class a { ;;; }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -916,7 +916,7 @@ describe('Recovery - Class', () => {
             name: 'a',
             start: 5,
             end: 7,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
@@ -925,27 +925,27 @@ describe('Recovery - Class', () => {
               type: 'Semicolon',
               start: 9,
               end: 11,
-              kind: 28,
+
               flags: 0
             },
             {
               type: 'Semicolon',
               start: 11,
               end: 12,
-              kind: 28,
+
               flags: 0
             },
             {
               type: 'Semicolon',
               start: 12,
               end: 13,
-              kind: 28,
+
               flags: 0
             }
           ],
           start: 0,
           end: 15,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -966,7 +966,7 @@ describe('Recovery - Class', () => {
 
   it('class  { static prototype', () => {
     t.deepStrictEqual(recovery('class  { static prototype', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -991,7 +991,7 @@ describe('Recovery - Class', () => {
                   name: 'prototype',
                   start: 15,
                   end: 25,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -1000,23 +1000,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 25,
                   end: 25,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 25,
                 end: 25,
-                kind: 182,
+
                 flags: 0
               },
               start: 15,
               end: 25,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 25,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -1054,7 +1054,7 @@ describe('Recovery - Class', () => {
 
   it('class { async get(x', () => {
     t.deepStrictEqual(recovery('class { async get(x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1079,7 +1079,7 @@ describe('Recovery - Class', () => {
                     name: 'x',
                     start: 18,
                     end: 19,
-                    kind: 168,
+
                     flags: 0
                   }
                 ],
@@ -1088,7 +1088,7 @@ describe('Recovery - Class', () => {
                   name: 'get',
                   start: 13,
                   end: 17,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -1097,23 +1097,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 19,
                   end: 19,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 17,
                 end: 19,
-                kind: 182,
+
                 flags: 0
               },
               start: 7,
               end: 19,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 19,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -1151,7 +1151,7 @@ describe('Recovery - Class', () => {
 
   it('class class class (class)', () => {
     t.deepStrictEqual(recovery('class class class (class)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1162,7 +1162,7 @@ describe('Recovery - Class', () => {
           elements: [],
           start: 0,
           end: 5,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -1172,7 +1172,7 @@ describe('Recovery - Class', () => {
           elements: [],
           start: 5,
           end: 11,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -1182,7 +1182,7 @@ describe('Recovery - Class', () => {
           elements: [],
           start: 11,
           end: 17,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -1196,17 +1196,17 @@ describe('Recovery - Class', () => {
               elements: [],
               start: 19,
               end: 24,
-              kind: 149,
+
               flags: 0
             },
             start: 17,
             end: 25,
-            kind: 189,
+
             flags: 0
           },
           start: 17,
           end: 25,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1260,7 +1260,7 @@ describe('Recovery - Class', () => {
 
   it('class { class', () => {
     t.deepStrictEqual(recovery('class { class', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1285,7 +1285,7 @@ describe('Recovery - Class', () => {
                   name: 'class',
                   start: 7,
                   end: 13,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -1294,23 +1294,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 13,
                   end: 13,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 13,
                 end: 13,
-                kind: 182,
+
                 flags: 0
               },
               start: 7,
               end: 13,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 13,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -1348,7 +1348,7 @@ describe('Recovery - Class', () => {
 
   it('class function async yield await class', () => {
     t.deepStrictEqual(recovery('class function async yield await class', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1359,7 +1359,7 @@ describe('Recovery - Class', () => {
           elements: [],
           start: 0,
           end: 5,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -1369,7 +1369,7 @@ describe('Recovery - Class', () => {
             name: 'async',
             start: 14,
             end: 20,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -1381,12 +1381,12 @@ describe('Recovery - Class', () => {
             leafs: [],
             start: 20,
             end: 20,
-            kind: 184,
+
             flags: 0
           },
           start: 5,
           end: 20,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -1396,12 +1396,12 @@ describe('Recovery - Class', () => {
             name: 'yield',
             start: 20,
             end: 26,
-            kind: 13,
+
             flags: 0
           },
           start: 20,
           end: 26,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1411,12 +1411,12 @@ describe('Recovery - Class', () => {
             name: 'await',
             start: 26,
             end: 32,
-            kind: 13,
+
             flags: 0
           },
           start: 26,
           end: 32,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1426,7 +1426,7 @@ describe('Recovery - Class', () => {
           elements: [],
           start: 32,
           end: 38,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -1480,7 +1480,7 @@ describe('Recovery - Class', () => {
 
   it('[class}!', () => {
     t.deepStrictEqual(recovery('[class}!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1488,7 +1488,7 @@ describe('Recovery - Class', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrayLiteral',
-            kind: 178,
+
             elements: [
               {
                 type: 'ClassExpression',
@@ -1497,7 +1497,7 @@ describe('Recovery - Class', () => {
                 elements: [],
                 start: 1,
                 end: 6,
-                kind: 149,
+
                 flags: 0
               }
             ],
@@ -1507,7 +1507,7 @@ describe('Recovery - Class', () => {
           },
           start: 0,
           end: 6,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1520,17 +1520,17 @@ describe('Recovery - Class', () => {
               name: '',
               start: 8,
               end: 8,
-              kind: 13,
+
               flags: 2
             },
             start: 7,
             end: 8,
-            kind: 160,
+
             flags: 0
           },
           start: 7,
           end: 8,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1568,7 +1568,7 @@ describe('Recovery - Class', () => {
 
   it('!class!!', () => {
     t.deepStrictEqual(recovery('!class!!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1584,17 +1584,17 @@ describe('Recovery - Class', () => {
               elements: [],
               start: 1,
               end: 6,
-              kind: 149,
+
               flags: 0
             },
             start: 0,
             end: 6,
-            kind: 160,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1610,22 +1610,22 @@ describe('Recovery - Class', () => {
                 name: '',
                 start: 8,
                 end: 8,
-                kind: 13,
+
                 flags: 2
               },
               start: 7,
               end: 8,
-              kind: 160,
+
               flags: 0
             },
             start: 6,
             end: 8,
-            kind: 160,
+
             flags: 0
           },
           start: 6,
           end: 8,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1663,7 +1663,7 @@ describe('Recovery - Class', () => {
 
   it('class x { async get constructor ', () => {
     t.deepStrictEqual(recovery('class x { async get constructor', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1674,7 +1674,7 @@ describe('Recovery - Class', () => {
             name: 'x',
             start: 5,
             end: 7,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
@@ -1695,7 +1695,7 @@ describe('Recovery - Class', () => {
                   name: 'get',
                   start: 15,
                   end: 19,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -1704,17 +1704,17 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 19,
                   end: 19,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 19,
                 end: 19,
-                kind: 182,
+
                 flags: 0
               },
               start: 9,
               end: 19,
-              kind: 151,
+
               flags: 0
             },
             {
@@ -1733,7 +1733,7 @@ describe('Recovery - Class', () => {
                   name: 'constructor',
                   start: 19,
                   end: 31,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -1742,23 +1742,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 31,
                   end: 31,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 31,
                 end: 31,
-                kind: 182,
+
                 flags: 0
               },
               start: 19,
               end: 31,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 31,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -1788,7 +1788,7 @@ describe('Recovery - Class', () => {
 
   it('class z y(){} x() {{', () => {
     t.deepStrictEqual(recovery('class z y(){} x() {{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1799,14 +1799,14 @@ describe('Recovery - Class', () => {
             name: 'z',
             start: 5,
             end: 7,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
           elements: [],
           start: 0,
           end: 7,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -1818,18 +1818,18 @@ describe('Recovery - Class', () => {
               name: 'y',
               start: 7,
               end: 9,
-              kind: 13,
+
               flags: 0
             },
             arguments: [],
             start: 7,
             end: 11,
-            kind: 156,
+
             flags: 0
           },
           start: 7,
           end: 11,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1837,7 +1837,7 @@ describe('Recovery - Class', () => {
           leafs: [],
           start: 11,
           end: 13,
-          kind: 123,
+
           flags: 0
         },
         {
@@ -1849,18 +1849,18 @@ describe('Recovery - Class', () => {
               name: 'x',
               start: 13,
               end: 15,
-              kind: 13,
+
               flags: 0
             },
             arguments: [],
             start: 13,
             end: 17,
-            kind: 156,
+
             flags: 0
           },
           start: 13,
           end: 17,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1871,13 +1871,13 @@ describe('Recovery - Class', () => {
               leafs: [],
               start: 19,
               end: 20,
-              kind: 123,
+
               flags: 0
             }
           ],
           start: 17,
           end: 20,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -1931,7 +1931,7 @@ describe('Recovery - Class', () => {
 
   it('class {', () => {
     t.deepStrictEqual(recovery('class {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1942,7 +1942,7 @@ describe('Recovery - Class', () => {
           elements: [],
           start: 0,
           end: 7,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -1972,7 +1972,7 @@ describe('Recovery - Class', () => {
 
   it('{class', () => {
     t.deepStrictEqual(recovery('{class', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1986,13 +1986,13 @@ describe('Recovery - Class', () => {
               elements: [],
               start: 1,
               end: 6,
-              kind: 150,
+
               flags: 0
             }
           ],
           start: 0,
           end: 6,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -2022,7 +2022,7 @@ describe('Recovery - Class', () => {
 
   it('if(class) {', () => {
     t.deepStrictEqual(recovery('if(class) {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2035,7 +2035,7 @@ describe('Recovery - Class', () => {
             elements: [],
             start: 3,
             end: 8,
-            kind: 149,
+
             flags: 0
           },
           consequent: {
@@ -2043,13 +2043,13 @@ describe('Recovery - Class', () => {
             leafs: [],
             start: 9,
             end: 11,
-            kind: 123,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 11,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -2087,7 +2087,7 @@ describe('Recovery - Class', () => {
 
   it('class(class{', () => {
     t.deepStrictEqual(recovery('class(class{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2098,7 +2098,7 @@ describe('Recovery - Class', () => {
           elements: [],
           start: 0,
           end: 5,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -2112,17 +2112,17 @@ describe('Recovery - Class', () => {
               elements: [],
               start: 6,
               end: 12,
-              kind: 149,
+
               flags: 0
             },
             start: 5,
             end: 12,
-            kind: 189,
+
             flags: 0
           },
           start: 5,
           end: 12,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2160,7 +2160,7 @@ describe('Recovery - Class', () => {
 
   it('class a {class', () => {
     t.deepStrictEqual(recovery('class a {class', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2171,7 +2171,7 @@ describe('Recovery - Class', () => {
             name: 'a',
             start: 5,
             end: 7,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
@@ -2192,7 +2192,7 @@ describe('Recovery - Class', () => {
                   name: 'class',
                   start: 9,
                   end: 14,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -2201,23 +2201,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 14,
                   end: 14,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 14,
                 end: 14,
-                kind: 182,
+
                 flags: 0
               },
               start: 9,
               end: 14,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 14,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -2247,7 +2247,7 @@ describe('Recovery - Class', () => {
 
   it('class a { a() {}', () => {
     t.deepStrictEqual(recovery('class a { a() {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2258,7 +2258,7 @@ describe('Recovery - Class', () => {
             name: 'a',
             start: 5,
             end: 7,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
@@ -2279,7 +2279,7 @@ describe('Recovery - Class', () => {
                   name: 'a',
                   start: 9,
                   end: 11,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -2288,23 +2288,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 13,
                   end: 16,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 11,
                 end: 16,
-                kind: 182,
+
                 flags: 0
               },
               start: 9,
               end: 16,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 16,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -2334,7 +2334,7 @@ describe('Recovery - Class', () => {
 
   it('class [}', () => {
     t.deepStrictEqual(recovery('class [}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2345,14 +2345,14 @@ describe('Recovery - Class', () => {
           elements: [],
           start: 0,
           end: 5,
-          kind: 150,
+
           flags: 0
         },
         {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrayLiteral',
-            kind: 178,
+
             elements: [],
             flags: 0,
             start: 5,
@@ -2360,7 +2360,7 @@ describe('Recovery - Class', () => {
           },
           start: 5,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2398,7 +2398,7 @@ describe('Recovery - Class', () => {
 
   it('class { async get () {}}', () => {
     t.deepStrictEqual(recovery('class { async get () {}}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2423,7 +2423,7 @@ describe('Recovery - Class', () => {
                   name: 'get',
                   start: 13,
                   end: 17,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -2432,23 +2432,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 20,
                   end: 23,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 17,
                 end: 23,
-                kind: 182,
+
                 flags: 0
               },
               start: 7,
               end: 23,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 24,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -2478,7 +2478,7 @@ describe('Recovery - Class', () => {
 
   it('class{ static x', () => {
     t.deepStrictEqual(recovery('class{ static x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2503,7 +2503,7 @@ describe('Recovery - Class', () => {
                   name: 'x',
                   start: 13,
                   end: 15,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -2512,23 +2512,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 15,
                   end: 15,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 15,
                 end: 15,
-                kind: 182,
+
                 flags: 0
               },
               start: 13,
               end: 15,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 15,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -2566,7 +2566,7 @@ describe('Recovery - Class', () => {
 
   it('class while { constructor x', () => {
     t.deepStrictEqual(recovery('class while { constructor x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2577,7 +2577,7 @@ describe('Recovery - Class', () => {
           elements: [],
           start: 0,
           end: 5,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -2590,7 +2590,7 @@ describe('Recovery - Class', () => {
                 name: 'constructor',
                 start: 13,
                 end: 25,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -2598,13 +2598,13 @@ describe('Recovery - Class', () => {
                 name: 'x',
                 start: 25,
                 end: 27,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 11,
             end: 27,
-            kind: 179,
+
             flags: 0
           },
           statement: {
@@ -2614,17 +2614,17 @@ describe('Recovery - Class', () => {
               name: '',
               start: 27,
               end: 27,
-              kind: 13,
+
               flags: 2
             },
             start: 27,
             end: 27,
-            kind: 122,
+
             flags: 0
           },
           start: 5,
           end: 27,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2670,7 +2670,7 @@ describe('Recovery - Class', () => {
 
   it('class { constructor x', () => {
     t.deepStrictEqual(recovery('class { constructor x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2695,7 +2695,7 @@ describe('Recovery - Class', () => {
                   name: 'x',
                   start: 19,
                   end: 21,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -2704,23 +2704,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 21,
                   end: 21,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 21,
                 end: 21,
-                kind: 182,
+
                 flags: 0
               },
               start: 7,
               end: 21,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 21,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -2758,7 +2758,7 @@ describe('Recovery - Class', () => {
 
   it('class extends {', () => {
     t.deepStrictEqual(recovery('class extends {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2770,13 +2770,13 @@ describe('Recovery - Class', () => {
             properties: [],
             start: 13,
             end: 15,
-            kind: 179,
+
             flags: 0
           },
           elements: [],
           start: 0,
           end: 15,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -2831,7 +2831,8 @@ describe('Recovery - Class', () => {
       fileName: 'recovery.js',
       incremental: false,
       detached: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       length: 8,
       mutualFlags: 0,
@@ -2842,7 +2843,7 @@ describe('Recovery - Class', () => {
           elements: [],
           end: 5,
           flags: 0,
-          kind: 150,
+
           name: null,
           start: 0,
           heritage: null,
@@ -2854,13 +2855,13 @@ describe('Recovery - Class', () => {
             end: 8,
             flag: '',
             flags: 0,
-            kind: 15,
+
             pattern: '',
             start: 5,
             type: 'RegularExpressionLiteral'
           },
           flags: 0,
-          kind: 122,
+
           start: 5,
           type: 'ExpressionStatement'
         }
@@ -2871,7 +2872,7 @@ describe('Recovery - Class', () => {
 
   it('Unterminated regexp in parenthesis after class', () => {
     t.deepStrictEqual(recovery('class a (/a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2882,14 +2883,14 @@ describe('Recovery - Class', () => {
             name: 'a',
             start: 5,
             end: 7,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
           elements: [],
           start: 0,
           end: 7,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -2902,17 +2903,17 @@ describe('Recovery - Class', () => {
               flag: '',
               start: 9,
               end: 11,
-              kind: 15,
+
               flags: 0
             },
             start: 7,
             end: 11,
-            kind: 189,
+
             flags: 0
           },
           start: 7,
           end: 11,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2950,7 +2951,7 @@ describe('Recovery - Class', () => {
 
   it('Unterminated regexp in parenthesis after class element', () => {
     t.deepStrictEqual(recovery('class a {/a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2961,14 +2962,14 @@ describe('Recovery - Class', () => {
             name: 'a',
             start: 5,
             end: 7,
-            kind: 168,
+
             flags: 0
           },
           heritage: null,
           elements: [],
           start: 0,
           end: 9,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -2979,12 +2980,12 @@ describe('Recovery - Class', () => {
             flag: '',
             start: 9,
             end: 11,
-            kind: 15,
+
             flags: 0
           },
           start: 9,
           end: 11,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3014,7 +3015,7 @@ describe('Recovery - Class', () => {
 
   it('class extends { class', () => {
     t.deepStrictEqual(recovery('class extends { class', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3029,19 +3030,19 @@ describe('Recovery - Class', () => {
                 name: 'class',
                 start: 15,
                 end: 21,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 13,
             end: 21,
-            kind: 179,
+
             flags: 0
           },
           elements: [],
           start: 0,
           end: 21,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -3087,7 +3088,7 @@ describe('Recovery - Class', () => {
 
   it('class extends class', () => {
     t.deepStrictEqual(recovery('class extends class', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3101,13 +3102,13 @@ describe('Recovery - Class', () => {
             elements: [],
             start: 13,
             end: 19,
-            kind: 149,
+
             flags: 0
           },
           elements: [],
           start: 0,
           end: 19,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -3145,7 +3146,7 @@ describe('Recovery - Class', () => {
 
   it('class { a() {{', () => {
     t.deepStrictEqual(recovery('class { a() {{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3170,7 +3171,7 @@ describe('Recovery - Class', () => {
                   name: 'a',
                   start: 7,
                   end: 9,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -3182,29 +3183,29 @@ describe('Recovery - Class', () => {
                       leafs: [],
                       start: 13,
                       end: 14,
-                      kind: 123,
+
                       flags: 0
                     }
                   ],
                   start: 11,
                   end: 14,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 9,
                 end: 14,
-                kind: 182,
+
                 flags: 0
               },
               start: 7,
               end: 14,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 14,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -3242,7 +3243,7 @@ describe('Recovery - Class', () => {
 
   it('class{set(x,...', () => {
     t.deepStrictEqual(recovery('class{set(x,...', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3267,7 +3268,7 @@ describe('Recovery - Class', () => {
                     name: 'x',
                     start: 10,
                     end: 11,
-                    kind: 168,
+
                     flags: 0
                   },
                   {
@@ -3277,12 +3278,12 @@ describe('Recovery - Class', () => {
                       name: '',
                       start: 12,
                       end: 15,
-                      kind: 168,
+
                       flags: 0
                     },
                     start: 12,
                     end: 15,
-                    kind: 175,
+
                     flags: 0
                   }
                 ],
@@ -3291,7 +3292,7 @@ describe('Recovery - Class', () => {
                   name: 'set',
                   start: 6,
                   end: 9,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -3300,23 +3301,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 15,
                   end: 15,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 9,
                 end: 15,
-                kind: 182,
+
                 flags: 0
               },
               start: 6,
               end: 15,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 15,
-          kind: 150,
+
           flags: 0
         }
       ],
@@ -3354,7 +3355,7 @@ describe('Recovery - Class', () => {
 
   it('class{foo(....a) class', () => {
     t.deepStrictEqual(recovery('class{foo(....a) class', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3381,12 +3382,12 @@ describe('Recovery - Class', () => {
                       name: '',
                       start: 10,
                       end: 13,
-                      kind: 168,
+
                       flags: 0
                     },
                     start: 10,
                     end: 13,
-                    kind: 175,
+
                     flags: 0
                   }
                 ],
@@ -3395,7 +3396,7 @@ describe('Recovery - Class', () => {
                   name: 'foo',
                   start: 6,
                   end: 9,
-                  kind: 13,
+
                   flags: 0
                 },
                 contents: {
@@ -3404,23 +3405,23 @@ describe('Recovery - Class', () => {
                   leafs: [],
                   start: 13,
                   end: 13,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 9,
                 end: 13,
-                kind: 182,
+
                 flags: 0
               },
               start: 6,
               end: 13,
-              kind: 151,
+
               flags: 0
             }
           ],
           start: 0,
           end: 13,
-          kind: 150,
+
           flags: 0
         },
         {
@@ -3430,12 +3431,12 @@ describe('Recovery - Class', () => {
             name: 'a',
             start: 14,
             end: 15,
-            kind: 13,
+
             flags: 0
           },
           start: 14,
           end: 15,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -3445,7 +3446,7 @@ describe('Recovery - Class', () => {
           elements: [],
           start: 16,
           end: 22,
-          kind: 150,
+
           flags: 0
         }
       ],

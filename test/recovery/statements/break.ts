@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Break', () => {
   it('foo: do break foo; while(foo);', () => {
     t.deepEqual(recovery('foo: do break foo; while(foo);', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -15,7 +15,7 @@ describe('Recovery - Break', () => {
             name: 'foo',
             start: 0,
             end: 4,
-            kind: 13,
+
             flags: 0
           },
           labelledItem: {
@@ -25,7 +25,7 @@ describe('Recovery - Break', () => {
               name: 'foo',
               start: 25,
               end: 28,
-              kind: 13,
+
               flags: 0
             },
             statement: {
@@ -35,22 +35,22 @@ describe('Recovery - Break', () => {
                 name: 'foo',
                 start: 13,
                 end: 17,
-                kind: 13,
+
                 flags: 0
               },
               start: 7,
               end: 18,
-              kind: 124,
+
               flags: 0
             },
             start: 4,
             end: 30,
-            kind: 127,
+
             flags: 0
           },
           start: 0,
           end: 30,
-          kind: 134,
+
           flags: 0
         }
       ],
@@ -71,7 +71,7 @@ describe('Recovery - Break', () => {
 
   it('while (x) break', () => {
     t.deepEqual(recovery('while (x) break', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -82,7 +82,7 @@ describe('Recovery - Break', () => {
             name: 'x',
             start: 7,
             end: 8,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -90,12 +90,12 @@ describe('Recovery - Break', () => {
             label: null,
             start: 9,
             end: 15,
-            kind: 124,
+
             flags: 0
           },
           start: 0,
           end: 15,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -116,7 +116,7 @@ describe('Recovery - Break', () => {
 
   it('for (x of y) break', () => {
     t.deepEqual(recovery('for (x of y) break', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -127,7 +127,7 @@ describe('Recovery - Break', () => {
             name: 'x',
             start: 5,
             end: 6,
-            kind: 13,
+
             flags: 0
           },
           expression: {
@@ -135,7 +135,7 @@ describe('Recovery - Break', () => {
             name: 'y',
             start: 9,
             end: 11,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -143,13 +143,13 @@ describe('Recovery - Break', () => {
             label: null,
             start: 12,
             end: 18,
-            kind: 124,
+
             flags: 0
           },
           await: false,
           start: 0,
           end: 18,
-          kind: 131,
+
           flags: 0
         }
       ],
@@ -170,7 +170,7 @@ describe('Recovery - Break', () => {
 
   it('do break; while(foo);', () => {
     t.deepEqual(recovery('do break; while(foo);', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -181,7 +181,7 @@ describe('Recovery - Break', () => {
             name: 'foo',
             start: 16,
             end: 19,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -189,12 +189,12 @@ describe('Recovery - Break', () => {
             label: null,
             start: 2,
             end: 9,
-            kind: 124,
+
             flags: 0
           },
           start: 0,
           end: 21,
-          kind: 127,
+
           flags: 0
         }
       ],
@@ -215,7 +215,7 @@ describe('Recovery - Break', () => {
 
   it('as keyword', () => {
     t.deepEqual(recovery('break', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -224,7 +224,7 @@ describe('Recovery - Break', () => {
           label: null,
           start: 0,
           end: 5,
-          kind: 124,
+
           flags: 0
         }
       ],

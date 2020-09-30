@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Numbers', () => {
   it('0b1__2', () => {
     t.deepEqual(recovery('0b1__2', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -16,28 +16,23 @@ describe('Recovery - Numbers', () => {
             value: 1,
             start: 0,
             end: 5,
-            kind: 10,
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
           flags: 0
         },
         {
           type: 'ExpressionStatement',
           expression: {
             type: 'NumericLiteral',
-
             value: 2,
             start: 5,
             end: 6,
-            kind: 10,
             flags: 0
           },
           start: 5,
           end: 6,
-          kind: 122,
           flags: 0
         }
       ],
@@ -92,7 +87,8 @@ describe('Recovery - Numbers', () => {
       fileName: 'recovery.js',
       incremental: false,
       detached: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -100,14 +96,14 @@ describe('Recovery - Numbers', () => {
           expression: {
             end: 3,
             flags: 0,
-            kind: 10,
+
             start: 0,
             type: 'NumericLiteral',
 
             value: 0
           },
           flags: 0,
-          kind: 122,
+
           start: 0,
           type: 'ExpressionStatement'
         }
@@ -122,7 +118,7 @@ describe('Recovery - Numbers', () => {
 
   it('1a', () => {
     t.deepEqual(recovery('1a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -134,12 +130,12 @@ describe('Recovery - Numbers', () => {
             value: 1,
             start: 0,
             end: 1,
-            kind: 10,
+
             flags: 0
           },
           start: 0,
           end: 1,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -149,12 +145,12 @@ describe('Recovery - Numbers', () => {
             name: 'a',
             start: 1,
             end: 2,
-            kind: 13,
+
             flags: 0
           },
           start: 1,
           end: 2,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -184,7 +180,7 @@ describe('Recovery - Numbers', () => {
 
   it('1e', () => {
     t.deepEqual(recovery('1e', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -196,12 +192,12 @@ describe('Recovery - Numbers', () => {
             value: 1,
             start: 0,
             end: 3,
-            kind: 10,
+
             flags: 0
           },
           start: 0,
           end: 3,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -248,7 +244,8 @@ describe('Recovery - Numbers', () => {
       fileName: 'recovery.js',
       incremental: false,
       detached: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -256,14 +253,14 @@ describe('Recovery - Numbers', () => {
           expression: {
             end: 3,
             flags: 0,
-            kind: 10,
+
             start: 0,
             type: 'NumericLiteral',
 
             value: 1
           },
           flags: 0,
-          kind: 122,
+
           start: 0,
           type: 'ExpressionStatement'
         }
@@ -295,7 +292,8 @@ describe('Recovery - Numbers', () => {
       fileName: 'recovery.js',
       incremental: false,
       detached: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -303,14 +301,14 @@ describe('Recovery - Numbers', () => {
           expression: {
             end: 3,
             flags: 0,
-            kind: 10,
+
             start: 0,
             type: 'NumericLiteral',
 
             value: 1
           },
           flags: 0,
-          kind: 122,
+
           start: 0,
           type: 'ExpressionStatement'
         }
@@ -342,7 +340,8 @@ describe('Recovery - Numbers', () => {
       fileName: 'recovery.js',
       incremental: false,
       detached: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -350,14 +349,14 @@ describe('Recovery - Numbers', () => {
           expression: {
             end: 2,
             flags: 0,
-            kind: 10,
+
             start: 0,
             type: 'NumericLiteral',
 
             value: 0
           },
           flags: 0,
-          kind: 122,
+
           start: 0,
           type: 'ExpressionStatement'
         }
@@ -389,7 +388,8 @@ describe('Recovery - Numbers', () => {
       fileName: 'recovery.js',
       incremental: false,
       detached: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -397,14 +397,14 @@ describe('Recovery - Numbers', () => {
           expression: {
             end: 6,
             flags: 0,
-            kind: 10,
+
             start: 0,
             type: 'NumericLiteral',
 
             value: 1
           },
           flags: 0,
-          kind: 122,
+
           start: 0,
           type: 'ExpressionStatement'
         }

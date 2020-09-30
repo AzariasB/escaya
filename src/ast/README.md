@@ -104,6 +104,7 @@ Every single valid CST Node type.
 
 ```js
 interface Directive <: Node {
+  type: string;
   value: string;
   raw: string;
 }
@@ -121,7 +122,7 @@ information isn't known from outside, or exposed through any API.
 
 ```js
 interface RootNode <: Node {
-    kind: SyntaxKind;
+    type: string;
     directives: [ Directive ];
     leafs: [ Statement | ImportDeclaration | ExportDeclaration | ExportDefault ];
     text: string;

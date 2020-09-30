@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Throw', () => {
   it('throw !', () => {
     t.deepEqual(recovery('throw !', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -18,17 +18,17 @@ describe('Recovery - Throw', () => {
               name: '',
               start: 7,
               end: 7,
-              kind: 13,
+
               flags: 2
             },
             start: 5,
             end: 7,
-            kind: 160,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 137,
+
           flags: 0
         }
       ],
@@ -58,7 +58,7 @@ describe('Recovery - Throw', () => {
 
   it('throw {)', () => {
     t.deepEqual(recovery('throw {)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -69,12 +69,12 @@ describe('Recovery - Throw', () => {
             properties: [],
             start: 5,
             end: 7,
-            kind: 179,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 137,
+
           flags: 0
         }
       ],
@@ -104,7 +104,7 @@ describe('Recovery - Throw', () => {
 
   it('throw } =>!', () => {
     t.deepEqual(recovery('throw } =>!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -115,12 +115,12 @@ describe('Recovery - Throw', () => {
             name: '',
             start: 5,
             end: 5,
-            kind: 13,
+
             flags: 2
           },
           start: 0,
           end: 5,
-          kind: 137,
+
           flags: 0
         },
         {
@@ -133,17 +133,17 @@ describe('Recovery - Throw', () => {
               name: '',
               start: 11,
               end: 11,
-              kind: 13,
+
               flags: 2
             },
             start: 10,
             end: 11,
-            kind: 160,
+
             flags: 0
           },
           start: 10,
           end: 11,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -189,7 +189,7 @@ describe('Recovery - Throw', () => {
 
   it('throw ) => babel', () => {
     t.deepEqual(recovery('throw ) => babel', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -200,12 +200,12 @@ describe('Recovery - Throw', () => {
             name: '',
             start: 5,
             end: 5,
-            kind: 13,
+
             flags: 2
           },
           start: 0,
           end: 5,
-          kind: 137,
+
           flags: 0
         },
         {
@@ -215,12 +215,12 @@ describe('Recovery - Throw', () => {
             name: 'babel',
             start: 10,
             end: 16,
-            kind: 13,
+
             flags: 0
           },
           start: 10,
           end: 16,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -258,7 +258,7 @@ describe('Recovery - Throw', () => {
 
   it('throw (!!"', () => {
     t.deepEqual(recovery('throw (!!"', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -277,27 +277,27 @@ describe('Recovery - Throw', () => {
                   value: '',
                   start: 9,
                   end: 11,
-                  kind: 12,
+
                   flags: 0
                 },
                 start: 8,
                 end: 11,
-                kind: 160,
+
                 flags: 0
               },
               start: 7,
               end: 11,
-              kind: 160,
+
               flags: 0
             },
             start: 5,
             end: 11,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 137,
+
           flags: 0
         }
       ],
@@ -327,7 +327,7 @@ describe('Recovery - Throw', () => {
 
   it('throw ( ]]]]}}}} [x = throw babel', () => {
     t.deepEqual(recovery('throw ( ]]]]}}}} [x = throw babel', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -340,24 +340,24 @@ describe('Recovery - Throw', () => {
               name: '',
               start: 7,
               end: 7,
-              kind: 13,
+
               flags: 2
             },
             start: 5,
             end: 7,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 137,
+
           flags: 0
         },
         {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrayLiteral',
-            kind: 178,
+
             elements: [
               {
                 type: 'AssignmentExpression',
@@ -366,7 +366,7 @@ describe('Recovery - Throw', () => {
                   name: 'x',
                   start: 18,
                   end: 19,
-                  kind: 13,
+
                   flags: 0
                 },
                 operator: '=',
@@ -375,12 +375,11 @@ describe('Recovery - Throw', () => {
                   name: '',
                   start: 21,
                   end: 21,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 18,
                 end: 21,
-                kind: 152,
                 flags: 0
               }
             ],
@@ -390,7 +389,7 @@ describe('Recovery - Throw', () => {
           },
           start: 16,
           end: 21,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -400,12 +399,12 @@ describe('Recovery - Throw', () => {
             name: 'babel',
             start: 27,
             end: 33,
-            kind: 13,
+
             flags: 0
           },
           start: 21,
           end: 33,
-          kind: 137,
+
           flags: 0
         }
       ],
@@ -499,7 +498,7 @@ describe('Recovery - Throw', () => {
 
   it('as keyword', () => {
     t.deepEqual(recovery('throw', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -507,7 +506,7 @@ describe('Recovery - Throw', () => {
           type: 'ThrowStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 5,
             end: 5,
@@ -515,7 +514,7 @@ describe('Recovery - Throw', () => {
           },
           start: 0,
           end: 5,
-          kind: 137,
+
           flags: 0
         }
       ],
@@ -545,7 +544,7 @@ describe('Recovery - Throw', () => {
 
   it('with paren', () => {
     t.deepEqual(recovery('throw(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -555,7 +554,7 @@ describe('Recovery - Throw', () => {
             type: 'ParenthesizedExpression',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 6,
               end: 6,
@@ -563,12 +562,12 @@ describe('Recovery - Throw', () => {
             },
             start: 5,
             end: 6,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 137,
+
           flags: 0
         }
       ],
@@ -598,7 +597,7 @@ describe('Recovery - Throw', () => {
 
   it('malformed throw', () => {
     t.deepEqual(recovery('throw (x) {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -611,17 +610,17 @@ describe('Recovery - Throw', () => {
               name: 'x',
               start: 7,
               end: 8,
-              kind: 13,
+
               flags: 0
             },
             start: 5,
             end: 9,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 137,
+
           flags: 0
         },
         {
@@ -629,7 +628,6 @@ describe('Recovery - Throw', () => {
           leafs: [],
           start: 9,
           end: 12,
-          kind: 123,
           flags: 0
         }
       ],
@@ -659,7 +657,7 @@ describe('Recovery - Throw', () => {
 
   it('throw with finally', () => {
     t.deepEqual(recovery('throw {x} finally', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -673,18 +671,18 @@ describe('Recovery - Throw', () => {
                 name: 'x',
                 start: 7,
                 end: 8,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 5,
             end: 9,
-            kind: 179,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 137,
+
           flags: 0
         },
         {
@@ -694,7 +692,7 @@ describe('Recovery - Throw', () => {
             leafs: [],
             start: 9,
             end: 9,
-            kind: 123,
+
             flags: 0
           },
           catchClause: null,
@@ -703,12 +701,12 @@ describe('Recovery - Throw', () => {
             leafs: [],
             start: 17,
             end: 17,
-            kind: 123,
+
             flags: 0
           },
           start: 9,
           end: 17,
-          kind: 138,
+
           flags: 0
         }
       ],
@@ -738,7 +736,7 @@ describe('Recovery - Throw', () => {
 
   it('throw {x} catch finally', () => {
     t.deepEqual(recovery('throw {x} catch finally', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -752,18 +750,18 @@ describe('Recovery - Throw', () => {
                 name: 'x',
                 start: 7,
                 end: 8,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 5,
             end: 9,
-            kind: 179,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 137,
+
           flags: 0
         },
         {
@@ -773,7 +771,7 @@ describe('Recovery - Throw', () => {
             leafs: [],
             start: 9,
             end: 9,
-            kind: 123,
+
             flags: 0
           },
           catchClause: {
@@ -784,12 +782,12 @@ describe('Recovery - Throw', () => {
               leafs: [],
               start: 15,
               end: 15,
-              kind: 123,
+
               flags: 0
             },
             start: 9,
             end: 15,
-            kind: 140,
+
             flags: 0
           },
           finalizer: {
@@ -797,12 +795,12 @@ describe('Recovery - Throw', () => {
             leafs: [],
             start: 23,
             end: 23,
-            kind: 123,
+
             flags: 0
           },
           start: 9,
           end: 23,
-          kind: 138,
+
           flags: 0
         }
       ],

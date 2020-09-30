@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - For of', () => {
   it('for (let x in of if{)', () => {
     t.deepEqual(recovery('for (let x in of if{)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -21,19 +21,17 @@ describe('Recovery - For of', () => {
                   name: 'x',
                   start: 8,
                   end: 10,
-                  kind: 168,
+
                   flags: 0
                 },
                 initializer: null,
                 start: 8,
                 end: 10,
-                kind: 146,
                 flags: 0
               }
             ],
             start: 5,
             end: 10,
-            kind: 145,
             flags: 0
           },
           expression: {
@@ -41,7 +39,7 @@ describe('Recovery - For of', () => {
             name: 'of',
             start: 13,
             end: 16,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -51,7 +49,7 @@ describe('Recovery - For of', () => {
               properties: [],
               start: 19,
               end: 20,
-              kind: 179,
+
               flags: 0
             },
             consequent: {
@@ -61,23 +59,21 @@ describe('Recovery - For of', () => {
                 name: '',
                 start: 21,
                 end: 21,
-                kind: 13,
+
                 flags: 2
               },
               start: 21,
               end: 21,
-              kind: 122,
+
               flags: 0
             },
             alternate: null,
             start: 16,
             end: 21,
-            kind: 133,
             flags: 0
           },
           start: 0,
           end: 21,
-          kind: 130,
           flags: 0
         }
       ],
@@ -123,7 +119,7 @@ describe('Recovery - For of', () => {
 
   it('missing ident plus if statement mixed in', () => {
     t.deepEqual(recovery('for (of if{)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -132,7 +128,7 @@ describe('Recovery - For of', () => {
           variableDeclarationList: false,
           initializer: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: 'of',
             start: 5,
             end: 7,
@@ -140,7 +136,7 @@ describe('Recovery - For of', () => {
           },
           condition: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 7,
             end: 7,
@@ -148,7 +144,7 @@ describe('Recovery - For of', () => {
           },
           incrementor: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 7,
             end: 7,
@@ -161,14 +157,14 @@ describe('Recovery - For of', () => {
               properties: [],
               start: 10,
               end: 11,
-              kind: 179,
+
               flags: 0
             },
             consequent: {
               type: 'ExpressionStatement',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: '',
                 start: 12,
                 end: 12,
@@ -176,18 +172,17 @@ describe('Recovery - For of', () => {
               },
               start: 12,
               end: 12,
-              kind: 122,
+
               flags: 0
             },
             alternate: null,
             start: 7,
             end: 12,
-            kind: 133,
             flags: 0
           },
           start: 0,
           end: 12,
-          kind: 132,
+
           flags: 0
         }
       ],
@@ -233,7 +228,7 @@ describe('Recovery - For of', () => {
 
   it('for (var of; ;) { }', () => {
     t.deepEqual(recovery('for (var of; ;) { }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -248,13 +243,12 @@ describe('Recovery - For of', () => {
                 name: 'of',
                 start: 8,
                 end: 11,
-                kind: 168,
+
                 flags: 0
               },
               initializer: null,
               start: 8,
               end: 11,
-              kind: 144,
               flags: 0
             }
           ],
@@ -265,12 +259,11 @@ describe('Recovery - For of', () => {
             leafs: [],
             start: 15,
             end: 19,
-            kind: 123,
             flags: 0
           },
           start: 0,
           end: 19,
-          kind: 132,
+
           flags: 0
         }
       ],
@@ -291,7 +284,7 @@ describe('Recovery - For of', () => {
 
   it('for (var of = 0 in of) { }', () => {
     t.deepEqual(recovery('for (var of = 0 in of) { }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -307,7 +300,7 @@ describe('Recovery - For of', () => {
                   name: 'of',
                   start: 8,
                   end: 11,
-                  kind: 168,
+
                   flags: 0
                 },
                 initializer: {
@@ -316,18 +309,18 @@ describe('Recovery - For of', () => {
                   value: 0,
                   start: 13,
                   end: 15,
-                  kind: 10,
+
                   flags: 0
                 },
                 start: 8,
                 end: 15,
-                kind: 144,
+
                 flags: 0
               }
             ],
             start: 5,
             end: 15,
-            kind: 202,
+
             flags: 0
           },
           expression: {
@@ -335,7 +328,7 @@ describe('Recovery - For of', () => {
             name: 'of',
             start: 18,
             end: 21,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -343,12 +336,12 @@ describe('Recovery - For of', () => {
             leafs: [],
             start: 22,
             end: 26,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 26,
-          kind: 130,
+
           flags: 0
         }
       ],

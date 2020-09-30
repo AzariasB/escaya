@@ -12,17 +12,18 @@ describe('Recovery - Labelled', () => {
       end: 34,
       fileName: 'recovery.js',
       incremental: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
           end: 26,
           flags: 0,
-          kind: 134,
+
           label: {
             end: 6,
             flags: 0,
-            kind: 13,
+
             name: 'label',
             start: 0,
             type: 'LabelIdentifier'
@@ -33,16 +34,16 @@ describe('Recovery - Labelled', () => {
             flags: 0,
             incrementor: null,
             initializer: null,
-            kind: 132,
+
             start: 6,
             statement: {
               end: 26,
               flags: 0,
-              kind: 124,
+
               label: {
                 end: 26,
                 flags: 0,
-                kind: 13,
+
                 name: 'label',
                 start: 20,
                 type: 'IdentifierReference'
@@ -62,13 +63,12 @@ describe('Recovery - Labelled', () => {
             end: 34,
             flag: '',
             flags: 0,
-            kind: 15,
             pattern: 'foo',
             start: 26,
             type: 'RegularExpressionLiteral'
           },
           flags: 0,
-          kind: 122,
+
           start: 26,
           type: 'ExpressionStatement'
         }
@@ -83,7 +83,7 @@ describe('Recovery - Labelled', () => {
 
   it('missing label', () => {
     t.deepEqual(recovery('foo:', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -94,7 +94,7 @@ describe('Recovery - Labelled', () => {
             name: 'foo',
             start: 0,
             end: 4,
-            kind: 13,
+
             flags: 0
           },
           labelledItem: {
@@ -104,17 +104,17 @@ describe('Recovery - Labelled', () => {
               name: '',
               start: 4,
               end: 4,
-              kind: 13,
+
               flags: 2
             },
             start: 4,
             end: 4,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 134,
+
           flags: 0
         }
       ],
@@ -143,7 +143,7 @@ describe('Recovery - Labelled', () => {
   });
   it('async ident with missing label', () => {
     t.deepEqual(recovery('async:', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -154,7 +154,7 @@ describe('Recovery - Labelled', () => {
             name: 'async',
             start: 0,
             end: 6,
-            kind: 13,
+
             flags: 0
           },
           labelledItem: {
@@ -164,17 +164,17 @@ describe('Recovery - Labelled', () => {
               name: '',
               start: 6,
               end: 6,
-              kind: 13,
+
               flags: 2
             },
             start: 6,
             end: 6,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 134,
+
           flags: 0
         }
       ],

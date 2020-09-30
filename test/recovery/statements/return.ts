@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Return', () => {
   it('! return (', () => {
     t.deepEqual(recovery('! return (', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -18,17 +18,17 @@ describe('Recovery - Return', () => {
               name: '',
               start: 1,
               end: 1,
-              kind: 13,
+
               flags: 2
             },
             start: 0,
             end: 1,
-            kind: 160,
+
             flags: 0
           },
           start: 0,
           end: 1,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -40,17 +40,17 @@ describe('Recovery - Return', () => {
               name: '',
               start: 10,
               end: 10,
-              kind: 13,
+
               flags: 2
             },
             start: 8,
             end: 10,
-            kind: 189,
+
             flags: 0
           },
           start: 1,
           end: 10,
-          kind: 135,
+
           flags: 0
         }
       ],
@@ -88,7 +88,7 @@ describe('Recovery - Return', () => {
 
   it('return (', () => {
     t.deepEqual(recovery('return (', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -101,17 +101,17 @@ describe('Recovery - Return', () => {
               name: '',
               start: 8,
               end: 8,
-              kind: 13,
+
               flags: 2
             },
             start: 6,
             end: 8,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 135,
+
           flags: 0
         }
       ],
@@ -149,7 +149,7 @@ describe('Recovery - Return', () => {
 
   it('with incomplete unary', () => {
     t.deepEqual(recovery('return !!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -166,22 +166,22 @@ describe('Recovery - Return', () => {
                 name: '',
                 start: 9,
                 end: 9,
-                kind: 13,
+
                 flags: 2
               },
               start: 8,
               end: 9,
-              kind: 160,
+
               flags: 0
             },
             start: 6,
             end: 9,
-            kind: 160,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 135,
+
           flags: 0
         }
       ],

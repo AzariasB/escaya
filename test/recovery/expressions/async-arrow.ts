@@ -4,7 +4,6 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Expressions - Async Arrows', () => {
   it('async () =>(', () => {
     t.deepEqual(recovery('async () =>(', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -20,23 +19,19 @@ describe('Recovery - Expressions - Async Arrows', () => {
                 name: '',
                 start: 12,
                 end: 12,
-                kind: 13,
                 flags: 2
               },
               start: 11,
               end: 12,
-              kind: 189,
               flags: 0
             },
             async: true,
             start: 0,
             end: 12,
-            kind: 188,
             flags: 0
           },
           start: 0,
           end: 12,
-          kind: 122,
           flags: 0
         }
       ],
@@ -60,6 +55,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 12,
+      type: 'RootNode',
       webCompat: true,
       end: 12
     });
@@ -67,7 +63,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
 
   it('async (() =>', () => {
     t.deepEqual(recovery('async (() =>', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -79,7 +74,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: 'async',
               start: 0,
               end: 5,
-              kind: 13,
+
               flags: 0
             },
             arguments: [
@@ -92,24 +87,21 @@ describe('Recovery - Expressions - Async Arrows', () => {
                   name: '',
                   start: 12,
                   end: 12,
-                  kind: 13,
                   flags: 2
                 },
                 async: false,
                 start: 7,
                 end: 12,
-                kind: 188,
                 flags: 0
               }
             ],
             start: 0,
             end: 12,
-            kind: 156,
+
             flags: 0
           },
           start: 0,
           end: 12,
-          kind: 122,
           flags: 0
         }
       ],
@@ -133,6 +125,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 12,
+      type: 'RootNode',
       webCompat: true,
       end: 12
     });
@@ -140,7 +133,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
 
   it('async yield =>( "use strict";', () => {
     t.deepEqual(recovery('async yield =>( "use strict";', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -153,7 +145,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: 'yield',
               start: 5,
               end: 11,
-              kind: 168,
+
               flags: 0
             },
             contents: {
@@ -163,23 +155,19 @@ describe('Recovery - Expressions - Async Arrows', () => {
                 value: 'use strict',
                 start: 15,
                 end: 28,
-                kind: 12,
                 flags: 0
               },
               start: 14,
               end: 28,
-              kind: 189,
               flags: 0
             },
             async: true,
             start: 0,
             end: 28,
-            kind: 188,
             flags: 0
           },
           start: 0,
           end: 29,
-          kind: 122,
           flags: 0
         }
       ],
@@ -203,6 +191,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 29,
+      type: 'RootNode',
       webCompat: true,
       end: 29
     });
@@ -210,7 +199,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
 
   it('"use strict"; async ( =>(', () => {
     t.deepEqual(recovery('"use strict"; async ( =>(', 'recovery.js'), {
-      kind: 209,
       directives: [
         {
           type: 'Directive',
@@ -218,7 +206,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
           raw: 'use strict',
           start: 0,
           end: 12,
-          kind: 229,
           flags: 0
         }
       ],
@@ -236,23 +223,19 @@ describe('Recovery - Expressions - Async Arrows', () => {
                 name: '',
                 start: 25,
                 end: 25,
-                kind: 13,
                 flags: 2
               },
               start: 24,
               end: 25,
-              kind: 189,
               flags: 0
             },
             async: true,
             start: 13,
             end: 25,
-            kind: 188,
             flags: 0
           },
           start: 13,
           end: 25,
-          kind: 122,
           flags: 0
         }
       ],
@@ -284,6 +267,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 25,
+      type: 'RootNode',
       webCompat: true,
       end: 25
     });
@@ -291,7 +275,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
 
   it('"use strict"; async (yield await =>(', () => {
     t.deepEqual(recovery('"use strict"; async (yield await =>(', 'recovery.js'), {
-      kind: 209,
       directives: [
         {
           type: 'Directive',
@@ -299,7 +282,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
           raw: 'use strict',
           start: 0,
           end: 12,
-          kind: 229,
           flags: 0
         }
       ],
@@ -313,7 +295,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: 'async',
               start: 13,
               end: 19,
-              kind: 13,
               flags: 0
             },
             arguments: [
@@ -322,7 +303,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
                 name: 'yield',
                 start: 21,
                 end: 26,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -333,7 +314,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
                   name: 'await',
                   start: 26,
                   end: 32,
-                  kind: 168,
                   flags: 0
                 },
                 contents: {
@@ -343,29 +323,27 @@ describe('Recovery - Expressions - Async Arrows', () => {
                     name: '',
                     start: 36,
                     end: 36,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 35,
                   end: 36,
-                  kind: 189,
                   flags: 0
                 },
                 async: false,
                 start: 26,
                 end: 36,
-                kind: 188,
                 flags: 0
               }
             ],
             start: 13,
             end: 36,
-            kind: 156,
+
             flags: 0
           },
           start: 13,
           end: 36,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -397,6 +375,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 36,
+      type: 'RootNode',
       webCompat: true,
       end: 36
     });
@@ -404,7 +383,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
 
   it('async await =>(', () => {
     t.deepEqual(recovery('async await =>(', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -417,7 +395,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: 'await',
               start: 5,
               end: 11,
-              kind: 168,
               flags: 0
             },
             contents: {
@@ -427,23 +404,20 @@ describe('Recovery - Expressions - Async Arrows', () => {
                 name: '',
                 start: 15,
                 end: 15,
-                kind: 13,
+
                 flags: 2
               },
               start: 14,
               end: 15,
-              kind: 189,
               flags: 0
             },
             async: true,
             start: 0,
             end: 15,
-            kind: 188,
             flags: 0
           },
           start: 0,
           end: 15,
-          kind: 122,
           flags: 0
         }
       ],
@@ -467,6 +441,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 15,
+      type: 'RootNode',
       webCompat: true,
       end: 15
     });
@@ -474,7 +449,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
 
   it('async (((1n))) =>!', () => {
     t.deepEqual(recovery('async (((1n))) =>!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -487,7 +462,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: 'async',
               start: 0,
               end: 5,
-              kind: 13,
+
               flags: 0
             },
             arguments: [
@@ -500,28 +475,23 @@ describe('Recovery - Expressions - Async Arrows', () => {
                     value: '1',
                     start: 9,
                     end: 11,
-                    kind: 11,
                     flags: 0
                   },
                   start: 8,
                   end: 12,
-                  kind: 189,
                   flags: 0
                 },
                 start: 7,
                 end: 13,
-                kind: 189,
                 flags: 0
               }
             ],
             start: 0,
             end: 14,
-            kind: 156,
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 122,
           flags: 0
         },
         {
@@ -534,17 +504,15 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: '',
               start: 18,
               end: 18,
-              kind: 13,
               flags: 2
             },
             start: 17,
             end: 18,
-            kind: 160,
             flags: 0
           },
           start: 17,
           end: 18,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -582,7 +550,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
 
   it('async a...=>(', () => {
     t.deepEqual(recovery('async a...=>(', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -595,7 +562,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: 'a',
               start: 5,
               end: 7,
-              kind: 168,
               flags: 0
             },
             contents: {
@@ -603,18 +569,15 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: '',
               start: 7,
               end: 7,
-              kind: 13,
               flags: 2
             },
             async: true,
             start: 0,
             end: 7,
-            kind: 188,
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
           flags: 0
         },
         {
@@ -626,17 +589,14 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: '',
               start: 13,
               end: 13,
-              kind: 13,
               flags: 2
             },
             start: 12,
             end: 13,
-            kind: 189,
             flags: 0
           },
           start: 12,
           end: 13,
-          kind: 122,
           flags: 0
         }
       ],
@@ -676,6 +636,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 13,
+      type: 'RootNode',
       webCompat: true,
       end: 13
     });
@@ -683,7 +644,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
 
   it('async ([]) =>(', () => {
     t.deepEqual(recovery('async ([]) =>(', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -697,7 +657,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
                 elements: [],
                 start: 7,
                 end: 9,
-                kind: 178,
                 flags: 0
               }
             ],
@@ -708,23 +667,19 @@ describe('Recovery - Expressions - Async Arrows', () => {
                 name: '',
                 start: 14,
                 end: 14,
-                kind: 13,
                 flags: 2
               },
               start: 13,
               end: 14,
-              kind: 189,
               flags: 0
             },
             async: true,
             start: 0,
             end: 14,
-            kind: 188,
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 122,
           flags: 0
         }
       ],
@@ -748,6 +703,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 14,
+      type: 'RootNode',
       webCompat: true,
       end: 14
     });
@@ -755,7 +711,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
 
   it('async (a, ...=>(', () => {
     t.deepEqual(recovery('async (a, ...=>(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -768,7 +724,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: 'async',
               start: 0,
               end: 5,
-              kind: 13,
+
               flags: 0
             },
             arguments: [
@@ -777,7 +733,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
                 name: 'a',
                 start: 7,
                 end: 8,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -787,23 +743,21 @@ describe('Recovery - Expressions - Async Arrows', () => {
                   name: '',
                   start: 13,
                   end: 13,
-                  kind: 13,
                   flags: 2
                 },
                 start: 9,
                 end: 13,
-                kind: 200,
                 flags: 0
               }
             ],
             start: 0,
             end: 13,
-            kind: 156,
+
             flags: 0
           },
           start: 0,
           end: 13,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -815,17 +769,14 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: '',
               start: 16,
               end: 16,
-              kind: 13,
               flags: 2
             },
             start: 15,
             end: 16,
-            kind: 189,
             flags: 0
           },
           start: 15,
           end: 16,
-          kind: 122,
           flags: 0
         }
       ],
@@ -863,7 +814,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
 
   it('async (...=>(', () => {
     t.deepEqual(recovery('async (...=>(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -876,7 +827,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: 'async',
               start: 0,
               end: 5,
-              kind: 13,
               flags: 0
             },
             arguments: [
@@ -887,23 +837,19 @@ describe('Recovery - Expressions - Async Arrows', () => {
                   name: '',
                   start: 10,
                   end: 10,
-                  kind: 13,
                   flags: 2
                 },
                 start: 7,
                 end: 10,
-                kind: 200,
                 flags: 0
               }
             ],
             start: 0,
             end: 10,
-            kind: 156,
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 122,
           flags: 0
         },
         {
@@ -915,17 +861,14 @@ describe('Recovery - Expressions - Async Arrows', () => {
               name: '',
               start: 13,
               end: 13,
-              kind: 13,
               flags: 2
             },
             start: 12,
             end: 13,
-            kind: 189,
             flags: 0
           },
           start: 12,
           end: 13,
-          kind: 122,
           flags: 0
         }
       ],
@@ -963,7 +906,6 @@ describe('Recovery - Expressions - Async Arrows', () => {
 
   it('(async () =>', () => {
     t.deepEqual(recovery('(async () =>', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -979,23 +921,19 @@ describe('Recovery - Expressions - Async Arrows', () => {
                 name: '',
                 start: 12,
                 end: 12,
-                kind: 13,
                 flags: 2
               },
               async: true,
               start: 1,
               end: 12,
-              kind: 188,
               flags: 0
             },
             start: 0,
             end: 12,
-            kind: 189,
             flags: 0
           },
           start: 0,
           end: 12,
-          kind: 122,
           flags: 0
         }
       ],
@@ -1019,6 +957,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
       children: [],
       start: 0,
       length: 12,
+      type: 'RootNode',
       webCompat: true,
       end: 12
     });

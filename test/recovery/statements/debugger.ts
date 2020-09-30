@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Debugger', () => {
   it('followed by incomplete unary expr', () => {
     t.deepEqual(recovery('debugger; !!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -12,7 +12,7 @@ describe('Recovery - Debugger', () => {
           type: 'DebuggerStatement',
           start: 0,
           end: 9,
-          kind: 126,
+
           flags: 0
         },
         {
@@ -25,7 +25,7 @@ describe('Recovery - Debugger', () => {
               operator: '!',
               operand: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: '',
                 start: 12,
                 end: 12,
@@ -33,17 +33,17 @@ describe('Recovery - Debugger', () => {
               },
               start: 11,
               end: 12,
-              kind: 160,
+
               flags: 0
             },
             start: 9,
             end: 12,
-            kind: 160,
+
             flags: 0
           },
           start: 9,
           end: 12,
-          kind: 122,
+
           flags: 0
         }
       ],

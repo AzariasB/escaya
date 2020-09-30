@@ -12,7 +12,8 @@ describe('Recovery - Whith', () => {
       end: 14,
       fileName: 'recovery.js',
       incremental: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -20,13 +21,13 @@ describe('Recovery - Whith', () => {
           expression: {
             end: 9,
             flags: 0,
-            kind: 166,
+
             start: 5,
             type: 'BooleanLiteral',
             value: true
           },
           flags: 0,
-          kind: 128,
+
           start: 0,
           statement: {
             end: 14,
@@ -34,13 +35,13 @@ describe('Recovery - Whith', () => {
               end: 14,
               flag: '',
               flags: 0,
-              kind: 15,
+
               pattern: 'a',
               start: 10,
               type: 'RegularExpressionLiteral'
             },
             flags: 0,
-            kind: 122,
+
             start: 10,
             type: 'ExpressionStatement'
           },
@@ -57,7 +58,7 @@ describe('Recovery - Whith', () => {
 
   it('as keyword', () => {
     t.deepEqual(recovery('with', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -65,7 +66,7 @@ describe('Recovery - Whith', () => {
           type: 'WithStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 4,
             end: 4,
@@ -75,7 +76,7 @@ describe('Recovery - Whith', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 4,
               end: 4,
@@ -83,12 +84,12 @@ describe('Recovery - Whith', () => {
             },
             start: 4,
             end: 4,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 128,
+
           flags: 0
         }
       ],

@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Expressions - Member', () => {
   it('a[.', () => {
     t.deepEqual(recovery('a[.', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -17,7 +17,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             expression: {
@@ -27,7 +27,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: '',
                 start: 2,
                 end: 2,
-                kind: 13,
+
                 flags: 2
               },
               expression: {
@@ -35,24 +35,24 @@ describe('Recovery - Expressions - Member', () => {
                 name: '',
                 start: 3,
                 end: 3,
-                kind: 13,
+
                 flags: 2
               },
               computed: false,
               start: 2,
               end: 3,
-              kind: 154,
+
               flags: 0
             },
             computed: true,
             start: 0,
             end: 3,
-            kind: 154,
+
             flags: 0
           },
           start: 0,
           end: 3,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -82,7 +82,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a[.(b', () => {
     t.deepEqual(recovery('a[.(b', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -95,7 +95,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             expression: {
@@ -107,7 +107,7 @@ describe('Recovery - Expressions - Member', () => {
                   name: '',
                   start: 2,
                   end: 2,
-                  kind: 13,
+
                   flags: 2
                 },
                 expression: {
@@ -115,13 +115,13 @@ describe('Recovery - Expressions - Member', () => {
                   name: '',
                   start: 3,
                   end: 3,
-                  kind: 13,
+
                   flags: 2
                 },
                 computed: false,
                 start: 2,
                 end: 3,
-                kind: 154,
+
                 flags: 0
               },
               arguments: [
@@ -130,24 +130,24 @@ describe('Recovery - Expressions - Member', () => {
                   name: 'b',
                   start: 4,
                   end: 5,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 2,
               end: 5,
-              kind: 156,
+
               flags: 0
             },
             computed: true,
             start: 0,
             end: 5,
-            kind: 154,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -193,7 +193,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a.(b', () => {
     t.deepEqual(recovery('a.(b', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -208,7 +208,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'a',
                 start: 0,
                 end: 1,
-                kind: 13,
+
                 flags: 0
               },
               expression: {
@@ -216,13 +216,13 @@ describe('Recovery - Expressions - Member', () => {
                 name: '',
                 start: 2,
                 end: 2,
-                kind: 13,
+
                 flags: 2
               },
               computed: false,
               start: 0,
               end: 2,
-              kind: 154,
+
               flags: 0
             },
             arguments: [
@@ -231,18 +231,18 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'b',
                 start: 3,
                 end: 4,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 0,
             end: 4,
-            kind: 156,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -280,7 +280,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a(b.c.d[a', () => {
     t.deepEqual(recovery('a(b.c.d[a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -293,7 +293,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             arguments: [
@@ -308,7 +308,7 @@ describe('Recovery - Expressions - Member', () => {
                       name: 'b',
                       start: 2,
                       end: 3,
-                      kind: 13,
+
                       flags: 0
                     },
                     expression: {
@@ -316,13 +316,13 @@ describe('Recovery - Expressions - Member', () => {
                       name: 'c',
                       start: 4,
                       end: 5,
-                      kind: 13,
+
                       flags: 0
                     },
                     computed: false,
                     start: 2,
                     end: 5,
-                    kind: 154,
+
                     flags: 0
                   },
                   expression: {
@@ -330,13 +330,13 @@ describe('Recovery - Expressions - Member', () => {
                     name: 'd',
                     start: 6,
                     end: 7,
-                    kind: 13,
+
                     flags: 0
                   },
                   computed: false,
                   start: 2,
                   end: 7,
-                  kind: 154,
+
                   flags: 0
                 },
                 expression: {
@@ -344,24 +344,24 @@ describe('Recovery - Expressions - Member', () => {
                   name: 'a',
                   start: 8,
                   end: 9,
-                  kind: 13,
+
                   flags: 0
                 },
                 computed: true,
                 start: 2,
                 end: 9,
-                kind: 154,
+
                 flags: 0
               }
             ],
             start: 0,
             end: 9,
-            kind: 156,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -391,7 +391,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a....[b', () => {
     t.deepEqual(recovery('a....[b', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -402,12 +402,12 @@ describe('Recovery - Expressions - Member', () => {
             name: 'a',
             start: 0,
             end: 1,
-            kind: 13,
+
             flags: 0
           },
           start: 0,
           end: 1,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -420,18 +420,17 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'b',
                 start: 6,
                 end: 7,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 5,
             end: 7,
-            kind: 178,
             flags: 0
           },
           start: 5,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -477,7 +476,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('!a....[b!', () => {
     t.deepEqual(recovery('!a....[b!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -491,17 +490,17 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 1,
               end: 2,
-              kind: 13,
+
               flags: 0
             },
             start: 0,
             end: 2,
-            kind: 160,
+
             flags: 0
           },
           start: 0,
           end: 2,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -514,7 +513,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'b',
                 start: 7,
                 end: 8,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -525,23 +524,22 @@ describe('Recovery - Expressions - Member', () => {
                   name: '',
                   start: 9,
                   end: 9,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 8,
                 end: 9,
-                kind: 160,
+
                 flags: 0
               }
             ],
             start: 6,
             end: 9,
-            kind: 178,
             flags: 0
           },
           start: 6,
           end: 9,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -587,7 +585,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a`!a?.``b?.c!!=> {`', () => {
     t.deepEqual(recovery('a`!a?.``b?.c!!=> {`', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -602,7 +600,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'a',
                 start: 0,
                 end: 1,
-                kind: 13,
+
                 flags: 0
               },
               literal: {
@@ -611,12 +609,12 @@ describe('Recovery - Expressions - Member', () => {
                 value: 'b?.c!!=> {',
                 start: 1,
                 end: 7,
-                kind: 197,
+
                 flags: 0
               },
               start: 0,
               end: 7,
-              kind: 194,
+
               flags: 0
             },
             literal: {
@@ -625,17 +623,17 @@ describe('Recovery - Expressions - Member', () => {
               value: 'b?.c!!=> {',
               start: 7,
               end: 19,
-              kind: 197,
+
               flags: 0
             },
             start: 0,
             end: 19,
-            kind: 194,
+
             flags: 0
           },
           start: 0,
           end: 19,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -656,7 +654,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a?.``b?.c', () => {
     t.deepEqual(recovery('a?.``b?.c', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -671,7 +669,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'a',
                 start: 0,
                 end: 1,
-                kind: 13,
+
                 flags: 0
               },
               chain: {
@@ -679,12 +677,12 @@ describe('Recovery - Expressions - Member', () => {
                 chain: null,
                 start: 3,
                 end: 3,
-                kind: 226,
+
                 flags: 0
               },
               start: 0,
               end: 3,
-              kind: 157,
+
               flags: 0
             },
             literal: {
@@ -693,17 +691,17 @@ describe('Recovery - Expressions - Member', () => {
               value: '',
               start: 3,
               end: 5,
-              kind: 197,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 194,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -715,7 +713,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'b',
               start: 5,
               end: 6,
-              kind: 13,
+
               flags: 0
             },
             chain: {
@@ -728,28 +726,28 @@ describe('Recovery - Expressions - Member', () => {
                   name: 'c',
                   start: 8,
                   end: 9,
-                  kind: 13,
+
                   flags: 0
                 },
                 computed: false,
                 start: 8,
                 end: 9,
-                kind: 158,
+
                 flags: 0
               },
               start: 8,
               end: 9,
-              kind: 226,
+
               flags: 0
             },
             start: 5,
             end: 9,
-            kind: 157,
+
             flags: 0
           },
           start: 5,
           end: 9,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -787,7 +785,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a?.``b?.c!!x=> {', () => {
     t.deepEqual(recovery('a?.``b?.c!!x=> {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -802,7 +800,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'a',
                 start: 0,
                 end: 1,
-                kind: 13,
+
                 flags: 0
               },
               chain: {
@@ -810,12 +808,12 @@ describe('Recovery - Expressions - Member', () => {
                 chain: null,
                 start: 3,
                 end: 3,
-                kind: 226,
+
                 flags: 0
               },
               start: 0,
               end: 3,
-              kind: 157,
+
               flags: 0
             },
             literal: {
@@ -824,17 +822,16 @@ describe('Recovery - Expressions - Member', () => {
               value: '',
               start: 3,
               end: 5,
-              kind: 197,
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 194,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -846,7 +843,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'b',
               start: 5,
               end: 6,
-              kind: 13,
+
               flags: 0
             },
             chain: {
@@ -859,28 +856,28 @@ describe('Recovery - Expressions - Member', () => {
                   name: 'c',
                   start: 8,
                   end: 9,
-                  kind: 13,
+
                   flags: 0
                 },
                 computed: false,
                 start: 8,
                 end: 9,
-                kind: 158,
+
                 flags: 0
               },
               start: 8,
               end: 9,
-              kind: 226,
+
               flags: 0
             },
             start: 5,
             end: 9,
-            kind: 157,
+
             flags: 0
           },
           start: 5,
           end: 9,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -899,7 +896,7 @@ describe('Recovery - Expressions - Member', () => {
                   name: 'x',
                   start: 11,
                   end: 12,
-                  kind: 168,
+
                   flags: 0
                 },
                 contents: {
@@ -908,28 +905,28 @@ describe('Recovery - Expressions - Member', () => {
                   leafs: [],
                   start: 14,
                   end: 16,
-                  kind: 184,
+
                   flags: 0
                 },
                 async: false,
                 start: 11,
                 end: 16,
-                kind: 188,
+
                 flags: 0
               },
               start: 10,
               end: 16,
-              kind: 160,
+
               flags: 0
             },
             start: 9,
             end: 16,
-            kind: 160,
+
             flags: 0
           },
           start: 9,
           end: 16,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -991,7 +988,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a?.``b?.c!!.x=> {', () => {
     t.deepEqual(recovery('a?.``b?.c!!.x=> {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1006,7 +1003,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'a',
                 start: 0,
                 end: 1,
-                kind: 13,
+
                 flags: 0
               },
               chain: {
@@ -1014,12 +1011,12 @@ describe('Recovery - Expressions - Member', () => {
                 chain: null,
                 start: 3,
                 end: 3,
-                kind: 226,
+
                 flags: 0
               },
               start: 0,
               end: 3,
-              kind: 157,
+
               flags: 0
             },
             literal: {
@@ -1028,17 +1025,17 @@ describe('Recovery - Expressions - Member', () => {
               value: '',
               start: 3,
               end: 5,
-              kind: 197,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 194,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1050,7 +1047,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'b',
               start: 5,
               end: 6,
-              kind: 13,
+
               flags: 0
             },
             chain: {
@@ -1063,28 +1060,28 @@ describe('Recovery - Expressions - Member', () => {
                   name: 'c',
                   start: 8,
                   end: 9,
-                  kind: 13,
+
                   flags: 0
                 },
                 computed: false,
                 start: 8,
                 end: 9,
-                kind: 158,
+
                 flags: 0
               },
               start: 8,
               end: 9,
-              kind: 226,
+
               flags: 0
             },
             start: 5,
             end: 9,
-            kind: 157,
+
             flags: 0
           },
           start: 5,
           end: 9,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1102,7 +1099,7 @@ describe('Recovery - Expressions - Member', () => {
                   name: '',
                   start: 11,
                   end: 11,
-                  kind: 13,
+
                   flags: 2
                 },
                 expression: {
@@ -1110,28 +1107,28 @@ describe('Recovery - Expressions - Member', () => {
                   name: 'x',
                   start: 12,
                   end: 13,
-                  kind: 13,
+
                   flags: 0
                 },
                 computed: false,
                 start: 11,
                 end: 13,
-                kind: 154,
+
                 flags: 0
               },
               start: 10,
               end: 13,
-              kind: 160,
+
               flags: 0
             },
             start: 9,
             end: 13,
-            kind: 160,
+
             flags: 0
           },
           start: 9,
           end: 13,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1139,7 +1136,6 @@ describe('Recovery - Expressions - Member', () => {
           leafs: [],
           start: 15,
           end: 17,
-          kind: 123,
           flags: 0
         }
       ],
@@ -1209,7 +1205,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a`/`', () => {
     t.deepEqual(recovery('a`/`', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1222,7 +1218,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             literal: {
@@ -1231,17 +1227,17 @@ describe('Recovery - Expressions - Member', () => {
               value: '/',
               start: 1,
               end: 4,
-              kind: 197,
+
               flags: 0
             },
             start: 0,
             end: 4,
-            kind: 194,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1262,7 +1258,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a`a??.b`', () => {
     t.deepEqual(recovery('a`a??.b`', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1275,7 +1271,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             literal: {
@@ -1284,17 +1280,17 @@ describe('Recovery - Expressions - Member', () => {
               value: 'a??.b',
               start: 1,
               end: 8,
-              kind: 197,
+
               flags: 0
             },
             start: 0,
             end: 8,
-            kind: 194,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1315,7 +1311,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a`a.?b`', () => {
     t.deepEqual(recovery('a`a.?b`', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1328,7 +1324,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             literal: {
@@ -1337,17 +1333,17 @@ describe('Recovery - Expressions - Member', () => {
               value: 'a.?b',
               start: 1,
               end: 7,
-              kind: 197,
+
               flags: 0
             },
             start: 0,
             end: 7,
-            kind: 194,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1368,7 +1364,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a`foo/bar**zoo`', () => {
     t.deepEqual(recovery('a`foo/bar**zoo`', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1381,7 +1377,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             literal: {
@@ -1390,17 +1386,17 @@ describe('Recovery - Expressions - Member', () => {
               value: 'foo/bar**zoo',
               start: 1,
               end: 15,
-              kind: 197,
+
               flags: 0
             },
             start: 0,
             end: 15,
-            kind: 194,
+
             flags: 0
           },
           start: 0,
           end: 15,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1421,7 +1417,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a`foo/bar**zoo', () => {
     t.deepEqual(recovery('a`foo/bar**zoo', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1434,7 +1430,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             literal: {
@@ -1443,17 +1439,17 @@ describe('Recovery - Expressions - Member', () => {
               value: '',
               start: 1,
               end: 14,
-              kind: 197,
+
               flags: 0
             },
             start: 0,
             end: 14,
-            kind: 194,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1483,7 +1479,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a[x=/**', () => {
     t.deepEqual(recovery('a[x=/**', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1496,7 +1492,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             expression: {
@@ -1506,7 +1502,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'x',
                 start: 2,
                 end: 3,
-                kind: 13,
+
                 flags: 0
               },
               operator: '=',
@@ -1515,23 +1511,23 @@ describe('Recovery - Expressions - Member', () => {
                 name: '',
                 start: 4,
                 end: 4,
-                kind: 13,
+
                 flags: 2
               },
               start: 2,
               end: 4,
-              kind: 152,
+
               flags: 0
             },
             computed: true,
             start: 0,
             end: 4,
-            kind: 154,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1561,7 +1557,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a[x=/**() =>a', () => {
     t.deepEqual(recovery('a[x=/**() =>a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1574,7 +1570,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             expression: {
@@ -1584,7 +1580,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'x',
                 start: 2,
                 end: 3,
-                kind: 13,
+
                 flags: 0
               },
               operator: '=',
@@ -1593,23 +1589,23 @@ describe('Recovery - Expressions - Member', () => {
                 name: '',
                 start: 4,
                 end: 4,
-                kind: 13,
+
                 flags: 2
               },
               start: 2,
               end: 4,
-              kind: 152,
+
               flags: 0
             },
             computed: true,
             start: 0,
             end: 4,
-            kind: 154,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1639,7 +1635,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a.b[', () => {
     t.deepEqual(recovery('a.b[', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1654,7 +1650,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'a',
                 start: 0,
                 end: 1,
-                kind: 13,
+
                 flags: 0
               },
               expression: {
@@ -1662,13 +1658,13 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'b',
                 start: 2,
                 end: 3,
-                kind: 13,
+
                 flags: 0
               },
               computed: false,
               start: 0,
               end: 3,
-              kind: 154,
+
               flags: 0
             },
             expression: {
@@ -1676,18 +1672,18 @@ describe('Recovery - Expressions - Member', () => {
               name: '',
               start: 4,
               end: 4,
-              kind: 13,
+
               flags: 2
             },
             computed: true,
             start: 0,
             end: 4,
-            kind: 154,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1717,7 +1713,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('(a.{ x( {}', () => {
     t.deepEqual(recovery('(a.{ x( {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1732,7 +1728,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'a',
                 start: 1,
                 end: 2,
-                kind: 13,
+
                 flags: 0
               },
               expression: {
@@ -1740,23 +1736,23 @@ describe('Recovery - Expressions - Member', () => {
                 name: '',
                 start: 3,
                 end: 3,
-                kind: 13,
+
                 flags: 2
               },
               computed: false,
               start: 1,
               end: 3,
-              kind: 154,
+
               flags: 0
             },
             start: 0,
             end: 3,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 3,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1771,7 +1767,7 @@ describe('Recovery - Expressions - Member', () => {
                   name: 'x',
                   start: 4,
                   end: 6,
-                  kind: 13,
+
                   flags: 0
                 },
                 arguments: [
@@ -1780,24 +1776,23 @@ describe('Recovery - Expressions - Member', () => {
                     properties: [],
                     start: 7,
                     end: 10,
-                    kind: 179,
                     flags: 0
                   }
                 ],
                 start: 4,
                 end: 10,
-                kind: 156,
+
                 flags: 0
               },
               start: 4,
               end: 10,
-              kind: 122,
+
               flags: 0
             }
           ],
           start: 3,
           end: 10,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -1835,7 +1830,6 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a.1', () => {
     t.deepEqual(recovery('a.1', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -1845,12 +1839,12 @@ describe('Recovery - Expressions - Member', () => {
             name: 'a',
             start: 0,
             end: 1,
-            kind: 13,
+
             flags: 0
           },
           start: 0,
           end: 1,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1860,12 +1854,12 @@ describe('Recovery - Expressions - Member', () => {
             value: 0.1,
             start: 1,
             end: 3,
-            kind: 10,
+
             flags: 0
           },
           start: 1,
           end: 3,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1889,6 +1883,7 @@ describe('Recovery - Expressions - Member', () => {
       children: [],
       start: 0,
       length: 3,
+      type: 'RootNode',
       webCompat: true,
       end: 3
     });
@@ -1896,7 +1891,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a.[(', () => {
     t.deepEqual(recovery('a.[(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1911,7 +1906,7 @@ describe('Recovery - Expressions - Member', () => {
                 name: 'a',
                 start: 0,
                 end: 1,
-                kind: 13,
+
                 flags: 0
               },
               expression: {
@@ -1919,13 +1914,13 @@ describe('Recovery - Expressions - Member', () => {
                 name: '',
                 start: 2,
                 end: 2,
-                kind: 13,
+
                 flags: 2
               },
               computed: false,
               start: 0,
               end: 2,
-              kind: 154,
+
               flags: 0
             },
             expression: {
@@ -1935,23 +1930,23 @@ describe('Recovery - Expressions - Member', () => {
                 name: '',
                 start: 4,
                 end: 4,
-                kind: 13,
+
                 flags: 2
               },
               start: 3,
               end: 4,
-              kind: 189,
+
               flags: 0
             },
             computed: true,
             start: 0,
             end: 4,
-            kind: 154,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1989,7 +1984,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('(!a.b.[', () => {
     t.deepEqual(recovery('(!a.b.[', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2011,7 +2006,7 @@ describe('Recovery - Expressions - Member', () => {
                       name: 'a',
                       start: 2,
                       end: 3,
-                      kind: 13,
+
                       flags: 0
                     },
                     expression: {
@@ -2019,13 +2014,13 @@ describe('Recovery - Expressions - Member', () => {
                       name: 'b',
                       start: 4,
                       end: 5,
-                      kind: 13,
+
                       flags: 0
                     },
                     computed: false,
                     start: 2,
                     end: 5,
-                    kind: 154,
+
                     flags: 0
                   },
                   expression: {
@@ -2033,13 +2028,13 @@ describe('Recovery - Expressions - Member', () => {
                     name: '',
                     start: 6,
                     end: 6,
-                    kind: 13,
+
                     flags: 2
                   },
                   computed: false,
                   start: 2,
                   end: 6,
-                  kind: 154,
+
                   flags: 0
                 },
                 expression: {
@@ -2047,28 +2042,28 @@ describe('Recovery - Expressions - Member', () => {
                   name: '',
                   start: 7,
                   end: 7,
-                  kind: 13,
+
                   flags: 2
                 },
                 computed: true,
                 start: 2,
                 end: 7,
-                kind: 154,
+
                 flags: 0
               },
               start: 1,
               end: 7,
-              kind: 160,
+
               flags: 0
             },
             start: 0,
             end: 7,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2098,7 +2093,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a[b c d', () => {
     t.deepEqual(recovery('a[b c d', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2111,7 +2106,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             expression: {
@@ -2119,18 +2114,18 @@ describe('Recovery - Expressions - Member', () => {
               name: 'b',
               start: 2,
               end: 3,
-              kind: 13,
+
               flags: 0
             },
             computed: true,
             start: 0,
             end: 3,
-            kind: 154,
+
             flags: 0
           },
           start: 0,
           end: 3,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2140,12 +2135,12 @@ describe('Recovery - Expressions - Member', () => {
             name: 'c',
             start: 3,
             end: 5,
-            kind: 13,
+
             flags: 0
           },
           start: 3,
           end: 5,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2155,12 +2150,12 @@ describe('Recovery - Expressions - Member', () => {
             name: 'd',
             start: 5,
             end: 7,
-            kind: 13,
+
             flags: 0
           },
           start: 5,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2198,7 +2193,7 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a[b, c d', () => {
     t.deepEqual(recovery('a[b, c d', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2211,7 +2206,7 @@ describe('Recovery - Expressions - Member', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             expression: {
@@ -2222,7 +2217,6 @@ describe('Recovery - Expressions - Member', () => {
                   name: 'b',
                   start: 2,
                   end: 3,
-                  kind: 13,
                   flags: 0
                 },
                 {
@@ -2230,24 +2224,21 @@ describe('Recovery - Expressions - Member', () => {
                   name: 'c',
                   start: 4,
                   end: 6,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 2,
               end: 6,
-              kind: 147,
               flags: 0
             },
             computed: true,
             start: 0,
             end: 6,
-            kind: 154,
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
           flags: 0
         },
         {
@@ -2257,12 +2248,10 @@ describe('Recovery - Expressions - Member', () => {
             name: 'd',
             start: 6,
             end: 8,
-            kind: 13,
             flags: 0
           },
           start: 6,
           end: 8,
-          kind: 122,
           flags: 0
         }
       ],

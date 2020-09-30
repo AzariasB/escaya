@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Var', () => {
   it('var', () => {
     t.deepEqual(recovery('var', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -13,7 +13,6 @@ describe('Recovery - Var', () => {
           declarations: [],
           start: 0,
           end: 3,
-          kind: 143,
           flags: 0
         }
       ],
@@ -34,7 +33,7 @@ describe('Recovery - Var', () => {
 
   it('var /a/', () => {
     t.deepEqual(recovery('var /a/', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -43,7 +42,6 @@ describe('Recovery - Var', () => {
           declarations: [],
           start: 0,
           end: 3,
-          kind: 143,
           flags: 0
         },
         {
@@ -54,12 +52,11 @@ describe('Recovery - Var', () => {
             flag: '',
             start: 3,
             end: 7,
-            kind: 15,
+
             flags: 0
           },
           start: 3,
           end: 7,
-          kind: 122,
           flags: 0
         }
       ],
@@ -89,7 +86,7 @@ describe('Recovery - Var', () => {
 
   it('var / a', () => {
     t.deepEqual(recovery('var / a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -98,7 +95,6 @@ describe('Recovery - Var', () => {
           declarations: [],
           start: 0,
           end: 3,
-          kind: 143,
           flags: 0
         },
         {
@@ -109,12 +105,12 @@ describe('Recovery - Var', () => {
             flag: '',
             start: 3,
             end: 7,
-            kind: 15,
+
             flags: 0
           },
           start: 3,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -144,7 +140,7 @@ describe('Recovery - Var', () => {
 
   it('var !', () => {
     t.deepEqual(recovery('var !', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -153,7 +149,7 @@ describe('Recovery - Var', () => {
           declarations: [],
           start: 0,
           end: 3,
-          kind: 143,
+
           flags: 0
         },
         {
@@ -166,17 +162,17 @@ describe('Recovery - Var', () => {
               name: '',
               start: 5,
               end: 5,
-              kind: 13,
+
               flags: 2
             },
             start: 3,
             end: 5,
-            kind: 160,
+
             flags: 0
           },
           start: 3,
           end: 5,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -206,7 +202,7 @@ describe('Recovery - Var', () => {
 
   it('var {', () => {
     t.deepEqual(recovery('var {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -220,19 +216,19 @@ describe('Recovery - Var', () => {
                 properties: [],
                 start: 3,
                 end: 5,
-                kind: 169,
+
                 flags: 0
               },
               initializer: null,
               start: 3,
               end: 5,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 5,
-          kind: 143,
+
           flags: 0
         }
       ],
@@ -262,7 +258,7 @@ describe('Recovery - Var', () => {
 
   it('{var', () => {
     t.deepEqual(recovery('{var', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -274,13 +270,13 @@ describe('Recovery - Var', () => {
               declarations: [],
               start: 1,
               end: 4,
-              kind: 143,
+
               flags: 0
             }
           ],
           start: 0,
           end: 4,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -310,7 +306,7 @@ describe('Recovery - Var', () => {
 
   it('{var x', () => {
     t.deepEqual(recovery('{var x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -327,25 +323,25 @@ describe('Recovery - Var', () => {
                     name: 'x',
                     start: 4,
                     end: 6,
-                    kind: 168,
+
                     flags: 0
                   },
                   initializer: null,
                   start: 4,
                   end: 6,
-                  kind: 144,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 6,
-              kind: 143,
+
               flags: 0
             }
           ],
           start: 0,
           end: 6,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -375,7 +371,7 @@ describe('Recovery - Var', () => {
 
   it('{ var x(,,,,,,,,,,,,,,,,,,,,,,,,,,,, a , b !![', () => {
     t.deepEqual(recovery('{ var x(,,,,,,,,,,,,,,,,,,,,,,,,,,,, a , b !![', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -392,19 +388,19 @@ describe('Recovery - Var', () => {
                     name: 'x',
                     start: 5,
                     end: 7,
-                    kind: 168,
+
                     flags: 0
                   },
                   initializer: null,
                   start: 5,
                   end: 7,
-                  kind: 144,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 7,
-              kind: 143,
+
               flags: 0
             },
             {
@@ -419,7 +415,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 8,
                       end: 8,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -427,7 +423,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 9,
                       end: 9,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -435,7 +431,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 10,
                       end: 10,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -443,7 +439,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 11,
                       end: 11,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -451,7 +447,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 12,
                       end: 12,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -459,7 +455,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 13,
                       end: 13,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -467,7 +463,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 14,
                       end: 14,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -475,7 +471,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 15,
                       end: 15,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -483,7 +479,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 16,
                       end: 16,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -491,7 +487,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 17,
                       end: 17,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -499,7 +495,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 18,
                       end: 18,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -507,7 +503,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 19,
                       end: 19,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -515,7 +511,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 20,
                       end: 20,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -523,7 +519,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 21,
                       end: 21,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -531,7 +527,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 22,
                       end: 22,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -539,7 +535,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 23,
                       end: 23,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -547,7 +543,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 24,
                       end: 24,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -555,7 +551,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 25,
                       end: 25,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -563,7 +559,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 26,
                       end: 26,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -571,7 +567,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 27,
                       end: 27,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -579,7 +575,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 28,
                       end: 28,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -587,7 +583,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 29,
                       end: 29,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -595,7 +591,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 30,
                       end: 30,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -603,7 +599,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 31,
                       end: 31,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -611,7 +607,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 32,
                       end: 32,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -619,7 +615,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 33,
                       end: 33,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -627,7 +623,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 34,
                       end: 34,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -635,7 +631,7 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 35,
                       end: 35,
-                      kind: 13,
+
                       flags: 2
                     },
                     {
@@ -643,7 +639,7 @@ describe('Recovery - Var', () => {
                       name: 'a',
                       start: 36,
                       end: 38,
-                      kind: 13,
+
                       flags: 0
                     },
                     {
@@ -651,23 +647,23 @@ describe('Recovery - Var', () => {
                       name: 'b',
                       start: 40,
                       end: 42,
-                      kind: 13,
+
                       flags: 0
                     }
                   ],
                   start: 7,
                   end: 42,
-                  kind: 147,
+
                   flags: 0
                 },
                 start: 7,
                 end: 42,
-                kind: 189,
+
                 flags: 0
               },
               start: 7,
               end: 42,
-              kind: 122,
+
               flags: 0
             },
             {
@@ -680,7 +676,7 @@ describe('Recovery - Var', () => {
                   operator: '!',
                   operand: {
                     type: 'ArrayLiteral',
-                    kind: 178,
+
                     elements: [],
                     start: 45,
                     end: 46,
@@ -688,23 +684,23 @@ describe('Recovery - Var', () => {
                   },
                   start: 44,
                   end: 46,
-                  kind: 160,
+
                   flags: 0
                 },
                 start: 42,
                 end: 46,
-                kind: 160,
+
                 flags: 0
               },
               start: 42,
               end: 46,
-              kind: 122,
+
               flags: 0
             }
           ],
           start: 0,
           end: 46,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -974,7 +970,7 @@ describe('Recovery - Var', () => {
 
   it('var b = new B; // no error', () => {
     t.deepEqual(recovery('var b = new B; // no error', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -988,7 +984,7 @@ describe('Recovery - Var', () => {
                 name: 'b',
                 start: 3,
                 end: 5,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -998,24 +994,24 @@ describe('Recovery - Var', () => {
                   name: 'B',
                   start: 11,
                   end: 13,
-                  kind: 13,
+
                   flags: 0
                 },
                 arguments: [],
                 start: 7,
                 end: 13,
-                kind: 163,
+
                 flags: 0
               },
               start: 3,
               end: 13,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 14,
-          kind: 143,
+
           flags: 0
         }
       ],
@@ -1045,7 +1041,7 @@ describe('Recovery - Var', () => {
         'recovery.js'
       ),
       {
-        kind: 209,
+        type: 'RootNode',
         webCompat: true,
         directives: [],
         leafs: [
@@ -1059,7 +1055,7 @@ describe('Recovery - Var', () => {
                   name: 'v',
                   start: 3,
                   end: 5,
-                  kind: 168,
+
                   flags: 0
                 },
                 initializer: {
@@ -1072,7 +1068,7 @@ describe('Recovery - Var', () => {
                         name: 'foo',
                         start: 9,
                         end: 13,
-                        kind: 13,
+
                         flags: 0
                       },
                       value: {
@@ -1087,17 +1083,17 @@ describe('Recovery - Var', () => {
                           leafs: [],
                           start: 26,
                           end: 34,
-                          kind: 184,
+
                           flags: 0
                         },
                         start: 14,
                         end: 34,
-                        kind: 185,
+
                         flags: 0
                       },
                       start: 9,
                       end: 34,
-                      kind: 227,
+
                       flags: 0
                     },
                     {
@@ -1107,7 +1103,7 @@ describe('Recovery - Var', () => {
                         name: 'a',
                         start: 35,
                         end: 37,
-                        kind: 13,
+
                         flags: 0
                       },
                       value: {
@@ -1115,12 +1111,12 @@ describe('Recovery - Var', () => {
                         name: 'b',
                         start: 38,
                         end: 40,
-                        kind: 13,
+
                         flags: 0
                       },
                       start: 35,
                       end: 40,
-                      kind: 227,
+
                       flags: 0
                     },
                     {
@@ -1136,7 +1132,7 @@ describe('Recovery - Var', () => {
                         name: 'baz',
                         start: 45,
                         end: 49,
-                        kind: 13,
+
                         flags: 0
                       },
                       contents: {
@@ -1145,29 +1141,29 @@ describe('Recovery - Var', () => {
                         leafs: [],
                         start: 51,
                         end: 59,
-                        kind: 184,
+
                         flags: 0
                       },
                       start: 49,
                       end: 59,
-                      kind: 182,
+
                       flags: 0
                     }
                   ],
                   start: 7,
                   end: 61,
-                  kind: 179,
+
                   flags: 0
                 },
                 start: 3,
                 end: 61,
-                kind: 144,
+
                 flags: 0
               }
             ],
             start: 0,
             end: 62,
-            kind: 143,
+
             flags: 0
           }
         ],
@@ -1189,7 +1185,7 @@ describe('Recovery - Var', () => {
 
   it('var tt = { aa:  };', () => {
     t.deepEqual(recovery('var tt = { aa:  };', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1203,7 +1199,7 @@ describe('Recovery - Var', () => {
                 name: 'tt',
                 start: 3,
                 end: 6,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -1216,7 +1212,7 @@ describe('Recovery - Var', () => {
                       name: 'aa',
                       start: 10,
                       end: 13,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -1224,29 +1220,29 @@ describe('Recovery - Var', () => {
                       name: '',
                       start: 14,
                       end: 14,
-                      kind: 13,
+
                       flags: 2
                     },
                     start: 10,
                     end: 14,
-                    kind: 227,
+
                     flags: 0
                   }
                 ],
                 start: 8,
                 end: 17,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 17,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 18,
-          kind: 143,
+
           flags: 0
         }
       ],
@@ -1276,7 +1272,7 @@ describe('Recovery - Var', () => {
 
   it('var v = { a', () => {
     t.deepEqual(recovery('var v = { a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1290,7 +1286,7 @@ describe('Recovery - Var', () => {
                 name: 'v',
                 start: 3,
                 end: 5,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -1301,24 +1297,24 @@ describe('Recovery - Var', () => {
                     name: 'a',
                     start: 9,
                     end: 11,
-                    kind: 13,
+
                     flags: 0
                   }
                 ],
                 start: 7,
                 end: 11,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 11,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 11,
-          kind: 143,
+
           flags: 0
         }
       ],
@@ -1348,7 +1344,7 @@ describe('Recovery - Var', () => {
 
   it('var v = { a: 1', () => {
     t.deepEqual(recovery('var v = { a: 1', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1362,7 +1358,7 @@ describe('Recovery - Var', () => {
                 name: 'v',
                 start: 3,
                 end: 5,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -1375,7 +1371,7 @@ describe('Recovery - Var', () => {
                       name: 'a',
                       start: 9,
                       end: 11,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -1384,29 +1380,29 @@ describe('Recovery - Var', () => {
                       value: 1,
                       start: 12,
                       end: 14,
-                      kind: 10,
+
                       flags: 0
                     },
                     start: 9,
                     end: 14,
-                    kind: 227,
+
                     flags: 0
                   }
                 ],
                 start: 7,
                 end: 14,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 14,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 14,
-          kind: 143,
+
           flags: 0
         }
       ],
@@ -1436,7 +1432,7 @@ describe('Recovery - Var', () => {
 
   it('var x = {', () => {
     t.deepEqual(recovery('var x = {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1450,7 +1446,7 @@ describe('Recovery - Var', () => {
                 name: 'x',
                 start: 3,
                 end: 5,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -1458,18 +1454,18 @@ describe('Recovery - Var', () => {
                 properties: [],
                 start: 7,
                 end: 9,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 9,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 9,
-          kind: 143,
+
           flags: 0
         }
       ],
@@ -1508,7 +1504,7 @@ describe('Recovery - Var', () => {
         'recovery.js'
       ),
       {
-        kind: 209,
+        type: 'RootNode',
         webCompat: true,
         directives: [],
         leafs: [
@@ -1522,7 +1518,7 @@ describe('Recovery - Var', () => {
                   name: 'v',
                   start: 3,
                   end: 5,
-                  kind: 168,
+
                   flags: 0
                 },
                 initializer: {
@@ -1533,24 +1529,24 @@ describe('Recovery - Var', () => {
                       name: 'a',
                       start: 9,
                       end: 19,
-                      kind: 13,
+
                       flags: 0
                     }
                   ],
                   start: 7,
                   end: 19,
-                  kind: 179,
+
                   flags: 0
                 },
                 start: 3,
                 end: 19,
-                kind: 144,
+
                 flags: 0
               }
             ],
             start: 0,
             end: 27,
-            kind: 143,
+
             flags: 0
           }
         ],
@@ -1581,7 +1577,7 @@ describe('Recovery - Var', () => {
 
   it('var v = { foo() { }; a: b; get baz() { }; }', () => {
     t.deepEqual(recovery('var v = { foo() { }; a: b; get baz() { }; }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1595,7 +1591,7 @@ describe('Recovery - Var', () => {
                 name: 'v',
                 start: 3,
                 end: 5,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -1614,7 +1610,7 @@ describe('Recovery - Var', () => {
                       name: 'foo',
                       start: 9,
                       end: 13,
-                      kind: 13,
+
                       flags: 0
                     },
                     contents: {
@@ -1623,29 +1619,29 @@ describe('Recovery - Var', () => {
                       leafs: [],
                       start: 15,
                       end: 19,
-                      kind: 184,
+
                       flags: 0
                     },
                     start: 13,
                     end: 19,
-                    kind: 182,
+
                     flags: 0
                   }
                 ],
                 start: 7,
                 end: 19,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 19,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 20,
-          kind: 143,
+
           flags: 0
         },
         {
@@ -1655,7 +1651,7 @@ describe('Recovery - Var', () => {
             name: 'a',
             start: 20,
             end: 23,
-            kind: 13,
+
             flags: 0
           },
           labelledItem: {
@@ -1665,17 +1661,17 @@ describe('Recovery - Var', () => {
               name: 'b',
               start: 23,
               end: 25,
-              kind: 13,
+
               flags: 0
             },
             start: 23,
             end: 26,
-            kind: 122,
+
             flags: 0
           },
           start: 20,
           end: 26,
-          kind: 134,
+
           flags: 0
         },
         {
@@ -1685,12 +1681,12 @@ describe('Recovery - Var', () => {
             name: 'get',
             start: 26,
             end: 30,
-            kind: 13,
+
             flags: 0
           },
           start: 26,
           end: 30,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1702,18 +1698,17 @@ describe('Recovery - Var', () => {
               name: 'baz',
               start: 30,
               end: 34,
-              kind: 13,
+
               flags: 0
             },
             arguments: [],
             start: 30,
             end: 36,
-            kind: 156,
             flags: 0
           },
           start: 30,
           end: 36,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1721,14 +1716,13 @@ describe('Recovery - Var', () => {
           leafs: [],
           start: 36,
           end: 40,
-          kind: 123,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 40,
           end: 41,
-          kind: 148,
           flags: 0
         }
       ],
@@ -1782,7 +1776,7 @@ describe('Recovery - Var', () => {
 
   it('var v = { a; b; c }', () => {
     t.deepEqual(recovery('var v = { a; b; c }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1796,7 +1790,7 @@ describe('Recovery - Var', () => {
                 name: 'v',
                 start: 3,
                 end: 5,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -1807,24 +1801,24 @@ describe('Recovery - Var', () => {
                     name: 'a',
                     start: 9,
                     end: 11,
-                    kind: 13,
+
                     flags: 0
                   }
                 ],
                 start: 7,
                 end: 11,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 11,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 12,
-          kind: 143,
+
           flags: 0
         },
         {
@@ -1834,12 +1828,12 @@ describe('Recovery - Var', () => {
             name: 'b',
             start: 12,
             end: 14,
-            kind: 13,
+
             flags: 0
           },
           start: 12,
           end: 15,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1849,12 +1843,12 @@ describe('Recovery - Var', () => {
             name: 'c',
             start: 15,
             end: 17,
-            kind: 13,
+
             flags: 0
           },
           start: 15,
           end: 17,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1892,7 +1886,7 @@ describe('Recovery - Var', () => {
 
   it('{,var', () => {
     t.deepEqual(recovery('{,var', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1901,7 +1895,7 @@ describe('Recovery - Var', () => {
           leafs: [],
           start: 0,
           end: 1,
-          kind: 123,
+
           flags: 0
         },
         {
@@ -1909,7 +1903,7 @@ describe('Recovery - Var', () => {
           declarations: [],
           start: 2,
           end: 5,
-          kind: 143,
+
           flags: 0
         }
       ],
@@ -1939,7 +1933,7 @@ describe('Recovery - Var', () => {
 
   it('{var y = b ; /', () => {
     t.deepEqual(recovery('{var y = b ; /', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1956,7 +1950,7 @@ describe('Recovery - Var', () => {
                     name: 'y',
                     start: 4,
                     end: 6,
-                    kind: 168,
+
                     flags: 0
                   },
                   initializer: {
@@ -1964,18 +1958,18 @@ describe('Recovery - Var', () => {
                     name: 'b',
                     start: 8,
                     end: 10,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 4,
                   end: 10,
-                  kind: 144,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 12,
-              kind: 143,
+
               flags: 0
             },
             {
@@ -1986,18 +1980,18 @@ describe('Recovery - Var', () => {
                 flag: '',
                 start: 12,
                 end: 15,
-                kind: 15,
+
                 flags: 0
               },
               start: 12,
               end: 15,
-              kind: 122,
+
               flags: 0
             }
           ],
           start: 0,
           end: 15,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -2044,7 +2038,8 @@ describe('Recovery - Var', () => {
       fileName: 'recovery.js',
       incremental: false,
       detached: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       length: 5,
       mutualFlags: 0,
@@ -2055,7 +2050,7 @@ describe('Recovery - Var', () => {
           declarations: [],
           end: 3,
           flags: 0,
-          kind: 143,
+
           start: 0,
           type: 'VariableStatement'
         },
@@ -2065,13 +2060,13 @@ describe('Recovery - Var', () => {
             end: 5,
             flag: '',
             flags: 0,
-            kind: 15,
+
             pattern: '',
             start: 3,
             type: 'RegularExpressionLiteral'
           },
           flags: 0,
-          kind: 122,
+
           start: 3,
           type: 'ExpressionStatement'
         }
@@ -2082,7 +2077,7 @@ describe('Recovery - Var', () => {
 
   it('var [a, ,, b/, b=, ...a', () => {
     t.deepEqual(recovery('var [a, ,, b/, b=, ...a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2099,21 +2094,19 @@ describe('Recovery - Var', () => {
                     name: 'a',
                     start: 5,
                     end: 6,
-                    kind: 168,
+
                     flags: 0
                   },
                   {
                     type: 'Elison',
                     start: 3,
                     end: 9,
-                    kind: 176,
                     flags: 0
                   },
                   {
                     type: 'Elison',
                     start: 3,
                     end: 10,
-                    kind: 176,
                     flags: 0
                   },
                   {
@@ -2121,25 +2114,24 @@ describe('Recovery - Var', () => {
                     name: 'b',
                     start: 10,
                     end: 12,
-                    kind: 168,
+
                     flags: 0
                   }
                 ],
                 start: 3,
                 end: 12,
-                kind: 174,
                 flags: 0
               },
               initializer: null,
               start: 3,
               end: 12,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 12,
-          kind: 143,
+
           flags: 0
         },
         {
@@ -2154,7 +2146,7 @@ describe('Recovery - Var', () => {
                   name: '',
                   start: 12,
                   end: 12,
-                  kind: 13,
+
                   flags: 2
                 },
                 operator: '/',
@@ -2163,12 +2155,11 @@ describe('Recovery - Var', () => {
                   name: '',
                   start: 13,
                   end: 13,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 12,
                 end: 13,
-                kind: 155,
                 flags: 0
               },
               {
@@ -2178,7 +2169,7 @@ describe('Recovery - Var', () => {
                   name: 'b',
                   start: 14,
                   end: 16,
-                  kind: 13,
+
                   flags: 0
                 },
                 operator: '=',
@@ -2187,12 +2178,12 @@ describe('Recovery - Var', () => {
                   name: '',
                   start: 17,
                   end: 17,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 14,
                 end: 17,
-                kind: 152,
+
                 flags: 0
               },
               {
@@ -2200,18 +2191,18 @@ describe('Recovery - Var', () => {
                 name: '',
                 start: 18,
                 end: 18,
-                kind: 13,
+
                 flags: 2
               }
             ],
             start: 12,
             end: 18,
-            kind: 147,
+
             flags: 0
           },
           start: 12,
           end: 18,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2221,12 +2212,12 @@ describe('Recovery - Var', () => {
             name: 'a',
             start: 22,
             end: 23,
-            kind: 13,
+
             flags: 0
           },
           start: 22,
           end: 23,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2280,7 +2271,7 @@ describe('Recovery - Var', () => {
 
   it('var o = {one: function() {} two:2};', () => {
     t.deepEqual(recovery('var o = {one: function() {} two:2};', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2294,7 +2285,7 @@ describe('Recovery - Var', () => {
                 name: 'o',
                 start: 3,
                 end: 5,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -2307,7 +2298,7 @@ describe('Recovery - Var', () => {
                       name: 'one',
                       start: 9,
                       end: 12,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2322,17 +2313,17 @@ describe('Recovery - Var', () => {
                         leafs: [],
                         start: 24,
                         end: 27,
-                        kind: 184,
+
                         flags: 0
                       },
                       start: 13,
                       end: 27,
-                      kind: 185,
+
                       flags: 0
                     },
                     start: 9,
                     end: 27,
-                    kind: 227,
+
                     flags: 0
                   },
                   {
@@ -2342,7 +2333,7 @@ describe('Recovery - Var', () => {
                       name: 'two',
                       start: 27,
                       end: 31,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2351,29 +2342,29 @@ describe('Recovery - Var', () => {
                       value: 2,
                       start: 32,
                       end: 33,
-                      kind: 10,
+
                       flags: 0
                     },
                     start: 27,
                     end: 33,
-                    kind: 227,
+
                     flags: 0
                   }
                 ],
                 start: 7,
                 end: 34,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 34,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 35,
-          kind: 143,
+
           flags: 0
         }
       ],
@@ -2402,7 +2393,7 @@ describe('Recovery - Var', () => {
   });
   it('var o = {one: function() {} two:2 three: 3};', () => {
     t.deepEqual(recovery('var o = {one: function() {} two:2 three: 3};', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2416,7 +2407,7 @@ describe('Recovery - Var', () => {
                 name: 'o',
                 start: 3,
                 end: 5,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -2429,7 +2420,7 @@ describe('Recovery - Var', () => {
                       name: 'one',
                       start: 9,
                       end: 12,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2444,17 +2435,17 @@ describe('Recovery - Var', () => {
                         leafs: [],
                         start: 24,
                         end: 27,
-                        kind: 184,
+
                         flags: 0
                       },
                       start: 13,
                       end: 27,
-                      kind: 185,
+
                       flags: 0
                     },
                     start: 9,
                     end: 27,
-                    kind: 227,
+
                     flags: 0
                   },
                   {
@@ -2464,7 +2455,7 @@ describe('Recovery - Var', () => {
                       name: 'two',
                       start: 27,
                       end: 31,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2473,12 +2464,12 @@ describe('Recovery - Var', () => {
                       value: 2,
                       start: 32,
                       end: 33,
-                      kind: 10,
+
                       flags: 0
                     },
                     start: 27,
                     end: 33,
-                    kind: 227,
+
                     flags: 0
                   },
                   {
@@ -2488,7 +2479,7 @@ describe('Recovery - Var', () => {
                       name: 'three',
                       start: 33,
                       end: 39,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2497,29 +2488,29 @@ describe('Recovery - Var', () => {
                       value: 3,
                       start: 40,
                       end: 42,
-                      kind: 10,
+
                       flags: 0
                     },
                     start: 33,
                     end: 42,
-                    kind: 227,
+
                     flags: 0
                   }
                 ],
                 start: 7,
                 end: 43,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 43,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 44,
-          kind: 143,
+
           flags: 0
         }
       ],
@@ -2556,7 +2547,7 @@ describe('Recovery - Var', () => {
   });
   it('var o = {one: function() {} two:2, three: 3 "four":4};', () => {
     t.deepEqual(recovery('var o = {one: function() {} two:2, three: 3 "four":4};', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2570,7 +2561,7 @@ describe('Recovery - Var', () => {
                 name: 'o',
                 start: 3,
                 end: 5,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -2583,7 +2574,7 @@ describe('Recovery - Var', () => {
                       name: 'one',
                       start: 9,
                       end: 12,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2598,17 +2589,17 @@ describe('Recovery - Var', () => {
                         leafs: [],
                         start: 24,
                         end: 27,
-                        kind: 184,
+
                         flags: 0
                       },
                       start: 13,
                       end: 27,
-                      kind: 185,
+
                       flags: 0
                     },
                     start: 9,
                     end: 27,
-                    kind: 227,
+
                     flags: 0
                   },
                   {
@@ -2618,7 +2609,7 @@ describe('Recovery - Var', () => {
                       name: 'two',
                       start: 27,
                       end: 31,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2627,12 +2618,12 @@ describe('Recovery - Var', () => {
                       value: 2,
                       start: 32,
                       end: 33,
-                      kind: 10,
+
                       flags: 0
                     },
                     start: 27,
                     end: 33,
-                    kind: 227,
+
                     flags: 0
                   },
                   {
@@ -2642,7 +2633,7 @@ describe('Recovery - Var', () => {
                       name: 'three',
                       start: 34,
                       end: 40,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2651,12 +2642,12 @@ describe('Recovery - Var', () => {
                       value: 3,
                       start: 41,
                       end: 43,
-                      kind: 10,
+
                       flags: 0
                     },
                     start: 34,
                     end: 43,
-                    kind: 227,
+
                     flags: 0
                   },
                   {
@@ -2666,7 +2657,6 @@ describe('Recovery - Var', () => {
                       value: 'four',
                       start: 43,
                       end: 50,
-                      kind: 12,
                       flags: 0
                     },
                     value: {
@@ -2675,29 +2665,29 @@ describe('Recovery - Var', () => {
                       value: 4,
                       start: 51,
                       end: 52,
-                      kind: 10,
+
                       flags: 0
                     },
                     start: 43,
                     end: 52,
-                    kind: 227,
+
                     flags: 0
                   }
                 ],
                 start: 7,
                 end: 53,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 53,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 54,
-          kind: 143,
+
           flags: 0
         }
       ],
@@ -2734,7 +2724,7 @@ describe('Recovery - Var', () => {
   });
   it('var o = {one: function() {} two:2, three: {aa: "a" bb: "b"} four: 4};', () => {
     t.deepEqual(recovery('var o = {one: function() {} two:2, three: {aa: "a" bb: "b"} four: 4};', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2748,7 +2738,7 @@ describe('Recovery - Var', () => {
                 name: 'o',
                 start: 3,
                 end: 5,
-                kind: 168,
+
                 flags: 0
               },
               initializer: {
@@ -2761,7 +2751,7 @@ describe('Recovery - Var', () => {
                       name: 'one',
                       start: 9,
                       end: 12,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2776,17 +2766,17 @@ describe('Recovery - Var', () => {
                         leafs: [],
                         start: 24,
                         end: 27,
-                        kind: 184,
+
                         flags: 0
                       },
                       start: 13,
                       end: 27,
-                      kind: 185,
+
                       flags: 0
                     },
                     start: 9,
                     end: 27,
-                    kind: 227,
+
                     flags: 0
                   },
                   {
@@ -2796,7 +2786,7 @@ describe('Recovery - Var', () => {
                       name: 'two',
                       start: 27,
                       end: 31,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2805,12 +2795,12 @@ describe('Recovery - Var', () => {
                       value: 2,
                       start: 32,
                       end: 33,
-                      kind: 10,
+
                       flags: 0
                     },
                     start: 27,
                     end: 33,
-                    kind: 227,
+
                     flags: 0
                   },
                   {
@@ -2820,7 +2810,7 @@ describe('Recovery - Var', () => {
                       name: 'three',
                       start: 34,
                       end: 40,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2833,7 +2823,7 @@ describe('Recovery - Var', () => {
                             name: 'aa',
                             start: 43,
                             end: 45,
-                            kind: 13,
+
                             flags: 0
                           },
                           value: {
@@ -2841,12 +2831,11 @@ describe('Recovery - Var', () => {
                             value: 'a',
                             start: 46,
                             end: 50,
-                            kind: 12,
                             flags: 0
                           },
                           start: 43,
                           end: 50,
-                          kind: 227,
+
                           flags: 0
                         },
                         {
@@ -2856,7 +2845,7 @@ describe('Recovery - Var', () => {
                             name: 'bb',
                             start: 50,
                             end: 53,
-                            kind: 13,
+
                             flags: 0
                           },
                           value: {
@@ -2864,23 +2853,22 @@ describe('Recovery - Var', () => {
                             value: 'b',
                             start: 54,
                             end: 58,
-                            kind: 12,
                             flags: 0
                           },
                           start: 50,
                           end: 58,
-                          kind: 227,
+
                           flags: 0
                         }
                       ],
                       start: 41,
                       end: 59,
-                      kind: 179,
+
                       flags: 0
                     },
                     start: 34,
                     end: 59,
-                    kind: 227,
+
                     flags: 0
                   },
                   {
@@ -2890,7 +2878,7 @@ describe('Recovery - Var', () => {
                       name: 'four',
                       start: 59,
                       end: 64,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -2899,29 +2887,29 @@ describe('Recovery - Var', () => {
                       value: 4,
                       start: 65,
                       end: 67,
-                      kind: 10,
+
                       flags: 0
                     },
                     start: 59,
                     end: 67,
-                    kind: 227,
+
                     flags: 0
                   }
                 ],
                 start: 7,
                 end: 68,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 68,
-              kind: 144,
+
               flags: 0
             }
           ],
           start: 0,
           end: 69,
-          kind: 143,
+
           flags: 0
         }
       ],

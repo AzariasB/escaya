@@ -2,7 +2,7 @@ import { Token, KeywordDescTable } from './ast/token';
 import { nextToken } from './lexer/scan';
 import { addDiagnostic, addparserDiagnostic, addEarlyDiagnostic, DiagnosticSource, DiagnosticKind } from './diagnostic';
 import { DiagnosticCode } from './diagnostic/diagnostic-code';
-import { SyntaxKind, NodeFlags } from './ast/node';
+import { NodeFlags } from './ast/node';
 import { DictionaryMap } from './dictionary/dictionary-map';
 
 /**
@@ -228,12 +228,11 @@ export function lastOrUndefined<T>(array: readonly T[]): T | undefined {
   return array.length === 0 ? undefined : array[array.length - 1];
 }
 
-export function finishNode(state: ParserState, context: Context, start: number, node: any, kind: SyntaxKind): any {
+export function finishNode(state: ParserState, context: Context, start: number, node: any): any {
   if (context & (Context.OptionsLoc | Context.ErrorRecovery)) {
     node.start = start;
     node.end = state.endIndex;
     if ((context & Context.ErrorRecovery) === Context.ErrorRecovery) {
-      node.kind = kind;
       node.flags = NodeFlags.None;
     }
   }
@@ -356,13 +355,7 @@ export function validateFunctionName(state: ParserState, context: Context): any 
     addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
   }
   nextToken(state, context);
-  return finishNode(
-    state,
-    context,
-    startIndex,
-    DictionaryMap.BindingIdentifier(tokenValue),
-    SyntaxKind.BindingIdentifier
-  );
+  return finishNode(state, context, startIndex, DictionaryMap.BindingIdentifier(tokenValue));
 }
 
 export function validateIdentifier(state: ParserState, context: Context, token: Token, start: number): void {

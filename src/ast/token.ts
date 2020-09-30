@@ -1,71 +1,4 @@
-import { SyntaxKind, Node } from './node';
-
-/**
- * A token. This can include single characters, operators and keywords.
- */
-export interface SyntaxToken<TokenKind extends TokenSyntaxKind> extends Node {
-  kind: TokenKind;
-}
-
-export type TokenSyntaxKind =
-  | SyntaxKind.EndOfFileToken
-  | SyntaxKind.UnknownToken
-  | SyntaxKind.Comment
-  | SyntaxKind.LessThan
-  | SyntaxKind.GreaterThan
-  | SyntaxKind.LogicalAnd
-  | SyntaxKind.LogicalOr
-  | SyntaxKind.BitwiseOr
-  | SyntaxKind.Complement
-  | SyntaxKind.Negate
-  | SyntaxKind.Modulo
-  | SyntaxKind.BitwiseAnd
-  | SyntaxKind.Multiply
-  | SyntaxKind.Add
-  | SyntaxKind.Comma
-  | SyntaxKind.Subtract
-  | SyntaxKind.Period
-  | SyntaxKind.Divide
-  | SyntaxKind.Colon
-  | SyntaxKind.Semicolon
-  | SyntaxKind.LessThan
-  | SyntaxKind.Assign
-  | SyntaxKind.GreaterThan
-  | SyntaxKind.QuestionMark
-  | SyntaxKind.BitwiseXor
-  | SyntaxKind.QuestionMarkPeriod
-  | SyntaxKind.NullishAssign
-  | SyntaxKind.Nullish
-  | SyntaxKind.BitwiseXorAssign
-  | SyntaxKind.BitwiseOrAssign
-  | SyntaxKind.LogicalOr
-  | SyntaxKind.LogicalOrAssign
-  | SyntaxKind.BitwiseAndAssign
-  | SyntaxKind.LogicalAnd
-  | SyntaxKind.LogicalAndAssign
-  | SyntaxKind.DivideAssign
-  | SyntaxKind.ModuloAssign
-  | SyntaxKind.Exponentiate
-  | SyntaxKind.ExponentiateAssign
-  | SyntaxKind.MultiplyAssign
-  | SyntaxKind.SubtractAssign
-  | SyntaxKind.Decrement
-  | SyntaxKind.AddAssign
-  | SyntaxKind.Increment
-  | SyntaxKind.LooseNotEqual
-  | SyntaxKind.StrictNotEqual
-  | SyntaxKind.Arrow
-  | SyntaxKind.LooseEqual
-  | SyntaxKind.StrictEqual
-  | SyntaxKind.ShiftRight
-  | SyntaxKind.ShiftRightAssign
-  | SyntaxKind.LogicalShiftRight
-  | SyntaxKind.LogicalShiftRightAssign
-  | SyntaxKind.GreaterThanOrEqual
-  | SyntaxKind.ShiftLeft
-  | SyntaxKind.ShiftLeftAssign
-  | SyntaxKind.Ellipsis
-  | SyntaxKind.LessThanOrEqual;
+import { Node } from './node';
 
 export const enum Token {
   Type = 0xff,
@@ -408,7 +341,7 @@ export const KeywordDescTable = [
   'Unknown'
 ];
 
-export function createToken<T extends TokenSyntaxKind>(source: string, tokenKind: T): SyntaxToken<T> {
+export function createToken<T extends Token>(source: string, tokenKind: T): any {
   return {
     type: 'CST',
     kind: tokenKind,

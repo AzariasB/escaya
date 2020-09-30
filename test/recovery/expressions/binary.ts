@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Expressions - Binary', () => {
   it('(a + b) >>', () => {
     t.deepEqual(recovery('(a + b) >>', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -21,7 +21,6 @@ describe('Recovery - Expressions - Binary', () => {
                   name: 'a',
                   start: 1,
                   end: 2,
-                  kind: 13,
                   flags: 0
                 },
                 operator: '+',
@@ -30,17 +29,14 @@ describe('Recovery - Expressions - Binary', () => {
                   name: 'b',
                   start: 4,
                   end: 6,
-                  kind: 13,
                   flags: 0
                 },
                 start: 1,
                 end: 6,
-                kind: 155,
                 flags: 0
               },
               start: 0,
               end: 7,
-              kind: 189,
               flags: 0
             },
             operator: '>>',
@@ -49,17 +45,14 @@ describe('Recovery - Expressions - Binary', () => {
               name: '',
               start: 10,
               end: 10,
-              kind: 13,
               flags: 2
             },
             start: 0,
             end: 10,
-            kind: 155,
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 122,
           flags: 0
         }
       ],
@@ -89,7 +82,7 @@ describe('Recovery - Expressions - Binary', () => {
 
   it('a ?? b ??', () => {
     t.deepEqual(recovery('a ?? b ??', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -104,7 +97,6 @@ describe('Recovery - Expressions - Binary', () => {
                 name: 'a',
                 start: 0,
                 end: 1,
-                kind: 13,
                 flags: 0
               },
               operator: '??',
@@ -113,12 +105,11 @@ describe('Recovery - Expressions - Binary', () => {
                 name: 'b',
                 start: 4,
                 end: 6,
-                kind: 13,
+
                 flags: 0
               },
               start: 0,
               end: 6,
-              kind: 155,
               flags: 0
             },
             operator: '??',
@@ -127,17 +118,16 @@ describe('Recovery - Expressions - Binary', () => {
               name: '',
               start: 9,
               end: 9,
-              kind: 13,
+
               flags: 2
             },
             start: 0,
             end: 9,
-            kind: 155,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 122,
           flags: 0
         }
       ],
@@ -167,7 +157,7 @@ describe('Recovery - Expressions - Binary', () => {
 
   it('~3 ** => { **', () => {
     t.deepEqual(recovery('~3 ** => { **', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -180,16 +170,15 @@ describe('Recovery - Expressions - Binary', () => {
               operator: '~',
               operand: {
                 type: 'NumericLiteral',
-
                 value: 3,
                 start: 1,
                 end: 2,
-                kind: 10,
+
                 flags: 0
               },
               start: 0,
               end: 2,
-              kind: 160,
+
               flags: 0
             },
             operator: '**',
@@ -198,17 +187,14 @@ describe('Recovery - Expressions - Binary', () => {
               name: '',
               start: 5,
               end: 5,
-              kind: 13,
               flags: 2
             },
             start: 0,
             end: 5,
-            kind: 155,
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
           flags: 0
         },
         {
@@ -223,7 +209,6 @@ describe('Recovery - Expressions - Binary', () => {
                   name: '',
                   start: 10,
                   end: 10,
-                  kind: 13,
                   flags: 2
                 },
                 operator: '**',
@@ -232,23 +217,19 @@ describe('Recovery - Expressions - Binary', () => {
                   name: '',
                   start: 13,
                   end: 13,
-                  kind: 13,
                   flags: 2
                 },
                 start: 10,
                 end: 13,
-                kind: 155,
                 flags: 0
               },
               start: 10,
               end: 13,
-              kind: 122,
               flags: 0
             }
           ],
           start: 8,
           end: 13,
-          kind: 123,
           flags: 0
         }
       ],
@@ -295,7 +276,7 @@ describe('Recovery - Expressions - Binary', () => {
 
   it('typeof 3 *[', () => {
     t.deepEqual(recovery('typeof 3 *[', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -308,16 +289,14 @@ describe('Recovery - Expressions - Binary', () => {
               operator: 'typeof',
               operand: {
                 type: 'NumericLiteral',
-
                 value: 3,
                 start: 6,
                 end: 8,
-                kind: 10,
                 flags: 0
               },
               start: 0,
               end: 8,
-              kind: 160,
+
               flags: 0
             },
             operator: '*',
@@ -326,17 +305,16 @@ describe('Recovery - Expressions - Binary', () => {
               elements: [],
               start: 10,
               end: 11,
-              kind: 178,
+
               flags: 0
             },
             start: 0,
             end: 11,
-            kind: 155,
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -365,7 +343,7 @@ describe('Recovery - Expressions - Binary', () => {
   });
   it('typeof 3 *[ {x=y}', () => {
     t.deepEqual(recovery('typeof 3 *[ {x=y}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -382,12 +360,10 @@ describe('Recovery - Expressions - Binary', () => {
                 value: 3,
                 start: 6,
                 end: 8,
-                kind: 10,
                 flags: 0
               },
               start: 0,
               end: 8,
-              kind: 160,
               flags: 0
             },
             operator: '*',
@@ -404,7 +380,6 @@ describe('Recovery - Expressions - Binary', () => {
                         name: 'x',
                         start: 13,
                         end: 14,
-                        kind: 13,
                         flags: 0
                       },
                       right: {
@@ -412,34 +387,30 @@ describe('Recovery - Expressions - Binary', () => {
                         name: 'y',
                         start: 15,
                         end: 16,
-                        kind: 13,
                         flags: 0
                       },
                       start: 13,
                       end: 16,
-                      kind: 181,
                       flags: 0
                     }
                   ],
                   start: 11,
                   end: 17,
-                  kind: 179,
                   flags: 0
                 }
               ],
               start: 10,
               end: 17,
-              kind: 178,
+
               flags: 0
             },
             start: 0,
             end: 17,
-            kind: 155,
             flags: 0
           },
           start: 0,
           end: 17,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -468,7 +439,7 @@ describe('Recovery - Expressions - Binary', () => {
   });
   it('[**??!!))==abc', () => {
     t.deepEqual(recovery('[**??!!))==abc', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -486,7 +457,6 @@ describe('Recovery - Expressions - Binary', () => {
                     name: '',
                     start: 1,
                     end: 1,
-                    kind: 13,
                     flags: 2
                   },
                   operator: '**',
@@ -495,12 +465,10 @@ describe('Recovery - Expressions - Binary', () => {
                     name: '',
                     start: 3,
                     end: 3,
-                    kind: 13,
                     flags: 2
                   },
                   start: 1,
                   end: 3,
-                  kind: 155,
                   flags: 0
                 },
                 operator: '??',
@@ -515,33 +483,33 @@ describe('Recovery - Expressions - Binary', () => {
                       name: '',
                       start: 7,
                       end: 7,
-                      kind: 13,
+
                       flags: 2
                     },
                     start: 6,
                     end: 7,
-                    kind: 160,
+
                     flags: 0
                   },
                   start: 5,
                   end: 7,
-                  kind: 160,
+
                   flags: 0
                 },
                 start: 1,
                 end: 7,
-                kind: 155,
+
                 flags: 0
               }
             ],
             start: 0,
             end: 7,
-            kind: 178,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -553,7 +521,7 @@ describe('Recovery - Expressions - Binary', () => {
               name: '',
               start: 9,
               end: 9,
-              kind: 13,
+
               flags: 2
             },
             operator: '==',
@@ -562,17 +530,17 @@ describe('Recovery - Expressions - Binary', () => {
               name: 'abc',
               start: 11,
               end: 14,
-              kind: 13,
+
               flags: 0
             },
             start: 9,
             end: 14,
-            kind: 155,
+
             flags: 0
           },
           start: 9,
           end: 14,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -634,7 +602,7 @@ describe('Recovery - Expressions - Binary', () => {
 
   it('a**/', () => {
     t.deepEqual(recovery('a**/', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -647,7 +615,7 @@ describe('Recovery - Expressions - Binary', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             operator: '**',
@@ -657,17 +625,15 @@ describe('Recovery - Expressions - Binary', () => {
               flag: '',
               start: 3,
               end: 5,
-              kind: 15,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 155,
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
           flags: 0
         }
       ],
@@ -697,7 +663,7 @@ describe('Recovery - Expressions - Binary', () => {
 
   it('+/ a', () => {
     t.deepEqual(recovery('+/ a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -712,17 +678,14 @@ describe('Recovery - Expressions - Binary', () => {
               flag: '',
               start: 1,
               end: 4,
-              kind: 15,
               flags: 0
             },
             start: 0,
             end: 4,
-            kind: 160,
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
           flags: 0
         }
       ],
@@ -752,7 +715,7 @@ describe('Recovery - Expressions - Binary', () => {
 
   it('a - (', () => {
     t.deepEqual(recovery('a - (', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -765,7 +728,6 @@ describe('Recovery - Expressions - Binary', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
               flags: 0
             },
             operator: '-',
@@ -776,22 +738,21 @@ describe('Recovery - Expressions - Binary', () => {
                 name: '',
                 start: 5,
                 end: 5,
-                kind: 13,
+
                 flags: 2
               },
               start: 3,
               end: 5,
-              kind: 189,
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 155,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         }
       ],

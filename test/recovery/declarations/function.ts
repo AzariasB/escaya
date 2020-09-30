@@ -29,7 +29,8 @@ describe('Recovery - Function', () => {
       end: 16,
       fileName: 'recovery.js',
       incremental: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -38,7 +39,7 @@ describe('Recovery - Function', () => {
             directives: [],
             end: 13,
             flags: 0,
-            kind: 184,
+
             leafs: [],
             start: 13,
             type: 'FunctionBody'
@@ -46,11 +47,11 @@ describe('Recovery - Function', () => {
           end: 13,
           flags: 0,
           generator: false,
-          kind: 186,
+
           name: {
             end: 12,
             flags: 0,
-            kind: 168,
+
             name: 'foo',
             start: 8,
             type: 'BindingIdentifier'
@@ -64,11 +65,11 @@ describe('Recovery - Function', () => {
           expression: {
             end: 16,
             flags: 0,
-            kind: 155,
+
             left: {
               end: 13,
               flags: 2,
-              kind: 13,
+
               name: '',
               start: 13,
               type: 'IdentifierReference'
@@ -77,7 +78,7 @@ describe('Recovery - Function', () => {
             right: {
               end: 16,
               flags: 0,
-              kind: 179,
+
               properties: [],
               start: 14,
               type: 'ObjectLiteral'
@@ -86,7 +87,7 @@ describe('Recovery - Function', () => {
             type: 'BinaryExpression'
           },
           flags: 0,
-          kind: 122,
+
           start: 13,
           type: 'ExpressionStatement'
         }
@@ -101,7 +102,7 @@ describe('Recovery - Function', () => {
 
   it('function x(...(a, b, c', () => {
     t.deepStrictEqual(recovery('function x(...(a, b, c', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -112,7 +113,7 @@ describe('Recovery - Function', () => {
             name: 'x',
             start: 8,
             end: 10,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -125,12 +126,12 @@ describe('Recovery - Function', () => {
                 name: '',
                 start: 11,
                 end: 14,
-                kind: 168,
+
                 flags: 0
               },
               start: 11,
               end: 14,
-              kind: 175,
+
               flags: 0
             }
           ],
@@ -140,12 +141,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 14,
             end: 14,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -160,7 +161,7 @@ describe('Recovery - Function', () => {
                   name: 'a',
                   start: 15,
                   end: 16,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -168,7 +169,7 @@ describe('Recovery - Function', () => {
                   name: 'b',
                   start: 17,
                   end: 19,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -176,23 +177,23 @@ describe('Recovery - Function', () => {
                   name: 'c',
                   start: 20,
                   end: 22,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 14,
               end: 22,
-              kind: 147,
+
               flags: 0
             },
             start: 14,
             end: 22,
-            kind: 189,
+
             flags: 0
           },
           start: 14,
           end: 22,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -230,7 +231,7 @@ describe('Recovery - Function', () => {
 
   it('function x(...(a, b, c', () => {
     t.deepStrictEqual(recovery('function x(...(a, b, c', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -241,7 +242,7 @@ describe('Recovery - Function', () => {
             name: 'x',
             start: 8,
             end: 10,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -254,12 +255,12 @@ describe('Recovery - Function', () => {
                 name: '',
                 start: 11,
                 end: 14,
-                kind: 168,
+
                 flags: 0
               },
               start: 11,
               end: 14,
-              kind: 175,
+
               flags: 0
             }
           ],
@@ -269,12 +270,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 14,
             end: 14,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -289,7 +290,7 @@ describe('Recovery - Function', () => {
                   name: 'a',
                   start: 15,
                   end: 16,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -297,7 +298,7 @@ describe('Recovery - Function', () => {
                   name: 'b',
                   start: 17,
                   end: 19,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -305,23 +306,23 @@ describe('Recovery - Function', () => {
                   name: 'c',
                   start: 20,
                   end: 22,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 14,
               end: 22,
-              kind: 147,
+
               flags: 0
             },
             start: 14,
             end: 22,
-            kind: 189,
+
             flags: 0
           },
           start: 14,
           end: 22,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -359,7 +360,7 @@ describe('Recovery - Function', () => {
 
   it('function *f(yield', () => {
     t.deepStrictEqual(recovery('function *f(yield', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -370,7 +371,7 @@ describe('Recovery - Function', () => {
             name: 'f',
             start: 10,
             end: 11,
-            kind: 168,
+
             flags: 0
           },
           generator: true,
@@ -381,7 +382,7 @@ describe('Recovery - Function', () => {
               name: 'yield',
               start: 12,
               end: 17,
-              kind: 168,
+
               flags: 0
             }
           ],
@@ -391,12 +392,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 17,
             end: 17,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 17,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -426,7 +427,7 @@ describe('Recovery - Function', () => {
 
   it('function x((', () => {
     t.deepStrictEqual(recovery('function x((', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -437,7 +438,7 @@ describe('Recovery - Function', () => {
             name: 'x',
             start: 8,
             end: 10,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -449,12 +450,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 11,
             end: 11,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -466,17 +467,17 @@ describe('Recovery - Function', () => {
               name: '',
               start: 12,
               end: 12,
-              kind: 13,
+
               flags: 2
             },
             start: 11,
             end: 12,
-            kind: 189,
+
             flags: 0
           },
           start: 11,
           end: 12,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -506,7 +507,7 @@ describe('Recovery - Function', () => {
 
   it('async ! function x(...(a, {', () => {
     t.deepStrictEqual(recovery('async ! function x(...(a, {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -517,12 +518,12 @@ describe('Recovery - Function', () => {
             name: 'async',
             start: 0,
             end: 5,
-            kind: 13,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -539,7 +540,7 @@ describe('Recovery - Function', () => {
                   name: 'x',
                   start: 16,
                   end: 18,
-                  kind: 168,
+
                   flags: 0
                 },
                 generator: false,
@@ -552,12 +553,12 @@ describe('Recovery - Function', () => {
                       name: '',
                       start: 19,
                       end: 22,
-                      kind: 168,
+
                       flags: 0
                     },
                     start: 19,
                     end: 22,
-                    kind: 175,
+
                     flags: 0
                   }
                 ],
@@ -567,12 +568,12 @@ describe('Recovery - Function', () => {
                   leafs: [],
                   start: 22,
                   end: 22,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 7,
                 end: 22,
-                kind: 185,
+
                 flags: 0
               },
               arguments: [
@@ -581,7 +582,7 @@ describe('Recovery - Function', () => {
                   name: 'a',
                   start: 23,
                   end: 24,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -589,23 +590,23 @@ describe('Recovery - Function', () => {
                   properties: [],
                   start: 25,
                   end: 27,
-                  kind: 179,
+
                   flags: 0
                 }
               ],
               start: 7,
               end: 27,
-              kind: 156,
+
               flags: 0
             },
             start: 5,
             end: 27,
-            kind: 160,
+
             flags: 0
           },
           start: 5,
           end: 27,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -651,7 +652,6 @@ describe('Recovery - Function', () => {
 
   it('async => function x(...(a, {', () => {
     t.deepStrictEqual(recovery('async => function x(...(a, {', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -662,7 +662,7 @@ describe('Recovery - Function', () => {
             params: {
               end: 5,
               flags: 0,
-              kind: 168,
+
               name: 'async',
               start: 0,
               type: 'BindingIdentifier'
@@ -676,7 +676,7 @@ describe('Recovery - Function', () => {
                   name: 'x',
                   start: 17,
                   end: 19,
-                  kind: 168,
+
                   flags: 0
                 },
                 generator: false,
@@ -689,12 +689,12 @@ describe('Recovery - Function', () => {
                       name: '',
                       start: 20,
                       end: 23,
-                      kind: 168,
+
                       flags: 0
                     },
                     start: 20,
                     end: 23,
-                    kind: 175,
+
                     flags: 0
                   }
                 ],
@@ -704,12 +704,12 @@ describe('Recovery - Function', () => {
                   leafs: [],
                   start: 23,
                   end: 23,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 8,
                 end: 23,
-                kind: 185,
+
                 flags: 0
               },
               arguments: [
@@ -718,7 +718,7 @@ describe('Recovery - Function', () => {
                   name: 'a',
                   start: 24,
                   end: 25,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -726,24 +726,24 @@ describe('Recovery - Function', () => {
                   properties: [],
                   start: 26,
                   end: 28,
-                  kind: 179,
+
                   flags: 0
                 }
               ],
               start: 8,
               end: 28,
-              kind: 156,
+
               flags: 0
             },
             async: false,
             start: 0,
             end: 28,
-            kind: 188,
+
             flags: 0
           },
           start: 0,
           end: 28,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -775,6 +775,7 @@ describe('Recovery - Function', () => {
       children: [],
       start: 0,
       length: 28,
+      type: 'RootNode',
       webCompat: true,
       end: 28
     });
@@ -782,7 +783,7 @@ describe('Recovery - Function', () => {
 
   it('function !! x(...(a, {', () => {
     t.deepStrictEqual(recovery('function !! x(...(a, {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -793,7 +794,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 8,
             end: 8,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -805,12 +806,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 8,
             end: 8,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -828,7 +829,7 @@ describe('Recovery - Function', () => {
                   name: 'x',
                   start: 11,
                   end: 13,
-                  kind: 13,
+
                   flags: 0
                 },
                 arguments: [
@@ -844,7 +845,7 @@ describe('Recovery - Function', () => {
                             name: 'a',
                             start: 18,
                             end: 19,
-                            kind: 13,
+
                             flags: 0
                           },
                           {
@@ -852,44 +853,44 @@ describe('Recovery - Function', () => {
                             properties: [],
                             start: 20,
                             end: 22,
-                            kind: 179,
+
                             flags: 0
                           }
                         ],
                         start: 17,
                         end: 22,
-                        kind: 147,
+
                         flags: 0
                       },
                       start: 17,
                       end: 22,
-                      kind: 189,
+
                       flags: 0
                     },
                     start: 17,
                     end: 22,
-                    kind: 200,
+
                     flags: 0
                   }
                 ],
                 start: 11,
                 end: 22,
-                kind: 156,
+
                 flags: 0
               },
               start: 10,
               end: 22,
-              kind: 160,
+
               flags: 0
             },
             start: 8,
             end: 22,
-            kind: 160,
+
             flags: 0
           },
           start: 8,
           end: 22,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -927,7 +928,7 @@ describe('Recovery - Function', () => {
 
   it('function; async function; (function function async function)', () => {
     t.deepStrictEqual(recovery('function; async function; (function function async function)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -943,19 +944,19 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 8,
             end: 8,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 186,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 8,
           end: 9,
-          kind: 148,
+
           flags: 0
         },
         {
@@ -970,19 +971,19 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 24,
             end: 24,
-            kind: 184,
+
             flags: 0
           },
           start: 9,
           end: 24,
-          kind: 186,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 24,
           end: 25,
-          kind: 148,
+
           flags: 0
         },
         {
@@ -996,7 +997,7 @@ describe('Recovery - Function', () => {
                 name: '',
                 start: 35,
                 end: 35,
-                kind: 168,
+
                 flags: 0
               },
               generator: false,
@@ -1008,22 +1009,22 @@ describe('Recovery - Function', () => {
                 leafs: [],
                 start: 35,
                 end: 35,
-                kind: 184,
+
                 flags: 0
               },
               start: 27,
               end: 35,
-              kind: 185,
+
               flags: 0
             },
             start: 25,
             end: 35,
-            kind: 189,
+
             flags: 0
           },
           start: 25,
           end: 35,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1033,7 +1034,7 @@ describe('Recovery - Function', () => {
             name: 'async',
             start: 44,
             end: 50,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -1045,12 +1046,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 50,
             end: 50,
-            kind: 184,
+
             flags: 0
           },
           start: 35,
           end: 50,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -1065,12 +1066,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 59,
             end: 59,
-            kind: 184,
+
             flags: 0
           },
           start: 50,
           end: 59,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -1132,7 +1133,7 @@ describe('Recovery - Function', () => {
 
   it('function break () {}', () => {
     t.deepStrictEqual(recovery('function break () {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1148,12 +1149,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 8,
             end: 8,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -1161,7 +1162,7 @@ describe('Recovery - Function', () => {
           label: null,
           start: 8,
           end: 14,
-          kind: 124,
+
           flags: 0
         },
         {
@@ -1173,17 +1174,17 @@ describe('Recovery - Function', () => {
               name: '',
               start: 17,
               end: 17,
-              kind: 13,
+
               flags: 2
             },
             start: 14,
             end: 17,
-            kind: 189,
+
             flags: 0
           },
           start: 14,
           end: 17,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1191,7 +1192,7 @@ describe('Recovery - Function', () => {
           leafs: [],
           start: 17,
           end: 20,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -1237,7 +1238,7 @@ describe('Recovery - Function', () => {
 
   it('function async async(...(a, {', () => {
     t.deepStrictEqual(recovery('function async async(...(a, {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1248,7 +1249,7 @@ describe('Recovery - Function', () => {
             name: 'async',
             start: 8,
             end: 14,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -1260,12 +1261,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 14,
             end: 14,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -1277,7 +1278,7 @@ describe('Recovery - Function', () => {
               name: 'async',
               start: 14,
               end: 20,
-              kind: 13,
+
               flags: 0
             },
             arguments: [
@@ -1293,7 +1294,7 @@ describe('Recovery - Function', () => {
                         name: 'a',
                         start: 25,
                         end: 26,
-                        kind: 13,
+
                         flags: 0
                       },
                       {
@@ -1301,34 +1302,33 @@ describe('Recovery - Function', () => {
                         properties: [],
                         start: 27,
                         end: 29,
-                        kind: 179,
+
                         flags: 0
                       }
                     ],
                     start: 24,
                     end: 29,
-                    kind: 147,
+
                     flags: 0
                   },
                   start: 24,
                   end: 29,
-                  kind: 189,
+
                   flags: 0
                 },
                 start: 21,
                 end: 29,
-                kind: 200,
                 flags: 0
               }
             ],
             start: 14,
             end: 29,
-            kind: 156,
+
             flags: 0
           },
           start: 14,
           end: 29,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1366,7 +1366,7 @@ describe('Recovery - Function', () => {
 
   it('function async(async', () => {
     t.deepStrictEqual(recovery('function async(async', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1377,7 +1377,7 @@ describe('Recovery - Function', () => {
             name: 'async',
             start: 8,
             end: 14,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -1388,7 +1388,7 @@ describe('Recovery - Function', () => {
               name: 'async',
               start: 15,
               end: 20,
-              kind: 168,
+
               flags: 0
             }
           ],
@@ -1398,12 +1398,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 20,
             end: 20,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 20,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -1433,7 +1433,7 @@ describe('Recovery - Function', () => {
 
   it('function x(...(a, {', () => {
     t.deepStrictEqual(recovery('function x(...(a, {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1444,7 +1444,7 @@ describe('Recovery - Function', () => {
             name: 'x',
             start: 8,
             end: 10,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -1457,12 +1457,12 @@ describe('Recovery - Function', () => {
                 name: '',
                 start: 11,
                 end: 14,
-                kind: 168,
+
                 flags: 0
               },
               start: 11,
               end: 14,
-              kind: 175,
+
               flags: 0
             }
           ],
@@ -1472,12 +1472,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 14,
             end: 14,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -1492,7 +1492,7 @@ describe('Recovery - Function', () => {
                   name: 'a',
                   start: 15,
                   end: 16,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -1500,23 +1500,23 @@ describe('Recovery - Function', () => {
                   properties: [],
                   start: 17,
                   end: 19,
-                  kind: 179,
+
                   flags: 0
                 }
               ],
               start: 14,
               end: 19,
-              kind: 147,
+
               flags: 0
             },
             start: 14,
             end: 19,
-            kind: 189,
+
             flags: 0
           },
           start: 14,
           end: 19,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1554,7 +1554,7 @@ describe('Recovery - Function', () => {
 
   it('function x(...(a, {, [', () => {
     t.deepStrictEqual(recovery('function x(...(a, {, [', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1565,7 +1565,7 @@ describe('Recovery - Function', () => {
             name: 'x',
             start: 8,
             end: 10,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -1578,12 +1578,12 @@ describe('Recovery - Function', () => {
                 name: '',
                 start: 11,
                 end: 14,
-                kind: 168,
+
                 flags: 0
               },
               start: 11,
               end: 14,
-              kind: 175,
+
               flags: 0
             }
           ],
@@ -1593,12 +1593,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 14,
             end: 14,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -1613,7 +1613,7 @@ describe('Recovery - Function', () => {
                   name: 'a',
                   start: 15,
                   end: 16,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -1621,7 +1621,7 @@ describe('Recovery - Function', () => {
                   properties: [],
                   start: 17,
                   end: 19,
-                  kind: 179,
+
                   flags: 0
                 },
                 {
@@ -1629,23 +1629,23 @@ describe('Recovery - Function', () => {
                   elements: [],
                   start: 20,
                   end: 22,
-                  kind: 178,
+
                   flags: 0
                 }
               ],
               start: 14,
               end: 22,
-              kind: 147,
+
               flags: 0
             },
             start: 14,
             end: 22,
-            kind: 189,
+
             flags: 0
           },
           start: 14,
           end: 22,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1691,7 +1691,7 @@ describe('Recovery - Function', () => {
 
   it('function x(...(a, b, ...[(c,b', () => {
     t.deepStrictEqual(recovery('function x(...(a, b, ...[(c,b', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1702,7 +1702,7 @@ describe('Recovery - Function', () => {
             name: 'x',
             start: 8,
             end: 10,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -1715,12 +1715,12 @@ describe('Recovery - Function', () => {
                 name: '',
                 start: 11,
                 end: 14,
-                kind: 168,
+
                 flags: 0
               },
               start: 11,
               end: 14,
-              kind: 175,
+
               flags: 0
             }
           ],
@@ -1730,12 +1730,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 14,
             end: 14,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -1752,7 +1752,7 @@ describe('Recovery - Function', () => {
                     name: 'a',
                     start: 15,
                     end: 16,
-                    kind: 13,
+
                     flags: 0
                   },
                   {
@@ -1760,7 +1760,7 @@ describe('Recovery - Function', () => {
                     name: 'b',
                     start: 17,
                     end: 19,
-                    kind: 13,
+
                     flags: 0
                   },
                   {
@@ -1770,23 +1770,23 @@ describe('Recovery - Function', () => {
                       elements: [],
                       start: 24,
                       end: 25,
-                      kind: 174,
+
                       flags: 0
                     },
                     start: 20,
                     end: 25,
-                    kind: 175,
+
                     flags: 0
                   }
                 ],
                 start: 14,
                 end: 25,
-                kind: 147,
+
                 flags: 0
               },
               start: 14,
               end: 25,
-              kind: 189,
+
               flags: 0
             },
             arguments: [
@@ -1795,7 +1795,7 @@ describe('Recovery - Function', () => {
                 name: 'c',
                 start: 26,
                 end: 27,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -1803,18 +1803,18 @@ describe('Recovery - Function', () => {
                 name: 'b',
                 start: 28,
                 end: 29,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 14,
             end: 29,
-            kind: 156,
+
             flags: 0
           },
           start: 14,
           end: 29,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1860,7 +1860,7 @@ describe('Recovery - Function', () => {
 
   it('async function *foo(x) { async; await; yield;', () => {
     t.deepStrictEqual(recovery('async function *foo(x) { async; await; yield;', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1871,7 +1871,7 @@ describe('Recovery - Function', () => {
             name: 'foo',
             start: 16,
             end: 19,
-            kind: 168,
+
             flags: 0
           },
           generator: true,
@@ -1882,7 +1882,7 @@ describe('Recovery - Function', () => {
               name: 'x',
               start: 20,
               end: 21,
-              kind: 168,
+
               flags: 0
             }
           ],
@@ -1897,12 +1897,12 @@ describe('Recovery - Function', () => {
                   name: 'async',
                   start: 24,
                   end: 30,
-                  kind: 13,
+
                   flags: 0
                 },
                 start: 24,
                 end: 31,
-                kind: 122,
+
                 flags: 0
               },
               {
@@ -1914,17 +1914,17 @@ describe('Recovery - Function', () => {
                     name: '',
                     start: 37,
                     end: 37,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 31,
                   end: 37,
-                  kind: 190,
+
                   flags: 0
                 },
                 start: 31,
                 end: 38,
-                kind: 122,
+
                 flags: 0
               },
               {
@@ -1935,23 +1935,23 @@ describe('Recovery - Function', () => {
                   argument: null,
                   start: 38,
                   end: 44,
-                  kind: 193,
+
                   flags: 0
                 },
                 start: 38,
                 end: 45,
-                kind: 122,
+
                 flags: 0
               }
             ],
             start: 22,
             end: 45,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 45,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -1989,7 +1989,7 @@ describe('Recovery - Function', () => {
 
   it('Unterminated regexp after function', () => {
     t.deepStrictEqual(recovery('function /a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2000,7 +2000,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 8,
             end: 8,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -2012,12 +2012,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 8,
             end: 8,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -2028,12 +2028,12 @@ describe('Recovery - Function', () => {
             flag: '',
             start: 8,
             end: 11,
-            kind: 15,
+
             flags: 0
           },
           start: 8,
           end: 11,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2063,7 +2063,7 @@ describe('Recovery - Function', () => {
 
   it('function true {}', () => {
     t.deepStrictEqual(recovery('function true {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2074,7 +2074,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 8,
             end: 8,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -2086,12 +2086,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 8,
             end: 8,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -2101,12 +2101,12 @@ describe('Recovery - Function', () => {
             value: true,
             start: 8,
             end: 13,
-            kind: 166,
+
             flags: 0
           },
           start: 8,
           end: 13,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2114,7 +2114,7 @@ describe('Recovery - Function', () => {
           leafs: [],
           start: 13,
           end: 16,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -2151,7 +2151,7 @@ describe('Recovery - Function', () => {
   });
   it('function{', () => {
     t.deepStrictEqual(recovery('function{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2162,7 +2162,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 8,
             end: 8,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -2174,12 +2174,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 8,
             end: 9,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -2209,7 +2209,7 @@ describe('Recovery - Function', () => {
 
   it('Unclosed block statement33', () => {
     t.deepStrictEqual(recovery('function a{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2220,7 +2220,7 @@ describe('Recovery - Function', () => {
             name: 'a',
             start: 8,
             end: 10,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -2232,12 +2232,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 10,
             end: 11,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -2267,7 +2267,7 @@ describe('Recovery - Function', () => {
 
   it('function a(function {', () => {
     t.deepStrictEqual(recovery('function a(function {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2278,7 +2278,7 @@ describe('Recovery - Function', () => {
             name: 'a',
             start: 8,
             end: 10,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -2290,12 +2290,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 11,
             end: 11,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -2305,7 +2305,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 19,
             end: 19,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -2317,12 +2317,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 19,
             end: 21,
-            kind: 184,
+
             flags: 0
           },
           start: 11,
           end: 21,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -2360,7 +2360,7 @@ describe('Recovery - Function', () => {
 
   it('function (function, break {', () => {
     t.deepStrictEqual(recovery('function (function, break {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2371,7 +2371,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 8,
             end: 8,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -2383,12 +2383,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 10,
             end: 10,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -2403,12 +2403,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 18,
             end: 18,
-            kind: 184,
+
             flags: 0
           },
           start: 10,
           end: 18,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -2416,7 +2416,7 @@ describe('Recovery - Function', () => {
           label: null,
           start: 19,
           end: 25,
-          kind: 124,
+
           flags: 0
         },
         {
@@ -2424,7 +2424,7 @@ describe('Recovery - Function', () => {
           leafs: [],
           start: 25,
           end: 27,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -2478,7 +2478,7 @@ describe('Recovery - Function', () => {
 
   it('function (x,,,,,,,, {', () => {
     t.deepStrictEqual(recovery('function (x,,,,,,,, {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2489,7 +2489,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 8,
             end: 8,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -2500,7 +2500,7 @@ describe('Recovery - Function', () => {
               name: 'x',
               start: 10,
               end: 11,
-              kind: 168,
+
               flags: 0
             }
           ],
@@ -2510,12 +2510,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 12,
             end: 12,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 12,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -2523,7 +2523,7 @@ describe('Recovery - Function', () => {
           leafs: [],
           start: 19,
           end: 21,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -2617,7 +2617,7 @@ describe('Recovery - Function', () => {
 
   it('function !(', () => {
     t.deepStrictEqual(recovery('function !(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2628,7 +2628,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 8,
             end: 8,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -2640,12 +2640,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 8,
             end: 8,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -2660,22 +2660,22 @@ describe('Recovery - Function', () => {
                 name: '',
                 start: 11,
                 end: 11,
-                kind: 13,
+
                 flags: 2
               },
               start: 10,
               end: 11,
-              kind: 189,
+
               flags: 0
             },
             start: 8,
             end: 11,
-            kind: 160,
+
             flags: 0
           },
           start: 8,
           end: 11,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2713,7 +2713,7 @@ describe('Recovery - Function', () => {
 
   it('function while() {}', () => {
     t.deepStrictEqual(recovery('function while() {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2729,12 +2729,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 8,
             end: 8,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -2744,7 +2744,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 15,
             end: 15,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -2752,12 +2752,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 16,
             end: 19,
-            kind: 123,
+
             flags: 0
           },
           start: 8,
           end: 19,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2795,7 +2795,7 @@ describe('Recovery - Function', () => {
 
   it('Unclosed block statement32424fdas', () => {
     t.deepStrictEqual(recovery('async function', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2811,12 +2811,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 14,
             end: 14,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -2846,7 +2846,7 @@ describe('Recovery - Function', () => {
 
   it('async function * {', () => {
     t.deepStrictEqual(recovery('async function * {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2857,7 +2857,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 16,
             end: 16,
-            kind: 168,
+
             flags: 0
           },
           generator: true,
@@ -2869,12 +2869,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 16,
             end: 18,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 18,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -2904,7 +2904,7 @@ describe('Recovery - Function', () => {
 
   it('Unclosed block statement+0+09', () => {
     t.deepStrictEqual(recovery('function * a {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2915,7 +2915,7 @@ describe('Recovery - Function', () => {
             name: 'a',
             start: 10,
             end: 12,
-            kind: 168,
+
             flags: 0
           },
           generator: true,
@@ -2927,12 +2927,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 12,
             end: 14,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -2962,7 +2962,6 @@ describe('Recovery - Function', () => {
 
   it('function(...[{[x]},,,,', () => {
     t.deepStrictEqual(recovery('function(...[{[x]},,,,', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -2972,7 +2971,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 8,
             end: 8,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -2995,12 +2994,12 @@ describe('Recovery - Function', () => {
                             name: 'x',
                             start: 15,
                             end: 16,
-                            kind: 13,
+
                             flags: 0
                           },
                           start: 14,
                           end: 17,
-                          kind: 171,
+
                           flags: 0
                         },
                         value: {
@@ -3008,43 +3007,43 @@ describe('Recovery - Function', () => {
                           name: '',
                           start: 17,
                           end: 18,
-                          kind: 168,
+
                           flags: 0
                         },
                         start: 14,
                         end: 18,
-                        kind: 227,
+
                         flags: 0
                       }
                     ],
                     start: 13,
                     end: 19,
-                    kind: 169,
+
                     flags: 0
                   },
                   {
                     type: 'Elison',
                     start: 12,
                     end: 21,
-                    kind: 176,
+
                     flags: 0
                   },
                   {
                     type: 'Elison',
                     start: 12,
                     end: 22,
-                    kind: 176,
+
                     flags: 0
                   }
                 ],
                 start: 12,
                 end: 22,
-                kind: 174,
+
                 flags: 0
               },
               start: 9,
               end: 22,
-              kind: 175,
+
               flags: 0
             }
           ],
@@ -3054,12 +3053,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 22,
             end: 22,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 22,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -3107,6 +3106,7 @@ describe('Recovery - Function', () => {
       children: [],
       start: 0,
       length: 22,
+      type: 'RootNode',
       webCompat: true,
       end: 22
     });
@@ -3114,7 +3114,7 @@ describe('Recovery - Function', () => {
 
   it('function foo() { if(true) function bar() {} }', () => {
     t.deepStrictEqual(recovery('function foo() { if(true) function bar() {} }', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3125,7 +3125,7 @@ describe('Recovery - Function', () => {
             name: 'foo',
             start: 8,
             end: 12,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -3142,7 +3142,7 @@ describe('Recovery - Function', () => {
                   value: true,
                   start: 20,
                   end: 24,
-                  kind: 166,
+
                   flags: 0
                 },
                 consequent: {
@@ -3152,7 +3152,7 @@ describe('Recovery - Function', () => {
                     name: 'bar',
                     start: 34,
                     end: 38,
-                    kind: 168,
+
                     flags: 0
                   },
                   generator: false,
@@ -3164,29 +3164,29 @@ describe('Recovery - Function', () => {
                     leafs: [],
                     start: 40,
                     end: 43,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 25,
                   end: 43,
-                  kind: 186,
+
                   flags: 0
                 },
                 alternate: null,
                 start: 16,
                 end: 43,
-                kind: 133,
+
                 flags: 0
               }
             ],
             start: 14,
             end: 45,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 45,
-          kind: 186,
+
           flags: 0
         }
       ],
@@ -3207,7 +3207,6 @@ describe('Recovery - Function', () => {
 
   it('function ({function (function (', () => {
     t.deepStrictEqual(recovery('function ({function (function (', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -3217,7 +3216,7 @@ describe('Recovery - Function', () => {
             name: '',
             start: 8,
             end: 8,
-            kind: 168,
+
             flags: 0
           },
           generator: false,
@@ -3231,13 +3230,13 @@ describe('Recovery - Function', () => {
                   name: 'function',
                   start: 11,
                   end: 19,
-                  kind: 168,
+
                   flags: 0
                 }
               ],
               start: 10,
               end: 19,
-              kind: 169,
+
               flags: 0
             }
           ],
@@ -3247,12 +3246,12 @@ describe('Recovery - Function', () => {
             leafs: [],
             start: 19,
             end: 19,
-            kind: 184,
+
             flags: 0
           },
           start: 0,
           end: 19,
-          kind: 186,
+
           flags: 0
         },
         {
@@ -3271,22 +3270,22 @@ describe('Recovery - Function', () => {
                 leafs: [],
                 start: 31,
                 end: 31,
-                kind: 184,
+
                 flags: 0
               },
               start: 21,
               end: 31,
-              kind: 185,
+
               flags: 0
             },
             start: 19,
             end: 31,
-            kind: 189,
+
             flags: 0
           },
           start: 19,
           end: 31,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3334,6 +3333,7 @@ describe('Recovery - Function', () => {
       children: [],
       start: 0,
       length: 31,
+      type: 'RootNode',
       webCompat: true,
       end: 31
     });

@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Statements - Do while', () => {
   it('incomplete do while', () => {
     t.deepEqual(recovery('do while', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -12,7 +12,7 @@ describe('Statements - Do while', () => {
           type: 'DoWhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 8,
             end: 8,
@@ -22,7 +22,7 @@ describe('Statements - Do while', () => {
             type: 'WhileStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 8,
               end: 8,
@@ -32,7 +32,7 @@ describe('Statements - Do while', () => {
               type: 'ExpressionStatement',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: '',
                 start: 8,
                 end: 8,
@@ -40,17 +40,17 @@ describe('Statements - Do while', () => {
               },
               start: 8,
               end: 8,
-              kind: 122,
+
               flags: 0
             },
             start: 2,
             end: 8,
-            kind: 139,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 127,
+
           flags: 0
         }
       ],
@@ -80,7 +80,7 @@ describe('Statements - Do while', () => {
 
   it('missing the head and the body - while still survives', () => {
     t.deepEqual(recovery('do(while', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -88,7 +88,7 @@ describe('Statements - Do while', () => {
           type: 'DoWhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 8,
             end: 8,
@@ -100,7 +100,7 @@ describe('Statements - Do while', () => {
               type: 'ParenthesizedExpression',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: '',
                 start: 3,
                 end: 3,
@@ -108,17 +108,17 @@ describe('Statements - Do while', () => {
               },
               start: 2,
               end: 3,
-              kind: 189,
+
               flags: 0
             },
             start: 2,
             end: 3,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 127,
+
           flags: 0
         }
       ],
@@ -148,7 +148,7 @@ describe('Statements - Do while', () => {
 
   it('with a following for statement', () => {
     t.deepEqual(recovery('do while for (a in b) {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -159,7 +159,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 24,
             end: 24,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -169,7 +169,7 @@ describe('Statements - Do while', () => {
               name: '',
               start: 8,
               end: 8,
-              kind: 13,
+
               flags: 2
             },
             statement: {
@@ -179,7 +179,7 @@ describe('Statements - Do while', () => {
                 name: 'a',
                 start: 14,
                 end: 15,
-                kind: 13,
+
                 flags: 0
               },
               expression: {
@@ -187,7 +187,7 @@ describe('Statements - Do while', () => {
                 name: 'b',
                 start: 18,
                 end: 20,
-                kind: 13,
+
                 flags: 0
               },
               statement: {
@@ -195,22 +195,21 @@ describe('Statements - Do while', () => {
                 leafs: [],
                 start: 21,
                 end: 24,
-                kind: 123,
+
                 flags: 0
               },
               start: 8,
               end: 24,
-              kind: 130,
               flags: 0
             },
             start: 2,
             end: 24,
-            kind: 139,
+
             flags: 0
           },
           start: 0,
           end: 24,
-          kind: 127,
+
           flags: 0
         }
       ],
@@ -248,7 +247,7 @@ describe('Statements - Do while', () => {
 
   it('with EmptyStatement', () => {
     t.deepEqual(recovery('do while;;;;', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -256,7 +255,7 @@ describe('Statements - Do while', () => {
           type: 'DoWhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 9,
             end: 9,
@@ -266,7 +265,7 @@ describe('Statements - Do while', () => {
             type: 'WhileStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 8,
               end: 8,
@@ -276,31 +275,31 @@ describe('Statements - Do while', () => {
               type: 'EmptyStatement',
               start: 8,
               end: 9,
-              kind: 148,
+
               flags: 0
             },
             start: 2,
             end: 9,
-            kind: 139,
+
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 127,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 10,
           end: 11,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 11,
           end: 12,
-          kind: 148,
+
           flags: 0
         }
       ],
@@ -338,7 +337,7 @@ describe('Statements - Do while', () => {
 
   it('with ASI', () => {
     t.deepEqual(recovery('do while;', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -346,7 +345,7 @@ describe('Statements - Do while', () => {
           type: 'DoWhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 9,
             end: 9,
@@ -356,7 +355,7 @@ describe('Statements - Do while', () => {
             type: 'WhileStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 8,
               end: 8,
@@ -366,17 +365,17 @@ describe('Statements - Do while', () => {
               type: 'EmptyStatement',
               start: 8,
               end: 9,
-              kind: 148,
+
               flags: 0
             },
             start: 2,
             end: 9,
-            kind: 139,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 127,
+
           flags: 0
         }
       ],
@@ -406,7 +405,7 @@ describe('Statements - Do while', () => {
 
   it('do { x = { y: z; } } while)', () => {
     t.deepEqual(recovery('do { x = { y: z; } } while)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -417,7 +416,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 18,
             end: 18,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -432,7 +431,7 @@ describe('Statements - Do while', () => {
                     name: 'x',
                     start: 4,
                     end: 6,
-                    kind: 13,
+
                     flags: 0
                   },
                   operator: '=',
@@ -446,7 +445,7 @@ describe('Statements - Do while', () => {
                           name: 'y',
                           start: 10,
                           end: 12,
-                          kind: 13,
+
                           flags: 0
                         },
                         value: {
@@ -454,39 +453,39 @@ describe('Statements - Do while', () => {
                           name: 'z',
                           start: 13,
                           end: 15,
-                          kind: 13,
+
                           flags: 0
                         },
                         start: 10,
                         end: 15,
-                        kind: 227,
+
                         flags: 0
                       }
                     ],
                     start: 8,
                     end: 15,
-                    kind: 179,
+
                     flags: 0
                   },
                   start: 4,
                   end: 15,
-                  kind: 152,
+
                   flags: 0
                 },
                 start: 4,
                 end: 16,
-                kind: 122,
+
                 flags: 0
               }
             ],
             start: 2,
             end: 18,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 18,
-          kind: 127,
+
           flags: 0
         },
         {
@@ -496,7 +495,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 26,
             end: 26,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -506,17 +505,17 @@ describe('Statements - Do while', () => {
               name: '',
               start: 27,
               end: 27,
-              kind: 13,
+
               flags: 2
             },
             start: 27,
             end: 27,
-            kind: 122,
+
             flags: 0
           },
           start: 20,
           end: 27,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -562,7 +561,7 @@ describe('Statements - Do while', () => {
 
   it('do { foo("bar") = baz } while)', () => {
     t.deepEqual(recovery('do { foo("bar") = baz } while)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -573,7 +572,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 29,
             end: 29,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -590,7 +589,7 @@ describe('Statements - Do while', () => {
                       name: 'foo',
                       start: 4,
                       end: 8,
-                      kind: 13,
+
                       flags: 0
                     },
                     arguments: [
@@ -599,13 +598,13 @@ describe('Statements - Do while', () => {
                         value: 'bar',
                         start: 9,
                         end: 14,
-                        kind: 12,
+
                         flags: 0
                       }
                     ],
                     start: 4,
                     end: 15,
-                    kind: 156,
+
                     flags: 0
                   },
                   operator: '=',
@@ -614,28 +613,28 @@ describe('Statements - Do while', () => {
                     name: 'baz',
                     start: 17,
                     end: 21,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 4,
                   end: 21,
-                  kind: 152,
+
                   flags: 0
                 },
                 start: 4,
                 end: 21,
-                kind: 122,
+
                 flags: 0
               }
             ],
             start: 2,
             end: 23,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 30,
-          kind: 127,
+
           flags: 0
         }
       ],
@@ -673,7 +672,6 @@ describe('Statements - Do while', () => {
 
   it('do { function x({[]})  } (while)', () => {
     t.deepEqual(recovery('do { function x({[]})  } (while)', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -683,7 +681,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 26,
             end: 26,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -696,7 +694,7 @@ describe('Statements - Do while', () => {
                   name: 'x',
                   start: 13,
                   end: 15,
-                  kind: 168,
+
                   flags: 0
                 },
                 generator: false,
@@ -714,12 +712,12 @@ describe('Statements - Do while', () => {
                             name: '',
                             start: 18,
                             end: 18,
-                            kind: 13,
+
                             flags: 2
                           },
                           start: 17,
                           end: 19,
-                          kind: 171,
+
                           flags: 0
                         },
                         value: {
@@ -727,18 +725,18 @@ describe('Statements - Do while', () => {
                           name: '',
                           start: 19,
                           end: 20,
-                          kind: 168,
+
                           flags: 0
                         },
                         start: 17,
                         end: 20,
-                        kind: 227,
+
                         flags: 0
                       }
                     ],
                     start: 16,
                     end: 20,
-                    kind: 169,
+
                     flags: 0
                   }
                 ],
@@ -748,23 +746,23 @@ describe('Statements - Do while', () => {
                   leafs: [],
                   start: 21,
                   end: 21,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 4,
                 end: 21,
-                kind: 186,
+
                 flags: 0
               }
             ],
             start: 2,
             end: 24,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 26,
-          kind: 127,
+
           flags: 0
         },
         {
@@ -774,7 +772,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 31,
             end: 31,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -784,17 +782,17 @@ describe('Statements - Do while', () => {
               name: '',
               start: 32,
               end: 32,
-              kind: 13,
+
               flags: 2
             },
             start: 32,
             end: 32,
-            kind: 122,
+
             flags: 0
           },
           start: 26,
           end: 32,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -866,6 +864,7 @@ describe('Statements - Do while', () => {
       children: [],
       start: 0,
       length: 32,
+      type: 'RootNode',
       webCompat: true,
       end: 32
     });
@@ -873,7 +872,7 @@ describe('Statements - Do while', () => {
 
   it('do(async while)', () => {
     t.deepEqual(recovery('do(async while)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -884,7 +883,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 14,
             end: 14,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -896,22 +895,22 @@ describe('Statements - Do while', () => {
                 name: 'async',
                 start: 3,
                 end: 8,
-                kind: 13,
+
                 flags: 0
               },
               start: 2,
               end: 8,
-              kind: 189,
+
               flags: 0
             },
             start: 2,
             end: 8,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 15,
-          kind: 127,
+
           flags: 0
         }
       ],
@@ -949,7 +948,6 @@ describe('Statements - Do while', () => {
 
   it('do(yield function ( {x } while)', () => {
     t.deepEqual(recovery('do(yield function ( {x } while)', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -968,13 +966,13 @@ describe('Statements - Do while', () => {
                     name: 'x',
                     start: 21,
                     end: 22,
-                    kind: 168,
+
                     flags: 0
                   }
                 ],
                 start: 19,
                 end: 24,
-                kind: 169,
+
                 flags: 0
               }
             ],
@@ -984,12 +982,12 @@ describe('Statements - Do while', () => {
               leafs: [],
               start: 24,
               end: 24,
-              kind: 184,
+
               flags: 0
             },
             start: 8,
             end: 24,
-            kind: 185,
+
             flags: 0
           },
           statement: {
@@ -1001,22 +999,22 @@ describe('Statements - Do while', () => {
                 name: 'yield',
                 start: 3,
                 end: 8,
-                kind: 13,
+
                 flags: 0
               },
               start: 2,
               end: 8,
-              kind: 189,
+
               flags: 0
             },
             start: 2,
             end: 8,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 24,
-          kind: 127,
+
           flags: 0
         },
         {
@@ -1026,7 +1024,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 30,
             end: 30,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -1036,17 +1034,17 @@ describe('Statements - Do while', () => {
               name: '',
               start: 31,
               end: 31,
-              kind: 13,
+
               flags: 2
             },
             start: 31,
             end: 31,
-            kind: 122,
+
             flags: 0
           },
           start: 24,
           end: 31,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -1086,6 +1084,7 @@ describe('Statements - Do while', () => {
       children: [],
       start: 0,
       length: 31,
+      type: 'RootNode',
       webCompat: true,
       end: 31
     });
@@ -1093,7 +1092,7 @@ describe('Statements - Do while', () => {
 
   it('do { class { function x() {}   } while /a/ - 2 ** a', () => {
     t.deepEqual(recovery('do { class { function x() {}   } while /a/ - 2 ** a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1104,7 +1103,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 51,
             end: 51,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -1131,7 +1130,7 @@ describe('Statements - Do while', () => {
                         name: 'x',
                         start: 21,
                         end: 23,
-                        kind: 13,
+
                         flags: 0
                       },
                       contents: {
@@ -1140,23 +1139,23 @@ describe('Statements - Do while', () => {
                         leafs: [],
                         start: 25,
                         end: 28,
-                        kind: 184,
+
                         flags: 0
                       },
                       start: 23,
                       end: 28,
-                      kind: 182,
+
                       flags: 0
                     },
                     start: 12,
                     end: 28,
-                    kind: 151,
+
                     flags: 0
                   }
                 ],
                 start: 4,
                 end: 32,
-                kind: 150,
+
                 flags: 0
               },
               {
@@ -1169,7 +1168,7 @@ describe('Statements - Do while', () => {
                     flag: '',
                     start: 38,
                     end: 42,
-                    kind: 15,
+
                     flags: 0
                   },
                   operator: '-',
@@ -1181,7 +1180,7 @@ describe('Statements - Do while', () => {
                       value: 2,
                       start: 44,
                       end: 46,
-                      kind: 10,
+
                       flags: 0
                     },
                     operator: '**',
@@ -1190,17 +1189,17 @@ describe('Statements - Do while', () => {
                       name: 'a',
                       start: 49,
                       end: 51,
-                      kind: 13,
+
                       flags: 0
                     },
                     start: 46,
                     end: 51,
-                    kind: 155,
+
                     flags: 0
                   },
                   start: 38,
                   end: 51,
-                  kind: 155,
+
                   flags: 0
                 },
                 statement: {
@@ -1210,28 +1209,28 @@ describe('Statements - Do while', () => {
                     name: '',
                     start: 51,
                     end: 51,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 51,
                   end: 51,
-                  kind: 122,
+
                   flags: 0
                 },
                 start: 32,
                 end: 51,
-                kind: 139,
+
                 flags: 0
               }
             ],
             start: 2,
             end: 51,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 51,
-          kind: 127,
+
           flags: 0
         }
       ],
@@ -1491,7 +1490,7 @@ describe('Statements - Do while', () => {
         'recovery.js'
       ),
       {
-        kind: 209,
+        type: 'RootNode',
         webCompat: true,
         directives: [],
         leafs: [
@@ -1502,7 +1501,7 @@ describe('Statements - Do while', () => {
               name: '',
               start: 64,
               end: 64,
-              kind: 13,
+
               flags: 2
             },
             statement: {
@@ -1520,7 +1519,7 @@ describe('Statements - Do while', () => {
                         value: 123,
                         start: 4,
                         end: 7,
-                        kind: 10,
+
                         flags: 0
                       },
                       operator: '-',
@@ -1532,7 +1531,7 @@ describe('Statements - Do while', () => {
                           value: 3,
                           start: 9,
                           end: 11,
-                          kind: 10,
+
                           flags: 0
                         },
                         operator: '%',
@@ -1541,17 +1540,17 @@ describe('Statements - Do while', () => {
                           name: '',
                           start: 13,
                           end: 13,
-                          kind: 13,
+
                           flags: 2
                         },
                         start: 11,
                         end: 13,
-                        kind: 155,
+
                         flags: 0
                       },
                       start: 4,
                       end: 13,
-                      kind: 155,
+
                       flags: 0
                     },
                     operator: '&',
@@ -1563,7 +1562,7 @@ describe('Statements - Do while', () => {
                         flag: '',
                         start: 14,
                         end: 20,
-                        kind: 15,
+
                         flags: 0
                       },
                       arguments: [
@@ -1572,23 +1571,23 @@ describe('Statements - Do while', () => {
                           name: 'async',
                           start: 22,
                           end: 27,
-                          kind: 13,
+
                           flags: 0
                         }
                       ],
                       start: 14,
                       end: 27,
-                      kind: 156,
+
                       flags: 0
                     },
                     start: 4,
                     end: 27,
-                    kind: 155,
+
                     flags: 0
                   },
                   start: 4,
                   end: 27,
-                  kind: 122,
+
                   flags: 0
                 },
                 {
@@ -1596,7 +1595,6 @@ describe('Statements - Do while', () => {
                   label: null,
                   start: 27,
                   end: 33,
-                  kind: 124,
                   flags: 0
                 },
                 {
@@ -1606,12 +1604,11 @@ describe('Statements - Do while', () => {
                     name: 'bad',
                     start: 42,
                     end: 46,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 33,
                   end: 46,
-                  kind: 125,
                   flags: 0
                 },
                 {
@@ -1621,12 +1618,12 @@ describe('Statements - Do while', () => {
                     name: 'input',
                     start: 46,
                     end: 52,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 46,
                   end: 52,
-                  kind: 122,
+
                   flags: 0
                 },
                 {
@@ -1636,12 +1633,12 @@ describe('Statements - Do while', () => {
                     name: 'a',
                     start: 52,
                     end: 54,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 52,
                   end: 54,
-                  kind: 122,
+
                   flags: 0
                 },
                 {
@@ -1651,12 +1648,12 @@ describe('Statements - Do while', () => {
                     name: 'b',
                     start: 54,
                     end: 56,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 54,
                   end: 56,
-                  kind: 122,
+
                   flags: 0
                 },
                 {
@@ -1666,12 +1663,12 @@ describe('Statements - Do while', () => {
                     name: 'c',
                     start: 56,
                     end: 58,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 56,
                   end: 58,
-                  kind: 122,
+
                   flags: 0
                 },
                 {
@@ -1682,12 +1679,12 @@ describe('Statements - Do while', () => {
                     value: 1,
                     start: 58,
                     end: 60,
-                    kind: 10,
+
                     flags: 0
                   },
                   start: 58,
                   end: 60,
-                  kind: 122,
+
                   flags: 0
                 },
                 {
@@ -1698,12 +1695,12 @@ describe('Statements - Do while', () => {
                     value: 2,
                     start: 60,
                     end: 62,
-                    kind: 10,
+
                     flags: 0
                   },
                   start: 60,
                   end: 62,
-                  kind: 122,
+
                   flags: 0
                 },
                 {
@@ -1714,23 +1711,23 @@ describe('Statements - Do while', () => {
                     value: 3,
                     start: 62,
                     end: 64,
-                    kind: 10,
+
                     flags: 0
                   },
                   start: 62,
                   end: 64,
-                  kind: 122,
+
                   flags: 0
                 }
               ],
               start: 2,
               end: 64,
-              kind: 123,
+
               flags: 0
             },
             start: 0,
             end: 65,
-            kind: 127,
+
             flags: 0
           },
           {
@@ -1738,7 +1735,7 @@ describe('Statements - Do while', () => {
             leafs: [],
             start: 66,
             end: 68,
-            kind: 123,
+
             flags: 0
           },
           {
@@ -1746,7 +1743,7 @@ describe('Statements - Do while', () => {
             leafs: [],
             start: 68,
             end: 70,
-            kind: 123,
+
             flags: 0
           },
           {
@@ -1757,7 +1754,7 @@ describe('Statements - Do while', () => {
                 leafs: [],
                 start: 71,
                 end: 73,
-                kind: 123,
+
                 flags: 0
               },
               {
@@ -1770,7 +1767,7 @@ describe('Statements - Do while', () => {
                       name: 'async',
                       start: 74,
                       end: 80,
-                      kind: 13,
+
                       flags: 0
                     },
                     labelledItem: {
@@ -1780,23 +1777,22 @@ describe('Statements - Do while', () => {
                         name: 'await',
                         start: 80,
                         end: 86,
-                        kind: 13,
+
                         flags: 0
                       },
                       start: 80,
                       end: 86,
-                      kind: 122,
+
                       flags: 0
                     },
                     start: 74,
                     end: 86,
-                    kind: 134,
                     flags: 0
                   }
                 ],
                 start: 73,
                 end: 87,
-                kind: 123,
+
                 flags: 0
               },
               {
@@ -1808,17 +1804,17 @@ describe('Statements - Do while', () => {
                     name: '',
                     start: 88,
                     end: 88,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 87,
                   end: 88,
-                  kind: 189,
+
                   flags: 0
                 },
                 start: 87,
                 end: 88,
-                kind: 122,
+
                 flags: 0
               },
               {
@@ -1828,7 +1824,7 @@ describe('Statements - Do while', () => {
                   name: '',
                   start: 93,
                   end: 93,
-                  kind: 13,
+
                   flags: 2
                 },
                 statement: {
@@ -1838,23 +1834,23 @@ describe('Statements - Do while', () => {
                     name: '',
                     start: 94,
                     end: 94,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 94,
                   end: 94,
-                  kind: 122,
+
                   flags: 0
                 },
                 start: 88,
                 end: 94,
-                kind: 139,
+
                 flags: 0
               }
             ],
             start: 70,
             end: 94,
-            kind: 123,
+
             flags: 0
           }
         ],
@@ -1989,7 +1985,7 @@ describe('Statements - Do while', () => {
 
   it('do{{{}}[][[[]]]}(while)', () => {
     t.deepEqual(recovery('do{{{}}[][[[]]]}(while)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2000,7 +1996,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 17,
             end: 17,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -2014,13 +2010,13 @@ describe('Statements - Do while', () => {
                     leafs: [],
                     start: 4,
                     end: 6,
-                    kind: 123,
+
                     flags: 0
                   }
                 ],
                 start: 3,
                 end: 7,
-                kind: 123,
+
                 flags: 0
               },
               {
@@ -2029,7 +2025,6 @@ describe('Statements - Do while', () => {
                   type: 'MemberExpression',
                   member: {
                     type: 'ArrayLiteral',
-                    kind: 178,
                     elements: [],
                     start: 7,
                     end: 9,
@@ -2037,11 +2032,9 @@ describe('Statements - Do while', () => {
                   },
                   expression: {
                     type: 'ArrayLiteral',
-                    kind: 178,
                     elements: [
                       {
                         type: 'ArrayLiteral',
-                        kind: 178,
                         elements: [],
                         start: 11,
                         end: 13,
@@ -2055,23 +2048,22 @@ describe('Statements - Do while', () => {
                   computed: true,
                   start: 7,
                   end: 15,
-                  kind: 154,
                   flags: 0
                 },
                 start: 7,
                 end: 15,
-                kind: 122,
+
                 flags: 0
               }
             ],
             start: 2,
             end: 16,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 17,
-          kind: 127,
+
           flags: 0
         },
         {
@@ -2081,7 +2073,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 22,
             end: 22,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -2091,17 +2083,17 @@ describe('Statements - Do while', () => {
               name: '',
               start: 23,
               end: 23,
-              kind: 13,
+
               flags: 2
             },
             start: 23,
             end: 23,
-            kind: 122,
+
             flags: 0
           },
           start: 17,
           end: 23,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2147,7 +2139,7 @@ describe('Statements - Do while', () => {
 
   it('do {} while sleeeeeeping on the keyboard,,,,,,,,,,,,,,,,,(while)', () => {
     t.deepEqual(recovery('do {} while sleeeeeeping on the keyboard,,,,,,,,,,,,,,,,,(while)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2158,7 +2150,7 @@ describe('Statements - Do while', () => {
             name: 'sleeeeeeping',
             start: 11,
             end: 24,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -2166,12 +2158,12 @@ describe('Statements - Do while', () => {
             leafs: [],
             start: 2,
             end: 5,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 24,
-          kind: 127,
+
           flags: 0
         },
         {
@@ -2181,12 +2173,12 @@ describe('Statements - Do while', () => {
             name: 'on',
             start: 24,
             end: 27,
-            kind: 13,
+
             flags: 0
           },
           start: 24,
           end: 27,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2196,12 +2188,12 @@ describe('Statements - Do while', () => {
             name: 'the',
             start: 27,
             end: 31,
-            kind: 13,
+
             flags: 0
           },
           start: 27,
           end: 31,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2214,7 +2206,7 @@ describe('Statements - Do while', () => {
                 name: 'keyboard',
                 start: 31,
                 end: 40,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -2222,7 +2214,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 41,
                 end: 41,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2230,7 +2222,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 42,
                 end: 42,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2238,7 +2230,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 43,
                 end: 43,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2246,7 +2238,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 44,
                 end: 44,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2254,7 +2246,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 45,
                 end: 45,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2262,7 +2254,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 46,
                 end: 46,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2270,7 +2262,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 47,
                 end: 47,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2278,7 +2270,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 48,
                 end: 48,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2286,7 +2278,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 49,
                 end: 49,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2294,7 +2286,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 50,
                 end: 50,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2302,7 +2294,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 51,
                 end: 51,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2310,7 +2302,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 52,
                 end: 52,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2318,7 +2310,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 53,
                 end: 53,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2326,7 +2318,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 54,
                 end: 54,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2334,7 +2326,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 55,
                 end: 55,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2342,7 +2334,7 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 56,
                 end: 56,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2352,23 +2344,23 @@ describe('Statements - Do while', () => {
                   name: '',
                   start: 58,
                   end: 58,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 57,
                 end: 58,
-                kind: 189,
+
                 flags: 0
               }
             ],
             start: 31,
             end: 58,
-            kind: 147,
+
             flags: 0
           },
           start: 31,
           end: 58,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2378,7 +2370,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 63,
             end: 63,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -2388,17 +2380,17 @@ describe('Statements - Do while', () => {
               name: '',
               start: 64,
               end: 64,
-              kind: 13,
+
               flags: 2
             },
             start: 64,
             end: 64,
-            kind: 122,
+
             flags: 0
           },
           start: 58,
           end: 64,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2596,7 +2588,7 @@ describe('Statements - Do while', () => {
 
   it('Unclosed block statement4534325', () => {
     t.deepEqual(recovery('do while!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2604,7 +2596,7 @@ describe('Statements - Do while', () => {
           type: 'DoWhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 9,
             end: 9,
@@ -2617,7 +2609,7 @@ describe('Statements - Do while', () => {
               operator: '!',
               operand: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: '',
                 start: 9,
                 end: 9,
@@ -2625,14 +2617,13 @@ describe('Statements - Do while', () => {
               },
               start: 8,
               end: 9,
-              kind: 160,
               flags: 0
             },
             statement: {
               type: 'ExpressionStatement',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: '',
                 start: 9,
                 end: 9,
@@ -2640,17 +2631,17 @@ describe('Statements - Do while', () => {
               },
               start: 9,
               end: 9,
-              kind: 122,
+
               flags: 0
             },
             start: 2,
             end: 9,
-            kind: 139,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 127,
+
           flags: 0
         }
       ],
@@ -2680,7 +2671,7 @@ describe('Statements - Do while', () => {
 
   it('do(while)', () => {
     t.deepEqual(recovery('do(while)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2691,7 +2682,7 @@ describe('Statements - Do while', () => {
             name: '',
             start: 8,
             end: 8,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -2703,22 +2694,22 @@ describe('Statements - Do while', () => {
                 name: '',
                 start: 3,
                 end: 3,
-                kind: 13,
+
                 flags: 2
               },
               start: 2,
               end: 3,
-              kind: 189,
+
               flags: 0
             },
             start: 2,
             end: 3,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 127,
+
           flags: 0
         }
       ],

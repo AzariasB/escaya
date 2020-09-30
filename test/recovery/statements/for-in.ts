@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - For in', () => {
   it('missing parenthesis', () => {
     t.deepEqual(recovery('for (x in y', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -15,7 +15,7 @@ describe('Recovery - For in', () => {
             name: 'x',
             start: 5,
             end: 6,
-            kind: 13,
+
             flags: 0
           },
           expression: {
@@ -23,7 +23,7 @@ describe('Recovery - For in', () => {
             name: 'y',
             start: 9,
             end: 11,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -33,17 +33,17 @@ describe('Recovery - For in', () => {
               name: '',
               start: 11,
               end: 11,
-              kind: 13,
+
               flags: 2
             },
             start: 11,
             end: 11,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 130,
+
           flags: 0
         }
       ],
@@ -73,7 +73,7 @@ describe('Recovery - For in', () => {
 
   it('for (/a in', () => {
     t.deepEqual(recovery('for (/a in', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -86,7 +86,7 @@ describe('Recovery - For in', () => {
             flag: '',
             start: 5,
             end: 10,
-            kind: 15,
+
             flags: 0
           },
           condition: {
@@ -94,7 +94,7 @@ describe('Recovery - For in', () => {
             name: '',
             start: 10,
             end: 10,
-            kind: 13,
+
             flags: 2
           },
           incrementor: {
@@ -102,7 +102,7 @@ describe('Recovery - For in', () => {
             name: '',
             start: 10,
             end: 10,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -112,17 +112,16 @@ describe('Recovery - For in', () => {
               name: '',
               start: 10,
               end: 10,
-              kind: 13,
+
               flags: 2
             },
             start: 10,
             end: 10,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 132,
           flags: 0
         }
       ],
@@ -152,7 +151,7 @@ describe('Recovery - For in', () => {
 
   it('for (/a/ in', () => {
     t.deepEqual(recovery('for (/a/ in', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -164,7 +163,7 @@ describe('Recovery - For in', () => {
             flag: '',
             start: 5,
             end: 8,
-            kind: 15,
+
             flags: 0
           },
           expression: {
@@ -172,7 +171,7 @@ describe('Recovery - For in', () => {
             name: '',
             start: 11,
             end: 11,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -182,17 +181,17 @@ describe('Recovery - For in', () => {
               name: '',
               start: 11,
               end: 11,
-              kind: 13,
+
               flags: 2
             },
             start: 11,
             end: 11,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 130,
+
           flags: 0
         }
       ],
@@ -247,7 +246,8 @@ describe('Recovery - For in', () => {
       end: 19,
       fileName: 'recovery.js',
       incremental: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -255,7 +255,7 @@ describe('Recovery - For in', () => {
           expression: {
             end: 15,
             flags: 0,
-            kind: 13,
+
             name: 'y',
             start: 13,
             type: 'IdentifierReference'
@@ -264,11 +264,11 @@ describe('Recovery - For in', () => {
           initializer: {
             end: 10,
             flags: 0,
-            kind: 213,
+
             left: {
               end: 6,
               flags: 0,
-              kind: 179,
+
               properties: [],
               start: 4,
               type: 'ObjectAssignmentPattern'
@@ -276,7 +276,7 @@ describe('Recovery - For in', () => {
             right: {
               end: 10,
               flags: 0,
-              kind: 13,
+
               name: 'x',
               start: 8,
               type: 'IdentifierReference'
@@ -284,12 +284,11 @@ describe('Recovery - For in', () => {
             start: 4,
             type: 'AssignmentElement'
           },
-          kind: 130,
+
           start: 0,
           statement: {
             end: 19,
             flags: 0,
-            kind: 123,
             leafs: [],
             start: 16,
             type: 'BlockStatement'
@@ -307,7 +306,7 @@ describe('Recovery - For in', () => {
 
   it('for (5 in []) {}', () => {
     t.deepEqual(recovery('for (5 in []) {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -319,12 +318,10 @@ describe('Recovery - For in', () => {
             value: 5,
             start: 5,
             end: 6,
-            kind: 10,
             flags: 0
           },
           expression: {
             type: 'ArrayLiteral',
-            kind: 178,
             elements: [],
             start: 9,
             end: 12,
@@ -335,12 +332,11 @@ describe('Recovery - For in', () => {
             leafs: [],
             start: 13,
             end: 16,
-            kind: 123,
             flags: 0
           },
           start: 0,
           end: 16,
-          kind: 130,
+
           flags: 0
         }
       ],
@@ -370,7 +366,7 @@ describe('Recovery - For in', () => {
 
   it('for(x in', () => {
     t.deepEqual(recovery('for(x in', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -381,7 +377,7 @@ describe('Recovery - For in', () => {
             name: 'x',
             start: 4,
             end: 5,
-            kind: 13,
+
             flags: 0
           },
           expression: {
@@ -389,7 +385,7 @@ describe('Recovery - For in', () => {
             name: '',
             start: 8,
             end: 8,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -399,17 +395,17 @@ describe('Recovery - For in', () => {
               name: '',
               start: 8,
               end: 8,
-              kind: 13,
+
               flags: 2
             },
             start: 8,
             end: 8,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 130,
+
           flags: 0
         }
       ],

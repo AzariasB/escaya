@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - If', () => {
   it('if else (', () => {
     t.deepEqual(recovery('if else (', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -15,7 +15,7 @@ describe('Recovery - If', () => {
             name: '',
             start: 2,
             end: 2,
-            kind: 13,
+
             flags: 2
           },
           consequent: {
@@ -25,12 +25,12 @@ describe('Recovery - If', () => {
               name: '',
               start: 2,
               end: 2,
-              kind: 13,
+
               flags: 2
             },
             start: 2,
             end: 2,
-            kind: 122,
+
             flags: 0
           },
           alternate: {
@@ -42,22 +42,22 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 9,
                 end: 9,
-                kind: 13,
+
                 flags: 2
               },
               start: 7,
               end: 9,
-              kind: 189,
+
               flags: 0
             },
             start: 7,
             end: 9,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -95,7 +95,7 @@ describe('Recovery - If', () => {
 
   it('if async function else babel (', () => {
     t.deepEqual(recovery('if async function else babel (', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -108,7 +108,7 @@ describe('Recovery - If', () => {
               name: '',
               start: 17,
               end: 17,
-              kind: 168,
+
               flags: 0
             },
             generator: false,
@@ -120,12 +120,12 @@ describe('Recovery - If', () => {
               leafs: [],
               start: 17,
               end: 17,
-              kind: 184,
+
               flags: 0
             },
             start: 2,
             end: 17,
-            kind: 185,
+
             flags: 0
           },
           consequent: {
@@ -135,12 +135,12 @@ describe('Recovery - If', () => {
               name: '',
               start: 17,
               end: 17,
-              kind: 13,
+
               flags: 2
             },
             start: 17,
             end: 17,
-            kind: 122,
+
             flags: 0
           },
           alternate: {
@@ -152,23 +152,23 @@ describe('Recovery - If', () => {
                 name: 'babel',
                 start: 22,
                 end: 28,
-                kind: 13,
+
                 flags: 0
               },
               arguments: [],
               start: 22,
               end: 30,
-              kind: 156,
+
               flags: 0
             },
             start: 22,
             end: 30,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 30,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -214,7 +214,7 @@ describe('Recovery - If', () => {
 
   it('if (x async function ) (', () => {
     t.deepEqual(recovery('if (x async function ) (', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -225,7 +225,7 @@ describe('Recovery - If', () => {
             name: 'x',
             start: 4,
             end: 5,
-            kind: 13,
+
             flags: 0
           },
           consequent: {
@@ -240,18 +240,18 @@ describe('Recovery - If', () => {
               leafs: [],
               start: 20,
               end: 20,
-              kind: 184,
+
               flags: 0
             },
             start: 11,
             end: 20,
-            kind: 186,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 20,
-          kind: 133,
+
           flags: 0
         },
         {
@@ -263,17 +263,17 @@ describe('Recovery - If', () => {
               name: '',
               start: 24,
               end: 24,
-              kind: 13,
+
               flags: 2
             },
             start: 22,
             end: 24,
-            kind: 189,
+
             flags: 0
           },
           start: 22,
           end: 24,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -327,7 +327,7 @@ describe('Recovery - If', () => {
 
   it('if if if if async function else if if else (', () => {
     t.deepEqual(recovery('if if if if async function else if if else (', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -338,7 +338,7 @@ describe('Recovery - If', () => {
             name: '',
             start: 2,
             end: 2,
-            kind: 13,
+
             flags: 2
           },
           consequent: {
@@ -348,7 +348,7 @@ describe('Recovery - If', () => {
               name: '',
               start: 5,
               end: 5,
-              kind: 13,
+
               flags: 2
             },
             consequent: {
@@ -358,7 +358,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 8,
                 end: 8,
-                kind: 13,
+
                 flags: 2
               },
               consequent: {
@@ -370,7 +370,7 @@ describe('Recovery - If', () => {
                     name: '',
                     start: 26,
                     end: 26,
-                    kind: 168,
+
                     flags: 0
                   },
                   generator: false,
@@ -382,12 +382,12 @@ describe('Recovery - If', () => {
                     leafs: [],
                     start: 26,
                     end: 26,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 11,
                   end: 26,
-                  kind: 185,
+
                   flags: 0
                 },
                 consequent: {
@@ -397,12 +397,12 @@ describe('Recovery - If', () => {
                     name: '',
                     start: 26,
                     end: 26,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 26,
                   end: 26,
-                  kind: 122,
+
                   flags: 0
                 },
                 alternate: {
@@ -412,7 +412,7 @@ describe('Recovery - If', () => {
                     name: '',
                     start: 34,
                     end: 34,
-                    kind: 13,
+
                     flags: 2
                   },
                   consequent: {
@@ -422,7 +422,7 @@ describe('Recovery - If', () => {
                       name: '',
                       start: 37,
                       end: 37,
-                      kind: 13,
+
                       flags: 2
                     },
                     consequent: {
@@ -432,12 +432,12 @@ describe('Recovery - If', () => {
                         name: '',
                         start: 37,
                         end: 37,
-                        kind: 13,
+
                         flags: 2
                       },
                       start: 37,
                       end: 37,
-                      kind: 122,
+
                       flags: 0
                     },
                     alternate: {
@@ -449,51 +449,51 @@ describe('Recovery - If', () => {
                           name: '',
                           start: 44,
                           end: 44,
-                          kind: 13,
+
                           flags: 2
                         },
                         start: 42,
                         end: 44,
-                        kind: 189,
+
                         flags: 0
                       },
                       start: 42,
                       end: 44,
-                      kind: 122,
+
                       flags: 0
                     },
                     start: 34,
                     end: 44,
-                    kind: 133,
+
                     flags: 0
                   },
                   alternate: null,
                   start: 31,
                   end: 44,
-                  kind: 133,
+
                   flags: 0
                 },
                 start: 8,
                 end: 44,
-                kind: 133,
+
                 flags: 0
               },
               alternate: null,
               start: 5,
               end: 44,
-              kind: 133,
+
               flags: 0
             },
             alternate: null,
             start: 2,
             end: 44,
-            kind: 133,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 44,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -579,7 +579,7 @@ describe('Recovery - If', () => {
 
   it('if', () => {
     t.deepEqual(recovery('if', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -587,7 +587,7 @@ describe('Recovery - If', () => {
           type: 'IfStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 2,
             end: 2,
@@ -597,7 +597,7 @@ describe('Recovery - If', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 2,
               end: 2,
@@ -605,13 +605,13 @@ describe('Recovery - If', () => {
             },
             start: 2,
             end: 2,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 2,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -641,7 +641,7 @@ describe('Recovery - If', () => {
 
   it('Unclosed block statement32', () => {
     t.deepEqual(recovery('if(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -649,7 +649,7 @@ describe('Recovery - If', () => {
           type: 'IfStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 3,
             end: 3,
@@ -659,7 +659,7 @@ describe('Recovery - If', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 3,
               end: 3,
@@ -667,13 +667,13 @@ describe('Recovery - If', () => {
             },
             start: 3,
             end: 3,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 3,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -703,7 +703,7 @@ describe('Recovery - If', () => {
 
   it('if(x', () => {
     t.deepEqual(recovery('if(x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -711,7 +711,7 @@ describe('Recovery - If', () => {
           type: 'IfStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: 'x',
             start: 3,
             end: 4,
@@ -721,7 +721,7 @@ describe('Recovery - If', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 4,
               end: 4,
@@ -729,13 +729,13 @@ describe('Recovery - If', () => {
             },
             start: 4,
             end: 4,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 4,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -765,7 +765,7 @@ describe('Recovery - If', () => {
 
   it('if((((((((', () => {
     t.deepEqual(recovery('if((((((((', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -787,7 +787,7 @@ describe('Recovery - If', () => {
                         type: 'ParenthesizedExpression',
                         expression: {
                           type: 'IdentifierReference',
-                          kind: 13,
+
                           name: '',
                           start: 10,
                           end: 10,
@@ -795,44 +795,44 @@ describe('Recovery - If', () => {
                         },
                         start: 9,
                         end: 10,
-                        kind: 189,
+
                         flags: 0
                       },
                       start: 8,
                       end: 10,
-                      kind: 189,
+
                       flags: 0
                     },
                     start: 7,
                     end: 10,
-                    kind: 189,
+
                     flags: 0
                   },
                   start: 6,
                   end: 10,
-                  kind: 189,
+
                   flags: 0
                 },
                 start: 5,
                 end: 10,
-                kind: 189,
+
                 flags: 0
               },
               start: 4,
               end: 10,
-              kind: 189,
+
               flags: 0
             },
             start: 3,
             end: 10,
-            kind: 189,
+
             flags: 0
           },
           consequent: {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 10,
               end: 10,
@@ -840,13 +840,13 @@ describe('Recovery - If', () => {
             },
             start: 10,
             end: 10,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 10,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -876,7 +876,7 @@ describe('Recovery - If', () => {
 
   it('if((((xx))))', () => {
     t.deepEqual(recovery('if((((xx))))', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -893,22 +893,22 @@ describe('Recovery - If', () => {
                   name: 'xx',
                   start: 6,
                   end: 8,
-                  kind: 13,
+
                   flags: 0
                 },
                 start: 5,
                 end: 9,
-                kind: 189,
+
                 flags: 0
               },
               start: 4,
               end: 10,
-              kind: 189,
+
               flags: 0
             },
             start: 3,
             end: 11,
-            kind: 189,
+
             flags: 0
           },
           consequent: {
@@ -918,18 +918,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 12,
               end: 12,
-              kind: 13,
+
               flags: 2
             },
             start: 12,
             end: 12,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 12,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -959,7 +959,7 @@ describe('Recovery - If', () => {
 
   it('if(((()', () => {
     t.deepEqual(recovery('if(((()', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -976,22 +976,22 @@ describe('Recovery - If', () => {
                   name: '',
                   start: 7,
                   end: 7,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 5,
                 end: 7,
-                kind: 189,
+
                 flags: 0
               },
               start: 4,
               end: 7,
-              kind: 189,
+
               flags: 0
             },
             start: 3,
             end: 7,
-            kind: 189,
+
             flags: 0
           },
           consequent: {
@@ -1001,18 +1001,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 7,
               end: 7,
-              kind: 13,
+
               flags: 2
             },
             start: 7,
             end: 7,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 7,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -1042,7 +1042,7 @@ describe('Recovery - If', () => {
 
   it('if((( {}', () => {
     t.deepEqual(recovery('if((( {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1057,24 +1057,24 @@ describe('Recovery - If', () => {
                 properties: [],
                 start: 5,
                 end: 8,
-                kind: 179,
+
                 flags: 0
               },
               start: 4,
               end: 8,
-              kind: 189,
+
               flags: 0
             },
             start: 3,
             end: 8,
-            kind: 189,
+
             flags: 0
           },
           consequent: {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 8,
               end: 8,
@@ -1082,13 +1082,13 @@ describe('Recovery - If', () => {
             },
             start: 8,
             end: 8,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 8,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -1118,7 +1118,7 @@ describe('Recovery - If', () => {
 
   it('if(((((({{{{{{{{{{{]}', () => {
     t.deepEqual(recovery('if(((((({{{{{{{{{{{]}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1139,32 +1139,32 @@ describe('Recovery - If', () => {
                       properties: [],
                       start: 8,
                       end: 9,
-                      kind: 179,
+
                       flags: 0
                     },
                     start: 7,
                     end: 9,
-                    kind: 189,
+
                     flags: 0
                   },
                   start: 6,
                   end: 9,
-                  kind: 189,
+
                   flags: 0
                 },
                 start: 5,
                 end: 9,
-                kind: 189,
+
                 flags: 0
               },
               start: 4,
               end: 9,
-              kind: 189,
+
               flags: 0
             },
             start: 3,
             end: 9,
-            kind: 189,
+
             flags: 0
           },
           consequent: {
@@ -1199,67 +1199,67 @@ describe('Recovery - If', () => {
                                                 leafs: [],
                                                 start: 18,
                                                 end: 19,
-                                                kind: 123,
+
                                                 flags: 0
                                               }
                                             ],
                                             start: 17,
                                             end: 19,
-                                            kind: 123,
+
                                             flags: 0
                                           }
                                         ],
                                         start: 16,
                                         end: 19,
-                                        kind: 123,
+
                                         flags: 0
                                       }
                                     ],
                                     start: 15,
                                     end: 19,
-                                    kind: 123,
+
                                     flags: 0
                                   }
                                 ],
                                 start: 14,
                                 end: 19,
-                                kind: 123,
+
                                 flags: 0
                               }
                             ],
                             start: 13,
                             end: 19,
-                            kind: 123,
+
                             flags: 0
                           }
                         ],
                         start: 12,
                         end: 19,
-                        kind: 123,
+
                         flags: 0
                       }
                     ],
                     start: 11,
                     end: 19,
-                    kind: 123,
+
                     flags: 0
                   }
                 ],
                 start: 10,
                 end: 19,
-                kind: 123,
+
                 flags: 0
               }
             ],
             start: 9,
             end: 19,
-            kind: 123,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 19,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -1305,7 +1305,7 @@ describe('Recovery - If', () => {
 
   it('if(x) {', () => {
     t.deepEqual(recovery('if(x) {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1316,7 +1316,7 @@ describe('Recovery - If', () => {
             name: 'x',
             start: 3,
             end: 4,
-            kind: 13,
+
             flags: 0
           },
           consequent: {
@@ -1324,13 +1324,13 @@ describe('Recovery - If', () => {
             leafs: [],
             start: 5,
             end: 7,
-            kind: 123,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 7,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -1360,7 +1360,7 @@ describe('Recovery - If', () => {
 
   it('if{x}', () => {
     t.deepEqual(recovery('if{x}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1374,13 +1374,13 @@ describe('Recovery - If', () => {
                 name: 'x',
                 start: 3,
                 end: 4,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 2,
             end: 5,
-            kind: 179,
+
             flags: 0
           },
           consequent: {
@@ -1390,18 +1390,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 5,
               end: 5,
-              kind: 13,
+
               flags: 2
             },
             start: 5,
             end: 5,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 5,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -1439,7 +1439,7 @@ describe('Recovery - If', () => {
 
   it('{if{}', () => {
     t.deepEqual(recovery('{if{}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1453,14 +1453,14 @@ describe('Recovery - If', () => {
                 properties: [],
                 start: 3,
                 end: 5,
-                kind: 179,
+
                 flags: 0
               },
               consequent: {
                 type: 'ExpressionStatement',
                 expression: {
                   type: 'IdentifierReference',
-                  kind: 13,
+
                   name: '',
                   start: 5,
                   end: 5,
@@ -1468,19 +1468,19 @@ describe('Recovery - If', () => {
                 },
                 start: 5,
                 end: 5,
-                kind: 122,
+
                 flags: 0
               },
               alternate: null,
               start: 1,
               end: 5,
-              kind: 133,
+
               flags: 0
             }
           ],
           start: 0,
           end: 5,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -1518,7 +1518,7 @@ describe('Recovery - If', () => {
 
   it('if{else', () => {
     t.deepEqual(recovery('if{else', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1532,13 +1532,13 @@ describe('Recovery - If', () => {
                 name: 'else',
                 start: 3,
                 end: 7,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 2,
             end: 7,
-            kind: 179,
+
             flags: 0
           },
           consequent: {
@@ -1548,18 +1548,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 7,
               end: 7,
-              kind: 13,
+
               flags: 2
             },
             start: 7,
             end: 7,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 7,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -1597,7 +1597,7 @@ describe('Recovery - If', () => {
 
   it('ifx(function{x', () => {
     t.deepEqual(recovery('ifx(function{x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1610,7 +1610,7 @@ describe('Recovery - If', () => {
               name: 'ifx',
               start: 0,
               end: 3,
-              kind: 13,
+
               flags: 0
             },
             arguments: [
@@ -1621,7 +1621,7 @@ describe('Recovery - If', () => {
                   name: '',
                   start: 12,
                   end: 12,
-                  kind: 168,
+
                   flags: 0
                 },
                 generator: false,
@@ -1638,34 +1638,34 @@ describe('Recovery - If', () => {
                         name: 'x',
                         start: 13,
                         end: 14,
-                        kind: 13,
+
                         flags: 0
                       },
                       start: 13,
                       end: 14,
-                      kind: 122,
+
                       flags: 0
                     }
                   ],
                   start: 12,
                   end: 14,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 4,
                 end: 14,
-                kind: 185,
+
                 flags: 0
               }
             ],
             start: 0,
             end: 14,
-            kind: 156,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1703,7 +1703,6 @@ describe('Recovery - If', () => {
 
   it('if(x){function x( { ', () => {
     t.deepEqual(recovery('if(x){function x( {', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -1713,7 +1712,7 @@ describe('Recovery - If', () => {
             name: 'x',
             start: 3,
             end: 4,
-            kind: 13,
+
             flags: 0
           },
           consequent: {
@@ -1726,7 +1725,7 @@ describe('Recovery - If', () => {
                   name: 'x',
                   start: 14,
                   end: 16,
-                  kind: 168,
+
                   flags: 0
                 },
                 generator: false,
@@ -1737,7 +1736,7 @@ describe('Recovery - If', () => {
                     properties: [],
                     start: 17,
                     end: 19,
-                    kind: 169,
+
                     flags: 0
                   }
                 ],
@@ -1747,24 +1746,24 @@ describe('Recovery - If', () => {
                   leafs: [],
                   start: 19,
                   end: 19,
-                  kind: 184,
+
                   flags: 0
                 },
                 start: 6,
                 end: 19,
-                kind: 186,
+
                 flags: 0
               }
             ],
             start: 5,
             end: 19,
-            kind: 123,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 19,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -1788,6 +1787,7 @@ describe('Recovery - If', () => {
       children: [],
       start: 0,
       length: 19,
+      type: 'RootNode',
       webCompat: true,
       end: 19
     });
@@ -1795,7 +1795,7 @@ describe('Recovery - If', () => {
 
   it('if else function', () => {
     t.deepEqual(recovery('if else function', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1806,7 +1806,7 @@ describe('Recovery - If', () => {
             name: '',
             start: 2,
             end: 2,
-            kind: 13,
+
             flags: 2
           },
           consequent: {
@@ -1816,12 +1816,12 @@ describe('Recovery - If', () => {
               name: '',
               start: 2,
               end: 2,
-              kind: 13,
+
               flags: 2
             },
             start: 2,
             end: 2,
-            kind: 122,
+
             flags: 0
           },
           alternate: {
@@ -1836,17 +1836,17 @@ describe('Recovery - If', () => {
               leafs: [],
               start: 16,
               end: 16,
-              kind: 184,
+
               flags: 0
             },
             start: 7,
             end: 16,
-            kind: 186,
+
             flags: 0
           },
           start: 0,
           end: 16,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -1886,7 +1886,7 @@ describe('Recovery - If', () => {
     t.deepEqual(
       recovery('if I try while I run for my life. then if I fall then i may scream while running', 'recovery.js'),
       {
-        kind: 209,
+        type: 'RootNode',
         webCompat: true,
         directives: [],
         leafs: [
@@ -1897,7 +1897,7 @@ describe('Recovery - If', () => {
               name: 'I',
               start: 2,
               end: 4,
-              kind: 13,
+
               flags: 0
             },
             consequent: {
@@ -1907,20 +1907,20 @@ describe('Recovery - If', () => {
                 leafs: [],
                 start: 8,
                 end: 8,
-                kind: 123,
+
                 flags: 0
               },
               catchClause: null,
               finalizer: null,
               start: 4,
               end: 8,
-              kind: 138,
+
               flags: 0
             },
             alternate: null,
             start: 0,
             end: 8,
-            kind: 133,
+
             flags: 0
           },
           {
@@ -1930,7 +1930,7 @@ describe('Recovery - If', () => {
               name: 'I',
               start: 14,
               end: 16,
-              kind: 13,
+
               flags: 0
             },
             statement: {
@@ -1940,17 +1940,17 @@ describe('Recovery - If', () => {
                 name: 'run',
                 start: 16,
                 end: 20,
-                kind: 13,
+
                 flags: 0
               },
               start: 16,
               end: 20,
-              kind: 122,
+
               flags: 0
             },
             start: 8,
             end: 20,
-            kind: 139,
+
             flags: 0
           },
           {
@@ -1961,7 +1961,7 @@ describe('Recovery - If', () => {
               name: 'my',
               start: 24,
               end: 27,
-              kind: 13,
+
               flags: 0
             },
             condition: {
@@ -1969,7 +1969,7 @@ describe('Recovery - If', () => {
               name: '',
               start: 38,
               end: 38,
-              kind: 13,
+
               flags: 2
             },
             incrementor: {
@@ -1979,7 +1979,7 @@ describe('Recovery - If', () => {
                 name: 'life',
                 start: 27,
                 end: 32,
-                kind: 13,
+
                 flags: 0
               },
               expression: {
@@ -1987,13 +1987,13 @@ describe('Recovery - If', () => {
                 name: 'then',
                 start: 33,
                 end: 38,
-                kind: 13,
+
                 flags: 0
               },
               computed: false,
               start: 27,
               end: 38,
-              kind: 154,
+
               flags: 0
             },
             statement: {
@@ -2003,7 +2003,7 @@ describe('Recovery - If', () => {
                 name: 'I',
                 start: 41,
                 end: 43,
-                kind: 13,
+
                 flags: 0
               },
               consequent: {
@@ -2013,23 +2013,22 @@ describe('Recovery - If', () => {
                   name: 'fall',
                   start: 43,
                   end: 48,
-                  kind: 13,
+
                   flags: 0
                 },
                 start: 43,
                 end: 48,
-                kind: 122,
+
                 flags: 0
               },
               alternate: null,
               start: 38,
               end: 48,
-              kind: 133,
+
               flags: 0
             },
             start: 20,
             end: 48,
-            kind: 132,
             flags: 0
           },
           {
@@ -2039,12 +2038,12 @@ describe('Recovery - If', () => {
               name: 'then',
               start: 48,
               end: 53,
-              kind: 13,
+
               flags: 0
             },
             start: 48,
             end: 53,
-            kind: 122,
+
             flags: 0
           },
           {
@@ -2054,12 +2053,12 @@ describe('Recovery - If', () => {
               name: 'i',
               start: 53,
               end: 55,
-              kind: 13,
+
               flags: 0
             },
             start: 53,
             end: 55,
-            kind: 122,
+
             flags: 0
           },
           {
@@ -2069,12 +2068,12 @@ describe('Recovery - If', () => {
               name: 'may',
               start: 55,
               end: 59,
-              kind: 13,
+
               flags: 0
             },
             start: 55,
             end: 59,
-            kind: 122,
+
             flags: 0
           },
           {
@@ -2084,12 +2083,12 @@ describe('Recovery - If', () => {
               name: 'scream',
               start: 59,
               end: 66,
-              kind: 13,
+
               flags: 0
             },
             start: 59,
             end: 66,
-            kind: 122,
+
             flags: 0
           },
           {
@@ -2099,7 +2098,7 @@ describe('Recovery - If', () => {
               name: 'running',
               start: 72,
               end: 80,
-              kind: 13,
+
               flags: 0
             },
             statement: {
@@ -2109,17 +2108,17 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 80,
                 end: 80,
-                kind: 13,
+
                 flags: 2
               },
               start: 80,
               end: 80,
-              kind: 122,
+
               flags: 0
             },
             start: 66,
             end: 80,
-            kind: 139,
+
             flags: 0
           }
         ],
@@ -2278,7 +2277,7 @@ describe('Recovery - If', () => {
 
   it('{if with missing ! & bracket and { and bullshit and (x) {}', () => {
     t.deepEqual(recovery('{if with missing ! & bracket and { and bullshit and (x) {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2292,7 +2291,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 3,
                 end: 3,
-                kind: 13,
+
                 flags: 2
               },
               consequent: {
@@ -2302,7 +2301,7 @@ describe('Recovery - If', () => {
                   name: 'missing',
                   start: 8,
                   end: 16,
-                  kind: 13,
+
                   flags: 0
                 },
                 statement: {
@@ -2317,12 +2316,12 @@ describe('Recovery - If', () => {
                         name: '',
                         start: 18,
                         end: 18,
-                        kind: 13,
+
                         flags: 2
                       },
                       start: 16,
                       end: 18,
-                      kind: 160,
+
                       flags: 0
                     },
                     operator: '&',
@@ -2331,28 +2330,28 @@ describe('Recovery - If', () => {
                       name: 'bracket',
                       start: 20,
                       end: 28,
-                      kind: 13,
+
                       flags: 0
                     },
                     start: 16,
                     end: 28,
-                    kind: 155,
+
                     flags: 0
                   },
                   start: 16,
                   end: 28,
-                  kind: 122,
+
                   flags: 0
                 },
                 start: 3,
                 end: 28,
-                kind: 128,
+
                 flags: 0
               },
               alternate: null,
               start: 1,
               end: 28,
-              kind: 133,
+
               flags: 0
             },
             {
@@ -2362,12 +2361,12 @@ describe('Recovery - If', () => {
                 name: 'and',
                 start: 28,
                 end: 32,
-                kind: 13,
+
                 flags: 0
               },
               start: 28,
               end: 32,
-              kind: 122,
+
               flags: 0
             },
             {
@@ -2380,12 +2379,12 @@ describe('Recovery - If', () => {
                     name: 'and',
                     start: 34,
                     end: 38,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 34,
                   end: 38,
-                  kind: 122,
+
                   flags: 0
                 },
                 {
@@ -2395,12 +2394,12 @@ describe('Recovery - If', () => {
                     name: 'bullshit',
                     start: 38,
                     end: 47,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 38,
                   end: 47,
-                  kind: 122,
+
                   flags: 0
                 },
                 {
@@ -2412,7 +2411,7 @@ describe('Recovery - If', () => {
                       name: 'and',
                       start: 47,
                       end: 51,
-                      kind: 13,
+
                       flags: 0
                     },
                     arguments: [
@@ -2421,18 +2420,18 @@ describe('Recovery - If', () => {
                         name: 'x',
                         start: 53,
                         end: 54,
-                        kind: 13,
+
                         flags: 0
                       }
                     ],
                     start: 47,
                     end: 55,
-                    kind: 156,
+
                     flags: 0
                   },
                   start: 47,
                   end: 55,
-                  kind: 122,
+
                   flags: 0
                 },
                 {
@@ -2440,19 +2439,19 @@ describe('Recovery - If', () => {
                   leafs: [],
                   start: 55,
                   end: 58,
-                  kind: 123,
+
                   flags: 0
                 }
               ],
               start: 32,
               end: 58,
-              kind: 123,
+
               flags: 0
             }
           ],
           start: 0,
           end: 58,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -2554,7 +2553,7 @@ describe('Recovery - If', () => {
 
   it('if( hello!! while acorn can not do this', () => {
     t.deepEqual(recovery('if( hello!! while acorn can not do this', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2565,7 +2564,7 @@ describe('Recovery - If', () => {
             name: 'hello',
             start: 3,
             end: 9,
-            kind: 13,
+
             flags: 0
           },
           consequent: {
@@ -2581,28 +2580,28 @@ describe('Recovery - If', () => {
                   name: '',
                   start: 11,
                   end: 11,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 10,
                 end: 11,
-                kind: 160,
+
                 flags: 0
               },
               start: 9,
               end: 11,
-              kind: 160,
+
               flags: 0
             },
             start: 9,
             end: 11,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 11,
-          kind: 133,
+
           flags: 0
         },
         {
@@ -2612,7 +2611,7 @@ describe('Recovery - If', () => {
             name: 'acorn',
             start: 17,
             end: 23,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -2622,17 +2621,17 @@ describe('Recovery - If', () => {
               name: 'can',
               start: 23,
               end: 27,
-              kind: 13,
+
               flags: 0
             },
             start: 23,
             end: 27,
-            kind: 122,
+
             flags: 0
           },
           start: 11,
           end: 27,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -2642,12 +2641,12 @@ describe('Recovery - If', () => {
             name: 'not',
             start: 27,
             end: 31,
-            kind: 13,
+
             flags: 0
           },
           start: 27,
           end: 31,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2657,7 +2656,7 @@ describe('Recovery - If', () => {
             name: '',
             start: 39,
             end: 39,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -2666,17 +2665,17 @@ describe('Recovery - If', () => {
               type: 'ThisExpression',
               start: 34,
               end: 39,
-              kind: 165,
+
               flags: 0
             },
             start: 34,
             end: 39,
-            kind: 122,
+
             flags: 0
           },
           start: 31,
           end: 39,
-          kind: 127,
+
           flags: 0
         }
       ],
@@ -2754,7 +2753,7 @@ describe('Recovery - If', () => {
 
   it('{if if if', () => {
     t.deepEqual(recovery('{if if if', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2765,7 +2764,7 @@ describe('Recovery - If', () => {
               type: 'IfStatement',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: '',
                 start: 3,
                 end: 3,
@@ -2775,7 +2774,7 @@ describe('Recovery - If', () => {
                 type: 'IfStatement',
                 expression: {
                   type: 'IdentifierReference',
-                  kind: 13,
+
                   name: '',
                   start: 6,
                   end: 6,
@@ -2785,7 +2784,7 @@ describe('Recovery - If', () => {
                   type: 'IfStatement',
                   expression: {
                     type: 'IdentifierReference',
-                    kind: 13,
+
                     name: '',
                     start: 9,
                     end: 9,
@@ -2795,7 +2794,7 @@ describe('Recovery - If', () => {
                     type: 'ExpressionStatement',
                     expression: {
                       type: 'IdentifierReference',
-                      kind: 13,
+
                       name: '',
                       start: 9,
                       end: 9,
@@ -2803,31 +2802,31 @@ describe('Recovery - If', () => {
                     },
                     start: 9,
                     end: 9,
-                    kind: 122,
+
                     flags: 0
                   },
                   alternate: null,
                   start: 6,
                   end: 9,
-                  kind: 133,
+
                   flags: 0
                 },
                 alternate: null,
                 start: 3,
                 end: 9,
-                kind: 133,
+
                 flags: 0
               },
               alternate: null,
               start: 1,
               end: 9,
-              kind: 133,
+
               flags: 0
             }
           ],
           start: 0,
           end: 9,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -2865,7 +2864,7 @@ describe('Recovery - If', () => {
 
   it('if{if', () => {
     t.deepEqual(recovery('if{if', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2879,13 +2878,13 @@ describe('Recovery - If', () => {
                 name: 'if',
                 start: 3,
                 end: 5,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 2,
             end: 5,
-            kind: 179,
+
             flags: 0
           },
           consequent: {
@@ -2895,18 +2894,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 5,
               end: 5,
-              kind: 13,
+
               flags: 2
             },
             start: 5,
             end: 5,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 5,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -2944,7 +2943,7 @@ describe('Recovery - If', () => {
 
   it('else{if x=)', () => {
     t.deepEqual(recovery('else{if x=)', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2960,7 +2959,7 @@ describe('Recovery - If', () => {
                   name: 'x',
                   start: 7,
                   end: 9,
-                  kind: 13,
+
                   flags: 0
                 },
                 operator: '=',
@@ -2969,12 +2968,12 @@ describe('Recovery - If', () => {
                   name: '',
                   start: 10,
                   end: 10,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 7,
                 end: 10,
-                kind: 152,
+
                 flags: 0
               },
               consequent: {
@@ -2984,24 +2983,24 @@ describe('Recovery - If', () => {
                   name: '',
                   start: 11,
                   end: 11,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 11,
                 end: 11,
-                kind: 122,
+
                 flags: 0
               },
               alternate: null,
               start: 5,
               end: 11,
-              kind: 133,
+
               flags: 0
             }
           ],
           start: 4,
           end: 11,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -3047,7 +3046,7 @@ describe('Recovery - If', () => {
 
   it('if{acorn = sloppy this ! loose while this fast', () => {
     t.deepEqual(recovery('if{acorn = sloppy this ! loose while this fast', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3063,7 +3062,7 @@ describe('Recovery - If', () => {
                   name: 'acorn',
                   start: 3,
                   end: 8,
-                  kind: 13,
+
                   flags: 0
                 },
                 right: {
@@ -3071,12 +3070,12 @@ describe('Recovery - If', () => {
                   name: 'sloppy',
                   start: 10,
                   end: 17,
-                  kind: 13,
+
                   flags: 0
                 },
                 start: 3,
                 end: 17,
-                kind: 181,
+
                 flags: 0
               },
               {
@@ -3084,13 +3083,13 @@ describe('Recovery - If', () => {
                 name: 'this',
                 start: 17,
                 end: 22,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 2,
             end: 22,
-            kind: 179,
+
             flags: 0
           },
           consequent: {
@@ -3103,23 +3102,23 @@ describe('Recovery - If', () => {
                 name: 'loose',
                 start: 24,
                 end: 30,
-                kind: 13,
+
                 flags: 0
               },
               start: 22,
               end: 30,
-              kind: 160,
+
               flags: 0
             },
             start: 22,
             end: 30,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 30,
-          kind: 133,
+
           flags: 0
         },
         {
@@ -3128,7 +3127,7 @@ describe('Recovery - If', () => {
             type: 'ThisExpression',
             start: 36,
             end: 41,
-            kind: 165,
+
             flags: 0
           },
           statement: {
@@ -3138,17 +3137,17 @@ describe('Recovery - If', () => {
               name: 'fast',
               start: 41,
               end: 46,
-              kind: 13,
+
               flags: 0
             },
             start: 41,
             end: 46,
-            kind: 122,
+
             flags: 0
           },
           start: 30,
           end: 46,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -3218,7 +3217,7 @@ describe('Recovery - If', () => {
 
   it('if waiting for my package while do this', () => {
     t.deepEqual(recovery('if waiting for my package while do this', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3229,7 +3228,7 @@ describe('Recovery - If', () => {
             name: 'waiting',
             start: 2,
             end: 10,
-            kind: 13,
+
             flags: 0
           },
           consequent: {
@@ -3240,7 +3239,7 @@ describe('Recovery - If', () => {
               name: 'my',
               start: 14,
               end: 17,
-              kind: 13,
+
               flags: 0
             },
             condition: {
@@ -3248,7 +3247,7 @@ describe('Recovery - If', () => {
               name: '',
               start: 25,
               end: 25,
-              kind: 13,
+
               flags: 2
             },
             incrementor: {
@@ -3256,7 +3255,7 @@ describe('Recovery - If', () => {
               name: 'package',
               start: 17,
               end: 25,
-              kind: 13,
+
               flags: 0
             },
             statement: {
@@ -3266,7 +3265,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 31,
                 end: 31,
-                kind: 13,
+
                 flags: 2
               },
               statement: {
@@ -3276,7 +3275,7 @@ describe('Recovery - If', () => {
                   name: '',
                   start: 39,
                   end: 39,
-                  kind: 13,
+
                   flags: 2
                 },
                 statement: {
@@ -3285,33 +3284,33 @@ describe('Recovery - If', () => {
                     type: 'ThisExpression',
                     start: 34,
                     end: 39,
-                    kind: 165,
+
                     flags: 0
                   },
                   start: 34,
                   end: 39,
-                  kind: 122,
+
                   flags: 0
                 },
                 start: 31,
                 end: 39,
-                kind: 127,
+
                 flags: 0
               },
               start: 25,
               end: 39,
-              kind: 139,
+
               flags: 0
             },
             start: 10,
             end: 39,
-            kind: 132,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 39,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -3389,7 +3388,7 @@ describe('Recovery - If', () => {
 
   it('if {', () => {
     t.deepEqual(recovery('if {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3400,14 +3399,14 @@ describe('Recovery - If', () => {
             properties: [],
             start: 2,
             end: 4,
-            kind: 179,
+
             flags: 0
           },
           consequent: {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 4,
               end: 4,
@@ -3415,13 +3414,13 @@ describe('Recovery - If', () => {
             },
             start: 4,
             end: 4,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 4,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -3451,7 +3450,7 @@ describe('Recovery - If', () => {
 
   it('{}}}}}if!!&', () => {
     t.deepEqual(recovery('{}}}}}if!!&', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3460,7 +3459,7 @@ describe('Recovery - If', () => {
           leafs: [],
           start: 0,
           end: 2,
-          kind: 123,
+
           flags: 0
         },
         {
@@ -3478,17 +3477,17 @@ describe('Recovery - If', () => {
                   name: '',
                   start: 10,
                   end: 10,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 9,
                 end: 10,
-                kind: 160,
+
                 flags: 0
               },
               start: 8,
               end: 10,
-              kind: 160,
+
               flags: 0
             },
             operator: '&',
@@ -3497,12 +3496,12 @@ describe('Recovery - If', () => {
               name: '',
               start: 11,
               end: 11,
-              kind: 13,
+
               flags: 2
             },
             start: 8,
             end: 11,
-            kind: 155,
+
             flags: 0
           },
           consequent: {
@@ -3512,18 +3511,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 11,
               end: 11,
-              kind: 13,
+
               flags: 2
             },
             start: 11,
             end: 11,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 6,
           end: 11,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -3593,7 +3592,7 @@ describe('Recovery - If', () => {
 
   it('if /{', () => {
     t.deepEqual(recovery('if /{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3605,7 +3604,7 @@ describe('Recovery - If', () => {
             flag: '',
             start: 2,
             end: 5,
-            kind: 15,
+
             flags: 0
           },
           consequent: {
@@ -3615,18 +3614,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 5,
               end: 5,
-              kind: 13,
+
               flags: 2
             },
             start: 5,
             end: 5,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 5,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -3656,7 +3655,7 @@ describe('Recovery - If', () => {
 
   it('if else/{', () => {
     t.deepEqual(recovery('if else/{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3667,7 +3666,7 @@ describe('Recovery - If', () => {
             name: '',
             start: 2,
             end: 2,
-            kind: 13,
+
             flags: 2
           },
           consequent: {
@@ -3677,12 +3676,12 @@ describe('Recovery - If', () => {
               name: '',
               start: 2,
               end: 2,
-              kind: 13,
+
               flags: 2
             },
             start: 2,
             end: 2,
-            kind: 122,
+
             flags: 0
           },
           alternate: {
@@ -3694,7 +3693,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 7,
                 end: 7,
-                kind: 13,
+
                 flags: 2
               },
               operator: '/',
@@ -3703,22 +3702,22 @@ describe('Recovery - If', () => {
                 properties: [],
                 start: 8,
                 end: 9,
-                kind: 179,
+
                 flags: 0
               },
               start: 7,
               end: 9,
-              kind: 155,
+
               flags: 0
             },
             start: 7,
             end: 9,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -3764,7 +3763,7 @@ describe('Recovery - If', () => {
 
   it('if finally I try this ! {', () => {
     t.deepEqual(recovery('if finally I try this ! {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3775,7 +3774,7 @@ describe('Recovery - If', () => {
             name: '',
             start: 2,
             end: 2,
-            kind: 13,
+
             flags: 2
           },
           consequent: {
@@ -3785,7 +3784,7 @@ describe('Recovery - If', () => {
               leafs: [],
               start: 2,
               end: 2,
-              kind: 123,
+
               flags: 0
             },
             catchClause: null,
@@ -3794,18 +3793,18 @@ describe('Recovery - If', () => {
               leafs: [],
               start: 10,
               end: 10,
-              kind: 123,
+
               flags: 0
             },
             start: 2,
             end: 10,
-            kind: 138,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 10,
-          kind: 133,
+
           flags: 0
         },
         {
@@ -3815,12 +3814,12 @@ describe('Recovery - If', () => {
             name: 'I',
             start: 10,
             end: 12,
-            kind: 13,
+
             flags: 0
           },
           start: 10,
           end: 12,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -3830,14 +3829,14 @@ describe('Recovery - If', () => {
             leafs: [],
             start: 16,
             end: 16,
-            kind: 123,
+
             flags: 0
           },
           catchClause: null,
           finalizer: null,
           start: 12,
           end: 16,
-          kind: 138,
+
           flags: 0
         },
         {
@@ -3846,12 +3845,12 @@ describe('Recovery - If', () => {
             type: 'ThisExpression',
             start: 16,
             end: 21,
-            kind: 165,
+
             flags: 0
           },
           start: 16,
           end: 21,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -3864,17 +3863,17 @@ describe('Recovery - If', () => {
               properties: [],
               start: 23,
               end: 25,
-              kind: 179,
+
               flags: 0
             },
             start: 21,
             end: 25,
-            kind: 160,
+
             flags: 0
           },
           start: 21,
           end: 25,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3944,7 +3943,7 @@ describe('Recovery - If', () => {
 
   it('{!if { else } ! / j', () => {
     t.deepEqual(recovery('{!if { else } ! / j', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3961,17 +3960,17 @@ describe('Recovery - If', () => {
                   name: '',
                   start: 2,
                   end: 2,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 1,
                 end: 2,
-                kind: 160,
+
                 flags: 0
               },
               start: 1,
               end: 2,
-              kind: 122,
+
               flags: 0
             },
             {
@@ -3984,13 +3983,13 @@ describe('Recovery - If', () => {
                     name: 'else',
                     start: 6,
                     end: 11,
-                    kind: 13,
+
                     flags: 0
                   }
                 ],
                 start: 4,
                 end: 13,
-                kind: 179,
+
                 flags: 0
               },
               consequent: {
@@ -4004,29 +4003,29 @@ describe('Recovery - If', () => {
                     flag: '',
                     start: 15,
                     end: 19,
-                    kind: 15,
+
                     flags: 0
                   },
                   start: 13,
                   end: 19,
-                  kind: 160,
+
                   flags: 0
                 },
                 start: 13,
                 end: 19,
-                kind: 122,
+
                 flags: 0
               },
               alternate: null,
               start: 2,
               end: 19,
-              kind: 133,
+
               flags: 0
             }
           ],
           start: 0,
           end: 19,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -4088,7 +4087,7 @@ describe('Recovery - If', () => {
 
   it('if(,,,,,,,,,,,,,,,,,,,,,,,,{', () => {
     t.deepEqual(recovery('if(,,,,,,,,,,,,,,,,,,,,,,,,{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4102,7 +4101,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 3,
                 end: 3,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4110,7 +4109,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 4,
                 end: 4,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4118,7 +4117,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 5,
                 end: 5,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4126,7 +4125,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 6,
                 end: 6,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4134,7 +4133,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 7,
                 end: 7,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4142,7 +4141,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 8,
                 end: 8,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4150,7 +4149,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 9,
                 end: 9,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4158,7 +4157,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 10,
                 end: 10,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4166,7 +4165,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 11,
                 end: 11,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4174,7 +4173,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 12,
                 end: 12,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4182,7 +4181,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 13,
                 end: 13,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4190,7 +4189,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 14,
                 end: 14,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4198,7 +4197,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 15,
                 end: 15,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4206,7 +4205,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 16,
                 end: 16,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4214,7 +4213,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 17,
                 end: 17,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4222,7 +4221,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 18,
                 end: 18,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4230,7 +4229,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 19,
                 end: 19,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4238,7 +4237,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 20,
                 end: 20,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4246,7 +4245,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 21,
                 end: 21,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4254,7 +4253,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 22,
                 end: 22,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4262,7 +4261,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 23,
                 end: 23,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4270,7 +4269,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 24,
                 end: 24,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4278,7 +4277,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 25,
                 end: 25,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4286,7 +4285,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 26,
                 end: 26,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4294,13 +4293,13 @@ describe('Recovery - If', () => {
                 properties: [],
                 start: 27,
                 end: 28,
-                kind: 179,
+
                 flags: 0
               }
             ],
             start: 3,
             end: 28,
-            kind: 147,
+
             flags: 0
           },
           consequent: {
@@ -4310,18 +4309,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 28,
               end: 28,
-              kind: 13,
+
               flags: 2
             },
             start: 28,
             end: 28,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 28,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -4543,7 +4542,7 @@ describe('Recovery - If', () => {
 
   it('{,,,,,,,,,,,,,,if /a/ ,,,,,}', () => {
     t.deepEqual(recovery('{,,,,,,,,,,,,,,if /a/ ,,,,,}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4552,7 +4551,7 @@ describe('Recovery - If', () => {
           leafs: [],
           start: 0,
           end: 1,
-          kind: 123,
+
           flags: 0
         },
         {
@@ -4566,7 +4565,7 @@ describe('Recovery - If', () => {
                 flag: '',
                 start: 17,
                 end: 21,
-                kind: 15,
+
                 flags: 0
               },
               {
@@ -4574,7 +4573,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 23,
                 end: 23,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4582,7 +4581,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 24,
                 end: 24,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4590,7 +4589,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 25,
                 end: 25,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4598,7 +4597,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 26,
                 end: 26,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -4606,13 +4605,13 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 27,
                 end: 27,
-                kind: 13,
+
                 flags: 2
               }
             ],
             start: 17,
             end: 27,
-            kind: 147,
+
             flags: 0
           },
           consequent: {
@@ -4622,18 +4621,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 27,
               end: 27,
-              kind: 13,
+
               flags: 2
             },
             start: 27,
             end: 27,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 15,
           end: 27,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -4815,7 +4814,7 @@ describe('Recovery - If', () => {
 
   it('{;;;;;if /a//a/a/a/a/a while /adf//ads if else get mad', () => {
     t.deepEqual(recovery('{;;;;;if /a//a/a/a/a/a while /adf//ads if else get mad', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4826,35 +4825,35 @@ describe('Recovery - If', () => {
               type: 'EmptyStatement',
               start: 1,
               end: 2,
-              kind: 148,
+
               flags: 0
             },
             {
               type: 'EmptyStatement',
               start: 2,
               end: 3,
-              kind: 148,
+
               flags: 0
             },
             {
               type: 'EmptyStatement',
               start: 3,
               end: 4,
-              kind: 148,
+
               flags: 0
             },
             {
               type: 'EmptyStatement',
               start: 4,
               end: 5,
-              kind: 148,
+
               flags: 0
             },
             {
               type: 'EmptyStatement',
               start: 5,
               end: 6,
-              kind: 148,
+
               flags: 0
             },
             {
@@ -4875,7 +4874,7 @@ describe('Recovery - If', () => {
                           flag: '',
                           start: 8,
                           end: 12,
-                          kind: 15,
+
                           flags: 0
                         },
                         operator: '/',
@@ -4884,12 +4883,12 @@ describe('Recovery - If', () => {
                           name: 'a',
                           start: 13,
                           end: 14,
-                          kind: 13,
+
                           flags: 0
                         },
                         start: 8,
                         end: 14,
-                        kind: 155,
+
                         flags: 0
                       },
                       operator: '/',
@@ -4898,12 +4897,12 @@ describe('Recovery - If', () => {
                         name: 'a',
                         start: 15,
                         end: 16,
-                        kind: 13,
+
                         flags: 0
                       },
                       start: 8,
                       end: 16,
-                      kind: 155,
+
                       flags: 0
                     },
                     operator: '/',
@@ -4912,12 +4911,12 @@ describe('Recovery - If', () => {
                       name: 'a',
                       start: 17,
                       end: 18,
-                      kind: 13,
+
                       flags: 0
                     },
                     start: 8,
                     end: 18,
-                    kind: 155,
+
                     flags: 0
                   },
                   operator: '/',
@@ -4926,12 +4925,12 @@ describe('Recovery - If', () => {
                     name: 'a',
                     start: 19,
                     end: 20,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 8,
                   end: 20,
-                  kind: 155,
+
                   flags: 0
                 },
                 operator: '/',
@@ -4940,12 +4939,12 @@ describe('Recovery - If', () => {
                   name: 'a',
                   start: 21,
                   end: 22,
-                  kind: 13,
+
                   flags: 0
                 },
                 start: 8,
                 end: 22,
-                kind: 155,
+
                 flags: 0
               },
               consequent: {
@@ -4958,7 +4957,7 @@ describe('Recovery - If', () => {
                     flag: '',
                     start: 28,
                     end: 34,
-                    kind: 15,
+
                     flags: 0
                   },
                   operator: '/',
@@ -4967,12 +4966,12 @@ describe('Recovery - If', () => {
                     name: 'ads',
                     start: 35,
                     end: 38,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 28,
                   end: 38,
-                  kind: 155,
+
                   flags: 0
                 },
                 statement: {
@@ -4982,7 +4981,7 @@ describe('Recovery - If', () => {
                     name: '',
                     start: 41,
                     end: 41,
-                    kind: 13,
+
                     flags: 2
                   },
                   consequent: {
@@ -4992,12 +4991,12 @@ describe('Recovery - If', () => {
                       name: '',
                       start: 41,
                       end: 41,
-                      kind: 13,
+
                       flags: 2
                     },
                     start: 41,
                     end: 41,
-                    kind: 122,
+
                     flags: 0
                   },
                   alternate: {
@@ -5007,28 +5006,28 @@ describe('Recovery - If', () => {
                       name: 'get',
                       start: 46,
                       end: 50,
-                      kind: 13,
+
                       flags: 0
                     },
                     start: 46,
                     end: 50,
-                    kind: 122,
+
                     flags: 0
                   },
                   start: 38,
                   end: 50,
-                  kind: 133,
+
                   flags: 0
                 },
                 start: 22,
                 end: 50,
-                kind: 139,
+
                 flags: 0
               },
               alternate: null,
               start: 6,
               end: 50,
-              kind: 133,
+
               flags: 0
             },
             {
@@ -5038,18 +5037,18 @@ describe('Recovery - If', () => {
                 name: 'mad',
                 start: 50,
                 end: 54,
-                kind: 13,
+
                 flags: 0
               },
               start: 50,
               end: 54,
-              kind: 122,
+
               flags: 0
             }
           ],
           start: 0,
           end: 54,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -5119,7 +5118,7 @@ describe('Recovery - If', () => {
 
   it('if[]{', () => {
     t.deepEqual(recovery('if[]{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -5127,7 +5126,7 @@ describe('Recovery - If', () => {
           type: 'IfStatement',
           expression: {
             type: 'ArrayLiteral',
-            kind: 178,
+
             elements: [],
             flags: 0,
             start: 2,
@@ -5138,13 +5137,13 @@ describe('Recovery - If', () => {
             leafs: [],
             start: 4,
             end: 5,
-            kind: 123,
+
             flags: 0
           },
           alternate: null,
           start: 0,
           end: 5,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -5182,7 +5181,7 @@ describe('Recovery - If', () => {
 
   it('{[]if/', () => {
     t.deepEqual(recovery('{[]if/', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -5196,12 +5195,12 @@ describe('Recovery - If', () => {
                 elements: [],
                 start: 1,
                 end: 3,
-                kind: 178,
+
                 flags: 0
               },
               start: 1,
               end: 3,
-              kind: 122,
+
               flags: 0
             },
             {
@@ -5212,7 +5211,7 @@ describe('Recovery - If', () => {
                 flag: '',
                 start: 5,
                 end: 7,
-                kind: 15,
+
                 flags: 0
               },
               consequent: {
@@ -5222,24 +5221,24 @@ describe('Recovery - If', () => {
                   name: '',
                   start: 7,
                   end: 7,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 7,
                 end: 7,
-                kind: 122,
+
                 flags: 0
               },
               alternate: null,
               start: 3,
               end: 7,
-              kind: 133,
+
               flags: 0
             }
           ],
           start: 0,
           end: 7,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -5277,7 +5276,7 @@ describe('Recovery - If', () => {
 
   it('{(((if))', () => {
     t.deepEqual(recovery('{(((if))', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -5297,27 +5296,27 @@ describe('Recovery - If', () => {
                       name: '',
                       start: 4,
                       end: 4,
-                      kind: 13,
+
                       flags: 2
                     },
                     start: 3,
                     end: 4,
-                    kind: 189,
+
                     flags: 0
                   },
                   start: 2,
                   end: 4,
-                  kind: 189,
+
                   flags: 0
                 },
                 start: 1,
                 end: 4,
-                kind: 189,
+
                 flags: 0
               },
               start: 1,
               end: 4,
-              kind: 122,
+
               flags: 0
             },
             {
@@ -5327,7 +5326,7 @@ describe('Recovery - If', () => {
                 name: '',
                 start: 6,
                 end: 6,
-                kind: 13,
+
                 flags: 2
               },
               consequent: {
@@ -5337,24 +5336,24 @@ describe('Recovery - If', () => {
                   name: '',
                   start: 7,
                   end: 7,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 7,
                 end: 7,
-                kind: 122,
+
                 flags: 0
               },
               alternate: null,
               start: 4,
               end: 7,
-              kind: 133,
+
               flags: 0
             }
           ],
           start: 0,
           end: 7,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -5400,7 +5399,7 @@ describe('Recovery - If', () => {
 
   it(']if]{', () => {
     t.deepEqual(recovery(']if]{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -5411,7 +5410,7 @@ describe('Recovery - If', () => {
             name: '',
             start: 3,
             end: 3,
-            kind: 13,
+
             flags: 2
           },
           consequent: {
@@ -5421,18 +5420,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 3,
               end: 3,
-              kind: 13,
+
               flags: 2
             },
             start: 3,
             end: 3,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 1,
           end: 3,
-          kind: 133,
+
           flags: 0
         },
         {
@@ -5440,7 +5439,7 @@ describe('Recovery - If', () => {
           leafs: [],
           start: 4,
           end: 5,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -5486,7 +5485,7 @@ describe('Recovery - If', () => {
 
   it('[if]]else', () => {
     t.deepEqual(recovery('[if]]else', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -5494,7 +5493,7 @@ describe('Recovery - If', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrayLiteral',
-            kind: 178,
+
             elements: [],
             start: 0,
             end: 1,
@@ -5502,7 +5501,7 @@ describe('Recovery - If', () => {
           },
           start: 0,
           end: 1,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -5512,7 +5511,7 @@ describe('Recovery - If', () => {
             name: '',
             start: 3,
             end: 3,
-            kind: 13,
+
             flags: 2
           },
           consequent: {
@@ -5522,18 +5521,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 3,
               end: 3,
-              kind: 13,
+
               flags: 2
             },
             start: 3,
             end: 3,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 1,
           end: 3,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -5587,7 +5586,7 @@ describe('Recovery - If', () => {
 
   it('[]if', () => {
     t.deepEqual(recovery('[]if', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -5595,7 +5594,7 @@ describe('Recovery - If', () => {
           type: 'ExpressionStatement',
           expression: {
             type: 'ArrayLiteral',
-            kind: 178,
+
             elements: [],
             start: 0,
             end: 2,
@@ -5603,7 +5602,7 @@ describe('Recovery - If', () => {
           },
           start: 0,
           end: 2,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -5613,7 +5612,7 @@ describe('Recovery - If', () => {
             name: '',
             start: 4,
             end: 4,
-            kind: 13,
+
             flags: 2
           },
           consequent: {
@@ -5623,18 +5622,18 @@ describe('Recovery - If', () => {
               name: '',
               start: 4,
               end: 4,
-              kind: 13,
+
               flags: 2
             },
             start: 4,
             end: 4,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 2,
           end: 4,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -5664,7 +5663,7 @@ describe('Recovery - If', () => {
 
   it('Unclosed block statement43252435', () => {
     t.deepEqual(recovery('{}if', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -5673,14 +5672,14 @@ describe('Recovery - If', () => {
           leafs: [],
           start: 0,
           end: 2,
-          kind: 123,
+
           flags: 0
         },
         {
           type: 'IfStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 4,
             end: 4,
@@ -5690,7 +5689,7 @@ describe('Recovery - If', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 4,
               end: 4,
@@ -5698,13 +5697,13 @@ describe('Recovery - If', () => {
             },
             start: 4,
             end: 4,
-            kind: 122,
+
             flags: 0
           },
           alternate: null,
           start: 2,
           end: 4,
-          kind: 133,
+
           flags: 0
         }
       ],
@@ -5734,7 +5733,7 @@ describe('Recovery - If', () => {
 
   it('{if', () => {
     t.deepEqual(recovery('{if,', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -5751,7 +5750,7 @@ describe('Recovery - If', () => {
                     name: '',
                     start: 3,
                     end: 3,
-                    kind: 13,
+
                     flags: 2
                   },
                   {
@@ -5759,13 +5758,13 @@ describe('Recovery - If', () => {
                     name: '',
                     start: 4,
                     end: 4,
-                    kind: 13,
+
                     flags: 2
                   }
                 ],
                 start: 3,
                 end: 4,
-                kind: 147,
+
                 flags: 0
               },
               consequent: {
@@ -5775,24 +5774,24 @@ describe('Recovery - If', () => {
                   name: '',
                   start: 4,
                   end: 4,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 4,
                 end: 4,
-                kind: 122,
+
                 flags: 0
               },
               alternate: null,
               start: 1,
               end: 4,
-              kind: 133,
+
               flags: 0
             }
           ],
           start: 0,
           end: 4,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -5822,7 +5821,7 @@ describe('Recovery - If', () => {
 
   it('/* /* if(foo) {}', () => {
     t.deepEqual(recovery('/* /* if(foo) {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [],
@@ -5852,7 +5851,7 @@ describe('Recovery - If', () => {
 
   it('if else catch', () => {
     t.deepEqual(recovery('if else catch', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -5863,7 +5862,7 @@ describe('Recovery - If', () => {
             name: '',
             start: 2,
             end: 2,
-            kind: 13,
+
             flags: 2
           },
           consequent: {
@@ -5873,12 +5872,12 @@ describe('Recovery - If', () => {
               name: '',
               start: 2,
               end: 2,
-              kind: 13,
+
               flags: 2
             },
             start: 2,
             end: 2,
-            kind: 122,
+
             flags: 0
           },
           alternate: {
@@ -5888,7 +5887,7 @@ describe('Recovery - If', () => {
               leafs: [],
               start: 7,
               end: 7,
-              kind: 123,
+
               flags: 0
             },
             catchClause: {
@@ -5899,23 +5898,23 @@ describe('Recovery - If', () => {
                 leafs: [],
                 start: 13,
                 end: 13,
-                kind: 123,
+
                 flags: 0
               },
               start: 7,
               end: 13,
-              kind: 140,
+
               flags: 0
             },
             finalizer: null,
             start: 7,
             end: 13,
-            kind: 138,
+
             flags: 0
           },
           start: 0,
           end: 13,
-          kind: 133,
+
           flags: 0
         }
       ],

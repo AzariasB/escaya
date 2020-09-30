@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Continue', () => {
   it('while ! continue {', () => {
     t.deepEqual(recovery('while ! continue {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -18,12 +18,12 @@ describe('Recovery - Continue', () => {
               name: '',
               start: 7,
               end: 7,
-              kind: 13,
+
               flags: 2
             },
             start: 5,
             end: 7,
-            kind: 160,
+
             flags: 0
           },
           statement: {
@@ -31,12 +31,12 @@ describe('Recovery - Continue', () => {
             label: null,
             start: 7,
             end: 16,
-            kind: 125,
+
             flags: 0
           },
           start: 0,
           end: 16,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -44,7 +44,7 @@ describe('Recovery - Continue', () => {
           leafs: [],
           start: 16,
           end: 18,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -90,7 +90,7 @@ describe('Recovery - Continue', () => {
 
   it('as keyword', () => {
     t.deepEqual(recovery('continue', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -99,7 +99,7 @@ describe('Recovery - Continue', () => {
           label: null,
           start: 0,
           end: 8,
-          kind: 125,
+
           flags: 0
         }
       ],

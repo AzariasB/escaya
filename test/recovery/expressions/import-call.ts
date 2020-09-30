@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Expressions - Import call', () => {
   it('import[]!', () => {
     t.deepEqual(recovery('import[]!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -15,7 +15,7 @@ describe('Recovery - Expressions - Import call', () => {
           importClause: null,
           start: 0,
           end: 6,
-          kind: 217,
+
           flags: 0
         },
         {
@@ -25,12 +25,10 @@ describe('Recovery - Expressions - Import call', () => {
             elements: [],
             start: 6,
             end: 8,
-            kind: 178,
             flags: 0
           },
           start: 6,
           end: 8,
-          kind: 122,
           flags: 0
         },
         {
@@ -43,17 +41,15 @@ describe('Recovery - Expressions - Import call', () => {
               name: '',
               start: 9,
               end: 9,
-              kind: 13,
+
               flags: 2
             },
             start: 8,
             end: 9,
-            kind: 160,
             flags: 0
           },
           start: 8,
           end: 9,
-          kind: 122,
           flags: 0
         }
       ],
@@ -91,7 +87,7 @@ describe('Recovery - Expressions - Import call', () => {
 
   it('import("") >>>= 2(!', () => {
     t.deepEqual(recovery('import("") >>>= 2(!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -106,12 +102,10 @@ describe('Recovery - Expressions - Import call', () => {
                 value: '',
                 start: 7,
                 end: 9,
-                kind: 12,
                 flags: 0
               },
               start: 0,
               end: 10,
-              kind: 199,
               flags: 0
             },
             operator: '>>>=',
@@ -119,11 +113,9 @@ describe('Recovery - Expressions - Import call', () => {
               type: 'CallExpression',
               expression: {
                 type: 'NumericLiteral',
-
                 value: 2,
                 start: 15,
                 end: 17,
-                kind: 10,
                 flags: 0
               },
               arguments: [
@@ -135,28 +127,24 @@ describe('Recovery - Expressions - Import call', () => {
                     name: '',
                     start: 19,
                     end: 19,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 18,
                   end: 19,
-                  kind: 160,
                   flags: 0
                 }
               ],
               start: 15,
               end: 19,
-              kind: 156,
               flags: 0
             },
             start: 0,
             end: 19,
-            kind: 152,
             flags: 0
           },
           start: 0,
           end: 19,
-          kind: 122,
           flags: 0
         }
       ],
@@ -194,7 +182,7 @@ describe('Recovery - Expressions - Import call', () => {
 
   it('import(!', () => {
     t.deepEqual(recovery('import(!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -210,22 +198,19 @@ describe('Recovery - Expressions - Import call', () => {
                 name: '',
                 start: 8,
                 end: 8,
-                kind: 13,
+
                 flags: 2
               },
               start: 7,
               end: 8,
-              kind: 160,
               flags: 0
             },
             start: 0,
             end: 8,
-            kind: 199,
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 122,
           flags: 0
         }
       ],

@@ -85,7 +85,6 @@ import { SwitchStatement } from './ast/statements/switch-stmt';
 import { DiagnosticCode } from './diagnostic/diagnostic-code';
 import { Token, KeywordDescTable } from './ast/token';
 import { Constants } from './constants';
-import { SyntaxKind } from './ast/node';
 import { Directive } from './ast/directive-node';
 import { nextToken } from './lexer/scan';
 import { scanTemplateTail } from './lexer/template';
@@ -469,13 +468,7 @@ export function parseImportDeclaration(
   }
 
   expectSemicolon(state, context);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.ImportDeclaration(fromClause, moduleSpecifier, importClause),
-    SyntaxKind.ImportDeclaration
-  );
+  return finishNode(state, context, start, DictionaryMap.ImportDeclaration(fromClause, moduleSpecifier, importClause));
 }
 
 // ImportClause :
@@ -498,13 +491,7 @@ export function parseImportClause(state: ParserState, context: Context, scope: S
   if (state.token & Constants.IdentifierOrFutureReserved) {
     defaultBinding = parseBindingIdentifier(state, context, scope, BindingType.Let);
     if (!consumeOpt(state, context, Token.Comma)) {
-      return finishNode(
-        state,
-        context,
-        start,
-        DictionaryMap.ImportClause(defaultBinding, namespace, namedImports),
-        SyntaxKind.ImportClause
-      );
+      return finishNode(state, context, start, DictionaryMap.ImportClause(defaultBinding, namespace, namedImports));
     }
   }
   if (state.token === Token.Multiply) {
@@ -522,13 +509,7 @@ export function parseImportClause(state: ParserState, context: Context, scope: S
     );
   }
 
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.ImportClause(defaultBinding, namespace, namedImports),
-    SyntaxKind.ImportClause
-  );
+  return finishNode(state, context, start, DictionaryMap.ImportClause(defaultBinding, namespace, namedImports));
 }
 
 // NameSpaceImport :
@@ -554,7 +535,7 @@ export function parseNamedImports(state: ParserState, context: Context, scope: S
     consume(state, context, Token.Comma);
   }
   consume(state, context | Context.AllowRegExp, Token.RightBrace);
-  return finishNode(state, context, start, DictionaryMap.NamedImports(importsList), SyntaxKind.NamedImports);
+  return finishNode(state, context, start, DictionaryMap.NamedImports(importsList));
 }
 
 // ImportSpecifier :
@@ -587,8 +568,7 @@ export function parseImportSpecifier(state: ParserState, context: Context, scope
     state,
     context,
     startIndex,
-    DictionaryMap.ImportSpecifier(moduleExportName, identifierName, importedBinding),
-    SyntaxKind.NamedImports
+    DictionaryMap.ImportSpecifier(moduleExportName, identifierName, importedBinding)
   );
 }
 
@@ -609,13 +589,7 @@ export function parseSwitchStatement(
   consume(state, context, Token.LeftBrace);
   const clauses = parseCaseBlock(state, context, scope, labels, ownLabels);
   consume(state, context | Context.AllowRegExp, Token.RightBrace);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.SwitchStatement(expression, clauses),
-    SyntaxKind.SwitchStatement
-  );
+  return finishNode(state, context, start, DictionaryMap.SwitchStatement(expression, clauses));
 }
 
 // CaseBlock :
@@ -667,14 +641,14 @@ export function parseCaseOrDefaultClause(
     const expression = parseExpressions(state, context);
     consume(state, context | Context.AllowRegExp, Token.Colon);
     while (state.token & check) leafs.push(parseStatementListItem(state, context, scope, labels, ownLabels));
-    return finishNode(state, context, start, DictionaryMap.CaseClause(expression, leafs), SyntaxKind.CaseClause);
+    return finishNode(state, context, start, DictionaryMap.CaseClause(expression, leafs));
   }
 
   consume(state, context, Token.DefaultKeyword);
   consume(state, context | Context.AllowRegExp, Token.Colon);
 
   while (state.token & check) leafs.push(parseStatementListItem(state, context, scope, labels, ownLabels));
-  return finishNode(state, context, start, DictionaryMap.DefaultClause(leafs), SyntaxKind.DefaultClause);
+  return finishNode(state, context, start, DictionaryMap.DefaultClause(leafs));
 }
 
 // WithStatement :
@@ -707,13 +681,7 @@ export function parseWithStatement(
   // A diagnostic will be given for the missing semicolon - ';'.
   //
   const statement = parseStatement(state, context | Context.InIteration, scope, labels, ownLabels, false);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.WithStatement(expression, statement),
-    SyntaxKind.WithStatement
-  );
+  return finishNode(state, context, start, DictionaryMap.WithStatement(expression, statement));
 }
 
 // ThrowStatement :
@@ -724,7 +692,7 @@ export function parseThrowStatement(state: ParserState, context: Context): Throw
   if (state.lineTerminatorBeforeNextToken) addEarlyDiagnostic(state, context, DiagnosticCode.NewlineAfterThrow);
   const expression = parseExpressions(state, context);
   expectSemicolon(state, context);
-  return finishNode(state, context, start, DictionaryMap.ThrowStatement(expression), SyntaxKind.ThrowStatement);
+  return finishNode(state, context, start, DictionaryMap.ThrowStatement(expression));
 }
 
 // TryStatement :
@@ -765,13 +733,7 @@ export function parseTryStatement(state: ParserState, context: Context, scope: a
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.NoCatchOrFinally, DiagnosticKind.Error);
   }
 
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.TryStatement(block, catchClause, finalizer),
-    SyntaxKind.TryStatement
-  );
+  return finishNode(state, context, start, DictionaryMap.TryStatement(block, catchClause, finalizer));
 }
 
 // Catch :
@@ -800,7 +762,7 @@ export function parseCatchClause(state: ParserState, context: Context, scope: Sc
   }
   const block = parseBlockStatement(state, context, catchScope, /* isCatchScope */ true, labels, null);
 
-  return finishNode(state, context, start, DictionaryMap.CatchClause(binding, block), SyntaxKind.CatchClause);
+  return finishNode(state, context, start, DictionaryMap.CatchClause(binding, block));
 }
 
 // IfStatement :
@@ -817,13 +779,7 @@ export function parseIfStatement(state: ParserState, context: Context, scope: Sc
     ? parseConsequentOrAlternative(state, context, scope, labels)
     : null;
 
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.IfStatement(expression, consequent, alternate),
-    SyntaxKind.IfStatement
-  );
+  return finishNode(state, context, start, DictionaryMap.IfStatement(expression, consequent, alternate));
 }
 
 export function parseConsequentOrAlternative(
@@ -856,13 +812,7 @@ export function parseWhileStatement(
   const expression = parseExpressions(state, context);
   consume(state, context | Context.AllowRegExp, Token.RightParen);
   const statement = parseStatement(state, context | Context.InIteration, scope, labels, ownLabels, false);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.WhileStatement(expression, statement),
-    SyntaxKind.WhileStatement
-  );
+  return finishNode(state, context, start, DictionaryMap.WhileStatement(expression, statement));
 }
 
 // `do` Statement `while` `(` Expression `)` `;`
@@ -881,13 +831,7 @@ export function parseDoWhileStatement(
   const expression = parseExpressions(state, context);
   consume(state, context | Context.AllowRegExp, Token.RightParen);
   consumeOpt(state, context | Context.AllowRegExp, Token.Semicolon);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.DoWhileStatement(expression, statement),
-    SyntaxKind.DoWhileStatement
-  );
+  return finishNode(state, context, start, DictionaryMap.DoWhileStatement(expression, statement));
 }
 
 // BlockStatement : Block
@@ -915,7 +859,7 @@ export function parseBlockStatement(
     consume(state, context | Context.AllowRegExp, Token.RightBrace);
   }
 
-  return finishNode(state, context, start, DictionaryMap.BlockStatement(leafs), SyntaxKind.BlockStatement);
+  return finishNode(state, context, start, DictionaryMap.BlockStatement(leafs));
 }
 
 // DebuggerStatement : `debugger` `;
@@ -923,7 +867,7 @@ export function parseDebuggerStatement(state: ParserState, context: Context): De
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   expectSemicolon(state, context);
-  return finishNode(state, context, start, DictionaryMap.DebuggerStatement(), SyntaxKind.DebuggerStatement);
+  return finishNode(state, context, start, DictionaryMap.DebuggerStatement());
 }
 
 // BreakStatement :
@@ -946,7 +890,7 @@ export function parseBreakStatement(state: ParserState, context: Context, labels
     addEarlyDiagnostic(state, context, DiagnosticCode.InvalidBreak);
   }
   expectSemicolon(state, context);
-  return finishNode(state, context, start, DictionaryMap.BreakStatement(label), SyntaxKind.BreakStatement);
+  return finishNode(state, context, start, DictionaryMap.BreakStatement(label));
 }
 
 // ContinueStatement :
@@ -966,7 +910,7 @@ export function parseContinueStatement(state: ParserState, context: Context, lab
     }
   }
   expectSemicolon(state, context);
-  return finishNode(state, context, start, DictionaryMap.ContinueStatement(label), SyntaxKind.ContinueStatement);
+  return finishNode(state, context, start, DictionaryMap.ContinueStatement(label));
 }
 
 // EmptyStatement ::
@@ -974,7 +918,7 @@ export function parseContinueStatement(state: ParserState, context: Context, lab
 export function parseEmptyStatement(state: ParserState, context: Context): EmptyStatement {
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
-  return finishNode(state, context, start, DictionaryMap.EmptyStatement(), SyntaxKind.EmptyStatement);
+  return finishNode(state, context, start, DictionaryMap.EmptyStatement());
 }
 
 // ReturnStatement :
@@ -986,7 +930,7 @@ export function parseReturnStatement(state: ParserState, context: Context): Retu
   nextToken(state, context | Context.AllowRegExp);
   const expression = canConsumeSemicolon(state) ? null : parseExpressions(state, context);
   expectSemicolon(state, context);
-  return finishNode(state, context, start, DictionaryMap.ReturnStatement(expression), SyntaxKind.ReturnStatement);
+  return finishNode(state, context, start, DictionaryMap.ReturnStatement(expression));
 }
 
 // `for` `(` [lookahead != `let` `[`] Expression? `;` Expression? `;` Expression? `)` Statement
@@ -1042,13 +986,7 @@ export function parseForStatement(
         } else {
           if (context & Context.Strict) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
 
-          initializer = finishNode(
-            state,
-            context,
-            innerStart,
-            DictionaryMap.IdentifierReference('let'),
-            SyntaxKind.Identifier
-          );
+          initializer = finishNode(state, context, innerStart, DictionaryMap.IdentifierReference('let'));
 
           state.assignable = true;
 
@@ -1105,8 +1043,7 @@ export function parseForStatement(
             expression,
             parseStatement(state, context | Context.InIteration, scope, labels, null, false),
             isAwait
-          ),
-          SyntaxKind.ForStatement
+          )
         );
       }
 
@@ -1123,8 +1060,7 @@ export function parseForStatement(
             initializer,
             expression,
             parseStatement(state, context | Context.InIteration, scope, labels, null, false)
-          ),
-          SyntaxKind.ForInStatement
+          )
         );
       }
 
@@ -1153,8 +1089,7 @@ export function parseForStatement(
           condition,
           isVariableDeclarationList,
           parseStatement(state, context | Context.InIteration, scope, labels, null, false)
-        ),
-        SyntaxKind.ForStatement
+        )
       );
     }
 
@@ -1200,8 +1135,7 @@ export function parseForStatement(
         expression,
         parseStatement(state, context | Context.InIteration, scope, labels, null, false),
         isAwait
-      ),
-      SyntaxKind.ForOfStatement
+      )
     );
   }
 
@@ -1218,8 +1152,7 @@ export function parseForStatement(
         initializer,
         expression,
         parseStatement(state, context | Context.InIteration, scope, labels, null, false)
-      ),
-      SyntaxKind.ForInStatement
+      )
     );
   }
 
@@ -1250,8 +1183,7 @@ export function parseForStatement(
       condition,
       /* variableDeclarationList */ false,
       parseStatement(state, context | Context.InIteration, scope, labels, null, false)
-    ),
-    SyntaxKind.ForStatement
+    )
   );
 }
 
@@ -1268,16 +1200,10 @@ export function parseForBinding(
 ): any {
   const declarations = parseForBindingList(state, context, scope, type, cb);
   if (isLexical) {
-    return finishNode(
-      state,
-      context,
-      start,
-      DictionaryMap.LexicalDeclaration(isConst, declarations),
-      SyntaxKind.LexicalDeclaration
-    );
+    return finishNode(state, context, start, DictionaryMap.LexicalDeclaration(isConst, declarations));
   }
   if ((state.token & Token.IsInOrOf) === 0) return declarations;
-  return finishNode(state, context, start, DictionaryMap.ForBinding(declarations), SyntaxKind.ForBinding);
+  return finishNode(state, context, start, DictionaryMap.ForBinding(declarations));
 }
 
 // BindingList : [MODIFIED]
@@ -1336,13 +1262,7 @@ export function parseForLexicalBinding(
     addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
   }
 
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.LexicalBinding(binding, initializer),
-    SyntaxKind.LexicalBinding
-  );
+  return finishNode(state, context, start, DictionaryMap.LexicalBinding(binding, initializer));
 }
 
 // VariableDeclaration :   [MODIFIED]
@@ -1382,13 +1302,7 @@ export function parseForVariableDeclaration(
     }
   }
 
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.VariableDeclaration(binding, initializer),
-    SyntaxKind.VariableDeclaration
-  );
+  return finishNode(state, context, start, DictionaryMap.VariableDeclaration(binding, initializer));
 }
 
 // ExpressionStatement :
@@ -1465,7 +1379,7 @@ export function parseLabelledStatement(
 
   ownLabels = parseStatementWithLabelSet(state.token, value, labels, ownLabels);
 
-  const label = finishNode(state, context, start, DictionaryMap.LabelIdentifier(value), SyntaxKind.Identifier);
+  const label = finishNode(state, context, start, DictionaryMap.LabelIdentifier(value));
 
   // ES#sec-labelled-function-declarations Labelled Function Declarations
   const labelledItem =
@@ -1480,13 +1394,7 @@ export function parseLabelledStatement(
         // StatementListItem, so generators can't be inside labels.
         parseFunctionDeclaration(state, context, scope, /* disallowGen */ true);
 
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.LabelledStatement(label, labelledItem),
-    SyntaxKind.LabelledStatement
-  );
+  return finishNode(state, context, start, DictionaryMap.LabelledStatement(label, labelledItem));
 }
 
 // ExpressionStatement :
@@ -1498,13 +1406,7 @@ export function parseExpressionStatement(
   start: number
 ): ExpressionStatement {
   expectSemicolon(state, context);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.ExpressionStatement(expression),
-    SyntaxKind.ExpressionStatement
-  );
+  return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expression));
 }
 
 // Expression :
@@ -1537,7 +1439,7 @@ export function parseCommaOperator(
   while (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
     expressions.push(parseExpression(state, context));
   }
-  return finishNode(state, context, start, DictionaryMap.CommaOperator(expressions), SyntaxKind.CommaOperator);
+  return finishNode(state, context, start, DictionaryMap.CommaOperator(expressions));
 }
 
 // IdentifierReference :
@@ -1549,7 +1451,7 @@ export function parseIdentifierReference(state: ParserState, context: Context): 
   const value = validateIdentifierReference(state, context, start);
   nextToken(state, context);
   state.assignable = true;
-  return finishNode(state, context, start, DictionaryMap.IdentifierReference(value), SyntaxKind.Identifier);
+  return finishNode(state, context, start, DictionaryMap.IdentifierReference(value));
 }
 
 // IdentifierName
@@ -1561,13 +1463,13 @@ export function parseIdentifierName(state: ParserState, context: Context): Ident
   if (context & Context.ErrorRecovery && (state.token & Constants.IdentifierOrKeyword) === 0) {
     addEarlyDiagnostic(state, context, DiagnosticCode.ExpectedAnIdentifier);
     nextToken(state, context);
-    return finishNode(state, context, state.endIndex, DictionaryMap.IdentifierName(''), SyntaxKind.Identifier);
+    return finishNode(state, context, state.endIndex, DictionaryMap.IdentifierName(''));
   }
   const start = state.startIndex;
   const value = state.tokenValue;
   nextToken(state, context);
   state.assignable = true;
-  return finishNode(state, context, start, DictionaryMap.IdentifierName(value), SyntaxKind.Identifier);
+  return finishNode(state, context, start, DictionaryMap.IdentifierName(value));
 }
 
 // BindingIdentifier :
@@ -1612,7 +1514,7 @@ export function parseBindingIdentifier(
   const start = state.startIndex;
   nextToken(state, context);
   state.assignable = true;
-  return finishNode(state, context, start, DictionaryMap.BindingIdentifier(value), SyntaxKind.BindingIdentifier);
+  return finishNode(state, context, start, DictionaryMap.BindingIdentifier(value));
 }
 
 // VariableStatement : `var` VariableDeclarationList `;`
@@ -1629,7 +1531,7 @@ export function parseVariableStatement(
   consume(state, context | Context.AllowRegExp, Token.VarKeyword);
   const declarations = parseVariableDeclarationList(state, context, scope, type);
   expectSemicolon(state, context);
-  return finishNode(state, context, start, DictionaryMap.VariableStatement(declarations), SyntaxKind.VariableStatement);
+  return finishNode(state, context, start, DictionaryMap.VariableStatement(declarations));
 }
 
 // VariableDeclaration :
@@ -1659,13 +1561,7 @@ export function parseVariableDeclaration(
     }
   }
 
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.VariableDeclaration(binding, initializer),
-    SyntaxKind.VariableDeclaration
-  );
+  return finishNode(state, context, start, DictionaryMap.VariableDeclaration(binding, initializer));
 }
 
 // VariableDeclarationList :
@@ -1740,8 +1636,7 @@ export function parseLexicalDeclaration(
     state,
     context,
     start,
-    DictionaryMap.LexicalDeclaration((type & BindingType.Const) === BindingType.Const, declarations),
-    SyntaxKind.LexicalDeclaration
+    DictionaryMap.LexicalDeclaration((type & BindingType.Const) === BindingType.Const, declarations)
   );
 }
 
@@ -1760,14 +1655,14 @@ export function parseLetAsIdentifierReference(
       context,
       {},
       false,
-      finishNode(state, context, start, DictionaryMap.BindingIdentifier('let'), SyntaxKind.BindingIdentifier),
+      finishNode(state, context, start, DictionaryMap.BindingIdentifier('let')),
       ArrowKind.NORMAL,
       start
     );
     return parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start);
   }
   state.assignable = true;
-  expr = finishNode(state, context, start, DictionaryMap.IdentifierReference('let'), SyntaxKind.Identifier);
+  expr = finishNode(state, context, start, DictionaryMap.IdentifierReference('let'));
   if (state.token === Token.Colon) {
     return parseLabelledStatement(state, context, void 0, Token.LetKeyword, 'let', labels, ownLabels, false, start);
   }
@@ -1782,7 +1677,7 @@ export function parseAsyncAsIdentifierReference(state: ParserState, context: Con
     addEarlyDiagnostic(state, context, DiagnosticCode.AsyncFunctionInSingleStatementContext);
     return parseFunctionDeclaration(state, context | Context.Await, scope, false);
   }
-  const expr = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'), SyntaxKind.Identifier);
+  const expr = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'));
   state.assignable = true;
   return parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start);
 }
@@ -1815,13 +1710,7 @@ export function parseLexicalBinding(
       addEarlyDiagnostic(state, context, DiagnosticCode.MissingDestructInit);
     }
   }
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.LexicalBinding(binding, initializer),
-    SyntaxKind.LexicalBinding
-  );
+  return finishNode(state, context, start, DictionaryMap.LexicalBinding(binding, initializer));
 }
 
 // BindingList :
@@ -1903,8 +1792,7 @@ export function parseAssignmentExpression(
       state,
       context,
       start,
-      DictionaryMap.AssignmentExpression(left, operator as AssignmentOperator | LogicalAssignmentOperator, right),
-      SyntaxKind.AssignmentExpression
+      DictionaryMap.AssignmentExpression(left, operator as AssignmentOperator | LogicalAssignmentOperator, right)
     );
   }
   return parseConditionalExpression(state, context, left, start);
@@ -1933,8 +1821,7 @@ export function parseConditionalExpression(
       shortCircuit,
       consequent as AssignmentExpression,
       alternate as AssignmentExpression
-    ),
-    SyntaxKind.ConditionalExpression
+    )
   );
 }
 
@@ -2006,8 +1893,7 @@ export function parseBinaryExpression(
           prec,
           state.startIndex
         )
-      ),
-      SyntaxKind.BinaryExpression
+      )
     );
 
     state.assignable = false;
@@ -2075,8 +1961,7 @@ export function parseMemberExpression(
           state,
           context,
           start,
-          DictionaryMap.MemberExpression(member, expression, /* computed */ true),
-          SyntaxKind.MemberExpression
+          DictionaryMap.MemberExpression(member, expression, /* computed */ true)
         );
         break;
       }
@@ -2093,8 +1978,7 @@ export function parseMemberExpression(
             member,
             parsePropertyOrPrivatePropertyName(state, context),
             /* computed */ false
-          ),
-          SyntaxKind.MemberExpression
+          )
         );
         break;
 
@@ -2107,8 +1991,7 @@ export function parseMemberExpression(
           DictionaryMap.CallExpression(
             member,
             parseArguments(state, (context | Context.DisallowIn) ^ Context.DisallowIn)
-          ),
-          SyntaxKind.CallExpression
+          )
         );
         state.assignable = false;
         break;
@@ -2119,8 +2002,7 @@ export function parseMemberExpression(
           state,
           context,
           start,
-          DictionaryMap.OptionalExpression(member, parseOptionalChain(state, context)),
-          SyntaxKind.OptionalExpression
+          DictionaryMap.OptionalExpression(member, parseOptionalChain(state, context))
         );
         state.assignable = false;
         break;
@@ -2131,13 +2013,7 @@ export function parseMemberExpression(
           state.token === Token.TemplateTail
             ? parseTemplateLiteral(state, context)
             : parseTemplateExpression(state, context | Context.TaggedTemplate);
-        member = finishNode(
-          state,
-          context,
-          start,
-          DictionaryMap.TaggedTemplate(member as any, literal as any),
-          SyntaxKind.TaggedTemplate
-        );
+        member = finishNode(state, context, start, DictionaryMap.TaggedTemplate(member as any, literal as any));
     }
   }
   return member;
@@ -2152,7 +2028,7 @@ export function parsePropertyOrPrivatePropertyName(
   if (state.token & Constants.IdentifierOrKeyword) {
     const { startIndex: start, tokenValue } = state;
     nextToken(state, context);
-    return finishNode(state, context, start, DictionaryMap.IdentifierName(tokenValue), SyntaxKind.Identifier);
+    return finishNode(state, context, start, DictionaryMap.IdentifierName(tokenValue));
   }
   // For cases like `(foo.)` where we will hit the ')' instead of discovering a property.
   // To avoid consuming the ')' - which will cause the parse of the parentheses to fail - we
@@ -2188,22 +2064,22 @@ export function parseOptionalChain(state: ParserState, context: Context): CallCh
 
   state.assignable = false;
 
-  chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain), SyntaxKind.OptionalChain);
+  chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain));
 
   while (true) {
     start = state.startIndex;
     if (state.token === Token.LeftParen) {
       chain = parseCallChain(state, context, chain, parseArguments(state, context), start);
-      chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain), SyntaxKind.OptionalChain);
+      chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain));
     } else if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket)) {
       state.assignable = false;
       chain = parseMemberChain(state, context, chain, parseExpression(state, context), true, start);
       consumeOpt(state, context, Token.RightBracket);
-      chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain), SyntaxKind.OptionalChain);
+      chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain));
       state.assignable = false;
     } else if (consumeOpt(state, context | Context.AllowRegExp, Token.Period)) {
       chain = parseMemberChain(state, context, chain, parseIdentifierName(state, context), false, start);
-      chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain), SyntaxKind.OptionalChain);
+      chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain));
       state.assignable = false;
     } else if (state.token === Token.TemplateCont || state.token === Token.TemplateTail) {
       addEarlyDiagnostic(state, context, DiagnosticCode.ChainNoTemplate);
@@ -2211,7 +2087,7 @@ export function parseOptionalChain(state: ParserState, context: Context): CallCh
     } else {
       if ((state.token & (Token.IsKeyword | Token.IsFutureReserved | Token.IsIdentifier)) === 0) return chain;
       chain = parseMemberChain(state, context, chain, parseIdentifierName(state, context), false, start);
-      chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain), SyntaxKind.OptionalChain);
+      chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain));
       state.assignable = false;
     }
   }
@@ -2226,7 +2102,7 @@ export function parseMemberChain(
   computed: boolean,
   start: number
 ): MemberChain {
-  return finishNode(state, context, start, DictionaryMap.MemberChain(chain, expr, computed), SyntaxKind.MemberChain);
+  return finishNode(state, context, start, DictionaryMap.MemberChain(chain, expr, computed));
 }
 
 // CallChain [MODIFIED]
@@ -2241,8 +2117,7 @@ export function parseCallChain(
     state,
     (context | Context.DisallowIn) ^ Context.DisallowIn,
     start,
-    DictionaryMap.CallChain(chain, expr),
-    SyntaxKind.MemberChain
+    DictionaryMap.CallChain(chain, expr)
   );
 }
 
@@ -2270,13 +2145,7 @@ export function parseArgumentList(state: ParserState, context: Context): Express
   if (state.token === Token.Ellipsis) {
     nextToken(state, context | Context.AllowRegExp);
     const start = state.startIndex;
-    return finishNode(
-      state,
-      context,
-      start,
-      DictionaryMap.AssignmentRestElement(parseExpression(state, context)),
-      SyntaxKind.AssignmentRestElement
-    );
+    return finishNode(state, context, start, DictionaryMap.AssignmentRestElement(parseExpression(state, context)));
   }
   return parseExpression(state, context);
 }
@@ -2309,13 +2178,7 @@ export function parseUnaryExpression(state: ParserState, context: Context): Unar
     }
   }
   state.assignable = false;
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.UnaryExpression(operator, operand),
-    SyntaxKind.UnaryExpression
-  );
+  return finishNode(state, context, start, DictionaryMap.UnaryExpression(operator, operand));
 }
 
 /**
@@ -2337,13 +2200,7 @@ export function parsePostfixUpdateExpression(
   const operator = KeywordDescTable[state.token & Token.Type] as UpdateOp;
   nextToken(state, context);
   state.assignable = false;
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.PostfixUpdateExpression(operator, operand),
-    SyntaxKind.PostfixUpdateExpression
-  );
+  return finishNode(state, context, start, DictionaryMap.PostfixUpdateExpression(operator, operand));
 }
 
 // UpdateExpression :
@@ -2359,13 +2216,7 @@ export function parsePrefixUpdateExpression(state: ParserState, context: Context
   const operand = parseLeftHandSideExpression(state, context, false);
   if (!state.assignable) addEarlyDiagnostic(state, context, DiagnosticCode.LHSPostOp);
   state.assignable = false;
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.PrefixUpdateExpression(operator, operand),
-    SyntaxKind.PrefixUpdateExpression
-  );
+  return finishNode(state, context, start, DictionaryMap.PrefixUpdateExpression(operator, operand));
 }
 
 export function parseAwaitExpression(state: ParserState, context: Context): AwaitExpression {
@@ -2373,13 +2224,7 @@ export function parseAwaitExpression(state: ParserState, context: Context): Awai
   const start = state.startIndex;
   nextToken(state, context | Context.AllowRegExp);
   state.assignable = false;
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.AwaitExpression(parseExpression(state, context)),
-    SyntaxKind.AwaitExpression
-  );
+  return finishNode(state, context, start, DictionaryMap.AwaitExpression(parseExpression(state, context)));
 }
 
 // YieldExpression :
@@ -2410,13 +2255,7 @@ export function parseYieldExpression(state: ParserState, context: Context): Yiel
   }
 
   state.assignable = false;
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.YieldExpression(delegate, expression),
-    SyntaxKind.YieldExpression
-  );
+  return finishNode(state, context, start, DictionaryMap.YieldExpression(delegate, expression));
 }
 
 /**
@@ -2469,7 +2308,7 @@ export function parsePrimaryExpression(
       return parseArrowAfterIdentifier(
         state,
         context,
-        finishNode(state, context, start, DictionaryMap.BindingIdentifier(value), SyntaxKind.BindingIdentifier),
+        finishNode(state, context, start, DictionaryMap.BindingIdentifier(value)),
         value,
         assignable,
         ArrowKind.NORMAL,
@@ -2477,7 +2316,7 @@ export function parsePrimaryExpression(
       );
     }
     state.assignable = true;
-    return finishNode(state, context, start, DictionaryMap.IdentifierReference(value), SyntaxKind.Identifier);
+    return finishNode(state, context, start, DictionaryMap.IdentifierReference(value));
   }
   switch (state.token) {
     /* Update expression */
@@ -2561,13 +2400,13 @@ export function parseImportMetaOrCall(state: ParserState, context: Context): Imp
   nextToken(state, context);
   if (context & Context.ImportMeta && consumeOpt(state, context, Token.Period)) {
     consume(state, context, Token.MetaIdentifier);
-    return finishNode(state, context, start, DictionaryMap.ImportMeta(), SyntaxKind.ImportMeta);
+    return finishNode(state, context, start, DictionaryMap.ImportMeta());
   }
 
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
   const expr = parseExpression(state, context);
   consume(state, context, Token.RightParen);
-  return finishNode(state, context, start, DictionaryMap.ImportCall(expr), SyntaxKind.ImportCall);
+  return finishNode(state, context, start, DictionaryMap.ImportCall(expr));
 }
 
 // NewExpression
@@ -2599,7 +2438,7 @@ export function parseNewExpression(state: ParserState, context: Context): NewExp
       addEarlyDiagnostic(state, context, DiagnosticCode.InvalidNewTarget, state.tokenValue);
     }
     nextToken(state, context);
-    return finishNode(state, context, start, DictionaryMap.Target(), SyntaxKind.NewTarget);
+    return finishNode(state, context, start, DictionaryMap.Target());
   }
   let expression = parsePrimaryExpression(state, context, true);
   if (state.token === Token.QuestionMarkPeriod)
@@ -2607,7 +2446,7 @@ export function parseNewExpression(state: ParserState, context: Context): NewExp
   expression = parseMemberExpression(state, context, expression, false, start);
   const args = state.token === Token.LeftParen ? parseArguments(state, context) : [];
   state.assignable = false;
-  return finishNode(state, context, start, DictionaryMap.NewExpression(expression, args), SyntaxKind.NewExpression);
+  return finishNode(state, context, start, DictionaryMap.NewExpression(expression, args));
 }
 
 // BooleanLiteral :
@@ -2618,7 +2457,7 @@ export function parseBooleanLiteral(state: ParserState, context: Context): Boole
   const value = KeywordDescTable[state.token & Token.Type] === 'true';
   state.assignable = false;
   nextToken(state, context);
-  return finishNode(state, context, start, DictionaryMap.BooleanLiteral(value), SyntaxKind.BooleanLiteral);
+  return finishNode(state, context, start, DictionaryMap.BooleanLiteral(value));
 }
 
 // NumericLiteral
@@ -2627,7 +2466,7 @@ export function parseNumericLiteral(state: ParserState, context: Context): Numer
   const value = state.tokenValue;
   state.assignable = false;
   nextToken(state, context);
-  return finishNode(state, context, start, DictionaryMap.NumericLiteral(value), SyntaxKind.NumericLiteral);
+  return finishNode(state, context, start, DictionaryMap.NumericLiteral(value));
 }
 
 // FloatingPointLiteral
@@ -2636,7 +2475,7 @@ export function parseFloatingPointLiteral(state: ParserState, context: Context):
   const value = state.tokenValue;
   state.assignable = false;
   nextToken(state, context);
-  return finishNode(state, context, start, DictionaryMap.FloatingPointLiteral(value), SyntaxKind.NumericLiteral);
+  return finishNode(state, context, start, DictionaryMap.FloatingPointLiteral(value));
 }
 
 export function parseBigIntLiteral(state: ParserState, context: Context): NumericLiteral {
@@ -2644,7 +2483,7 @@ export function parseBigIntLiteral(state: ParserState, context: Context): Numeri
   const value = state.tokenValue;
   state.assignable = false;
   nextToken(state, context);
-  return finishNode(state, context, start, DictionaryMap.BigInt(value), SyntaxKind.BigIntLiteral);
+  return finishNode(state, context, start, DictionaryMap.BigInt(value));
 }
 
 // TemplateLiteral
@@ -2654,7 +2493,7 @@ export function parseTemplateLiteral(state: ParserState, context: Context): Temp
   const value = state.tokenValue;
   const raw = state.tokenRaw;
   state.assignable = false;
-  return finishNode(state, context, start, DictionaryMap.TemplateLiteral(value, raw), SyntaxKind.TemplateLiteral);
+  return finishNode(state, context, start, DictionaryMap.TemplateLiteral(value, raw));
 }
 
 // StringLiteral
@@ -2666,9 +2505,9 @@ export function parseStringLiteral(state: ParserState, context: Context, isDirec
   if (isDirective && isValidDirective(state)) {
     // The `raw` property is the raw string source of the directive without quotes.
     const raw = state.source.slice(start + 1, state.endIndex - 1);
-    return finishNode(state, context, start, DictionaryMap.Directive(value, raw), SyntaxKind.Directive);
+    return finishNode(state, context, start, DictionaryMap.Directive(value, raw));
   }
-  return finishNode(state, context, start, DictionaryMap.StringLiteral(value), SyntaxKind.StringLiteral);
+  return finishNode(state, context, start, DictionaryMap.StringLiteral(value));
 }
 
 // NullLiteral
@@ -2676,7 +2515,7 @@ export function parseNullLiteral(state: ParserState, context: Context): NullLite
   const start = state.startIndex;
   nextToken(state, context);
   state.assignable = false;
-  return finishNode(state, context, start, DictionaryMap.NullExpression(), SyntaxKind.NullLiteral);
+  return finishNode(state, context, start, DictionaryMap.NullExpression());
 }
 
 // ThisExpression
@@ -2684,7 +2523,7 @@ export function parseThisExpression(state: ParserState, context: Context): ThisE
   const start = state.startIndex;
   nextToken(state, context);
   state.assignable = false;
-  return finishNode(state, context, start, DictionaryMap.ThisExpression(), SyntaxKind.ThisExpression);
+  return finishNode(state, context, start, DictionaryMap.ThisExpression());
 }
 
 // RegularExpressionLiteral :
@@ -2695,13 +2534,7 @@ export function parseRegularExpressionLiteral(state: ParserState, context: Conte
   const pattern = state.regExpPattern;
   nextToken(state, context);
   state.assignable = false;
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.RegularExpressionLiteral(pattern, flags),
-    SyntaxKind.RegularExpressionLiteral
-  );
+  return finishNode(state, context, start, DictionaryMap.RegularExpressionLiteral(pattern, flags));
 }
 
 export function parseTemplateExpression(state: ParserState, context: Context): TemplateExpression {
@@ -2712,7 +2545,7 @@ export function parseTemplateExpression(state: ParserState, context: Context): T
   } while ((state.token = scanTemplateTail(state, context)) === Token.TemplateCont);
   elements.push(parseTemplateElement(state, context));
   consume(state, context | Context.AllowRegExp, Token.TemplateTail);
-  return finishNode(state, context, start, DictionaryMap.TemplateExpression(elements), SyntaxKind.TemplateExpression);
+  return finishNode(state, context, start, DictionaryMap.TemplateExpression(elements));
 }
 
 export function parseTemplateElementContinuation(state: ParserState, context: Context): TemplateElement {
@@ -2721,20 +2554,14 @@ export function parseTemplateElementContinuation(state: ParserState, context: Co
   const raw = state.tokenRaw;
   consume(state, context | Context.AllowRegExp, Token.TemplateCont);
   const expression = parseExpressions(state, context);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.TemplateElement(raw, value, expression),
-    SyntaxKind.TemplateElement
-  );
+  return finishNode(state, context, start, DictionaryMap.TemplateElement(raw, value, expression));
 }
 
 export function parseTemplateElement(state: ParserState, context: Context): TemplateElement {
   const start = state.startIndex;
   const value = state.tokenValue;
   const raw = state.tokenRaw;
-  return finishNode(state, context, start, DictionaryMap.TemplateElement(raw, value, null), SyntaxKind.TemplateElement);
+  return finishNode(state, context, start, DictionaryMap.TemplateElement(raw, value, null));
 }
 
 // ObjectBindingPattern :
@@ -2772,13 +2599,7 @@ export function parseObjectBindingPattern(
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.Expected, DiagnosticKind.Error, ',');
   }
   consume(state, context, Token.RightBrace);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.ObjectBindingPattern(properties),
-    SyntaxKind.ObjectBindingPattern
-  );
+  return finishNode(state, context, start, DictionaryMap.ObjectBindingPattern(properties));
 }
 
 // BindingRestProperty :
@@ -2794,20 +2615,14 @@ export function parseBindingRestProperty(state: ParserState, context: Context, t
   let argument!: BindingIdentifier;
   if (state.token & Constants.IdentifierOrKeyword) {
     argument = parseBindingIdentifier(state, context, void 0, type);
-    return finishNode(
-      state,
-      context,
-      start,
-      DictionaryMap.BindingRestProperty(argument),
-      SyntaxKind.BindingRestProperty
-    );
+    return finishNode(state, context, start, DictionaryMap.BindingRestProperty(argument));
   } else {
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
-    argument = finishNode(state, context, start, DictionaryMap.BindingIdentifier(''), SyntaxKind.BindingIdentifier);
+    argument = finishNode(state, context, start, DictionaryMap.BindingIdentifier(''));
   }
 
   if (state.token === Token.Assign) addEarlyDiagnostic(state, context, DiagnosticCode.RestInit);
-  return finishNode(state, context, start, DictionaryMap.BindingRestProperty(argument), SyntaxKind.BindingRestProperty);
+  return finishNode(state, context, start, DictionaryMap.BindingRestProperty(argument));
 }
 
 // BindingProperty :
@@ -2829,35 +2644,23 @@ export function parseBindingProperty(
     const token = state.token;
     nextToken(state, context);
     if (consumeOpt(state, context, Token.Colon)) {
-      left = finishNode(state, context, start, DictionaryMap.IdentifierName(tokenValue), SyntaxKind.Identifier);
+      left = finishNode(state, context, start, DictionaryMap.IdentifierName(tokenValue));
       const right = parseBindingElement(state, context, scope, type);
-      return finishNode(
-        state,
-        context,
-        start,
-        DictionaryMap.PropertyName(left, right as BindingElement),
-        SyntaxKind.PropertyName
-      );
+      return finishNode(state, context, start, DictionaryMap.PropertyName(left, right as BindingElement));
     }
     validateIdentifier(state, context, token, start);
     addVarOrBlock(state, context, scope, tokenValue, type);
-    left = finishNode(state, context, start, DictionaryMap.BindingIdentifier(tokenValue), SyntaxKind.BindingIdentifier);
+    left = finishNode(state, context, start, DictionaryMap.BindingIdentifier(tokenValue));
     // In EScaya AST there are no 'SingleNameBinding' AST node. Instead we return the BindingIdentifier *as is* if
     // no initializer to be found.
     if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) return left;
     const init = parseExpression(state, context);
-    return finishNode(state, context, start, DictionaryMap.BindingElement(left, init), SyntaxKind.BindingElement);
+    return finishNode(state, context, start, DictionaryMap.BindingElement(left, init));
   }
   left = parsePropertyName(state, context);
   consumeOpt(state, context, Token.Colon);
   const right = parseBindingElement(state, context, scope, type);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.PropertyName(left, right as BindingElement),
-    SyntaxKind.PropertyName
-  );
+  return finishNode(state, context, start, DictionaryMap.PropertyName(left, right as BindingElement));
 }
 
 // BindingElement :
@@ -2879,7 +2682,7 @@ export function parseBindingElement(
       : parseBindingIdentifier(state, context, scope, type);
   if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) return left;
   const right = parseExpression(state, context);
-  return finishNode(state, context, start, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement);
+  return finishNode(state, context, start, DictionaryMap.BindingElement(left, right));
 }
 
 // BindingPattern:
@@ -2930,7 +2733,7 @@ export function parseArrayBindingPattern(
   const check = context & Context.ErrorRecovery ? Constants.ArrayPattern : Constants.ArrayListN;
   while (state.token & check) {
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
-      list.push(finishNode(state, context, start, DictionaryMap.Elison(), SyntaxKind.Elison));
+      list.push(finishNode(state, context, start, DictionaryMap.Elison()));
     } else {
       if (state.token === Token.Ellipsis) {
         list.push(parseBindingRestElement(state, context, scope, type));
@@ -2950,7 +2753,7 @@ export function parseArrayBindingPattern(
     }
   }
   consume(state, context, Token.RightBracket);
-  return finishNode(state, context, start, DictionaryMap.ArrayBindingPattern(list), SyntaxKind.ArrayBindingPattern);
+  return finishNode(state, context, start, DictionaryMap.ArrayBindingPattern(list));
 }
 
 // BindingRestElement :
@@ -2970,11 +2773,11 @@ export function parseBindingRestElement(
   } else {
     //declareUnboundVariable(state, context, name);
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedBindingIdent, DiagnosticKind.Error);
-    argument = finishNode(state, context, start, DictionaryMap.BindingIdentifier(''), SyntaxKind.BindingIdentifier);
+    argument = finishNode(state, context, start, DictionaryMap.BindingIdentifier(''));
   }
   if (state.token === Token.Assign) addEarlyDiagnostic(state, context, DiagnosticCode.RestInit);
   state.destructible = Destructible.None;
-  return finishNode(state, context, start, DictionaryMap.BindingRestElement(argument), SyntaxKind.BindingRestElement);
+  return finishNode(state, context, start, DictionaryMap.BindingRestElement(argument));
 }
 
 // ArrayLiteral :
@@ -2998,7 +2801,7 @@ export function parseArrayLiteral(
   const check = context & Context.ErrorRecovery ? Constants.ArrayListR : Constants.ArrayListN;
   while (state.token & check) {
     if (consumeOpt(state, context | Context.AllowRegExp, Token.Comma)) {
-      elements.push(finishNode(state, context, state.startIndex, DictionaryMap.Elison(), SyntaxKind.Elison));
+      elements.push(finishNode(state, context, state.startIndex, DictionaryMap.Elison()));
     } else {
       elements.push(parseElementList(state, context, scope, type));
       destructible |= state.destructible;
@@ -3010,7 +2813,7 @@ export function parseArrayLiteral(
 
   consume(state, context, Token.RightBracket);
 
-  const node = finishNode(state, context, start, DictionaryMap.ArrayLiteral(elements), SyntaxKind.ArrayLiteral);
+  const node = finishNode(state, context, start, DictionaryMap.ArrayLiteral(elements));
 
   if (state.token & Token.IsAssignOp) {
     return parseAssignmentElement(state, context, destructible, node, isRest, start);
@@ -3154,7 +2957,7 @@ export function parseSpreadElement(
   start: number
 ): SpreadElement {
   const argument = parseSpreadOrPropertyArgument(state, context, Token.RightBracket, false, scope, type, start);
-  return finishNode(state, context, start, DictionaryMap.SpreadElement(argument), SyntaxKind.SpreadElement);
+  return finishNode(state, context, start, DictionaryMap.SpreadElement(argument));
 }
 
 // PropertyDefinition :   [MODIFIED]
@@ -3167,7 +2970,7 @@ export function parseSpreadProperty(
   start: number
 ): SpreadProperty {
   const argument = parseSpreadOrPropertyArgument(state, context, Token.RightBrace, true, scope, type, start);
-  return finishNode(state, context, start, DictionaryMap.SpreadProperty(argument), SyntaxKind.SpreadProperty);
+  return finishNode(state, context, start, DictionaryMap.SpreadProperty(argument));
 }
 
 // AssignmentRestElement :
@@ -3180,13 +2983,7 @@ export function parseAssignmentRestElement(
   start: number
 ): AssignmentRestElement {
   const argument = parseSpreadOrPropertyArgument(state, context, Token.RightParen, false, scope, type, start);
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.AssignmentRestElement(argument),
-    SyntaxKind.AssignmentRestElement
-  );
+  return finishNode(state, context, start, DictionaryMap.AssignmentRestElement(argument));
 }
 
 // SpreadElement :
@@ -3325,7 +3122,7 @@ export function parseObjectLiteral(
 
   consume(state, context, Token.RightBrace);
 
-  const node = finishNode(state, context, start, DictionaryMap.ObjectLiteral(properties), SyntaxKind.ObjectLiteral);
+  const node = finishNode(state, context, start, DictionaryMap.ObjectLiteral(properties));
 
   if (state.token & Token.IsAssignOp) {
     return parseAssignmentElement(state, context, destructible, node, isRest, start);
@@ -3372,8 +3169,7 @@ export function parseAssignmentElement(
     state,
     context,
     start,
-    DictionaryMap.AssignmentElement(left as AssignmentPattern | IdentifierReference, right),
-    SyntaxKind.AssignmentElement
+    DictionaryMap.AssignmentElement(left as AssignmentPattern | IdentifierReference, right)
   );
 }
 
@@ -3413,7 +3209,7 @@ export function parsePropertyDefinition(
         validateIdentifier(state, context, token, startIndex);
       }
 
-      key = finishNode(state, context, startIndex, createIdentifierReference(tokenValue), SyntaxKind.Identifier);
+      key = finishNode(state, context, startIndex, createIdentifierReference(tokenValue));
 
       addVarOrBlock(state, context, scope, tokenValue, type);
 
@@ -3426,13 +3222,7 @@ export function parsePropertyDefinition(
       if (consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) {
         const init = parseExpression(state, context);
         state.destructible = Destructible.MustDestruct;
-        return finishNode(
-          state,
-          context,
-          startIndex,
-          DictionaryMap.CoverInitializedName(key, init),
-          SyntaxKind.CoverInitializedName
-        );
+        return finishNode(state, context, startIndex, DictionaryMap.CoverInitializedName(key, init));
       }
 
       state.destructible = destructible;
@@ -3457,10 +3247,10 @@ export function parsePropertyDefinition(
       }
 
       // E.g., '({x})' and '({x, y})'
-      return finishNode(state, context, startIndex, createIdentifierReference(tokenValue), SyntaxKind.Identifier);
+      return finishNode(state, context, startIndex, createIdentifierReference(tokenValue));
     }
 
-    key = finishNode(state, context, startIndex, createIdentifierName(tokenValue), SyntaxKind.Identifier);
+    key = finishNode(state, context, startIndex, createIdentifierName(tokenValue));
   } else {
     if (optionalBit(state, context | Context.AllowRegExp, Token.Multiply)) kind |= PropertyKind.Generator;
 
@@ -3549,13 +3339,7 @@ export function parsePropertyDefinition(
     }
 
     state.destructible = destructible;
-    return finishNode(
-      state,
-      context,
-      startIndex,
-      DictionaryMap.PropertyName(key, value as AssignmentExpression),
-      SyntaxKind.PropertyName
-    );
+    return finishNode(state, context, startIndex, DictionaryMap.PropertyName(key, value as AssignmentExpression));
   }
 
   addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ColonExpected, DiagnosticKind.Error);
@@ -3577,13 +3361,7 @@ export function parsePropertyName(state: ParserState, context: Context): any {
   if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket)) {
     const value = parseExpression(state, (context | Context.DisallowIn) ^ Context.DisallowIn);
     consume(state, context, Token.RightBracket);
-    return finishNode(
-      state,
-      context,
-      start,
-      DictionaryMap.ComputedPropertyName(value),
-      SyntaxKind.ComputedPropertyName
-    );
+    return finishNode(state, context, start, DictionaryMap.ComputedPropertyName(value));
   }
   if (state.token === Token.StringLiteral) {
     return parseStringLiteral(state, context, /* isDirective */ false);
@@ -3637,9 +3415,7 @@ export function parseFormalParameters(state: ParserState, context: Context, scop
         } else {
           const right = parseExpression(state, context);
           isSimpleParameterList = true;
-          params.push(
-            finishNode(state, context, innerStart, DictionaryMap.BindingElement(left, right), SyntaxKind.BindingElement)
-          );
+          params.push(finishNode(state, context, innerStart, DictionaryMap.BindingElement(left, right)));
         }
       }
 
@@ -3729,7 +3505,7 @@ export function parseFunctionBody(
 
     state.flags = (state.flags | Flags.SimpleParameterList) ^ Flags.SimpleParameterList;
   }
-  return finishNode(state, context, start, DictionaryMap.FunctionBody(directives, leafs), SyntaxKind.FunctionBody);
+  return finishNode(state, context, start, DictionaryMap.FunctionBody(directives, leafs));
 }
 
 // MethodDefinition :
@@ -3802,8 +3578,7 @@ export function parseMethodDefinition(
       uniqueFormalParameters,
       key,
       parseFunctionBody(state, context, scope, void 0, /* isStatement */ false)
-    ),
-    SyntaxKind.MethodDefinition
+    )
   );
 }
 
@@ -3841,7 +3616,6 @@ export function parseFunctionExpression(
   let scope = createScope();
   let name: BindingIdentifier | null = null;
   let firstRestricted!: Token;
-
   if (
     state.token &
     (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword)
@@ -3873,8 +3647,7 @@ export function parseFunctionExpression(
       (context & Context.Await) !== 0,
       params,
       contents
-    ),
-    SyntaxKind.FunctionExpression
+    )
   );
 }
 
@@ -3899,13 +3672,7 @@ export function parseAsyncArrowExpression(
       );
     }
   }
-  const expr: any = finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.IdentifierReference('async'),
-    SyntaxKind.Identifier
-  );
+  const expr: any = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'));
 
   // `async ()`, `async () => ...`
   if (state.token === Token.LeftParen) {
@@ -3919,7 +3686,7 @@ export function parseAsyncArrowExpression(
       context,
       {},
       false,
-      finishNode(state, context, start, DictionaryMap.BindingIdentifier('async'), SyntaxKind.BindingIdentifier),
+      finishNode(state, context, start, DictionaryMap.BindingIdentifier('async')),
       ArrowKind.NORMAL,
       start
     );
@@ -4027,8 +3794,7 @@ export function parseFunctionDeclaration(
       (context & Context.Await) !== 0,
       params,
       contents
-    ),
-    SyntaxKind.FunctionDeclaration
+    )
   );
 }
 
@@ -4052,7 +3818,7 @@ export function parseAsyncArrowDeclaration(state: ParserState, context: Context,
       return parseExpressionStatement(state, context, expr, start);
     }
   }
-  let expr: any = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'), SyntaxKind.Identifier);
+  let expr: any = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'));
 
   // `async: foo`
   if (state.token === Token.Colon) {
@@ -4063,7 +3829,7 @@ export function parseAsyncArrowDeclaration(state: ParserState, context: Context,
     expr = parseArrowAfterIdentifier(
       state,
       context,
-      finishNode(state, context, start, DictionaryMap.BindingIdentifier('async'), SyntaxKind.BindingIdentifier),
+      finishNode(state, context, start, DictionaryMap.BindingIdentifier('async')),
       'async',
       true,
       ArrowKind.NORMAL,
@@ -4120,7 +3886,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
       return parseArrowFunction(state, context, scope, true, [], ArrowKind.ASYNC, start);
     }
 
-    return finishNode(state, context, start, DictionaryMap.CallExpression(expr, []), SyntaxKind.CallExpression);
+    return finishNode(state, context, start, DictionaryMap.CallExpression(expr, []));
   }
 
   const check = context & Context.ErrorRecovery ? Constants.ParenthesizedR : Constants.ParenthesizedN;
@@ -4192,7 +3958,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
 
       state.assignable = false;
 
-      return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params), SyntaxKind.CallExpression);
+      return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params));
     }
     params.push(expression);
 
@@ -4204,7 +3970,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
 
   if (context & Context.ErrorRecovery && destructible & Destructible.NotDestructible) {
     state.assignable = false;
-    return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params), SyntaxKind.CallExpression);
+    return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params));
   }
 
   if (state.token === Token.Arrow) {
@@ -4217,7 +3983,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
   }
 
   state.assignable = false;
-  return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params), SyntaxKind.CallExpression);
+  return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params));
 }
 
 // ArrowFunction :
@@ -4252,8 +4018,7 @@ export function parseArrowFunction(
       parseConciseOrFunctionBody(state, context, scope),
       arrowParameters,
       isAsync === 1
-    ),
-    SyntaxKind.ArrowFunction
+    )
   );
 }
 
@@ -4433,13 +4198,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
       state.destructible = destructible;
 
-      return finishNode(
-        state,
-        context,
-        start,
-        DictionaryMap.ParenthesizedExpression(expression),
-        SyntaxKind.ParenthesizedExpression
-      );
+      return finishNode(state, context, start, DictionaryMap.ParenthesizedExpression(expression));
     }
 
     // 12.16 Comma Operator
@@ -4517,25 +4276,13 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
             expressions.push(parseExpression(state, context));
           }
 
-          expression = finishNode(
-            state,
-            context,
-            start,
-            DictionaryMap.CommaOperator(expressions),
-            SyntaxKind.CommaOperator
-          );
+          expression = finishNode(state, context, start, DictionaryMap.CommaOperator(expressions));
 
           consume(state, context, Token.RightParen);
 
           state.destructible = destructible;
 
-          return finishNode(
-            state,
-            context,
-            start,
-            DictionaryMap.ParenthesizedExpression(expression),
-            SyntaxKind.ParenthesizedExpression
-          );
+          return finishNode(state, context, start, DictionaryMap.ParenthesizedExpression(expression));
         }
 
         expressions.push(expression);
@@ -4546,13 +4293,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
       state.assignable = false;
 
-      expression = finishNode(
-        state,
-        context,
-        start,
-        DictionaryMap.CommaOperator(expressions),
-        SyntaxKind.CommaOperator
-      );
+      expression = finishNode(state, context, start, DictionaryMap.CommaOperator(expressions));
     }
 
     consume(state, context, Token.RightParen);
@@ -4561,13 +4302,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
     if (context & Context.ErrorRecovery && destructible & Destructible.NotDestructible) {
       state.destructible = destructible;
 
-      return finishNode(
-        state,
-        context,
-        start,
-        DictionaryMap.ParenthesizedExpression(expression),
-        SyntaxKind.ParenthesizedExpression
-      );
+      return finishNode(state, context, start, DictionaryMap.ParenthesizedExpression(expression));
     }
     // ArrowParameters :
     //   CoverParenthesizedExpressionAndArrowParameterList
@@ -4595,13 +4330,7 @@ export function parseCoverParenthesizedExpressionAndArrowParameterList(
 
   state.destructible = destructible;
 
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.ParenthesizedExpression(expression),
-    SyntaxKind.ParenthesizedExpression
-  );
+  return finishNode(state, context, start, DictionaryMap.ParenthesizedExpression(expression));
 }
 
 export function parseArrowAfterParen(
@@ -4678,8 +4407,7 @@ export function parseClassDeclaration(
     state,
     context,
     start,
-    DictionaryMap.ClassDeclaration(name, heritage, parseClassElementList(state, inheritedContext, context)),
-    SyntaxKind.ClassDeclaration
+    DictionaryMap.ClassDeclaration(name, heritage, parseClassElementList(state, inheritedContext, context))
   );
 }
 
@@ -4723,8 +4451,7 @@ export function parseClassExpression(state: ParserState, context: Context): Clas
     state,
     context,
     start,
-    DictionaryMap.ClassExpression(name, heritage, parseClassElementList(state, inheritedContext, context)),
-    SyntaxKind.ClassExpression
+    DictionaryMap.ClassExpression(name, heritage, parseClassElementList(state, inheritedContext, context))
   );
 }
 
@@ -4760,7 +4487,7 @@ export function parseClassElement(
 
   if (state.token === Token.Semicolon) {
     nextToken(state, context);
-    return finishNode(state, context, start, DictionaryMap.Semicolon(), SyntaxKind.Semicolon);
+    return finishNode(state, context, start, DictionaryMap.Semicolon());
   }
 
   if (state.token & Constants.IdentifierOrKeyword) {
@@ -4770,7 +4497,7 @@ export function parseClassElement(
     if (!isStatic && token === Token.StaticKeyword) {
       if (state.token === Token.LeftParen) {
         const method = parseMethodDefinition(state, context, key, kind);
-        return finishNode(state, context, start, DictionaryMap.ClassElement(isStatic, method), SyntaxKind.ClassElement);
+        return finishNode(state, context, start, DictionaryMap.ClassElement(isStatic, method));
       }
       return parseClassElement(state, context, inheritedContext, true, kind);
     }
@@ -4795,13 +4522,7 @@ export function parseClassElement(
         consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket);
         const expr = parseExpression(state, (inheritedContext | Context.DisallowIn) ^ Context.DisallowIn);
         consume(state, context, Token.RightBracket);
-        key = finishNode(
-          state,
-          context,
-          start,
-          DictionaryMap.ComputedPropertyName(expr),
-          SyntaxKind.ComputedPropertyName
-        );
+        key = finishNode(state, context, start, DictionaryMap.ComputedPropertyName(expr));
       } else {
         if (isStatic) {
           if (state.tokenValue === 'prototype') {
@@ -4822,7 +4543,7 @@ export function parseClassElement(
 
     const method = parseMethodDefinition(state, context, key, kind);
 
-    return finishNode(state, context, start, DictionaryMap.ClassElement(isStatic, method), SyntaxKind.ClassElement);
+    return finishNode(state, context, start, DictionaryMap.ClassElement(isStatic, method));
   }
 
   if (consumeOpt(state, context, Token.Multiply)) kind |= PropertyKind.Generator;
@@ -4834,7 +4555,7 @@ export function parseClassElement(
   }
   const method = parseMethodDefinition(state, context, parsePropertyName(state, inheritedContext), kind);
 
-  return finishNode(state, context, start, DictionaryMap.ClassElement(isStatic, method), SyntaxKind.ClassElement);
+  return finishNode(state, context, start, DictionaryMap.ClassElement(isStatic, method));
 }
 
 // SuperCall :
@@ -4850,7 +4571,7 @@ export function parseSuperCallOrProperty(state: ParserState, context: Context): 
   if (state.token === Token.LeftParen) {
     if ((context & Context.SuperCall) === 0) addEarlyDiagnostic(state, context, DiagnosticCode.NoSuperCall);
     const args = parseArguments(state, context);
-    return finishNode(state, context, start, DictionaryMap.SuperCall(args), SyntaxKind.SuperCall);
+    return finishNode(state, context, start, DictionaryMap.SuperCall(args));
   }
 
   if ((context & Context.SuperProperty) === 0) addEarlyDiagnostic(state, context, DiagnosticCode.NoSuperProperty);
@@ -4880,7 +4601,7 @@ export function parseSuperCallOrProperty(state: ParserState, context: Context): 
 
   state.assignable = true;
 
-  return finishNode(state, context, start, DictionaryMap.SuperProperty(expr, computed), SyntaxKind.SuperProperty);
+  return finishNode(state, context, start, DictionaryMap.SuperProperty(expr, computed));
 }
 
 // AssignmentExpression :
@@ -4944,21 +4665,21 @@ export function parseExpressionOrHigher(
 export function parseImportCall(state: ParserState, context: Context, start: number): ExpressionStatement {
   let expr = parseExpression(state, context);
   consume(state, context, Token.RightParen);
-  expr = finishNode(state, context, start, DictionaryMap.ImportCall(expr), SyntaxKind.ImportCall);
+  expr = finishNode(state, context, start, DictionaryMap.ImportCall(expr));
   expr = parseExpressionOrHigher(state, context, expr, start);
   expectSemicolon(state, context);
-  return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ExpressionStatement);
+  return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr));
 }
 
 // ImportMeta:
 //   import.meta
 export function parseImportMeta(state: ParserState, context: Context, start: number): ExpressionStatement {
   consume(state, context, Token.MetaIdentifier);
-  let expr = finishNode(state, context, start, DictionaryMap.ImportMeta(), SyntaxKind.ImportMeta);
+  let expr = finishNode(state, context, start, DictionaryMap.ImportMeta());
   state.assignable = false;
   expr = parseExpressionOrHigher(state, context, expr, start);
   expectSemicolon(state, context);
-  return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr), SyntaxKind.ExpressionStatement);
+  return finishNode(state, context, start, DictionaryMap.ExpressionStatement(expr));
 }
 
 // ModulemoduleExportName : StringLiteral
@@ -5070,8 +4791,7 @@ export function parseExportDeclaration(
       cst,
       exportedNames,
       boundNames
-    ),
-    SyntaxKind.ExportDeclaration
+    )
   );
 }
 
@@ -5091,13 +4811,7 @@ export function parseExportFromClause(state: ParserState, context: Context, star
       namedBinding = parseIdentifierName(state, context);
     }
   }
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.ExportFromClause(namedBinding, moduleExportName),
-    SyntaxKind.ExportSpecifier
-  );
+  return finishNode(state, context, start, DictionaryMap.ExportFromClause(namedBinding, moduleExportName));
 }
 
 // NamedExports :
@@ -5149,13 +4863,7 @@ export function parseExportSpecifier(
   exportedNames.push(value as string);
   exportedBindings.push(tokenValue);
 
-  return finishNode(
-    state,
-    context,
-    start,
-    DictionaryMap.ExportSpecifier(name, moduleExportName, exportedName),
-    SyntaxKind.ExportSpecifier
-  );
+  return finishNode(state, context, start, DictionaryMap.ExportSpecifier(name, moduleExportName, exportedName));
 }
 
 // ExportDefault :
@@ -5184,5 +4892,5 @@ export function parseExportDefault(state: ParserState, context: Context, start: 
   // See: https://www.ecma-international.org/ecma-262/9.0/index.html#sec-exports-static-semantics-exportednames
   declareUnboundVariable(state, context, 'default');
 
-  return finishNode(state, context, start, DictionaryMap.ExportDefault(declaration), SyntaxKind.ExportDefault);
+  return finishNode(state, context, start, DictionaryMap.ExportDefault(declaration));
 }

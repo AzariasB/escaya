@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - Expressions - Object', () => {
   it('a = { a: x, y } = { a: 3 };', () => {
     t.deepEqual(recovery('a = { a: x, y } = { a: 3 };', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -17,7 +17,7 @@ describe('Recovery - Expressions - Object', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             operator: '=',
@@ -33,7 +33,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'a',
                       start: 5,
                       end: 7,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -41,12 +41,12 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'x',
                       start: 8,
                       end: 10,
-                      kind: 13,
+
                       flags: 0
                     },
                     start: 5,
                     end: 10,
-                    kind: 227,
+
                     flags: 0
                   },
                   {
@@ -54,13 +54,13 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'y',
                     start: 11,
                     end: 13,
-                    kind: 13,
+
                     flags: 0
                   }
                 ],
                 start: 3,
                 end: 15,
-                kind: 179,
+
                 flags: 0
               },
               right: {
@@ -73,7 +73,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'a',
                       start: 19,
                       end: 21,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -82,33 +82,33 @@ describe('Recovery - Expressions - Object', () => {
                       value: 3,
                       start: 22,
                       end: 24,
-                      kind: 10,
+
                       flags: 0
                     },
                     start: 19,
                     end: 24,
-                    kind: 227,
+
                     flags: 0
                   }
                 ],
                 start: 17,
                 end: 26,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 26,
-              kind: 213,
+
               flags: 0
             },
             start: 0,
             end: 26,
-            kind: 152,
+
             flags: 0
           },
           start: 0,
           end: 27,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -129,7 +129,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('y = { w, x } = { x: 4 };', () => {
     t.deepEqual(recovery('y = { w, x } = { x: 4 };', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -142,7 +142,7 @@ describe('Recovery - Expressions - Object', () => {
               name: 'y',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             operator: '=',
@@ -156,7 +156,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'w',
                     start: 5,
                     end: 7,
-                    kind: 13,
+
                     flags: 0
                   },
                   {
@@ -164,13 +164,12 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 8,
                     end: 10,
-                    kind: 13,
                     flags: 0
                   }
                 ],
                 start: 3,
                 end: 12,
-                kind: 179,
+
                 flags: 0
               },
               right: {
@@ -183,42 +182,40 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'x',
                       start: 16,
                       end: 18,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
                       type: 'NumericLiteral',
-
                       value: 4,
                       start: 19,
                       end: 21,
-                      kind: 10,
                       flags: 0
                     },
                     start: 16,
                     end: 21,
-                    kind: 227,
+
                     flags: 0
                   }
                 ],
                 start: 14,
                 end: 23,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 23,
-              kind: 213,
+
               flags: 0
             },
             start: 0,
             end: 23,
-            kind: 152,
+
             flags: 0
           },
           start: 0,
           end: 24,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -239,7 +236,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({a: [b]} = 1 / (d = ((a)) = a))', () => {
     t.deepEqual(recovery('({a: [b]} = 1 / (d = ((a)) = a))', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -259,7 +256,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'a',
                       start: 2,
                       end: 3,
-                      kind: 13,
+
                       flags: 0
                     },
                     value: {
@@ -270,24 +267,24 @@ describe('Recovery - Expressions - Object', () => {
                           name: 'b',
                           start: 6,
                           end: 7,
-                          kind: 13,
+
                           flags: 0
                         }
                       ],
                       start: 4,
                       end: 8,
-                      kind: 178,
+
                       flags: 0
                     },
                     start: 2,
                     end: 8,
-                    kind: 227,
+
                     flags: 0
                   }
                 ],
                 start: 1,
                 end: 9,
-                kind: 179,
+
                 flags: 0
               },
               right: {
@@ -298,7 +295,7 @@ describe('Recovery - Expressions - Object', () => {
                   value: 1,
                   start: 11,
                   end: 13,
-                  kind: 10,
+
                   flags: 0
                 },
                 operator: '/',
@@ -311,7 +308,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'd',
                       start: 17,
                       end: 18,
-                      kind: 13,
+
                       flags: 0
                     },
                     operator: '=',
@@ -326,17 +323,17 @@ describe('Recovery - Expressions - Object', () => {
                             name: 'a',
                             start: 23,
                             end: 24,
-                            kind: 13,
+
                             flags: 0
                           },
                           start: 22,
                           end: 25,
-                          kind: 189,
+
                           flags: 0
                         },
                         start: 20,
                         end: 26,
-                        kind: 189,
+
                         flags: 0
                       },
                       operator: '=',
@@ -345,42 +342,42 @@ describe('Recovery - Expressions - Object', () => {
                         name: 'a',
                         start: 28,
                         end: 30,
-                        kind: 13,
+
                         flags: 0
                       },
                       start: 20,
                       end: 30,
-                      kind: 152,
+
                       flags: 0
                     },
                     start: 17,
                     end: 30,
-                    kind: 152,
+
                     flags: 0
                   },
                   start: 15,
                   end: 31,
-                  kind: 189,
+
                   flags: 0
                 },
                 start: 11,
                 end: 31,
-                kind: 155,
+
                 flags: 0
               },
               start: 1,
               end: 31,
-              kind: 213,
+
               flags: 0
             },
             start: 0,
             end: 32,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 32,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -401,7 +398,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('x = ({foo(){}, async bar(){}});', () => {
     t.deepEqual(recovery('x = ({foo(){}, async bar(){}});', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -414,7 +411,7 @@ describe('Recovery - Expressions - Object', () => {
               name: 'x',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             operator: '=',
@@ -436,7 +433,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'foo',
                       start: 6,
                       end: 9,
-                      kind: 13,
+
                       flags: 0
                     },
                     contents: {
@@ -445,12 +442,12 @@ describe('Recovery - Expressions - Object', () => {
                       leafs: [],
                       start: 11,
                       end: 13,
-                      kind: 184,
+
                       flags: 0
                     },
                     start: 9,
                     end: 13,
-                    kind: 182,
+
                     flags: 0
                   },
                   {
@@ -466,7 +463,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'bar',
                       start: 20,
                       end: 24,
-                      kind: 13,
+
                       flags: 0
                     },
                     contents: {
@@ -475,33 +472,33 @@ describe('Recovery - Expressions - Object', () => {
                       leafs: [],
                       start: 26,
                       end: 28,
-                      kind: 184,
+
                       flags: 0
                     },
                     start: 24,
                     end: 28,
-                    kind: 182,
+
                     flags: 0
                   }
                 ],
                 start: 5,
                 end: 29,
-                kind: 179,
+
                 flags: 0
               },
               start: 3,
               end: 30,
-              kind: 189,
+
               flags: 0
             },
             start: 0,
             end: 30,
-            kind: 152,
+
             flags: 0
           },
           start: 0,
           end: 31,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -522,7 +519,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('a = {"a": b} = b', () => {
     t.deepEqual(recovery('a = {"a": b} = b', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -535,7 +532,7 @@ describe('Recovery - Expressions - Object', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             operator: '=',
@@ -551,7 +548,7 @@ describe('Recovery - Expressions - Object', () => {
                       value: 'a',
                       start: 5,
                       end: 8,
-                      kind: 12,
+
                       flags: 0
                     },
                     value: {
@@ -559,18 +556,18 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'b',
                       start: 9,
                       end: 11,
-                      kind: 13,
+
                       flags: 0
                     },
                     start: 5,
                     end: 11,
-                    kind: 227,
+
                     flags: 0
                   }
                 ],
                 start: 3,
                 end: 12,
-                kind: 179,
+
                 flags: 0
               },
               right: {
@@ -578,22 +575,22 @@ describe('Recovery - Expressions - Object', () => {
                 name: 'b',
                 start: 14,
                 end: 16,
-                kind: 13,
+
                 flags: 0
               },
               start: 3,
               end: 16,
-              kind: 213,
+
               flags: 0
             },
             start: 0,
             end: 16,
-            kind: 152,
+
             flags: 0
           },
           start: 0,
           end: 16,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -614,7 +611,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({set [if (0) 0;](a){}})', () => {
     t.deepEqual(recovery('({set [if (0) 0;](a){}})', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -638,7 +635,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: '',
                       start: 7,
                       end: 9,
-                      kind: 168,
+
                       flags: 0
                     },
                     uniqueFormalParameters: [],
@@ -649,12 +646,12 @@ describe('Recovery - Expressions - Object', () => {
                         name: '',
                         start: 7,
                         end: 7,
-                        kind: 13,
+
                         flags: 2
                       },
                       start: 5,
                       end: 7,
-                      kind: 171,
+
                       flags: 0
                     },
                     contents: {
@@ -663,18 +660,18 @@ describe('Recovery - Expressions - Object', () => {
                       leafs: [],
                       start: 9,
                       end: 9,
-                      kind: 184,
+
                       flags: 0
                     },
                     start: 7,
                     end: 9,
-                    kind: 182,
+
                     flags: 0
                   }
                 ],
                 start: 1,
                 end: 9,
-                kind: 179,
+
                 flags: 0
               },
               arguments: [
@@ -684,23 +681,23 @@ describe('Recovery - Expressions - Object', () => {
                   value: 0,
                   start: 11,
                   end: 12,
-                  kind: 10,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 13,
-              kind: 156,
+
               flags: 0
             },
             start: 0,
             end: 13,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 13,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -711,12 +708,12 @@ describe('Recovery - Expressions - Object', () => {
             value: 0,
             start: 13,
             end: 15,
-            kind: 10,
+
             flags: 0
           },
           start: 13,
           end: 16,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -728,17 +725,17 @@ describe('Recovery - Expressions - Object', () => {
               name: 'a',
               start: 18,
               end: 19,
-              kind: 13,
+
               flags: 0
             },
             start: 17,
             end: 20,
-            kind: 189,
+
             flags: 0
           },
           start: 17,
           end: 20,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -746,7 +743,7 @@ describe('Recovery - Expressions - Object', () => {
           leafs: [],
           start: 20,
           end: 22,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -824,7 +821,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({...', () => {
     t.deepEqual(recovery('({...', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -842,28 +839,28 @@ describe('Recovery - Expressions - Object', () => {
                     name: '',
                     start: 5,
                     end: 5,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 2,
                   end: 5,
-                  kind: 215,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 5,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -893,7 +890,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({...[', () => {
     t.deepEqual(recovery('({...[', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -911,28 +908,28 @@ describe('Recovery - Expressions - Object', () => {
                     elements: [],
                     start: 5,
                     end: 6,
-                    kind: 178,
+
                     flags: 0
                   },
                   start: 2,
                   end: 6,
-                  kind: 215,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 6,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 6,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -962,7 +959,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({x=', () => {
     t.deepEqual(recovery('({x=', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -980,7 +977,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 2,
                     end: 3,
-                    kind: 13,
+
                     flags: 0
                   },
                   right: {
@@ -988,28 +985,28 @@ describe('Recovery - Expressions - Object', () => {
                     name: '',
                     start: 4,
                     end: 4,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 2,
                   end: 4,
-                  kind: 181,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 4,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 4,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1039,7 +1036,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({x=}=', () => {
     t.deepEqual(recovery('({x=}=', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1059,7 +1056,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'x',
                       start: 2,
                       end: 3,
-                      kind: 13,
+
                       flags: 0
                     },
                     right: {
@@ -1067,18 +1064,18 @@ describe('Recovery - Expressions - Object', () => {
                       name: '',
                       start: 4,
                       end: 4,
-                      kind: 13,
+
                       flags: 2
                     },
                     start: 2,
                     end: 4,
-                    kind: 181,
+
                     flags: 0
                   }
                 ],
                 start: 1,
                 end: 5,
-                kind: 179,
+
                 flags: 0
               },
               right: {
@@ -1086,22 +1083,22 @@ describe('Recovery - Expressions - Object', () => {
                 name: '',
                 start: 6,
                 end: 6,
-                kind: 13,
+
                 flags: 2
               },
               start: 1,
               end: 6,
-              kind: 213,
+
               flags: 0
             },
             start: 0,
             end: 6,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1139,7 +1136,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({x=})=', () => {
     t.deepEqual(recovery('({x=})=', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1159,7 +1156,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'x',
                       start: 2,
                       end: 3,
-                      kind: 13,
+
                       flags: 0
                     },
                     right: {
@@ -1167,23 +1164,23 @@ describe('Recovery - Expressions - Object', () => {
                       name: '',
                       start: 4,
                       end: 4,
-                      kind: 13,
+
                       flags: 2
                     },
                     start: 2,
                     end: 4,
-                    kind: 181,
+
                     flags: 0
                   }
                 ],
                 start: 1,
                 end: 5,
-                kind: 179,
+
                 flags: 0
               },
               start: 0,
               end: 6,
-              kind: 189,
+
               flags: 0
             },
             operator: '=',
@@ -1192,17 +1189,17 @@ describe('Recovery - Expressions - Object', () => {
               name: '',
               start: 7,
               end: 7,
-              kind: 13,
+
               flags: 2
             },
             start: 0,
             end: 7,
-            kind: 152,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1240,7 +1237,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({for, x=y', () => {
     t.deepEqual(recovery('({for, x=y', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1256,7 +1253,7 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'for',
                   start: 2,
                   end: 5,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -1266,7 +1263,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 6,
                     end: 8,
-                    kind: 13,
+
                     flags: 0
                   },
                   right: {
@@ -1274,28 +1271,28 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'y',
                     start: 9,
                     end: 10,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 6,
                   end: 10,
-                  kind: 181,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 10,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 10,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1333,7 +1330,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({!for, x=y', () => {
     t.deepEqual(recovery('({!for, x=y', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1346,17 +1343,17 @@ describe('Recovery - Expressions - Object', () => {
               properties: [],
               start: 1,
               end: 2,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 2,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 2,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1369,17 +1366,17 @@ describe('Recovery - Expressions - Object', () => {
               name: '',
               start: 3,
               end: 3,
-              kind: 13,
+
               flags: 2
             },
             start: 2,
             end: 3,
-            kind: 160,
+
             flags: 0
           },
           start: 2,
           end: 3,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1393,7 +1390,7 @@ describe('Recovery - Expressions - Object', () => {
                 name: '',
                 start: 6,
                 end: 6,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -1403,7 +1400,7 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'x',
                   start: 7,
                   end: 9,
-                  kind: 13,
+
                   flags: 0
                 },
                 operator: '=',
@@ -1412,18 +1409,18 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'y',
                   start: 10,
                   end: 11,
-                  kind: 13,
+
                   flags: 0
                 },
                 start: 7,
                 end: 11,
-                kind: 152,
+
                 flags: 0
               }
             ],
             start: 6,
             end: 11,
-            kind: 147,
+
             flags: 0
           },
           condition: {
@@ -1431,7 +1428,7 @@ describe('Recovery - Expressions - Object', () => {
             name: '',
             start: 11,
             end: 11,
-            kind: 13,
+
             flags: 2
           },
           incrementor: {
@@ -1439,7 +1436,7 @@ describe('Recovery - Expressions - Object', () => {
             name: '',
             start: 11,
             end: 11,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -1449,17 +1446,17 @@ describe('Recovery - Expressions - Object', () => {
               name: '',
               start: 11,
               end: 11,
-              kind: 13,
+
               flags: 2
             },
             start: 11,
             end: 11,
-            kind: 122,
+
             flags: 0
           },
           start: 3,
           end: 11,
-          kind: 132,
+
           flags: 0
         }
       ],
@@ -1513,7 +1510,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ x/', () => {
     t.deepEqual(recovery('({ x/', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1531,13 +1528,13 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 2,
                     end: 4,
-                    kind: 13,
+
                     flags: 0
                   }
                 ],
                 start: 1,
                 end: 4,
-                kind: 179,
+
                 flags: 0
               },
               operator: '/',
@@ -1546,22 +1543,22 @@ describe('Recovery - Expressions - Object', () => {
                 name: '',
                 start: 5,
                 end: 5,
-                kind: 13,
+
                 flags: 2
               },
               start: 1,
               end: 5,
-              kind: 155,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1591,7 +1588,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ x(/', () => {
     t.deepEqual(recovery('({ x(/', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1617,7 +1614,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'x',
                       start: 2,
                       end: 4,
-                      kind: 13,
+
                       flags: 0
                     },
                     contents: {
@@ -1626,18 +1623,18 @@ describe('Recovery - Expressions - Object', () => {
                       leafs: [],
                       start: 5,
                       end: 5,
-                      kind: 184,
+
                       flags: 0
                     },
                     start: 4,
                     end: 5,
-                    kind: 182,
+
                     flags: 0
                   }
                 ],
                 start: 1,
                 end: 5,
-                kind: 179,
+
                 flags: 0
               },
               operator: '/',
@@ -1646,22 +1643,22 @@ describe('Recovery - Expressions - Object', () => {
                 name: '',
                 start: 6,
                 end: 6,
-                kind: 13,
+
                 flags: 2
               },
               start: 1,
               end: 6,
-              kind: 155,
+
               flags: 0
             },
             start: 0,
             end: 6,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1691,7 +1688,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ {}', () => {
     t.deepEqual(recovery('({ {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1704,17 +1701,17 @@ describe('Recovery - Expressions - Object', () => {
               properties: [],
               start: 1,
               end: 2,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 2,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 2,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1722,7 +1719,7 @@ describe('Recovery - Expressions - Object', () => {
           leafs: [],
           start: 2,
           end: 5,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -1752,7 +1749,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({// foo', () => {
     t.deepEqual(recovery('({// foo', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1765,17 +1762,17 @@ describe('Recovery - Expressions - Object', () => {
               properties: [],
               start: 1,
               end: 2,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 2,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 2,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1805,7 +1802,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('(/{', () => {
     t.deepEqual(recovery('(/{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1819,17 +1816,17 @@ describe('Recovery - Expressions - Object', () => {
               flag: '',
               start: 1,
               end: 3,
-              kind: 15,
+
               flags: 0
             },
             start: 0,
             end: 3,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 3,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1859,7 +1856,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({--a', () => {
     t.deepEqual(recovery('({--a', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1875,22 +1872,22 @@ describe('Recovery - Expressions - Object', () => {
                 properties: [],
                 start: 1,
                 end: 2,
-                kind: 179,
+
                 flags: 0
               },
               start: 2,
               end: 4,
-              kind: 162,
+
               flags: 0
             },
             start: 0,
             end: 4,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1900,12 +1897,12 @@ describe('Recovery - Expressions - Object', () => {
             name: 'a',
             start: 4,
             end: 5,
-            kind: 13,
+
             flags: 0
           },
           start: 4,
           end: 5,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1943,7 +1940,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ a(x:!', () => {
     t.deepEqual(recovery('({ a(x:!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1967,7 +1964,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'x',
                       start: 5,
                       end: 6,
-                      kind: 168,
+
                       flags: 0
                     }
                   ],
@@ -1976,7 +1973,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'a',
                     start: 2,
                     end: 4,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -1985,28 +1982,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 6,
                     end: 6,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 4,
                   end: 6,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 6,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 6,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2019,17 +2016,17 @@ describe('Recovery - Expressions - Object', () => {
               name: '',
               start: 8,
               end: 8,
-              kind: 13,
+
               flags: 2
             },
             start: 7,
             end: 8,
-            kind: 160,
+
             flags: 0
           },
           start: 7,
           end: 8,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2067,7 +2064,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({get get x(x', () => {
     t.deepEqual(recovery('({get get x(x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2091,7 +2088,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'get',
                     start: 5,
                     end: 9,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -2100,12 +2097,12 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 9,
                     end: 9,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 9,
                   end: 9,
-                  kind: 182,
+
                   flags: 0
                 },
                 {
@@ -2121,7 +2118,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'x',
                       start: 12,
                       end: 13,
-                      kind: 168,
+
                       flags: 0
                     }
                   ],
@@ -2130,7 +2127,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 9,
                     end: 11,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -2139,28 +2136,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 13,
                     end: 13,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 11,
                   end: 13,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 13,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 13,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 13,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2198,7 +2195,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({x set set get get x', () => {
     t.deepEqual(recovery('({x set set get get x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2214,7 +2211,7 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'x',
                   start: 2,
                   end: 3,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -2228,7 +2225,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'get',
                     start: 11,
                     end: 15,
-                    kind: 168,
+
                     flags: 0
                   },
                   uniqueFormalParameters: [],
@@ -2237,7 +2234,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'set',
                     start: 7,
                     end: 11,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -2246,12 +2243,12 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 15,
                     end: 15,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 11,
                   end: 15,
-                  kind: 182,
+
                   flags: 0
                 },
                 {
@@ -2267,7 +2264,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 19,
                     end: 21,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -2276,28 +2273,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 21,
                     end: 21,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 21,
                   end: 21,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 21,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 21,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 21,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2351,7 +2348,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({x set set !! get get x', () => {
     t.deepEqual(recovery('({x set set !! get get x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2367,7 +2364,7 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'x',
                   start: 2,
                   end: 3,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -2381,7 +2378,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: '',
                     start: 11,
                     end: 13,
-                    kind: 168,
+
                     flags: 0
                   },
                   uniqueFormalParameters: [],
@@ -2390,7 +2387,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'set',
                     start: 7,
                     end: 11,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -2399,28 +2396,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 13,
                     end: 13,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 11,
                   end: 13,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 13,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 13,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 13,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2433,17 +2430,17 @@ describe('Recovery - Expressions - Object', () => {
               name: 'get',
               start: 14,
               end: 18,
-              kind: 13,
+
               flags: 0
             },
             start: 13,
             end: 18,
-            kind: 160,
+
             flags: 0
           },
           start: 13,
           end: 18,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2453,12 +2450,12 @@ describe('Recovery - Expressions - Object', () => {
             name: 'get',
             start: 18,
             end: 22,
-            kind: 13,
+
             flags: 0
           },
           start: 18,
           end: 22,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2468,12 +2465,12 @@ describe('Recovery - Expressions - Object', () => {
             name: 'x',
             start: 22,
             end: 24,
-            kind: 13,
+
             flags: 0
           },
           start: 22,
           end: 24,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2535,7 +2532,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({get != set', () => {
     t.deepEqual(recovery('({get != set', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2553,13 +2550,13 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'get',
                     start: 2,
                     end: 5,
-                    kind: 13,
+
                     flags: 0
                   }
                 ],
                 start: 1,
                 end: 5,
-                kind: 179,
+
                 flags: 0
               },
               operator: '!=',
@@ -2568,22 +2565,22 @@ describe('Recovery - Expressions - Object', () => {
                 name: 'set',
                 start: 8,
                 end: 12,
-                kind: 13,
+
                 flags: 0
               },
               start: 1,
               end: 12,
-              kind: 155,
+
               flags: 0
             },
             start: 0,
             end: 12,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 12,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2621,7 +2618,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({get ! = set', () => {
     t.deepEqual(recovery('({get ! = set', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2637,23 +2634,23 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'get',
                   start: 2,
                   end: 5,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 5,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2668,12 +2665,12 @@ describe('Recovery - Expressions - Object', () => {
                 name: '',
                 start: 7,
                 end: 7,
-                kind: 13,
+
                 flags: 2
               },
               start: 5,
               end: 7,
-              kind: 160,
+
               flags: 0
             },
             operator: '=',
@@ -2682,17 +2679,17 @@ describe('Recovery - Expressions - Object', () => {
               name: 'set',
               start: 9,
               end: 13,
-              kind: 13,
+
               flags: 0
             },
             start: 5,
             end: 13,
-            kind: 152,
+
             flags: 0
           },
           start: 5,
           end: 13,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2730,7 +2727,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({get!}', () => {
     t.deepEqual(recovery('({get!}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2746,23 +2743,23 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'get',
                   start: 2,
                   end: 5,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 5,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2775,17 +2772,17 @@ describe('Recovery - Expressions - Object', () => {
               name: '',
               start: 6,
               end: 6,
-              kind: 13,
+
               flags: 2
             },
             start: 5,
             end: 6,
-            kind: 160,
+
             flags: 0
           },
           start: 5,
           end: 6,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2823,7 +2820,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({a:', () => {
     t.deepEqual(recovery('({a:', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2841,7 +2838,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'a',
                     start: 2,
                     end: 3,
-                    kind: 13,
+
                     flags: 0
                   },
                   value: {
@@ -2849,28 +2846,28 @@ describe('Recovery - Expressions - Object', () => {
                     name: '',
                     start: 4,
                     end: 4,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 2,
                   end: 4,
-                  kind: 227,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 4,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 4,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2900,7 +2897,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({x:0x', () => {
     t.deepEqual(recovery('({x:0x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2918,7 +2915,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 2,
                     end: 3,
-                    kind: 13,
+
                     flags: 0
                   },
                   value: {
@@ -2927,28 +2924,28 @@ describe('Recovery - Expressions - Object', () => {
                     value: 0,
                     start: 4,
                     end: 6,
-                    kind: 10,
+
                     flags: 0
                   },
                   start: 2,
                   end: 6,
-                  kind: 227,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 6,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 6,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -2986,7 +2983,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({x:=(', () => {
     t.deepEqual(recovery('({x:=(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3004,7 +3001,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 2,
                     end: 3,
-                    kind: 13,
+
                     flags: 0
                   },
                   value: {
@@ -3014,7 +3011,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: '',
                       start: 4,
                       end: 4,
-                      kind: 13,
+
                       flags: 2
                     },
                     operator: '=',
@@ -3025,38 +3022,38 @@ describe('Recovery - Expressions - Object', () => {
                         name: '',
                         start: 6,
                         end: 6,
-                        kind: 13,
+
                         flags: 2
                       },
                       start: 5,
                       end: 6,
-                      kind: 189,
+
                       flags: 0
                     },
                     start: 2,
                     end: 6,
-                    kind: 152,
+
                     flags: 0
                   },
                   start: 2,
                   end: 6,
-                  kind: 227,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 6,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 6,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3094,7 +3091,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ 1n', () => {
     t.deepEqual(recovery('({ 1n', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3110,23 +3107,23 @@ describe('Recovery - Expressions - Object', () => {
                   value: '1',
                   start: 2,
                   end: 5,
-                  kind: 11,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 5,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3156,7 +3153,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ => {}', () => {
     t.deepEqual(recovery('({ => {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3169,17 +3166,17 @@ describe('Recovery - Expressions - Object', () => {
               properties: [],
               start: 1,
               end: 2,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 2,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 2,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -3187,7 +3184,7 @@ describe('Recovery - Expressions - Object', () => {
           leafs: [],
           start: 5,
           end: 8,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -3217,7 +3214,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({x=>', () => {
     t.deepEqual(recovery('({x=>', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3233,23 +3230,23 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'x',
                   start: 2,
                   end: 3,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 3,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 3,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 3,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3279,7 +3276,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({[', () => {
     t.deepEqual(recovery('({[', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3297,28 +3294,28 @@ describe('Recovery - Expressions - Object', () => {
                     name: '',
                     start: 3,
                     end: 3,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 2,
                   end: 3,
-                  kind: 171,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 3,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 3,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 3,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3348,7 +3345,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({[x', () => {
     t.deepEqual(recovery('({[x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3366,28 +3363,28 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 3,
                     end: 4,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 2,
                   end: 4,
-                  kind: 171,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 4,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 4,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 4,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3417,7 +3414,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({[x=', () => {
     t.deepEqual(recovery('({[x=', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3437,7 +3434,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'x',
                       start: 3,
                       end: 4,
-                      kind: 13,
+
                       flags: 0
                     },
                     operator: '=',
@@ -3446,33 +3443,33 @@ describe('Recovery - Expressions - Object', () => {
                       name: '',
                       start: 5,
                       end: 5,
-                      kind: 13,
+
                       flags: 2
                     },
                     start: 3,
                     end: 5,
-                    kind: 152,
+
                     flags: 0
                   },
                   start: 2,
                   end: 5,
-                  kind: 171,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 5,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3502,7 +3499,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({', () => {
     t.deepEqual(recovery('({', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3515,17 +3512,17 @@ describe('Recovery - Expressions - Object', () => {
               properties: [],
               start: 1,
               end: 2,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 2,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 2,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3555,7 +3552,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({[', () => {
     t.deepEqual(recovery('({[', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3573,28 +3570,28 @@ describe('Recovery - Expressions - Object', () => {
                     name: '',
                     start: 3,
                     end: 3,
-                    kind: 13,
+
                     flags: 2
                   },
                   start: 2,
                   end: 3,
-                  kind: 171,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 3,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 3,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 3,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3624,7 +3621,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({[yield = await', () => {
     t.deepEqual(recovery('({[yield = await', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3644,7 +3641,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'yield',
                       start: 3,
                       end: 8,
-                      kind: 13,
+
                       flags: 0
                     },
                     operator: '=',
@@ -3653,33 +3650,33 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'await',
                       start: 10,
                       end: 16,
-                      kind: 13,
+
                       flags: 0
                     },
                     start: 3,
                     end: 16,
-                    kind: 152,
+
                     flags: 0
                   },
                   start: 2,
                   end: 16,
-                  kind: 171,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 16,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 16,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 16,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3709,7 +3706,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ a b c d', () => {
     t.deepEqual(recovery('({ a b c d', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3725,7 +3722,7 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'a',
                   start: 2,
                   end: 4,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -3733,7 +3730,7 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'b',
                   start: 4,
                   end: 6,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -3741,7 +3738,7 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'c',
                   start: 6,
                   end: 8,
-                  kind: 13,
+
                   flags: 0
                 },
                 {
@@ -3749,23 +3746,23 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'd',
                   start: 8,
                   end: 10,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 10,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 10,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3811,7 +3808,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({get})', () => {
     t.deepEqual(recovery('({get})', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3827,23 +3824,23 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'get',
                   start: 2,
                   end: 5,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 6,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 7,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3864,7 +3861,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({set})', () => {
     t.deepEqual(recovery('({set})', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3880,23 +3877,23 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'set',
                   start: 2,
                   end: 5,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 6,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 7,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -3917,7 +3914,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ a b c d } = x', () => {
     t.deepEqual(recovery('({ a b c d } = x', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3935,7 +3932,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'a',
                     start: 2,
                     end: 4,
-                    kind: 13,
+
                     flags: 0
                   },
                   {
@@ -3943,7 +3940,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'b',
                     start: 4,
                     end: 6,
-                    kind: 13,
+
                     flags: 0
                   },
                   {
@@ -3951,7 +3948,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'c',
                     start: 6,
                     end: 8,
-                    kind: 13,
+
                     flags: 0
                   },
                   {
@@ -3959,13 +3956,13 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'd',
                     start: 8,
                     end: 10,
-                    kind: 13,
+
                     flags: 0
                   }
                 ],
                 start: 1,
                 end: 12,
-                kind: 179,
+
                 flags: 0
               },
               right: {
@@ -3973,22 +3970,22 @@ describe('Recovery - Expressions - Object', () => {
                 name: 'x',
                 start: 14,
                 end: 16,
-                kind: 13,
+
                 flags: 0
               },
               start: 1,
               end: 16,
-              kind: 213,
+
               flags: 0
             },
             start: 0,
             end: 16,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 16,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -4042,7 +4039,6 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ x( {}', () => {
     t.deepEqual(recovery('({ x( {}', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -4065,7 +4061,7 @@ describe('Recovery - Expressions - Object', () => {
                       properties: [],
                       start: 5,
                       end: 8,
-                      kind: 169,
+
                       flags: 0
                     }
                   ],
@@ -4074,7 +4070,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 2,
                     end: 4,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -4083,28 +4079,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 8,
                     end: 8,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 4,
                   end: 8,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 8,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 8,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -4128,6 +4124,7 @@ describe('Recovery - Expressions - Object', () => {
       children: [],
       start: 0,
       length: 8,
+      type: 'RootNode',
       webCompat: true,
       end: 8
     });
@@ -4135,7 +4132,6 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ async x( {}', () => {
     t.deepEqual(recovery('({ async x( {}', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -4158,7 +4154,7 @@ describe('Recovery - Expressions - Object', () => {
                       properties: [],
                       start: 11,
                       end: 14,
-                      kind: 169,
+
                       flags: 0
                     }
                   ],
@@ -4167,7 +4163,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 8,
                     end: 10,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -4176,28 +4172,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 14,
                     end: 14,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 10,
                   end: 14,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 14,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 14,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -4221,6 +4217,7 @@ describe('Recovery - Expressions - Object', () => {
       children: [],
       start: 0,
       length: 14,
+      type: 'RootNode',
       webCompat: true,
       end: 14
     });
@@ -4228,7 +4225,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ x(! {}', () => {
     t.deepEqual(recovery('({ x(! {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4252,7 +4249,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 2,
                     end: 4,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -4261,28 +4258,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 5,
                     end: 5,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 4,
                   end: 5,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 5,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -4295,17 +4292,17 @@ describe('Recovery - Expressions - Object', () => {
               properties: [],
               start: 6,
               end: 9,
-              kind: 179,
+
               flags: 0
             },
             start: 5,
             end: 9,
-            kind: 160,
+
             flags: 0
           },
           start: 5,
           end: 9,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -4335,7 +4332,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ x(++! {}', () => {
     t.deepEqual(recovery('({ x(++! {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4362,7 +4359,7 @@ describe('Recovery - Expressions - Object', () => {
                       name: 'x',
                       start: 2,
                       end: 4,
-                      kind: 13,
+
                       flags: 0
                     },
                     contents: {
@@ -4371,33 +4368,33 @@ describe('Recovery - Expressions - Object', () => {
                       leafs: [],
                       start: 5,
                       end: 5,
-                      kind: 184,
+
                       flags: 0
                     },
                     start: 4,
                     end: 5,
-                    kind: 182,
+
                     flags: 0
                   }
                 ],
                 start: 1,
                 end: 5,
-                kind: 179,
+
                 flags: 0
               },
               start: 5,
               end: 7,
-              kind: 162,
+
               flags: 0
             },
             start: 0,
             end: 7,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -4410,17 +4407,17 @@ describe('Recovery - Expressions - Object', () => {
               properties: [],
               start: 8,
               end: 11,
-              kind: 179,
+
               flags: 0
             },
             start: 7,
             end: 11,
-            kind: 160,
+
             flags: 0
           },
           start: 7,
           end: 11,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -4458,7 +4455,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ get x( {}', () => {
     t.deepEqual(recovery('({ get x( {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4482,7 +4479,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 6,
                     end: 8,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -4491,28 +4488,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 9,
                     end: 12,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 8,
                   end: 12,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 12,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 12,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 12,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -4550,7 +4547,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ x(', () => {
     t.deepEqual(recovery('({ x(', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4574,7 +4571,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 2,
                     end: 4,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -4583,28 +4580,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 5,
                     end: 5,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 4,
                   end: 5,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 5,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -4634,7 +4631,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ x( !}', () => {
     t.deepEqual(recovery('({ x( !}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4658,7 +4655,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 2,
                     end: 4,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -4667,28 +4664,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 5,
                     end: 5,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 4,
                   end: 5,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 5,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -4701,17 +4698,17 @@ describe('Recovery - Expressions - Object', () => {
               name: '',
               start: 7,
               end: 7,
-              kind: 13,
+
               flags: 2
             },
             start: 5,
             end: 7,
-            kind: 160,
+
             flags: 0
           },
           start: 5,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -4749,7 +4746,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ get foo(b) {} })', () => {
     t.deepEqual(recovery('({ get foo(b) {} })', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4773,7 +4770,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'foo',
                     start: 6,
                     end: 10,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -4782,12 +4779,12 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 11,
                     end: 11,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 10,
                   end: 11,
-                  kind: 182,
+
                   flags: 0
                 },
                 {
@@ -4795,23 +4792,23 @@ describe('Recovery - Expressions - Object', () => {
                   name: 'b',
                   start: 11,
                   end: 12,
-                  kind: 13,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 12,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 13,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 13,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -4819,7 +4816,7 @@ describe('Recovery - Expressions - Object', () => {
           leafs: [],
           start: 13,
           end: 16,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -4881,7 +4878,7 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ x(! a = b {}', () => {
     t.deepEqual(recovery('({ x(! a = b {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4905,7 +4902,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 2,
                     end: 4,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -4914,28 +4911,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 5,
                     end: 5,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 4,
                   end: 5,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 5,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 5,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -4950,12 +4947,12 @@ describe('Recovery - Expressions - Object', () => {
                 name: 'a',
                 start: 6,
                 end: 8,
-                kind: 13,
+
                 flags: 0
               },
               start: 5,
               end: 8,
-              kind: 160,
+
               flags: 0
             },
             operator: '=',
@@ -4964,17 +4961,17 @@ describe('Recovery - Expressions - Object', () => {
               name: 'b',
               start: 10,
               end: 12,
-              kind: 13,
+
               flags: 0
             },
             start: 5,
             end: 12,
-            kind: 152,
+
             flags: 0
           },
           start: 5,
           end: 12,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -4982,7 +4979,7 @@ describe('Recovery - Expressions - Object', () => {
           leafs: [],
           start: 12,
           end: 15,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -5028,7 +5025,6 @@ describe('Recovery - Expressions - Object', () => {
 
   it('({ x( {}!', () => {
     t.deepEqual(recovery('({ x( {}!', 'recovery.js'), {
-      kind: 209,
       directives: [],
       leafs: [
         {
@@ -5051,7 +5047,7 @@ describe('Recovery - Expressions - Object', () => {
                       properties: [],
                       start: 5,
                       end: 8,
-                      kind: 169,
+
                       flags: 0
                     }
                   ],
@@ -5060,7 +5056,7 @@ describe('Recovery - Expressions - Object', () => {
                     name: 'x',
                     start: 2,
                     end: 4,
-                    kind: 13,
+
                     flags: 0
                   },
                   contents: {
@@ -5069,28 +5065,28 @@ describe('Recovery - Expressions - Object', () => {
                     leafs: [],
                     start: 8,
                     end: 8,
-                    kind: 184,
+
                     flags: 0
                   },
                   start: 4,
                   end: 8,
-                  kind: 182,
+
                   flags: 0
                 }
               ],
               start: 1,
               end: 8,
-              kind: 179,
+
               flags: 0
             },
             start: 0,
             end: 8,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -5103,17 +5099,17 @@ describe('Recovery - Expressions - Object', () => {
               name: '',
               start: 9,
               end: 9,
-              kind: 13,
+
               flags: 2
             },
             start: 8,
             end: 9,
-            kind: 160,
+
             flags: 0
           },
           start: 8,
           end: 9,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -5137,6 +5133,7 @@ describe('Recovery - Expressions - Object', () => {
       children: [],
       start: 0,
       length: 9,
+      type: 'RootNode',
       webCompat: true,
       end: 9
     });

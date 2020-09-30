@@ -21,7 +21,8 @@ describe('Recovery - For await of', () => {
       fileName: 'recovery.js',
       incremental: false,
       detached: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       length: 9,
       mutualFlags: 0,
@@ -32,7 +33,7 @@ describe('Recovery - For await of', () => {
           condition: {
             end: 9,
             flags: 2,
-            kind: 13,
+
             start: 9,
             type: 'IdentifierReference',
             name: ''
@@ -42,7 +43,7 @@ describe('Recovery - For await of', () => {
           incrementor: {
             end: 9,
             flags: 2,
-            kind: 13,
+
             start: 9,
             type: 'IdentifierReference',
             name: ''
@@ -50,25 +51,25 @@ describe('Recovery - For await of', () => {
           initializer: {
             end: 9,
             flags: 0,
-            kind: 13,
+
             start: 3,
             type: 'IdentifierReference',
             name: 'await'
           },
-          kind: 132,
+
           start: 0,
           statement: {
             end: 9,
             expression: {
               end: 9,
               flags: 2,
-              kind: 13,
+
               start: 9,
               type: 'IdentifierReference',
               name: ''
             },
             flags: 0,
-            kind: 122,
+
             start: 9,
             type: 'ExpressionStatement'
           },

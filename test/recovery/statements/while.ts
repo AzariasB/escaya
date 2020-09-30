@@ -4,7 +4,7 @@ import { recovery } from '../../../src/escaya';
 describe('Recovery - While', () => {
   it('while walking he ran for his life', () => {
     t.deepEqual(recovery('while walking he ran for his life', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -15,7 +15,7 @@ describe('Recovery - While', () => {
             name: 'walking',
             start: 5,
             end: 13,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -25,17 +25,17 @@ describe('Recovery - While', () => {
               name: 'he',
               start: 13,
               end: 16,
-              kind: 13,
+
               flags: 0
             },
             start: 13,
             end: 16,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 16,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -45,12 +45,12 @@ describe('Recovery - While', () => {
             name: 'ran',
             start: 16,
             end: 20,
-            kind: 13,
+
             flags: 0
           },
           start: 16,
           end: 20,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -61,7 +61,7 @@ describe('Recovery - While', () => {
             name: 'his',
             start: 24,
             end: 28,
-            kind: 13,
+
             flags: 0
           },
           condition: {
@@ -69,7 +69,7 @@ describe('Recovery - While', () => {
             name: '',
             start: 33,
             end: 33,
-            kind: 13,
+
             flags: 2
           },
           incrementor: {
@@ -77,7 +77,7 @@ describe('Recovery - While', () => {
             name: 'life',
             start: 28,
             end: 33,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -87,17 +87,17 @@ describe('Recovery - While', () => {
               name: '',
               start: 33,
               end: 33,
-              kind: 13,
+
               flags: 2
             },
             start: 33,
             end: 33,
-            kind: 122,
+
             flags: 0
           },
           start: 20,
           end: 33,
-          kind: 132,
+
           flags: 0
         }
       ],
@@ -167,7 +167,7 @@ describe('Recovery - While', () => {
 
   it('while {!for!', () => {
     t.deepEqual(recovery('while {!for!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -178,7 +178,7 @@ describe('Recovery - While', () => {
             properties: [],
             start: 5,
             end: 7,
-            kind: 179,
+
             flags: 0
           },
           statement: {
@@ -191,22 +191,22 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 8,
                 end: 8,
-                kind: 13,
+
                 flags: 2
               },
               start: 7,
               end: 8,
-              kind: 160,
+
               flags: 0
             },
             start: 7,
             end: 8,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -220,12 +220,12 @@ describe('Recovery - While', () => {
               name: '',
               start: 12,
               end: 12,
-              kind: 13,
+
               flags: 2
             },
             start: 11,
             end: 12,
-            kind: 160,
+
             flags: 0
           },
           condition: {
@@ -233,7 +233,7 @@ describe('Recovery - While', () => {
             name: '',
             start: 12,
             end: 12,
-            kind: 13,
+
             flags: 2
           },
           incrementor: {
@@ -241,7 +241,7 @@ describe('Recovery - While', () => {
             name: '',
             start: 12,
             end: 12,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -251,17 +251,17 @@ describe('Recovery - While', () => {
               name: '',
               start: 12,
               end: 12,
-              kind: 13,
+
               flags: 2
             },
             start: 12,
             end: 12,
-            kind: 122,
+
             flags: 0
           },
           start: 8,
           end: 12,
-          kind: 132,
+
           flags: 0
         }
       ],
@@ -315,7 +315,7 @@ describe('Recovery - While', () => {
 
   it('as keyword', () => {
     t.deepEqual(recovery('while', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -323,7 +323,7 @@ describe('Recovery - While', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 5,
             end: 5,
@@ -333,7 +333,7 @@ describe('Recovery - While', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 5,
               end: 5,
@@ -341,12 +341,12 @@ describe('Recovery - While', () => {
             },
             start: 5,
             end: 5,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 5,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -376,7 +376,7 @@ describe('Recovery - While', () => {
 
   it('while{', () => {
     t.deepEqual(recovery('while{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -387,7 +387,7 @@ describe('Recovery - While', () => {
             properties: [],
             start: 5,
             end: 6,
-            kind: 179,
+
             flags: 0
           },
           statement: {
@@ -397,17 +397,17 @@ describe('Recovery - While', () => {
               name: '',
               start: 6,
               end: 6,
-              kind: 13,
+
               flags: 2
             },
             start: 6,
             end: 6,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 6,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -437,7 +437,7 @@ describe('Recovery - While', () => {
 
   it('{while', () => {
     t.deepEqual(recovery('{while', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -448,7 +448,7 @@ describe('Recovery - While', () => {
               type: 'WhileStatement',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: '',
                 start: 6,
                 end: 6,
@@ -458,7 +458,7 @@ describe('Recovery - While', () => {
                 type: 'ExpressionStatement',
                 expression: {
                   type: 'IdentifierReference',
-                  kind: 13,
+
                   name: '',
                   start: 6,
                   end: 6,
@@ -466,18 +466,18 @@ describe('Recovery - While', () => {
                 },
                 start: 6,
                 end: 6,
-                kind: 122,
+
                 flags: 0
               },
               start: 1,
               end: 6,
-              kind: 139,
+
               flags: 0
             }
           ],
           start: 0,
           end: 6,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -507,7 +507,7 @@ describe('Recovery - While', () => {
 
   it('while/{', () => {
     t.deepEqual(recovery('while/{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -519,7 +519,7 @@ describe('Recovery - While', () => {
             flag: '',
             start: 5,
             end: 7,
-            kind: 15,
+
             flags: 0
           },
           statement: {
@@ -529,17 +529,17 @@ describe('Recovery - While', () => {
               name: '',
               start: 7,
               end: 7,
-              kind: 13,
+
               flags: 2
             },
             start: 7,
             end: 7,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -569,7 +569,7 @@ describe('Recovery - While', () => {
 
   it('while while{', () => {
     t.deepEqual(recovery('while while{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -577,7 +577,7 @@ describe('Recovery - While', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 5,
             end: 5,
@@ -590,14 +590,14 @@ describe('Recovery - While', () => {
               properties: [],
               start: 11,
               end: 12,
-              kind: 179,
+
               flags: 0
             },
             statement: {
               type: 'ExpressionStatement',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: '',
                 start: 12,
                 end: 12,
@@ -605,17 +605,17 @@ describe('Recovery - While', () => {
               },
               start: 12,
               end: 12,
-              kind: 122,
+
               flags: 0
             },
             start: 5,
             end: 12,
-            kind: 139,
+
             flags: 0
           },
           start: 0,
           end: 12,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -653,7 +653,7 @@ describe('Recovery - While', () => {
 
   it('{while while', () => {
     t.deepEqual(recovery('{while while', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -664,7 +664,7 @@ describe('Recovery - While', () => {
               type: 'WhileStatement',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: '',
                 start: 6,
                 end: 6,
@@ -674,7 +674,7 @@ describe('Recovery - While', () => {
                 type: 'WhileStatement',
                 expression: {
                   type: 'IdentifierReference',
-                  kind: 13,
+
                   name: '',
                   start: 12,
                   end: 12,
@@ -684,7 +684,7 @@ describe('Recovery - While', () => {
                   type: 'ExpressionStatement',
                   expression: {
                     type: 'IdentifierReference',
-                    kind: 13,
+
                     name: '',
                     start: 12,
                     end: 12,
@@ -692,23 +692,23 @@ describe('Recovery - While', () => {
                   },
                   start: 12,
                   end: 12,
-                  kind: 122,
+
                   flags: 0
                 },
                 start: 6,
                 end: 12,
-                kind: 139,
+
                 flags: 0
               },
               start: 1,
               end: 12,
-              kind: 139,
+
               flags: 0
             }
           ],
           start: 0,
           end: 12,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -738,7 +738,7 @@ describe('Recovery - While', () => {
 
   it('while (x {', () => {
     t.deepEqual(recovery('while (x {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -746,7 +746,7 @@ describe('Recovery - While', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: 'x',
             start: 7,
             end: 8,
@@ -757,12 +757,12 @@ describe('Recovery - While', () => {
             leafs: [],
             start: 8,
             end: 10,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -792,7 +792,7 @@ describe('Recovery - While', () => {
 
   it('{ while {}', () => {
     t.deepEqual(recovery('{ while {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -806,14 +806,14 @@ describe('Recovery - While', () => {
                 properties: [],
                 start: 7,
                 end: 10,
-                kind: 179,
+
                 flags: 0
               },
               statement: {
                 type: 'ExpressionStatement',
                 expression: {
                   type: 'IdentifierReference',
-                  kind: 13,
+
                   name: '',
                   start: 10,
                   end: 10,
@@ -821,18 +821,18 @@ describe('Recovery - While', () => {
                 },
                 start: 10,
                 end: 10,
-                kind: 122,
+
                 flags: 0
               },
               start: 1,
               end: 10,
-              kind: 139,
+
               flags: 0
             }
           ],
           start: 0,
           end: 10,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -870,7 +870,7 @@ describe('Recovery - While', () => {
 
   it('while {}{', () => {
     t.deepEqual(recovery('while {}{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -881,7 +881,7 @@ describe('Recovery - While', () => {
             properties: [],
             start: 5,
             end: 8,
-            kind: 179,
+
             flags: 0
           },
           statement: {
@@ -889,12 +889,12 @@ describe('Recovery - While', () => {
             leafs: [],
             start: 8,
             end: 9,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -932,7 +932,7 @@ describe('Recovery - While', () => {
 
   it('while(x/{', () => {
     t.deepEqual(recovery('while(x/{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -942,7 +942,7 @@ describe('Recovery - While', () => {
             type: 'BinaryExpression',
             left: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: 'x',
               start: 6,
               end: 7,
@@ -954,19 +954,19 @@ describe('Recovery - While', () => {
               properties: [],
               start: 8,
               end: 9,
-              kind: 179,
+
               flags: 0
             },
             start: 6,
             end: 9,
-            kind: 155,
+
             flags: 0
           },
           statement: {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 9,
               end: 9,
@@ -974,12 +974,12 @@ describe('Recovery - While', () => {
             },
             start: 9,
             end: 9,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -1009,7 +1009,7 @@ describe('Recovery - While', () => {
 
   it('while(do) {', () => {
     t.deepEqual(recovery('while(do) {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1020,7 +1020,7 @@ describe('Recovery - While', () => {
             name: '',
             start: 6,
             end: 6,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -1030,7 +1030,7 @@ describe('Recovery - While', () => {
               name: '',
               start: 8,
               end: 8,
-              kind: 13,
+
               flags: 2
             },
             statement: {
@@ -1040,22 +1040,22 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 8,
                 end: 8,
-                kind: 13,
+
                 flags: 2
               },
               start: 8,
               end: 8,
-              kind: 122,
+
               flags: 0
             },
             start: 6,
             end: 9,
-            kind: 127,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -1063,7 +1063,7 @@ describe('Recovery - While', () => {
           leafs: [],
           start: 9,
           end: 11,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -1109,7 +1109,7 @@ describe('Recovery - While', () => {
 
   it('while(catch){', () => {
     t.deepEqual(recovery('while(catch){', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1117,7 +1117,7 @@ describe('Recovery - While', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 6,
             end: 6,
@@ -1130,19 +1130,19 @@ describe('Recovery - While', () => {
               leafs: [],
               start: 6,
               end: 6,
-              kind: 123,
+
               flags: 0
             },
             catchClause: {
               type: 'CatchClause',
-              kind: 140,
+
               binding: null,
               block: {
                 type: 'BlockStatement',
                 leafs: [],
                 start: 11,
                 end: 11,
-                kind: 123,
+
                 flags: 0
               },
               flags: 0,
@@ -1152,12 +1152,12 @@ describe('Recovery - While', () => {
             finalizer: null,
             start: 6,
             end: 11,
-            kind: 138,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -1165,7 +1165,7 @@ describe('Recovery - While', () => {
           leafs: [],
           start: 12,
           end: 13,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -1211,7 +1211,7 @@ describe('Recovery - While', () => {
 
   it('while label', () => {
     t.deepEqual(recovery('while label', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1219,7 +1219,7 @@ describe('Recovery - While', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: 'label',
             start: 5,
             end: 11,
@@ -1229,7 +1229,7 @@ describe('Recovery - While', () => {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 11,
               end: 11,
@@ -1237,12 +1237,12 @@ describe('Recovery - While', () => {
             },
             start: 11,
             end: 11,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -1272,7 +1272,7 @@ describe('Recovery - While', () => {
 
   it('while { break', () => {
     t.deepEqual(recovery('while { break', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1286,13 +1286,13 @@ describe('Recovery - While', () => {
                 name: 'break',
                 start: 7,
                 end: 13,
-                kind: 13,
+
                 flags: 0
               }
             ],
             start: 5,
             end: 13,
-            kind: 179,
+
             flags: 0
           },
           statement: {
@@ -1302,17 +1302,17 @@ describe('Recovery - While', () => {
               name: '',
               start: 13,
               end: 13,
-              kind: 13,
+
               flags: 2
             },
             start: 13,
             end: 13,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 13,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -1358,7 +1358,7 @@ describe('Recovery - While', () => {
 
   it('while I wait for the train', () => {
     t.deepEqual(recovery('while I wait for the train', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1369,7 +1369,7 @@ describe('Recovery - While', () => {
             name: 'I',
             start: 5,
             end: 7,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -1379,17 +1379,17 @@ describe('Recovery - While', () => {
               name: 'wait',
               start: 7,
               end: 12,
-              kind: 13,
+
               flags: 0
             },
             start: 7,
             end: 12,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 12,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -1400,7 +1400,7 @@ describe('Recovery - While', () => {
             name: 'the',
             start: 16,
             end: 20,
-            kind: 13,
+
             flags: 0
           },
           condition: {
@@ -1408,7 +1408,7 @@ describe('Recovery - While', () => {
             name: '',
             start: 26,
             end: 26,
-            kind: 13,
+
             flags: 2
           },
           incrementor: {
@@ -1416,7 +1416,7 @@ describe('Recovery - While', () => {
             name: 'train',
             start: 20,
             end: 26,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -1426,17 +1426,17 @@ describe('Recovery - While', () => {
               name: '',
               start: 26,
               end: 26,
-              kind: 13,
+
               flags: 2
             },
             start: 26,
             end: 26,
-            kind: 122,
+
             flags: 0
           },
           start: 12,
           end: 26,
-          kind: 132,
+
           flags: 0
         }
       ],
@@ -1498,7 +1498,7 @@ describe('Recovery - While', () => {
 
   it('while wait for the train I take a break and finally try to sleep !!', () => {
     t.deepEqual(recovery('while wait for the train I take a break and finally try to sleep !!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1509,7 +1509,7 @@ describe('Recovery - While', () => {
             name: 'wait',
             start: 5,
             end: 10,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -1520,7 +1520,7 @@ describe('Recovery - While', () => {
               name: 'the',
               start: 14,
               end: 18,
-              kind: 13,
+
               flags: 0
             },
             condition: {
@@ -1528,7 +1528,7 @@ describe('Recovery - While', () => {
               name: 'I',
               start: 24,
               end: 26,
-              kind: 13,
+
               flags: 0
             },
             incrementor: {
@@ -1536,7 +1536,7 @@ describe('Recovery - While', () => {
               name: 'train',
               start: 18,
               end: 24,
-              kind: 13,
+
               flags: 0
             },
             statement: {
@@ -1546,22 +1546,22 @@ describe('Recovery - While', () => {
                 name: 'take',
                 start: 26,
                 end: 31,
-                kind: 13,
+
                 flags: 0
               },
               start: 26,
               end: 31,
-              kind: 122,
+
               flags: 0
             },
             start: 10,
             end: 31,
-            kind: 132,
+
             flags: 0
           },
           start: 0,
           end: 31,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -1571,12 +1571,12 @@ describe('Recovery - While', () => {
             name: 'a',
             start: 31,
             end: 33,
-            kind: 13,
+
             flags: 0
           },
           start: 31,
           end: 33,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1586,12 +1586,12 @@ describe('Recovery - While', () => {
             name: 'and',
             start: 39,
             end: 43,
-            kind: 13,
+
             flags: 0
           },
           start: 33,
           end: 43,
-          kind: 124,
+
           flags: 0
         },
         {
@@ -1601,7 +1601,7 @@ describe('Recovery - While', () => {
             leafs: [],
             start: 43,
             end: 43,
-            kind: 123,
+
             flags: 0
           },
           catchClause: null,
@@ -1610,12 +1610,12 @@ describe('Recovery - While', () => {
             leafs: [],
             start: 51,
             end: 51,
-            kind: 123,
+
             flags: 0
           },
           start: 43,
           end: 51,
-          kind: 138,
+
           flags: 0
         },
         {
@@ -1625,14 +1625,14 @@ describe('Recovery - While', () => {
             leafs: [],
             start: 55,
             end: 55,
-            kind: 123,
+
             flags: 0
           },
           catchClause: null,
           finalizer: null,
           start: 51,
           end: 55,
-          kind: 138,
+
           flags: 0
         },
         {
@@ -1642,12 +1642,12 @@ describe('Recovery - While', () => {
             name: 'to',
             start: 55,
             end: 58,
-            kind: 13,
+
             flags: 0
           },
           start: 55,
           end: 58,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1657,12 +1657,12 @@ describe('Recovery - While', () => {
             name: 'sleep',
             start: 58,
             end: 64,
-            kind: 13,
+
             flags: 0
           },
           start: 58,
           end: 64,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1678,22 +1678,22 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 67,
                 end: 67,
-                kind: 13,
+
                 flags: 2
               },
               start: 66,
               end: 67,
-              kind: 160,
+
               flags: 0
             },
             start: 64,
             end: 67,
-            kind: 160,
+
             flags: 0
           },
           start: 64,
           end: 67,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -1827,7 +1827,7 @@ describe('Recovery - While', () => {
 
   it('I ran into infite loop while try to develop this {', () => {
     t.deepEqual(recovery('I ran into infite loop while try to develop this {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -1838,12 +1838,12 @@ describe('Recovery - While', () => {
             name: 'I',
             start: 0,
             end: 1,
-            kind: 13,
+
             flags: 0
           },
           start: 0,
           end: 1,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1853,12 +1853,12 @@ describe('Recovery - While', () => {
             name: 'ran',
             start: 1,
             end: 5,
-            kind: 13,
+
             flags: 0
           },
           start: 1,
           end: 5,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1868,12 +1868,12 @@ describe('Recovery - While', () => {
             name: 'into',
             start: 5,
             end: 10,
-            kind: 13,
+
             flags: 0
           },
           start: 5,
           end: 10,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1883,12 +1883,12 @@ describe('Recovery - While', () => {
             name: 'infite',
             start: 10,
             end: 17,
-            kind: 13,
+
             flags: 0
           },
           start: 10,
           end: 17,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1898,12 +1898,12 @@ describe('Recovery - While', () => {
             name: 'loop',
             start: 17,
             end: 22,
-            kind: 13,
+
             flags: 0
           },
           start: 17,
           end: 22,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1913,7 +1913,7 @@ describe('Recovery - While', () => {
             name: '',
             start: 28,
             end: 28,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -1923,19 +1923,19 @@ describe('Recovery - While', () => {
               leafs: [],
               start: 32,
               end: 32,
-              kind: 123,
+
               flags: 0
             },
             catchClause: null,
             finalizer: null,
             start: 28,
             end: 32,
-            kind: 138,
+
             flags: 0
           },
           start: 22,
           end: 32,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -1945,12 +1945,12 @@ describe('Recovery - While', () => {
             name: 'to',
             start: 32,
             end: 35,
-            kind: 13,
+
             flags: 0
           },
           start: 32,
           end: 35,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1960,12 +1960,12 @@ describe('Recovery - While', () => {
             name: 'develop',
             start: 35,
             end: 43,
-            kind: 13,
+
             flags: 0
           },
           start: 35,
           end: 43,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1974,12 +1974,12 @@ describe('Recovery - While', () => {
             type: 'ThisExpression',
             start: 43,
             end: 48,
-            kind: 165,
+
             flags: 0
           },
           start: 43,
           end: 48,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -1987,7 +1987,7 @@ describe('Recovery - While', () => {
           leafs: [],
           start: 48,
           end: 50,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -2089,7 +2089,7 @@ describe('Recovery - While', () => {
 
   it('while !', () => {
     t.deepEqual(recovery('while !', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2100,7 +2100,7 @@ describe('Recovery - While', () => {
             operator: '!',
             operand: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 7,
               end: 7,
@@ -2108,14 +2108,14 @@ describe('Recovery - While', () => {
             },
             start: 5,
             end: 7,
-            kind: 160,
+
             flags: 0
           },
           statement: {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 7,
               end: 7,
@@ -2123,12 +2123,12 @@ describe('Recovery - While', () => {
             },
             start: 7,
             end: 7,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2158,7 +2158,7 @@ describe('Recovery - While', () => {
 
   it('while class', () => {
     t.deepEqual(recovery('while class', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2171,14 +2171,14 @@ describe('Recovery - While', () => {
             elements: [],
             start: 5,
             end: 11,
-            kind: 149,
+
             flags: 0
           },
           statement: {
             type: 'ExpressionStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 11,
               end: 11,
@@ -2186,12 +2186,12 @@ describe('Recovery - While', () => {
             },
             start: 11,
             end: 11,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2221,7 +2221,7 @@ describe('Recovery - While', () => {
 
   it('while!{!', () => {
     t.deepEqual(recovery('while!{!', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2235,12 +2235,12 @@ describe('Recovery - While', () => {
               properties: [],
               start: 6,
               end: 7,
-              kind: 179,
+
               flags: 0
             },
             start: 5,
             end: 7,
-            kind: 160,
+
             flags: 0
           },
           statement: {
@@ -2253,22 +2253,22 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 8,
                 end: 8,
-                kind: 13,
+
                 flags: 2
               },
               start: 7,
               end: 8,
-              kind: 160,
+
               flags: 0
             },
             start: 7,
             end: 8,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 8,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2306,7 +2306,7 @@ describe('Recovery - While', () => {
 
   it('(while(x,,,,,', () => {
     t.deepEqual(recovery('(while(x,,,,,', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2319,17 +2319,17 @@ describe('Recovery - While', () => {
               name: '',
               start: 1,
               end: 1,
-              kind: 13,
+
               flags: 2
             },
             start: 0,
             end: 1,
-            kind: 189,
+
             flags: 0
           },
           start: 0,
           end: 1,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -2342,7 +2342,7 @@ describe('Recovery - While', () => {
                 name: 'x',
                 start: 7,
                 end: 8,
-                kind: 13,
+
                 flags: 0
               },
               {
@@ -2350,7 +2350,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 9,
                 end: 9,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2358,7 +2358,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 10,
                 end: 10,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2366,7 +2366,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 11,
                 end: 11,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2374,7 +2374,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 12,
                 end: 12,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2382,13 +2382,13 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 13,
                 end: 13,
-                kind: 13,
+
                 flags: 2
               }
             ],
             start: 7,
             end: 13,
-            kind: 147,
+
             flags: 0
           },
           statement: {
@@ -2398,17 +2398,17 @@ describe('Recovery - While', () => {
               name: '',
               start: 13,
               end: 13,
-              kind: 13,
+
               flags: 2
             },
             start: 13,
             end: 13,
-            kind: 122,
+
             flags: 0
           },
           start: 1,
           end: 13,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2470,7 +2470,7 @@ describe('Recovery - While', () => {
 
   it('while(,,,,,,,,,,', () => {
     t.deepEqual(recovery('while(,,,,,,,,,,', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2484,7 +2484,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 6,
                 end: 6,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2492,7 +2492,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 7,
                 end: 7,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2500,7 +2500,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 8,
                 end: 8,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2508,7 +2508,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 9,
                 end: 9,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2516,7 +2516,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 10,
                 end: 10,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2524,7 +2524,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 11,
                 end: 11,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2532,7 +2532,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 12,
                 end: 12,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2540,7 +2540,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 13,
                 end: 13,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2548,7 +2548,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 14,
                 end: 14,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2556,7 +2556,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 15,
                 end: 15,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2564,13 +2564,13 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 16,
                 end: 16,
-                kind: 13,
+
                 flags: 2
               }
             ],
             start: 6,
             end: 16,
-            kind: 147,
+
             flags: 0
           },
           statement: {
@@ -2580,17 +2580,17 @@ describe('Recovery - While', () => {
               name: '',
               start: 16,
               end: 16,
-              kind: 13,
+
               flags: 2
             },
             start: 16,
             end: 16,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 16,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2692,7 +2692,7 @@ describe('Recovery - While', () => {
 
   it('while(/a/,,,/bb while x() {} while ', () => {
     t.deepEqual(recovery('while(/a/,,,/bb while x() {} while', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2707,7 +2707,7 @@ describe('Recovery - While', () => {
                 flag: '',
                 start: 6,
                 end: 9,
-                kind: 15,
+
                 flags: 0
               },
               {
@@ -2715,7 +2715,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 10,
                 end: 10,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2723,7 +2723,7 @@ describe('Recovery - While', () => {
                 name: '',
                 start: 11,
                 end: 11,
-                kind: 13,
+
                 flags: 2
               },
               {
@@ -2732,13 +2732,13 @@ describe('Recovery - While', () => {
                 flag: '',
                 start: 12,
                 end: 34,
-                kind: 15,
+
                 flags: 0
               }
             ],
             start: 6,
             end: 34,
-            kind: 147,
+
             flags: 0
           },
           statement: {
@@ -2748,17 +2748,17 @@ describe('Recovery - While', () => {
               name: '',
               start: 34,
               end: 34,
-              kind: 13,
+
               flags: 2
             },
             start: 34,
             end: 34,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 34,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2804,7 +2804,7 @@ describe('Recovery - While', () => {
 
   it('while ! (x) {}', () => {
     t.deepEqual(recovery('while ! (x) {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2817,7 +2817,7 @@ describe('Recovery - While', () => {
               type: 'ParenthesizedExpression',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: 'x',
                 start: 9,
                 end: 10,
@@ -2825,12 +2825,12 @@ describe('Recovery - While', () => {
               },
               start: 7,
               end: 11,
-              kind: 189,
+
               flags: 0
             },
             start: 5,
             end: 11,
-            kind: 160,
+
             flags: 0
           },
           statement: {
@@ -2838,12 +2838,12 @@ describe('Recovery - While', () => {
             leafs: [],
             start: 11,
             end: 14,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2881,7 +2881,7 @@ describe('Recovery - While', () => {
 
   it('while({} [] ! {', () => {
     t.deepEqual(recovery('while({} [] ! {', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2894,7 +2894,7 @@ describe('Recovery - While', () => {
               properties: [],
               start: 6,
               end: 8,
-              kind: 179,
+
               flags: 0
             },
             expression: {
@@ -2902,13 +2902,13 @@ describe('Recovery - While', () => {
               name: '',
               start: 10,
               end: 10,
-              kind: 13,
+
               flags: 2
             },
             computed: true,
             start: 6,
             end: 11,
-            kind: 154,
+
             flags: 0
           },
           statement: {
@@ -2921,22 +2921,22 @@ describe('Recovery - While', () => {
                 properties: [],
                 start: 13,
                 end: 15,
-                kind: 179,
+
                 flags: 0
               },
               start: 11,
               end: 15,
-              kind: 160,
+
               flags: 0
             },
             start: 11,
             end: 15,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 15,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -2982,7 +2982,7 @@ describe('Recovery - While', () => {
 
   it('while x break {}', () => {
     t.deepEqual(recovery('while x break {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -2993,7 +2993,7 @@ describe('Recovery - While', () => {
             name: 'x',
             start: 5,
             end: 7,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -3001,12 +3001,12 @@ describe('Recovery - While', () => {
             label: null,
             start: 7,
             end: 13,
-            kind: 124,
+
             flags: 0
           },
           start: 0,
           end: 13,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -3014,7 +3014,7 @@ describe('Recovery - While', () => {
           leafs: [],
           start: 13,
           end: 16,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -3060,7 +3060,7 @@ describe('Recovery - While', () => {
 
   it('while(x){', () => {
     t.deepEqual(recovery('while(x){', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3068,7 +3068,7 @@ describe('Recovery - While', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: 'x',
             start: 6,
             end: 7,
@@ -3079,12 +3079,12 @@ describe('Recovery - While', () => {
             leafs: [],
             start: 8,
             end: 9,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 9,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -3114,7 +3114,7 @@ describe('Recovery - While', () => {
 
   it('while x do{', () => {
     t.deepEqual(recovery('while x do{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3122,7 +3122,7 @@ describe('Recovery - While', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: 'x',
             start: 5,
             end: 7,
@@ -3132,7 +3132,7 @@ describe('Recovery - While', () => {
             type: 'DoWhileStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 11,
               end: 11,
@@ -3143,17 +3143,17 @@ describe('Recovery - While', () => {
               leafs: [],
               start: 10,
               end: 11,
-              kind: 123,
+
               flags: 0
             },
             start: 7,
             end: 11,
-            kind: 127,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -3199,7 +3199,7 @@ describe('Recovery - While', () => {
 
   it('while for{', () => {
     t.deepEqual(recovery('while for{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3207,7 +3207,7 @@ describe('Recovery - While', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 5,
             end: 5,
@@ -3221,12 +3221,12 @@ describe('Recovery - While', () => {
               properties: [],
               start: 9,
               end: 10,
-              kind: 179,
+
               flags: 0
             },
             condition: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 10,
               end: 10,
@@ -3234,7 +3234,7 @@ describe('Recovery - While', () => {
             },
             incrementor: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 10,
               end: 10,
@@ -3244,7 +3244,7 @@ describe('Recovery - While', () => {
               type: 'ExpressionStatement',
               expression: {
                 type: 'IdentifierReference',
-                kind: 13,
+
                 name: '',
                 start: 10,
                 end: 10,
@@ -3252,17 +3252,17 @@ describe('Recovery - While', () => {
               },
               start: 10,
               end: 10,
-              kind: 122,
+
               flags: 0
             },
             start: 5,
             end: 10,
-            kind: 132,
+
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -3300,7 +3300,7 @@ describe('Recovery - While', () => {
 
   it('while try{', () => {
     t.deepEqual(recovery('while try{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3308,7 +3308,7 @@ describe('Recovery - While', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: '',
             start: 5,
             end: 5,
@@ -3321,19 +3321,19 @@ describe('Recovery - While', () => {
               leafs: [],
               start: 9,
               end: 10,
-              kind: 123,
+
               flags: 0
             },
             catchClause: null,
             finalizer: null,
             start: 5,
             end: 10,
-            kind: 138,
+
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -3371,7 +3371,7 @@ describe('Recovery - While', () => {
 
   it('while continue{', () => {
     t.deepEqual(recovery('while continue{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3382,7 +3382,7 @@ describe('Recovery - While', () => {
             name: '',
             start: 5,
             end: 5,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -3390,12 +3390,12 @@ describe('Recovery - While', () => {
             label: null,
             start: 5,
             end: 14,
-            kind: 125,
+
             flags: 0
           },
           start: 0,
           end: 14,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -3403,7 +3403,7 @@ describe('Recovery - While', () => {
           leafs: [],
           start: 14,
           end: 15,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -3441,7 +3441,7 @@ describe('Recovery - While', () => {
 
   it('while let{', () => {
     t.deepEqual(recovery('while let{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3449,7 +3449,7 @@ describe('Recovery - While', () => {
           type: 'WhileStatement',
           expression: {
             type: 'IdentifierReference',
-            kind: 13,
+
             name: 'let',
             start: 5,
             end: 9,
@@ -3460,12 +3460,12 @@ describe('Recovery - While', () => {
             leafs: [],
             start: 9,
             end: 10,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -3503,7 +3503,7 @@ describe('Recovery - While', () => {
 
   it('while let.let => {{', () => {
     t.deepEqual(recovery('while let.let => {{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3516,7 +3516,7 @@ describe('Recovery - While', () => {
               name: 'let',
               start: 5,
               end: 9,
-              kind: 13,
+
               flags: 0
             },
             expression: {
@@ -3524,13 +3524,13 @@ describe('Recovery - While', () => {
               name: 'let',
               start: 10,
               end: 13,
-              kind: 13,
+
               flags: 0
             },
             computed: false,
             start: 5,
             end: 13,
-            kind: 154,
+
             flags: 0
           },
           statement: {
@@ -3540,17 +3540,17 @@ describe('Recovery - While', () => {
               name: '',
               start: 13,
               end: 13,
-              kind: 13,
+
               flags: 2
             },
             start: 13,
             end: 13,
-            kind: 122,
+
             flags: 0
           },
           start: 0,
           end: 13,
-          kind: 139,
+
           flags: 0
         },
         {
@@ -3561,13 +3561,13 @@ describe('Recovery - While', () => {
               leafs: [],
               start: 18,
               end: 19,
-              kind: 123,
+
               flags: 0
             }
           ],
           start: 16,
           end: 19,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -3613,7 +3613,7 @@ describe('Recovery - While', () => {
 
   it('while ;;;;;;;;;;;;;;;;;;;;;;;;;;; ,,, do{', () => {
     t.deepEqual(recovery('while ;;;;;;;;;;;;;;;;;;;;;;;;;;; ,,, do{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3624,201 +3624,201 @@ describe('Recovery - While', () => {
             name: '',
             start: 5,
             end: 5,
-            kind: 13,
+
             flags: 2
           },
           statement: {
             type: 'EmptyStatement',
             start: 5,
             end: 7,
-            kind: 148,
+
             flags: 0
           },
           start: 0,
           end: 7,
-          kind: 139,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 7,
           end: 8,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 8,
           end: 9,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 9,
           end: 10,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 10,
           end: 11,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 11,
           end: 12,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 12,
           end: 13,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 13,
           end: 14,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 14,
           end: 15,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 15,
           end: 16,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 16,
           end: 17,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 17,
           end: 18,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 18,
           end: 19,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 19,
           end: 20,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 20,
           end: 21,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 21,
           end: 22,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 22,
           end: 23,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 23,
           end: 24,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 24,
           end: 25,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 25,
           end: 26,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 26,
           end: 27,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 27,
           end: 28,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 28,
           end: 29,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 29,
           end: 30,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 30,
           end: 31,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 31,
           end: 32,
-          kind: 148,
+
           flags: 0
         },
         {
           type: 'EmptyStatement',
           start: 32,
           end: 33,
-          kind: 148,
+
           flags: 0
         },
         {
@@ -3828,7 +3828,7 @@ describe('Recovery - While', () => {
             name: '',
             start: 41,
             end: 41,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -3836,12 +3836,12 @@ describe('Recovery - While', () => {
             leafs: [],
             start: 40,
             end: 41,
-            kind: 123,
+
             flags: 0
           },
           start: 37,
           end: 41,
-          kind: 127,
+
           flags: 0
         }
       ],
@@ -3903,7 +3903,7 @@ describe('Recovery - While', () => {
 
   it('while x) {}', () => {
     t.deepEqual(recovery('while x) {}', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3914,7 +3914,7 @@ describe('Recovery - While', () => {
             name: 'x',
             start: 5,
             end: 7,
-            kind: 13,
+
             flags: 0
           },
           statement: {
@@ -3922,12 +3922,12 @@ describe('Recovery - While', () => {
             leafs: [],
             start: 8,
             end: 11,
-            kind: 123,
+
             flags: 0
           },
           start: 0,
           end: 11,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -3957,7 +3957,7 @@ describe('Recovery - While', () => {
 
   it('while !do{', () => {
     t.deepEqual(recovery('while !do{', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -3968,7 +3968,7 @@ describe('Recovery - While', () => {
             operator: '!',
             operand: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 7,
               end: 7,
@@ -3976,14 +3976,14 @@ describe('Recovery - While', () => {
             },
             start: 5,
             end: 7,
-            kind: 160,
+
             flags: 0
           },
           statement: {
             type: 'DoWhileStatement',
             expression: {
               type: 'IdentifierReference',
-              kind: 13,
+
               name: '',
               start: 10,
               end: 10,
@@ -3994,17 +3994,17 @@ describe('Recovery - While', () => {
               leafs: [],
               start: 9,
               end: 10,
-              kind: 123,
+
               flags: 0
             },
             start: 7,
             end: 10,
-            kind: 127,
+
             flags: 0
           },
           start: 0,
           end: 10,
-          kind: 139,
+
           flags: 0
         }
       ],
@@ -4050,7 +4050,7 @@ describe('Recovery - While', () => {
 
   it('{!while!foo!bar;', () => {
     t.deepEqual(recovery('{!while!foo!bar;', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4067,17 +4067,17 @@ describe('Recovery - While', () => {
                   name: '',
                   start: 2,
                   end: 2,
-                  kind: 13,
+
                   flags: 2
                 },
                 start: 1,
                 end: 2,
-                kind: 160,
+
                 flags: 0
               },
               start: 1,
               end: 2,
-              kind: 122,
+
               flags: 0
             },
             {
@@ -4090,12 +4090,12 @@ describe('Recovery - While', () => {
                   name: 'foo',
                   start: 8,
                   end: 11,
-                  kind: 13,
+
                   flags: 0
                 },
                 start: 7,
                 end: 11,
-                kind: 160,
+
                 flags: 0
               },
               statement: {
@@ -4108,28 +4108,28 @@ describe('Recovery - While', () => {
                     name: 'bar',
                     start: 12,
                     end: 15,
-                    kind: 13,
+
                     flags: 0
                   },
                   start: 11,
                   end: 15,
-                  kind: 160,
+
                   flags: 0
                 },
                 start: 11,
                 end: 16,
-                kind: 122,
+
                 flags: 0
               },
               start: 2,
               end: 16,
-              kind: 139,
+
               flags: 0
             }
           ],
           start: 0,
           end: 16,
-          kind: 123,
+
           flags: 0
         }
       ],
@@ -4183,7 +4183,7 @@ describe('Recovery - While', () => {
 
   it('a(while){', () => {
     t.deepEqual(recovery('a(while){', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -4196,18 +4196,18 @@ describe('Recovery - While', () => {
               name: 'a',
               start: 0,
               end: 1,
-              kind: 13,
+
               flags: 0
             },
             arguments: [],
             start: 0,
             end: 2,
-            kind: 156,
+
             flags: 0
           },
           start: 0,
           end: 2,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -4217,7 +4217,7 @@ describe('Recovery - While', () => {
             name: '',
             start: 7,
             end: 7,
-            kind: 13,
+
             flags: 2
           },
           statement: {
@@ -4225,12 +4225,12 @@ describe('Recovery - While', () => {
             leafs: [],
             start: 8,
             end: 9,
-            kind: 123,
+
             flags: 0
           },
           start: 2,
           end: 9,
-          kind: 139,
+
           flags: 0
         }
       ],

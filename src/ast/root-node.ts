@@ -1,4 +1,4 @@
-import { SyntaxKind, Node, NodeFlags } from './node';
+import { Node } from './node';
 import { Diagnostic } from '../diagnostic';
 import { Flags, Context } from '../common';
 import { ImportExport } from './module';
@@ -9,7 +9,6 @@ import { Directive } from './directive-node';
  * and some information about the file which the statements came from.
  */
 export interface RootNode extends Node {
-  readonly kind: SyntaxKind.RootNode;
   readonly directives: Directive[];
   readonly leafs: ImportExport[];
   readonly text: string;
@@ -36,7 +35,7 @@ export function createRootNode(
   diagnostics: Diagnostic[]
 ): RootNode {
   return {
-    kind: SyntaxKind.RootNode | NodeFlags.None,
+    type: 'RootNode',
     directives,
     leafs,
     text,

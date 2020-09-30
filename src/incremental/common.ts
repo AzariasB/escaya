@@ -1,5 +1,5 @@
 import { Context, ParserState, finishNode } from '../common';
-import { SyntaxKind, NodeFlags } from '../ast/node';
+import { NodeFlags } from '../ast/node';
 import { IdentifierReference } from '../ast/expressions/identifierreference';
 import { addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
@@ -14,13 +14,7 @@ export function createIdentifier(
   code = DiagnosticCode.ExpectedExpression
 ): IdentifierReference {
   addDiagnostic(state, context, DiagnosticSource.Parser, code, DiagnosticKind.Error);
-  const ident: any = finishNode(
-    state,
-    context,
-    state.startIndex,
-    DictionaryMap.IdentifierReference(''),
-    SyntaxKind.Identifier
-  );
+  const ident: any = finishNode(state, context, state.startIndex, DictionaryMap.IdentifierReference(''));
   ident.flags |= NodeFlags.HasErrors;
   return ident;
 }
@@ -36,5 +30,5 @@ export function createBindingIdentifier(
   addDiagnostic(state, context, DiagnosticSource.Parser, code, DiagnosticKind.Early);
   const start = state.startIndex;
   if (shouldConsume) nextToken(state, context);
-  return finishNode(state, context, start, DictionaryMap.BindingIdentifier(''), SyntaxKind.BindingIdentifier);
+  return finishNode(state, context, start, DictionaryMap.BindingIdentifier(''));
 }

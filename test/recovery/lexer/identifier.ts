@@ -29,7 +29,8 @@ describe('Recovery - Identifier', () => {
       fileName: 'recovery.js',
       incremental: false,
       detached: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -37,14 +38,12 @@ describe('Recovery - Identifier', () => {
           expression: {
             end: 6,
             flags: 0,
-            kind: 10,
             start: 0,
             type: 'NumericLiteral',
 
             value: 1
           },
           flags: 0,
-          kind: 122,
           start: 0,
           type: 'ExpressionStatement'
         }
@@ -58,7 +57,7 @@ describe('Recovery - Identifier', () => {
   });
   it('x\\u foo', () => {
     t.deepEqual(recovery('x\\u foo', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -69,12 +68,11 @@ describe('Recovery - Identifier', () => {
             name: 'x',
             start: 0,
             end: 1,
-            kind: 13,
+
             flags: 0
           },
           start: 0,
           end: 1,
-          kind: 122,
           flags: 0
         },
         {
@@ -84,12 +82,11 @@ describe('Recovery - Identifier', () => {
             name: '￿',
             start: 1,
             end: 2,
-            kind: 13,
+
             flags: 0
           },
           start: 1,
           end: 2,
-          kind: 122,
           flags: 0
         },
         {
@@ -99,12 +96,12 @@ describe('Recovery - Identifier', () => {
             name: 'u',
             start: 2,
             end: 3,
-            kind: 13,
+
             flags: 0
           },
           start: 2,
           end: 3,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -114,12 +111,12 @@ describe('Recovery - Identifier', () => {
             name: 'foo',
             start: 3,
             end: 7,
-            kind: 13,
+
             flags: 0
           },
           start: 3,
           end: 7,
-          kind: 122,
+
           flags: 0
         }
       ],
@@ -182,7 +179,8 @@ describe('Recovery - Identifier', () => {
       fileName: 'recovery.js',
       incremental: false,
       detached: false,
-      kind: 209,
+
+      type: 'RootNode',
       webCompat: true,
       leafs: [
         {
@@ -190,13 +188,13 @@ describe('Recovery - Identifier', () => {
           expression: {
             end: 1,
             flags: 0,
-            kind: 13,
+
             name: 'x',
             start: 0,
             type: 'IdentifierReference'
           },
           flags: 0,
-          kind: 122,
+
           start: 0,
           type: 'ExpressionStatement'
         },
@@ -205,13 +203,13 @@ describe('Recovery - Identifier', () => {
           expression: {
             end: 2,
             flags: 0,
-            kind: 13,
+
             name: '￿',
             start: 1,
             type: 'IdentifierReference'
           },
           flags: 0,
-          kind: 122,
+
           start: 1,
           type: 'ExpressionStatement'
         }
@@ -226,7 +224,7 @@ describe('Recovery - Identifier', () => {
 
   it('x\\u{0 foo', () => {
     t.deepEqual(recovery('x\\u{0 foo', 'recovery.js'), {
-      kind: 209,
+      type: 'RootNode',
       webCompat: true,
       directives: [],
       leafs: [
@@ -237,12 +235,12 @@ describe('Recovery - Identifier', () => {
             name: 'x',
             start: 0,
             end: 1,
-            kind: 13,
+
             flags: 0
           },
           start: 0,
           end: 1,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -252,12 +250,12 @@ describe('Recovery - Identifier', () => {
             name: '￿',
             start: 1,
             end: 2,
-            kind: 13,
+
             flags: 0
           },
           start: 1,
           end: 2,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -267,12 +265,12 @@ describe('Recovery - Identifier', () => {
             name: 'u',
             start: 2,
             end: 3,
-            kind: 13,
+
             flags: 0
           },
           start: 2,
           end: 3,
-          kind: 122,
+
           flags: 0
         },
         {
@@ -286,12 +284,11 @@ describe('Recovery - Identifier', () => {
                 value: 0,
                 start: 4,
                 end: 5,
-                kind: 10,
                 flags: 0
               },
               start: 4,
               end: 5,
-              kind: 122,
+
               flags: 0
             },
             {
@@ -301,18 +298,17 @@ describe('Recovery - Identifier', () => {
                 name: 'foo',
                 start: 5,
                 end: 9,
-                kind: 13,
+
                 flags: 0
               },
               start: 5,
               end: 9,
-              kind: 122,
+
               flags: 0
             }
           ],
           start: 3,
           end: 9,
-          kind: 123,
           flags: 0
         }
       ],
