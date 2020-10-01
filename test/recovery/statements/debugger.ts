@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Debugger', () => {
   it('followed by incomplete unary expr', () => {
-    t.deepEqual(recovery('debugger; !!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('debugger; !!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

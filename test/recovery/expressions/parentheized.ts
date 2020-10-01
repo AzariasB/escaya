@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Expressions - Parenthesized', () => {
   it('(', () => {
-    t.deepEqual(recovery('(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -56,7 +56,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('(/ {', () => {
-    t.deepEqual(recovery('(/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(/ {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -110,7 +110,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('(...', () => {
-    t.deepEqual(recovery('(...', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(...', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -178,7 +178,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('(a', () => {
-    t.deepEqual(recovery('(a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(a', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -228,7 +228,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('(!', () => {
-    t.deepEqual(recovery('(!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -285,7 +285,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('(!=', () => {
-    t.deepEqual(recovery('(!=', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(!=', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -350,7 +350,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('(!=,,,,,,', () => {
-    t.deepEqual(recovery('(!=,,,,,,', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(!=,,,,,,', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -517,7 +517,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('(((((((((((((((((', () => {
-    t.deepEqual(recovery('(((((((((((((((((', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(((((((((((((((((', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -682,7 +682,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('(with babel', () => {
-    t.deepEqual(recovery('(with babel', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(with babel', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -768,7 +768,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('!(', () => {
-    t.deepEqual(recovery('!(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!(', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -825,7 +825,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('([,[', () => {
-    t.deepEqual(recovery('([,[', 'recovery.js'), {
+    t.deepStrictEqual(recovery('([,[', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -890,7 +890,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('([...b', () => {
-    t.deepEqual(recovery('([...b', 'recovery.js'), {
+    t.deepStrictEqual(recovery('([...b', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -957,7 +957,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('([...b!', () => {
-    t.deepEqual(recovery('([...b!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('([...b!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1042,7 +1042,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('(a b c [] {} ...', () => {
-    t.deepEqual(recovery('(a b c [] {} ...', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(a b c [] {} ...', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1179,7 +1179,7 @@ describe('Recovery - Expressions - Parenthesized', () => {
   });
 
   it('(while then I switch from Babel', () => {
-    t.deepEqual(recovery('(while then I switch from Babel', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(while then I switch from Babel', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

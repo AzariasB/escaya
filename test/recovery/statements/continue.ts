@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Continue', () => {
   it('while ! continue {', () => {
-    t.deepEqual(recovery('while ! continue {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while ! continue {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -89,7 +89,7 @@ describe('Recovery - Continue', () => {
   });
 
   it('as keyword', () => {
-    t.deepEqual(recovery('continue', 'recovery.js'), {
+    t.deepStrictEqual(recovery('continue', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

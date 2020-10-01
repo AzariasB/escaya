@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Expressions - Async', () => {
   it('async(', () => {
-    t.deepEqual(recovery('async(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async(', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -57,7 +57,7 @@ describe('Recovery - Expressions - Async', () => {
   });
 
   it('async(async=>!', () => {
-    t.deepEqual(recovery('async(async=>!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async(async=>!', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -145,7 +145,7 @@ describe('Recovery - Expressions - Async', () => {
   });
 
   it('async( a [] => async!', () => {
-    t.deepEqual(recovery('async( a [] => async!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async( a [] => async!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -270,7 +270,7 @@ describe('Recovery - Expressions - Async', () => {
   });
   /*
   it('!async(async!', () => {
-    t.deepEqual(recovery('!async(async!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!async(async!', 'recovery.js'), {
       "kind": 209,
       "directives": [],
       "leafs": [
@@ -348,7 +348,7 @@ describe('Recovery - Expressions - Async', () => {
   });
 */
   it('async(for it is an CallExpression!', () => {
-    t.deepEqual(recovery('async(for it is an CallExpression!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async(for it is an CallExpression!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -504,7 +504,7 @@ describe('Recovery - Expressions - Async', () => {
   });
 
   it('async(for', () => {
-    t.deepEqual(recovery('async(for', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async(for', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -602,7 +602,7 @@ describe('Recovery - Expressions - Async', () => {
   });
 
   it('async(for) {}', () => {
-    t.deepEqual(recovery('async(for) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async(for) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -694,7 +694,7 @@ describe('Recovery - Expressions - Async', () => {
   });
 
   it('async(for) =>{}', () => {
-    t.deepEqual(recovery('async(for) =>{}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async(for) =>{}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -812,7 +812,7 @@ describe('Recovery - Expressions - Async', () => {
   });
 
   it('async(a, for) =>{}', () => {
-    t.deepEqual(recovery('async(a, for) =>{}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async(a, for) =>{}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -939,7 +939,7 @@ describe('Recovery - Expressions - Async', () => {
   });
 
   it('async(async!', () => {
-    t.deepEqual(recovery('async(async!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async(async!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

@@ -2037,29 +2037,29 @@ export function parsePropertyOrPrivatePropertyName(
 }
 
 // OptionalChain :
-// ?.Arguments
-// ?.Expression
-// ?.IdentifierName
-// ?.TemplateLiteral
+// ?. Arguments
+// ?. Expression
+// ?. IdentifierName
+// ?. TemplateLiteral
 //
 // OptionalChain, Arguments
-// OptionalChain, Expression
-// OptionalChain, .IdentifierName
-// OptionalChain,TemplateLiteral
+// OptionalChain, [ Expression ]
+// OptionalChain, . IdentifierName
+// OptionalChain, TemplateLiteral
 export function parseOptionalChain(state: ParserState, context: Context): CallChain | MemberChain {
   consume(state, context, Token.QuestionMarkPeriod);
   let chain = null;
   let start = state.startIndex;
 
-  if (state.token === Token.LeftParen) {
-    chain = parseCallChain(state, context, chain, parseArguments(state, context), start);
-  } else if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket)) {
-    chain = parseMemberChain(state, context, chain, parseExpression(state, context), true, start);
+  if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket)) {
+    chain = parseExpression(state, context);
     consumeOpt(state, context, Token.RightBracket);
-  } else if (state.token === Token.TemplateCont || state.token === Token.TemplateTail) {
-    addEarlyDiagnostic(state, context, DiagnosticCode.ChainNoTemplate);
+  } else if (state.token === Token.LeftParen) {
+    chain = parseArguments(state, context);
+  } else if (state.token & Constants.IdentifierOrKeyword) {
+    chain = parsePropertyOrPrivatePropertyName(state, context);
   } else {
-    chain = parseMemberChain(state, context, chain, parseIdentifierReference(state, context), false, start);
+    addEarlyDiagnostic(state, context, DiagnosticCode.ChainNoTemplate);
   }
 
   state.assignable = false;
@@ -2068,7 +2068,11 @@ export function parseOptionalChain(state: ParserState, context: Context): CallCh
 
   while (true) {
     start = state.startIndex;
-    if (state.token === Token.LeftParen) {
+    if (consumeOpt(state, context | Context.AllowRegExp, Token.Period)) {
+      chain = parseMemberChain(state, context, chain, parseIdentifierName(state, context), false, start);
+      chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain));
+      state.assignable = false;
+    } else if (state.token === Token.LeftParen) {
       chain = parseCallChain(state, context, chain, parseArguments(state, context), start);
       chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain));
     } else if (consumeOpt(state, context | Context.AllowRegExp, Token.LeftBracket)) {
@@ -2077,18 +2081,15 @@ export function parseOptionalChain(state: ParserState, context: Context): CallCh
       consumeOpt(state, context, Token.RightBracket);
       chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain));
       state.assignable = false;
-    } else if (consumeOpt(state, context | Context.AllowRegExp, Token.Period)) {
+    } else if (state.token & (Token.IsKeyword | Token.IsFutureReserved | Token.IsIdentifier)) {
       chain = parseMemberChain(state, context, chain, parseIdentifierName(state, context), false, start);
       chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain));
       state.assignable = false;
-    } else if (state.token === Token.TemplateCont || state.token === Token.TemplateTail) {
-      addEarlyDiagnostic(state, context, DiagnosticCode.ChainNoTemplate);
-      return chain;
     } else {
-      if ((state.token & (Token.IsKeyword | Token.IsFutureReserved | Token.IsIdentifier)) === 0) return chain;
-      chain = parseMemberChain(state, context, chain, parseIdentifierName(state, context), false, start);
-      chain = finishNode(state, context, start, DictionaryMap.OptionalChain(chain));
-      state.assignable = false;
+      if (state.token === Token.TemplateCont || state.token === Token.TemplateTail) {
+        addEarlyDiagnostic(state, context, DiagnosticCode.ChainNoTemplate);
+      }
+      return chain;
     }
   }
 }
@@ -4849,6 +4850,28 @@ export function parseExportSpecifier(
   const tokenValue = state.tokenValue;
   let value = tokenValue;
   let moduleExportName: StringLiteral | null = null;
+  if (state.token === Token.StringLiteral) {
+    const name = parseModuleExportName(state, context);
+    let exportedName = null;
+    if (consumeOpt(state, context, Token.AsKeyword)) {
+      if (state.token === Token.StringLiteral) {
+        moduleExportName = parseModuleExportName(state, context);
+      } else {
+        value = state.tokenValue;
+        exportedName = parseIdentifierName(state, context);
+      }
+    }
+
+    exportedNames.push(value as string);
+    exportedBindings.push(tokenValue);
+
+    return finishNode(
+      state,
+      context,
+      start,
+      DictionaryMap.ExportSpecifier(name as any, moduleExportName, exportedName)
+    );
+  }
   const name = parseIdentifierName(state, context);
   let exportedName = null;
   if (consumeOpt(state, context, Token.AsKeyword)) {

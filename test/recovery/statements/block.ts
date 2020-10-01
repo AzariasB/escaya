@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Block', () => {
   it('{ function let(){} }', () => {
-    t.deepEqual(recovery('{ function let(){} }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ function let(){} }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -61,7 +61,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{ async *[await = 5]() {}}', () => {
-    t.deepEqual(recovery('{ async *[await = 5]() {}}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ async *[await = 5]() {}}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -174,7 +174,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{ (x = [yield]) }', () => {
-    t.deepEqual(recovery('{ (x = [yield]) }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ (x = [yield]) }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -252,7 +252,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{}let a, b = 42, c;b;;', () => {
-    t.deepEqual(recovery('{}let a, b = 42, c;b;;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{}let a, b = 42, c;b;;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -370,7 +370,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{ function f(){} } function f(){}', () => {
-    t.deepEqual(recovery('{ function f(){} } function f(){}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ function f(){} } function f(){}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -455,7 +455,7 @@ describe('Recovery - Block', () => {
   });
 
   it('try { throw {}; } catch ({ f }) { switch (1) { default: function f() {  }} }', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery('try { throw {}; } catch ({ f }) { switch (1) { default: function f() {  }} }', 'recovery.js'),
       {
         type: 'RootNode',
@@ -599,7 +599,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{ { var f; } var f }', () => {
-    t.deepEqual(recovery('{ { var f; } var f }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ { var f; } var f }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -689,7 +689,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{', () => {
-    t.deepEqual(recovery('{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -728,7 +728,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{!', () => {
-    t.deepEqual(recovery('{!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -791,7 +791,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{;;;,,,', () => {
-    t.deepEqual(recovery('{;;;,,,', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{;;;,,,', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -868,7 +868,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{async(,,', () => {
-    t.deepEqual(recovery('{async(,,', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{async(,,', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -964,7 +964,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{(catch)', () => {
-    t.deepEqual(recovery('{(catch)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{(catch)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1066,7 +1066,7 @@ describe('Recovery - Block', () => {
   });
 
   it('!{}}}}', () => {
-    t.deepEqual(recovery('!{}}}}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!{}}}}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1136,7 +1136,7 @@ describe('Recovery - Block', () => {
   });
 
   it('function!{', () => {
-    t.deepEqual(recovery('function!{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function!{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1225,7 +1225,7 @@ describe('Recovery - Block', () => {
   });
 
   it('class!{', () => {
-    t.deepEqual(recovery('class!{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class!{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1296,7 +1296,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('(!{', () => {
-    t.deepEqual(recovery('(!{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(!{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1356,7 +1356,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('({){/a/}', () => {
-    t.deepEqual(recovery('({){/a/}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({){/a/}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1439,7 +1439,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{!}', () => {
-    t.deepEqual(recovery('{!}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{!}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1501,7 +1501,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('{while !} do while {', () => {
-    t.deepEqual(recovery('{while !} do while {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{while !} do while {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1640,7 +1640,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{!', () => {
-    t.deepEqual(recovery('{!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1702,7 +1702,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('{=v', () => {
-    t.deepEqual(recovery('{=v', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{=v', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1755,7 +1755,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('{/aaa?b', () => {
-    t.deepEqual(recovery('{/aaa?b', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{/aaa?b', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1811,193 +1811,162 @@ describe('Recovery - Block', () => {
   });
 
   it('{a?.b', () => {
-    t.deepEqual(recovery('{a?.b', 'recovery.js'), {
-      type: 'RootNode',
-      webCompat: true,
-      directives: [],
-      leafs: [
-        {
-          type: 'BlockStatement',
-          leafs: [
-            {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'OptionalExpression',
-                member: {
-                  type: 'IdentifierReference',
-                  name: 'a',
-                  start: 1,
-                  end: 2,
-
-                  flags: 0
-                },
-                chain: {
-                  type: 'OptionalChain',
-                  chain: {
-                    type: 'MemberChain',
-                    chain: null,
-                    member: {
-                      type: 'IdentifierReference',
-                      name: 'b',
-                      start: 4,
-                      end: 5,
-
-                      flags: 0
-                    },
-                    computed: false,
-                    start: 4,
-                    end: 5,
-
-                    flags: 0
-                  },
-                  start: 4,
-                  end: 5,
-
-                  flags: 0
-                },
-                start: 1,
-                end: 5,
-
-                flags: 0
-              },
-              start: 1,
-              end: 5,
-
-              flags: 0
-            }
-          ],
-          start: 0,
-          end: 5,
-
-          flags: 0
-        }
+    t.deepStrictEqual(recovery('{a?.b', 'recovery.js'), {
+      "type": "RootNode",
+      "directives": [],
+      "leafs": [
+          {
+              "type": "BlockStatement",
+              "leafs": [
+                  {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                          "type": "OptionalExpression",
+                          "member": {
+                              "type": "IdentifierReference",
+                              "name": "a",
+                              "start": 1,
+                              "end": 2,
+                              "flags": 0
+                          },
+                          "chain": {
+                              "type": "OptionalChain",
+                              "chain": {
+                                  "type": "IdentifierName",
+                                  "name": "b",
+                                  "start": 4,
+                                  "end": 5,
+                                  "flags": 0
+                              },
+                              "start": 4,
+                              "end": 5,
+                              "flags": 0
+                          },
+                          "start": 1,
+                          "end": 5,
+                          "flags": 0
+                      },
+                      "start": 1,
+                      "end": 5,
+                      "flags": 0
+                  }
+              ],
+              "start": 0,
+              "end": 5,
+              "flags": 0
+          }
       ],
-      text: '{a?.b',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`}` expected',
-          code: 5,
-          start: 4,
-          length: 1
-        }
+      "text": "{a?.b",
+      "fileName": "recovery.js",
+      "context": 0,
+      "mutualFlags": 0,
+      "diagnostics": [
+          {
+              "kind": 2,
+              "source": 2,
+              "message": "`}` expected",
+              "code": 5,
+              "start": 4,
+              "length": 1
+          }
       ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 5,
-      end: 5
-    });
+      "detached": false,
+      "incremental": false,
+      "parent": null,
+      "children": [],
+      "start": 0,
+      "length": 5,
+      "webCompat": true,
+      "end": 5
+  });
   });
   it('{a?.[a{}]', () => {
-    t.deepEqual(recovery('{a?.[a{}]', 'recovery.js'), {
-      type: 'RootNode',
-      webCompat: true,
-      directives: [],
-      leafs: [
-        {
-          type: 'BlockStatement',
-          leafs: [
-            {
-              type: 'ExpressionStatement',
-              expression: {
-                type: 'OptionalExpression',
-                member: {
-                  type: 'IdentifierReference',
-                  name: 'a',
-                  start: 1,
-                  end: 2,
-
-                  flags: 0
-                },
-                chain: {
-                  type: 'OptionalChain',
-                  chain: {
-                    type: 'MemberChain',
-                    chain: null,
-                    member: {
-                      type: 'IdentifierReference',
-                      name: 'a',
-                      start: 5,
-                      end: 6,
-
-                      flags: 0
-                    },
-                    computed: true,
-                    start: 4,
-                    end: 6,
-
-                    flags: 0
+    t.deepStrictEqual(recovery('{a?.[a{}]', 'recovery.js'), {
+      "type": "RootNode",
+      "directives": [],
+      "leafs": [
+          {
+              "type": "BlockStatement",
+              "leafs": [
+                  {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                          "type": "OptionalExpression",
+                          "member": {
+                              "type": "IdentifierReference",
+                              "name": "a",
+                              "start": 1,
+                              "end": 2,
+                              "flags": 0
+                          },
+                          "chain": {
+                              "type": "OptionalChain",
+                              "chain": {
+                                  "type": "IdentifierReference",
+                                  "name": "a",
+                                  "start": 5,
+                                  "end": 6,
+                                  "flags": 0
+                              },
+                              "start": 4,
+                              "end": 6,
+                              "flags": 0
+                          },
+                          "start": 1,
+                          "end": 6,
+                          "flags": 0
+                      },
+                      "start": 1,
+                      "end": 6,
+                      "flags": 0
                   },
-                  start: 4,
-                  end: 6,
-
-                  flags: 0
-                },
-                start: 1,
-                end: 6,
-
-                flags: 0
-              },
-              start: 1,
-              end: 6,
-
-              flags: 0
-            },
-            {
-              type: 'BlockStatement',
-              leafs: [],
-              start: 6,
-              end: 8,
-
-              flags: 0
-            }
-          ],
-          start: 0,
-          end: 8,
-
-          flags: 0
-        }
+                  {
+                      "type": "BlockStatement",
+                      "leafs": [],
+                      "start": 6,
+                      "end": 8,
+                      "flags": 0
+                  }
+              ],
+              "start": 0,
+              "end": 8,
+              "flags": 0
+          }
       ],
-      text: '{a?.[a{}]',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`;` expected',
-          code: 92,
-          start: 6,
-          length: 1
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`}` expected',
-          code: 5,
-          start: 8,
-          length: 1
-        }
+      "text": "{a?.[a{}]",
+      "fileName": "recovery.js",
+      "context": 0,
+      "mutualFlags": 0,
+      "diagnostics": [
+          {
+              "kind": 2,
+              "source": 2,
+              "message": "`;` expected",
+              "code": 92,
+              "start": 6,
+              "length": 1
+          },
+          {
+              "kind": 2,
+              "source": 2,
+              "message": "`}` expected",
+              "code": 5,
+              "start": 8,
+              "length": 1
+          }
       ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 9,
-      end: 9
-    });
+      "detached": false,
+      "incremental": false,
+      "parent": null,
+      "children": [],
+      "start": 0,
+      "length": 9,
+      "webCompat": true,
+      "end": 9
+  });
   });
   it('{!////////', () => {
-    t.deepEqual(recovery('{!////////', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{!////////', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2060,7 +2029,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{(,,,clause)', () => {
-    t.deepEqual(recovery('{(,,,clause)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{(,,,clause)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2178,7 +2147,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('{finally(,,,,,,,,', () => {
-    t.deepEqual(recovery('{finally(,,,,,,,,', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{finally(,,,,,,,,', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2408,7 +2377,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('{catch finally {}}', () => {
-    t.deepEqual(recovery('{catch finally {}}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{catch finally {}}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2495,7 +2464,7 @@ describe('Recovery - Block', () => {
   });
 
   it('switch!{', () => {
-    t.deepEqual(recovery('switch!{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch!{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2557,7 +2526,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('{switch !', () => {
-    t.deepEqual(recovery('{switch !', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{switch !', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2620,7 +2589,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('for = {', () => {
-    t.deepEqual(recovery('for = {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for = {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2721,7 +2690,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('{for = b', () => {
-    t.deepEqual(recovery('{for = b', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{for = b', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2831,7 +2800,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('new {', () => {
-    t.deepEqual(recovery('new {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('new {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2885,7 +2854,7 @@ describe('Recovery - Block', () => {
   });
 
   it('U{ x = { foo: default }', () => {
-    t.deepEqual(recovery('U{ x = { foo: default }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('U{ x = { foo: default }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3027,7 +2996,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{ 1 = 2', () => {
-    t.deepEqual(recovery('{ 1 = 2', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ 1 = 2', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3108,7 +3077,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{({x(eval){"use strict";}})}}', () => {
-    t.deepEqual(recovery('{({x(eval){"use strict";}})}}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{({x(eval){"use strict";}})}}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3215,7 +3184,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{ new', () => {
-    t.deepEqual(recovery('{ new', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ new', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3278,7 +3247,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{"dd"', () => {
-    t.deepEqual(recovery('{"dd"', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{"dd"', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3333,7 +3302,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{++', () => {
-    t.deepEqual(recovery('{++', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{++', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3396,7 +3365,7 @@ describe('Recovery - Block', () => {
   });
 
   it('aa0+{', () => {
-    t.deepEqual(recovery('aa0+{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('aa0+{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3457,7 +3426,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('2=3{!!', () => {
-    t.deepEqual(recovery('2=3{!!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('2=3{!!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3576,7 +3545,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('1/2{', () => {
-    t.deepEqual(recovery('1/2{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('1/2{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3647,7 +3616,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('{2/--3', () => {
-    t.deepEqual(recovery('{2/--3', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{2/--3', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3727,7 +3696,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('{p++ ! a - /3 =/ b', () => {
-    t.deepEqual(recovery('{p++ ! a - /3 =/ b', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{p++ ! a - /3 =/ b', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3853,7 +3822,7 @@ describe('Recovery - Block', () => {
   });
 
   it('{..b', () => {
-    t.deepEqual(recovery('{..b', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{..b', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3914,7 +3883,7 @@ describe('Recovery - Block', () => {
     });
   });
   it('x={...b}{}', () => {
-    t.deepEqual(recovery('x={...b}{}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('x={...b}{}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

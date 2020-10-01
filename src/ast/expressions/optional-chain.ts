@@ -1,5 +1,6 @@
 import { CallChain } from './call-chain';
-import { MemberChain } from './member-chain-expr';
+import { IdentifierName } from './identifiername';
+import { Expression } from './';
 import { Node } from '../node';
 
 /**
@@ -7,10 +8,10 @@ import { Node } from '../node';
  */
 
 export interface OptionalChain extends Node {
-  readonly chain: MemberChain | CallChain | null;
+  readonly chain: Expression | Expression[] | IdentifierName | null;
 }
 
-export function createOptionalChain(chain: MemberChain | CallChain | null): OptionalChain {
+export function createOptionalChain(chain: Expression | Expression[] | IdentifierName | null): OptionalChain {
   return {
     type: 'OptionalChain',
     chain

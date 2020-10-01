@@ -5,7 +5,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Expressions - Class', () => {
   it('class', () => {
-    t.deepEqual(recovery('class', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -45,7 +45,7 @@ describe('Recovery - Expressions - Class', () => {
   });
 
   it('(class', () => {
-    t.deepEqual(recovery('(class', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(class', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -97,7 +97,7 @@ describe('Recovery - Expressions - Class', () => {
   });
 
   it('(class baz { static bar(); }', () => {
-    t.deepEqual(recovery('(class baz { static bar(); }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(class baz { static bar(); }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

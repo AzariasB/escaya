@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - For', () => {
   it('for (var i = 0; i < 40000; i++) { src = { ...i, x: -9007199254740991 }; clone = { ...src }; }', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery(
         'for (var i = 0; i < 40000; i++) { src = { ...i, x: -9007199254740991 }; clone = { ...src }; }',
         'recovery.js'
@@ -240,7 +240,7 @@ describe('Recovery - For', () => {
   });
 
   it('for ([{__proto__: 1, __proto__: 2}];;);', () => {
-    t.deepEqual(recovery('for ([{__proto__: 1, __proto__: 2}];;);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for ([{__proto__: 1, __proto__: 2}];;);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -351,7 +351,7 @@ describe('Recovery - For', () => {
   });
 
   it('for ([a];;);', () => {
-    t.deepEqual(recovery('for ([a];;);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for ([a];;);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -404,7 +404,7 @@ describe('Recovery - For', () => {
   });
 
   it('for (((x)=>{}).x of y);', () => {
-    t.deepEqual(recovery('for (((x)=>{}).x of y);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (((x)=>{}).x of y);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -497,7 +497,7 @@ describe('Recovery - For', () => {
   });
 
   it('for ({}[y] ^= x;;) x;', () => {
-    t.deepEqual(recovery('for ({}[y] ^= x;;) x;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for ({}[y] ^= x;;) x;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -583,7 +583,7 @@ describe('Recovery - For', () => {
   });
 
   it('for', () => {
-    t.deepEqual(recovery('for', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -660,7 +660,7 @@ describe('Recovery - For', () => {
   });
 
   it('for)', () => {
-    t.deepEqual(recovery('for)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -729,7 +729,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for keyword11', () => {
-    t.deepEqual(recovery('for(!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -813,7 +813,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for(let x', () => {
-    t.deepEqual(recovery('for(let x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(let x', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -906,7 +906,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for keywordd', () => {
-    t.deepEqual(recovery('for(let.xy', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(let.xy', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -998,7 +998,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for(let.s =', () => {
-    t.deepEqual(recovery('for(let.s =', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(let.s =', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1106,7 +1106,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for let.for', () => {
-    t.deepEqual(recovery('for let.for', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for let.for', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1207,7 +1207,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for(for) {}', () => {
-    t.deepEqual(recovery('for(for) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(for) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1311,7 +1311,7 @@ describe('Recovery - For', () => {
   });
 
   it('for(var in x) {', () => {
-    t.deepEqual(recovery('for(var in x) {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(var in x) {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1371,7 +1371,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for)var', () => {
-    t.deepEqual(recovery('for)var', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for)var', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1433,7 +1433,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for(var x of y,,,', () => {
-    t.deepEqual(recovery('for(var x of y,,,', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(var x of y,,,', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1569,7 +1569,7 @@ describe('Recovery - For', () => {
   });
 
   it('for ( of of) { }', () => {
-    t.deepEqual(recovery('for ( of of) { }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for ( of of) { }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1631,7 +1631,7 @@ describe('Recovery - For', () => {
   });
 
   it('for (var of of) { }', () => {
-    t.deepEqual(recovery('for (var of of) { }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (var of of) { }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1711,7 +1711,7 @@ describe('Recovery - For', () => {
   });
 
   it('for(const =', () => {
-    t.deepEqual(recovery('for(const =', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(const =', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1804,7 +1804,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for (const x of for', () => {
-    t.deepEqual(recovery('for (const x of for', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (const x of for', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1922,7 +1922,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for (const x of', () => {
-    t.deepEqual(recovery('for (const x of', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (const x of', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2008,7 +2008,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for (a.d.', () => {
-    t.deepEqual(recovery('for (a.d.', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (a.d.', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2117,7 +2117,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for(a[', () => {
-    t.deepEqual(recovery('for(a[', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(a[', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2210,7 +2210,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for(ab.[a', () => {
-    t.deepEqual(recovery('for(ab.[a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(ab.[a', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2327,7 +2327,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for(,,,,,,,,,,,,', () => {
-    t.deepEqual(recovery('for(,,,,,,,,,,,,', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(,,,,,,,,,,,,', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2597,7 +2597,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for(,,,,,,,,,[) {break;', () => {
-    t.deepEqual(recovery('for(,,,,,,,,,[) {break;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(,,,,,,,,,[) {break;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2827,7 +2827,7 @@ describe('Recovery - For', () => {
     });
   });
   it('for unary', () => {
-    t.deepEqual(recovery('for!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

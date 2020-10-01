@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Expressions - Await', () => {
   it('5 + (await bar(', () => {
-    t.deepEqual(recovery('5 + (await bar(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('5 + (await bar(', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -96,7 +96,7 @@ describe('Recovery - Expressions - Await', () => {
   });
 
   it('class x {*f(foo = await bar', () => {
-    t.deepEqual(recovery('class x {*f(foo = await bar', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class x {*f(foo = await bar', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -223,7 +223,7 @@ describe('Recovery - Expressions - Await', () => {
   });
 
   it('await p + await q', () => {
-    t.deepEqual(recovery('await p + await q', 'recovery.js'), {
+    t.deepStrictEqual(recovery('await p + await q', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -323,7 +323,7 @@ describe('Recovery - Expressions - Await', () => {
   });
 
   it('([x] = await bar =>', () => {
-    t.deepEqual(recovery('([x] = await bar =>', 'recovery.js'), {
+    t.deepStrictEqual(recovery('([x] = await bar =>', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -439,7 +439,7 @@ describe('Recovery - Expressions - Await', () => {
   });
 
   it('(x=(await z)=', () => {
-    t.deepEqual(recovery('(x=(await z)=', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(x=(await z)=', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -546,7 +546,7 @@ describe('Recovery - Expressions - Await', () => {
   });
 
   it('async function foo(a, b) { await a +', () => {
-    t.deepEqual(recovery('async function foo(a, b) { await a +', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function foo(a, b) { await a +', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -659,7 +659,7 @@ describe('Recovery - Expressions - Await', () => {
     });
   });
   it('class x {f(foo = await){', () => {
-    t.deepEqual(recovery('class x {f(foo = await){', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class x {f(foo = await){', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -767,7 +767,7 @@ describe('Recovery - Expressions - Await', () => {
   });
 
   it('(await!', () => {
-    t.deepEqual(recovery('(await!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(await!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

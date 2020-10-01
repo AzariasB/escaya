@@ -5,7 +5,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Expressions - Function', () => {
   it('(function', () => {
-    t.deepEqual(recovery('(function', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(function', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -77,7 +77,7 @@ describe('Recovery - Expressions - Function', () => {
   });
 
   it('(function foo(/ {', () => {
-    t.deepEqual(recovery('(function foo(/ {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(function foo(/ {', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -172,7 +172,7 @@ describe('Recovery - Expressions - Function', () => {
   });
 
   it('(function foo() { if (true) {', () => {
-    t.deepEqual(recovery('(function foo() { if (true) {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(function foo() { if (true) {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -280,7 +280,7 @@ describe('Recovery - Expressions - Function', () => {
         }
     }
 })(A || (A = {}));`, () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery(
         `(function (A) {
       function foo() {
@@ -697,7 +697,7 @@ describe('Recovery - Expressions - Function', () => {
   });
 
   it('function for (var of X) { }', () => {
-    t.deepEqual(recovery('function for (var of X) { }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function for (var of X) { }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -819,7 +819,7 @@ describe('Recovery - Expressions - Function', () => {
   });
 
   it('(function!', () => {
-    t.deepEqual(recovery('(function!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(function!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

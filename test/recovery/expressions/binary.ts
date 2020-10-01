@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Expressions - Binary', () => {
   it('(a + b) >>', () => {
-    t.deepEqual(recovery('(a + b) >>', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(a + b) >>', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -81,7 +81,7 @@ describe('Recovery - Expressions - Binary', () => {
   });
 
   it('a ?? b ??', () => {
-    t.deepEqual(recovery('a ?? b ??', 'recovery.js'), {
+    t.deepStrictEqual(recovery('a ?? b ??', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -156,7 +156,7 @@ describe('Recovery - Expressions - Binary', () => {
   });
 
   it('~3 ** => { **', () => {
-    t.deepEqual(recovery('~3 ** => { **', 'recovery.js'), {
+    t.deepStrictEqual(recovery('~3 ** => { **', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -275,7 +275,7 @@ describe('Recovery - Expressions - Binary', () => {
   });
 
   it('typeof 3 *[', () => {
-    t.deepEqual(recovery('typeof 3 *[', 'recovery.js'), {
+    t.deepStrictEqual(recovery('typeof 3 *[', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -342,7 +342,7 @@ describe('Recovery - Expressions - Binary', () => {
     });
   });
   it('typeof 3 *[ {x=y}', () => {
-    t.deepEqual(recovery('typeof 3 *[ {x=y}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('typeof 3 *[ {x=y}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -438,7 +438,7 @@ describe('Recovery - Expressions - Binary', () => {
     });
   });
   it('[**??!!))==abc', () => {
-    t.deepEqual(recovery('[**??!!))==abc', 'recovery.js'), {
+    t.deepStrictEqual(recovery('[**??!!))==abc', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -601,7 +601,7 @@ describe('Recovery - Expressions - Binary', () => {
   });
 
   it('a**/', () => {
-    t.deepEqual(recovery('a**/', 'recovery.js'), {
+    t.deepStrictEqual(recovery('a**/', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -662,7 +662,7 @@ describe('Recovery - Expressions - Binary', () => {
   });
 
   it('+/ a', () => {
-    t.deepEqual(recovery('+/ a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('+/ a', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -714,7 +714,7 @@ describe('Recovery - Expressions - Binary', () => {
   });
 
   it('a - (', () => {
-    t.deepEqual(recovery('a - (', 'recovery.js'), {
+    t.deepStrictEqual(recovery('a - (', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

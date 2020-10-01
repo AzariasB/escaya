@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - For of', () => {
   it('for (let x in of if{)', () => {
-    t.deepEqual(recovery('for (let x in of if{)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (let x in of if{)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -118,7 +118,7 @@ describe('Recovery - For of', () => {
   });
 
   it('missing ident plus if statement mixed in', () => {
-    t.deepEqual(recovery('for (of if{)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (of if{)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -227,7 +227,7 @@ describe('Recovery - For of', () => {
   });
 
   it('for (var of; ;) { }', () => {
-    t.deepEqual(recovery('for (var of; ;) { }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (var of; ;) { }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -283,7 +283,7 @@ describe('Recovery - For of', () => {
   });
 
   it('for (var of = 0 in of) { }', () => {
-    t.deepEqual(recovery('for (var of = 0 in of) { }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (var of = 0 in of) { }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

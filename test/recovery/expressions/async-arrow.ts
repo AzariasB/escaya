@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Expressions - Async Arrows', () => {
   it('async () =>(', () => {
-    t.deepEqual(recovery('async () =>(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async () =>(', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -62,7 +62,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
   });
 
   it('async (() =>', () => {
-    t.deepEqual(recovery('async (() =>', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async (() =>', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -132,7 +132,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
   });
 
   it('async yield =>( "use strict";', () => {
-    t.deepEqual(recovery('async yield =>( "use strict";', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async yield =>( "use strict";', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -198,7 +198,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
   });
 
   it('"use strict"; async ( =>(', () => {
-    t.deepEqual(recovery('"use strict"; async ( =>(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; async ( =>(', 'recovery.js'), {
       directives: [
         {
           type: 'Directive',
@@ -274,7 +274,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
   });
 
   it('"use strict"; async (yield await =>(', () => {
-    t.deepEqual(recovery('"use strict"; async (yield await =>(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; async (yield await =>(', 'recovery.js'), {
       directives: [
         {
           type: 'Directive',
@@ -382,7 +382,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
   });
 
   it('async await =>(', () => {
-    t.deepEqual(recovery('async await =>(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async await =>(', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -448,7 +448,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
   });
 
   it('async (((1n))) =>!', () => {
-    t.deepEqual(recovery('async (((1n))) =>!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async (((1n))) =>!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -549,7 +549,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
   });
 
   it('async a...=>(', () => {
-    t.deepEqual(recovery('async a...=>(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async a...=>(', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -643,7 +643,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
   });
 
   it('async ([]) =>(', () => {
-    t.deepEqual(recovery('async ([]) =>(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async ([]) =>(', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -710,7 +710,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
   });
 
   it('async (a, ...=>(', () => {
-    t.deepEqual(recovery('async (a, ...=>(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async (a, ...=>(', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -813,7 +813,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
   });
 
   it('async (...=>(', () => {
-    t.deepEqual(recovery('async (...=>(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async (...=>(', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -905,7 +905,7 @@ describe('Recovery - Expressions - Async Arrows', () => {
   });
 
   it('(async () =>', () => {
-    t.deepEqual(recovery('(async () =>', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(async () =>', 'recovery.js'), {
       directives: [],
       leafs: [
         {

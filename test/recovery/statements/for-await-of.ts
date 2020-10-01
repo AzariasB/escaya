@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - For await of', () => {
   it('for await as two keywords', () => {
-    t.deepEqual(recovery('for await', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for await', 'recovery.js'), {
       children: [],
       context: 0,
       diagnostics: [

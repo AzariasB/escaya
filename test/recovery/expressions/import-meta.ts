@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Expressions - Import meta', () => {
   it('import.meta(', () => {
-    t.deepEqual(recovery('import.meta(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('import.meta(', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
