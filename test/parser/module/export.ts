@@ -683,8 +683,98 @@ describe('Module - Export', () => {
     });
   }
 
+  it('const a = 1; export {a};', () => {
+    t.deepStrictEqual(parseModule('const a = 1; export {a};', { loc: true, cst: true }), {
+      directives: [],
+      end: 24,
+      leafs: [
+        {
+          declarations: [
+            {
+              binding: {
+                end: 7,
+                meta: {
+                  asi: false,
+                  newlineBeforeNextToken: false
+                },
+                name: 'a',
+                start: 6,
+                type: 'BindingIdentifier'
+              },
+              end: 11,
+              initializer: {
+                end: 11,
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                },
+                start: 10,
+                type: 'NumericLiteral',
+                value: 1
+              },
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              },
+              start: 6,
+              type: 'LexicalBinding'
+            }
+          ],
+          end: 12,
+          isConst: true,
+          meta: {
+            asi: false,
+            newlineBeforeNextToken: false
+          },
+          start: 0,
+          type: 'LexicalDeclaration'
+        },
+        {
+          boundNames: ['a'],
+          declaration: null,
+          end: 24,
+          exportFromClause: null,
+          exportedNames: ['a'],
+          fromClause: null,
+          meta: {
+            asi: true,
+            newlineBeforeNextToken: false
+          },
+          namedExports: [
+            {
+              binding: null,
+              end: 22,
+              meta: {
+                asi: true,
+                newlineBeforeNextToken: false
+              },
+              moduleExportName: null,
+              name: {
+                end: 22,
+                meta: {
+                  asi: true,
+                  newlineBeforeNextToken: false
+                },
+                name: 'a',
+                start: 21,
+                type: 'IdentifierName'
+              },
+              start: 21,
+              type: 'ExportSpecifier'
+            }
+          ],
+          start: 13,
+          type: 'ExportDeclaration'
+        }
+      ],
+      start: 0,
+      type: 'Module',
+      webCompat: true
+    });
+  });
+
   it('export { a as b } from "b";', () => {
-    t.deepEqual(parseModule('export { a as b } from "b";', { loc: true, cst: true }), {
+    t.deepStrictEqual(parseModule('export { a as b } from "b";', { loc: true, cst: true }), {
       type: 'Module',
       webCompat: true,
       directives: [],
@@ -738,15 +828,6 @@ describe('Module - Export', () => {
           exportedNames: ['b'],
           boundNames: ['a'],
           start: 0,
-          end: 26,
-          meta: {
-            asi: true,
-            newlineBeforeNextToken: false
-          }
-        },
-        {
-          type: 'EmptyStatement',
-          start: 26,
           end: 27,
           meta: {
             asi: true,
@@ -760,7 +841,7 @@ describe('Module - Export', () => {
   });
 
   it('export let x = 0;', () => {
-    t.deepEqual(parseModule('export let x = 0;', { loc: true, cst: true }), {
+    t.deepStrictEqual(parseModule('export let x = 0;', { loc: true, cst: true }), {
       type: 'Module',
       webCompat: true,
       directives: [],
@@ -827,7 +908,7 @@ describe('Module - Export', () => {
   });
 
   it('export const z = 0;', () => {
-    t.deepEqual(parseModule('export const z = 0;', { loc: true, cst: true }), {
+    t.deepStrictEqual(parseModule('export const z = 0;', { loc: true, cst: true }), {
       type: 'Module',
       webCompat: true,
       directives: [],
@@ -894,7 +975,7 @@ describe('Module - Export', () => {
   });
 
   it('export default x;', () => {
-    t.deepEqual(parseModule('export default x;', { loc: true, cst: true }), {
+    t.deepStrictEqual(parseModule('export default x;', { loc: true, cst: true }), {
       type: 'Module',
       webCompat: true,
       directives: [],
@@ -925,7 +1006,7 @@ describe('Module - Export', () => {
   });
 
   it('export class C { };', () => {
-    t.deepEqual(parseModule('export class C { };', { loc: false, cst: true }), {
+    t.deepStrictEqual(parseModule('export class C { };', { loc: false, cst: true }), {
       type: 'Module',
       webCompat: true,
       directives: [],
@@ -971,7 +1052,7 @@ describe('Module - Export', () => {
   });
 
   it('export { };', () => {
-    t.deepEqual(parseModule('export { };', { loc: false, cst: true }), {
+    t.deepStrictEqual(parseModule('export { };', { loc: false, cst: true }), {
       type: 'Module',
       webCompat: true,
       directives: [],
@@ -984,13 +1065,6 @@ describe('Module - Export', () => {
           fromClause: null,
           exportedNames: [],
           boundNames: [],
-          meta: {
-            asi: true,
-            newlineBeforeNextToken: false
-          }
-        },
-        {
-          type: 'EmptyStatement',
           meta: {
             asi: true,
             newlineBeforeNextToken: false

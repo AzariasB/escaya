@@ -953,7 +953,8 @@ export function parseForStatement(
   labels: any[]
 ): ForStatement | ForOfStatement | ForInStatement {
   const start = state.startIndex;
-
+  let destructible!: Destructible;
+  let isVariableDeclarationList = false;
   consume(state, context, Token.ForKeyword);
 
   const isAwait = (context & Context.Await) === Context.Await && consumeOpt(state, context, Token.AwaitKeyword);
@@ -966,11 +967,13 @@ export function parseForStatement(
   if (state.token !== Token.Semicolon) {
     // 'var', 'let', 'const'
     if (state.token & Token.IsVarLexical) {
+      // The initializer contains lexical declarations,
+      // so create an in-between scope.
       scope = createParentScope(scope, ScopeKind.ForStatement);
 
-      let isVariableDeclarationList = false;
       if (state.token === Token.LetKeyword) {
         nextToken(state, context);
+
         if (state.token & Constants.PatternOrIdentifier) {
           initializer = finishNode(
             state,
@@ -991,11 +994,13 @@ export function parseForStatement(
         } else {
           if (context & Context.Strict) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
 
-          initializer = finishNode(state, context, innerStart, DictionaryMap.IdentifierReference('let'));
-
-          state.assignable = true;
-
-          initializer = parseMemberExpression(state, context, initializer, true, start);
+          initializer = parseMemberExpression(
+            state,
+            context,
+            finishNode(state, context, innerStart, DictionaryMap.IdentifierReference('let')),
+            true,
+            start
+          );
 
           // In a for-of loop, 'let' that starts the loop head is a 'let' keyword,
           // per the [lookahead ≠ let] restriction on the LeftHandSideExpression
@@ -1038,86 +1043,19 @@ export function parseForStatement(
         isVariableDeclarationList = true;
         state.assignable = true;
       }
-
-      if (
-        isAwait
-          ? consume(state, context | Context.AllowRegExp, Token.OfKeyword)
-          : consumeOpt(state, context | Context.AllowRegExp, Token.OfKeyword)
-      ) {
-        const expression = parseExpression(state, (context | Context.DisallowIn) ^ Context.DisallowIn);
-
-        consume(state, context, Token.RightParen);
-
-        return finishNode(
-          state,
-          context,
-          start,
-          DictionaryMap.ForOfStatement(
-            initializer,
-            expression,
-            parseStatement(state, context | Context.InIteration, scope, labels, null, false),
-            isAwait
-          )
-        );
-      }
-
-      if (consumeOpt(state, context | Context.AllowRegExp, Token.InKeyword)) {
-        const expression = parseExpressions(state, context);
-
-        consume(state, context, Token.RightParen);
-
-        return finishNode(
-          state,
-          context,
-          start,
-          DictionaryMap.ForInStatement(
-            initializer,
-            expression,
-            parseStatement(state, context | Context.InIteration, scope, labels, null, false)
-          )
-        );
-      }
-
-      let condition: Expression | null = null;
-      let incrementor: Expression | null = null;
-
-      initializer = parseExpressionOrHigher(state, context, initializer, state.startIndex);
-
-      consume(state, context | Context.AllowRegExp, Token.Semicolon);
-
-      if (state.token !== Token.Semicolon) condition = parseExpressions(state, context);
-
-      consume(state, context | Context.AllowRegExp, Token.Semicolon);
-
-      if (state.token !== Token.RightParen) incrementor = parseExpressions(state, context);
-
-      consume(state, context, Token.RightParen);
-
-      return finishNode(
+    } else if (state.token & Token.IsPatternStart) {
+      initializer = (state.token === Token.LeftBrace ? parseObjectLiteral : parseArrayLiteral)(
         state,
         context,
-        start,
-        DictionaryMap.ForStatement(
-          initializer,
-          incrementor,
-          condition,
-          isVariableDeclarationList,
-          parseStatement(state, context | Context.InIteration, scope, labels, null, false)
-        )
+        void 0,
+        DestuctionKind.FOR,
+        BindingType.Literal
       );
-    }
-
-    let destructible!: Destructible;
-
-    if (state.token & Token.IsPatternStart) {
-      initializer =
-        state.token === Token.LeftBrace
-          ? parseObjectLiteral(state, context, void 0, DestuctionKind.FOR, BindingType.Literal)
-          : parseArrayLiteral(state, context, void 0, DestuctionKind.FOR, BindingType.Literal);
 
       if (state.flags & Flags.SeenProto) {
         addparserDiagnostic(state, context, innerStart, DiagnosticCode.DuplicateProto);
       }
+
       destructible = state.destructible;
 
       state.assignable = (destructible & Destructible.NotDestructible) !== Destructible.NotDestructible;
@@ -1195,7 +1133,7 @@ export function parseForStatement(
       initializer,
       incrementor,
       condition,
-      /* variableDeclarationList */ false,
+      isVariableDeclarationList,
       parseStatement(state, context | Context.InIteration, scope, labels, null, false)
     )
   );
@@ -1311,16 +1249,13 @@ export function parseForVariableDeclaration(
 export function parseExpressionOrLabelledStatement(
   state: ParserState,
   context: Context,
-  scope: any,
+  scope: ScopeState,
   labels: any[],
   ownLabels: any[] | null,
   allowFunction: boolean
 ): LabelledStatement | ExpressionStatement {
   const { startIndex, token, tokenValue } = state;
   let expr = parsePrimaryExpression(state, context, true);
-  // Some keywords that are invalid as an 'LabelledIdentifier' will be parsed out in it's
-  // own production. For example this case 'class:' will throw for missing a name. This is done
-  // to be in line with how we parse '(class:)'.
   if (
     token & (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword) &&
     state.token === Token.Colon
@@ -4763,6 +4698,7 @@ export function parseExportDeclaration(
           state.exportedBindings['#' + boundNames[i]] = 1;
         }
       }
+      expectSemicolon(state, context);
       break;
     }
     case Token.Multiply: {
@@ -4774,6 +4710,7 @@ export function parseExportDeclaration(
     default:
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedExportDecl, DiagnosticKind.Error);
   }
+
   return finishNode(
     state,
     context,

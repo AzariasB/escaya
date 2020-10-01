@@ -284,7 +284,7 @@ describe('Module - Import', () => {
   }
 
   it('import X from "y"', () => {
-    t.deepEqual(parseModule('import X from "y"', { loc: true }), {
+    t.deepStrictEqual(parseModule('import X from "y"', { loc: true }), {
       directives: [],
       end: 17,
       start: 0,
@@ -321,7 +321,7 @@ describe('Module - Import', () => {
   });
 
   it('import a, {} from "foo"', () => {
-    t.deepEqual(parseModule('import a, {} from "foo"', { loc: true }), {
+    t.deepStrictEqual(parseModule('import a, {} from "foo"', { loc: true }), {
       directives: [],
       end: 23,
       start: 0,
@@ -363,7 +363,7 @@ describe('Module - Import', () => {
   });
 
   it('import b, * as c from "module";', () => {
-    t.deepEqual(parseModule('import b, * as c from "module";', { loc: true }), {
+    t.deepStrictEqual(parseModule('import b, * as c from "module";', { loc: true }), {
       type: 'Module',
       webCompat: true,
       directives: [],
@@ -405,7 +405,7 @@ describe('Module - Import', () => {
   });
 
   it('import { let as l } from "foo";', () => {
-    t.deepEqual(parseModule('import { let as l } from "foo";', { loc: true }), {
+    t.deepStrictEqual(parseModule('import { let as l } from "foo";', { loc: true }), {
       type: 'Module',
       webCompat: true,
       directives: [],
@@ -461,7 +461,7 @@ describe('Module - Import', () => {
   });
 
   it('import "string"', () => {
-    t.deepEqual(parseModule('import "string"', { loc: true }), {
+    t.deepStrictEqual(parseModule('import "string"', { loc: true }), {
       directives: [],
       end: 15,
       start: 0,
@@ -486,7 +486,7 @@ describe('Module - Import', () => {
   });
 
   it('import thing, * as rest from "x"', () => {
-    t.deepEqual(parseModule('import thing, * as rest from "x"', { loc: true }), {
+    t.deepStrictEqual(parseModule('import thing, * as rest from "x"', { loc: true }), {
       type: 'Module',
       webCompat: true,
       directives: [],
@@ -528,19 +528,19 @@ describe('Module - Import', () => {
   });
 
   /*  it('simple block', () => {
-    t.deepEqual(parseModule('(a, b)', { loc: true}), {});
+    t.deepStrictEqual(parseModule('(a, b)', { loc: true}), {});
   });
 
   it('simple block', () => {
-    t.deepEqual(parseModule('(a, b)', { loc: true}), {});
+    t.deepStrictEqual(parseModule('(a, b)', { loc: true}), {});
   });
 
   it('simple block', () => {
-    t.deepEqual(parseModule('(a, b)', { loc: true}), {});
+    t.deepStrictEqual(parseModule('(a, b)', { loc: true}), {});
   });
 
   it('simple block', () => {
-    t.deepEqual(parseModule('(a, b)', { loc: true}), {});
+    t.deepStrictEqual(parseModule('(a, b)', { loc: true}), {});
   });
 
 */

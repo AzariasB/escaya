@@ -445,18 +445,8 @@ describe('Recovery - Export', () => {
           exportedNames: ['arguments'],
           boundNames: ['arguments'],
           start: 0,
-          end: 32,
-
-          flags: 0,
-          meta: {
-            asi: true,
-            newlineBeforeNextToken: false
-          }
-        },
-        {
-          type: 'EmptyStatement',
-          start: 32,
           end: 33,
+
           flags: 0,
           meta: {
             asi: true,
@@ -542,17 +532,6 @@ describe('Recovery - Export', () => {
           exportedNames: ['b'],
           boundNames: ['a'],
           start: 0,
-          end: 29,
-
-          flags: 0,
-          meta: {
-            asi: true,
-            newlineBeforeNextToken: false
-          }
-        },
-        {
-          type: 'EmptyStatement',
-          start: 29,
           end: 30,
 
           flags: 0,
@@ -702,17 +681,6 @@ describe('Recovery - Export', () => {
           exportedNames: ['b', 'c'],
           boundNames: ['a', 'a'],
           start: 6,
-          end: 32,
-
-          flags: 0,
-          meta: {
-            asi: true,
-            newlineBeforeNextToken: false
-          }
-        },
-        {
-          type: 'EmptyStatement',
-          start: 32,
           end: 33,
 
           flags: 0,
