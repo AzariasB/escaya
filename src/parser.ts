@@ -150,7 +150,6 @@ import {
   nextLiteralExactlyStrict,
   addLabel
 } from './common';
-import { ForBinding } from 'ast/statements/forBinding';
 
 /**
  * Interface for statements
