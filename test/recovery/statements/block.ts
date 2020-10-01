@@ -1812,158 +1812,158 @@ describe('Recovery - Block', () => {
 
   it('{a?.b', () => {
     t.deepStrictEqual(recovery('{a?.b', 'recovery.js'), {
-      "type": "RootNode",
-      "directives": [],
-      "leafs": [
-          {
-              "type": "BlockStatement",
-              "leafs": [
-                  {
-                      "type": "ExpressionStatement",
-                      "expression": {
-                          "type": "OptionalExpression",
-                          "member": {
-                              "type": "IdentifierReference",
-                              "name": "a",
-                              "start": 1,
-                              "end": 2,
-                              "flags": 0
-                          },
-                          "chain": {
-                              "type": "OptionalChain",
-                              "chain": {
-                                  "type": "IdentifierName",
-                                  "name": "b",
-                                  "start": 4,
-                                  "end": 5,
-                                  "flags": 0
-                              },
-                              "start": 4,
-                              "end": 5,
-                              "flags": 0
-                          },
-                          "start": 1,
-                          "end": 5,
-                          "flags": 0
-                      },
-                      "start": 1,
-                      "end": 5,
-                      "flags": 0
-                  }
-              ],
-              "start": 0,
-              "end": 5,
-              "flags": 0
-          }
+      type: 'RootNode',
+      directives: [],
+      leafs: [
+        {
+          type: 'BlockStatement',
+          leafs: [
+            {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'OptionalExpression',
+                member: {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 1,
+                  end: 2,
+                  flags: 0
+                },
+                chain: {
+                  type: 'OptionalChain',
+                  chain: {
+                    type: 'IdentifierName',
+                    name: 'b',
+                    start: 4,
+                    end: 5,
+                    flags: 0
+                  },
+                  start: 4,
+                  end: 5,
+                  flags: 0
+                },
+                start: 1,
+                end: 5,
+                flags: 0
+              },
+              start: 1,
+              end: 5,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 5,
+          flags: 0
+        }
       ],
-      "text": "{a?.b",
-      "fileName": "recovery.js",
-      "context": 0,
-      "mutualFlags": 0,
-      "diagnostics": [
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "`}` expected",
-              "code": 5,
-              "start": 4,
-              "length": 1
-          }
+      text: '{a?.b',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 4,
+          length: 1
+        }
       ],
-      "detached": false,
-      "incremental": false,
-      "parent": null,
-      "children": [],
-      "start": 0,
-      "length": 5,
-      "webCompat": true,
-      "end": 5
-  });
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 5,
+      webCompat: true,
+      end: 5
+    });
   });
   it('{a?.[a{}]', () => {
     t.deepStrictEqual(recovery('{a?.[a{}]', 'recovery.js'), {
-      "type": "RootNode",
-      "directives": [],
-      "leafs": [
-          {
-              "type": "BlockStatement",
-              "leafs": [
-                  {
-                      "type": "ExpressionStatement",
-                      "expression": {
-                          "type": "OptionalExpression",
-                          "member": {
-                              "type": "IdentifierReference",
-                              "name": "a",
-                              "start": 1,
-                              "end": 2,
-                              "flags": 0
-                          },
-                          "chain": {
-                              "type": "OptionalChain",
-                              "chain": {
-                                  "type": "IdentifierReference",
-                                  "name": "a",
-                                  "start": 5,
-                                  "end": 6,
-                                  "flags": 0
-                              },
-                              "start": 4,
-                              "end": 6,
-                              "flags": 0
-                          },
-                          "start": 1,
-                          "end": 6,
-                          "flags": 0
-                      },
-                      "start": 1,
-                      "end": 6,
-                      "flags": 0
+      type: 'RootNode',
+      directives: [],
+      leafs: [
+        {
+          type: 'BlockStatement',
+          leafs: [
+            {
+              type: 'ExpressionStatement',
+              expression: {
+                type: 'OptionalExpression',
+                member: {
+                  type: 'IdentifierReference',
+                  name: 'a',
+                  start: 1,
+                  end: 2,
+                  flags: 0
+                },
+                chain: {
+                  type: 'OptionalChain',
+                  chain: {
+                    type: 'IdentifierReference',
+                    name: 'a',
+                    start: 5,
+                    end: 6,
+                    flags: 0
                   },
-                  {
-                      "type": "BlockStatement",
-                      "leafs": [],
-                      "start": 6,
-                      "end": 8,
-                      "flags": 0
-                  }
-              ],
-              "start": 0,
-              "end": 8,
-              "flags": 0
-          }
+                  start: 4,
+                  end: 6,
+                  flags: 0
+                },
+                start: 1,
+                end: 6,
+                flags: 0
+              },
+              start: 1,
+              end: 6,
+              flags: 0
+            },
+            {
+              type: 'BlockStatement',
+              leafs: [],
+              start: 6,
+              end: 8,
+              flags: 0
+            }
+          ],
+          start: 0,
+          end: 8,
+          flags: 0
+        }
       ],
-      "text": "{a?.[a{}]",
-      "fileName": "recovery.js",
-      "context": 0,
-      "mutualFlags": 0,
-      "diagnostics": [
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "`;` expected",
-              "code": 92,
-              "start": 6,
-              "length": 1
-          },
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "`}` expected",
-              "code": 5,
-              "start": 8,
-              "length": 1
-          }
+      text: '{a?.[a{}]',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 6,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 8,
+          length: 1
+        }
       ],
-      "detached": false,
-      "incremental": false,
-      "parent": null,
-      "children": [],
-      "start": 0,
-      "length": 9,
-      "webCompat": true,
-      "end": 9
-  });
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 9,
+      webCompat: true,
+      end: 9
+    });
   });
   it('{!////////', () => {
     t.deepStrictEqual(recovery('{!////////', 'recovery.js'), {

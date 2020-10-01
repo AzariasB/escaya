@@ -654,482 +654,482 @@ describe('Recovery - Expressions - Member', () => {
 
   it('a?.``b?.c', () => {
     t.deepStrictEqual(recovery('a?.``b?.c', 'recovery.js'), {
-      "type": "RootNode",
-      "directives": [],
-      "leafs": [
-          {
-              "type": "ExpressionStatement",
-              "expression": {
-                  "type": "TaggedTemplate",
-                  "member": {
-                      "type": "OptionalExpression",
-                      "member": {
-                          "type": "IdentifierReference",
-                          "name": "a",
-                          "start": 0,
-                          "end": 1,
-                          "flags": 0
-                      },
-                      "chain": {
-                          "type": "OptionalChain",
-                          "chain": null,
-                          "start": 3,
-                          "end": 3,
-                          "flags": 0
-                      },
-                      "start": 0,
-                      "end": 3,
-                      "flags": 0
-                  },
-                  "literal": {
-                      "type": "TemplateLiteral",
-                      "raw": "b",
-                      "value": "",
-                      "start": 3,
-                      "end": 5,
-                      "flags": 0
-                  },
-                  "start": 0,
-                  "end": 5,
-                  "flags": 0
+      type: 'RootNode',
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'TaggedTemplate',
+            member: {
+              type: 'OptionalExpression',
+              member: {
+                type: 'IdentifierReference',
+                name: 'a',
+                start: 0,
+                end: 1,
+                flags: 0
               },
-              "start": 0,
-              "end": 5,
-              "flags": 0
-          },
-          {
-              "type": "ExpressionStatement",
-              "expression": {
-                  "type": "OptionalExpression",
-                  "member": {
-                      "type": "IdentifierReference",
-                      "name": "b",
-                      "start": 5,
-                      "end": 6,
-                      "flags": 0
-                  },
-                  "chain": {
-                      "type": "OptionalChain",
-                      "chain": {
-                          "type": "IdentifierName",
-                          "name": "c",
-                          "start": 8,
-                          "end": 9,
-                          "flags": 0
-                      },
-                      "start": 8,
-                      "end": 9,
-                      "flags": 0
-                  },
-                  "start": 5,
-                  "end": 9,
-                  "flags": 0
+              chain: {
+                type: 'OptionalChain',
+                chain: null,
+                start: 3,
+                end: 3,
+                flags: 0
               },
-              "start": 5,
-              "end": 9,
-              "flags": 0
-          }
-      ],
-      "text": "a?.``b?.c",
-      "fileName": "recovery.js",
-      "context": 0,
-      "mutualFlags": 0,
-      "diagnostics": [
-          {
-              "kind": 3,
-              "source": 2,
-              "message": "Invalid optional chain in tagged template",
-              "code": 80,
-              "start": 3,
-              "length": 2
+              start: 0,
+              end: 3,
+              flags: 0
+            },
+            literal: {
+              type: 'TemplateLiteral',
+              raw: 'b',
+              value: '',
+              start: 3,
+              end: 5,
+              flags: 0
+            },
+            start: 0,
+            end: 5,
+            flags: 0
           },
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "`;` expected",
-              "code": 92,
-              "start": 5,
-              "length": 1
-          }
+          start: 0,
+          end: 5,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'OptionalExpression',
+            member: {
+              type: 'IdentifierReference',
+              name: 'b',
+              start: 5,
+              end: 6,
+              flags: 0
+            },
+            chain: {
+              type: 'OptionalChain',
+              chain: {
+                type: 'IdentifierName',
+                name: 'c',
+                start: 8,
+                end: 9,
+                flags: 0
+              },
+              start: 8,
+              end: 9,
+              flags: 0
+            },
+            start: 5,
+            end: 9,
+            flags: 0
+          },
+          start: 5,
+          end: 9,
+          flags: 0
+        }
       ],
-      "detached": false,
-      "incremental": false,
-      "parent": null,
-      "children": [],
-      "start": 0,
-      "length": 9,
-      "webCompat": true,
-      "end": 9
-  });
+      text: 'a?.``b?.c',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid optional chain in tagged template',
+          code: 80,
+          start: 3,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 5,
+          length: 1
+        }
+      ],
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 9,
+      webCompat: true,
+      end: 9
+    });
   });
 
   it('a?.``b?.c!!x=> {', () => {
     t.deepStrictEqual(recovery('a?.``b?.c!!x=> {', 'recovery.js'), {
-      "type": "RootNode",
-      "directives": [],
-      "leafs": [
-          {
-              "type": "ExpressionStatement",
-              "expression": {
-                  "type": "TaggedTemplate",
-                  "member": {
-                      "type": "OptionalExpression",
-                      "member": {
-                          "type": "IdentifierReference",
-                          "name": "a",
-                          "start": 0,
-                          "end": 1,
-                          "flags": 0
-                      },
-                      "chain": {
-                          "type": "OptionalChain",
-                          "chain": null,
-                          "start": 3,
-                          "end": 3,
-                          "flags": 0
-                      },
-                      "start": 0,
-                      "end": 3,
-                      "flags": 0
-                  },
-                  "literal": {
-                      "type": "TemplateLiteral",
-                      "raw": "b",
-                      "value": "",
-                      "start": 3,
-                      "end": 5,
-                      "flags": 0
-                  },
-                  "start": 0,
-                  "end": 5,
-                  "flags": 0
+      type: 'RootNode',
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'TaggedTemplate',
+            member: {
+              type: 'OptionalExpression',
+              member: {
+                type: 'IdentifierReference',
+                name: 'a',
+                start: 0,
+                end: 1,
+                flags: 0
               },
-              "start": 0,
-              "end": 5,
-              "flags": 0
+              chain: {
+                type: 'OptionalChain',
+                chain: null,
+                start: 3,
+                end: 3,
+                flags: 0
+              },
+              start: 0,
+              end: 3,
+              flags: 0
+            },
+            literal: {
+              type: 'TemplateLiteral',
+              raw: 'b',
+              value: '',
+              start: 3,
+              end: 5,
+              flags: 0
+            },
+            start: 0,
+            end: 5,
+            flags: 0
           },
-          {
-              "type": "ExpressionStatement",
-              "expression": {
-                  "type": "OptionalExpression",
-                  "member": {
-                      "type": "IdentifierReference",
-                      "name": "b",
-                      "start": 5,
-                      "end": 6,
-                      "flags": 0
-                  },
-                  "chain": {
-                      "type": "OptionalChain",
-                      "chain": {
-                          "type": "IdentifierName",
-                          "name": "c",
-                          "start": 8,
-                          "end": 9,
-                          "flags": 0
-                      },
-                      "start": 8,
-                      "end": 9,
-                      "flags": 0
-                  },
-                  "start": 5,
-                  "end": 9,
-                  "flags": 0
+          start: 0,
+          end: 5,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'OptionalExpression',
+            member: {
+              type: 'IdentifierReference',
+              name: 'b',
+              start: 5,
+              end: 6,
+              flags: 0
+            },
+            chain: {
+              type: 'OptionalChain',
+              chain: {
+                type: 'IdentifierName',
+                name: 'c',
+                start: 8,
+                end: 9,
+                flags: 0
               },
-              "start": 5,
-              "end": 9,
-              "flags": 0
+              start: 8,
+              end: 9,
+              flags: 0
+            },
+            start: 5,
+            end: 9,
+            flags: 0
           },
-          {
-              "type": "ExpressionStatement",
-              "expression": {
-                  "type": "UnaryExpression",
-                  "operator": "!",
-                  "operand": {
-                      "type": "UnaryExpression",
-                      "operator": "!",
-                      "operand": {
-                          "type": "ArrowFunction",
-                          "params": {
-                              "type": "BindingIdentifier",
-                              "name": "x",
-                              "start": 11,
-                              "end": 12,
-                              "flags": 0
-                          },
-                          "contents": {
-                              "type": "FunctionBody",
-                              "directives": [],
-                              "leafs": [],
-                              "start": 14,
-                              "end": 16,
-                              "flags": 0
-                          },
-                          "arrowParameters": false,
-                          "async": false,
-                          "start": 11,
-                          "end": 16,
-                          "flags": 0
-                      },
-                      "start": 10,
-                      "end": 16,
-                      "flags": 0
-                  },
-                  "start": 9,
-                  "end": 16,
-                  "flags": 0
+          start: 5,
+          end: 9,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'UnaryExpression',
+              operator: '!',
+              operand: {
+                type: 'ArrowFunction',
+                params: {
+                  type: 'BindingIdentifier',
+                  name: 'x',
+                  start: 11,
+                  end: 12,
+                  flags: 0
+                },
+                contents: {
+                  type: 'FunctionBody',
+                  directives: [],
+                  leafs: [],
+                  start: 14,
+                  end: 16,
+                  flags: 0
+                },
+                arrowParameters: false,
+                async: false,
+                start: 11,
+                end: 16,
+                flags: 0
               },
-              "start": 9,
-              "end": 16,
-              "flags": 0
-          }
+              start: 10,
+              end: 16,
+              flags: 0
+            },
+            start: 9,
+            end: 16,
+            flags: 0
+          },
+          start: 9,
+          end: 16,
+          flags: 0
+        }
       ],
-      "text": "a?.``b?.c!!x=> {",
-      "fileName": "recovery.js",
-      "context": 0,
-      "mutualFlags": 0,
-      "diagnostics": [
-          {
-              "kind": 3,
-              "source": 2,
-              "message": "Invalid optional chain in tagged template",
-              "code": 80,
-              "start": 3,
-              "length": 2
-          },
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "`;` expected",
-              "code": 92,
-              "start": 5,
-              "length": 1
-          },
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "`;` expected",
-              "code": 92,
-              "start": 9,
-              "length": 1
-          },
-          {
-              "kind": 3,
-              "source": 2,
-              "message": "Expression expected",
-              "code": 7,
-              "start": 12,
-              "length": 2
-          },
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "`}` expected",
-              "code": 5,
-              "start": 15,
-              "length": 1
-          }
+      text: 'a?.``b?.c!!x=> {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid optional chain in tagged template',
+          code: 80,
+          start: 3,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 5,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 9,
+          length: 1
+        },
+        {
+          kind: 3,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 12,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 15,
+          length: 1
+        }
       ],
-      "detached": false,
-      "incremental": false,
-      "parent": null,
-      "children": [],
-      "start": 0,
-      "length": 16,
-      "webCompat": true,
-      "end": 16
-  });
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 16,
+      webCompat: true,
+      end: 16
+    });
   });
 
   it('a?.``b?.c!!.x=> {', () => {
     t.deepStrictEqual(recovery('a?.``b?.c!!.x=> {', 'recovery.js'), {
-      "type": "RootNode",
-      "directives": [],
-      "leafs": [
-          {
-              "type": "ExpressionStatement",
-              "expression": {
-                  "type": "TaggedTemplate",
-                  "member": {
-                      "type": "OptionalExpression",
-                      "member": {
-                          "type": "IdentifierReference",
-                          "name": "a",
-                          "start": 0,
-                          "end": 1,
-                          "flags": 0
-                      },
-                      "chain": {
-                          "type": "OptionalChain",
-                          "chain": null,
-                          "start": 3,
-                          "end": 3,
-                          "flags": 0
-                      },
-                      "start": 0,
-                      "end": 3,
-                      "flags": 0
-                  },
-                  "literal": {
-                      "type": "TemplateLiteral",
-                      "raw": "b",
-                      "value": "",
-                      "start": 3,
-                      "end": 5,
-                      "flags": 0
-                  },
-                  "start": 0,
-                  "end": 5,
-                  "flags": 0
+      type: 'RootNode',
+      directives: [],
+      leafs: [
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'TaggedTemplate',
+            member: {
+              type: 'OptionalExpression',
+              member: {
+                type: 'IdentifierReference',
+                name: 'a',
+                start: 0,
+                end: 1,
+                flags: 0
               },
-              "start": 0,
-              "end": 5,
-              "flags": 0
-          },
-          {
-              "type": "ExpressionStatement",
-              "expression": {
-                  "type": "OptionalExpression",
-                  "member": {
-                      "type": "IdentifierReference",
-                      "name": "b",
-                      "start": 5,
-                      "end": 6,
-                      "flags": 0
-                  },
-                  "chain": {
-                      "type": "OptionalChain",
-                      "chain": {
-                          "type": "IdentifierName",
-                          "name": "c",
-                          "start": 8,
-                          "end": 9,
-                          "flags": 0
-                      },
-                      "start": 8,
-                      "end": 9,
-                      "flags": 0
-                  },
-                  "start": 5,
-                  "end": 9,
-                  "flags": 0
+              chain: {
+                type: 'OptionalChain',
+                chain: null,
+                start: 3,
+                end: 3,
+                flags: 0
               },
-              "start": 5,
-              "end": 9,
-              "flags": 0
+              start: 0,
+              end: 3,
+              flags: 0
+            },
+            literal: {
+              type: 'TemplateLiteral',
+              raw: 'b',
+              value: '',
+              start: 3,
+              end: 5,
+              flags: 0
+            },
+            start: 0,
+            end: 5,
+            flags: 0
           },
-          {
-              "type": "ExpressionStatement",
-              "expression": {
-                  "type": "UnaryExpression",
-                  "operator": "!",
-                  "operand": {
-                      "type": "UnaryExpression",
-                      "operator": "!",
-                      "operand": {
-                          "type": "MemberExpression",
-                          "member": {
-                              "type": "IdentifierReference",
-                              "name": "",
-                              "start": 11,
-                              "end": 11,
-                              "flags": 2
-                          },
-                          "expression": {
-                              "type": "IdentifierName",
-                              "name": "x",
-                              "start": 12,
-                              "end": 13,
-                              "flags": 0
-                          },
-                          "computed": false,
-                          "start": 11,
-                          "end": 13,
-                          "flags": 0
-                      },
-                      "start": 10,
-                      "end": 13,
-                      "flags": 0
-                  },
-                  "start": 9,
-                  "end": 13,
-                  "flags": 0
+          start: 0,
+          end: 5,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'OptionalExpression',
+            member: {
+              type: 'IdentifierReference',
+              name: 'b',
+              start: 5,
+              end: 6,
+              flags: 0
+            },
+            chain: {
+              type: 'OptionalChain',
+              chain: {
+                type: 'IdentifierName',
+                name: 'c',
+                start: 8,
+                end: 9,
+                flags: 0
               },
-              "start": 9,
-              "end": 13,
-              "flags": 0
+              start: 8,
+              end: 9,
+              flags: 0
+            },
+            start: 5,
+            end: 9,
+            flags: 0
           },
-          {
-              "type": "BlockStatement",
-              "leafs": [],
-              "start": 15,
-              "end": 17,
-              "flags": 0
-          }
+          start: 5,
+          end: 9,
+          flags: 0
+        },
+        {
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: '!',
+            operand: {
+              type: 'UnaryExpression',
+              operator: '!',
+              operand: {
+                type: 'MemberExpression',
+                member: {
+                  type: 'IdentifierReference',
+                  name: '',
+                  start: 11,
+                  end: 11,
+                  flags: 2
+                },
+                expression: {
+                  type: 'IdentifierName',
+                  name: 'x',
+                  start: 12,
+                  end: 13,
+                  flags: 0
+                },
+                computed: false,
+                start: 11,
+                end: 13,
+                flags: 0
+              },
+              start: 10,
+              end: 13,
+              flags: 0
+            },
+            start: 9,
+            end: 13,
+            flags: 0
+          },
+          start: 9,
+          end: 13,
+          flags: 0
+        },
+        {
+          type: 'BlockStatement',
+          leafs: [],
+          start: 15,
+          end: 17,
+          flags: 0
+        }
       ],
-      "text": "a?.``b?.c!!.x=> {",
-      "fileName": "recovery.js",
-      "context": 0,
-      "mutualFlags": 0,
-      "diagnostics": [
-          {
-              "kind": 3,
-              "source": 2,
-              "message": "Invalid optional chain in tagged template",
-              "code": 80,
-              "start": 3,
-              "length": 2
-          },
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "`;` expected",
-              "code": 92,
-              "start": 5,
-              "length": 1
-          },
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "`;` expected",
-              "code": 92,
-              "start": 9,
-              "length": 1
-          },
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "Expression expected",
-              "code": 7,
-              "start": 11,
-              "length": 1
-          },
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "`;` expected",
-              "code": 92,
-              "start": 13,
-              "length": 2
-          },
-          {
-              "kind": 2,
-              "source": 2,
-              "message": "`}` expected",
-              "code": 5,
-              "start": 16,
-              "length": 1
-          }
+      text: 'a?.``b?.c!!.x=> {',
+      fileName: 'recovery.js',
+      context: 0,
+      mutualFlags: 0,
+      diagnostics: [
+        {
+          kind: 3,
+          source: 2,
+          message: 'Invalid optional chain in tagged template',
+          code: 80,
+          start: 3,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 5,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 9,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: 'Expression expected',
+          code: 7,
+          start: 11,
+          length: 1
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`;` expected',
+          code: 92,
+          start: 13,
+          length: 2
+        },
+        {
+          kind: 2,
+          source: 2,
+          message: '`}` expected',
+          code: 5,
+          start: 16,
+          length: 1
+        }
       ],
-      "detached": false,
-      "incremental": false,
-      "parent": null,
-      "children": [],
-      "start": 0,
-      "length": 17,
-      "webCompat": true,
-      "end": 17
-  });
+      detached: false,
+      incremental: false,
+      parent: null,
+      children: [],
+      start: 0,
+      length: 17,
+      webCompat: true,
+      end: 17
+    });
   });
 
   it('a`/`', () => {
