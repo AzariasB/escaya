@@ -150,6 +150,7 @@ import {
   nextLiteralExactlyStrict,
   addLabel
 } from './common';
+import { ForBinding } from 'ast/statements/forBinding';
 
 /**
  * Interface for statements
@@ -960,7 +961,7 @@ export function parseForStatement(
 
   consume(state, context | Context.AllowRegExp, Token.LeftParen);
 
-  let initializer: any | Expression | null | any = null;
+  let initializer: Expression | null | any = null;
   const innerStart = state.startIndex;
 
   if (state.token !== Token.Semicolon) {
@@ -972,15 +973,20 @@ export function parseForStatement(
       if (state.token === Token.LetKeyword) {
         nextToken(state, context);
         if (state.token & Constants.PatternOrIdentifier) {
-          initializer = parseForBinding(
+          initializer = finishNode(
             state,
-            context | Context.DisallowIn,
-            scope,
-            /* isLexical */ true,
-            /* isConst */ false,
-            BindingType.Let,
-            parseForLexicalBinding,
-            innerStart
+            context,
+            innerStart,
+            DictionaryMap.LexicalDeclaration(
+              /* isConst */ false,
+              parseBindingOrVariableDeclarationList(
+                state,
+                context | Context.DisallowIn,
+                scope,
+                BindingType.Let,
+                parseForLexicalBinding
+              )
+            )
           );
           state.assignable = true;
         } else {
@@ -998,29 +1004,38 @@ export function parseForStatement(
           if (state.token === Token.OfKeyword) addEarlyDiagnostic(state, context, DiagnosticCode.LetInStrict);
         }
       } else if (consumeOpt(state, context, Token.ConstKeyword)) {
-        initializer = parseForBinding(
+        initializer = finishNode(
           state,
-          context | Context.DisallowIn,
-          scope,
-          /* isLexical */ true,
-          /* isConst */ true,
-          BindingType.Const,
-          parseForLexicalBinding,
-          innerStart
+          context,
+          innerStart,
+          DictionaryMap.LexicalDeclaration(
+            /* isConst */ true,
+            parseBindingOrVariableDeclarationList(
+              state,
+              context | Context.DisallowIn,
+              scope,
+              BindingType.Const,
+              parseForLexicalBinding
+            )
+          )
         );
         state.assignable = true;
       } else {
         nextToken(state, context);
-        initializer = parseForBinding(
+
+        const declarations = parseBindingOrVariableDeclarationList(
           state,
           context | Context.DisallowIn,
           scope,
-          /* isLexical */ false,
-          /* isConst */ false,
           BindingType.Var,
-          parseForVariableDeclaration,
-          innerStart
+          parseForVariableDeclaration
         );
+
+        initializer =
+          state.token & Token.IsInOrOf
+            ? finishNode(state, context, innerStart, DictionaryMap.ForBinding(declarations))
+            : declarations;
+
         isVariableDeclarationList = true;
         state.assignable = true;
       }
@@ -1187,33 +1202,14 @@ export function parseForStatement(
   );
 }
 
-// ForDeclaration : LetOrConst ForBinding  [MODIFIFED]
-export function parseForBinding(
-  state: ParserState,
-  context: Context,
-  scope: any,
-  isLexical: boolean,
-  isConst: boolean,
-  type: BindingType,
-  cb: LexicalCallback,
-  start: number
-): any {
-  const declarations = parseForBindingList(state, context, scope, type, cb);
-  if (isLexical) {
-    return finishNode(state, context, start, DictionaryMap.LexicalDeclaration(isConst, declarations));
-  }
-  if ((state.token & Token.IsInOrOf) === 0) return declarations;
-  return finishNode(state, context, start, DictionaryMap.ForBinding(declarations));
-}
-
-// BindingList : [MODIFIED]
+// BindingList :
 //   LexicalBinding
 //   BindingList `,` LexicalBinding
 //
-// LexicalBinding :
-//   BindingIdentifier Initializer?
-//   BindingPattern Initializer
-export function parseForBindingList(
+// VariableDeclarationList :
+//   VariableDeclaration
+//   VariableDeclarationList `,` VariableDeclaration
+export function parseBindingOrVariableDeclarationList(
   state: ParserState,
   context: Context,
   scope: any,
@@ -1222,15 +1218,14 @@ export function parseForBindingList(
 ): (LexicalBinding | VariableDeclaration)[] {
   const declarationList = [];
   let count = 0;
-  const check = context & Context.ErrorRecovery ? Constants.PatternOrIdentifier : Constants.PatternOrIdentifier;
-  while (state.token & check) {
+  while (state.token & Constants.PatternOrIdentifier) {
     declarationList.push(parseBindingElements(state, context, scope, type, cb));
     count++;
     if (consumeOpt(state, context, Token.Comma)) continue;
     if (state.token & (Token.IsInOrOf | Token.IsAutomaticSemicolon) || state.lineTerminatorBeforeNextToken) break;
-
     addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExpectedForDecl, DiagnosticKind.Error);
   }
+
   if (count > 1 && state.token & Token.IsInOrOf) {
     const code = state.token === Token.OfKeyword ? DiagnosticCode.MultipleOfDecl : DiagnosticCode.MultipleInDecl;
     addEarlyDiagnostic(state, context, code);
