@@ -63,4 +63,5 @@ export function extractCommentsScript(source: string, start: number, trailing: b
 export function extractCommentsModule(source: string, start: number, trailing: boolean): Comments[] {
   return collectComments(source, start, /*isModule */ true, trailing);
 }
-export const version = '0.22';
+
+export const version = '0.61';

@@ -147,7 +147,8 @@ export function skipSingleLineComment(state: ParserState): void {
   }
 }
 
-export function skipMultiLineComment(state: ParserState, context: Context, kjr: ScannerState): any {
+export function skipMultiLineComment(state: ParserState, context: Context): any {
+  let lastIsCR = false;
   while (state.index < state.length) {
     let cp = state.source.charCodeAt(state.index);
 
@@ -157,19 +158,19 @@ export function skipMultiLineComment(state: ParserState, context: Context, kjr: 
       }
       if (cp === Char.Slash) {
         state.index++;
-        return kjr;
+        return;
       }
     } else if ((unicodeLookup[(cp >>> 5) + 69632] >>> cp) & 31 & 1) {
       if (cp === Char.CarriageReturn) {
-        kjr |= ScannerState.NewLine | ScannerState.LastIsCR;
+        lastIsCR = true;
         state.line++;
       } else {
-        if ((kjr & ScannerState.LastIsCR) === 0) state.line++;
-        kjr = (kjr & ~ScannerState.LastIsCR) | ScannerState.NewLine;
+        if (!lastIsCR) state.line++;
+        lastIsCR = false;
       }
       state.lineTerminatorBeforeNextToken = true;
       state.index++;
-      kjr = (kjr & ~ScannerState.LastIsCR) | ScannerState.NewLine;
+      lastIsCR = false;
       state.columnOffset = state.index;
     } else {
       state.index++;
