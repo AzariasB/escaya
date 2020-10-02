@@ -12,16 +12,16 @@ import { ClassDeclaration } from '../declarations/class-declaration';
 import { ExportFromClause } from './export-from-clause';
 
 /** Export declaration */
+export type ExportDeclarations =
+  | AssignmentExpression
+  | VariableStatement
+  | LexicalDeclaration
+  | FunctionDeclaration
+  | ClassDeclaration
+  | Statement;
 
 export interface ExportDeclaration extends Node {
-  readonly declaration:
-    | AssignmentExpression
-    | VariableStatement
-    | LexicalDeclaration
-    | FunctionDeclaration
-    | ClassDeclaration
-    | Statement
-    | null;
+  readonly declaration: ExportDeclarations | null;
   readonly namedExports: ExportSpecifier[];
   readonly fromClause: StringLiteral | null;
   readonly exportFromClause: ExportFromClause | null;
@@ -32,14 +32,7 @@ export interface ExportDeclaration extends Node {
 }
 
 export function createExportDeclaration(
-  declaration:
-    | AssignmentExpression
-    | VariableStatement
-    | LexicalDeclaration
-    | FunctionDeclaration
-    | ClassDeclaration
-    | Statement
-    | null,
+  declaration: ExportDeclarations | null,
   namedExports: ExportSpecifier[],
   fromClause: StringLiteral | null,
   exportFromClause: ExportFromClause | null,

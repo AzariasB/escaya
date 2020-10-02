@@ -528,8 +528,7 @@ export function parseNamedImports(state: ParserState, context: Context, scope: S
   const start = state.startIndex;
   consume(state, context, Token.LeftBrace);
   const importsList = [];
-  const check = context & Context.ErrorRecovery ? Constants.ModuleElementsR : Constants.ModuleElementsN;
-  while (state.token & check) {
+  while (state.token & (Token.IsIdentifier | Token.IsKeyword | Token.IsFutureReserved)) {
     importsList.push(parseImportSpecifier(state, context, scope));
     if (state.token === Token.RightBrace) break;
     consume(state, context, Token.Comma);
@@ -4758,8 +4757,7 @@ export function parseNamedExports(
 ): ExportSpecifier[] {
   consume(state, context, Token.LeftBrace);
   const exportsList = [];
-  const check = context & Context.ErrorRecovery ? Constants.ModuleElementsR : Constants.ModuleElementsN;
-  while (state.token & check) {
+  while (state.token & (Token.IsIdentifier | Token.IsKeyword | Token.IsFutureReserved)) {
     exportsList.push(parseExportSpecifier(state, context, exportedNames, exportedBindings));
     if (state.token === Token.RightBrace) break;
     consume(state, context, Token.Comma);
