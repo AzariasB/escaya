@@ -3550,7 +3550,7 @@ export function parseFunctionExpression(
     (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword)
   ) {
     firstRestricted = state.token;
-    let tokenValue = state.tokenValue;
+    const tokenValue = state.tokenValue;
     name = validateFunctionName(state, context);
     addVarName(state, context, scope, tokenValue, BindingType.Var);
   } else if (state.token !== Token.LeftParen) {

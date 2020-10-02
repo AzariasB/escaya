@@ -6,7 +6,7 @@ import { skipMultiLineComment, skipSingleLineComment } from './comments';
 import { scanTemplateSpan } from './template';
 import { unicodeLookup } from './unicode';
 import { Token } from './../ast/token';
-import { fromCodePoint, ScannerState } from './common';
+import { fromCodePoint } from './common';
 import { scanString } from './string';
 import { scanRegExp } from './regexp';
 import { Char } from './char';
@@ -16,7 +16,6 @@ import {
   scanIdentifierSlowPath,
   scanIdentifierEscapeIdStart
 } from './identifiers';
-import { parseRegularExpressionLiteral } from 'parser';
 
 export const firstCharKinds = [
   /*   0 - Null               */ Token.Unknown,
@@ -150,7 +149,7 @@ export const firstCharKinds = [
 
 export function scanSingleToken(state: ParserState, context: Context): Token {
   let lastIsCR = false;
-  let lineStart = state.index === 0;
+  const lineStart = state.index === 0;
   while (state.index < state.length) {
     let cp = state.source.charCodeAt(state.index);
     state.positionBeforeToken = state.index;
