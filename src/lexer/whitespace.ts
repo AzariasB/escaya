@@ -163,7 +163,6 @@ export function skipWhitespace(parser: ParserState, context: Context, state: Sca
       case Char.Space:
         state |= ScannerState.SameLine;
         parser.index++;
-
         break;
 
       /* normal comments */
@@ -207,7 +206,7 @@ export function skipWhitespace(parser: ParserState, context: Context, state: Sca
       // falls through
       default:
         // Non-ASCII code points can only be identifiers or whitespace.
-        if ((unicodeLookup[(cp >>> 5) + 104448] >>> cp) & 31 & 1) {
+        if ((unicodeLookup[(cp >>> 5) + 139264] >>> cp) & 31 & 1) {
           parser.index++;
           if ((cp & ~1) === Char.LineSeparator) {
             state = (state | 0b00000000000000000000000000000101) ^ ScannerState.LastIsCR;
@@ -262,7 +261,7 @@ export function extractComments(source: string, index: number, isModule: boolean
           const start = index;
           let cp = source.charCodeAt(index);
           while (index < source.length) {
-            if ((unicodeLookup[(cp >>> 5) + 139264] >>> cp) & 31 & 1 || (cp ^ Char.LineSeparator) <= 1) {
+            if ((unicodeLookup[(cp >>> 5) + 174080] >>> cp) & 31 & 1 || (cp ^ Char.LineSeparator) <= 1) {
               state |= ScannerState.NewLine;
               break;
             }
@@ -313,7 +312,7 @@ export function extractComments(source: string, index: number, isModule: boolean
           const start = index;
           let cp = source.charCodeAt(index);
           while (index < source.length) {
-            if ((unicodeLookup[(cp >>> 5) + 139264] >>> cp) & 31 & 1 || (cp ^ Char.LineSeparator) <= 1) {
+            if ((unicodeLookup[(cp >>> 5) + 174080] >>> cp) & 31 & 1 || (cp ^ Char.LineSeparator) <= 1) {
               state |= ScannerState.NewLine;
               break;
             }
@@ -339,7 +338,7 @@ export function extractComments(source: string, index: number, isModule: boolean
           const start = index;
           let cp = source.charCodeAt(index);
           while (index < source.length) {
-            if ((unicodeLookup[(cp >>> 5) + 139264] >>> cp) & 31 & 1 || (cp ^ Char.LineSeparator) <= 1) {
+            if ((unicodeLookup[(cp >>> 5) + 174080] >>> cp) & 31 & 1 || (cp ^ Char.LineSeparator) <= 1) {
               state |= ScannerState.NewLine;
               break;
             }
@@ -360,7 +359,7 @@ export function extractComments(source: string, index: number, isModule: boolean
       // falls through
       default:
         // Non-ASCII code points can only be identifiers or whitespace.
-        if ((unicodeLookup[(cp >>> 5) + 104448] >>> cp) & 31 & 1) {
+        if ((unicodeLookup[(cp >>> 5) + 174080] >>> cp) & 31 & 1) {
           index++;
           if ((cp & ~1) === Char.LineSeparator) {
             state = (state | 0b00000000000000000000000000000101) ^ ScannerState.LastIsCR;

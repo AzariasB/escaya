@@ -138,8 +138,6 @@ export const octHexBinTbl = [
 ];
 
 export function scanNumber(state: ParserState, context: Context, cp: number): Token {
-  const start = state.index;
-
   const enum NumberKind {
     None = 0,
     Decimal = 1 << 0,
@@ -158,6 +156,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
   let token = Token.NumericLiteral;
   let allowSeparator = 1;
   let source = state.source;
+  const start = state.index;
 
   if (cp === Char.Zero) {
     index++; // skips '0'
@@ -263,8 +262,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
 
               // We need to consume '__' for cases like '0b1__2' so we can correctly parse out two
               // numeric literal - '1' - and '2'.
-              // '0b' and '__' are seen as invalid characters and should
-              // only be consumed.
+              // '0b' and '__' are seen as invalid characters and should only be consumed.
               if (source.charCodeAt(index + 1) === Char.Underscore) {
                 addLexerDiagnostic(state, context, index, index + 1, DiagnosticCode.ContinuousNumericSeparator);
                 state.index += 5;
@@ -393,10 +391,11 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
   if (cp === Char.Period) {
     disallowBigInt = true;
     token = Token.FloatingPointLiteral;
-    cp = source.charCodeAt(++state.index);
+    cp = source.charCodeAt(++state.index); // skips: '.'
     ret += '.' + scanDecimalDigitsOrSeparator(state, context, state.index, cp);
     cp = source.charCodeAt(state.index);
   }
+
   const end = state.index;
 
   if (cp === Char.LowerN) {
@@ -414,13 +413,11 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
   // e+<number>   E+<number>
   // e-<number>   E-<number>
   if ((cp | 32) === Char.LowerE) {
-    state.index++;
-    cp = source.charCodeAt(state.index);
-    state.cst |= ConcreteSyntax.Scientific;
+    cp = source.charCodeAt(++state.index);
+
     // e+ or E+ or e- or E-
     if (cp === Char.Plus || cp === Char.Hyphen) {
-      state.index++;
-      cp = source.charCodeAt(state.index);
+      cp = source.charCodeAt(++state.index);
     }
 
     if ((AsciiCharTypes[cp] & AsciiCharFlags.IsDecimal) === 0) {

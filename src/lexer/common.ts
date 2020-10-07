@@ -1,7 +1,6 @@
 import { AsciiCharTypes, AsciiCharFlags } from './asciiChar';
 import { Char } from './char';
 import { unicodeLookup } from './unicode';
-import { ParserState } from '../common';
 
 export const enum ScannerState {
   None = 0,
@@ -10,13 +9,7 @@ export const enum ScannerState {
   LastIsCR = 1 << 2,
   LineStart = 1 << 3,
   Collecting = 1 << 4,
-  Trailing = 1 << 4
-}
-
-export function consumeOpt(parser: ParserState, code: number) {
-  if (parser.source.charCodeAt(parser.index) !== code) return false;
-  parser.index++;
-  return true;
+  Trailing = (1 << 5) | Collecting
 }
 
 export function isIdentifierPart(cp: number): any {
@@ -32,7 +25,7 @@ export function isIdentifierPart(cp: number): any {
    */
   return cp <= 0x7f
     ? AsciiCharTypes[cp] & AsciiCharFlags.IsIdentifierPart
-    : (unicodeLookup[(cp >>> 5) + 0] >>> cp) & 31 & 1 || cp === Char.ZeroWidthJoiner || cp === Char.ZeroWidthNonJoiner;
+    : (unicodeLookup[(cp >>> 5) + 104448] >>> cp) & 31 & 1;
 }
 
 // Converts an ASCII alphanumeric digit [0-9a-zA-Z] to number as if in base-36.

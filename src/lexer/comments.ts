@@ -9,7 +9,7 @@ import { ScannerState } from './common';
 //  // SingleLineCommentChars
 export function skipSingleLine(parser: ParserState, source: string, state: ScannerState): ScannerState {
   let cp = source.charCodeAt(parser.index);
-  while (parser.index < parser.length && ((unicodeLookup[(cp >>> 5) + 139264] >>> cp) & 31 & 1) === 0) {
+  while (parser.index < parser.length && ((unicodeLookup[(cp >>> 5) + 174080] >>> cp) & 31 & 1) === 0) {
     cp = source.charCodeAt(++parser.index);
   }
 
