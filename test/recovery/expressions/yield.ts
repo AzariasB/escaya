@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Expressions - Yield', () => {
   it('yield(!', () => {
-    t.deepEqual(recovery('yield(!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('yield(!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -74,7 +74,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('function* fn() { (yield!', () => {
-    t.deepEqual(recovery('function* fn() { (yield!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function* fn() { (yield!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -171,7 +171,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('{ (x = y = yield z', () => {
-    t.deepEqual(recovery('{ (x = y = yield z', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ (x = y = yield z', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -280,7 +280,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('function f(){ 5 + yield x;', () => {
-    t.deepEqual(recovery('function f(){ 5 + yield x;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function f(){ 5 + yield x;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -394,7 +394,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('= {[yield]: 1}) => z', () => {
-    t.deepEqual(recovery('= {[yield]: 1}) => z', 'recovery.js'), {
+    t.deepStrictEqual(recovery('= {[yield]: 1}) => z', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -521,7 +521,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('function *g(){ (x = {[yield y]: 1}) }', () => {
-    t.deepEqual(recovery('function *g(){ (x = {[yield y]: 1}) }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function *g(){ (x = {[yield y]: 1}) }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -646,7 +646,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it(':yield/(', () => {
-    t.deepEqual(recovery(':yield/(', 'recovery.js'), {
+    t.deepStrictEqual(recovery(':yield/(', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -723,7 +723,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('a:yield/x', () => {
-    t.deepEqual(recovery('a:yield/x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('a:yield/x', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -790,7 +790,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('yield = ((y)) =', () => {
-    t.deepEqual(recovery('yield = ((y)) =', 'recovery.js'), {
+    t.deepStrictEqual(recovery('yield = ((y)) =', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -882,7 +882,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('function* g() { yield }', () => {
-    t.deepEqual(recovery('function* g() { yield }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function* g() { yield }', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -949,7 +949,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('function* g() { yield\n* foo }', () => {
-    t.deepEqual(recovery('function* g() { yield\n* foo }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function* g() { yield\n* foo }', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -1032,7 +1032,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('function* g() { yield* }', () => {
-    t.deepEqual(recovery('function* g() { yield* }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function* g() { yield* }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1114,7 +1114,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('yield', () => {
-    t.deepEqual(recovery('yield', 'recovery.js'), {
+    t.deepStrictEqual(recovery('yield', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1151,7 +1151,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('(yield', () => {
-    t.deepEqual(recovery('(yield', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(yield', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1204,7 +1204,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('(!yield', () => {
-    t.deepEqual(recovery('(!yield', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(!yield', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1265,7 +1265,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('function *a yield (', () => {
-    t.deepEqual(recovery('function *a yield (', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function *a yield (', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1354,7 +1354,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('function async * yield (', () => {
-    t.deepEqual(recovery('function async * yield (', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function async * yield (', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1459,7 +1459,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('(*foo=bar yield', () => {
-    t.deepEqual(recovery('(*foo=bar yield', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(*foo=bar yield', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1575,7 +1575,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('!yield(', () => {
-    t.deepEqual(recovery('!yield(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!yield(', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1639,7 +1639,7 @@ describe('Recovery - Expressions - Yield', () => {
   // Also in this case 'yield' will be parsed out in its own production becae
   // not part of the function body. '{' is missing
   it('async function *x(yield yield x', () => {
-    t.deepEqual(recovery('async function *x(yield yield x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function *x(yield yield x', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1738,7 +1738,7 @@ describe('Recovery - Expressions - Yield', () => {
   });
 
   it('async function *x(yield { yield x', () => {
-    t.deepEqual(recovery('async function *x(yield { yield x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async function *x(yield { yield x', 'recovery.js'), {
       directives: [],
       leafs: [
         {

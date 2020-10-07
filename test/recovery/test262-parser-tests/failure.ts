@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('test262-parser-tests - failing tests', () => {
   it(',,,,,,let x, y, ;', () => {
-    t.deepEqual(recovery(',,,,,,let x, y, ;', 'recovery.js'), {
+    t.deepStrictEqual(recovery(',,,,,,let x, y, ;', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -124,7 +124,7 @@ describe('test262-parser-tests - failing tests', () => {
     });
   });
   it('var x, ;', () => {
-    t.deepEqual(recovery('var x, ;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var x, ;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -180,7 +180,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('({get{a}:0})', () => {
-    t.deepEqual(recovery('({get{a}:0})', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({get{a}:0})', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -306,7 +306,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('/*";', () => {
-    t.deepEqual(recovery('/*";', 'recovery.js'), {
+    t.deepStrictEqual(recovery('/*";', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -336,7 +336,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('import * as enum from "foo"', () => {
-    t.deepEqual(recovery('import * as enum from "foo"', 'recovery.js', { module: true }), {
+    t.deepStrictEqual(recovery('import * as enum from "foo"', 'recovery.js', { module: true }), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -400,7 +400,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('/42', () => {
-    t.deepEqual(recovery('/42', 'recovery.js'), {
+    t.deepStrictEqual(recovery('/42', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -447,7 +447,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('{ return; }', () => {
-    t.deepEqual(recovery('{ return; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ return; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -495,7 +495,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('function null() { }', () => {
-    t.deepEqual(recovery('function null() { }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function null() { }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -592,7 +592,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('[{a=0},...0]', () => {
-    t.deepEqual(recovery('[{a=0},...0]', 'recovery.js'), {
+    t.deepStrictEqual(recovery('[{a=0},...0]', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -688,7 +688,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('function x(...a = 1){}', () => {
-    t.deepEqual(recovery('function x(...a = 1){}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function x(...a = 1){}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -794,7 +794,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('function *g() { function yield() {} }', () => {
-    t.deepEqual(recovery('function *g() { function yield() {} }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function *g() { function yield() {} }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -880,7 +880,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('new.prop', () => {
-    t.deepEqual(recovery('new.prop', 'recovery.js'), {
+    t.deepStrictEqual(recovery('new.prop', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -950,7 +950,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('class', () => {
-    t.deepEqual(recovery('class', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -991,7 +991,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('[+{a = 0}];', () => {
-    t.deepEqual(recovery('[+{a = 0}];', 'recovery.js'), {
+    t.deepStrictEqual(recovery('[+{a = 0}];', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1079,7 +1079,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('foo[/42', () => {
-    t.deepEqual(recovery('foo[/42', 'recovery.js'), {
+    t.deepStrictEqual(recovery('foo[/42', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1142,7 +1142,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('yield v', () => {
-    t.deepEqual(recovery('yield v', 'recovery.js'), {
+    t.deepStrictEqual(recovery('yield v', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1203,7 +1203,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('for (let let;;;) {}', () => {
-    t.deepEqual(recovery('for (let let;;;) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (let let;;;) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1308,7 +1308,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('(10) => 0', () => {
-    t.deepEqual(recovery('(10) => 0', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(10) => 0', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1378,7 +1378,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('for (let x = 42 in list) process(x);', () => {
-    t.deepEqual(recovery('for (let x = 42 in list) process(x);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (let x = 42 in list) process(x);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1490,7 +1490,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('({get a(){}})=0', () => {
-    t.deepEqual(recovery('({get a(){}})=0', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({get a(){}})=0', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1591,7 +1591,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('({a({e: a.b}){}})', () => {
-    t.deepEqual(recovery('({a({e: a.b}){}})', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({a({e: a.b}){}})', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -1764,7 +1764,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('var [a.b] = 0', () => {
-    t.deepEqual(recovery('var [a.b] = 0', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var [a.b] = 0', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1885,7 +1885,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('(function *(x, ...yield){})', () => {
-    t.deepEqual(recovery('(function *(x, ...yield){})', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(function *(x, ...yield){})', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1974,7 +1974,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('"\\u{FFFF"', () => {
-    t.deepEqual(recovery('"\\u{FFFF"', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"\\u{FFFF"', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -2014,7 +2014,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('\\ua', () => {
-    t.deepEqual(recovery('\\ua', 'recovery.js'), {
+    t.deepStrictEqual(recovery('\\ua', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2083,7 +2083,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('let []', () => {
-    t.deepEqual(recovery('let []', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let []', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2140,7 +2140,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('0b12', () => {
-    t.deepEqual(recovery('0b12', 'recovery.js'), {
+    t.deepStrictEqual(recovery('0b12', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2187,7 +2187,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('var _𖫵 = 11;', () => {
-    t.deepEqual(recovery('var _𖫵 = 11;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var _𖫵 = 11;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2251,7 +2251,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('\\o', () => {
-    t.deepEqual(recovery('\\o', 'recovery.js'), {
+    t.deepStrictEqual(recovery('\\o', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2320,7 +2320,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('function true() { }', () => {
-    t.deepEqual(recovery('function true() { }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function true() { }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2417,7 +2417,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('"use strict"; for (let [a = let];;) {}', () => {
-    t.deepEqual(recovery('"use strict"; for (let [a = let];;) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; for (let [a = let];;) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -2533,7 +2533,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('(function() { yield 3; })', () => {
-    t.deepEqual(recovery('(function() { yield 3; })', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(function() { yield 3; })', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2630,7 +2630,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('({a:b[0]})=>0', () => {
-    t.deepEqual(recovery('({a:b[0]})=>0', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({a:b[0]})=>0', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -2735,7 +2735,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('with(true) let a', () => {
-    t.deepEqual(recovery('with(true) let a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('with(true) let a', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2811,7 +2811,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('({ * })', () => {
-    t.deepEqual(recovery('({ * })', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({ * })', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -2882,7 +2882,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('({ set prop() {} })', () => {
-    t.deepEqual(recovery('({ set prop() {} })', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({ set prop() {} })', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2981,7 +2981,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('((a),...b) => 0;', () => {
-    t.deepEqual(recovery('((a),...b) => 0;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('((a),...b) => 0;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3105,7 +3105,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('a: let a', () => {
-    t.deepEqual(recovery('a: let a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('a: let a', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3180,7 +3180,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('for (let x, y, z, let;;;) {}', () => {
-    t.deepEqual(recovery('for (let x, y, z, let;;;) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (let x, y, z, let;;;) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3333,7 +3333,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('for ((i in {}));', () => {
-    t.deepEqual(recovery('for ((i in {}));', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for ((i in {}));', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3419,7 +3419,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('const const;', () => {
-    t.deepEqual(recovery('const const;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('const const;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3468,7 +3468,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('({ set: s(if) { } })', () => {
-    t.deepEqual(recovery('({ set: s(if) { } })', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({ set: s(if) { } })', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3601,7 +3601,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('(a,...a)', () => {
-    t.deepEqual(recovery('(a,...a)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(a,...a)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3669,7 +3669,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('for(var a = 0 of b);', () => {
-    t.deepEqual(recovery('for(var a = 0 of b);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(var a = 0 of b);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3756,7 +3756,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('for(let[a].b of 0);', () => {
-    t.deepEqual(recovery('for(let[a].b of 0);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(let[a].b of 0);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3886,7 +3886,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('function f(a, ...b, c){}', () => {
-    t.deepEqual(recovery('function f(a, ...b, c){}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function f(a, ...b, c){}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3976,7 +3976,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('(class [a] {})', () => {
-    t.deepEqual(recovery('(class [a] {})', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(class [a] {})', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4070,7 +4070,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('for (const x = 1 of y);', () => {
-    t.deepEqual(recovery('for (const x = 1 of y);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (const x = 1 of y);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4158,7 +4158,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('for(;;) function a(){}', () => {
-    t.deepEqual(recovery('for(;;) function a(){}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(;;) function a(){}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4228,7 +4228,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('var this = 10;', () => {
-    t.deepEqual(recovery('var this = 10;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var this = 10;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4306,7 +4306,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('function *g() { try {} catch (yield) {} }', () => {
-    t.deepEqual(recovery('function *g() { try {} catch (yield) {} }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function *g() { try {} catch (yield) {} }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4404,7 +4404,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('for (let x = 42 of list) process(x);', () => {
-    t.deepEqual(recovery('for (let x = 42 of list) process(x);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (let x = 42 of list) process(x);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4517,7 +4517,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('"use strict"; ({ v: eval }) = obj', () => {
-    t.deepEqual(recovery('"use strict"; ({ v: eval }) = obj', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; ({ v: eval }) = obj', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -4620,7 +4620,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('/{*/u;', () => {
-    t.deepEqual(recovery('/{*/u;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('/{*/u;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4658,7 +4658,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('({ *a })', () => {
-    t.deepEqual(recovery('({ *a })', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({ *a })', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4720,7 +4720,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('function *a(){yield*}', () => {
-    t.deepEqual(recovery('function *a(){yield*}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function *a(){yield*}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4802,7 +4802,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('try { } catch ([a] = []) { }', () => {
-    t.deepEqual(recovery('try { } catch ([a] = []) { }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('try { } catch ([a] = []) { }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4912,7 +4912,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('1 / %', () => {
-    t.deepEqual(recovery('1 / %', 'recovery.js'), {
+    t.deepStrictEqual(recovery('1 / %', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4991,7 +4991,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('[...0,...{a=0}]=0', () => {
-    t.deepEqual(recovery('[...0,...{a=0}]=0', 'recovery.js'), {
+    t.deepStrictEqual(recovery('[...0,...{a=0}]=0', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5110,7 +5110,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('for (let [let];;;) {}', () => {
-    t.deepEqual(recovery('for (let [let];;;) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (let [let];;;) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5232,7 +5232,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('func() = 4', () => {
-    t.deepEqual(recovery('func() = 4', 'recovery.js'), {
+    t.deepStrictEqual(recovery('func() = 4', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5303,7 +5303,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('0xz', () => {
-    t.deepEqual(recovery('0xz', 'recovery.js'), {
+    t.deepStrictEqual(recovery('0xz', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5350,7 +5350,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('for (const x = 1, y = 2, z = 3, let = 0;;;) {}', () => {
-    t.deepEqual(recovery('for (const x = 1, y = 2, z = 3, let = 0;;;) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (const x = 1, y = 2, z = 3, let = 0;;;) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5535,7 +5535,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('[...0,{a=0}]=0', () => {
-    t.deepEqual(recovery('[...0,{a=0}]=0', 'recovery.js'), {
+    t.deepStrictEqual(recovery('[...0,{a=0}]=0', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5647,7 +5647,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('\\;', () => {
-    t.deepEqual(recovery('\\;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('\\;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5693,7 +5693,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('function false() { }', () => {
-    t.deepEqual(recovery('function false() { }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function false() { }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5790,7 +5790,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('a => {}()', () => {
-    t.deepEqual(recovery('a => {}()', 'recovery.js'), {
+    t.deepStrictEqual(recovery('a => {}()', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5862,7 +5862,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('obj = {x = 0}', () => {
-    t.deepEqual(recovery('obj = {x = 0}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('obj = {x = 0}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5949,7 +5949,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('a class;', () => {
-    t.deepEqual(recovery('a class;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('a class;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6020,7 +6020,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('function*g() { let yield; }', () => {
-    t.deepEqual(recovery('function*g() { let yield; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function*g() { let yield; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6105,7 +6105,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('var', () => {
-    t.deepEqual(recovery('var', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6135,7 +6135,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('([[[[[[[[[[[[[[[[[[[[{a:b[0]}]]]]]]]]]]]]]]]]]]]])=>0;', () => {
-    t.deepEqual(recovery('([[[[[[[[[[[[[[[[[[[[{a:b[0]}]]]]]]]]]]]]]]]]]]]])=>0;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('([[[[[[[[[[[[[[[[[[[[{a:b[0]}]]]]]]]]]]]]]]]]]]]])=>0;', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -6426,7 +6426,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('(function*() { yield* })', () => {
-    t.deepEqual(recovery('(function*() { yield* })', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(function*() { yield* })', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6515,7 +6515,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('f(... ... a)', () => {
-    t.deepEqual(recovery('f(... ... a)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('f(... ... a)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6600,7 +6600,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('[x] += 0', () => {
-    t.deepEqual(recovery('[x] += 0', 'recovery.js'), {
+    t.deepStrictEqual(recovery('[x] += 0', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6671,7 +6671,7 @@ describe('test262-parser-tests - failing tests', () => {
   });
 
   it('class A extends B { constructor() { (super)(); } }', () => {
-    t.deepEqual(recovery('class A extends B { constructor() { (super)(); } }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class A extends B { constructor() { (super)(); } }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

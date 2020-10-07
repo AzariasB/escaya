@@ -1,5 +1,4 @@
 import { Node } from '../node';
-import { IdentifierName } from '../expressions/identifiername';
 import { StringLiteral } from '../expressions/string-literal';
 import { ExportSpecifier } from './export-specifier';
 import { RootNode } from '../root-node';

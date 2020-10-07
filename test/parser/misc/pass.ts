@@ -7,8 +7,6 @@ describe('Misc - Pass', () => {
     '0o533n',
     '0xabcn',
     '45n',
-    //'a(x:b)',
-    //'a(x:c(y:b))',
     `"x\\\\0"; "use strict";`,
     'x \n /foo',
     'x \n /foo/g',

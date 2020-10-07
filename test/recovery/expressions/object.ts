@@ -1786,8 +1786,8 @@ describe('Recovery - Expressions - Object', () => {
           source: 2,
           message: '`}` expected',
           code: 5,
-          start: 2,
-          length: 6
+          start: 1,
+          length: 7
         }
       ],
       detached: false,

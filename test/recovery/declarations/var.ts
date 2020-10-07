@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Var', () => {
   it('var', () => {
-    t.deepEqual(recovery('var', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -32,7 +32,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var /a/', () => {
-    t.deepEqual(recovery('var /a/', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var /a/', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -85,7 +85,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var / a', () => {
-    t.deepEqual(recovery('var / a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var / a', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -139,7 +139,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var !', () => {
-    t.deepEqual(recovery('var !', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var !', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -201,7 +201,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var {', () => {
-    t.deepEqual(recovery('var {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -257,7 +257,7 @@ describe('Recovery - Var', () => {
   });
 
   it('{var', () => {
-    t.deepEqual(recovery('{var', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{var', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -305,7 +305,7 @@ describe('Recovery - Var', () => {
   });
 
   it('{var x', () => {
-    t.deepEqual(recovery('{var x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{var x', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -370,7 +370,7 @@ describe('Recovery - Var', () => {
   });
 
   it('{ var x(,,,,,,,,,,,,,,,,,,,,,,,,,,,, a , b !![', () => {
-    t.deepEqual(recovery('{ var x(,,,,,,,,,,,,,,,,,,,,,,,,,,,, a , b !![', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ var x(,,,,,,,,,,,,,,,,,,,,,,,,,,,, a , b !![', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -969,7 +969,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var b = new B; // no error', () => {
-    t.deepEqual(recovery('var b = new B; // no error', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var b = new B; // no error', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1033,7 +1033,7 @@ describe('Recovery - Var', () => {
   it(`var v = { foo: function () {
   }, a: b, get baz() {
   } };`, () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery(
         `var v = { foo: function () {
     }, a: b, get baz() {
@@ -1184,7 +1184,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var tt = { aa:  };', () => {
-    t.deepEqual(recovery('var tt = { aa:  };', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var tt = { aa:  };', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1271,7 +1271,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var v = { a', () => {
-    t.deepEqual(recovery('var v = { a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var v = { a', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1343,7 +1343,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var v = { a: 1', () => {
-    t.deepEqual(recovery('var v = { a: 1', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var v = { a: 1', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1431,7 +1431,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var x = {', () => {
-    t.deepEqual(recovery('var x = {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var x = {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1496,7 +1496,7 @@ describe('Recovery - Var', () => {
   it(`var v = {
       a
     ; `, () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery(
         `var v = {
         a
@@ -1576,7 +1576,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var v = { foo() { }; a: b; get baz() { }; }', () => {
-    t.deepEqual(recovery('var v = { foo() { }; a: b; get baz() { }; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var v = { foo() { }; a: b; get baz() { }; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1775,7 +1775,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var v = { a; b; c }', () => {
-    t.deepEqual(recovery('var v = { a; b; c }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var v = { a; b; c }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1885,7 +1885,7 @@ describe('Recovery - Var', () => {
   });
 
   it('{,var', () => {
-    t.deepEqual(recovery('{,var', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{,var', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1932,7 +1932,7 @@ describe('Recovery - Var', () => {
   });
 
   it('{var y = b ; /', () => {
-    t.deepEqual(recovery('{var y = b ; /', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{var y = b ; /', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2020,7 +2020,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var/{', () => {
-    t.deepEqual(recovery('var/{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var/{', 'recovery.js'), {
       children: [],
       context: 0,
       diagnostics: [
@@ -2076,7 +2076,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var [a, ,, b/, b=, ...a', () => {
-    t.deepEqual(recovery('var [a, ,, b/, b=, ...a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var [a, ,, b/, b=, ...a', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2270,7 +2270,7 @@ describe('Recovery - Var', () => {
   });
 
   it('var o = {one: function() {} two:2};', () => {
-    t.deepEqual(recovery('var o = {one: function() {} two:2};', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var o = {one: function() {} two:2};', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2392,7 +2392,7 @@ describe('Recovery - Var', () => {
     });
   });
   it('var o = {one: function() {} two:2 three: 3};', () => {
-    t.deepEqual(recovery('var o = {one: function() {} two:2 three: 3};', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var o = {one: function() {} two:2 three: 3};', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2546,7 +2546,7 @@ describe('Recovery - Var', () => {
     });
   });
   it('var o = {one: function() {} two:2, three: 3 "four":4};', () => {
-    t.deepEqual(recovery('var o = {one: function() {} two:2, three: 3 "four":4};', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var o = {one: function() {} two:2, three: 3 "four":4};', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2723,233 +2723,236 @@ describe('Recovery - Var', () => {
     });
   });
   it('var o = {one: function() {} two:2, three: {aa: "a" bb: "b"} four: 4};', () => {
-    t.deepEqual(recovery('var o = {one: function() {} two:2, three: {aa: "a" bb: "b"} four: 4};', 'recovery.js'), {
-      type: 'RootNode',
-      webCompat: true,
-      directives: [],
-      leafs: [
-        {
-          type: 'VariableStatement',
-          declarations: [
-            {
-              type: 'VariableDeclaration',
-              binding: {
-                type: 'BindingIdentifier',
-                name: 'o',
-                start: 3,
-                end: 5,
+    t.deepStrictEqual(
+      recovery('var o = {one: function() {} two:2, three: {aa: "a" bb: "b"} four: 4};', 'recovery.js'),
+      {
+        type: 'RootNode',
+        webCompat: true,
+        directives: [],
+        leafs: [
+          {
+            type: 'VariableStatement',
+            declarations: [
+              {
+                type: 'VariableDeclaration',
+                binding: {
+                  type: 'BindingIdentifier',
+                  name: 'o',
+                  start: 3,
+                  end: 5,
 
-                flags: 0
-              },
-              initializer: {
-                type: 'ObjectLiteral',
-                properties: [
-                  {
-                    type: 'PropertyName',
-                    key: {
-                      type: 'IdentifierName',
-                      name: 'one',
-                      start: 9,
-                      end: 12,
+                  flags: 0
+                },
+                initializer: {
+                  type: 'ObjectLiteral',
+                  properties: [
+                    {
+                      type: 'PropertyName',
+                      key: {
+                        type: 'IdentifierName',
+                        name: 'one',
+                        start: 9,
+                        end: 12,
 
-                      flags: 0
-                    },
-                    value: {
-                      type: 'FunctionExpression',
-                      name: null,
-                      generator: false,
-                      async: false,
-                      params: [],
-                      contents: {
-                        type: 'FunctionBody',
-                        directives: [],
-                        leafs: [],
-                        start: 24,
+                        flags: 0
+                      },
+                      value: {
+                        type: 'FunctionExpression',
+                        name: null,
+                        generator: false,
+                        async: false,
+                        params: [],
+                        contents: {
+                          type: 'FunctionBody',
+                          directives: [],
+                          leafs: [],
+                          start: 24,
+                          end: 27,
+
+                          flags: 0
+                        },
+                        start: 13,
                         end: 27,
 
                         flags: 0
                       },
-                      start: 13,
+                      start: 9,
                       end: 27,
 
                       flags: 0
                     },
-                    start: 9,
-                    end: 27,
+                    {
+                      type: 'PropertyName',
+                      key: {
+                        type: 'IdentifierName',
+                        name: 'two',
+                        start: 27,
+                        end: 31,
 
-                    flags: 0
-                  },
-                  {
-                    type: 'PropertyName',
-                    key: {
-                      type: 'IdentifierName',
-                      name: 'two',
+                        flags: 0
+                      },
+                      value: {
+                        type: 'NumericLiteral',
+
+                        value: 2,
+                        start: 32,
+                        end: 33,
+
+                        flags: 0
+                      },
                       start: 27,
-                      end: 31,
-
-                      flags: 0
-                    },
-                    value: {
-                      type: 'NumericLiteral',
-
-                      value: 2,
-                      start: 32,
                       end: 33,
 
                       flags: 0
                     },
-                    start: 27,
-                    end: 33,
+                    {
+                      type: 'PropertyName',
+                      key: {
+                        type: 'IdentifierName',
+                        name: 'three',
+                        start: 34,
+                        end: 40,
 
-                    flags: 0
-                  },
-                  {
-                    type: 'PropertyName',
-                    key: {
-                      type: 'IdentifierName',
-                      name: 'three',
-                      start: 34,
-                      end: 40,
+                        flags: 0
+                      },
+                      value: {
+                        type: 'ObjectLiteral',
+                        properties: [
+                          {
+                            type: 'PropertyName',
+                            key: {
+                              type: 'IdentifierName',
+                              name: 'aa',
+                              start: 43,
+                              end: 45,
 
-                      flags: 0
-                    },
-                    value: {
-                      type: 'ObjectLiteral',
-                      properties: [
-                        {
-                          type: 'PropertyName',
-                          key: {
-                            type: 'IdentifierName',
-                            name: 'aa',
+                              flags: 0
+                            },
+                            value: {
+                              type: 'StringLiteral',
+                              value: 'a',
+                              start: 46,
+                              end: 50,
+                              flags: 0
+                            },
                             start: 43,
-                            end: 45,
-
-                            flags: 0
-                          },
-                          value: {
-                            type: 'StringLiteral',
-                            value: 'a',
-                            start: 46,
                             end: 50,
+
                             flags: 0
                           },
-                          start: 43,
-                          end: 50,
+                          {
+                            type: 'PropertyName',
+                            key: {
+                              type: 'IdentifierName',
+                              name: 'bb',
+                              start: 50,
+                              end: 53,
 
-                          flags: 0
-                        },
-                        {
-                          type: 'PropertyName',
-                          key: {
-                            type: 'IdentifierName',
-                            name: 'bb',
+                              flags: 0
+                            },
+                            value: {
+                              type: 'StringLiteral',
+                              value: 'b',
+                              start: 54,
+                              end: 58,
+                              flags: 0
+                            },
                             start: 50,
-                            end: 53,
-
-                            flags: 0
-                          },
-                          value: {
-                            type: 'StringLiteral',
-                            value: 'b',
-                            start: 54,
                             end: 58,
-                            flags: 0
-                          },
-                          start: 50,
-                          end: 58,
 
-                          flags: 0
-                        }
-                      ],
-                      start: 41,
+                            flags: 0
+                          }
+                        ],
+                        start: 41,
+                        end: 59,
+
+                        flags: 0
+                      },
+                      start: 34,
                       end: 59,
 
                       flags: 0
                     },
-                    start: 34,
-                    end: 59,
+                    {
+                      type: 'PropertyName',
+                      key: {
+                        type: 'IdentifierName',
+                        name: 'four',
+                        start: 59,
+                        end: 64,
 
-                    flags: 0
-                  },
-                  {
-                    type: 'PropertyName',
-                    key: {
-                      type: 'IdentifierName',
-                      name: 'four',
+                        flags: 0
+                      },
+                      value: {
+                        type: 'NumericLiteral',
+
+                        value: 4,
+                        start: 65,
+                        end: 67,
+
+                        flags: 0
+                      },
                       start: 59,
-                      end: 64,
-
-                      flags: 0
-                    },
-                    value: {
-                      type: 'NumericLiteral',
-
-                      value: 4,
-                      start: 65,
                       end: 67,
 
                       flags: 0
-                    },
-                    start: 59,
-                    end: 67,
+                    }
+                  ],
+                  start: 7,
+                  end: 68,
 
-                    flags: 0
-                  }
-                ],
-                start: 7,
+                  flags: 0
+                },
+                start: 3,
                 end: 68,
 
                 flags: 0
-              },
-              start: 3,
-              end: 68,
+              }
+            ],
+            start: 0,
+            end: 69,
 
-              flags: 0
-            }
-          ],
-          start: 0,
-          end: 69,
-
-          flags: 0
-        }
-      ],
-      text: 'var o = {one: function() {} two:2, three: {aa: "a" bb: "b"} four: 4};',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 28,
-          length: 3
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 51,
-          length: 2
-        },
-        {
-          kind: 2,
-          source: 2,
-          message: '`,` expected',
-          code: 5,
-          start: 60,
-          length: 4
-        }
-      ],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 69,
-      end: 69
-    });
+            flags: 0
+          }
+        ],
+        text: 'var o = {one: function() {} two:2, three: {aa: "a" bb: "b"} four: 4};',
+        fileName: 'recovery.js',
+        context: 0,
+        mutualFlags: 0,
+        diagnostics: [
+          {
+            kind: 2,
+            source: 2,
+            message: '`,` expected',
+            code: 5,
+            start: 28,
+            length: 3
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`,` expected',
+            code: 5,
+            start: 51,
+            length: 2
+          },
+          {
+            kind: 2,
+            source: 2,
+            message: '`,` expected',
+            code: 5,
+            start: 60,
+            length: 4
+          }
+        ],
+        detached: false,
+        incremental: false,
+        parent: null,
+        children: [],
+        start: 0,
+        length: 69,
+        end: 69
+      }
+    );
   });
 });

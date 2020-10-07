@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Statements - Do while', () => {
   it('incomplete do while', () => {
-    t.deepEqual(recovery('do while', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do while', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -79,7 +79,7 @@ describe('Statements - Do while', () => {
   });
 
   it('missing the head and the body - while still survives', () => {
-    t.deepEqual(recovery('do(while', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do(while', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -147,7 +147,7 @@ describe('Statements - Do while', () => {
   });
 
   it('with a following for statement', () => {
-    t.deepEqual(recovery('do while for (a in b) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do while for (a in b) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -246,7 +246,7 @@ describe('Statements - Do while', () => {
   });
 
   it('with EmptyStatement', () => {
-    t.deepEqual(recovery('do while;;;;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do while;;;;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -336,7 +336,7 @@ describe('Statements - Do while', () => {
   });
 
   it('with ASI', () => {
-    t.deepEqual(recovery('do while;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do while;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -404,7 +404,7 @@ describe('Statements - Do while', () => {
   });
 
   it('do { x = { y: z; } } while)', () => {
-    t.deepEqual(recovery('do { x = { y: z; } } while)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do { x = { y: z; } } while)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -560,7 +560,7 @@ describe('Statements - Do while', () => {
   });
 
   it('do { foo("bar") = baz } while)', () => {
-    t.deepEqual(recovery('do { foo("bar") = baz } while)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do { foo("bar") = baz } while)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -671,7 +671,7 @@ describe('Statements - Do while', () => {
   });
 
   it('do { function x({[]})  } (while)', () => {
-    t.deepEqual(recovery('do { function x({[]})  } (while)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do { function x({[]})  } (while)', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -871,7 +871,7 @@ describe('Statements - Do while', () => {
   });
 
   it('do(async while)', () => {
-    t.deepEqual(recovery('do(async while)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do(async while)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -947,7 +947,7 @@ describe('Statements - Do while', () => {
   });
 
   it('do(yield function ( {x } while)', () => {
-    t.deepEqual(recovery('do(yield function ( {x } while)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do(yield function ( {x } while)', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -1091,7 +1091,7 @@ describe('Statements - Do while', () => {
   });
 
   it('do { class { function x() {}   } while /a/ - 2 ** a', () => {
-    t.deepEqual(recovery('do { class { function x() {}   } while /a/ - 2 ** a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do { class { function x() {}   } while /a/ - 2 ** a', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1283,7 +1283,7 @@ describe('Statements - Do while', () => {
   });
   /*
   it('Unclosed block statement3223', () => {
-    t.deepEqual(recovery('do { class { function () {}   } while /a/ - 2 ** a', 'recovery.js'),{
+    t.deepStrictEqual(recovery('do { class { function () {}   } while /a/ - 2 ** a', 'recovery.js'),{
       "kind": 209,
       "directives": [],
       "statements": [
@@ -1484,7 +1484,7 @@ describe('Statements - Do while', () => {
   });
 */
   it('do {123 - 3 %&/ 33 / (async break continue bad input a b c 1 2 3)}{}{}{{}{async: await}(while)', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery(
         'do {123 - 3 %&/ 33 / (async break continue bad input a b c 1 2 3)}{}{}{{}{async: await}(while)',
         'recovery.js'
@@ -1984,7 +1984,7 @@ describe('Statements - Do while', () => {
   });
 
   it('do{{{}}[][[[]]]}(while)', () => {
-    t.deepEqual(recovery('do{{{}}[][[[]]]}(while)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do{{{}}[][[[]]]}(while)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2138,7 +2138,7 @@ describe('Statements - Do while', () => {
   });
 
   it('do {} while sleeeeeeping on the keyboard,,,,,,,,,,,,,,,,,(while)', () => {
-    t.deepEqual(recovery('do {} while sleeeeeeping on the keyboard,,,,,,,,,,,,,,,,,(while)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do {} while sleeeeeeping on the keyboard,,,,,,,,,,,,,,,,,(while)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2587,7 +2587,7 @@ describe('Statements - Do while', () => {
   });
 
   it('Unclosed block statement4534325', () => {
-    t.deepEqual(recovery('do while!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do while!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2670,7 +2670,7 @@ describe('Statements - Do while', () => {
   });
 
   it('do(while)', () => {
-    t.deepEqual(recovery('do(while)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do(while)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

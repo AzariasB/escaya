@@ -11,7 +11,7 @@ import * as t from 'assert';
 const Test262Dir = 'node_modules/test262-parser-tests';
 
 const expectations = {
-  pass: ['a62c6323a3696fa8.js', '110fa1efdd0868b8.js'],
+  pass: ['a62c6323a3696fa8.js', '110fa1efdd0868b8.js', '946bee37652a31fa.js', 'ba00173ff473e7da.js'],
   explicit: ['110fa1efdd0868b8.js'],
   fail: [
     '3dbb6e166b14a6c0.js',

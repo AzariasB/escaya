@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('test262-parser-tests - early tests', () => {
   it('!{ *a(b, b){} };', () => {
-    t.deepEqual(recovery('!{ *a(b, b){} };', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!{ *a(b, b){} };', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -105,7 +105,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('({ a(eval) { "use strict"; } });', () => {
-    t.deepEqual(recovery('({ a(eval) { "use strict"; } });', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({ a(eval) { "use strict"; } });', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -199,7 +199,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for (let let of a);', () => {
-    t.deepEqual(recovery('for (let let of a);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (let let of a);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -279,7 +279,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function* a(){ function* b({[yield]: c}){} }', () => {
-    t.deepEqual(recovery('function* a(){ function* b({[yield]: c}){} }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function* a(){ function* b({[yield]: c}){} }', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -406,7 +406,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for(([0]) in 0);', () => {
-    t.deepEqual(recovery('for(([0]) in 0);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(([0]) in 0);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -485,7 +485,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for(const {a, a} of 1);', () => {
-    t.deepEqual(recovery('for(const {a, a} of 1);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(const {a, a} of 1);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -583,7 +583,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for (let let in a);', () => {
-    t.deepEqual(recovery('for (let let in a);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (let let in a);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -662,7 +662,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('"use strict"; function static() { }', () => {
-    t.deepEqual(recovery('"use strict"; function static() { }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; function static() { }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -738,7 +738,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('(a) => { const a = 1; }', () => {
-    t.deepEqual(recovery('(a) => { const a = 1; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(a) => { const a = 1; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -839,7 +839,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('class a extends b { c() { !function* (c = super.d()){} } }', () => {
-    t.deepEqual(recovery('class a extends b { c() { !function* (c = super.d()){} } }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class a extends b { c() { !function* (c = super.d()){} } }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1009,7 +1009,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function a() { "use strict"; var private; }', () => {
-    t.deepEqual(recovery('function a() { "use strict"; var private; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function a() { "use strict"; var private; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1094,7 +1094,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('"use strict"; yield:;', () => {
-    t.deepEqual(recovery('"use strict"; yield:;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; yield:;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -1157,7 +1157,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('"use strict"; var yield;', () => {
-    t.deepEqual(recovery('"use strict"; var yield;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; var yield;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -1223,7 +1223,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('class a extends b { c() { !function* (){ super.d(); } } }', () => {
-    t.deepEqual(recovery('class a extends b { c() { !function* (){ super.d(); } } }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class a extends b { c() { !function* (){ super.d(); } } }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1385,7 +1385,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('!{ a(){ let b; var b; } };', () => {
-    t.deepEqual(recovery('!{ a(){ let b; var b; } };', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!{ a(){ let b; var b; } };', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1522,7 +1522,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('switch (a) { default: continue; }', () => {
-    t.deepEqual(recovery('switch (a) { default: continue; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch (a) { default: continue; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1587,7 +1587,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('var a = super();', () => {
-    t.deepEqual(recovery('var a = super();', 'recovery.js'), {
+    t.deepStrictEqual(recovery('var a = super();', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1651,7 +1651,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('class a { static b(c, c){} }', () => {
-    t.deepEqual(recovery('class a { static b(c, c){} }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class a { static b(c, c){} }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1755,7 +1755,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('continue;', () => {
-    t.deepEqual(recovery('continue;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('continue;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1794,7 +1794,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('!{ a(){ let b; let b; } };', () => {
-    t.deepEqual(recovery('!{ a(){ let b; let b; } };', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!{ a(){ let b; let b; } };', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1932,7 +1932,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for(const a = 1;;) { var a; }', () => {
-    t.deepEqual(recovery('for(const a = 1;;) { var a; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(const a = 1;;) { var a; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2041,7 +2041,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function a() { "use strict"; function b(arguments) {} }', () => {
-    t.deepEqual(recovery('function a() { "use strict"; function b(arguments) {} }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function a() { "use strict"; function b(arguments) {} }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2137,7 +2137,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('"use strict"; delete (a);', () => {
-    t.deepEqual(recovery('"use strict"; delete (a);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; delete (a);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -2199,7 +2199,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('(((...a)))', () => {
-    t.deepEqual(recovery('(((...a)))', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(((...a)))', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -2285,7 +2285,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('{ const a; }', () => {
-    t.deepEqual(recovery('{ const a; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ const a; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2351,7 +2351,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function* a(){ ({b = yield}) => 1; }', () => {
-    t.deepEqual(recovery('function* a(){ ({b = yield}) => 1; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function* a(){ ({b = yield}) => 1; }', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -2460,7 +2460,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('{ function a(){} function a(){} }', () => {
-    t.deepEqual(recovery('{ function a(){} function a(){} }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ function a(){} function a(){} }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2545,7 +2545,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function a(){ c: while(1) continue b; }', () => {
-    t.deepEqual(recovery('function a(){ c: while(1) continue b; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function a(){ c: while(1) continue b; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2650,7 +2650,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('/./\\u0069', () => {
-    t.deepEqual(recovery('/./\\u0069', 'recovery.js'), {
+    t.deepStrictEqual(recovery('/./\\u0069', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2712,7 +2712,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for(const {a, a} in 1);', () => {
-    t.deepEqual(recovery('for(const {a, a} in 1);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(const {a, a} in 1);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2809,7 +2809,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('([a]) => { const a = 1; }', () => {
-    t.deepEqual(recovery('([a]) => { const a = 1; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('([a]) => { const a = 1; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2919,7 +2919,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function* a(){ ({ *b(c = d + e(yield)){} }); }', () => {
-    t.deepEqual(recovery('function* a(){ ({ *b(c = d + e(yield)){} }); }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function* a(){ ({ *b(c = d + e(yield)){} }); }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3089,7 +3089,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function a() { "use strict"; interface = 1; }', () => {
-    t.deepEqual(recovery('function a() { "use strict"; interface = 1; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function a() { "use strict"; interface = 1; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3181,7 +3181,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('{ var a; const a = 1; }', () => {
-    t.deepEqual(recovery('{ var a; const a = 1; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ var a; const a = 1; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3280,7 +3280,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for(const a;;);', () => {
-    t.deepEqual(recovery('for(const a;;);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(const a;;);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3354,7 +3354,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('({get a(){}} = 0)', () => {
-    t.deepEqual(recovery('({get a(){}} = 0)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({get a(){}} = 0)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3453,7 +3453,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function* a(){ (b = yield* c) => 1; }', () => {
-    t.deepEqual(recovery('function* a(){ (b = yield* c) => 1; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function* a(){ (b = yield* c) => 1; }', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -3560,7 +3560,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for({a: 0} of 0);', () => {
-    t.deepEqual(recovery('for({a: 0} of 0);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for({a: 0} of 0);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3648,7 +3648,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('b: break a;', () => {
-    t.deepEqual(recovery('b: break a;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('b: break a;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3709,7 +3709,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('(a, ...b)', () => {
-    t.deepEqual(recovery('(a, ...b)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(a, ...b)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3777,7 +3777,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('__proto__: __proto__: 1;', () => {
-    t.deepEqual(recovery('__proto__: __proto__: 1;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('__proto__: __proto__: 1;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3854,7 +3854,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('switch(1) { case 2: !function(){ break; }; }', () => {
-    t.deepEqual(recovery('switch(1) { case 2: !function(){ break; }; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch(1) { case 2: !function(){ break; }; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3965,7 +3965,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('switch(1) { case 2: let a; case 3: let a; }', () => {
-    t.deepEqual(recovery('switch(1) { case 2: let a; case 3: let a; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch(1) { case 2: let a; case 3: let a; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4102,7 +4102,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('if(1) break;', () => {
-    t.deepEqual(recovery('if(1) break;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if(1) break;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4158,7 +4158,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for(let a in b) d: function c(){}', () => {
-    t.deepEqual(recovery('for(let a in b) d: function c(){}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(let a in b) d: function c(){}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4273,7 +4273,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('if(1) c: b: function a(){}', () => {
-    t.deepEqual(recovery('if(1) c: b: function a(){}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if(1) c: b: function a(){}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4379,7 +4379,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('(class static {})', () => {
-    t.deepEqual(recovery('(class static {})', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(class static {})', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4441,7 +4441,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('while(1) !function(){ continue; };', () => {
-    t.deepEqual(recovery('while(1) !function(){ continue; };', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while(1) !function(){ continue; };', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4532,7 +4532,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('{ var a; let a; }', () => {
-    t.deepEqual(recovery('{ var a; let a; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ var a; let a; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4623,7 +4623,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('super()', () => {
-    t.deepEqual(recovery('super()', 'recovery.js'), {
+    t.deepStrictEqual(recovery('super()', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4670,7 +4670,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('({ get __proto(){}, "__proto__": null, __proto__: null, })', () => {
-    t.deepEqual(recovery('({ get __proto(){}, "__proto__": null, __proto__: null, })', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({ get __proto(){}, "__proto__": null, __proto__: null, })', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4791,7 +4791,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('(function({a: b}, {c: b}){})', () => {
-    t.deepEqual(recovery('(function({a: b}, {c: b}){})', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(function({a: b}, {c: b}){})', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -4921,7 +4921,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('"use strict"; function a(b, { b }){}', () => {
-    t.deepEqual(recovery('"use strict"; function a(b, { b }){}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; function a(b, { b }){}', 'recovery.js'), {
       directives: [
         {
           type: 'Directive',
@@ -5015,7 +5015,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('!{ set a([b, b]){} };', () => {
-    t.deepEqual(recovery('!{ set a([b, b]){} };', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!{ set a([b, b]){} };', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -5124,7 +5124,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('{ let a; var a; }', () => {
-    t.deepEqual(recovery('{ let a; var a; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ let a; var a; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5215,7 +5215,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('{ const a = 1; function a(){} }', () => {
-    t.deepEqual(recovery('{ const a = 1; function a(){} }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ const a = 1; function a(){} }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5316,7 +5316,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function a(package) { "use strict"; }', () => {
-    t.deepEqual(recovery('function a(package) { "use strict"; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function a(package) { "use strict"; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5384,7 +5384,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('!{ get a(){ let b; var b; } };', () => {
-    t.deepEqual(recovery('!{ get a(){ let b; var b; } };', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!{ get a(){ let b; var b; } };', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5521,7 +5521,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for (const let of a);', () => {
-    t.deepEqual(recovery('for (const let of a);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (const let of a);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5601,7 +5601,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('"use strict"; function a(b, ...[b]){}', () => {
-    t.deepEqual(recovery('"use strict"; function a(b, ...[b]){}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; function a(b, ...[b]){}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -5702,7 +5702,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('"use strict"; function a(...yield) {}', () => {
-    t.deepEqual(recovery('"use strict"; function a(...yield) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; function a(...yield) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -5786,7 +5786,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('({a}) => { const a = 1; }', () => {
-    t.deepEqual(recovery('({a}) => { const a = 1; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({a}) => { const a = 1; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5896,7 +5896,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for(let a;;) { var a; }', () => {
-    t.deepEqual(recovery('for(let a;;) { var a; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(let a;;) { var a; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5997,7 +5997,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function a() { "use strict"; ({ b(c, c) { } }); }', () => {
-    t.deepEqual(recovery('function a() { "use strict"; ({ b(c, c) { } }); }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function a() { "use strict"; ({ b(c, c) { } }); }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6136,7 +6136,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('class a extends b { constructor() { function* c(){ super(); } } }', () => {
-    t.deepEqual(recovery('class a extends b { constructor() { function* c(){ super(); } } }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('class a extends b { constructor() { function* c(){ super(); } } }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6275,7 +6275,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function a() { "use strict"; static = 1; }', () => {
-    t.deepEqual(recovery('function a() { "use strict"; static = 1; }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function a() { "use strict"; static = 1; }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6367,7 +6367,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('({a(b){}} = 0)', () => {
-    t.deepEqual(recovery('({a(b){}} = 0)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({a(b){}} = 0)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6475,7 +6475,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('(a, a) => 1;', () => {
-    t.deepEqual(recovery('(a, a) => 1;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(a, a) => 1;', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -6548,7 +6548,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('!{ set a({b}){ let b; } };', () => {
-    t.deepEqual(recovery('!{ set a({b}){ let b; } };', 'recovery.js'), {
+    t.deepStrictEqual(recovery('!{ set a({b}){ let b; } };', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -6676,7 +6676,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('for(let let in 1);', () => {
-    t.deepEqual(recovery('for(let let in 1);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(let let in 1);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6756,7 +6756,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('function* a(){ ({ *b(c = yield d){} }); }', () => {
-    t.deepEqual(recovery('function* a(){ ({ *b(c = yield d){} }); }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('function* a(){ ({ *b(c = yield d){} }); }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -6900,7 +6900,7 @@ describe('test262-parser-tests - early tests', () => {
   });
 
   it('({ __proto__: null, __proto__: null })', () => {
-    t.deepEqual(recovery('({ __proto__: null, __proto__: null })', 'recovery.js'), {
+    t.deepStrictEqual(recovery('({ __proto__: null, __proto__: null })', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

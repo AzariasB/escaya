@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Labelled', () => {
   it('missing label', () => {
-    t.deepEqual(recovery('label: for(;;) break label \n /foo/', 'recovery.js'), {
+    t.deepStrictEqual(recovery('label: for(;;) break label \n /foo/', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -82,7 +82,7 @@ describe('Recovery - Labelled', () => {
   });
 
   it('missing label', () => {
-    t.deepEqual(recovery('foo:', 'recovery.js'), {
+    t.deepStrictEqual(recovery('foo:', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -142,7 +142,7 @@ describe('Recovery - Labelled', () => {
     });
   });
   it('async ident with missing label', () => {
-    t.deepEqual(recovery('async:', 'recovery.js'), {
+    t.deepStrictEqual(recovery('async:', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

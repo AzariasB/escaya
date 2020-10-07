@@ -13,10 +13,14 @@ describe('Scanner - Numeric literals', () => {
   }
 
   fail('invalid 005', '005', Context.Strict);
+  fail('invalid 005', '005_', Context.Strict);
   fail('invalid 08', '08', Context.Strict);
   fail('invalid 1_', '1_', Context.Empty);
   fail('invalid 0x', '0x', Context.Empty);
   fail('invalid 10e', '10e', Context.Empty);
+  fail('invalid 10e', '10e__', Context.Empty);
+  fail('invalid 10e', '10e_', Context.Empty);
+  fail('invalid 10e', '1_0e_', Context.Empty);
   fail('invalid 10e-', '10e-', Context.Empty);
   fail('invalid 10e+', '10e+', Context.Empty);
   fail('invalid 10ef', '10ef', Context.Empty);
@@ -88,6 +92,7 @@ describe('Scanner - Numeric literals', () => {
   fail('invalid 00o0', '00o0', Context.Empty);
   fail('invalid 00b0', '00b0', Context.Empty);
   fail('invalid 00x0', '00x0', Context.Empty);
+  fail('invalid 00x_0', '00x_0', Context.Empty);
   fail('invalid 0o', '0o', Context.Empty);
   fail('invalid 123abc', '123abc', Context.Empty);
   fail('invalid 00', '00', Context.Strict);
@@ -117,53 +122,62 @@ describe('Scanner - Numeric literals', () => {
   fail('invalid BigInt suffix in non octal decimal integr literal', '08n', Context.Empty);
   fail('invalid BigInt suffix in non octal decimal integr literal', '012348n', Context.Empty);
   fail('invalid 0xabcinstanceof x', '0xabcinstanceof x', Context.Empty);
+  fail('invalid .3_3_', '.3_3_', Context.Empty);
+  fail('invalid .3_3e+1_', '.3_3e+1_', Context.Empty);
+  fail('invalid 3___1 x', '3___1', Context.Empty);
+  fail('invalid 3__1', '3__1', Context.Empty);
+  fail('invalid .1_ x', '.1_ x', Context.Empty);
+  // fail('invalid ._1', '._1', Context.Empty);
 
-  const tokens: Array<[Context, Token, string, any]> = [
+  const tokens: Array<[Context, Token, string, number]> = [
     [Context.Empty, Token.NumericLiteral, '57', 57],
-    //    [Context.Empty, Token.NumericLiteral, '.57', 0.57],
+    [Context.Empty, Token.FloatingPointLiteral, '.57', 0.57],
     [Context.Empty, Token.NumericLiteral, '1', 1],
     [Context.Empty, Token.NumericLiteral, '31', 31],
-    //    [Context.Empty, Token.NumericLiteral, '1.1', 1.1],
+    [Context.Empty, Token.NumericLiteral, '3_1', 31],
+    [Context.Empty, Token.FloatingPointLiteral, '1.1', 1.1],
     [Context.Empty, Token.NumericLiteral, '1e-3', 0.001],
-    //[Context.Empty, Token.NumericLiteral, '1', 1],
-    //[Context.Empty, Token.NumericLiteral, '.1', 0.1],
+    [Context.Empty, Token.NumericLiteral, '1', 1],
+    [Context.Empty, Token.FloatingPointLiteral, '.3_3', 0.3],
+    [Context.Empty, Token.FloatingPointLiteral, '.1', 0.1],
     [Context.Empty, Token.NumericLiteral, '0', 0],
-
-    //[Context.Empty, Token.NumericLiteral, '233333456789.e-2', 2333334567.89],
-    //[Context.Empty, Token.NumericLiteral, '2333334567843959725489874578243854239.e-2', 2.33333456784396e34],
-    //[Context.Empty, Token.NumericLiteral, '2333334567843959725489874578243854239.e-233', 2.3333345678439598e-197],
-    //[Context.Empty, Token.NumericLiteral, '2333334567843959725489874578243854239.e-233', 2.3333345678439598e-197],
-
+    [Context.Empty, Token.FloatingPointLiteral, '233333456789.e-2', 2333334567.89],
+    [Context.Empty, Token.FloatingPointLiteral, '2333334567843959725489874578243854239.e-2', 2.33333456784396e34],
+    [Context.Empty, Token.FloatingPointLiteral, '2333334567843959725489874578243854239.e-233', 2.3333345678439598e-197],
+    [Context.Empty, Token.FloatingPointLiteral, '2333334567843959725489874578243854239.e-233', 2.3333345678439598e-197],
     [Context.Empty, Token.NumericLiteral, '0b1011', 11],
-    //[Context.Empty, Token.NumericLiteral, '32.', 32],
-    //  [Context.Empty, Token.NumericLiteral, '8.', 8],
-    //    [Context.Empty, Token.NumericLiteral, '1234567890.', 1234567890],
-    //[Context.Empty, Token.NumericLiteral, '456.', 456],
-    //[Context.Empty, Token.NumericLiteral, '.3', 0.3],
-    //    [Context.Empty, Token.NumericLiteral, '.3e-3', 0.0003],
-    //[Context.Empty, Token.NumericLiteral, '2.3', 2.3],
-    //[Context.Empty, Token.NumericLiteral, '5.5', 5.5],
-    //[Context.Empty, Token.NumericLiteral, '0.00', 0],
-    //[Context.Empty, Token.NumericLiteral, '0.001', 0.001],
-    //[Context.Empty, Token.NumericLiteral, '0.0', 0],
-    //[Context.Empty, Token.NumericLiteral, '4.0', 4],
-    //[Context.Empty, Token.NumericLiteral, '.00', 0],
-    //[Context.Empty, Token.NumericLiteral, '0.44', 0.44],
-    //[Context.Empty, Token.NumericLiteral, '.55', 0.55],
-    //[Context.Empty, Token.NumericLiteral, '.4E0', 0.4],
-    //[Context.Empty, Token.NumericLiteral, '0.0', 0],
-    //[Context.Empty, Token.NumericLiteral, '456.345', 456.345],
-    //[Context.Empty, Token.NumericLiteral, '1234567890.0987654321', 1234567890.0987654321],
+    [Context.Empty, Token.FloatingPointLiteral, '32.', 32],
+    [Context.Empty, Token.FloatingPointLiteral, '8.', 8],
+    [Context.Empty, Token.FloatingPointLiteral, '1234567890.', 1234567890],
+    [Context.Empty, Token.FloatingPointLiteral, '456.', 456],
+    [Context.Empty, Token.FloatingPointLiteral, '.3', 0.3],
+    [Context.Empty, Token.FloatingPointLiteral, '.3e-3', 0.0003],
+    [Context.Empty, Token.FloatingPointLiteral, '2.3', 2.3],
+    [Context.Empty, Token.FloatingPointLiteral, '5.5', 5.5],
+    [Context.Empty, Token.FloatingPointLiteral, '0.00', 0],
+    [Context.Empty, Token.FloatingPointLiteral, '0.001', 0.001],
+    [Context.Empty, Token.FloatingPointLiteral, '0.0', 0],
+    [Context.Empty, Token.FloatingPointLiteral, '4.0', 4],
+    [Context.Empty, Token.FloatingPointLiteral, '.00', 0],
+    [Context.Empty, Token.FloatingPointLiteral, '0.44', 0.44],
+    [Context.Empty, Token.FloatingPointLiteral, '0.4_4', 0.44],
+    [Context.Empty, Token.FloatingPointLiteral, '0._4_4', 0.44],
+    [Context.Empty, Token.NumericLiteral, '4_4e+1_2', 44000000000000],
+    [Context.Empty, Token.FloatingPointLiteral, '.55', 0.55],
+    [Context.Empty, Token.FloatingPointLiteral, '.4E0', 0.4],
+    [Context.Empty, Token.FloatingPointLiteral, '0.0', 0],
+    [Context.Empty, Token.FloatingPointLiteral, '456.345', 456.345],
+    [Context.Empty, Token.FloatingPointLiteral, '1234567890.0987654321', 1234567890.0987654321],
 
     // Numeric literals with exponent
 
     [Context.Empty, Token.NumericLiteral, '0E-1', 0],
     [Context.Empty, Token.NumericLiteral, '0e+1', 0],
-    //[Context.Empty, Token.NumericLiteral, '.00', 0],
-    //[Context.Empty, Token.NumericLiteral, '.0e1', 0],
-    //[Context.Empty, Token.NumericLiteral, '0.0', 0],
-    //[Context.Empty, Token.NumericLiteral, '0.e1', 0],
-    //[Context.Empty, Token.NumericLiteral, '0.0e-1', 0],
+    [Context.Empty, Token.FloatingPointLiteral, '.00', 0],
+    [Context.Empty, Token.FloatingPointLiteral, '.0e1', 0],
+    [Context.Empty, Token.FloatingPointLiteral, '0.0', 0],
+    [Context.Empty, Token.FloatingPointLiteral, '0.e1', 0],
+    [Context.Empty, Token.FloatingPointLiteral, '0.0e-1', 0],
     [Context.Empty, Token.NumericLiteral, '0E01', 0],
     [Context.Empty, Token.NumericLiteral, '0E-01', 0],
     [Context.Empty, Token.NumericLiteral, '0e00', 0],
@@ -171,24 +185,24 @@ describe('Scanner - Numeric literals', () => {
     [Context.Empty, Token.NumericLiteral, '0Xa', 10],
     [Context.Empty, Token.NumericLiteral, '0E-1', 0],
     [Context.Empty, Token.NumericLiteral, '0e+1', 0],
-    //[Context.Empty, Token.NumericLiteral, '.00', 0],
+    [Context.Empty, Token.FloatingPointLiteral, '.00', 0],
     [Context.Empty, Token.NumericLiteral, '0e1', 0],
     [Context.Empty, Token.NumericLiteral, '1e2', 100],
     [Context.Empty, Token.NumericLiteral, '5e6', 5000000],
     [Context.Empty, Token.NumericLiteral, '10e10', 100000000000],
     [Context.Empty, Token.NumericLiteral, '7890e789', Infinity],
     [Context.Empty, Token.NumericLiteral, '1234567890e1234567890', Infinity],
-    //[Context.Empty, Token.NumericLiteral, '.0E10', 0],
-    //[Context.Empty, Token.NumericLiteral, '.5E00', 0.5],
-    //    [Context.Empty, Token.NumericLiteral, '.10E1', 1],
-    //[Context.Empty, Token.NumericLiteral, '1.e2', 1e2],
-    //[Context.Empty, Token.NumericLiteral, '1.e-2', 0.01],
-    //[Context.Empty, Token.NumericLiteral, '1.E2', 100],
-    //[Context.Empty, Token.NumericLiteral, '1.E-2', 0.01],
-    //[Context.Empty, Token.NumericLiteral, '.5e3', 500],
-    //[Context.Empty, Token.NumericLiteral, '.5e-3', 0.0005],
-    //[Context.Empty, Token.NumericLiteral, '0.5e3', 500],
-    //[Context.Empty, Token.NumericLiteral, '55.55e10', 555500000000],
+    [Context.Empty, Token.FloatingPointLiteral, '.0E10', 0],
+    [Context.Empty, Token.FloatingPointLiteral, '.5E00', 0.5],
+    [Context.Empty, Token.FloatingPointLiteral, '.10E1', 1],
+    [Context.Empty, Token.FloatingPointLiteral, '1.e2', 1e2],
+    [Context.Empty, Token.FloatingPointLiteral, '1.e-2', 0.01],
+    [Context.Empty, Token.FloatingPointLiteral, '1.E2', 100],
+    [Context.Empty, Token.FloatingPointLiteral, '1.E-2', 0.01],
+    [Context.Empty, Token.FloatingPointLiteral, '.5e3', 500],
+    [Context.Empty, Token.FloatingPointLiteral, '.5e-3', 0.0005],
+    [Context.Empty, Token.FloatingPointLiteral, '0.5e3', 500],
+    [Context.Empty, Token.FloatingPointLiteral, '55.55e10', 555500000000],
     [Context.Empty, Token.NumericLiteral, '0e-100', 0],
     [Context.Empty, Token.NumericLiteral, '0E-100', 0],
     [Context.Empty, Token.NumericLiteral, '0e+1', 0],
@@ -200,13 +214,12 @@ describe('Scanner - Numeric literals', () => {
     [Context.Empty, Token.NumericLiteral, '7E1', 70],
     [Context.Empty, Token.NumericLiteral, '0e0', 0],
     [Context.Empty, Token.NumericLiteral, '0E0', 0],
-    //[Context.Empty, Token.NumericLiteral, '.6e1', 6],
-    //[Context.Empty, Token.NumericLiteral, '1.1E-100', 1.1e-100],
-    //[Context.Empty, Token.NumericLiteral, '.1e-100', 1e-101],
+    [Context.Empty, Token.FloatingPointLiteral, '.6e1', 6],
+    [Context.Empty, Token.FloatingPointLiteral, '1.1E-100', 1.1e-100],
+    [Context.Empty, Token.FloatingPointLiteral, '.1e-100', 1e-101],
     [Context.Empty, Token.NumericLiteral, '0e+100', 0],
     [Context.Empty, Token.NumericLiteral, '1E+100', 1e100],
-    //[Context.Empty, Token.NumericLiteral, '.1E+100', 1e99],
-
+    [Context.Empty, Token.FloatingPointLiteral, '.1E+100', 1e99],
     [Context.Empty, Token.NumericLiteral, '0xcafe', 51966],
     [Context.Empty, Token.NumericLiteral, '0x12345678', 305419896],
     [Context.Empty, Token.NumericLiteral, '0x0001', 1],
@@ -296,9 +309,9 @@ describe('Scanner - Numeric literals', () => {
     [Context.Empty, Token.NumericLiteral, '043', 35],
     [Context.Empty, Token.NumericLiteral, '07', 7],
     [Context.Empty, Token.NumericLiteral, '09', 9],
-    //[Context.Empty, Token.NumericLiteral, '09.3', 9.3],
-    //     [Context.Empty, Token.NumericLiteral, '09.3e1', 93],
-    // [Context.Empty, Token.NumericLiteral, '09.3e-1', 0.93],
+    [Context.Empty, Token.FloatingPointLiteral, '09.3', 9.3],
+    [Context.Empty, Token.FloatingPointLiteral, '09.3e1', 93],
+    [Context.Empty, Token.FloatingPointLiteral, '09.3e-1', 0.93],
     [Context.Empty, Token.NumericLiteral, '098', 98],
     [Context.Empty, Token.NumericLiteral, '0098', 98],
     [Context.Empty, Token.NumericLiteral, '000000000098', 98],

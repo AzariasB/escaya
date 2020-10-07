@@ -727,7 +727,7 @@ describe('Statements - For', () => {
   }
 
   it('simple block', () => {
-    t.deepEqual(parseScript('{}', { loc: true }), {
+    t.deepStrictEqual(parseScript('{}', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -745,7 +745,7 @@ describe('Statements - For', () => {
   });
 
   it('block with lexical', () => {
-    t.deepEqual(parseScript('{let foo = bar;}', { loc: true }), {
+    t.deepStrictEqual(parseScript('{let foo = bar;}', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -790,7 +790,7 @@ describe('Statements - For', () => {
   });
 
   it('block wrapped in paren', () => {
-    t.deepEqual(parseScript('({})', { loc: true }), {
+    t.deepStrictEqual(parseScript('({})', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -818,7 +818,7 @@ describe('Statements - For', () => {
   });
 
   it('with ; separation', () => {
-    t.deepEqual(parseScript('{};{};;;;{};', { loc: true }), {
+    t.deepStrictEqual(parseScript('{};{};;;;{};', { loc: true }), {
       directives: [],
       end: 12,
       start: 0,
@@ -878,7 +878,7 @@ describe('Statements - For', () => {
   });
 
   it('same level', () => {
-    t.deepEqual(parseScript('{}{}{}', { loc: true }), {
+    t.deepStrictEqual(parseScript('{}{}{}', { loc: true }), {
       directives: [],
       end: 6,
       start: 0,
@@ -908,7 +908,7 @@ describe('Statements - For', () => {
   });
 
   it('nested', () => {
-    t.deepEqual(parseScript('{{}}', { loc: true }), {
+    t.deepStrictEqual(parseScript('{{}}', { loc: true }), {
       directives: [],
       end: 4,
       start: 0,

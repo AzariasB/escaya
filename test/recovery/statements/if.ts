@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - If', () => {
   it('if else (', () => {
-    t.deepEqual(recovery('if else (', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if else (', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -94,7 +94,7 @@ describe('Recovery - If', () => {
   });
 
   it('if async function else babel (', () => {
-    t.deepEqual(recovery('if async function else babel (', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if async function else babel (', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -213,7 +213,7 @@ describe('Recovery - If', () => {
   });
 
   it('if (x async function ) (', () => {
-    t.deepEqual(recovery('if (x async function ) (', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if (x async function ) (', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -326,7 +326,7 @@ describe('Recovery - If', () => {
   });
 
   it('if if if if async function else if if else (', () => {
-    t.deepEqual(recovery('if if if if async function else if if else (', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if if if if async function else if if else (', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -578,7 +578,7 @@ describe('Recovery - If', () => {
   });
 
   it('if', () => {
-    t.deepEqual(recovery('if', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -640,7 +640,7 @@ describe('Recovery - If', () => {
   });
 
   it('Unclosed block statement32', () => {
-    t.deepEqual(recovery('if(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if(', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -702,7 +702,7 @@ describe('Recovery - If', () => {
   });
 
   it('if(x', () => {
-    t.deepEqual(recovery('if(x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if(x', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -764,7 +764,7 @@ describe('Recovery - If', () => {
   });
 
   it('if((((((((', () => {
-    t.deepEqual(recovery('if((((((((', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if((((((((', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -875,7 +875,7 @@ describe('Recovery - If', () => {
   });
 
   it('if((((xx))))', () => {
-    t.deepEqual(recovery('if((((xx))))', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if((((xx))))', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -958,7 +958,7 @@ describe('Recovery - If', () => {
   });
 
   it('if(((()', () => {
-    t.deepEqual(recovery('if(((()', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if(((()', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1041,7 +1041,7 @@ describe('Recovery - If', () => {
   });
 
   it('if((( {}', () => {
-    t.deepEqual(recovery('if((( {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if((( {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1117,7 +1117,7 @@ describe('Recovery - If', () => {
   });
 
   it('if(((((({{{{{{{{{{{]}', () => {
-    t.deepEqual(recovery('if(((((({{{{{{{{{{{]}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if(((((({{{{{{{{{{{]}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1304,7 +1304,7 @@ describe('Recovery - If', () => {
   });
 
   it('if(x) {', () => {
-    t.deepEqual(recovery('if(x) {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if(x) {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1359,7 +1359,7 @@ describe('Recovery - If', () => {
   });
 
   it('if{x}', () => {
-    t.deepEqual(recovery('if{x}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if{x}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1438,7 +1438,7 @@ describe('Recovery - If', () => {
   });
 
   it('{if{}', () => {
-    t.deepEqual(recovery('{if{}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{if{}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1517,7 +1517,7 @@ describe('Recovery - If', () => {
   });
 
   it('if{else', () => {
-    t.deepEqual(recovery('if{else', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if{else', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1596,7 +1596,7 @@ describe('Recovery - If', () => {
   });
 
   it('ifx(function{x', () => {
-    t.deepEqual(recovery('ifx(function{x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('ifx(function{x', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1702,7 +1702,7 @@ describe('Recovery - If', () => {
   });
 
   it('if(x){function x( { ', () => {
-    t.deepEqual(recovery('if(x){function x( {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if(x){function x( {', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -1794,7 +1794,7 @@ describe('Recovery - If', () => {
   });
 
   it('if else function', () => {
-    t.deepEqual(recovery('if else function', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if else function', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1883,7 +1883,7 @@ describe('Recovery - If', () => {
   });
 
   it('if I try while I run for my life. then if I fall then i may scream while running', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery('if I try while I run for my life. then if I fall then i may scream while running', 'recovery.js'),
       {
         type: 'RootNode',
@@ -2276,7 +2276,7 @@ describe('Recovery - If', () => {
   });
 
   it('{if with missing ! & bracket and { and bullshit and (x) {}', () => {
-    t.deepEqual(recovery('{if with missing ! & bracket and { and bullshit and (x) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{if with missing ! & bracket and { and bullshit and (x) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2552,7 +2552,7 @@ describe('Recovery - If', () => {
   });
 
   it('if( hello!! while acorn can not do this', () => {
-    t.deepEqual(recovery('if( hello!! while acorn can not do this', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if( hello!! while acorn can not do this', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2752,7 +2752,7 @@ describe('Recovery - If', () => {
   });
 
   it('{if if if', () => {
-    t.deepEqual(recovery('{if if if', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{if if if', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2863,7 +2863,7 @@ describe('Recovery - If', () => {
   });
 
   it('if{if', () => {
-    t.deepEqual(recovery('if{if', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if{if', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2942,7 +2942,7 @@ describe('Recovery - If', () => {
   });
 
   it('else{if x=)', () => {
-    t.deepEqual(recovery('else{if x=)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('else{if x=)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3045,7 +3045,7 @@ describe('Recovery - If', () => {
   });
 
   it('if{acorn = sloppy this ! loose while this fast', () => {
-    t.deepEqual(recovery('if{acorn = sloppy this ! loose while this fast', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if{acorn = sloppy this ! loose while this fast', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3216,7 +3216,7 @@ describe('Recovery - If', () => {
   });
 
   it('if waiting for my package while do this', () => {
-    t.deepEqual(recovery('if waiting for my package while do this', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if waiting for my package while do this', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3387,7 +3387,7 @@ describe('Recovery - If', () => {
   });
 
   it('if {', () => {
-    t.deepEqual(recovery('if {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3449,7 +3449,7 @@ describe('Recovery - If', () => {
   });
 
   it('{}}}}}if!!&', () => {
-    t.deepEqual(recovery('{}}}}}if!!&', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{}}}}}if!!&', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3591,7 +3591,7 @@ describe('Recovery - If', () => {
   });
 
   it('if /{', () => {
-    t.deepEqual(recovery('if /{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if /{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3654,7 +3654,7 @@ describe('Recovery - If', () => {
   });
 
   it('if else/{', () => {
-    t.deepEqual(recovery('if else/{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if else/{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3762,7 +3762,7 @@ describe('Recovery - If', () => {
   });
 
   it('if finally I try this ! {', () => {
-    t.deepEqual(recovery('if finally I try this ! {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if finally I try this ! {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3942,7 +3942,7 @@ describe('Recovery - If', () => {
   });
 
   it('{!if { else } ! / j', () => {
-    t.deepEqual(recovery('{!if { else } ! / j', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{!if { else } ! / j', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4086,7 +4086,7 @@ describe('Recovery - If', () => {
   });
 
   it('if(,,,,,,,,,,,,,,,,,,,,,,,,{', () => {
-    t.deepEqual(recovery('if(,,,,,,,,,,,,,,,,,,,,,,,,{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if(,,,,,,,,,,,,,,,,,,,,,,,,{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4541,7 +4541,7 @@ describe('Recovery - If', () => {
   });
 
   it('{,,,,,,,,,,,,,,if /a/ ,,,,,}', () => {
-    t.deepEqual(recovery('{,,,,,,,,,,,,,,if /a/ ,,,,,}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{,,,,,,,,,,,,,,if /a/ ,,,,,}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4813,7 +4813,7 @@ describe('Recovery - If', () => {
   });
 
   it('{;;;;;if /a//a/a/a/a/a while /adf//ads if else get mad', () => {
-    t.deepEqual(recovery('{;;;;;if /a//a/a/a/a/a while /adf//ads if else get mad', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{;;;;;if /a//a/a/a/a/a while /adf//ads if else get mad', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5117,7 +5117,7 @@ describe('Recovery - If', () => {
   });
 
   it('if[]{', () => {
-    t.deepEqual(recovery('if[]{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if[]{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5180,7 +5180,7 @@ describe('Recovery - If', () => {
   });
 
   it('{[]if/', () => {
-    t.deepEqual(recovery('{[]if/', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{[]if/', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5275,7 +5275,7 @@ describe('Recovery - If', () => {
   });
 
   it('{(((if))', () => {
-    t.deepEqual(recovery('{(((if))', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{(((if))', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5398,7 +5398,7 @@ describe('Recovery - If', () => {
   });
 
   it(']if]{', () => {
-    t.deepEqual(recovery(']if]{', 'recovery.js'), {
+    t.deepStrictEqual(recovery(']if]{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5484,7 +5484,7 @@ describe('Recovery - If', () => {
   });
 
   it('[if]]else', () => {
-    t.deepEqual(recovery('[if]]else', 'recovery.js'), {
+    t.deepStrictEqual(recovery('[if]]else', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5585,7 +5585,7 @@ describe('Recovery - If', () => {
   });
 
   it('[]if', () => {
-    t.deepEqual(recovery('[]if', 'recovery.js'), {
+    t.deepStrictEqual(recovery('[]if', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5662,7 +5662,7 @@ describe('Recovery - If', () => {
   });
 
   it('Unclosed block statement43252435', () => {
-    t.deepEqual(recovery('{}if', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{}if', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5732,7 +5732,7 @@ describe('Recovery - If', () => {
   });
 
   it('{if', () => {
-    t.deepEqual(recovery('{if,', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{if,', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5820,7 +5820,7 @@ describe('Recovery - If', () => {
   });
 
   it('/* /* if(foo) {}', () => {
-    t.deepEqual(recovery('/* /* if(foo) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('/* /* if(foo) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -5850,7 +5850,7 @@ describe('Recovery - If', () => {
   });
 
   it('if else catch', () => {
-    t.deepEqual(recovery('if else catch', 'recovery.js'), {
+    t.deepStrictEqual(recovery('if else catch', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

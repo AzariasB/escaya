@@ -6,7 +6,7 @@ import { HTMLOpen } from './html-open';
 
 export interface Comment extends Node {
   type: 'SingleLine' | 'MultiLine' | 'HTMLClose' | 'HTMLOpen';
-  comment: string;
+  comment?: string;
   newLine: boolean;
 }
 

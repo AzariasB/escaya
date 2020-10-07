@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Let', () => {
   it('"use strict"; let { package } = x;', () => {
-    t.deepEqual(recovery('"use strict"; let { package } = x;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; let { package } = x;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -86,7 +86,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let { for } = x;', () => {
-    t.deepEqual(recovery('let { for } = x;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let { for } = x;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -159,7 +159,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {{for', () => {
-    t.deepEqual(recovery('let {{for', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {{for', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -249,7 +249,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {of', () => {
-    t.deepEqual(recovery('let {of', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {of', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -315,7 +315,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {of =', () => {
-    t.deepEqual(recovery('let {of =', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {of =', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -396,7 +396,7 @@ describe('Recovery - Let', () => {
   });
 
   it('"use strict"; let {[ of =', () => {
-    t.deepEqual(recovery('"use strict"; let {[ of =', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; let {[ of =', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -509,7 +509,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {x = y} = [z]', () => {
-    t.deepEqual(recovery('let {x = y} = [z]', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {x = y} = [z]', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -597,7 +597,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {package} = x', () => {
-    t.deepEqual(recovery('let {package} = x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {package} = x', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -661,7 +661,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {of:', () => {
-    t.deepEqual(recovery('let {of:', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {of:', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -742,7 +742,7 @@ describe('Recovery - Let', () => {
   });
 
   it('"use strict"; let [package] = x;', () => {
-    t.deepEqual(recovery('"use strict"; let [package] = x;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('"use strict"; let [package] = x;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [
@@ -825,7 +825,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let [package] = x;', () => {
-    t.deepEqual(recovery('let [package] = x;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let [package] = x;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -889,7 +889,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let [a of', () => {
-    t.deepEqual(recovery('let [a of', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let [a of', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -963,7 +963,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let [a for', () => {
-    t.deepEqual(recovery('let [a for', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let [a for', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1076,7 +1076,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {...a, b}', () => {
-    t.deepEqual(recovery('let {...a, b}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {...a, b}', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -1166,7 +1166,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let of', () => {
-    t.deepEqual(recovery('let of', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let of', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1214,7 +1214,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let [', () => {
-    t.deepEqual(recovery('let [', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let [', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1271,7 +1271,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let [', () => {
-    t.deepEqual(recovery('let [', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let [', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1328,7 +1328,7 @@ describe('Recovery - Let', () => {
   });
 
   it('while let [', () => {
-    t.deepEqual(recovery('while let [', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while let [', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1413,7 +1413,7 @@ describe('Recovery - Let', () => {
   });
 
   it('! let [', () => {
-    t.deepEqual(recovery('! let [', 'recovery.js'), {
+    t.deepStrictEqual(recovery('! let [', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1483,7 +1483,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let const var', () => {
-    t.deepEqual(recovery('let const var', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let const var', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1548,7 +1548,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let 123', () => {
-    t.deepEqual(recovery('let 123', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let 123', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1610,7 +1610,7 @@ describe('Recovery - Let', () => {
   });
 
   it(',,,,,,,,,,,,let', () => {
-    t.deepEqual(recovery(',,,,,,,,,,,,let', 'recovery.js'), {
+    t.deepStrictEqual(recovery(',,,,,,,,,,,,let', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1744,7 +1744,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {...( = foo', () => {
-    t.deepEqual(recovery('let {...( = foo', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {...( = foo', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1871,7 +1871,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let [++', () => {
-    t.deepEqual(recovery('let [++', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let [++', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -1952,7 +1952,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let { ++', () => {
-    t.deepEqual(recovery('let { ++', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let { ++', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -2029,7 +2029,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {...', () => {
-    t.deepEqual(recovery('let {...', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {...', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2102,7 +2102,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {...(obj', () => {
-    t.deepEqual(recovery('let {...(obj', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {...(obj', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2205,7 +2205,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {...(a, b', () => {
-    t.deepEqual(recovery('let {...(a, b', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {...(a, b', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2325,7 +2325,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let', () => {
-    t.deepEqual(recovery('let', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2362,7 +2362,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let {', () => {
-    t.deepEqual(recovery('let {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2419,7 +2419,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let.', () => {
-    t.deepEqual(recovery('let.', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let.', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2481,7 +2481,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let =>', () => {
-    t.deepEqual(recovery('let =>', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let =>', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -2544,7 +2544,7 @@ describe('Recovery - Let', () => {
   });
 
   it('=> let {', () => {
-    t.deepEqual(recovery('=> let {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('=> let {', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -2609,7 +2609,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let a.b[[', () => {
-    t.deepEqual(recovery('let a.b[[', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let a.b[[', 'recovery.js'), {
       directives: [],
       leafs: [
         {
@@ -2723,7 +2723,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let [a', () => {
-    t.deepEqual(recovery('let [a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let [a', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2789,7 +2789,7 @@ describe('Recovery - Let', () => {
   });
 
   it('Unclosed block statemendfdsft', () => {
-    t.deepEqual(recovery('let [break] = x', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let [break] = x', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2885,7 +2885,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let catch', () => {
-    t.deepEqual(recovery('let catch', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let catch', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2957,7 +2957,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let (catch)', () => {
-    t.deepEqual(recovery('let (catch)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let (catch)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3051,7 +3051,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let.catch', () => {
-    t.deepEqual(recovery('let.catch', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let.catch', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3104,7 +3104,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let let let ! let . let /a/', () => {
-    t.deepEqual(recovery('let let let ! let . let /a/', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let let let ! let . let /a/', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3272,7 +3272,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let const y = ;', () => {
-    t.deepEqual(recovery('let const y = ;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let const y = ;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3352,7 +3352,7 @@ describe('Recovery - Let', () => {
     });
   });
   it('let const = b', () => {
-    t.deepEqual(recovery('let const = b', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let const = b', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3424,7 +3424,7 @@ describe('Recovery - Let', () => {
   });
 
   it('let { =', () => {
-    t.deepEqual(recovery('let { =', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let { =', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3487,7 +3487,7 @@ describe('Recovery - Let', () => {
     });
   });
   it('let { x: b = c /', () => {
-    t.deepEqual(recovery('let { x: b = c /', 'recovery.js'), {
+    t.deepStrictEqual(recovery('let { x: b = c /', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

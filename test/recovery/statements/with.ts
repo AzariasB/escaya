@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Whith', () => {
   it('with(true) /a/', () => {
-    t.deepEqual(recovery('with(true) /a/', 'recovery.js'), {
+    t.deepStrictEqual(recovery('with(true) /a/', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -57,7 +57,7 @@ describe('Recovery - Whith', () => {
   });
 
   it('as keyword', () => {
-    t.deepEqual(recovery('with', 'recovery.js'), {
+    t.deepStrictEqual(recovery('with', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Module - Import', () => {
   it('import export from "s"', () => {
-    t.deepEqual(recovery('import export from "s"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import export from "s"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -126,7 +126,7 @@ describe('Module - Import', () => {
     });
   });
   it('import import from "s"', () => {
-    t.deepEqual(recovery('import import from "s"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import import from "s"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -227,7 +227,7 @@ describe('Module - Import', () => {
     });
   });
   it('import class from "s"', () => {
-    t.deepEqual(recovery('import class from "s"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import class from "s"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -327,7 +327,7 @@ describe('Module - Import', () => {
     });
   });
   it('import function from "s"', () => {
-    t.deepEqual(recovery('import function from "s"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import function from "s"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -441,7 +441,7 @@ describe('Module - Import', () => {
     });
   });
   it('import !foo from "s"', () => {
-    t.deepEqual(recovery('import !foo from "s"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import !foo from "s"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -583,7 +583,7 @@ describe('Module - Import', () => {
   });
 
   it('import {a,,,,b,,,,,c!', () => {
-    t.deepEqual(recovery('import {a,,,,b,,,,,c!', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import {a,,,,b,,,,,c!', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -876,7 +876,7 @@ describe('Module - Import', () => {
   });
 
   it('import {,,,,,,,,,,,,,,,,, !', () => {
-    t.deepEqual(recovery('import {,,,,,,,,,,,,,,,,, !', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import {,,,,,,,,,,,,,,,,, !', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -1128,7 +1128,7 @@ describe('Module - Import', () => {
   });
 
   it('crazy long human senence', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery(
         'import babel parser and experience something slow you can export by default or try while waiting to switch for something fast !',
         'recovery.js',
@@ -1733,7 +1733,7 @@ describe('Module - Import', () => {
   });
 
   it('import {', () => {
-    t.deepEqual(recovery('import {', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import {', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -1813,7 +1813,7 @@ describe('Module - Import', () => {
   });
 
   it('import { import !', () => {
-    t.deepEqual(recovery('import { import !', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import { import !', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -1923,7 +1923,7 @@ describe('Module - Import', () => {
   });
 
   it('import { let as l } from "foo";', () => {
-    t.deepEqual(recovery('import { let as l } from "foo";', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import { let as l } from "foo";', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -2025,7 +2025,7 @@ describe('Module - Import', () => {
   });
 
   it('import a, {as} from "foo"', () => {
-    t.deepEqual(recovery('import a, {as} from "foo"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import a, {as} from "foo"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -2126,7 +2126,7 @@ describe('Module - Import', () => {
   });
 
   it('import a, {b as c} from "foo"', () => {
-    t.deepEqual(recovery('import a, {b as c} from "foo"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import a, {b as c} from "foo"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -2237,7 +2237,7 @@ describe('Module - Import', () => {
   });
 
   it('import { static as s } from "foo"', () => {
-    t.deepEqual(recovery('import { static as s } from "foo"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import { static as s } from "foo"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -2344,7 +2344,7 @@ describe('Module - Import', () => {
   });
 
   it('import {m as mm} from "foo"', () => {
-    t.deepEqual(recovery('import {m as mm} from "foo"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import {m as mm} from "foo"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -2452,7 +2452,7 @@ describe('Module - Import', () => {
   });
 
   it('import x, * as a from "foo"', () => {
-    t.deepEqual(recovery('import x, * as a from "foo"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('import x, * as a from "foo"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -2534,7 +2534,7 @@ describe('Module - Import', () => {
   });
 
   it('export import still module code ! script or import', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery('export import still module code ! script or import', 'recovery.js', { module: true, cst: true }),
       {
         directives: [],
@@ -2769,7 +2769,7 @@ describe('Module - Import', () => {
   });
 
   it('possible to export import ? ! while I try this, I go for a walk', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery('possible to export import ? ! while I try this, I go for a walk', 'recovery.js', {
         module: true,
         cst: true
@@ -3194,7 +3194,7 @@ describe('Module - Import', () => {
   });
 
   it('import export || (or) export import? I try while I eat! for 11 time!!', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery('import export || (or) export import? I try while I eat! for 11 time!!', 'recovery.js', {
         module: true,
         cst: true

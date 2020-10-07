@@ -8,6 +8,7 @@ import { nextToken } from './lexer/scan';
 import { TextChangeRange } from './types';
 import { DictionaryMap, Dictionary } from './dictionary/dictionary-map';
 import { createScope, ScopeState } from './scope';
+import { skipHashbang } from './lexer/comments';
 import { Token } from './ast/token';
 import {
   create,
@@ -48,8 +49,9 @@ export function parseRoot(source: string, context: Context, options?: Options): 
     if (options.disableWebCompat) context |= Context.OptionsDisableWebCompat;
   }
 
-  // 'nodeCursor' is undefined in 'normal mode'
-  const state = create(source, undefined);
+  const state = create(source);
+
+  skipHashbang(state, source);
 
   // Prime the scanner.
   nextToken(state, context | Context.AllowRegExp);
@@ -96,7 +98,8 @@ export function parseRoot(source: string, context: Context, options?: Options): 
  */
 export function parseSourceFile(text: string, filename: string, context: Context, nodeCursor?: any): RootNode {
   const state = create(text, nodeCursor);
-  // Overwrite exisiting dictionaries if in 'custom mode'
+
+  skipHashbang(state, text);
 
   // Prime the scanner.
   nextToken(state, context | Context.AllowRegExp);

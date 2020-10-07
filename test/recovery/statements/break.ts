@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Break', () => {
   it('foo: do break foo; while(foo);', () => {
-    t.deepEqual(recovery('foo: do break foo; while(foo);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('foo: do break foo; while(foo);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -70,7 +70,7 @@ describe('Recovery - Break', () => {
   });
 
   it('while (x) break', () => {
-    t.deepEqual(recovery('while (x) break', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while (x) break', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -115,7 +115,7 @@ describe('Recovery - Break', () => {
   });
 
   it('for (x of y) break', () => {
-    t.deepEqual(recovery('for (x of y) break', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (x of y) break', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -169,7 +169,7 @@ describe('Recovery - Break', () => {
   });
 
   it('do break; while(foo);', () => {
-    t.deepEqual(recovery('do break; while(foo);', 'recovery.js'), {
+    t.deepStrictEqual(recovery('do break; while(foo);', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -214,7 +214,7 @@ describe('Recovery - Break', () => {
   });
 
   it('as keyword', () => {
-    t.deepEqual(recovery('break', 'recovery.js'), {
+    t.deepStrictEqual(recovery('break', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

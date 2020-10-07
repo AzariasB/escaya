@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Throw', () => {
   it('throw !', () => {
-    t.deepEqual(recovery('throw !', 'recovery.js'), {
+    t.deepStrictEqual(recovery('throw !', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -57,7 +57,7 @@ describe('Recovery - Throw', () => {
   });
 
   it('throw {)', () => {
-    t.deepEqual(recovery('throw {)', 'recovery.js'), {
+    t.deepStrictEqual(recovery('throw {)', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -103,7 +103,7 @@ describe('Recovery - Throw', () => {
   });
 
   it('throw } =>!', () => {
-    t.deepEqual(recovery('throw } =>!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('throw } =>!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -188,7 +188,7 @@ describe('Recovery - Throw', () => {
   });
 
   it('throw ) => babel', () => {
-    t.deepEqual(recovery('throw ) => babel', 'recovery.js'), {
+    t.deepStrictEqual(recovery('throw ) => babel', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -257,7 +257,7 @@ describe('Recovery - Throw', () => {
   });
 
   it('throw (!!"', () => {
-    t.deepEqual(recovery('throw (!!"', 'recovery.js'), {
+    t.deepStrictEqual(recovery('throw (!!"', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -326,7 +326,7 @@ describe('Recovery - Throw', () => {
   });
 
   it('throw ( ]]]]}}}} [x = throw babel', () => {
-    t.deepEqual(recovery('throw ( ]]]]}}}} [x = throw babel', 'recovery.js'), {
+    t.deepStrictEqual(recovery('throw ( ]]]]}}}} [x = throw babel', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -497,7 +497,7 @@ describe('Recovery - Throw', () => {
   });
 
   it('as keyword', () => {
-    t.deepEqual(recovery('throw', 'recovery.js'), {
+    t.deepStrictEqual(recovery('throw', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -543,7 +543,7 @@ describe('Recovery - Throw', () => {
   });
 
   it('with paren', () => {
-    t.deepEqual(recovery('throw(', 'recovery.js'), {
+    t.deepStrictEqual(recovery('throw(', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -596,7 +596,7 @@ describe('Recovery - Throw', () => {
   });
 
   it('malformed throw', () => {
-    t.deepEqual(recovery('throw (x) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('throw (x) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -656,7 +656,7 @@ describe('Recovery - Throw', () => {
   });
 
   it('throw with finally', () => {
-    t.deepEqual(recovery('throw {x} finally', 'recovery.js'), {
+    t.deepStrictEqual(recovery('throw {x} finally', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -735,7 +735,7 @@ describe('Recovery - Throw', () => {
   });
 
   it('throw {x} catch finally', () => {
-    t.deepEqual(recovery('throw {x} catch finally', 'recovery.js'), {
+    t.deepStrictEqual(recovery('throw {x} catch finally', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

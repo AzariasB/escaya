@@ -49,7 +49,7 @@ describe('Recovery - Human', () => {
   }
 
   it('Transform Romantic poetry to ECMA script', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery(
         `Romantic poetry is the poetry of the Romantic era, an artistic, literary, musical and intellectual movement that originated in Europe towards the end of the 18th century. It involved a reaction against prevailing Enlightenment ideas of the 18th century,[1] and lasted approximately from 1800 to 1850`,
         'recovery.js'
@@ -1157,7 +1157,7 @@ describe('Recovery - Human', () => {
   });
 
   it('Transform Basic math formulas ECMA script', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery(`Let a1,a2,a3,......,an be a set of numbers, average = (a1 + a2 + a3,+......+ an)/n`, 'recovery.js'),
       {
         directives: [],

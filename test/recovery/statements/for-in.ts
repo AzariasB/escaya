@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - For in', () => {
   it('missing parenthesis', () => {
-    t.deepEqual(recovery('for (x in y', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (x in y', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -72,7 +72,7 @@ describe('Recovery - For in', () => {
   });
 
   it('for (/a in', () => {
-    t.deepEqual(recovery('for (/a in', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (/a in', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -150,7 +150,7 @@ describe('Recovery - For in', () => {
   });
 
   it('for (/a/ in', () => {
-    t.deepEqual(recovery('for (/a/ in', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (/a/ in', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -228,7 +228,7 @@ describe('Recovery - For in', () => {
   });
 
   it('for({} = x in y) {}', () => {
-    t.deepEqual(recovery('for({} = x in y) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for({} = x in y) {}', 'recovery.js'), {
       children: [],
       context: 0,
       detached: false,
@@ -305,7 +305,7 @@ describe('Recovery - For in', () => {
   });
 
   it('for (5 in []) {}', () => {
-    t.deepEqual(recovery('for (5 in []) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for (5 in []) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -365,7 +365,7 @@ describe('Recovery - For in', () => {
   });
 
   it('for(x in', () => {
-    t.deepEqual(recovery('for(x in', 'recovery.js'), {
+    t.deepStrictEqual(recovery('for(x in', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

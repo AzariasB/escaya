@@ -568,7 +568,7 @@ describe('Statements - Try', () => {
   }
 
   it('try {} catch(eval) {"use strict";}', () => {
-    t.deepEqual(parseScript('try {} catch(eval) {"use strict";}', { loc: true }), {
+    t.deepStrictEqual(parseScript('try {} catch(eval) {"use strict";}', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -621,7 +621,7 @@ describe('Statements - Try', () => {
   });
 
   it('try { throw [3, 4, 5]; } catch ([...[x, y, z]]) {}', () => {
-    t.deepEqual(parseScript('try { throw [3, 4, 5]; } catch ([...[x, y, z]]) {}', { loc: true }), {
+    t.deepStrictEqual(parseScript('try { throw [3, 4, 5]; } catch ([...[x, y, z]]) {}', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -728,7 +728,7 @@ describe('Statements - Try', () => {
   });
 
   it('try { throw x; } catch ([...[]]) {}', () => {
-    t.deepEqual(parseScript('try { throw x; } catch ([...[]]) {}', { loc: true }), {
+    t.deepStrictEqual(parseScript('try { throw x; } catch ([...[]]) {}', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -793,7 +793,7 @@ describe('Statements - Try', () => {
   });
   /*
   it('try { throw { w: { x: undefined, z: 7 } }; } catch ({ w: { x, y, z } = { x: 4, y: 5, z: 6 } }) {}', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       parseScript('try { throw { w: { x: undefined, z: 7 } }; } catch ({ w: { x, y, z } = { x: 4, y: 5, z: 6 } }) {}'),
       {
         type: 'Script', "webCompat": true,
@@ -1023,7 +1023,7 @@ describe('Statements - Try', () => {
   });
 */
   it('try {} catch ([a=a]) {}', () => {
-    t.deepEqual(parseScript('try {} catch ([a=a]) {}', { loc: true }), {
+    t.deepStrictEqual(parseScript('try {} catch ([a=a]) {}', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1082,7 +1082,7 @@ describe('Statements - Try', () => {
   });
 
   it('try {} catch (foo) { try {} catch (_) { var foo; } }', () => {
-    t.deepEqual(parseScript('try {} catch (foo) { try {} catch (_) { var foo; } }', { loc: true }), {
+    t.deepStrictEqual(parseScript('try {} catch (foo) { try {} catch (_) { var foo; } }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1173,7 +1173,7 @@ describe('Statements - Try', () => {
   });
 
   it('try { } catch (e) { async function f(){} async function f(){} }', () => {
-    t.deepEqual(parseScript('try { } catch (e) { async function f(){} async function f(){} }', { loc: true }), {
+    t.deepStrictEqual(parseScript('try { } catch (e) { async function f(){} async function f(){} }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1257,7 +1257,7 @@ describe('Statements - Try', () => {
   });
 
   it('try { } catch (e) { async function *f(){} async function *f(){} }', () => {
-    t.deepEqual(parseScript('try { } catch (e) { async function *f(){} async function *f(){} }', { loc: true }), {
+    t.deepStrictEqual(parseScript('try { } catch (e) { async function *f(){} async function *f(){} }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1341,7 +1341,7 @@ describe('Statements - Try', () => {
   });
 
   it('do try {} catch {} while(x) x', () => {
-    t.deepEqual(parseScript('do try {} catch {} while(x) x', { loc: true }), {
+    t.deepStrictEqual(parseScript('do try {} catch {} while(x) x', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1399,7 +1399,7 @@ describe('Statements - Try', () => {
   });
 
   it('try { } catch (e) { function *f(){} function *f(){} }', () => {
-    t.deepEqual(parseScript('try { } catch (e) { function *f(){} function *f(){} }', { loc: true }), {
+    t.deepStrictEqual(parseScript('try { } catch (e) { function *f(){} function *f(){} }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1483,7 +1483,7 @@ describe('Statements - Try', () => {
   });
 
   it('try { } finally { async function f(){} async function f(){} }', () => {
-    t.deepEqual(parseScript('try { } finally { async function f(){} async function f(){} }', { loc: true }), {
+    t.deepStrictEqual(parseScript('try { } finally { async function f(){} async function f(){} }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1556,7 +1556,7 @@ describe('Statements - Try', () => {
   });
 
   it('try {} catch(x) { x = 0; }', () => {
-    t.deepEqual(parseScript('try {} catch(x) { x = 0; }', { loc: true }), {
+    t.deepStrictEqual(parseScript('try {} catch(x) { x = 0; }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1622,7 +1622,7 @@ describe('Statements - Try', () => {
   });
 
   it('try {} catch(x) { with ({}) { x = 1; } }', () => {
-    t.deepEqual(parseScript('try {} catch(x) { with ({}) { x = 1; } }', { loc: true }), {
+    t.deepStrictEqual(parseScript('try {} catch(x) { with ({}) { x = 1; } }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],

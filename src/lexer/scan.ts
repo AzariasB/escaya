@@ -1,21 +1,20 @@
-import { Context, ParserState, ConcreteSyntax, Flags } from '../common';
+import { Context, ParserState } from '../common';
 import { addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
 import { scanNumber, parseFloatingPointLiteral } from './numeric';
-import { skipMultiLineComment, skipSingleLineComment } from './comments';
 import { scanTemplateSpan } from './template';
-import { unicodeLookup } from './unicode';
 import { Token } from './../ast/token';
-import { fromCodePoint } from './common';
 import { scanString } from './string';
 import { scanRegExp } from './regexp';
 import { Char } from './char';
 import {
   scanIdentifier,
   scanKeywordOrIdentifier,
-  scanIdentifierSlowPath,
-  scanIdentifierEscapeIdStart
+  scanIdentifierEscapeIdStart,
+  scanMaybeIdentifier
 } from './identifiers';
+import { skipWhitespace } from './whitespace';
+import { ScannerState } from './common';
 
 export const firstCharKinds = [
   /*   0 - Null               */ Token.Unknown,
@@ -27,11 +26,11 @@ export const firstCharKinds = [
   /*   6 - Acknowledgment     */ Token.Unknown,
   /*   7 - Bell               */ Token.Unknown,
   /*   8 - Backspace          */ Token.Unknown,
-  /*   9 - Horizontal Tab     */ Token.WhiteSpace,
-  /*  10 - Line Feed          */ Token.LineFeed,
-  /*  11 - Vertical Tab       */ Token.WhiteSpace,
-  /*  12 - Form Feed          */ Token.WhiteSpace,
-  /*  13 - Carriage Return    */ Token.CarriageReturn,
+  /*   9 - Horizontal Tab     */ Token.Unknown,
+  /*  10 - Line Feed          */ Token.Unknown,
+  /*  11 - Vertical Tab       */ Token.Unknown,
+  /*  12 - Form Feed          */ Token.Unknown,
+  /*  13 - Carriage Return    */ Token.Unknown,
   /*  14 - Shift Out          */ Token.Unknown,
   /*  15 - Shift In           */ Token.Unknown,
   /*  16 - Data Line Escape   */ Token.Unknown,
@@ -50,7 +49,7 @@ export const firstCharKinds = [
   /*  29 - Group Separator    */ Token.Unknown,
   /*  30 - Record Separator   */ Token.Unknown,
   /*  31 - Unit Separator     */ Token.Unknown,
-  /*  32 - Space              */ Token.WhiteSpace,
+  /*  32 - Space              */ Token.Unknown,
   /*  33 - !                  */ Token.Negate,
   /*  34 - "                  */ Token.StringLiteral,
   /*  35 - #                  */ Token.Unknown,
@@ -148,402 +147,309 @@ export const firstCharKinds = [
 ];
 
 export function scanSingleToken(state: ParserState, context: Context): Token {
-  let lastIsCR = false;
-  const lineStart = state.index === 0;
-  while (state.index < state.length) {
-    let cp = state.source.charCodeAt(state.index);
-    state.positionBeforeToken = state.index;
+  skipWhitespace(state, context, ScannerState.None);
+  if (state.index >= state.length) return Token.EOF;
+  state.tokenIndex = state.index;
+  let cp = state.source.charCodeAt(state.index);
+  if (cp > 127) return scanMaybeIdentifier(state, context);
 
-    if (cp < 127) {
-      const token = firstCharKinds[cp];
-      switch (token) {
-        case Token.RightBrace:
-        case Token.LeftBrace:
-        case Token.Comma:
-        case Token.Colon:
-        case Token.Complement:
-        case Token.LeftParen:
-        case Token.RightParen:
-        case Token.Semicolon:
-        case Token.LeftBracket:
-        case Token.RightBracket:
-          state.index++;
-          return token;
-
-        case Token.WhiteSpace:
-          state.index++;
-          break;
-
-        // `a`...`z`,
-        case Token.IdentifierOrKeyword:
-          return scanKeywordOrIdentifier(state, context);
-
-        //  `A`...`Z`, `_var`, `$var`
-        case Token.Identifier:
-          return scanIdentifier(state, context);
-
-        // `0`...`9`
-        case Token.NumericLiteral:
-          return scanNumber(state, context, cp);
-
-        // `.`, `...`, `.123` (numeric literal)
-        case Token.Period:
-          let index = state.index + 1;
-
-          if (index < state.length) {
-            cp = state.source.charCodeAt(index);
-
-            if (cp >= Char.Zero && cp <= Char.Nine) {
-              return parseFloatingPointLiteral(state, context, cp);
-            }
-
-            if (cp === Char.Period) {
-              index++;
-              if (index < state.length && state.source.charCodeAt(index) === Char.Period) {
-                state.index = index + 1;
-                return Token.Ellipsis;
-              }
-            }
-          }
-          state.index++;
-          return Token.Period;
-        // `'string'`, `"string"`
-        case Token.StringLiteral:
-          return scanString(state, context, cp);
-
-        case Token.LineFeed:
-          if (!lastIsCR) state.line++;
-          lastIsCR = false;
-          state.index++;
-          state.columnOffset = state.index;
-          state.lineTerminatorBeforeNextToken = true;
-          break;
-
-        // `=`, `==`, `===`, `=>`
-        case Token.Assign:
-          state.index++;
-          cp = state.source.charCodeAt(state.index);
-          if (cp === Char.EqualSign) {
-            state.index++;
-            if (state.source.charCodeAt(state.index) === Char.EqualSign) {
-              state.index++;
-              return Token.StrictEqual;
-            }
-            return Token.LooseEqual;
-          }
-          if (cp === Char.GreaterThan) {
-            state.index++;
-            return Token.Arrow;
-          }
-          return Token.Assign;
-
-        // `+`, `++`, `+=`
-        case Token.Add:
-          state.index++;
-          cp = state.source.charCodeAt(state.index);
-
-          if (cp === Char.Plus) {
-            state.index++;
-            return Token.Increment;
-          }
-          if (cp === Char.EqualSign) {
-            state.index++;
-            return Token.AddAssign;
-          }
-          return Token.Add;
-
-        // ``string``
-        case Token.TemplateTail:
-          return scanTemplateSpan(state, context);
-
-        // `?`, `?.`, `??`, `??=`,
-        case Token.QuestionMark:
-          state.index++;
-
-          cp = state.source.charCodeAt(state.index);
-
-          if (cp === Char.Period) {
-            state.index++;
-            // The specs explicitly disallows a digit after `?.`, for example `?.a`
-            // or `?.5` then it should be treated as a ternary rather than as an optional chain
-            cp = state.source.charCodeAt(state.index);
-
-            if (cp >= Char.Zero && cp <= Char.Nine) {
-              return Token.QuestionMark;
-            }
-
-            return Token.QuestionMarkPeriod;
-          }
-
-          if (cp === Char.QuestionMark) {
-            state.index++;
-            if (state.source.charCodeAt(state.index) === Char.EqualSign) {
-              state.index++;
-              return Token.NullishAssign;
-            }
-            return Token.Nullish;
-          }
-
-          return Token.QuestionMark;
-
-        // `!`, `!=`, `!==`
-        case Token.Negate:
-          state.index++;
-          cp = state.source.charCodeAt(state.index);
-          if (cp === Char.EqualSign) {
-            state.index++;
-            if (state.source.charCodeAt(state.index) === Char.EqualSign) {
-              state.index++;
-              return Token.StrictNotEqual;
-            }
-            return Token.LooseNotEqual;
-          }
-          return Token.Negate;
-
-        // `*`, `**`, `*=`, `**=`
-        case Token.Multiply:
-          state.index++;
-          cp = state.source.charCodeAt(state.index);
-          if (cp === Char.EqualSign) {
-            state.index++;
-            return Token.MultiplyAssign;
-          }
-          if (cp === Char.Asterisk) {
-            state.index++;
-            if (state.source.charCodeAt(state.index) === Char.EqualSign) {
-              state.index++;
-              return Token.ExponentiateAssign;
-            }
-            return Token.Exponentiate;
-          }
-          return Token.Multiply;
-
-        // `/`, `/=`, `/>`, '/*..*/'
-        case Token.Divide:
-          state.index++;
-          cp = state.source.charCodeAt(state.index);
-
-          if (cp === Char.Slash) {
-            skipSingleLineComment(state);
-            continue;
-          }
-
-          if (cp === Char.Asterisk) {
-            skipMultiLineComment(state, context);
-            continue;
-          }
-
-          if (context & Context.AllowRegExp) return scanRegExp(state, context);
-
-          if (cp === Char.EqualSign) {
-            state.index++;
-            return Token.DivideAssign;
-          }
-          return Token.Divide;
-
-        // `-`, `--`, `-=`, `-->`
-        case Token.Subtract:
-          state.index++;
-
-          cp = state.source.charCodeAt(state.index);
-
-          if (cp === Char.Hyphen) {
-            state.index++;
-            if (
-              (context & (Context.Module | Context.OptionsDisableWebCompat)) === 0 &&
-              (lineStart || state.lineTerminatorBeforeNextToken) &&
-              state.source.charCodeAt(state.index) === Char.GreaterThan
-            ) {
-              skipSingleLineComment(state);
-              continue;
-            }
-            return Token.Decrement;
-          }
-
-          if (cp === Char.EqualSign) {
-            state.index++;
-            return Token.SubtractAssign;
-          }
-          return Token.Subtract;
-
-        case Token.CarriageReturn:
-          state.index++;
-          state.line++;
-          lastIsCR = true;
-          state.columnOffset = state.index;
-          state.lineTerminatorBeforeNextToken = true;
-          break;
-
-        // `<`, `<=`, `<<`, `<<=`, `</`, `<!--`
-        case Token.LessThan:
-          state.index++;
-          cp = state.source.charCodeAt(state.index);
-          if (cp === Char.EqualSign) {
-            state.index++;
-            return Token.LessThanOrEqual;
-          }
-          if (cp === Char.LessThan) {
-            state.index++;
-            if (state.source.charCodeAt(state.index) === Char.EqualSign) {
-              state.index++;
-              return Token.ShiftLeftAssign;
-            }
-            return Token.ShiftLeft;
-          }
-          // Check for <!-- comments
-          if (cp === Char.Exclamation) {
-            if (
-              (context & (Context.Module | Context.OptionsDisableWebCompat)) === 0 &&
-              state.source.charCodeAt(state.index + 2) === Char.Hyphen /* '-' */ &&
-              state.source.charCodeAt(state.index + 1) === Char.Hyphen /* '-' */
-            ) {
-              skipSingleLineComment(state);
-              continue;
-            }
-          }
-          return Token.LessThan;
-
-        // `&`, `&&`, `&=`, `&&=`
-        case Token.BitwiseAnd:
-          state.index++;
-          cp = state.source.charCodeAt(state.index);
-          if (cp === Char.Ampersand) {
-            state.index++;
-            if (state.source.charCodeAt(state.index) === Char.EqualSign) {
-              state.index++;
-              return Token.LogicalAndAssign;
-            }
-            return Token.LogicalAnd;
-          }
-          if (cp === Char.EqualSign) {
-            state.index++;
-            return Token.BitwiseAndAssign;
-          }
-          return Token.BitwiseAnd;
-
-        // `>`, `>=`, `>>`, `>>>`, `>>=`, `>>>=`
-        case Token.GreaterThan:
-          state.index++;
-          cp = state.source.charCodeAt(state.index);
-          if (cp === Char.EqualSign) {
-            state.index++;
-            return Token.GreaterThanOrEqual;
-          }
-          if (cp === Char.GreaterThan) {
-            state.index++;
-            if (state.source.charCodeAt(state.index) === Char.GreaterThan) {
-              state.index++;
-              if (state.source.charCodeAt(state.index) === Char.EqualSign) {
-                state.index++;
-                return Token.LogicalShiftRightAssign;
-              }
-              return Token.LogicalShiftRight;
-            }
-            if (state.source.charCodeAt(state.index) === Char.EqualSign) {
-              state.index++;
-              return Token.ShiftRightAssign;
-            }
-            return Token.ShiftRight;
-          }
-          return Token.GreaterThan;
-
-        // `|`, `||`, `|=`
-        case Token.BitwiseOr:
-          state.index++;
-          cp = state.source.charCodeAt(state.index);
-          if (cp === Char.VerticalBar) {
-            state.index++;
-            if (state.source.charCodeAt(state.index) === Char.EqualSign) {
-              state.index++;
-              return Token.LogicalOrAssign;
-            }
-            return Token.LogicalOr;
-          }
-          if (cp === Char.EqualSign) {
-            state.index++;
-            return Token.BitwiseOrAssign;
-          }
-          return Token.BitwiseOr;
-
-        // `%`, `%=`
-        case Token.Modulo:
-          state.index++;
-          cp = state.source.charCodeAt(state.index);
-
-          if (cp === Char.EqualSign) {
-            state.index++;
-            return Token.ModuloAssign;
-          }
-          return Token.Modulo;
-
-        // `^`, `^=`
-        case Token.BitwiseXor:
-          state.index++;
-          cp = state.source.charCodeAt(state.index);
-          if (cp === Char.EqualSign) {
-            state.index++;
-            return Token.BitwiseXorAssign;
-          }
-          return Token.BitwiseXor;
-
-        // `\\u{N}var`
-        case Token.EscapedIdentifier:
-          return scanIdentifierEscapeIdStart(state, context);
-
-        default:
-          addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error);
-          state.index++;
-      }
-      // ASCII range > 127
-    } else {
-      // Non-ASCII code points can only be identifiers or whitespace.
-      if ((unicodeLookup[(cp >>> 5) + 104448] >>> cp) & 31 & 1) {
-        state.index++;
-        if ((cp & ~1) === Char.LineSeparator) {
-          state.line++;
-          lastIsCR = false;
-          state.columnOffset = state.index;
-          state.lineTerminatorBeforeNextToken = true;
-        }
-
-        continue;
-      }
-
-      // IdentifierContinue
-      if ((unicodeLookup[(cp >>> 5) + 34816] >>> cp) & 31 & 1) {
-        return scanIdentifierSlowPath(state, context);
-      }
-
-      // lead surrogate (U+d800..U+dbff)
-      if ((cp & 0xfffffc00) === 0xd800) {
-        // trail surrogate (U+dc00..U+dfff)
-        if ((state.source.charCodeAt(state.index + 1) & 0xfffffc00) !== 0xdc00) {
-          addDiagnostic(
-            state,
-            context,
-            DiagnosticSource.Lexer,
-            DiagnosticCode.InvalidTrailSurrogate,
-            DiagnosticKind.Error,
-            fromCodePoint(cp)
-          );
-        }
-
-        return scanIdentifierSlowPath(state, context);
-      }
-
-      addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error);
-      // Increment the index so we can stay on track and avoid infinity loops
+  const token = firstCharKinds[cp];
+  switch (token) {
+    case Token.RightBrace:
+    case Token.LeftBrace:
+    case Token.Comma:
+    case Token.Colon:
+    case Token.Complement:
+    case Token.LeftParen:
+    case Token.RightParen:
+    case Token.Semicolon:
+    case Token.LeftBracket:
+    case Token.RightBracket:
       state.index++;
-    }
+      return token;
+
+    // `a`...`z`,
+    case Token.IdentifierOrKeyword:
+      return scanKeywordOrIdentifier(state, context);
+
+    //  `A`...`Z`, `_var`, `$var`
+    case Token.Identifier:
+      return scanIdentifier(state, context);
+
+    // `0`...`9`
+    case Token.NumericLiteral:
+      return scanNumber(state, context, cp);
+
+    // `.`, `...`, `.123` (numeric literal)
+    case Token.Period:
+      let index = state.index + 1;
+
+      if (index < state.length) {
+        cp = state.source.charCodeAt(index);
+
+        if (cp >= Char.Zero && cp <= Char.Nine) {
+          return parseFloatingPointLiteral(state, context, cp);
+        }
+
+        if (cp === Char.Period) {
+          index++;
+          if (index < state.length && state.source.charCodeAt(index) === Char.Period) {
+            state.index = index + 1;
+            return Token.Ellipsis;
+          }
+        }
+      }
+      state.index++;
+      return Token.Period;
+
+    // `'string'`, `"string"`
+    case Token.StringLiteral:
+      return scanString(state, context, cp);
+
+    // `=`, `==`, `===`, `=>`
+    case Token.Assign:
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+      if (cp === Char.EqualSign) {
+        state.index++;
+        if (state.source.charCodeAt(state.index) === Char.EqualSign) {
+          state.index++;
+          return Token.StrictEqual;
+        }
+        return Token.LooseEqual;
+      }
+      if (cp === Char.GreaterThan) {
+        state.index++;
+        return Token.Arrow;
+      }
+      return Token.Assign;
+
+    // `+`, `++`, `+=`
+    case Token.Add:
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+
+      if (cp === Char.Plus) {
+        state.index++;
+        return Token.Increment;
+      }
+      if (cp === Char.EqualSign) {
+        state.index++;
+        return Token.AddAssign;
+      }
+      return Token.Add;
+
+    // ``string``
+    case Token.TemplateTail:
+      return scanTemplateSpan(state, context);
+
+    // `?`, `?.`, `??`, `??=`,
+    case Token.QuestionMark:
+      state.index++;
+
+      cp = state.source.charCodeAt(state.index);
+
+      if (cp === Char.Period) {
+        state.index++;
+        // The specs explicitly disallows a digit after `?.`, for example `?.a`
+        // or `?.5` then it should be treated as a ternary rather than as an optional chain
+        cp = state.source.charCodeAt(state.index);
+
+        if (cp >= Char.Zero && cp <= Char.Nine) {
+          return Token.QuestionMark;
+        }
+
+        return Token.QuestionMarkPeriod;
+      }
+
+      if (cp === Char.QuestionMark) {
+        state.index++;
+        if (state.source.charCodeAt(state.index) === Char.EqualSign) {
+          state.index++;
+          return Token.NullishAssign;
+        }
+        return Token.Nullish;
+      }
+
+      return Token.QuestionMark;
+
+    // `!`, `!=`, `!==`
+    case Token.Negate:
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+      if (cp === Char.EqualSign) {
+        state.index++;
+        if (state.source.charCodeAt(state.index) === Char.EqualSign) {
+          state.index++;
+          return Token.StrictNotEqual;
+        }
+        return Token.LooseNotEqual;
+      }
+      return Token.Negate;
+
+    // `*`, `**`, `*=`, `**=`
+    case Token.Multiply:
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+      if (cp === Char.EqualSign) {
+        state.index++;
+        return Token.MultiplyAssign;
+      }
+      if (cp === Char.Asterisk) {
+        state.index++;
+        if (state.source.charCodeAt(state.index) === Char.EqualSign) {
+          state.index++;
+          return Token.ExponentiateAssign;
+        }
+        return Token.Exponentiate;
+      }
+      return Token.Multiply;
+
+    // `/`, `/=`, `/>`, '/*..*/'
+    case Token.Divide:
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+
+      if (context & Context.AllowRegExp) return scanRegExp(state, context);
+
+      if (cp === Char.EqualSign) {
+        state.index++;
+        return Token.DivideAssign;
+      }
+      return Token.Divide;
+
+    // `-`, `--`, `-=`, `-->`
+    case Token.Subtract:
+      state.index++;
+
+      cp = state.source.charCodeAt(state.index);
+
+      if (cp === Char.Hyphen) {
+        state.index++;
+        return Token.Decrement;
+      }
+
+      if (cp === Char.EqualSign) {
+        state.index++;
+        return Token.SubtractAssign;
+      }
+      return Token.Subtract;
+
+    // `<`, `<=`, `<<`, `<<=`, `</`, `<!--`
+    case Token.LessThan:
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+      if (cp === Char.EqualSign) {
+        state.index++;
+        return Token.LessThanOrEqual;
+      }
+      if (cp === Char.LessThan) {
+        state.index++;
+        if (state.source.charCodeAt(state.index) === Char.EqualSign) {
+          state.index++;
+          return Token.ShiftLeftAssign;
+        }
+        return Token.ShiftLeft;
+      }
+      return Token.LessThan;
+
+    // `&`, `&&`, `&=`, `&&=`
+    case Token.BitwiseAnd:
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+      if (cp === Char.Ampersand) {
+        state.index++;
+        if (state.source.charCodeAt(state.index) === Char.EqualSign) {
+          state.index++;
+          return Token.LogicalAndAssign;
+        }
+        return Token.LogicalAnd;
+      }
+      if (cp === Char.EqualSign) {
+        state.index++;
+        return Token.BitwiseAndAssign;
+      }
+      return Token.BitwiseAnd;
+
+    // `>`, `>=`, `>>`, `>>>`, `>>=`, `>>>=`
+    case Token.GreaterThan:
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+      if (cp === Char.EqualSign) {
+        state.index++;
+        return Token.GreaterThanOrEqual;
+      }
+      if (cp === Char.GreaterThan) {
+        state.index++;
+        if (state.source.charCodeAt(state.index) === Char.GreaterThan) {
+          state.index++;
+          if (state.source.charCodeAt(state.index) === Char.EqualSign) {
+            state.index++;
+            return Token.LogicalShiftRightAssign;
+          }
+          return Token.LogicalShiftRight;
+        }
+        if (state.source.charCodeAt(state.index) === Char.EqualSign) {
+          state.index++;
+          return Token.ShiftRightAssign;
+        }
+        return Token.ShiftRight;
+      }
+      return Token.GreaterThan;
+
+    // `|`, `||`, `|=`
+    case Token.BitwiseOr:
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+      if (cp === Char.VerticalBar) {
+        state.index++;
+        if (state.source.charCodeAt(state.index) === Char.EqualSign) {
+          state.index++;
+          return Token.LogicalOrAssign;
+        }
+        return Token.LogicalOr;
+      }
+      if (cp === Char.EqualSign) {
+        state.index++;
+        return Token.BitwiseOrAssign;
+      }
+      return Token.BitwiseOr;
+
+    // `%`, `%=`
+    case Token.Modulo:
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+
+      if (cp === Char.EqualSign) {
+        state.index++;
+        return Token.ModuloAssign;
+      }
+      return Token.Modulo;
+
+    // `^`, `^=`
+    case Token.BitwiseXor:
+      state.index++;
+      cp = state.source.charCodeAt(state.index);
+      if (cp === Char.EqualSign) {
+        state.index++;
+        return Token.BitwiseXorAssign;
+      }
+      return Token.BitwiseXor;
+
+    // `\\u{N}var`
+    case Token.EscapedIdentifier:
+      return scanIdentifierEscapeIdStart(state, context);
+
+    default:
+      addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error);
+      state.index++;
   }
+  // ASCII range > 127
+
   return Token.EOF;
 }
 
 export function nextToken(state: ParserState, context: Context): void {
-  // Concrete syntax is unique for each node so we need to reset that
-  // information now
-  state.cst = ConcreteSyntax.Empty;
-  state.flags = (state.flags | Flags.HasFloatingNumber) ^ Flags.HasFloatingNumber;
   // Position of 'index' before whitespace.
   state.startIndex = state.index;
   state.lineTerminatorBeforeNextToken = false;
@@ -551,13 +457,12 @@ export function nextToken(state: ParserState, context: Context): void {
   state.line = state.lineForNextToken;
   state.endColumn = state.columnForNextToken;
   state.token = scanSingleToken(state, context);
-  state.positionForNextToken = state.index;
   // In 'recovery' mode the 'start' of the token is 'before' any
   // whitespace. However in 'normal parsing mode' we need to adjust
   // 'startIndex' to be equal to 'tokenIndex' to be in line with
   // other parsers such as 'Tenko' and 'Acorn'
   if ((context & Context.ErrorRecovery) === 0) {
-    state.startIndex = state.positionBeforeToken;
+    state.startIndex = state.tokenIndex;
     state.columnForNextToken = state.index - state.columnOffset;
     state.lineForNextToken = state.line;
   }

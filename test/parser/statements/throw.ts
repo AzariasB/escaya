@@ -123,7 +123,7 @@ describe('Statements - Throw', () => {
   }
 
   it('throw /(?=[^\\x4f-\\xF5(-)])/imy', () => {
-    t.deepEqual(parseScript('throw /(?=[^\\x4f-\\xF5(-)])/imy', { loc: true }), {
+    t.deepStrictEqual(parseScript('throw /(?=[^\\x4f-\\xF5(-)])/imy', { loc: true }), {
       directives: [],
       end: 30,
       start: 0,
@@ -149,7 +149,7 @@ describe('Statements - Throw', () => {
   it(`function f() { do throw pass
     while(x);
   }`, () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       parseScript(
         `function f() { do throw pass
       while(x);
@@ -215,7 +215,7 @@ describe('Statements - Throw', () => {
   });
 
   it('throw foo;', () => {
-    t.deepEqual(parseScript('throw foo;', { loc: true }), {
+    t.deepStrictEqual(parseScript('throw foo;', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -239,7 +239,7 @@ describe('Statements - Throw', () => {
   });
 
   it('throw 12', () => {
-    t.deepEqual(parseScript('throw 12', { loc: true }), {
+    t.deepStrictEqual(parseScript('throw 12', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -263,7 +263,7 @@ describe('Statements - Throw', () => {
   });
 
   it('throw x * y', () => {
-    t.deepEqual(parseScript('throw x * y', { loc: true }), {
+    t.deepStrictEqual(parseScript('throw x * y', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],

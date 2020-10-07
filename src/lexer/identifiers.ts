@@ -2,6 +2,8 @@ import { Context, ParserState } from '../common';
 import { isIdentifierPart, fromCodePoint, toHex } from './common';
 import { addLexerDiagnostic } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
+import { addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
+import { unicodeLookup } from './unicode';
 import { Token } from './../ast/token';
 import { AsciiCharTypes, AsciiCharFlags } from './asciiChar';
 import { Char } from './char';
@@ -249,4 +251,34 @@ export function scanIdentifierEscapeIdStart(state: ParserState, context: Context
   if (state.source.charCodeAt(state.index) === Char.Backslash) state.index++;
   state.tokenValue = fromCodePoint(cookedCP);
   return Token.Identifier;
+}
+
+export function scanMaybeIdentifier(state: ParserState, context: Context) {
+  const cp = state.source.charCodeAt(state.index);
+  // IdentifierContinue
+  if ((unicodeLookup[(cp >>> 5) + 34816] >>> cp) & 31 & 1) {
+    return scanIdentifierSlowPath(state, context);
+  }
+
+  // lead surrogate (U+d800..U+dbff)
+  if ((cp & 0xfffffc00) === 0xd800) {
+    // trail surrogate (U+dc00..U+dfff)
+    if ((state.source.charCodeAt(state.index + 1) & 0xfffffc00) !== 0xdc00) {
+      addDiagnostic(
+        state,
+        context,
+        DiagnosticSource.Lexer,
+        DiagnosticCode.InvalidTrailSurrogate,
+        DiagnosticKind.Error,
+        fromCodePoint(cp)
+      );
+    }
+
+    return scanIdentifierSlowPath(state, context);
+  }
+
+  addDiagnostic(state, context, DiagnosticSource.Lexer, DiagnosticCode.InvalidCharacter, DiagnosticKind.Error);
+  // Increment the index so we can stay on track and avoid infinity loops
+  state.index++;
+  return Token.Unknown;
 }

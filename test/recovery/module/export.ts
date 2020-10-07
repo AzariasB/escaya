@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Export', () => {
   it('export function *await(', () => {
-    t.deepEqual(recovery('export function *await(', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export function *await(', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -97,7 +97,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { default as', () => {
-    t.deepEqual(recovery('export { default as', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export { default as', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -182,7 +182,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { default as !!', () => {
-    t.deepEqual(recovery('export { default as !!', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export { default as !!', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -310,7 +310,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export var y = 0;', () => {
-    t.deepEqual(recovery('export var y = 0;', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export var y = 0;', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -396,7 +396,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { arguments } from "m.js";', () => {
-    t.deepEqual(recovery('export { arguments } from "m.js";', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export { arguments } from "m.js";', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -472,7 +472,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { a as b } from "m.js";', () => {
-    t.deepEqual(recovery('export { a as b } from "m.js";', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export { a as b } from "m.js";', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -559,7 +559,7 @@ describe('Recovery - Export', () => {
   });
 
   it('var a; export { a as b, a as c };', () => {
-    t.deepEqual(recovery('var a; export { a as b, a as c };', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('var a; export { a as b, a as c };', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -708,7 +708,7 @@ describe('Recovery - Export', () => {
   });
 
   it('class c { }; export default c', () => {
-    t.deepEqual(recovery('class c { }; export default c', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('class c { }; export default c', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -787,7 +787,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export let x = y, [...z] = y;', () => {
-    t.deepEqual(recovery('export let x = y, [...z] = y;', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export let x = y, [...z] = y;', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -933,7 +933,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export default () => {}', () => {
-    t.deepEqual(recovery('export default () => {}', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export default () => {}', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -993,7 +993,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export import from "foo"', () => {
-    t.deepEqual(recovery('export import from "foo"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export import from "foo"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -1097,7 +1097,7 @@ describe('Recovery - Export', () => {
     });
   });
   it('export {!', () => {
-    t.deepEqual(recovery('export {!', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export {!', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -1179,7 +1179,7 @@ describe('Recovery - Export', () => {
     });
   });
   it('export function !', () => {
-    t.deepEqual(recovery('export function !', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export function !', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -1299,7 +1299,7 @@ describe('Recovery - Export', () => {
     });
   });
   it('export *', () => {
-    t.deepEqual(recovery('export *', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export *', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -1370,7 +1370,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { as', () => {
-    t.deepEqual(recovery('export { as', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export { as', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -1444,7 +1444,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export class function let const var async async function default', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery('export class function let const var async async function default', 'recovery.js', {
         module: true,
         cst: true
@@ -1700,7 +1700,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export const {', () => {
-    t.deepEqual(recovery('export const {', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export const {', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -1784,7 +1784,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export +', () => {
-    t.deepEqual(recovery('export +', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export +', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -1867,7 +1867,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export { export !', () => {
-    t.deepEqual(recovery('export { export !', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export { export !', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -1976,7 +1976,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export (a (/  function foo bar !', () => {
-    t.deepEqual(recovery('export (a (/  function foo bar !', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export (a (/  function foo bar !', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -2092,7 +2092,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export export export 3x import import 2x Yeah!', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery('export export export 3x import import 2x Yeah!', 'recovery.js', { module: true, cst: true }),
       {
         directives: [],
@@ -2443,7 +2443,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export {,,,,,,,,,,', () => {
-    t.deepEqual(recovery('export {,,,,,,,,,,', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export {,,,,,,,,,,', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -2563,7 +2563,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export {a,,b,,,,,c,', () => {
-    t.deepEqual(recovery('export {a,,b,,,,,c,', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export {a,,b,,,,,c,', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -2784,7 +2784,7 @@ describe('Recovery - Export', () => {
   });
 
   it('export {a,,b,,,,,c from "string"', () => {
-    t.deepEqual(recovery('export {a,,b,,,,,c from "string"', 'recovery.js', { module: true, cst: true }), {
+    t.deepStrictEqual(recovery('export {a,,b,,,,,c from "string"', 'recovery.js', { module: true, cst: true }), {
       directives: [],
       leafs: [
         {
@@ -3047,7 +3047,7 @@ describe('Recovery - Export', () => {
   });
 
   it('possible to export import ? ! while I try this, I go for a walk', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery('possible to export import ? ! while I try this, I go for a walk', 'recovery.js', {
         module: true,
         cst: true

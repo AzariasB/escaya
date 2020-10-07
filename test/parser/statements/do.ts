@@ -103,7 +103,7 @@ while(x);`,
   }
 
   it('do if (x) {} while(x) x', () => {
-    t.deepEqual(parseScript('do if (x) {} while(x) x', { loc: true }), {
+    t.deepStrictEqual(parseScript('do if (x) {} while(x) x', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -158,7 +158,7 @@ while(x);`,
   });
 
   it('do; while (1)', () => {
-    t.deepEqual(parseScript('do; while (1)', { loc: true }), {
+    t.deepStrictEqual(parseScript('do; while (1)', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -187,7 +187,7 @@ while(x);`,
   });
 
   it('do async \n while (y)', () => {
-    t.deepEqual(parseScript('do async \n while (y)', { loc: true }), {
+    t.deepStrictEqual(parseScript('do async \n while (y)', { loc: true }), {
       directives: [],
       end: 20,
       start: 0,

@@ -1,5 +1,3 @@
-import { Node } from './node';
-
 export const enum Token {
   Type = 0xff,
 

@@ -46,14 +46,16 @@ export const enum Context {
  */
 export const enum Flags {
   Empty = 0,
-  NodeHasErrors = 1 << 0,
-  SeenDefault = 1 << 1,
-  Octal = 1 << 2,
-  SeenProto = 1 << 3,
-  HasProto = 1 << 4,
-  HasStrictReserved = 1 << 5,
-  SimpleParameterList = 1 << 6,
-  HasFloatingNumber = 1 << 7
+  SeekMoved = 1 << 0,
+  SeekLineTerminator = 1 << 1,
+  NodeHasErrors = 1 << 2,
+  SeenDefault = 1 << 3,
+  Octal = 1 << 4,
+  SeenProto = 1 << 5,
+  HasProto = 1 << 6,
+  HasStrictReserved = 1 << 7,
+  SimpleParameterList = 1 << 8,
+  HasFloatingNumber = 1 << 9
 }
 
 export const enum ConcreteSyntax {
@@ -130,10 +132,9 @@ export interface ParserState {
   line: number;
   columnOffset: number;
   lineTerminatorBeforeNextToken: boolean;
-  positionForNextToken: number;
   lineForNextToken: number;
   columnForNextToken: number;
-  positionBeforeToken: number;
+  tokenIndex: number;
   regExpPattern: string;
   regExpFlags: string;
   nodeHasError: boolean;

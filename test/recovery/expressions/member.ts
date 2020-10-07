@@ -1470,8 +1470,8 @@ describe('Recovery - Expressions - Member', () => {
           source: 0,
           message: '`*/` expected',
           code: 86,
-          start: 4,
-          length: 3
+          start: 3,
+          length: 5
         }
       ],
       detached: false,
@@ -1548,8 +1548,8 @@ describe('Recovery - Expressions - Member', () => {
           source: 0,
           message: '`*/` expected',
           code: 86,
-          start: 4,
-          length: 9
+          start: 3,
+          length: 10
         }
       ],
       detached: false,

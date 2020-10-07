@@ -328,7 +328,7 @@ describe('Statements - Switch', () => {
   }
 
   it('switch (0) { case 1: var f; default: var f }', () => {
-    t.deepEqual(parseScript('switch (0) { case 1: var f; default: var f }', { loc: true }), {
+    t.deepStrictEqual(parseScript('switch (0) { case 1: var f; default: var f }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -413,7 +413,7 @@ describe('Statements - Switch', () => {
   });
 
   it('switch (x) { case a: var foo; break; default: var foo; break; }', () => {
-    t.deepEqual(parseScript('switch (x) { case a: var foo; break; default: var foo; break; }', { loc: true }), {
+    t.deepStrictEqual(parseScript('switch (x) { case a: var foo; break; default: var foo; break; }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -508,7 +508,7 @@ describe('Statements - Switch', () => {
   });
 
   it('switch (x) {case a: function f(){}; break; case b: function f(){}; break; }', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       parseScript('switch (x) {case a: function f(){}; break; case b: function f(){}; break; }', { loc: true }),
       {
         type: 'Script',
@@ -626,7 +626,7 @@ describe('Statements - Switch', () => {
   });
 
   it('switch (x) { case c: function *f(){} function *f(){} }', () => {
-    t.deepEqual(parseScript('switch (x) { case c: function *f(){} function *f(){} }', { loc: true }), {
+    t.deepStrictEqual(parseScript('switch (x) { case c: function *f(){} function *f(){} }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -707,7 +707,7 @@ describe('Statements - Switch', () => {
 
   it(`switch (0) { case 1: let f = 0; default: [f] }
                   switch (0) { case 1: let f = 0; default: [f] }`, () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       parseScript(
         `switch (0) { case 1: let f = 0; default: [f] }
                     switch (0) { case 1: let f = 0; default: [f] }`,
@@ -886,97 +886,100 @@ describe('Statements - Switch', () => {
   });
 
   it('switch (0) { default: let f; if (false) ; else function f() {  } }', () => {
-    t.deepEqual(parseScript('switch (0) { default: let f; if (false) ; else function f() {  } }', { loc: true }), {
-      type: 'Script',
-      webCompat: true,
-      directives: [],
-      leafs: [
-        {
-          type: 'SwitchStatement',
-          expression: {
-            type: 'NumericLiteral',
+    t.deepStrictEqual(
+      parseScript('switch (0) { default: let f; if (false) ; else function f() {  } }', { loc: true }),
+      {
+        type: 'Script',
+        webCompat: true,
+        directives: [],
+        leafs: [
+          {
+            type: 'SwitchStatement',
+            expression: {
+              type: 'NumericLiteral',
 
-            value: 0,
-            start: 8,
-            end: 9
-          },
-          clauses: [
-            {
-              type: 'DefaultClause',
-              leafs: [
-                {
-                  type: 'LexicalDeclaration',
-                  isConst: false,
-                  declarations: [
-                    {
-                      type: 'LexicalBinding',
-                      binding: {
-                        type: 'BindingIdentifier',
-                        name: 'f',
+              value: 0,
+              start: 8,
+              end: 9
+            },
+            clauses: [
+              {
+                type: 'DefaultClause',
+                leafs: [
+                  {
+                    type: 'LexicalDeclaration',
+                    isConst: false,
+                    declarations: [
+                      {
+                        type: 'LexicalBinding',
+                        binding: {
+                          type: 'BindingIdentifier',
+                          name: 'f',
+                          start: 26,
+                          end: 27
+                        },
+                        initializer: null,
                         start: 26,
                         end: 27
-                      },
-                      initializer: null,
-                      start: 26,
-                      end: 27
-                    }
-                  ],
-                  start: 22,
-                  end: 28
-                },
-                {
-                  type: 'IfStatement',
-                  expression: {
-                    type: 'BooleanLiteral',
-                    value: false,
-                    start: 33,
-                    end: 38
+                      }
+                    ],
+                    start: 22,
+                    end: 28
                   },
-                  consequent: {
-                    type: 'EmptyStatement',
-                    start: 40,
-                    end: 41
-                  },
-                  alternate: {
-                    type: 'FunctionDeclaration',
-                    name: {
-                      type: 'BindingIdentifier',
-                      name: 'f',
-                      start: 56,
-                      end: 57
+                  {
+                    type: 'IfStatement',
+                    expression: {
+                      type: 'BooleanLiteral',
+                      value: false,
+                      start: 33,
+                      end: 38
                     },
-                    generator: false,
-                    async: false,
-                    params: [],
-                    contents: {
-                      type: 'FunctionBody',
-                      directives: [],
-                      leafs: [],
-                      start: 60,
+                    consequent: {
+                      type: 'EmptyStatement',
+                      start: 40,
+                      end: 41
+                    },
+                    alternate: {
+                      type: 'FunctionDeclaration',
+                      name: {
+                        type: 'BindingIdentifier',
+                        name: 'f',
+                        start: 56,
+                        end: 57
+                      },
+                      generator: false,
+                      async: false,
+                      params: [],
+                      contents: {
+                        type: 'FunctionBody',
+                        directives: [],
+                        leafs: [],
+                        start: 60,
+                        end: 64
+                      },
+                      start: 47,
                       end: 64
                     },
-                    start: 47,
+                    start: 29,
                     end: 64
-                  },
-                  start: 29,
-                  end: 64
-                }
-              ],
-              start: 13,
-              end: 64
-            }
-          ],
-          start: 0,
-          end: 66
-        }
-      ],
-      start: 0,
-      end: 66
-    });
+                  }
+                ],
+                start: 13,
+                end: 64
+              }
+            ],
+            start: 0,
+            end: 66
+          }
+        ],
+        start: 0,
+        end: 66
+      }
+    );
   });
 
   it('switch (0) { case 1: var f; default: var f; }', () => {
-    t.deepEqual(parseScript('switch (0) { case 1: var f; default: var f; }', { loc: true }), {
+    t.deepStrictEqual(parseScript('switch (0) { case 1: var f; default: var f; }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1061,7 +1064,7 @@ describe('Statements - Switch', () => {
   });
 
   it('switch (x) { case c: function f(){} function f(){} }', () => {
-    t.deepEqual(parseScript('switch (x) { case c: function f(){} function f(){} }', { loc: true }), {
+    t.deepStrictEqual(parseScript('switch (x) { case c: function f(){} function f(){} }', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1141,87 +1144,90 @@ describe('Statements - Switch', () => {
   });
 
   it('switch (x) { case c: async function *f(){} async function *f(){} }', () => {
-    t.deepEqual(parseScript('switch (x) { case c: async function *f(){} async function *f(){} }', { loc: true }), {
-      type: 'Script',
-      webCompat: true,
-      directives: [],
-      leafs: [
-        {
-          type: 'SwitchStatement',
-          expression: {
-            type: 'IdentifierReference',
-            name: 'x',
-            start: 8,
-            end: 9
-          },
-          clauses: [
-            {
-              type: 'CaseClause',
-              expression: {
-                type: 'IdentifierReference',
-                name: 'c',
-                start: 18,
-                end: 19
-              },
-              leafs: [
-                {
-                  type: 'FunctionDeclaration',
-                  name: {
-                    type: 'BindingIdentifier',
-                    name: 'f',
-                    start: 37,
-                    end: 38
-                  },
-                  generator: true,
-                  async: true,
-                  params: [],
-                  contents: {
-                    type: 'FunctionBody',
-                    directives: [],
-                    leafs: [],
-                    start: 40,
+    t.deepStrictEqual(
+      parseScript('switch (x) { case c: async function *f(){} async function *f(){} }', { loc: true }),
+      {
+        type: 'Script',
+        webCompat: true,
+        directives: [],
+        leafs: [
+          {
+            type: 'SwitchStatement',
+            expression: {
+              type: 'IdentifierReference',
+              name: 'x',
+              start: 8,
+              end: 9
+            },
+            clauses: [
+              {
+                type: 'CaseClause',
+                expression: {
+                  type: 'IdentifierReference',
+                  name: 'c',
+                  start: 18,
+                  end: 19
+                },
+                leafs: [
+                  {
+                    type: 'FunctionDeclaration',
+                    name: {
+                      type: 'BindingIdentifier',
+                      name: 'f',
+                      start: 37,
+                      end: 38
+                    },
+                    generator: true,
+                    async: true,
+                    params: [],
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
+                      start: 40,
+                      end: 42
+                    },
+                    start: 21,
                     end: 42
                   },
-                  start: 21,
-                  end: 42
-                },
-                {
-                  type: 'FunctionDeclaration',
-                  name: {
-                    type: 'BindingIdentifier',
-                    name: 'f',
-                    start: 59,
-                    end: 60
-                  },
-                  generator: true,
-                  async: true,
-                  params: [],
-                  contents: {
-                    type: 'FunctionBody',
-                    directives: [],
-                    leafs: [],
-                    start: 62,
+                  {
+                    type: 'FunctionDeclaration',
+                    name: {
+                      type: 'BindingIdentifier',
+                      name: 'f',
+                      start: 59,
+                      end: 60
+                    },
+                    generator: true,
+                    async: true,
+                    params: [],
+                    contents: {
+                      type: 'FunctionBody',
+                      directives: [],
+                      leafs: [],
+                      start: 62,
+                      end: 64
+                    },
+                    start: 43,
                     end: 64
-                  },
-                  start: 43,
-                  end: 64
-                }
-              ],
-              start: 13,
-              end: 64
-            }
-          ],
-          start: 0,
-          end: 66
-        }
-      ],
-      start: 0,
-      end: 66
-    });
+                  }
+                ],
+                start: 13,
+                end: 64
+              }
+            ],
+            start: 0,
+            end: 66
+          }
+        ],
+        start: 0,
+        end: 66
+      }
+    );
   });
 
   it('switch (X) {}', () => {
-    t.deepEqual(parseScript('switch (X) {}', { loc: true }), {
+    t.deepStrictEqual(parseScript('switch (X) {}', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1245,7 +1251,7 @@ describe('Statements - Switch', () => {
   });
 
   it('switch (A) {default: B;}', () => {
-    t.deepEqual(parseScript('switch (A) {default: B;}', { loc: true }), {
+    t.deepStrictEqual(parseScript('switch (A) {default: B;}', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1288,7 +1294,7 @@ describe('Statements - Switch', () => {
   });
 
   it('switch (A) {case B: C; default: D;}', () => {
-    t.deepEqual(parseScript('switch (A) {case B: C; default: D;}', { loc: true }), {
+    t.deepStrictEqual(parseScript('switch (A) {case B: C; default: D;}', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],
@@ -1355,7 +1361,7 @@ describe('Statements - Switch', () => {
   });
 
   it('switch (A) {case B: C; break; case D: E; break;}', () => {
-    t.deepEqual(parseScript('switch (A) {case B: C; break; case D: E; break;}', { loc: true }), {
+    t.deepStrictEqual(parseScript('switch (A) {case B: C; break; case D: E; break;}', { loc: true }), {
       type: 'Script',
       webCompat: true,
       directives: [],

@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Numbers', () => {
   it('0b1__2', () => {
-    t.deepEqual(recovery('0b1__2', 'recovery.js'), {
+    t.deepStrictEqual(recovery('0b1__2', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -69,7 +69,7 @@ describe('Recovery - Numbers', () => {
   });
 
   it('0b_', () => {
-    t.deepEqual(recovery('0b_', 'recovery.js'), {
+    t.deepStrictEqual(recovery('0b_', 'recovery.js'), {
       children: [],
       context: 0,
       diagnostics: [
@@ -117,7 +117,7 @@ describe('Recovery - Numbers', () => {
   });
 
   it('1a', () => {
-    t.deepEqual(recovery('1a', 'recovery.js'), {
+    t.deepStrictEqual(recovery('1a', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -179,7 +179,7 @@ describe('Recovery - Numbers', () => {
   });
 
   it('1e', () => {
-    t.deepEqual(recovery('1e', 'recovery.js'), {
+    t.deepStrictEqual(recovery('1e', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -226,7 +226,7 @@ describe('Recovery - Numbers', () => {
   });
 
   it('1e!', () => {
-    t.deepEqual(recovery('1e!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('1e!', 'recovery.js'), {
       children: [],
       context: 0,
       diagnostics: [
@@ -274,7 +274,7 @@ describe('Recovery - Numbers', () => {
   });
 
   it('1e€', () => {
-    t.deepEqual(recovery('1e€', 'recovery.js'), {
+    t.deepStrictEqual(recovery('1e€', 'recovery.js'), {
       children: [],
       context: 0,
       diagnostics: [
@@ -322,7 +322,7 @@ describe('Recovery - Numbers', () => {
   });
 
   it('0b', () => {
-    t.deepEqual(recovery('0b', 'recovery.js'), {
+    t.deepStrictEqual(recovery('0b', 'recovery.js'), {
       children: [],
       context: 0,
       diagnostics: [
@@ -370,7 +370,7 @@ describe('Recovery - Numbers', () => {
   });
 
   it('0b0017', () => {
-    t.deepEqual(recovery('0b0017', 'recovery.js'), {
+    t.deepStrictEqual(recovery('0b0017', 'recovery.js'), {
       children: [],
       context: 0,
       diagnostics: [
@@ -418,32 +418,32 @@ describe('Recovery - Numbers', () => {
   });
   /*
   it('x\\u foo', () => {
-    t.deepEqual(recovery('x\\u foo', 'recovery.js'), {
+    t.deepStrictEqual(recovery('x\\u foo', 'recovery.js'), {
     });
   });
 
   it('x\\u foo', () => {
-    t.deepEqual(recovery('x\\u foo', 'recovery.js'), {
+    t.deepStrictEqual(recovery('x\\u foo', 'recovery.js'), {
     });
   });
 
   it('x\\u foo', () => {
-    t.deepEqual(recovery('x\\u foo', 'recovery.js'), {
+    t.deepStrictEqual(recovery('x\\u foo', 'recovery.js'), {
     });
   });
 
   it('x\\u foo', () => {
-    t.deepEqual(recovery('x\\u foo', 'recovery.js'), {
+    t.deepStrictEqual(recovery('x\\u foo', 'recovery.js'), {
     });
   });
 
   it('x\\u foo', () => {
-    t.deepEqual(recovery('x\\u foo', 'recovery.js'), {
+    t.deepStrictEqual(recovery('x\\u foo', 'recovery.js'), {
     });
   });
 
   it('x\\u foo', () => {
-    t.deepEqual(recovery('x\\u foo', 'recovery.js'), {
+    t.deepStrictEqual(recovery('x\\u foo', 'recovery.js'), {
     });
   });
 

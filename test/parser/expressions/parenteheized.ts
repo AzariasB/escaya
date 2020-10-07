@@ -17,6 +17,8 @@ describe('Expressions - Parentheized', () => {
     '(a = b)++;',
     '({foo: {x:y} += x})',
     '[] += a',
+    'a(x:b)',
+    'a(x:c(y:b))',
     '({(a)} = 0)',
     '({a:(b = 0)} = 1)',
     '({async **f(){}})',

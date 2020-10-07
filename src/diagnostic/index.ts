@@ -83,7 +83,7 @@ export function addEarlyDiagnostic(
     DiagnosticSource.Parser,
     code,
     DiagnosticKind.Early,
-    state.positionBeforeToken,
+    state.tokenIndex,
     state.index,
     ...args
   );
@@ -97,7 +97,7 @@ export function addDiagnostic(
   kind: DiagnosticKind,
   ...args: string[]
 ) {
-  createDiagnostic(state, context, source, code, kind, state.positionBeforeToken, state.index, ...args);
+  createDiagnostic(state, context, source, code, kind, state.tokenIndex, state.index, ...args);
 }
 
 export function createDiagnostic(
@@ -120,7 +120,7 @@ export function createDiagnostic(
   const length = end - start;
 
   if ((context & Context.ErrorRecovery) === 0) {
-    throw new SyntaxError(`line:${state.line}, column:${state.positionBeforeToken - state.columnOffset} - ${message}`);
+    throw new SyntaxError(`line:${state.line}, column:${state.tokenIndex - state.columnOffset} - ${message}`);
   }
 
   if (!lastError || start !== lastError.start) {

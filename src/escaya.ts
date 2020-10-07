@@ -3,10 +3,11 @@ import { Script } from './ast/script-node';
 import { Module } from './ast/module-node';
 import { TextChangeRange } from './types';
 import { parseInNormalMode, parseInCustomMode, parseInRecoveryMode, parseInIncrementalMode, Options } from './core';
+import { extractComments } from './lexer/whitespace';
 import { Dictionary } from './dictionary/dictionary-map';
 export { DictionaryMap } from './dictionary/dictionary-map';
-import { collectComments } from './lexer/comments';
 import { Comments } from './ast/comments';
+import { ScannerState } from './lexer/common';
 
 /**
  * Parse a script, optionally with various options.
@@ -54,14 +55,14 @@ export function update(text: string, fileName: string, root: RootNode, textChang
  * Extract trailing and leading comments from given position in sloppy module
  */
 export function extractCommentsScript(source: string, start: number, trailing: boolean): Comments[] {
-  return collectComments(source, start, /*isModule */ false, trailing);
+  return extractComments(source, start, /*isModule */ false, trailing ? ScannerState.Trailing : ScannerState.None);
 }
 
 /**
  * Extract trailing and leading comments from given position with module goal
  */
 export function extractCommentsModule(source: string, start: number, trailing: boolean): Comments[] {
-  return collectComments(source, start, /*isModule */ true, trailing);
+  return extractComments(source, start, /*isModule */ true, trailing ? ScannerState.Trailing : ScannerState.None);
 }
 
-export const version = '0.61';
+export const version = '0.60';

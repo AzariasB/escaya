@@ -1,11 +1,12 @@
 import * as t from 'assert';
-import { collectComments } from '../../src/lexer/comments';
+import { extractComments } from '../../src/lexer/whitespace';
+import { ScannerState } from '../../src/lexer/common';
 
 describe('Scanner - Comments', () => {
   it('MultieLine - trailing', () => {
-    t.deepStrictEqual(collectComments('/* MultieLine */ bar /* trailing */', 20, false, true), [
+    t.deepStrictEqual(extractComments('/* MultieLine */ bar /* trailing */', 20, false, ScannerState.Trailing), [
       {
-        comment: ' trailing ',
+        //   comment: ' trailing ',
         end: 35,
         newLine: false,
         start: 21,
@@ -15,9 +16,9 @@ describe('Scanner - Comments', () => {
   });
 
   it('MultieLine', () => {
-    t.deepStrictEqual(collectComments('/* MultieLine */', 0, false, false), [
+    t.deepStrictEqual(extractComments('/* MultieLine */', 0, false, ScannerState.None), [
       {
-        comment: ' MultieLine ',
+        //    comment: ' MultieLine ',
         end: 16,
         newLine: false,
         start: 0,
@@ -27,9 +28,9 @@ describe('Scanner - Comments', () => {
   });
 
   it('SingleLine with line break', () => {
-    t.deepStrictEqual(collectComments('// SingleLine line break \n\t ', 0, false, false), [
+    t.deepStrictEqual(extractComments('// SingleLine line break \n\t ', 0, false, ScannerState.None), [
       {
-        comment: ' SingleLine line break ',
+        //   comment: ' SingleLine line break ',
         end: 25,
         newLine: true,
         start: 0,
@@ -40,31 +41,36 @@ describe('Scanner - Comments', () => {
 
   it('MultieLine', () => {
     t.deepStrictEqual(
-      collectComments('/* MultieLine */ /* MultieLine */ /* MultieLine */ /* MultieLine */', 0, false, false),
+      extractComments(
+        '/* MultieLine */ /* MultieLine */ /* MultieLine */ /* MultieLine */',
+        0,
+        false,
+        ScannerState.None
+      ),
       [
         {
-          comment: ' MultieLine ',
+          //    comment: ' MultieLine ',
           end: 16,
           newLine: false,
           start: 0,
           type: 'MultiLine'
         },
         {
-          comment: ' MultieLine ',
+          //    comment: ' MultieLine ',
           end: 33,
           newLine: false,
           start: 17,
           type: 'MultiLine'
         },
         {
-          comment: ' MultieLine ',
+          //  comment: ' MultieLine ',
           end: 50,
           newLine: false,
           start: 34,
           type: 'MultiLine'
         },
         {
-          comment: ' MultieLine ',
+          //comment: ' MultieLine ',
           end: 67,
           newLine: false,
           start: 51,
@@ -75,16 +81,16 @@ describe('Scanner - Comments', () => {
   });
 
   it('MultieLine and HTML open', () => {
-    t.deepStrictEqual(collectComments('/* MultieLine */ <!-- HTML open', 0, false, false), [
+    t.deepStrictEqual(extractComments('/* MultieLine */ <!-- HTML open', 0, false, ScannerState.None), [
       {
-        comment: ' MultieLine ',
+        //  comment: ' MultieLine ',
         end: 16,
         newLine: false,
         start: 0,
         type: 'MultiLine'
       },
       {
-        comment: ' HTML open',
+        //    comment: ' HTML open',
         end: 31,
         newLine: false,
         start: 17,
@@ -94,9 +100,9 @@ describe('Scanner - Comments', () => {
   });
 
   it('HTMLClose', () => {
-    t.deepStrictEqual(collectComments('--> HTMLClose', 0, false, false), [
+    t.deepStrictEqual(extractComments('--> HTMLClose', 0, false, ScannerState.None), [
       {
-        comment: ' HTMLClose',
+        //   comment: ' HTMLClose',
         end: 13,
         newLine: false,
         start: 0,
@@ -105,9 +111,9 @@ describe('Scanner - Comments', () => {
     ]);
   });
   it('SingleLine', () => {
-    t.deepStrictEqual(collectComments('// SingleLine', 0, false, false), [
+    t.deepStrictEqual(extractComments('// SingleLine', 0, false, ScannerState.None), [
       {
-        comment: ' SingleLine',
+        //    comment: ' SingleLine',
         end: 13,
         newLine: false,
         start: 0,
@@ -117,9 +123,9 @@ describe('Scanner - Comments', () => {
   });
 
   it('HTMLOpen', () => {
-    t.deepStrictEqual(collectComments('<!-- HTML open', 0, false, false), [
+    t.deepStrictEqual(extractComments('<!-- HTML open', 0, false, ScannerState.None), [
       {
-        comment: ' HTML open',
+        //  comment: ' HTML open',
         end: 14,
         newLine: false,
         start: 0,

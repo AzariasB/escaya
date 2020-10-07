@@ -164,8 +164,8 @@ describe('Recovery - Const', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 19,
-          length: 1
+          start: 18,
+          length: 2
         }
       ],
       detached: false,

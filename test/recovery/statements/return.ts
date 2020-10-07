@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Return', () => {
   it('! return (', () => {
-    t.deepEqual(recovery('! return (', 'recovery.js'), {
+    t.deepStrictEqual(recovery('! return (', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -87,7 +87,7 @@ describe('Recovery - Return', () => {
   });
 
   it('return (', () => {
-    t.deepEqual(recovery('return (', 'recovery.js'), {
+    t.deepStrictEqual(recovery('return (', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -148,7 +148,7 @@ describe('Recovery - Return', () => {
   });
 
   it('with incomplete unary', () => {
-    t.deepEqual(recovery('return !!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('return !!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

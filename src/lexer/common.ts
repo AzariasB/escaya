@@ -1,13 +1,22 @@
 import { AsciiCharTypes, AsciiCharFlags } from './asciiChar';
 import { Char } from './char';
 import { unicodeLookup } from './unicode';
+import { ParserState } from '../common';
 
 export const enum ScannerState {
   None = 0,
   NewLine = 1 << 0,
   SameLine = 1 << 1,
   LastIsCR = 1 << 2,
-  Collecting = 1 << 3
+  LineStart = 1 << 3,
+  Collecting = 1 << 4,
+  Trailing = 1 << 4
+}
+
+export function consumeOpt(parser: ParserState, code: number) {
+  if (parser.source.charCodeAt(parser.index) !== code) return false;
+  parser.index++;
+  return true;
 }
 
 export function isIdentifierPart(cp: number): any {

@@ -2014,8 +2014,8 @@ describe('Recovery - Block', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 2,
-          length: 8
+          start: 1,
+          length: 9
         }
       ],
       detached: false,

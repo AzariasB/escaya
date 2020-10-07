@@ -1,4 +1,3 @@
-import { CallChain } from './call-chain';
 import { IdentifierName } from './identifiername';
 import { Expression } from './';
 import { Node } from '../node';

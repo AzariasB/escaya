@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - Switch', () => {
   it('switch (true) { case true: function g() {} }', () => {
-    t.deepEqual(recovery('switch (true) { case true: function g() {} }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch (true) { case true: function g() {} }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -84,7 +84,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch (x) { default: function *f(){} function *f(){} }', () => {
-    t.deepEqual(recovery('switch (x) { default: function *f(){} function *f(){} }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch (x) { default: function *f(){} function *f(){} }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -179,204 +179,207 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch (0) { case 1: var f = 0; x; default: var {f} = x; } var {f} = f', () => {
-    t.deepEqual(recovery('switch (0) { case 1: var f = 0; x; default: var {f} = x; } var {f} = f', 'recovery.js'), {
-      type: 'RootNode',
-      webCompat: true,
-      directives: [],
-      leafs: [
-        {
-          type: 'SwitchStatement',
-          expression: {
-            type: 'NumericLiteral',
+    t.deepStrictEqual(
+      recovery('switch (0) { case 1: var f = 0; x; default: var {f} = x; } var {f} = f', 'recovery.js'),
+      {
+        type: 'RootNode',
+        webCompat: true,
+        directives: [],
+        leafs: [
+          {
+            type: 'SwitchStatement',
+            expression: {
+              type: 'NumericLiteral',
 
-            value: 0,
-            start: 8,
-            end: 9,
-
-            flags: 0
-          },
-          clauses: [
-            {
-              type: 'CaseClause',
-              expression: {
-                type: 'NumericLiteral',
-
-                value: 1,
-                start: 17,
-                end: 19,
-
-                flags: 0
-              },
-              leafs: [
-                {
-                  type: 'VariableStatement',
-                  declarations: [
-                    {
-                      type: 'VariableDeclaration',
-                      binding: {
-                        type: 'BindingIdentifier',
-                        name: 'f',
-                        start: 24,
-                        end: 26,
-
-                        flags: 0
-                      },
-                      initializer: {
-                        type: 'NumericLiteral',
-
-                        value: 0,
-                        start: 28,
-                        end: 30,
-
-                        flags: 0
-                      },
-                      start: 24,
-                      end: 30,
-
-                      flags: 0
-                    }
-                  ],
-                  start: 20,
-                  end: 31,
-
-                  flags: 0
-                },
-                {
-                  type: 'ExpressionStatement',
-                  expression: {
-                    type: 'IdentifierReference',
-                    name: 'x',
-                    start: 31,
-                    end: 33,
-
-                    flags: 0
-                  },
-                  start: 31,
-                  end: 34,
-
-                  flags: 0
-                }
-              ],
-              start: 12,
-              end: 34,
+              value: 0,
+              start: 8,
+              end: 9,
 
               flags: 0
             },
-            {
-              type: 'DefaultClause',
-              leafs: [
-                {
-                  type: 'VariableStatement',
-                  declarations: [
-                    {
-                      type: 'VariableDeclaration',
-                      binding: {
-                        type: 'ObjectBindingPattern',
-                        properties: [
-                          {
-                            type: 'BindingIdentifier',
-                            name: 'f',
-                            start: 49,
-                            end: 50,
+            clauses: [
+              {
+                type: 'CaseClause',
+                expression: {
+                  type: 'NumericLiteral',
 
-                            flags: 0
-                          }
-                        ],
-                        start: 47,
-                        end: 51,
-
-                        flags: 0
-                      },
-                      initializer: {
-                        type: 'IdentifierReference',
-                        name: 'x',
-                        start: 53,
-                        end: 55,
-
-                        flags: 0
-                      },
-                      start: 47,
-                      end: 55,
-
-                      flags: 0
-                    }
-                  ],
-                  start: 43,
-                  end: 56,
+                  value: 1,
+                  start: 17,
+                  end: 19,
 
                   flags: 0
-                }
-              ],
-              start: 34,
-              end: 56,
-
-              flags: 0
-            }
-          ],
-          start: 0,
-          end: 58,
-
-          flags: 0
-        },
-        {
-          type: 'VariableStatement',
-          declarations: [
-            {
-              type: 'VariableDeclaration',
-              binding: {
-                type: 'ObjectBindingPattern',
-                properties: [
+                },
+                leafs: [
                   {
-                    type: 'BindingIdentifier',
-                    name: 'f',
-                    start: 64,
-                    end: 65,
+                    type: 'VariableStatement',
+                    declarations: [
+                      {
+                        type: 'VariableDeclaration',
+                        binding: {
+                          type: 'BindingIdentifier',
+                          name: 'f',
+                          start: 24,
+                          end: 26,
+
+                          flags: 0
+                        },
+                        initializer: {
+                          type: 'NumericLiteral',
+
+                          value: 0,
+                          start: 28,
+                          end: 30,
+
+                          flags: 0
+                        },
+                        start: 24,
+                        end: 30,
+
+                        flags: 0
+                      }
+                    ],
+                    start: 20,
+                    end: 31,
+
+                    flags: 0
+                  },
+                  {
+                    type: 'ExpressionStatement',
+                    expression: {
+                      type: 'IdentifierReference',
+                      name: 'x',
+                      start: 31,
+                      end: 33,
+
+                      flags: 0
+                    },
+                    start: 31,
+                    end: 34,
 
                     flags: 0
                   }
                 ],
-                start: 62,
-                end: 66,
+                start: 12,
+                end: 34,
 
                 flags: 0
               },
-              initializer: {
-                type: 'IdentifierReference',
-                name: 'f',
-                start: 68,
+              {
+                type: 'DefaultClause',
+                leafs: [
+                  {
+                    type: 'VariableStatement',
+                    declarations: [
+                      {
+                        type: 'VariableDeclaration',
+                        binding: {
+                          type: 'ObjectBindingPattern',
+                          properties: [
+                            {
+                              type: 'BindingIdentifier',
+                              name: 'f',
+                              start: 49,
+                              end: 50,
+
+                              flags: 0
+                            }
+                          ],
+                          start: 47,
+                          end: 51,
+
+                          flags: 0
+                        },
+                        initializer: {
+                          type: 'IdentifierReference',
+                          name: 'x',
+                          start: 53,
+                          end: 55,
+
+                          flags: 0
+                        },
+                        start: 47,
+                        end: 55,
+
+                        flags: 0
+                      }
+                    ],
+                    start: 43,
+                    end: 56,
+
+                    flags: 0
+                  }
+                ],
+                start: 34,
+                end: 56,
+
+                flags: 0
+              }
+            ],
+            start: 0,
+            end: 58,
+
+            flags: 0
+          },
+          {
+            type: 'VariableStatement',
+            declarations: [
+              {
+                type: 'VariableDeclaration',
+                binding: {
+                  type: 'ObjectBindingPattern',
+                  properties: [
+                    {
+                      type: 'BindingIdentifier',
+                      name: 'f',
+                      start: 64,
+                      end: 65,
+
+                      flags: 0
+                    }
+                  ],
+                  start: 62,
+                  end: 66,
+
+                  flags: 0
+                },
+                initializer: {
+                  type: 'IdentifierReference',
+                  name: 'f',
+                  start: 68,
+                  end: 70,
+
+                  flags: 0
+                },
+                start: 62,
                 end: 70,
 
                 flags: 0
-              },
-              start: 62,
-              end: 70,
+              }
+            ],
+            start: 58,
+            end: 70,
 
-              flags: 0
-            }
-          ],
-          start: 58,
-          end: 70,
-
-          flags: 0
-        }
-      ],
-      text: 'switch (0) { case 1: var f = 0; x; default: var {f} = x; } var {f} = f',
-      fileName: 'recovery.js',
-      context: 0,
-      mutualFlags: 0,
-      diagnostics: [],
-      detached: false,
-      incremental: false,
-      parent: null,
-      children: [],
-      start: 0,
-      length: 70,
-      end: 70
-    });
+            flags: 0
+          }
+        ],
+        text: 'switch (0) { case 1: var f = 0; x; default: var {f} = x; } var {f} = f',
+        fileName: 'recovery.js',
+        context: 0,
+        mutualFlags: 0,
+        diagnostics: [],
+        detached: false,
+        incremental: false,
+        parent: null,
+        children: [],
+        start: 0,
+        length: 70,
+        end: 70
+      }
+    );
   });
 
   it('switch case !', () => {
-    t.deepEqual(recovery('switch case !', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch case !', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -456,7 +459,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch++', () => {
-    t.deepEqual(recovery('switch++', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch++', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -508,7 +511,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch!', () => {
-    t.deepEqual(recovery('switch!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -563,7 +566,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch )', () => {
-    t.deepEqual(recovery('switch )', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch )', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -610,7 +613,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch foo+bar / for as keyword', () => {
-    t.deepEqual(recovery('switch foo+bar / for as keyword', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch foo+bar / for as keyword', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -759,7 +762,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('as keyword', () => {
-    t.deepEqual(recovery('switch', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -806,7 +809,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch{', () => {
-    t.deepEqual(recovery('switch{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -853,7 +856,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('{switch', () => {
-    t.deepEqual(recovery('{switch', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{switch', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -908,7 +911,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch({', () => {
-    t.deepEqual(recovery('switch({', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch({', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -955,7 +958,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch default {', () => {
-    t.deepEqual(recovery('switch default {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch default {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1028,7 +1031,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch { default :! ', () => {
-    t.deepEqual(recovery('switch { default :! ', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch { default :! ', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1100,8 +1103,8 @@ describe('Recovery - Switch', () => {
           source: 2,
           message: 'Expression expected',
           code: 7,
-          start: 19,
-          length: 1
+          start: 18,
+          length: 2
         }
       ],
       detached: false,
@@ -1115,7 +1118,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch { case default case case ', () => {
-    t.deepEqual(recovery('switch { case default case case', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch { case default case case', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1235,7 +1238,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch(x switch', () => {
-    t.deepEqual(recovery('switch(x switch', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch(x switch', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1298,7 +1301,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch ! switch { default switch ', () => {
-    t.deepEqual(recovery('switch ! switch { default switch', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch ! switch { default switch', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1426,7 +1429,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('I switch to try this ! in a { but in a while loop with in a switch { default clause', () => {
-    t.deepEqual(
+    t.deepStrictEqual(
       recovery('I switch to try this ! in a { but in a while loop with in a switch { default clause', 'recovery.js'),
       {
         type: 'RootNode',
@@ -1784,7 +1787,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('case {', () => {
-    t.deepEqual(recovery('case {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('case {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1831,7 +1834,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch switch default', () => {
-    t.deepEqual(recovery('switch switch default', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch switch default', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1911,7 +1914,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('default{switch', () => {
-    t.deepEqual(recovery('default{switch', 'recovery.js'), {
+    t.deepStrictEqual(recovery('default{switch', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1975,7 +1978,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('case{switch default', () => {
-    t.deepEqual(recovery('case{switch default', 'recovery.js'), {
+    t.deepStrictEqual(recovery('case{switch default', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2048,7 +2051,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch( x ,, a! switch ! { default : yep ++', () => {
-    t.deepEqual(recovery('switch( x ,, a! switch ! { default : yep ++', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch( x ,, a! switch ! { default : yep ++', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2231,7 +2234,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('{ switch', () => {
-    t.deepEqual(recovery('{ switch', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ switch', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2287,7 +2290,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch !', () => {
-    t.deepEqual(recovery('switch !', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch !', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2342,7 +2345,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch x { case y:', () => {
-    t.deepEqual(recovery('switch x { case y:', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch x { case y:', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2422,7 +2425,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch (x) { case: default !!', () => {
-    t.deepEqual(recovery('switch (x) { case: default !!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch (x) { case: default !!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2542,7 +2545,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch x {  case :::', () => {
-    t.deepEqual(recovery('switch x {  case :::', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch x {  case :::', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2638,7 +2641,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch { case x: { !}', () => {
-    t.deepEqual(recovery('switch { case x: { !}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch { case x: { !}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2764,7 +2767,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch (x) { case x: { !}', () => {
-    t.deepEqual(recovery('switch (x) { case x: { !}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch (x) { case x: { !}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2861,7 +2864,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch { case foo: default: bar }', () => {
-    t.deepEqual(recovery('switch { case foo: default: bar }', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch { case foo: default: bar }', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2987,7 +2990,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch (f(a function(){} c);) { default x: { !}', () => {
-    t.deepEqual(recovery('switch (f(a function(){} c);) { default x: { !}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch (f(a function(){} c);) { default x: { !}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3178,7 +3181,7 @@ describe('Recovery - Switch', () => {
   });
 
   it('switch (x) { default x: { !}', () => {
-    t.deepEqual(recovery('switch (x) { default x: { !}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('switch (x) { default x: { !}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

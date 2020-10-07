@@ -3,7 +3,7 @@ import { recovery } from '../../../src/escaya';
 
 describe('Recovery - While', () => {
   it('while walking he ran for his life', () => {
-    t.deepEqual(recovery('while walking he ran for his life', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while walking he ran for his life', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -166,7 +166,7 @@ describe('Recovery - While', () => {
   });
 
   it('while {!for!', () => {
-    t.deepEqual(recovery('while {!for!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while {!for!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -314,7 +314,7 @@ describe('Recovery - While', () => {
   });
 
   it('as keyword', () => {
-    t.deepEqual(recovery('while', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -375,7 +375,7 @@ describe('Recovery - While', () => {
   });
 
   it('while{', () => {
-    t.deepEqual(recovery('while{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -436,7 +436,7 @@ describe('Recovery - While', () => {
   });
 
   it('{while', () => {
-    t.deepEqual(recovery('{while', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{while', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -506,7 +506,7 @@ describe('Recovery - While', () => {
   });
 
   it('while/{', () => {
-    t.deepEqual(recovery('while/{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while/{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -568,7 +568,7 @@ describe('Recovery - While', () => {
   });
 
   it('while while{', () => {
-    t.deepEqual(recovery('while while{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while while{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -652,7 +652,7 @@ describe('Recovery - While', () => {
   });
 
   it('{while while', () => {
-    t.deepEqual(recovery('{while while', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{while while', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -737,7 +737,7 @@ describe('Recovery - While', () => {
   });
 
   it('while (x {', () => {
-    t.deepEqual(recovery('while (x {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while (x {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -791,7 +791,7 @@ describe('Recovery - While', () => {
   });
 
   it('{ while {}', () => {
-    t.deepEqual(recovery('{ while {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{ while {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -869,7 +869,7 @@ describe('Recovery - While', () => {
   });
 
   it('while {}{', () => {
-    t.deepEqual(recovery('while {}{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while {}{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -931,7 +931,7 @@ describe('Recovery - While', () => {
   });
 
   it('while(x/{', () => {
-    t.deepEqual(recovery('while(x/{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while(x/{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1008,7 +1008,7 @@ describe('Recovery - While', () => {
   });
 
   it('while(do) {', () => {
-    t.deepEqual(recovery('while(do) {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while(do) {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1108,7 +1108,7 @@ describe('Recovery - While', () => {
   });
 
   it('while(catch){', () => {
-    t.deepEqual(recovery('while(catch){', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while(catch){', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1210,7 +1210,7 @@ describe('Recovery - While', () => {
   });
 
   it('while label', () => {
-    t.deepEqual(recovery('while label', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while label', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1271,7 +1271,7 @@ describe('Recovery - While', () => {
   });
 
   it('while { break', () => {
-    t.deepEqual(recovery('while { break', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while { break', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1357,7 +1357,7 @@ describe('Recovery - While', () => {
   });
 
   it('while I wait for the train', () => {
-    t.deepEqual(recovery('while I wait for the train', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while I wait for the train', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1497,7 +1497,7 @@ describe('Recovery - While', () => {
   });
 
   it('while wait for the train I take a break and finally try to sleep !!', () => {
-    t.deepEqual(recovery('while wait for the train I take a break and finally try to sleep !!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while wait for the train I take a break and finally try to sleep !!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -1826,7 +1826,7 @@ describe('Recovery - While', () => {
   });
 
   it('I ran into infite loop while try to develop this {', () => {
-    t.deepEqual(recovery('I ran into infite loop while try to develop this {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('I ran into infite loop while try to develop this {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2088,7 +2088,7 @@ describe('Recovery - While', () => {
   });
 
   it('while !', () => {
-    t.deepEqual(recovery('while !', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while !', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2157,7 +2157,7 @@ describe('Recovery - While', () => {
   });
 
   it('while class', () => {
-    t.deepEqual(recovery('while class', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while class', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2220,7 +2220,7 @@ describe('Recovery - While', () => {
   });
 
   it('while!{!', () => {
-    t.deepEqual(recovery('while!{!', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while!{!', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2305,7 +2305,7 @@ describe('Recovery - While', () => {
   });
 
   it('(while(x,,,,,', () => {
-    t.deepEqual(recovery('(while(x,,,,,', 'recovery.js'), {
+    t.deepStrictEqual(recovery('(while(x,,,,,', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2469,7 +2469,7 @@ describe('Recovery - While', () => {
   });
 
   it('while(,,,,,,,,,,', () => {
-    t.deepEqual(recovery('while(,,,,,,,,,,', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while(,,,,,,,,,,', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2691,7 +2691,7 @@ describe('Recovery - While', () => {
   });
 
   it('while(/a/,,,/bb while x() {} while ', () => {
-    t.deepEqual(recovery('while(/a/,,,/bb while x() {} while', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while(/a/,,,/bb while x() {} while', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2803,7 +2803,7 @@ describe('Recovery - While', () => {
   });
 
   it('while ! (x) {}', () => {
-    t.deepEqual(recovery('while ! (x) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while ! (x) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2880,7 +2880,7 @@ describe('Recovery - While', () => {
   });
 
   it('while({} [] ! {', () => {
-    t.deepEqual(recovery('while({} [] ! {', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while({} [] ! {', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -2981,7 +2981,7 @@ describe('Recovery - While', () => {
   });
 
   it('while x break {}', () => {
-    t.deepEqual(recovery('while x break {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while x break {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3059,7 +3059,7 @@ describe('Recovery - While', () => {
   });
 
   it('while(x){', () => {
-    t.deepEqual(recovery('while(x){', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while(x){', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3113,7 +3113,7 @@ describe('Recovery - While', () => {
   });
 
   it('while x do{', () => {
-    t.deepEqual(recovery('while x do{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while x do{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3198,7 +3198,7 @@ describe('Recovery - While', () => {
   });
 
   it('while for{', () => {
-    t.deepEqual(recovery('while for{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while for{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3299,7 +3299,7 @@ describe('Recovery - While', () => {
   });
 
   it('while try{', () => {
-    t.deepEqual(recovery('while try{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while try{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3370,7 +3370,7 @@ describe('Recovery - While', () => {
   });
 
   it('while continue{', () => {
-    t.deepEqual(recovery('while continue{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while continue{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3440,7 +3440,7 @@ describe('Recovery - While', () => {
   });
 
   it('while let{', () => {
-    t.deepEqual(recovery('while let{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while let{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3502,7 +3502,7 @@ describe('Recovery - While', () => {
   });
 
   it('while let.let => {{', () => {
-    t.deepEqual(recovery('while let.let => {{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while let.let => {{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3612,7 +3612,7 @@ describe('Recovery - While', () => {
   });
 
   it('while ;;;;;;;;;;;;;;;;;;;;;;;;;;; ,,, do{', () => {
-    t.deepEqual(recovery('while ;;;;;;;;;;;;;;;;;;;;;;;;;;; ,,, do{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while ;;;;;;;;;;;;;;;;;;;;;;;;;;; ,,, do{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3902,7 +3902,7 @@ describe('Recovery - While', () => {
   });
 
   it('while x) {}', () => {
-    t.deepEqual(recovery('while x) {}', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while x) {}', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -3956,7 +3956,7 @@ describe('Recovery - While', () => {
   });
 
   it('while !do{', () => {
-    t.deepEqual(recovery('while !do{', 'recovery.js'), {
+    t.deepStrictEqual(recovery('while !do{', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4049,7 +4049,7 @@ describe('Recovery - While', () => {
   });
 
   it('{!while!foo!bar;', () => {
-    t.deepEqual(recovery('{!while!foo!bar;', 'recovery.js'), {
+    t.deepStrictEqual(recovery('{!while!foo!bar;', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],
@@ -4182,7 +4182,7 @@ describe('Recovery - While', () => {
   });
 
   it('a(while){', () => {
-    t.deepEqual(recovery('a(while){', 'recovery.js'), {
+    t.deepStrictEqual(recovery('a(while){', 'recovery.js'), {
       type: 'RootNode',
       webCompat: true,
       directives: [],

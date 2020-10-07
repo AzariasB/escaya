@@ -6,7 +6,7 @@ import { DiagnosticCode } from '../diagnostic/diagnostic-code';
 import { Char } from './char';
 import { AsciiCharFlags, AsciiCharTypes } from './asciiChar';
 
-export const leadingZeroChar = [
+export const octHexBinTbl = [
   /*   0 - Null               */ Char.Unknown,
   /*   1 - Start of Heading   */ Char.Unknown,
   /*   2 - Start of Text      */ Char.Unknown,
@@ -156,21 +156,22 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
   let disallowBigInt = false;
   let index = state.index;
   let token = Token.NumericLiteral;
+  let allowSeparator = 1;
+  let source = state.source;
 
   if (cp === Char.Zero) {
     index++; // skips '0'
 
-    cp = state.source.charCodeAt(index);
+    cp = source.charCodeAt(index);
 
     if (AsciiCharTypes[cp] & AsciiCharFlags.OctHexBin) {
       // This is structured as an optimized finite state machine
       // and does a quick scan for a hexadecimal, binary and octals
 
       let digits = 0;
-      let allowSeparator: 0 | 1 = 1;
 
       do {
-        switch (leadingZeroChar[cp]) {
+        switch (octHexBinTbl[cp]) {
           // `x`, `X`
           case Char.LowerX:
           case Char.UpperX:
@@ -264,7 +265,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
               // numeric literal - '1' - and '2'.
               // '0b' and '__' are seen as invalid characters and should
               // only be consumed.
-              if (state.source.charCodeAt(index + 1) === Char.Underscore) {
+              if (source.charCodeAt(index + 1) === Char.Underscore) {
                 addLexerDiagnostic(state, context, index, index + 1, DiagnosticCode.ContinuousNumericSeparator);
                 state.index += 5;
                 state.tokenValue = value;
@@ -284,7 +285,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
 
         digits++;
         index++;
-        cp = state.source.charCodeAt(index);
+        cp = source.charCodeAt(index);
       } while (AsciiCharTypes[cp] & (AsciiCharFlags.IsSeparator | AsciiCharFlags.Hex | AsciiCharFlags.OctHexBin));
 
       if (AsciiCharTypes[cp] & 0b000000011) {
@@ -328,6 +329,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
       }
 
       state.flags |= Flags.Octal;
+
       // BigInt suffix is invalid in non-octal decimal integer literal,
       // so we need to set 'disallowBigInt' to 'true' here
       disallowBigInt = true;
@@ -337,7 +339,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
       do {
         value = value * 8 + (cp - Char.Zero);
 
-        cp = state.source.charCodeAt(++index);
+        cp = source.charCodeAt(++index);
 
         if (cp >= Char.Eight) {
           type = NumberKind.DecimalWithLeadingZero;
@@ -365,7 +367,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
 
   while (cp <= Char.Nine && cp >= Char.Zero) {
     value = value * 10 + (cp - Char.Zero);
-    cp = state.source.charCodeAt(++index);
+    cp = source.charCodeAt(++index);
     --digit;
   }
 
@@ -382,23 +384,28 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
     return Token.NumericLiteral;
   }
 
+  state.index = index;
+
+  let ret = scanDecimalDigitsOrSeparator(state, context, start, cp);
+
+  cp = source.charCodeAt(state.index);
+
   if (cp === Char.Period) {
     disallowBigInt = true;
     token = Token.FloatingPointLiteral;
-    cp = state.source.charCodeAt(++index);
-
-    while (cp <= Char.Nine && cp >= Char.Zero) {
-      cp = state.source.charCodeAt(++index);
-    }
+    cp = source.charCodeAt(++state.index);
+    ret += '.' + scanDecimalDigitsOrSeparator(state, context, state.index, cp);
+    cp = source.charCodeAt(state.index);
   }
+  const end = state.index;
 
   if (cp === Char.LowerN) {
     if (disallowBigInt) {
       // It's safe to continue to parse as normal in 'recovery mode'
-      addLexerDiagnostic(state, context, index, index, DiagnosticCode.InvalidBigIntLiteral);
+      addLexerDiagnostic(state, context, state.index, state.index, DiagnosticCode.InvalidBigIntLiteral);
     }
-    state.tokenValue = state.source.slice(start, index);
-    state.index = ++index; // skips: 'n'
+    state.tokenValue = source.slice(start, state.index);
+    ++state.index; // skips: 'n'
     return Token.BigIntLiteral;
   }
 
@@ -407,76 +414,28 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
   // e+<number>   E+<number>
   // e-<number>   E-<number>
   if ((cp | 32) === Char.LowerE) {
-    index++;
-    cp = state.source.charCodeAt(index);
+    state.index++;
+    cp = source.charCodeAt(state.index);
     state.cst |= ConcreteSyntax.Scientific;
     // e+ or E+ or e- or E-
     if (cp === Char.Plus || cp === Char.Hyphen) {
-      index++;
-      cp = state.source.charCodeAt(index);
+      state.index++;
+      cp = source.charCodeAt(state.index);
     }
-    let digits = 0;
 
-    // e+<number> or E+<number> or e-<number> or E-<number>
-    while (cp <= Char.Nine && cp >= Char.Zero) {
-      cp = state.source.charCodeAt(++index);
-      digits++;
-    }
-    if (digits === 0) {
-      addLexerDiagnostic(state, context, index, index, DiagnosticCode.MissingExponent);
-      // For cases like '1e!', '1e€' etc we do a 'index + 1' so we can consume the
+    if ((AsciiCharTypes[cp] & AsciiCharFlags.IsDecimal) === 0) {
+      addLexerDiagnostic(state, context, state.index, state.index, DiagnosticCode.MissingExponent);
+      // For cases like '1e!', '1e€' etc we do a 'state.index + 1' so we can consume the
       // invalid char. If we do it this way, we will avoid parsing out an invalid
       // 'UnaryExpression for cases like '1e!' and for this last case - '1e€', the '€'
       // will be consumed anyway and never seen again.
-      index++;
-    }
-  }
-  // https://tc39.github.io/ecma262/#sec-literals-numeric-literals
-  // The SourceCharacter immediately following a NumericLiteral must not be an IdentifierStart or DecimalDigit.
-  // For example : 3in is an error and not the two input elements 3 and in
-  if ((AsciiCharTypes[cp] & 0b00000000000000000000000000000011) > 0) {
-    addLexerDiagnostic(state, context, index, index, DiagnosticCode.IdafterNumber);
-  }
-
-  state.index = index;
-  state.tokenValue = parseFloat(state.source.slice(start, index));
-  return token;
-}
-
-export function parseFloatingPointLiteral(state: ParserState, context: Context, cp: number): Token {
-  const start = state.index;
-
-  do {
-    cp = state.source.charCodeAt(++state.index);
-  } while (cp <= Char.Nine && cp >= Char.Zero);
-
-  // If we see an 'e' or 'E' we should only consume it if its of the form:
-  // e<number> or E<number>
-  // e+<number>   E+<number>
-  // e-<number>   E-<number>
-  if ((cp | 32) === Char.LowerE) {
-    state.index++;
-    cp = state.source.charCodeAt(state.index);
-    state.cst |= ConcreteSyntax.Scientific;
-    // e+ or E+ or e- or E-
-    if (cp === Char.Plus || cp === Char.Hyphen) {
       state.index++;
-      cp = state.source.charCodeAt(state.index);
     }
-    let digits = 0;
 
     // e+<number> or E+<number> or e-<number> or E-<number>
-    while (cp <= Char.Nine && cp >= Char.Zero) {
-      cp = state.source.charCodeAt(++state.index);
-      digits++;
-    }
-    if (digits === 0) {
-      addLexerDiagnostic(state, context, state.index, state.index, DiagnosticCode.MissingExponent);
-      // For cases like '1e!', '1e€' etc we do a 'state.index + 1' so we can consume the
-      // invalid char instead of for example parsing out an invalid
-      // 'UnaryExpression for cases like '1e!'.
-      state.index++;
-    }
+    ret += source.substring(end, state.index) + scanDecimalDigitsOrSeparator(state, context, state.index, cp);
+
+    cp = source.charCodeAt(state.index);
   }
   // https://tc39.github.io/ecma262/#sec-literals-numeric-literals
   // The SourceCharacter immediately following a NumericLiteral must not be an IdentifierStart or DecimalDigit.
@@ -485,6 +444,79 @@ export function parseFloatingPointLiteral(state: ParserState, context: Context, 
     addLexerDiagnostic(state, context, state.index, state.index, DiagnosticCode.IdafterNumber);
   }
 
-  state.tokenValue = parseFloat(state.source.slice(start, state.index));
+  state.tokenValue = parseFloat(ret);
+  return token;
+}
+
+export function scanDecimalDigitsOrSeparator(parser: ParserState, context: Context, start: number, cp: number): string {
+  let allowSeparator: 0 | 1 = 0;
+  let ret = '';
+  while (AsciiCharTypes[cp] & (AsciiCharFlags.IsDecimal | AsciiCharFlags.IsSeparator)) {
+    if (cp === Char.Underscore) {
+      const { index } = parser;
+      parser.index++;
+      cp = parser.source.charCodeAt(parser.index);
+      if (cp === Char.Underscore) {
+        addLexerDiagnostic(parser, context, index, index, DiagnosticCode.SeparatorsDisallowed);
+      }
+      allowSeparator = 1;
+      ret += parser.source.substring(start, index);
+      start = parser.index;
+      continue;
+    }
+    allowSeparator = 0;
+    parser.index++;
+    cp = parser.source.charCodeAt(parser.index);
+  }
+
+  if (allowSeparator) {
+    addLexerDiagnostic(parser, context, parser.index, parser.index, DiagnosticCode.TrailingNumericSeparator);
+  }
+
+  return ret + parser.source.substring(start, parser.index);
+}
+
+export function parseFloatingPointLiteral(state: ParserState, context: Context, cp: number): Token {
+  const start = state.index;
+  let ret = scanDecimalDigitsOrSeparator(state, context, state.index, cp);
+  let end = state.index;
+  let source = state.source;
+
+  cp = source.charCodeAt(state.index);
+  // If we see an 'e' or 'E' we should only consume it if its of the form:
+  // e<number> or E<number>
+  // e+<number>   E+<number>
+  // e-<number>   E-<number>
+  if ((cp | 32) === Char.LowerE) {
+    state.index++;
+    cp = source.charCodeAt(state.index);
+    state.cst |= ConcreteSyntax.Scientific;
+    // e+ or E+ or e- or E-
+    if (cp === Char.Plus || cp === Char.Hyphen) {
+      state.index++;
+      cp = source.charCodeAt(state.index);
+    }
+    if ((AsciiCharTypes[cp] & AsciiCharFlags.IsDecimal) === 0) {
+      addLexerDiagnostic(state, context, state.index, state.index, DiagnosticCode.MissingExponent);
+      // For cases like '1e!', '1e€' etc we do a 'state.index + 1' so we can consume the
+      // invalid char. If we do it this way, we will avoid parsing out an invalid
+      // 'UnaryExpression for cases like '1e!' and for this last case - '1e€', the '€'
+      // will be consumed anyway and never seen again.
+      state.index++;
+    }
+
+    // e+<number> or E+<number> or e-<number> or E-<number>
+    ret += source.substring(end, state.index) + scanDecimalDigitsOrSeparator(state, context, state.index, cp);
+
+    cp = source.charCodeAt(state.index);
+  }
+  // https://tc39.github.io/ecma262/#sec-literals-numeric-literals
+  // The SourceCharacter immediately following a NumericLiteral must not be an IdentifierStart or DecimalDigit.
+  // For example : 3in is an error and not the two input elements 3 and in
+  if ((AsciiCharTypes[cp] & 0b00000000000000000000000000000011) > 0) {
+    addLexerDiagnostic(state, context, state.index, state.index, DiagnosticCode.IdafterNumber);
+  }
+
+  state.tokenValue = parseFloat(source.slice(start, state.index));
   return Token.FloatingPointLiteral;
 }
