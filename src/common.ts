@@ -38,7 +38,8 @@ export const enum Context {
   NewTarget = 1 << 26,
   ImportMeta = 1 << 27,
   InBlock = 1 << 28,
-  TopLevel = 1 << 29
+  TopLevel = 1 << 29,
+  Directive = 1 << 30
 }
 
 /**

@@ -834,6 +834,7 @@ describe('Declarations - Var', () => {
     'var { __proto__: x, __proto__: y} = {};',
     'var { x : x, y : y = 42, ...z } = {};',
     'var [{x:x = 1, y:y = 2, ...z}, [a = 3, b = 4, c = 5]] = {};',
+    'var fn = (a, b, ...c) => c;',
     'var {x, ...y} = {};',
     'var {[x] : z, ...y} = {};',
     'var { __proto__: x, __proto__: y, ...z} = {};',

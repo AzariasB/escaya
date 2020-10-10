@@ -13,6 +13,7 @@ describe('Expressions - New', () => {
     'new x(await foo);',
     'new await foo;',
     'new await x()'
+    //'new await;',
     //'new ++x',
     // 'new ++x().y',
   ]) {

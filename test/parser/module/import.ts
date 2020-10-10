@@ -253,6 +253,7 @@ describe('Module - Import', () => {
     "import {a,b,} from 'x'",
     'import $ from "foo"',
     'import {} from "foo";',
+    'import * as Scouts from "./export-expname_FIXTURE.js";',
     'import async from "foo";',
     'import defexp, {x,} from "foo";',
     'import { Cocoa as async } from "foo"',

@@ -10,11 +10,17 @@ describe('Declarations - Function', () => {
     'function *g() {   s = {"foo": yield a = x} = x   }',
     'function test({...{}}) {}',
     'function test({...{a}}) {}',
+    'function x,y,z(){}',
+    'function x, y() {}',
+    'function obj.tt() {}',
+    'function obj.tt.ss() {}',
+    'function f({property}) {  "use strict";}',
+    'function f(x = 0, x) {}',
     'function x() { "use strict"; 00; }',
     'function x(y, y) { "use strict"; }',
     '"use strict"; function static() { }',
     'function x() { "use strict";  00; }',
-    // 'function x(yield) { "use strict"; }',
+    'function x(yield) { "use strict"; }',
     'function a(){ "use strict"; function a(a=yield){}}',
     '"use strict"; function a([yield]){}',
     '"use strict"; function a([yield]){}',
@@ -24,6 +30,9 @@ describe('Declarations - Function', () => {
     '"use strict"; function a([yield,...a]){}',
     '"use strict"; function f(a, a){}',
     '"use strict"; function f([a, a]){}',
+    '"use strict"; function *g() { function f(x = yield) { } }',
+    'function _13_1_28_fun(param, param, param) { "use strict"; }',
+    '"use strict"; function _13_1_7_fun(param, param, param) { }',
     'function f(a = super.b){}',
     'function f(a, [a]){}',
     '(function([a, a]){})',
@@ -34,6 +43,7 @@ describe('Declarations - Function', () => {
     '!{ a() { !function(a = super.b()){} } };',
     '!function(a){ super() }',
     'function f(a = super()){}',
+    'function f([...x, y] = [1, 2, 3]) {}',
     'function f(a){ super() }',
     '(function([a, a]){})',
     'function f(a, [a]){}',
@@ -728,10 +738,6 @@ describe('Declarations - Function', () => {
     'function f(){ \n "use strict"\n true\n }',
     'function f(){ "use strict" \n ;; eval = 1; }',
     'function f(){ "use strict" \n /* suffix = */ .foo; eval = 1; }',
-    'function f(){ "use strict" \n ;; eval = 1; }',
-    'function f(){ "use strict" \n ;; eval = 1; }',
-    'function f(){ "use strict" \n ;; eval = 1; }',
-    'function f(){ "use strict" \n ;; eval = 1; }',
     'function f2(m, x = 0 ? 1 : a => {}) { return x; }',
     'function f1(x = 0 ? 1 : a => {}) { return x; }',
     'function x(x, {a: r, b: s, c: t}, y) {}',
@@ -743,8 +749,69 @@ describe('Declarations - Function', () => {
     'function x({x, y = 42}) {}',
     'function x([a, b]) {}',
     'function x([a, b,]) {}',
+    'function empty(...[]) {}',
+    'function emptyWithArray(...[[]]) {}',
+    'function emptyWithObject(...[{}]) {}',
+    'function emptyWithRest(...[...[]]) {}',
+    'function emptyWithLeading(x, ...[]) {}',
+    'function singleElement(...[a]) {}',
+    'function singleElementWithInitializer(...[a = 0]) {}',
+    'function singleElementWithArray(...[[a]]) {}',
+    'function singleElementWithObject(...[{p: q}]) {}',
+    'function singleElementWithRest(...[...a]) {}',
+    'function singleElementWithLeading(x, ...[a]) {}',
+    'function multiElement(...[a, b, c]) {}',
+    'function multiElementWithInitializer(...[a = 0, b, c = 1]) {}',
+    'function multiElementWithArray(...[[a], b, [c]]) {}',
+    'function multiElementWithObject(...[{p: q}, {r}, {s = 0}]) {}',
+    'function multiElementWithRest(...[a, b, ...c]) {}',
+    'function multiElementWithLeading(x, y, ...[a, b, c]) {}',
+    'function empty(...{}) {}',
+    'function emptyWithArray(...{p: []}) {}',
+    'function emptyWithObject(...{p: {}}) {}',
+    'function emptyWithLeading(x, ...{}) {}',
+    'function singleElement(...{a: b}) {}',
+    'function singleElementWithInitializer(...{a: b = 0}) {}',
+    'function singleElementWithArray(...{p: [a]}) {}',
+    'function singleElementWithObject(...{p: {a: b}}) {}',
+    'function singleElementWithLeading(x, ...{a: b}) {}',
+    'function multiElement(...{a: r, b: s, c: t}) {}',
+    'function multiElementWithInitializer(...{a: r = 0, b: s, c: t = 1}) {}',
+    'function multiElementWithArray(...{p: [a], b, q: [c]}) {}',
+    'function multiElementWithObject(...{a: {p: q}, b: {r}, c: {s = 0}}) {}',
+    'function multiElementWithLeading(x, y, ...{a: r, b: s, c: t}) {}',
     'function x([a,, b,]) {}',
+    'function af(...a) { return a.length; }',
     'function f([a = await]) {}',
+    `function
+    x
+    (
+    )
+    {
+    }
+    ;
+
+    x();
+
+    function                                                    y                                   (                                          )                                              {};
+
+    y();
+
+    function
+
+    z
+
+    (
+
+    )
+
+    {
+
+    }
+
+    ;
+
+    z();`,
     'function f(){ "use strict" \n .foo; eval = 1;\n }',
     'function f(){ "use strict" \n /* suffix = */ .foo; eval = 1;\n }',
     'function f(){ "use strict" \n /* suffix = */ (); eval = 1;\n }',
@@ -862,6 +929,7 @@ describe('Declarations - Function', () => {
     `function f( [a=[...b], ...c] = obj){}`,
     `function *f(){ return { ...(yield) } }`,
     `function foo(package) {}`,
+    'function *g() { function f(x = yield) { } f(); }',
     'function f({ w: { x, y, z } = { x: 4, y: 5, z: 6 } }) {}',
     `function
     x
@@ -1047,6 +1115,7 @@ describe('Declarations - Function', () => {
     'function f(x) { { let x } }',
     'function f(x) { { var x } }',
     'function f(x) { var x }',
+    'function arguments (){}',
     'function f(){ function x(){} var x = y; }',
     'function f(){ var x = y; function x(){} }',
     'function f(a, ...b) {}',
@@ -1130,6 +1199,41 @@ describe('Declarations - Function', () => {
     'function f([...x]) {}',
     'function g(){ var f = 1; function f() {} }',
     `function f(async = await){}`,
+    'function f([[x]] = [null]) {}',
+    'function f([arrow = () => {}] = []) {}',
+
+    'function f([cls = class {}, xCls = class X {}, xCls2 = class { static name() {} }] = []) {}',
+    'function f([x = 23] = [,]) {}',
+    'function f([{ x, y, z } = { x: 44, y: 55, z: 66 }] = [{ x: 11, y: 22, z: 33 }]) {}',
+    'function f([{ u: v, w: x, y: z } = { u: 444, w: 555, y: 666 }] = []) {}',
+    'function f([...[...x]] = [1, 2, 3]) {}',
+    'function f([ , , ...x] = [1, 2, 3, 4, 5]) {}',
+    'function f({} = null) {}',
+    'function f({ arrow = () => {} } = {}) {}',
+    'function f({ w: [x, y, z] = [4, 5, 6] } = { w: [7, undefined, ] }) {}',
+    'function f({ x: y = 33 } = { }) {}',
+    'function f({ x: y }) {}',
+    'function f({...x}) {}',
+    'function f({a, b, ...rest}) {}',
+    'function f(x = x) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+    'function f([arrow = () => {}] = []) {}',
+
     `function f([async = await]){}`,
     'function f(one) { class x { } { class x { } function g() { one; x; } g() } } f()',
     'function g() { var x = 1; { let x = 2; function g() { x; } g(); } }',

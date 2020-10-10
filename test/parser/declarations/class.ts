@@ -208,6 +208,7 @@ describe('Declarations - Class', () => {
     'class x {;;;;;;;;;;;;;;;;;;;}',
     'class x {;;;; a() {}}',
     'class x {;;;;  a() {} ;;;; b() {};;;  static a() {};;;}',
+    'class await {}',
     'class x {static *bar() { }}',
     'class x {static async method(a, b,) {}}',
     'class x {async method(x, y = x, z = y) {}}',

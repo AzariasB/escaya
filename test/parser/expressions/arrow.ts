@@ -985,6 +985,7 @@ describe('Expressions - Arrow', () => {
     '([a]) => 0',
     'eval => {}',
     'arguments => {}',
+    '(...args) => args',
     'yield => {}',
     'foo(([a,b]) => 42)',
     '(...a) => 42',

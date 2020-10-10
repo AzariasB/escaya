@@ -226,7 +226,7 @@ describe('Declarations - Class', () => {
     '(class A {set [foo](x){}})',
     '(class X {})',
     '(class x{}())',
-
+    'var C = class { static async method() {}}',
     '(class {42() {}});',
     '(class { get 4256n() {}});',
     '(class { set 4256n(v) {}});',

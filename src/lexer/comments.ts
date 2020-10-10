@@ -32,6 +32,7 @@ export function skipBlockComment(
 ): ScannerState {
   while (parser.index < parser.length) {
     let cp = source.charCodeAt(parser.index);
+
     if (cp === Char.Asterisk) {
       while (cp === Char.Asterisk) {
         cp = source.charCodeAt(++parser.index);
@@ -44,16 +45,17 @@ export function skipBlockComment(
 
     parser.index++;
 
-    if (cp === Char.CarriageReturn) {
-      state |= ScannerState.NewLine | ScannerState.LastIsCR;
-      parser.columnOffset = parser.index;
-      parser.line++;
-    } else if (cp === Char.LineFeed || (cp & ~1) === Char.LineSeparator) {
-      if ((state & ScannerState.LastIsCR) === 0) parser.line++;
-      parser.columnOffset = parser.index;
-      state = (state | 0b00000000000000000000000000001101) ^ 0b00000000000000000000000000001100;
-    } else {
-      state = (state | ScannerState.LastIsCR) ^ ScannerState.LastIsCR;
+    if ((unicodeLookup[(cp >>> 5) + 174080] >>> cp) & 31 & 1) {
+      if (cp === Char.CarriageReturn) {
+        state |= ScannerState.NewLine | ScannerState.LastIsCR;
+        parser.columnOffset = parser.index;
+        parser.line++;
+      }
+      if (cp === Char.LineFeed || (cp & ~1) === Char.LineSeparator) {
+        if ((state & ScannerState.LastIsCR) === 0) parser.line++;
+        parser.columnOffset = parser.index;
+        state = (state | 0b00000000000000000000000000001101) ^ 0b00000000000000000000000000001100;
+      }
     }
   }
   addDiagnostic(parser, context, DiagnosticSource.Lexer, DiagnosticCode.UnclosedComment, DiagnosticKind.Error);

@@ -9,7 +9,7 @@ import { scanRegExp } from './regexp';
 import { Char } from './char';
 import {
   scanIdentifier,
-  scanKeywordOrIdentifier,
+  scanIdentifierOrKeyword,
   scanIdentifierEscapeIdStart,
   scanMaybeIdentifier
 } from './identifiers';
@@ -170,11 +170,11 @@ export function scanSingleToken(state: ParserState, context: Context): Token {
 
     // `a`...`z`,
     case Token.IdentifierOrKeyword:
-      return scanKeywordOrIdentifier(state, context);
+      return scanIdentifierOrKeyword(state, context, cp);
 
     //  `A`...`Z`, `_var`, `$var`
     case Token.Identifier:
-      return scanIdentifier(state, context);
+      return scanIdentifier(state, context, cp);
 
     // `0`...`9`
     case Token.NumericLiteral:

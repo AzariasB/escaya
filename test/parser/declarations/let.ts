@@ -485,6 +485,16 @@ describe('Declarations - Let', () => {
     'let { w = a(), x = b(), y = c(), z = d() } = { w: null, x: 0, y: false, z: "" };',
     'let { fn = function () {}, xFn = function x() {} } = {};',
     'switch (true) { case true: let x = 1; }',
+    `class C {
+      async method(/*{ params }*/) {
+        /*{ body }*/
+      }
+    }`,
+    `class C {
+      static async method(/*{ params }*/) {
+        /*{ body }*/
+      }
+    }`,
     `let a = [];
  for (let i = 0; i < 5; a.push(function () { return i; }), ++i) { }
  for (let k = 0; k < 5; ++k) {

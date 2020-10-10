@@ -8,6 +8,7 @@ describe('Statements - Do', () => {
     'do async \n f(){}; while (y)',
     'do async \n () => x; while(y)',
     'do let x = 1; while (false)',
+    'do{};while()',
     'do/("while',
     'do let {} = y',
     'do debugger while(x) x',

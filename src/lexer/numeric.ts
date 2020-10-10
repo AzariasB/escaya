@@ -155,7 +155,7 @@ export function scanNumber(state: ParserState, context: Context, cp: number): To
   let index = state.index;
   let token = Token.NumericLiteral;
   let allowSeparator = 1;
-  let source = state.source;
+  const source = state.source;
   const start = state.index;
 
   if (cp === Char.Zero) {
@@ -476,8 +476,8 @@ export function scanDecimalDigitsOrSeparator(parser: ParserState, context: Conte
 export function parseFloatingPointLiteral(state: ParserState, context: Context, cp: number): Token {
   const start = state.index;
   let ret = scanDecimalDigitsOrSeparator(state, context, state.index, cp);
-  let end = state.index;
-  let source = state.source;
+  const end = state.index;
+  const source = state.source;
 
   cp = source.charCodeAt(state.index);
   // If we see an 'e' or 'E' we should only consume it if its of the form:

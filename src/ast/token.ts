@@ -347,3 +347,164 @@ export function createToken<T extends Token>(source: string, tokenKind: T): any 
     end: source.length
   } as any;
 }
+
+export const keywordLookup = hash();
+keywordLookup.insert('this', Token.ThisKeyword);
+keywordLookup.insert('function', Token.FunctionKeyword);
+keywordLookup.insert('if', Token.IfKeyword);
+keywordLookup.insert('return', Token.ReturnKeyword);
+keywordLookup.insert('var', Token.VarKeyword);
+keywordLookup.insert('else', Token.ElseKeyword);
+keywordLookup.insert('for', Token.ForKeyword);
+keywordLookup.insert('new', Token.NewKeyword);
+keywordLookup.insert('in', Token.InKeyword);
+keywordLookup.insert('typeof', Token.TypeofKeyword);
+keywordLookup.insert('while', Token.WhileKeyword);
+keywordLookup.insert('case', Token.CaseKeyword);
+keywordLookup.insert('break', Token.BreakKeyword);
+keywordLookup.insert('try', Token.TryKeyword);
+keywordLookup.insert('catch', Token.CatchKeyword);
+keywordLookup.insert('delete', Token.DeleteKeyword);
+keywordLookup.insert('throw', Token.ThrowKeyword);
+keywordLookup.insert('switch', Token.SwitchKeyword);
+keywordLookup.insert('continue', Token.ContinueKeyword);
+keywordLookup.insert('default', Token.DefaultKeyword);
+keywordLookup.insert('instanceof', Token.InstanceofKeyword);
+keywordLookup.insert('do', Token.DoKeyword);
+keywordLookup.insert('void', Token.VoidKeyword);
+keywordLookup.insert('finally', Token.FinallyKeyword);
+keywordLookup.insert('async', Token.AsyncKeyword);
+keywordLookup.insert('await', Token.AwaitKeyword);
+keywordLookup.insert('class', Token.ClassKeyword);
+keywordLookup.insert('const', Token.ConstKeyword);
+keywordLookup.insert('constructor', Token.ConstructorKeyword);
+keywordLookup.insert('debugger', Token.DebuggerKeyword);
+keywordLookup.insert('export', Token.ExportKeyword);
+keywordLookup.insert('extends', Token.ExtendsKeyword);
+keywordLookup.insert('false', Token.FalseKeyword);
+keywordLookup.insert('from', Token.FromKeyword);
+keywordLookup.insert('get', Token.GetKeyword);
+keywordLookup.insert('implements', Token.ImplementsKeyword);
+keywordLookup.insert('import', Token.ImportKeyword);
+keywordLookup.insert('interface', Token.InterfaceKeyword);
+keywordLookup.insert('let', Token.LetKeyword);
+keywordLookup.insert('null', Token.NullKeyword);
+keywordLookup.insert('of', Token.OfKeyword);
+keywordLookup.insert('package', Token.PackageKeyword);
+keywordLookup.insert('private', Token.PrivateKeyword);
+keywordLookup.insert('protected', Token.ProtectedKeyword);
+keywordLookup.insert('public', Token.PublicKeyword);
+keywordLookup.insert('set', Token.SetKeyword);
+keywordLookup.insert('static', Token.StaticKeyword);
+keywordLookup.insert('super', Token.SuperKeyword);
+keywordLookup.insert('true', Token.TrueKeyword);
+keywordLookup.insert('with', Token.WithKeyword);
+keywordLookup.insert('yield', Token.YieldKeyword);
+keywordLookup.insert('as', Token.AsKeyword);
+keywordLookup.insert('enum', Token.EnumKeyword);
+keywordLookup.insert('target', Token.TargetIdentifier);
+keywordLookup.insert('meta', Token.MetaIdentifier);
+
+export function hash() {
+  let _storage: any = [];
+  let _count = 0;
+  let _limit = 8;
+
+  function insert(key: any, value: any): any {
+    // Create an index for our storage location by passing
+    // it through our hashing function
+    const index = hashFunc(key, _limit);
+
+    // Retrieve the bucket at this particular index in
+    // our storage, if one exists
+    //[[ [k,v], [k,v], [k,v] ] , [ [k,v], [k,v] ]  [ [k,v] ] ]
+    const bucket = _storage[index];
+
+    // Does a bucket exist or do we get undefined
+    // when trying to retrieve said index?
+    if (!bucket) {
+      // Create the bucket
+      const bucket: any = [];
+      // Insert the bucket into our hashTable
+      _storage[index] = bucket;
+    }
+
+    let override = false;
+
+    // Now iterate through our bucket to see if there are any conflicting
+    // key value pairs within our bucket. If there are any, override them.
+    for (let i = 0; i < bucket.length; i++) {
+      const tuple = bucket[i];
+      if (tuple[0] === key) {
+        // Override value stored at this key
+        tuple[1] = value;
+        override = true;
+      }
+    }
+
+    if (!override) {
+      // Create a new tuple in our bucket.
+      // Note that this could either be the new empty bucket we created above
+      // or a bucket with other tupules with keys that are different than
+      // the key of the tuple we are inserting. These tupules are in the same
+      // bucket because their keys all equate to the same numeric index when
+      // passing through our hash function.
+      bucket.push([key, value]);
+      _count++;
+
+      // Now that we've added our new key/val pair to our storage
+      // let's check to see if we need to resize our storage
+      if (_count > _limit * 0.75) {
+        resize(_limit * 2);
+      }
+    }
+  }
+  function resize(newLimit: any) {
+    const oldStorage = _storage;
+
+    _limit = newLimit;
+    _count = 0;
+    _storage = [];
+
+    oldStorage.forEach(function (bucket: any): any {
+      if (!bucket) {
+        return;
+      }
+      for (let i = 0; i < bucket.length; i++) {
+        const tuple = bucket[i];
+        insert(tuple[0], tuple[1]);
+      }
+    });
+  }
+  function get(key: any): any {
+    const index = hashFunc(key, _limit);
+    const bucket = _storage[index];
+
+    if (!bucket) {
+      return null;
+    }
+
+    for (let i = 0; i < bucket.length; i++) {
+      const tuple = bucket[i];
+      if (tuple[0] === key) {
+        return tuple[1];
+      }
+    }
+
+    return null;
+  }
+
+  function hashFunc(str: any, max: any): any {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const letter = str[i];
+      hash = (hash << 5) + letter.charCodeAt(0);
+      hash = (hash & hash) % max;
+    }
+    return hash;
+  }
+  return {
+    get,
+    insert
+  };
+}

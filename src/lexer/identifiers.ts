@@ -1,107 +1,42 @@
 import { Context, ParserState } from '../common';
 import { isIdentifierPart, fromCodePoint, toHex } from './common';
-import { addLexerDiagnostic } from '../diagnostic';
+import { addLexerDiagnostic, addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
 import { DiagnosticCode } from '../diagnostic/diagnostic-code';
-import { addDiagnostic, DiagnosticSource, DiagnosticKind } from '../diagnostic';
+
 import { unicodeLookup } from './unicode';
-import { Token } from './../ast/token';
+import { Token, keywordLookup } from './../ast/token';
 import { AsciiCharTypes, AsciiCharFlags } from './asciiChar';
 import { Char } from './char';
 
-export const descKeywordTable = new Map<string, Token>();
-
-const kwdObj: { [key: string]: Token } = {
-  this: Token.ThisKeyword,
-  function: Token.FunctionKeyword,
-  if: Token.IfKeyword,
-  return: Token.ReturnKeyword,
-  var: Token.VarKeyword,
-  else: Token.ElseKeyword,
-  for: Token.ForKeyword,
-  new: Token.NewKeyword,
-  in: Token.InKeyword,
-  typeof: Token.TypeofKeyword,
-  while: Token.WhileKeyword,
-  case: Token.CaseKeyword,
-  break: Token.BreakKeyword,
-  try: Token.TryKeyword,
-  catch: Token.CatchKeyword,
-  delete: Token.DeleteKeyword,
-  throw: Token.ThrowKeyword,
-  switch: Token.SwitchKeyword,
-  continue: Token.ContinueKeyword,
-  default: Token.DefaultKeyword,
-  instanceof: Token.InstanceofKeyword,
-  do: Token.DoKeyword,
-  void: Token.VoidKeyword,
-  finally: Token.FinallyKeyword,
-  async: Token.AsyncKeyword,
-  await: Token.AwaitKeyword,
-  class: Token.ClassKeyword,
-  const: Token.ConstKeyword,
-  constructor: Token.ConstructorKeyword,
-  debugger: Token.DebuggerKeyword,
-  export: Token.ExportKeyword,
-  extends: Token.ExtendsKeyword,
-  false: Token.FalseKeyword,
-  from: Token.FromKeyword,
-  get: Token.GetKeyword,
-  implements: Token.ImplementsKeyword,
-  import: Token.ImportKeyword,
-  interface: Token.InterfaceKeyword,
-  let: Token.LetKeyword,
-  null: Token.NullKeyword,
-  of: Token.OfKeyword,
-  package: Token.PackageKeyword,
-  private: Token.PrivateKeyword,
-  protected: Token.ProtectedKeyword,
-  public: Token.PublicKeyword,
-  set: Token.SetKeyword,
-  static: Token.StaticKeyword,
-  super: Token.SuperKeyword,
-  true: Token.TrueKeyword,
-  with: Token.WithKeyword,
-  yield: Token.YieldKeyword,
-  as: Token.AsKeyword,
-  enum: Token.EnumKeyword,
-  target: Token.TargetIdentifier,
-  meta: Token.MetaIdentifier
-};
-for (const key in kwdObj) {
-  if (Object.prototype.hasOwnProperty.call(kwdObj, key)) {
-    descKeywordTable.set(key, kwdObj[key]);
-  }
-}
-export function scanIdentifier(state: ParserState, context: Context): Token {
-  const start = state.index;
-  let cp = state.source.charCodeAt(state.index);
-  while (AsciiCharTypes[cp] & AsciiCharFlags.IsIdentifierPart) {
+export function scanIdentifier(state: ParserState, context: Context, cp: number): Token {
+  while (
+    AsciiCharTypes[cp] & AsciiCharFlags.IsIdentifierPart ||
+    // Note: "while (AsciiCharTypes[cp] & AsciiCharFlags.IsIdentifierPart)" would be enough to make this work. This is just a performance
+    // tweak, similar to the one in nextToken()
+    (unicodeLookup[(cp >>> 5) + 0] >>> cp) & 31 & 1
+  ) {
     cp = state.source.charCodeAt(++state.index);
   }
 
-  state.tokenValue = state.source.slice(start, state.index);
+  state.tokenValue = state.source.slice(state.tokenIndex, state.index);
 
   if (cp > Char.UpperZ) return scanIdentifierSlowPath(state, context);
 
   return Token.Identifier;
 }
 
-export function scanKeywordOrIdentifier(state: ParserState, context: Context): Token {
-  const start = state.index;
-  let cp = state.source.charCodeAt(state.index);
+export function scanIdentifierOrKeyword(state: ParserState, context: Context, cp: number): Token {
   while (AsciiCharTypes[cp] & AsciiCharFlags.IsIdentifierPart) {
     cp = state.source.charCodeAt(++state.index);
   }
-
-  state.tokenValue = state.source.slice(start, state.index);
-
+  state.tokenValue = state.source.slice(state.tokenIndex, state.index);
   if (cp > Char.UpperZ) return scanIdentifierSlowPath(state, context);
 
   // Reserved words are between 2 and 11 characters long and start with a lowercase letter
   const len = state.tokenValue.length;
   if (len >= 2 && len <= 11) {
-    const token: Token | undefined = descKeywordTable.get(state.tokenValue);
-    return token === void 0 ? Token.Identifier : token;
+    const token: Token | undefined = keywordLookup.get(state.tokenValue);
+    return token == null ? Token.Identifier : token;
   }
   return Token.Identifier;
 }
@@ -156,12 +91,8 @@ export function scanIdentifierSlowPath(state: ParserState, context: Context): To
 
   // All keywords are of length 2 ≥ length ≥ 10, and in range 0x97 - 0x122 so we optimize for that.
   if (length >= 2 && length <= 11) {
-    const token: Token | undefined = descKeywordTable.get(state.tokenValue);
-
-    if (token !== void 0) {
-      return token;
-      // TODO: Fix escaped keywords
-    }
+    const token: Token | undefined = keywordLookup.get(state.tokenValue);
+    return token == null ? Token.Identifier : token;
   }
 
   return Token.Identifier;
