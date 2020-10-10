@@ -348,7 +348,7 @@ export function createToken<T extends Token>(source: string, tokenKind: T): any 
   } as any;
 }
 
-export const keywordLookup = hash();
+export let keywordLookup = hash();
 keywordLookup.insert('this', Token.ThisKeyword);
 keywordLookup.insert('function', Token.FunctionKeyword);
 keywordLookup.insert('if', Token.IfKeyword);
@@ -411,30 +411,20 @@ export function hash() {
   let _limit = 8;
 
   function insert(key: any, value: any): any {
-    // Create an index for our storage location by passing
-    // it through our hashing function
-    const index = hashFunc(key, _limit);
+    let index = hashFunc(key, _limit);
+    let bucket = _storage[index];
 
-    // Retrieve the bucket at this particular index in
-    // our storage, if one exists
-    //[[ [k,v], [k,v], [k,v] ] , [ [k,v], [k,v] ]  [ [k,v] ] ]
-    const bucket = _storage[index];
-
-    // Does a bucket exist or do we get undefined
-    // when trying to retrieve said index?
     if (!bucket) {
       // Create the bucket
-      const bucket: any = [];
+      bucket = [];
       // Insert the bucket into our hashTable
       _storage[index] = bucket;
     }
 
     let override = false;
 
-    // Now iterate through our bucket to see if there are any conflicting
-    // key value pairs within our bucket. If there are any, override them.
     for (let i = 0; i < bucket.length; i++) {
-      const tuple = bucket[i];
+      let tuple = bucket[i];
       if (tuple[0] === key) {
         // Override value stored at this key
         tuple[1] = value;
@@ -443,24 +433,15 @@ export function hash() {
     }
 
     if (!override) {
-      // Create a new tuple in our bucket.
-      // Note that this could either be the new empty bucket we created above
-      // or a bucket with other tupules with keys that are different than
-      // the key of the tuple we are inserting. These tupules are in the same
-      // bucket because their keys all equate to the same numeric index when
-      // passing through our hash function.
       bucket.push([key, value]);
       _count++;
-
-      // Now that we've added our new key/val pair to our storage
-      // let's check to see if we need to resize our storage
       if (_count > _limit * 0.75) {
         resize(_limit * 2);
       }
     }
   }
   function resize(newLimit: any) {
-    const oldStorage = _storage;
+    let oldStorage = _storage;
 
     _limit = newLimit;
     _count = 0;
@@ -471,21 +452,21 @@ export function hash() {
         return;
       }
       for (let i = 0; i < bucket.length; i++) {
-        const tuple = bucket[i];
+        let tuple = bucket[i];
         insert(tuple[0], tuple[1]);
       }
     });
   }
   function get(key: any): any {
-    const index = hashFunc(key, _limit);
-    const bucket = _storage[index];
+    let index = hashFunc(key, _limit);
+    let bucket = _storage[index];
 
     if (!bucket) {
       return null;
     }
 
     for (let i = 0; i < bucket.length; i++) {
-      const tuple = bucket[i];
+      let tuple = bucket[i];
       if (tuple[0] === key) {
         return tuple[1];
       }
@@ -497,7 +478,7 @@ export function hash() {
   function hashFunc(str: any, max: any): any {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
-      const letter = str[i];
+      let letter = str[i];
       hash = (hash << 5) + letter.charCodeAt(0);
       hash = (hash & hash) % max;
     }
