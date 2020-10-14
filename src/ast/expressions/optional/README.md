@@ -10,7 +10,7 @@ interface Expression <: Node { }
 
 ```js
 interface FormalParameterList <: Expression {
-    type: 'IdentifierName';
+    type: 'FormalParameterList';
     parameters: BindingElement;
 }
 ```
