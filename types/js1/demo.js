@@ -157,7 +157,7 @@
     _parse: function() {
       var result;
       try {
-        result = escaya.parseScript(this.$input.val(), this._options);
+        result = kataw.parseScript(this.$input.val(), this._options);
         result = customStringify(result, null, '    ');
       } catch (e) {
         result = e.message || e;
