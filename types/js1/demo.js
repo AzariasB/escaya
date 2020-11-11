@@ -158,8 +158,8 @@
       var result;
       try {
         result = kataw.parse(this.$input.val(), 'babel :(', this._options);
-        console.log(kataw.toSource(result))
-        result = customStringify(result, null, '    ');
+        result = kataw.toSource(result);
+        //result = customStringify(result, null, '    ');
       } catch (e) {
         result = e.message || e;
       }
