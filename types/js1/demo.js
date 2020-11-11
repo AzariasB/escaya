@@ -158,6 +158,7 @@
       var result;
       try {
         result = kataw.parseScript(this.$input.val(), this._options);
+        console.log(kataw.toSource(result))
         result = customStringify(result, null, '    ');
       } catch (e) {
         result = e.message || e;
