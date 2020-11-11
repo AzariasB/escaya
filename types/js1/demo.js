@@ -157,7 +157,7 @@
     _parse: function() {
       var result;
       try {
-        result = kataw.parseScript(this.$input.val(), this._options);
+        result = kataw.parse(this.$input.val(), 'babel :(', this._options);
         console.log(kataw.toSource(result))
         result = customStringify(result, null, '    ');
       } catch (e) {
