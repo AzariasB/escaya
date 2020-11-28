@@ -57,7 +57,7 @@
       'change #module': 'onModuleChange',
     },
 
-    _options: { },
+    _options: { jsx: true },
     _timerId: null,
     _method: 'parse',
 
