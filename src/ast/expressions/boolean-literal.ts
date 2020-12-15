@@ -3,7 +3,7 @@ import { Node } from '../node';
 /**
  * Boolean literal expression.
  */
-export interface BooleanLiteral extends Node {
+export interface BooleanLiteral extends Node<'BooleanLiteral'> {
   readonly value: boolean;
 }
 

@@ -4,7 +4,7 @@ import { Node } from '../node';
 /**
  * Yield expression.
  */
-export interface YieldExpression extends Node {
+export interface YieldExpression extends Node<'YieldExpression'> {
   readonly delegate: boolean;
   readonly argument: Expression | null;
 }

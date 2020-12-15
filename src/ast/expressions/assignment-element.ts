@@ -5,7 +5,7 @@ import { Node } from '../node';
 /**
  * Assignment element.
  */
-export interface AssignmentElement extends Node {
+export interface AssignmentElement extends Node<'AssignmentElement'> {
   readonly left: AssignmentPattern | IdentifierReference;
   readonly right: Expression;
   /*@internal*/

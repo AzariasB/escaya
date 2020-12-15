@@ -6,7 +6,7 @@ import { Elison } from './elison';
 /**
  * Array literal
  */
-export interface ArrayLiteral extends Node {
+export interface ArrayLiteral extends Node<'ArrayLiteral'> {
   readonly elements: (Elison | SpreadElement | Expression)[];
 }
 

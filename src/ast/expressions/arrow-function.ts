@@ -8,7 +8,7 @@ import { Node } from '../node';
 
 export type ArrowFormals = BindingIdentifier | BindingRestElement | ArrayBindingPattern | ObjectBindingPattern;
 
-export interface ArrowFunction extends Node {
+export interface ArrowFunction extends Node<'ArrowFunction'> {
   readonly params: BindingIdentifier | ArrowFormals[];
   readonly contents: Expression | FunctionBody;
   readonly arrowParameters: boolean;

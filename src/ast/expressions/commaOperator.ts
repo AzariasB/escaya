@@ -4,7 +4,7 @@ import { Expression } from '.';
 /**
  * A list of comma-separated expressions.
  */
-export interface CommaOperator extends Node {
+export interface CommaOperator extends Node<'CommaOperator'> {
   readonly expressions: Expression[];
 }
 

@@ -12,7 +12,7 @@ import { Node } from '../node';
 /**
  * Method definition.
  */
-export interface MethodDefinition extends Node {
+export interface MethodDefinition extends Node<'MethodDefinition'> {
   readonly async: boolean;
   readonly generator: boolean;
   readonly getter: boolean;

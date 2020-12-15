@@ -1,6 +1,6 @@
 import { Node } from '../node';
 
-export interface LabelIdentifier extends Node {
+export interface LabelIdentifier extends Node<'LabelIdentifier'> {
   readonly name: string;
 }
 

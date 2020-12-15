@@ -3,7 +3,7 @@ import { Node } from '../node';
 /**
  * Null literal.
  */
-export interface NullLiteral extends Node {
+export interface NullLiteral extends Node<'NullLiteral'> {
   value: null;
 }
 

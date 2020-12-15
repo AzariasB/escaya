@@ -18,7 +18,7 @@ export type Properties =
   | MethodDefinition
   | SpreadProperty; // [MODIFIED]
 
-export interface ObjectLiteral extends Node {
+export interface ObjectLiteral extends Node<'ObjectLiteral'> {
   readonly properties: Properties[];
 }
 

@@ -8,7 +8,7 @@ import { Node } from '../node';
  * Category: CST
  */
 
-export type Semicolon = Node;
+export type Semicolon = Node<'Semicolon'>;
 
 export function createSemicolon(): Semicolon {
   return { type: 'Semicolon' };

@@ -4,7 +4,7 @@ import { Node } from '../node';
 /**
  * New expression.
  */
-export interface NewExpression extends Node {
+export interface NewExpression extends Node<'NewExpression'> {
   readonly expression: Expression;
   readonly arguments: Expression[];
 }

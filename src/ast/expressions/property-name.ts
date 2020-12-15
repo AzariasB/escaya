@@ -10,7 +10,7 @@ import { IdentifierName } from './identifiername';
 /**
  * Property name
  */
-export interface PropertyName extends Node {
+export interface PropertyName extends Node<'PropertyName'> {
   readonly key: PropertyKey | IdentifierReference | IdentifierName;
   readonly value: AssignmentExpression | BindingElement | AssignmentElement | BindingIdentifier | Expression;
 }

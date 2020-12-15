@@ -10,7 +10,7 @@ import { Node } from '../node';
  * Category: CST
  */
 
-export type Elison = Node;
+export type Elison = Node<'Elison'>;
 
 export function createElison(): Elison {
   return { type: 'Elison' };

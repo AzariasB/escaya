@@ -3,7 +3,7 @@ import { Node } from '../node';
 /**
  * IdentifierName
  */
-export interface IdentifierName extends Node {
+export interface IdentifierName extends Node<'IdentifierName'> {
   readonly name: string;
 }
 

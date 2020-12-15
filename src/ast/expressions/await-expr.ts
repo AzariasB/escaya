@@ -3,7 +3,7 @@ import { Expression } from '.';
 /**
  * An await expression.
  */
-export interface AwaitExpression extends Node {
+export interface AwaitExpression extends Node<'AwaitExpression'> {
   readonly expression: Expression;
 }
 
