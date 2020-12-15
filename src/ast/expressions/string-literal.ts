@@ -3,7 +3,7 @@ import { Node } from '../node';
 /**
  * String literal.
  */
-export interface StringLiteral extends Node {
+export interface StringLiteral extends Node<'StringLiteral'> {
   readonly value: string;
 }
 

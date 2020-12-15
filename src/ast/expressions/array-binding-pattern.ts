@@ -9,7 +9,7 @@ import { Parameter } from '.';
 /**
  * Array binding pattern
  */
-export interface ArrayBindingPattern extends Node {
+export interface ArrayBindingPattern extends Node<'ArrayBindingPattern'> {
   readonly elements: (Elison | BindingRestElement | BindingIdentifier | BindingElement)[];
   /* @internal */
   readonly parent?: VariableDeclaration | BindingRestElement | Parameter | BindingElement;

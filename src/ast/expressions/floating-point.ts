@@ -3,7 +3,7 @@ import { Node } from '../node';
 /**
  * Floating point literal
  */
-export interface FloatingPointLiteral extends Node {
+export interface FloatingPointLiteral extends Node<'FloatingPointLiteral'> {
   readonly value: number;
 }
 

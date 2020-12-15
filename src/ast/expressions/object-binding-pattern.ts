@@ -9,7 +9,7 @@ import { Node } from '../node';
 /**
  * Object binding pattern.
  */
-export interface ObjectBindingPattern extends Node {
+export interface ObjectBindingPattern extends Node<'ObjectBindingPattern'> {
   readonly properties: (PropertyName | BindingRestProperty | BindingIdentifier)[];
   /* @internal */
   readonly parent?: BindingElement | VariableDeclaration | Parameter;

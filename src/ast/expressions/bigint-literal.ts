@@ -3,7 +3,7 @@ import { Node } from '../node';
 /**
  * Bigint literal.
  */
-export interface BigIntLiteral extends Node {
+export interface BigIntLiteral extends Node<'BigIntLiteral'> {
   readonly value: number | null;
 }
 

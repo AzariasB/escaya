@@ -57,5 +57,4 @@ export type Statement
    | LexicalBinding
    | FunctionDeclaration
    | ForBinding
-   | ClassDeclaration
-   ;
+   | ClassDeclaration;

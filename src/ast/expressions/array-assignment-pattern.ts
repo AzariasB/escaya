@@ -7,7 +7,7 @@ import { Elison } from './elison';
 /**
  * Array assignment pattern.
  */
-export interface ArrayAssignmentPattern extends Node {
+export interface ArrayAssignmentPattern extends Node<'ArrayAssignmentPattern'> {
   readonly elements: (Elison | AssignmentRestElement | AssignmentElement | Expression)[];
   /* @internal */
   readonly parent?: AssignmentElement;

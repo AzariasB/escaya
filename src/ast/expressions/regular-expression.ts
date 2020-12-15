@@ -5,7 +5,7 @@ export type RegExpFlags = 'g' | 'i' | 'm' | 'u' | 's' | 'y';
 /**
  * Regular expression literal
  */
-export interface RegularExpressionLiteral extends Node {
+export interface RegularExpressionLiteral extends Node<'RegularExpressionLiteral'> {
   readonly pattern: string;
   readonly flag: string;
 }

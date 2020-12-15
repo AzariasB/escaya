@@ -3,7 +3,7 @@ import { Node } from '../node';
 /**
  * Numeric literal
  */
-export interface NumericLiteral extends Node {
+export interface NumericLiteral extends Node<'NumericLiteral'> {
   readonly value: number;
 }
 

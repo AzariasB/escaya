@@ -7,7 +7,7 @@ import { Node } from '../node';
 /**
  * Object assignment pattern.
  */
-export interface ObjectAssignmentPattern extends Node {
+export interface ObjectAssignmentPattern extends Node<'ObjectAssignmentPattern'> {
   readonly properties: (IdentifierReference | PropertyName | AssignmentRestProperty)[];
   /* @internal */
   readonly parent?: AssignmentElement;
