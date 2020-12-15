@@ -5,7 +5,7 @@ import { IdentifierName } from './identifiername';
 /**
  * CoverInitializedName
  */
-export interface CoverInitializedName extends Node {
+export interface CoverInitializedName extends Node<'CoverInitializedName'> {
   readonly left: Expression | IdentifierName | null;
   readonly right: Expression;
 }

@@ -5,7 +5,7 @@ import { Node } from '../node';
 export type UnaryOperator = '+' | '-' | '!' | '~' | 'delete' | 'void' | 'typeof';
 
 // see: https://tc39.github.io/ecma262/#prod-UnaryExpression
-export interface UnaryExpression extends Node {
+export interface UnaryExpression extends Node<'UnaryExpression'> {
   readonly operator: UnaryOperator;
   readonly operand: Expression;
 }

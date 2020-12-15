@@ -4,7 +4,7 @@ import { UpdateOp } from './prefix-update-expr';
 
 // https://tc39.github.io/ecma262/#prod-UpdateExpression
 
-export interface PostfixUpdateExpression extends Node {
+export interface PostfixUpdateExpression extends Node<'PostfixUpdateExpression'> {
   readonly operator: UpdateOp;
   readonly operand: Expression;
 }

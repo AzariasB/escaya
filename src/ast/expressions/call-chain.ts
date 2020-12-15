@@ -5,7 +5,7 @@ import { Node } from '../node';
 /**
  * Call chain expression.
  */
-export interface CallChain extends Node {
+export interface CallChain extends Node<'CallChain'> {
   readonly chain: MemberChain | CallChain | null;
   readonly arguments: Expression[] | null;
 }

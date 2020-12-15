@@ -4,7 +4,7 @@ import { Expression } from '.';
 /**
  * Import call
  */
-export interface ImportCall extends Node {
+export interface ImportCall extends Node<'ImportCall'> {
   readonly import: Expression;
 }
 

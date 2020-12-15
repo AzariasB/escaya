@@ -6,7 +6,7 @@ import { TemplateLiteral } from './template-literal';
 /**
  * Tagged template
  */
-export interface TaggedTemplate extends Node {
+export interface TaggedTemplate extends Node<'TaggedTemplate'> {
   readonly member: LeftHandSideExpression;
   readonly literal: TemplateLiteral | TemplateExpression;
 }

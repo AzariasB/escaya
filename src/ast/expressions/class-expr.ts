@@ -7,7 +7,7 @@ import { Semicolon } from './semicolon';
 /**
  * Class expression.
  */
-export interface ClassExpression extends Node {
+export interface ClassExpression extends Node<'ClassExpression'> {
   readonly name: BindingIdentifier | null;
   readonly heritage: Expression | null;
   readonly elements: (Semicolon | ClassElement)[];

@@ -6,7 +6,7 @@ import { Node } from '../node';
 /**
  * Member chain expression.
  */
-export interface MemberChain extends Node {
+export interface MemberChain extends Node<'MemberChain'> {
   readonly chain: MemberChain | CallChain | null;
   readonly member: Expression | IdentifierName | null;
   readonly computed: boolean;

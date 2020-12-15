@@ -6,7 +6,7 @@ import { BinaryExpression } from './binary-expr';
 /**
  * Conditional expression.
  */
-export interface ConditionalExpression extends Node {
+export interface ConditionalExpression extends Node<'ConditionalExpression'> {
   // The `ShortCircuitExpression`.
   readonly shortCircuit: Expression;
   // The first `AssignmentExpression`.

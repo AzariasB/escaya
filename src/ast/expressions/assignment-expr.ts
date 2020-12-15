@@ -23,7 +23,7 @@ export type LogicalAssignmentOperator = '||=' | '&&=' | '??=';
 /**
  * Assignment expression.
  */
-export interface AssignmentExpression extends Node {
+export interface AssignmentExpression extends Node<'AssignmentExpression'> {
   readonly left: ObjectAssignmentPattern | ArrayAssignmentPattern | Expression;
   readonly operator: AssignmentOperator | LogicalAssignmentOperator;
   readonly right: Expression;

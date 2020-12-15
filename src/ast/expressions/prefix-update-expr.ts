@@ -5,7 +5,7 @@ import { Node } from '../node';
 
 export type UpdateOp = '++' | '--';
 
-export interface PrefixUpdateExpression extends Node {
+export interface PrefixUpdateExpression extends Node<'PrefixUpdateExpression'> {
   readonly operator: UpdateOp;
   readonly operand: LeftHandSideExpression;
 }

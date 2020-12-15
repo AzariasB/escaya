@@ -5,7 +5,7 @@ import { Node } from '../node';
 /**
  * An super property expression.
  */
-export interface SuperProperty extends Node {
+export interface SuperProperty extends Node<'SuperProperty'> {
   readonly super: Expression | IdentifierName;
   readonly computed: boolean;
 }

@@ -5,7 +5,7 @@ import { BindingPattern } from './';
 /**
  * Binding rest element
  */
-export interface BindingRestElement extends Node {
+export interface BindingRestElement extends Node<'BindingRestElement'> {
   readonly argument: BindingPattern | BindingIdentifier;
 }
 

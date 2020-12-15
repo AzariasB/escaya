@@ -4,7 +4,7 @@ import { TemplateElement } from './template-element';
 /**
  * Template expression.
  */
-export interface TemplateExpression extends Node {
+export interface TemplateExpression extends Node<'TemplateExpression'> {
   readonly elements: TemplateElement[];
 }
 

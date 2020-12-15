@@ -4,7 +4,7 @@ import { Expression } from '.';
 /**
  * An super call expression.
  */
-export interface SuperCall extends Node {
+export interface SuperCall extends Node<'SuperCall'> {
   readonly arguments: Expression[];
 }
 

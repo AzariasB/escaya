@@ -3,7 +3,7 @@ import { Node } from '../node';
 /**
  * Template literal.
  */
-export interface TemplateLiteral extends Node {
+export interface TemplateLiteral extends Node<'TemplateLiteral'> {
   readonly raw: string;
   readonly value: string;
 }

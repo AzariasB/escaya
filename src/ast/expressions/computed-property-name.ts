@@ -1,7 +1,7 @@
 import { Expression } from '.';
 import { Node } from '../node';
 
-export interface ComputedPropertyName extends Node {
+export interface ComputedPropertyName extends Node<'ComputedPropertyName'> {
   readonly expression: Expression;
 }
 

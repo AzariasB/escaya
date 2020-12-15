@@ -6,7 +6,7 @@ import { NewExpression } from './new-expr';
 /**
  * Assignment rest element
  */
-export interface AssignmentRestElement extends Node {
+export interface AssignmentRestElement extends Node<'AssignmentRestElement'> {
   readonly argument: Expression;
   /* @internal */
   readonly parent?: CallExpression | NewExpression;

@@ -10,7 +10,7 @@ import { CommaOperator } from './commaOperator';
  * Category: CST
  */
 
-export interface ParenthesizedExpression extends Node {
+export interface ParenthesizedExpression extends Node<'ParenthesizedExpression'> {
   readonly expression: Expression | CommaOperator;
 }
 

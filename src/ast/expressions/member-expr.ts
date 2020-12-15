@@ -5,7 +5,7 @@ import { OptionalExpression } from './optional-expr';
 /**
  * Member expression.
  */
-export interface MemberExpression extends Node {
+export interface MemberExpression extends Node<'MemberExpression'> {
   // The object whose property is being accessed.
   readonly member: Expression | OptionalExpression;
   // The name of the property to be accessed.

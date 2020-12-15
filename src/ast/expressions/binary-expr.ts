@@ -32,7 +32,7 @@ export type BinaryOperator =
 /**
  * Binary expression.
  */
-export interface BinaryExpression extends Node {
+export interface BinaryExpression extends Node<'BinaryExpression'> {
   readonly left: Expression;
   readonly operator: BinaryOperator;
   readonly right: Expression;

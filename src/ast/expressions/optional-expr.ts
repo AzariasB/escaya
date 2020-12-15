@@ -5,7 +5,7 @@ import { Node } from '../node';
 /**
  * Optional expression.
  */
-export interface OptionalExpression extends Node {
+export interface OptionalExpression extends Node<'OptionalExpression'> {
   readonly member: Expression;
   readonly chain: OptionalChain;
 }
