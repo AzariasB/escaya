@@ -5,7 +5,7 @@ import { Expression } from '../expressions/index';
 /**
  * Do-while statement.
  */
-export interface DoWhileStatement extends Node {
+export interface DoWhileStatement extends Node<'DoWhileStatement'> {
   readonly expression: Expression;
   readonly statement: Statement;
 }

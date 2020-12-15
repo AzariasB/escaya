@@ -4,7 +4,7 @@ import { VariableDeclaration } from '../declarations/variable-declaration';
 /**
  * For binding
  */
-export interface ForBinding extends Node {
+export interface ForBinding extends Node<'ForBinding'> {
   // The expression or declaration before the first `;`, if present
   readonly declarations: VariableDeclaration[];
 }

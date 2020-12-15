@@ -4,7 +4,7 @@ import { Statement } from '.';
 /**
  * Block statement. A list of statements.
  */
-export interface BlockStatement extends Node {
+export interface BlockStatement extends Node<'BlockStatement'> {
   readonly leafs: Statement[];
 }
 

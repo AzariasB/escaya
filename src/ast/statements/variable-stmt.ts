@@ -4,7 +4,7 @@ import { VariableDeclaration } from '../declarations/variable-declaration';
 /**
  * Variable statement and variable declaration
  */
-export interface VariableStatement extends Node {
+export interface VariableStatement extends Node<'VariableStatement'> {
   readonly declarations: VariableDeclaration[];
 }
 

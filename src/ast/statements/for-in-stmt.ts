@@ -7,7 +7,7 @@ import { ForBinding } from './forBinding';
 /**
  * For-in statement.
  */
-export interface ForInStatement extends Node {
+export interface ForInStatement extends Node<'ForInStatement'> {
   /* 'null' can only occur in recovery mode */
   readonly initializer: LexicalDeclaration | ForBinding | AssignmentPattern | Expression | null;
   readonly expression: Expression;

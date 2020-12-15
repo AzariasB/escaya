@@ -6,7 +6,7 @@ import { Directive } from './directive-node';
  * A top level node which contains the list of statements in a program,
  * and some information about the file which the statements came from.
  */
-export interface Module extends Node {
+export interface Module extends Node<'Module'> {
   readonly directives: Directive[];
   readonly leafs: ImportExport[];
   readonly webCompat: boolean;

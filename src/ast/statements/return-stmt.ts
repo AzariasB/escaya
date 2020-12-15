@@ -4,7 +4,7 @@ import { Expression } from '../expressions/index';
 /**
  * Return statement.
  */
-export interface ReturnStatement extends Node {
+export interface ReturnStatement extends Node<'ReturnStatement'> {
   readonly expression: Expression | null;
 }
 

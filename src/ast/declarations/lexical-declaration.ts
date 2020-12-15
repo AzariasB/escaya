@@ -4,7 +4,7 @@ import { LexicalBinding } from '../statements/lexical-binding';
 /**
  * Lexical declaration
  */
-export interface LexicalDeclaration extends Node {
+export interface LexicalDeclaration extends Node<'LexicalDeclaration'> {
   readonly declarations: LexicalBinding[];
   readonly isConst: boolean;
 }

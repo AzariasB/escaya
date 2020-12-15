@@ -8,7 +8,7 @@ import { ObjectBindingPattern } from '../expressions/object-binding-pattern';
  * Variable declaration
  */
 
-export interface VariableDeclaration extends Node {
+export interface VariableDeclaration extends Node<'VariableDeclaration'> {
   readonly binding: BindingIdentifier | ArrayBindingPattern | ObjectBindingPattern;
   readonly initializer: Expression | null;
 }

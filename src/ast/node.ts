@@ -1,8 +1,8 @@
 /**
  * Every single valid AST Node type.
  */
-export interface Node {
-  type?: string;
+export interface Node<T extends string> {
+  type: T;
   meta?: NodeMeta;
   flags?: NodeFlags;
   start?: number;

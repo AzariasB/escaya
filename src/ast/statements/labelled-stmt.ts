@@ -5,7 +5,7 @@ import { LabelIdentifier } from '../expressions/labelIdentifier-expr';
 /**
  * Labelled statement.
  */
-export interface LabelledStatement extends Node {
+export interface LabelledStatement extends Node<'LabelledStatement'> {
   readonly label: LabelIdentifier;
   readonly labelledItem: Statement;
 }

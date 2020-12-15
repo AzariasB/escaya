@@ -6,7 +6,7 @@ import { VariableDeclaration } from '../declarations/variable-declaration';
 /**
  * For statement.
  */
-export interface ForStatement extends Node {
+export interface ForStatement extends Node<'ForStatement'> {
   // The expression or declaration before the first `;`, if present
   readonly initializer: VariableDeclaration | Expression | null;
   // The expression before the second `;`, if present

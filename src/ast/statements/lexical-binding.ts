@@ -5,7 +5,7 @@ import { Expression, Binding } from '../expressions';
  * Lexical binding
  */
 
-export interface LexicalBinding extends Node {
+export interface LexicalBinding extends Node<'LexicalBinding'> {
   readonly binding: Binding;
   readonly initializer: Expression | null;
 }

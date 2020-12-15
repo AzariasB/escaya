@@ -6,7 +6,7 @@ import { ClassDeclaration } from '../declarations/class-declaration';
 
 // [MODIFIED]
 
-export interface ExportDefault extends Node {
+export interface ExportDefault extends Node<'ExportDefault'> {
   readonly declaration: FunctionDeclaration | ClassDeclaration | Expression;
   /* @internal */
   readonly parent?: RootNode;

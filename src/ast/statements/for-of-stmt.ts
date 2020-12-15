@@ -4,7 +4,7 @@ import { Expression, AssignmentPattern } from '../expressions/index';
 import { LexicalDeclaration } from '../declarations/lexical-declaration';
 import { ForBinding } from './forBinding';
 
-export interface ForOfStatement extends Node {
+export interface ForOfStatement extends Node<'ForOfStatement'> {
   /* 'null' can only occur in recovery mode */
   readonly initializer: LexicalDeclaration | ForBinding | AssignmentPattern | Expression | null;
   readonly expression: Expression;

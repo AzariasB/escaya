@@ -6,7 +6,7 @@ import { Parameter } from '../expressions';
 /**
  * Function declaration
  */
-export interface FunctionDeclaration extends Node {
+export interface FunctionDeclaration extends Node<'FunctionDeclaration'> {
   readonly name: BindingIdentifier | null;
   // True for `GeneratorDeclaration`, false otherwise.
   readonly generator: boolean;

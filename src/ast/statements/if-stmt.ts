@@ -5,7 +5,7 @@ import { Expression } from '../expressions/index';
 /**
  * An if statement with an optional else branch.
  */
-export interface IfStatement extends Node {
+export interface IfStatement extends Node<'IfStatement'> {
   readonly expression: Expression;
   readonly consequent: Statement;
   readonly alternate: Statement | null;

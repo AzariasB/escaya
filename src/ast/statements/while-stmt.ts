@@ -5,7 +5,7 @@ import { Expression } from '../expressions/index';
 /**
  * A list of statements.
  */
-export interface WhileStatement extends Node {
+export interface WhileStatement extends Node<'WhileStatement'> {
   readonly expression: Expression;
   readonly statement: Statement;
 }

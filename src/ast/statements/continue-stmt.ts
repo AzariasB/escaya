@@ -4,7 +4,7 @@ import { IdentifierReference } from '../expressions/identifierreference';
 /**
  * Continue statement.
  */
-export interface ContinueStatement extends Node {
+export interface ContinueStatement extends Node<'ContinueStatement'> {
   readonly label: IdentifierReference | null;
 }
 

@@ -19,7 +19,7 @@ export type ExportDeclarations =
   | ClassDeclaration
   | Statement;
 
-export interface ExportDeclaration extends Node {
+export interface ExportDeclaration extends Node<'ExportDeclaration'> {
   readonly declaration: ExportDeclarations | null;
   readonly namedExports: ExportSpecifier[];
   readonly fromClause: StringLiteral | null;

@@ -5,7 +5,7 @@ import { Expression } from '../expressions/index';
 /**
  * Switch statements.
  */
-export interface SwitchStatement extends Node {
+export interface SwitchStatement extends Node<'SwitchStatement'> {
   readonly expression: Expression;
   readonly clauses: (CaseClause | DefaultClause)[];
 }

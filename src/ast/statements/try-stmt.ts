@@ -5,7 +5,7 @@ import { BlockStatement } from './block-stmt';
 /**
  * Try statement.
  */
-export interface TryStatement extends Node {
+export interface TryStatement extends Node<'TryStatement'> {
   readonly block: BlockStatement;
   readonly catchClause: CatchClause | null;
   readonly finalizer: BlockStatement | null;
@@ -14,7 +14,7 @@ export interface TryStatement extends Node {
 /**
  * CatchClause.
  */
-export interface CatchClause extends Node {
+export interface CatchClause extends Node<'CatchClause'> {
   readonly binding: Binding | null;
   readonly block: BlockStatement;
 }

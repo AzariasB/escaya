@@ -4,7 +4,7 @@ import { IdentifierReference } from '../expressions/identifierreference';
 /**
  * Break statement.
  */
-export interface BreakStatement extends Node {
+export interface BreakStatement extends Node<'BreakStatement'> {
   readonly label: IdentifierReference | null;
 }
 

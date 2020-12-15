@@ -7,7 +7,7 @@ import { Semicolon } from '../expressions/semicolon';
 /**
  * Class declaration
  */
-export interface ClassDeclaration extends Node {
+export interface ClassDeclaration extends Node<'ClassDeclaration'> {
   // May be null in `export default class { ... }`
   readonly name: BindingIdentifier | null;
   readonly heritage: Expression | null;

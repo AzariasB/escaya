@@ -5,7 +5,7 @@ import { Expression } from '../expressions/index';
 /**
  * With statements
  */
-export interface WithStatement extends Node {
+export interface WithStatement extends Node<'WithStatement'> {
   readonly expression: Expression;
   readonly statement: Statement;
 }

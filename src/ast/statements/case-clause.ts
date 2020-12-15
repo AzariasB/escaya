@@ -7,12 +7,12 @@ import { SwitchStatement } from './switch-stmt';
  * Default and case clause statement.
  */
 
-export interface DefaultClause extends Node {
+export interface DefaultClause extends Node<'DefaultClause'> {
   readonly leafs: Statement[];
   readonly parent?: SwitchStatement;
 }
 
-export interface CaseClause extends Node {
+export interface CaseClause extends Node<'CaseClause'> {
   readonly expression: Expression;
   readonly leafs: Statement[];
   readonly parent?: SwitchStatement;

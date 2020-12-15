@@ -3,7 +3,7 @@ import { StringLiteral } from '../expressions/string-literal';
 import { ImportClause } from './import-clause';
 import { RootNode } from '../root-node';
 
-export interface ImportDeclaration extends Node {
+export interface ImportDeclaration extends Node<'ImportDeclaration'> {
   readonly fromClause: StringLiteral | null;
   readonly moduleSpecifier: StringLiteral | null;
   readonly importClause: ImportClause | null;

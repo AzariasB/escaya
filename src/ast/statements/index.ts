@@ -32,30 +32,30 @@ export type CaseBlock = DefaultClause | CaseClause;
  */
 export type Statement
   = ExpressionStatement
-  | BlockStatement
-  | DebuggerStatement
-  | WhileStatement
-  | WithStatement
-  | BreakStatement
-  | ContinueStatement
-  | LabelledStatement
-  | DoWhileStatement
-  | IfStatement
-  | ForOfStatement
-  | ForInStatement
-  | ForStatement
-  | ReturnStatement
-  | SwitchStatement
-  | CaseClause
-  | DefaultClause
-  | EmptyStatement
-  | ThrowStatement
-  | TryStatement
-  | VariableStatement
-  | VariableDeclaration
-  | LexicalDeclaration
-  | LexicalBinding
-  | FunctionDeclaration
-  | ForBinding
-  | ClassDeclaration
-  ;
+   | BlockStatement
+   | DebuggerStatement
+   | WhileStatement
+   | WithStatement
+   | BreakStatement
+   | ContinueStatement
+   | LabelledStatement
+   | DoWhileStatement
+   | IfStatement
+   | ForOfStatement
+   | ForInStatement
+   | ForStatement
+   | ReturnStatement
+   | SwitchStatement
+   | CaseClause
+   | DefaultClause
+   | EmptyStatement
+   | ThrowStatement
+   | TryStatement
+   | VariableStatement
+   | VariableDeclaration
+   | LexicalDeclaration
+   | LexicalBinding
+   | FunctionDeclaration
+   | ForBinding
+   | ClassDeclaration
+   ;

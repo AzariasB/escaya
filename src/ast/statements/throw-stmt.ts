@@ -4,7 +4,7 @@ import { Expression } from '../expressions/index';
 /**
  * Throw statement.
  */
-export interface ThrowStatement extends Node {
+export interface ThrowStatement extends Node<'ThrowStatement'> {
   readonly expression: Expression;
 }
 
