@@ -5,7 +5,7 @@ import { Expression } from '.';
 /**
  * Spread element
  */
-export interface SpreadElement extends Node {
+export interface SpreadElement extends Node<'SpreadElement'> {
   readonly argument: Expression;
   /* @internal */
   readonly parent?: ArrayLiteral;

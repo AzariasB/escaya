@@ -3,7 +3,7 @@ import { IdentifierName } from '../expressions/identifiername';
 import { StringLiteral } from '../expressions/string-literal';
 import { ExportDeclaration } from './export-declaration';
 
-export interface ExportFromClause extends Node {
+export interface ExportFromClause extends Node<'ExportFromClause'> {
   readonly moduleExportName: StringLiteral | null;
   readonly namedBinding: IdentifierName | null;
   /* @internal */

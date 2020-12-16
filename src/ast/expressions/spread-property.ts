@@ -6,7 +6,7 @@ import { Expression } from '.';
 /**
  * Spread property
  */
-export interface SpreadProperty extends Node {
+export interface SpreadProperty extends Node<'SpreadProperty'> {
   readonly argument: Expression;
 }
 

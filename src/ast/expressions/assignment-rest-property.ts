@@ -7,7 +7,7 @@ import { ObjectAssignmentPattern } from './object-assignment-pattern';
 /**
  * Assignment rest property
  */
-export interface AssignmentRestProperty extends Node {
+export interface AssignmentRestProperty extends Node<'AssignmentRestProperty'> {
   readonly argument: ArrayAssignmentPattern | ObjectAssignmentPattern | AssignmentElement | Expression;
 }
 

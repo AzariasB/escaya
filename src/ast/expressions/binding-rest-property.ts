@@ -3,7 +3,7 @@ import { BindingIdentifier } from './binding-identifier';
 /**
  * Binding rest property
  */
-export interface BindingRestProperty extends Node {
+export interface BindingRestProperty extends Node<'BindingRestProperty'> {
   readonly argument: BindingIdentifier;
 }
 

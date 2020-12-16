@@ -1,7 +1,7 @@
 import { Node } from '../node';
 import { ImportSpecifier } from './import-specifier';
 
-export interface NamedImports extends Node {
+export interface NamedImports extends Node<'NamedImports'> {
   readonly importsList: ImportSpecifier[];
 }
 

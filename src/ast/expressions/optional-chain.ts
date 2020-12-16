@@ -6,7 +6,8 @@ import { Node } from '../node';
  * OptionalChain
  */
 
-export interface OptionalChain extends Node {
+export interface OptionalChain<T extends 'CallChain' | 'OptionalChain' | 'MemberChain' = 'OptionalChain'>
+  extends Node<T> {
   readonly chain: Expression | Expression[] | IdentifierName | null;
 }
 

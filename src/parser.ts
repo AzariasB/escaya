@@ -76,6 +76,7 @@ import { WithStatement } from './ast/statements/with-stmt';
 import { ThrowStatement } from './ast/statements/throw-stmt';
 import { CatchClause, TryStatement } from './ast/statements/try-stmt';
 import { ConditionalExpression } from './ast/expressions/conditional-expr';
+import { OptionalChain } from './ast/expressions/optional-chain';
 import { BinaryExpression, BinaryOperator } from './ast/expressions/binary-expr';
 import { LexicalBinding } from './ast/statements/lexical-binding';
 import { LexicalDeclaration } from './ast/declarations/lexical-declaration';
@@ -210,7 +211,7 @@ export function parseModuleItemList(
   statementList: Statement[]
 ): Statement[] {
   while (state.token !== Token.EOF) {
-    statementList.push(parseModuleItem(state, context, scope));
+    statementList.push(parseModuleItem(state, context, scope) as Statement);
   }
 
   // Use a locale variable for 'exportedBindings' to avoid member access on each iteration.
@@ -292,7 +293,7 @@ export function parseStatementListItem(
   switch (state.token) {
     case Token.FunctionKeyword:
     case Token.AsyncKeyword:
-      return parseFunctionDeclaration(state, context, scope, false);
+      return parseFunctionDeclaration(state, context, scope, false) as Statement;
     case Token.ClassKeyword:
       return parseClassDeclaration(state, context, scope);
     case Token.ConstKeyword:
@@ -311,10 +312,10 @@ export function parseStatementListItem(
         return parseImportMeta(state, context, start);
       }
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ImportInScript, DiagnosticKind.Error);
-      return parseImportDeclaration(state, context, scope, start);
+      return parseImportDeclaration(state, context, scope, start) as Statement;
     case Token.ExportKeyword:
       addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ExportInScript, DiagnosticKind.Error);
-      return parseExportDeclaration(state, context, scope);
+      return (parseExportDeclaration(state, context, scope) as unknown) as Statement;
     // falls through
     default:
       return parseStatement(state, context, scope, labels, ownLabels, true);
@@ -393,7 +394,7 @@ export function parseStatement(
           ? DiagnosticCode.WebCompatFunction
           : DiagnosticCode.SloppyFunction
       );
-      return parseFunctionDeclaration(state, context, scope, false);
+      return parseFunctionDeclaration(state, context, scope, false) as Statement;
     // In 'recovery mode' we allow this and return an function declaration.
     case Token.ClassKeyword:
       // See the comment above. Same rules apply.
@@ -792,7 +793,12 @@ export function parseConsequentOrAlternative(
   //
   return context & (Context.OptionsDisableWebCompat | Context.Strict) || state.token !== Token.FunctionKeyword
     ? parseStatement(state, context, scope, labels, null, false)
-    : parseFunctionDeclaration(state, context, createParentScope(scope, ScopeKind.Block), /* disallowGen */ true);
+    : (parseFunctionDeclaration(
+        state,
+        context,
+        createParentScope(scope, ScopeKind.Block),
+        /* disallowGen */ true
+      ) as Statement);
 }
 
 // WhileStatement :
@@ -985,7 +991,7 @@ export function parseForStatement(
                 scope,
                 BindingType.Let,
                 parseForLexicalBinding
-              )
+              ) as LexicalBinding[]
             )
           );
           state.assignable = true;
@@ -1018,7 +1024,7 @@ export function parseForStatement(
               scope,
               BindingType.Const,
               parseForLexicalBinding
-            )
+            ) as LexicalBinding[]
           )
         );
         state.assignable = true;
@@ -1035,7 +1041,7 @@ export function parseForStatement(
 
         initializer =
           state.token & Token.IsInOrOf
-            ? finishNode(state, context, innerStart, DictionaryMap.ForBinding(declarations))
+            ? finishNode(state, context, innerStart, DictionaryMap.ForBinding(declarations as VariableDeclaration[]))
             : declarations;
 
         isVariableDeclarationList = true;
@@ -1253,7 +1259,7 @@ export function parseExpressionOrLabelledStatement(
   allowFunction: boolean
 ): LabelledStatement | ExpressionStatement {
   const { startIndex, token, tokenValue } = state;
-  let expr = parsePrimaryExpression(state, context, true);
+  let expr: Expression | LeftHandSideExpression = parsePrimaryExpression(state, context, true);
   if (
     token & (context & Context.ErrorRecovery ? Constants.IdentifierOrFutureReserved : Constants.IdentifierOrKeyword) &&
     state.token === Token.Colon
@@ -1321,7 +1327,7 @@ export function parseLabelledStatement(
         // StatementListItem, so generators can't be inside labels.
         parseFunctionDeclaration(state, context, scope, /* disallowGen */ true);
 
-  return finishNode(state, context, start, DictionaryMap.LabelledStatement(label, labelledItem));
+  return finishNode(state, context, start, DictionaryMap.LabelledStatement(label, labelledItem as Statement));
 }
 
 // ExpressionStatement :
@@ -1563,7 +1569,7 @@ export function parseLexicalDeclaration(
     state,
     context,
     start,
-    DictionaryMap.LexicalDeclaration((type & BindingType.Const) === BindingType.Const, declarations)
+    DictionaryMap.LexicalDeclaration((type & BindingType.Const) === BindingType.Const, declarations as LexicalBinding[])
   );
 }
 
@@ -1602,7 +1608,7 @@ export function parseAsyncAsIdentifierReference(state: ParserState, context: Con
   nextToken(state, context | Context.AllowRegExp);
   if (state.token === Token.FunctionKeyword) {
     addEarlyDiagnostic(state, context, DiagnosticCode.AsyncFunctionInSingleStatementContext);
-    return parseFunctionDeclaration(state, context | Context.Await, scope, false);
+    return parseFunctionDeclaration(state, context | Context.Await, scope, false) as Statement;
   }
   const expr = finishNode(state, context, start, DictionaryMap.IdentifierReference('async'));
   state.assignable = true;
@@ -1916,7 +1922,7 @@ export function parseMemberExpression(
           context,
           start,
           DictionaryMap.CallExpression(
-            member,
+            member as LeftHandSideExpression,
             parseArguments(state, (context | Context.DisallowIn) ^ Context.DisallowIn)
           )
         );
@@ -1973,7 +1979,7 @@ export function parsePropertyOrPrivatePropertyName(
 // OptionalChain, [ Expression ]
 // OptionalChain, . IdentifierName
 // OptionalChain, TemplateLiteral
-export function parseOptionalChain(state: ParserState, context: Context): CallChain | MemberChain {
+export function parseOptionalChain(state: ParserState, context: Context): OptionalChain {
   consume(state, context, Token.QuestionMarkPeriod);
   let chain = null;
   let start = state.startIndex;
@@ -2141,7 +2147,7 @@ export function parsePrefixUpdateExpression(state: ParserState, context: Context
   const start = state.startIndex;
   const operator = KeywordDescTable[state.token & Token.Type] as UpdateOp;
   nextToken(state, context | Context.AllowRegExp);
-  const operand = parseLeftHandSideExpression(state, context, false);
+  const operand = parseLeftHandSideExpression(state, context, false) as LeftHandSideExpression;
   if (!state.assignable) addEarlyDiagnostic(state, context, DiagnosticCode.LHSPostOp);
   state.assignable = false;
   return finishNode(state, context, start, DictionaryMap.PrefixUpdateExpression(operator, operand));
@@ -2220,12 +2226,13 @@ export function parsePrimaryExpression(
 ): LeftHandSideExpression {
   if (state.token & (Token.IsIdentifier | Token.IsFutureReserved)) {
     if (context & Context.Yield && state.token === Token.YieldKeyword) {
-      return parseYieldExpression(state, context);
+      return (parseYieldExpression(state, context) as unknown) as LeftHandSideExpression;
     }
     if (context & Context.Await && state.token === Token.AwaitKeyword) {
-      return parseAwaitExpression(state, context);
+      return (parseAwaitExpression(state, context) as unknown) as LeftHandSideExpression;
     }
-    if (state.token === Token.AsyncKeyword) return parseFunctionExpression(state, context, assignable);
+    if (state.token === Token.AsyncKeyword)
+      return (parseFunctionExpression(state, context, assignable) as unknown) as LeftHandSideExpression;
 
     const start = state.startIndex;
     const value = validateIdentifierReference(state, context, start);
@@ -2233,7 +2240,7 @@ export function parsePrimaryExpression(
     nextToken(state, context | Context.TaggedTemplate);
 
     if (state.token === Token.Arrow) {
-      return parseArrowAfterIdentifier(
+      return (parseArrowAfterIdentifier(
         state,
         context,
         finishNode(state, context, start, DictionaryMap.BindingIdentifier(value)),
@@ -2241,7 +2248,7 @@ export function parsePrimaryExpression(
         assignable,
         ArrowKind.NORMAL,
         start
-      );
+      ) as unknown) as LeftHandSideExpression;
     }
     state.assignable = true;
     return finishNode(state, context, start, DictionaryMap.IdentifierReference(value));
@@ -2271,18 +2278,22 @@ export function parsePrimaryExpression(
     case Token.NullKeyword:
       return parseNullLiteral(state, context);
     case Token.ThisKeyword:
-      return parseThisExpression(state, context);
+      return (parseThisExpression(state, context) as unknown) as LeftHandSideExpression;
     case Token.TrueKeyword:
     case Token.FalseKeyword:
       return parseBooleanLiteral(state, context);
     case Token.LeftParen:
-      return parseCoverParenthesizedExpressionAndArrowParameterList(state, context, assignable);
+      return (parseCoverParenthesizedExpressionAndArrowParameterList(
+        state,
+        context,
+        assignable
+      ) as unknown) as LeftHandSideExpression;
     case Token.FunctionKeyword:
-      return parseFunctionExpression(state, context, assignable);
+      return (parseFunctionExpression(state, context, assignable) as unknown) as LeftHandSideExpression;
     case Token.ClassKeyword:
       return parseClassExpression(state, context);
     case Token.NewKeyword:
-      return parseNewExpression(state, context);
+      return (parseNewExpression(state, context) as unknown) as LeftHandSideExpression;
     case Token.ImportKeyword:
       return parseImportMetaOrCall(state, context) as any;
     case Token.LeftBracket:
@@ -2293,7 +2304,7 @@ export function parsePrimaryExpression(
       if ((state.destructible & Destructible.MustDestruct) === Destructible.MustDestruct) {
         addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ObjCoverInit, DiagnosticKind.Error);
       }
-      return expr;
+      return (expr as unknown) as LeftHandSideExpression;
     case Token.LeftBrace: {
       const expr = parseObjectLiteral(state, context, void 0, DestuctionKind.NORMAL, BindingType.Literal);
       if (state.flags & Flags.SeenProto) {
@@ -2303,7 +2314,7 @@ export function parsePrimaryExpression(
       if ((state.destructible & Destructible.MustDestruct) === Destructible.MustDestruct) {
         addDiagnostic(state, context, DiagnosticSource.Parser, DiagnosticCode.ObjCoverInit, DiagnosticKind.Error);
       }
-      return expr;
+      return (expr as unknown) as LeftHandSideExpression;
     }
 
     case Token.SuperKeyword:
@@ -2315,7 +2326,7 @@ export function parsePrimaryExpression(
     case Token.TemplateCont:
       return parseTemplateExpression(state, context);
     default:
-      return createIdentifier(state, context);
+      return (createIdentifier(state, context) as unknown) as LeftHandSideExpression;
   }
 }
 
@@ -2371,7 +2382,7 @@ export function parseNewExpression(state: ParserState, context: Context): NewExp
   let expression = parsePrimaryExpression(state, context, true);
   if (state.token === Token.QuestionMarkPeriod)
     addEarlyDiagnostic(state, context, DiagnosticCode.OptionalChainingNoNew);
-  expression = parseMemberExpression(state, context, expression, false, start);
+  expression = (parseMemberExpression(state, context, expression, false, start) as unknown) as LeftHandSideExpression;
   const args = state.token === Token.LeftParen ? parseArguments(state, context) : [];
   state.assignable = false;
   return finishNode(state, context, start, DictionaryMap.NewExpression(expression, args));
@@ -2574,21 +2585,26 @@ export function parseBindingProperty(
     if (consumeOpt(state, context, Token.Colon)) {
       left = finishNode(state, context, start, DictionaryMap.IdentifierName(tokenValue));
       const right = parseBindingElement(state, context, scope, type);
-      return finishNode(state, context, start, DictionaryMap.PropertyName(left, right as BindingElement));
+      return finishNode(
+        state,
+        context,
+        start,
+        DictionaryMap.PropertyName(left as IdentifierName, right as BindingElement)
+      );
     }
     validateIdentifier(state, context, token, start);
     addVarOrBlock(state, context, scope, tokenValue, type);
     left = finishNode(state, context, start, DictionaryMap.BindingIdentifier(tokenValue));
     // In EScaya AST there are no 'SingleNameBinding' AST node. Instead we return the BindingIdentifier *as is* if
     // no initializer to be found.
-    if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) return left;
+    if (!consumeOpt(state, context | Context.AllowRegExp, Token.Assign)) return left as BindingIdentifier;
     const init = parseExpression(state, context);
-    return finishNode(state, context, start, DictionaryMap.BindingElement(left, init));
+    return finishNode(state, context, start, DictionaryMap.BindingElement(left as BindingIdentifier, init));
   }
   left = parsePropertyName(state, context);
   consumeOpt(state, context, Token.Colon);
   const right = parseBindingElement(state, context, scope, type);
-  return finishNode(state, context, start, DictionaryMap.PropertyName(left, right as BindingElement));
+  return finishNode(state, context, start, DictionaryMap.PropertyName(left as IdentifierName, right as BindingElement));
 }
 
 // BindingElement :
@@ -2801,7 +2817,7 @@ export function parseElementList(
     // For complex cases like - '[x()]', '[x[y]]', '[x.y]', '[x.y = z]' - the identifier / keyword must be
     // followed by a 'tail' - 'MemberExpression'.
 
-    left = parseMemberExpression(state, context, left, true, start);
+    left = parseMemberExpression(state, context, left, true, start) as LeftHandSideExpression;
 
     // This isn't destructible if not assiignable or there are no '=', ',', or ']' - after the 'tail'.
     if (
@@ -2811,7 +2827,7 @@ export function parseElementList(
       destructible |= Destructible.NotDestructible;
     }
 
-    left = parseAssignmentExpression(state, context, left, start);
+    left = parseAssignmentExpression(state, context, left, start) as LeftHandSideExpression;
 
     state.destructible = destructible;
 
@@ -2949,13 +2965,13 @@ export function parseSpreadOrPropertyArgument(
     }
 
     // This is the slow path. We shouldn't care too much about performance
-    argument = parseMemberExpression(state, context, argument, true, innerStart);
+    argument = parseMemberExpression(state, context, argument, true, innerStart) as LeftHandSideExpression;
 
     let destructible = Destructible.None;
 
     if (state.token !== Token.Comma && state.token !== closingToken) {
       destructible |= Destructible.NotDestructible;
-      argument = parseAssignmentExpression(state, context, argument, innerStart);
+      argument = parseAssignmentExpression(state, context, argument, innerStart) as LeftHandSideExpression;
     }
 
     if (!state.assignable) {
@@ -3097,7 +3113,7 @@ export function parseAssignmentElement(
     state,
     context,
     start,
-    DictionaryMap.AssignmentElement(left as AssignmentPattern | IdentifierReference, right)
+    DictionaryMap.AssignmentElement((left as unknown) as AssignmentPattern | IdentifierReference, right)
   );
 }
 
@@ -3399,7 +3415,7 @@ export function parseFunctionBody(
           context |= Context.Strict;
         }
         expectSemicolon(state, context);
-        directives.push(expr as Directive);
+        directives.push((expr as unknown) as Directive);
       } else {
         leafs.push(
           parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start)
@@ -3814,7 +3830,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
       return parseArrowFunction(state, context, scope, true, [], ArrowKind.ASYNC, start);
     }
 
-    return finishNode(state, context, start, DictionaryMap.CallExpression(expr, []));
+    return finishNode(state, context, start, DictionaryMap.CallExpression(expr as LeftHandSideExpression, []));
   }
 
   const check = context & Context.ErrorRecovery ? Constants.ParenthesizedR : Constants.ParenthesizedN;
@@ -3886,7 +3902,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
 
       state.assignable = false;
 
-      return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params));
+      return finishNode(state, context, start, DictionaryMap.CallExpression(expr as LeftHandSideExpression, params));
     }
     params.push(expression);
 
@@ -3898,7 +3914,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
 
   if (context & Context.ErrorRecovery && destructible & Destructible.NotDestructible) {
     state.assignable = false;
-    return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params));
+    return finishNode(state, context, start, DictionaryMap.CallExpression(expr as LeftHandSideExpression, params));
   }
 
   if (state.token === Token.Arrow) {
@@ -3911,7 +3927,7 @@ export function parseCoverCallExpressionAndAsyncArrowHead(
   }
 
   state.assignable = false;
-  return finishNode(state, context, start, DictionaryMap.CallExpression(expr, params));
+  return finishNode(state, context, start, DictionaryMap.CallExpression(expr as LeftHandSideExpression, params));
 }
 
 // ArrowFunction :
@@ -4651,6 +4667,7 @@ export function parseExportDeclaration(
     | VariableStatement
     | LexicalDeclaration
     | FunctionDeclaration
+    | ArrowFunction
     | ClassDeclaration
     | Statement
     | null = null;
@@ -4843,5 +4860,5 @@ export function parseExportDefault(state: ParserState, context: Context, start: 
   // See: https://www.ecma-international.org/ecma-262/9.0/index.html#sec-exports-static-semantics-exportednames
   declareUnboundVariable(state, context, 'default');
 
-  return finishNode(state, context, start, DictionaryMap.ExportDefault(declaration));
+  return finishNode(state, context, start, DictionaryMap.ExportDefault(declaration as any));
 }

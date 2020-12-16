@@ -4,8 +4,7 @@ import { SingleLine } from './single-line';
 import { HTMLClose } from './html-close';
 import { HTMLOpen } from './html-open';
 
-export interface Comment extends Node {
-  type: 'SingleLine' | 'MultiLine' | 'HTMLClose' | 'HTMLOpen';
+export interface Comment extends Node<'SingleLine' | 'MultiLine' | 'HTMLClose' | 'HTMLOpen'> {
   comment?: string;
   newLine: boolean;
 }

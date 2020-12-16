@@ -4,6 +4,7 @@ import { ExportSpecifier } from './export-specifier';
 import { RootNode } from '../root-node';
 import { Statement } from '../statements';
 import { AssignmentExpression } from '../expressions/assignment-expr';
+import { ArrowFunction } from '../expressions/arrow-function';
 import { VariableStatement } from '../statements/variable-stmt';
 import { LexicalDeclaration } from '../declarations/lexical-declaration';
 import { FunctionDeclaration } from '../declarations/function-declaration';
@@ -16,6 +17,7 @@ export type ExportDeclarations =
   | VariableStatement
   | LexicalDeclaration
   | FunctionDeclaration
+  | ArrowFunction
   | ClassDeclaration
   | Statement;
 

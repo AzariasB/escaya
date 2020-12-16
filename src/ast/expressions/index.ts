@@ -65,9 +65,7 @@ export type Expression =
   | IdentifierReference
   | IdentifierName
   | NewExpression
-  | NullLiteral
   | ThisExpression
-  | BooleanLiteral
   | AssignmentElement
   | ArrayLiteral
   | ObjectLiteral
@@ -135,6 +133,8 @@ export type Literals =
   | FloatingPointLiteral
   | BigIntLiteral
   | StringLiteral
+  | BooleanLiteral
+  | NullLiteral
   | RegularExpressionLiteral
   | TemplateLiteral;
 

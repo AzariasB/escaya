@@ -98,8 +98,9 @@ import { createImportCall } from '../ast/expressions/import-call';
 import { createImportMeta } from '../ast/expressions/import-meta';
 import { createDirective } from '../ast/directive-node';
 import { createAssignmentRestProperty } from '../ast/expressions/assignment-rest-property';
+import { NodeType, Node } from '../ast/node';
 
-export type Dictionary = { [key: string]: any };
+export type Dictionary = { [key in NodeType]: (...args: any) => Node<any> };
 
 export const DictionaryMap = {
   // All `create*` functions, but named by type

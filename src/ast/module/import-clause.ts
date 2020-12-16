@@ -3,7 +3,7 @@ import { NamedImports } from './named-imports';
 import { BindingIdentifier } from '../expressions/binding-identifier';
 import { ImportDeclaration } from './import-declaration';
 
-export interface ImportClause extends Node {
+export interface ImportClause extends Node<'ImportClause'> {
   readonly defaultBinding: BindingIdentifier | null;
   readonly nameSpaceImport: BindingIdentifier | null;
   readonly namedImports: NamedImports | null;

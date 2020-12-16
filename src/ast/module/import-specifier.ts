@@ -3,7 +3,7 @@ import { IdentifierName } from '../expressions/identifiername';
 import { BindingIdentifier } from '../expressions/binding-identifier';
 import { StringLiteral } from '../expressions/string-literal';
 
-export interface ImportSpecifier extends Node {
+export interface ImportSpecifier extends Node<'ImportSpecifier'> {
   readonly name: IdentifierName | BindingIdentifier | null;
   readonly binding: IdentifierName | BindingIdentifier | null;
   readonly moduleExportName: StringLiteral | null;

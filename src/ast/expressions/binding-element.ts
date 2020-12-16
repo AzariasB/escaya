@@ -6,7 +6,7 @@ import { Node } from '../node';
  * Binding element
  */
 
-export interface BindingElement extends Node {
+export interface BindingElement extends Node<'BindingElement'> {
   readonly left: BindingPattern | BindingIdentifier;
   readonly right: Expression;
   /*@internal*/

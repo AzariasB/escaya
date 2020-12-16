@@ -4,7 +4,7 @@ import { BindingElement } from '../binding-element';
 /**
  * Formal parameter list
  */
-export interface FormalParameterList extends Node {
+export interface FormalParameterList extends Node<'FormalParameterList'> {
   readonly parameters: BindingElement;
 }
 

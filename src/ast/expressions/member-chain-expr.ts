@@ -1,13 +1,12 @@
 import { Expression } from '.';
 import { IdentifierName } from './identifiername';
 import { CallChain } from './call-chain';
-import { Node } from '../node';
+import { OptionalChain } from './optional-chain';
 
 /**
  * Member chain expression.
  */
-export interface MemberChain extends Node<'MemberChain'> {
-  readonly chain: MemberChain | CallChain | null;
+export interface MemberChain extends OptionalChain<'MemberChain'> {
   readonly member: Expression | IdentifierName | null;
   readonly computed: boolean;
 }

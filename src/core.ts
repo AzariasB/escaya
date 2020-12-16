@@ -19,7 +19,8 @@ import {
   parseModuleItem,
   parseStringLiteral,
   parseExpressionOrHigher,
-  parseExpressionStatement
+  parseExpressionStatement,
+  StatementCallback
 } from './parser';
 
 /**
@@ -68,7 +69,7 @@ export function parseRoot(source: string, context: Context, options?: Options): 
     if (isValidDirective(state)) {
       if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
       expectSemicolon(state, context);
-      directives.push(expr as Directive);
+      directives.push((expr as unknown) as Directive);
     } else {
       leafs.push(parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start));
     }
@@ -116,7 +117,7 @@ export function parseSourceFile(text: string, filename: string, context: Context
     if (isValidDirective(state)) {
       if (nextLiteralExactlyStrict(state, start)) context |= Context.Strict;
       expectSemicolon(state, context);
-      directives.push(expr as Directive);
+      directives.push((expr as unknown) as Directive);
     } else {
       leafs.push(parseExpressionStatement(state, context, parseExpressionOrHigher(state, context, expr, start), start));
     }
@@ -124,7 +125,7 @@ export function parseSourceFile(text: string, filename: string, context: Context
 
   leafs =
     context & Context.Module
-      ? parseStatemenOrModuleItemtList(state, context, scope, leafs, parseModuleItem)
+      ? parseStatemenOrModuleItemtList(state, context, scope, leafs, (parseModuleItem as unknown) as StatementCallback)
       : parseStatemenOrModuleItemtList(state, context, scope, leafs, parseStatementListItem);
 
   const isWebCompat = (context & Context.OptionsDisableWebCompat) !== Context.OptionsDisableWebCompat;
