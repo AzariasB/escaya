@@ -1,6 +1,6 @@
 {
   "name": "@azariasb/escaya",
-  "version": "0.0.62",
+  "version": "0.0.63",
   "description": "A blazing fast 100% spec compliant, self-hosted incremental javascript parser written in Typescript",
   "main": "dist/escaya.umd.min.js",
   "module": "dist/escaya.esm.min.js",
@@ -10,13 +10,13 @@
   "typings": "dist/escaya.d.ts",
   "author": "KFlash",
   "license": "ISC",
-  "homepage": "https://github.com/escaya/escaya",
+  "homepage": "https://github.com/AzariasB/escaya",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/escaya/escaya.git"
+    "url": "git+https://github.com/AzariasB/escaya.git"
   },
   "bugs": {
-    "url": "https://github.com/escaya/escaya/issues"
+    "url": "https://github.com/AzariasB/escaya/issues"
   },
   "keywords": [
     "lightweight"
@@ -29,7 +29,7 @@
   ],
   "publishConfig": {
     "access": "public",
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "build": "tsc",
