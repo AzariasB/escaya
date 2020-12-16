@@ -348,7 +348,7 @@ export function createToken<T extends Token>(source: string, tokenKind: T): any 
   } as any;
 }
 
-export let keywordLookup = hash();
+export const keywordLookup = hash();
 keywordLookup.insert('this', Token.ThisKeyword);
 keywordLookup.insert('function', Token.FunctionKeyword);
 keywordLookup.insert('if', Token.IfKeyword);
@@ -411,7 +411,7 @@ export function hash() {
   let _limit = 8;
 
   function insert(key: any, value: any): any {
-    let index = hashFunc(key, _limit);
+    const index = hashFunc(key, _limit);
     let bucket = _storage[index];
 
     if (!bucket) {
@@ -424,7 +424,7 @@ export function hash() {
     let override = false;
 
     for (let i = 0; i < bucket.length; i++) {
-      let tuple = bucket[i];
+      const tuple = bucket[i];
       if (tuple[0] === key) {
         // Override value stored at this key
         tuple[1] = value;
@@ -441,7 +441,7 @@ export function hash() {
     }
   }
   function resize(newLimit: any) {
-    let oldStorage = _storage;
+    const oldStorage = _storage;
 
     _limit = newLimit;
     _count = 0;
@@ -452,21 +452,21 @@ export function hash() {
         return;
       }
       for (let i = 0; i < bucket.length; i++) {
-        let tuple = bucket[i];
+        const tuple = bucket[i];
         insert(tuple[0], tuple[1]);
       }
     });
   }
   function get(key: any): any {
-    let index = hashFunc(key, _limit);
-    let bucket = _storage[index];
+    const index = hashFunc(key, _limit);
+    const bucket = _storage[index];
 
     if (!bucket) {
       return null;
     }
 
     for (let i = 0; i < bucket.length; i++) {
-      let tuple = bucket[i];
+      const tuple = bucket[i];
       if (tuple[0] === key) {
         return tuple[1];
       }
@@ -478,7 +478,7 @@ export function hash() {
   function hashFunc(str: any, max: any): any {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
-      let letter = str[i];
+      const letter = str[i];
       hash = (hash << 5) + letter.charCodeAt(0);
       hash = (hash & hash) % max;
     }

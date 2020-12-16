@@ -503,6 +503,7 @@ export function parseFloatingPointLiteral(state: ParserState, context: Context, 
     }
 
     // e+<number> or E+<number> or e-<number> or E-<number>
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ret += source.substring(end, state.index) + scanDecimalDigitsOrSeparator(state, context, state.index, cp);
 
     cp = source.charCodeAt(state.index);
